@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		
+			<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- 스프링 설정파일. DB연동처리. 톰캣에 의해 스타트 될 때 가장 먼저 읽혀지는 파일. (web.xml은 클라이언트 요청이 있을때 읽혀짐.) -->
+	<!-- 같은 폴더에 mybatis-config.xml 붙여넣어야 함 -->
+	<!-- 이거 하기 전에 pom.xml에 마이바티스 라이브러리, 마이바티스-스프링, 오라클 등록해놔야 함 -->
+	
+	
+	<!-- DataSource 등록 -->
+	<bean id="realDataSource"
+		class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:xe"/>
+		<property name="username" value="OBJET"/>
+		<property name="password" value="OBJET"/>
+	</bean>
+	
+	<!-- log4jdbc-remix 관련 dataSource처리  -->
+	<!-- 쿼리문과 resultSet결과를 로그로 출력되게 하려면 ↓클래스 등록해야 함 -->
+	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="realDataSource" />
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE" />
+				<property name="sqlPrefix" value="[SQL] " />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- Spring과  MyBatis 연동 설정 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- dataSource: 첫번째와 세번째 사이 중간에 끼어들어 로그를 출력해줌. 완성 후에는 중간에 로그출력되지 않게! realDataSource로 바꿔줘야 함. -->
+	
+	<!-- Dao에서 사용할 MyBatis 연결용 클래스 생성-->
+	<bean class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSession"></constructor-arg>
+	</bean>
+	
+	<!-- 트랜잭션 관리 설정 -->
+	<bean
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		id="transactionManager">
+		<property name="dataSource" ref="realDataSource"></property>
+	</bean>	
+	
+	<!-- service 에서 필요한 시점에 commit / rollback 이 구동되게 aop 설정 처리 -->
+	<tx:advice transaction-manager="transactionManager" id="txAdvice">
+		<tx:attributes>
+			<tx:method name="select*" read-only="true" rollback-for="Exception" />
+			<tx:method name="insert*" rollback-for="Exception" />
+			<tx:method name="update*" rollback-for="Exception" />
+			<tx:method name="delete*" rollback-for="Exception" />
+		</tx:attributes>
+	</tx:advice>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+		
+	
+	<aop:config proxy-target-class="true"><!-- 모든  (서비스)Impl 구현체들이 실행(execution)될 때~ -->
+		<aop:pointcut
+			expression="execution(* com.kh.objet..*Impl.*(..))" id="serviceMethod" />
+		<aop:advisor advice-ref="txAdvice" id="transactionAdvisor" pointcut-ref="serviceMethod" />
+	</aop:config>
+	
+</beans>
