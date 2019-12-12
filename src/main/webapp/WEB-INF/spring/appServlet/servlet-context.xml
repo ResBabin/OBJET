@@ -3,26 +3,55 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
-
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
+	
+	
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="order" value="1"/>
 	</beans:bean>
+	
+	<!-- 컨트롤러가 리턴한 json 객체 출력용 뷰 클래스 등록 : Maven dependency로 다운받은 라이브러리가 제공함. -->
+	<!-- 제이슨을 받아 뷰에 저장하고, view resolver가 얘를 받아서 나감 -->
+	<beans:bean class="net.sf.json.spring.web.servlet.view.JsonView" id="jsonView"> <!-- id:변수명 -->
+	</beans:bean>
+	
+	<beans:bean
+		class="org.springframework.web.servlet.view.BeanNameViewResolver">
+	<beans:property name="order" value="0"/>
+	</beans:bean>
+	
+	
+	<!-- 파일 다운을 위한 뷰리졸버 지정(JsonView도 해당됨) 
+		1. 주의 : id속성을 지정하지 않는다.
+		2. 여러 개의 뷰 리졸버를 지정할 때는 실행 순서를 정해야 함.(order 이용)
+		3. 파일 다운 뷰리졸버가 반드시 맨 처음 실행되게 순서 지정해야 함(클래스를 찾아서 걔를 내보내라! 얘가 하는 일임.)
+		4. 컨트롤러 메소드가 리턴하는 뷰 이름과 동일한 뷰 클래스(가 바로 bean)가 있으면 자동으로 해당 뷰클래스(파일다운로드 처리용 뷰클래스)를 실행함 -->
+	
+	<!-- 파일 업로드용 클래스 등록 : 파일(전송)용량 지정 -->
+	<beans:bean
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+		id="multipartResolver">
+	<beans:property name="maxUploadSize" value="10000000"/>
+	</beans:bean>
+	
 	
 	<context:component-scan base-package="com.kh.objet" />
 	
 	
-	
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
 </beans:beans>
