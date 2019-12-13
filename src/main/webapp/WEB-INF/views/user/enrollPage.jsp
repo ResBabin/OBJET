@@ -10,7 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <!-- 제작용 css -->
- <link rel= "stylesheet" type="text/css" href="resources/css/objet.css">
+ <link rel= "stylesheet" type="text/css" href="resources/css/mychoe.css">
  <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
  <script type="text/javascript">
  $(function(){
