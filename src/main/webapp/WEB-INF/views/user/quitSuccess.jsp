@@ -21,7 +21,7 @@
 		<p style="font-size: 25pt; padding-top:20px; color:#373737; text-align:center;">회원탈퇴가 완료되었습니다.</p>
 		<p style="font-size: 15pt; margin-top:-20px; color:#aaa; text-align:center;">그동안 오브제를 이용해주셔서 감사합니다.<br>보다 나은 오브제로 다시 만나뵐 수 있기를 바랍니다.</p>
 		<br><br>
-		<button class="ui black button" onclick="location.href=''" style="width:350px; height:40px; background: #4c4c4c;">오브제 첫화면</button>
+		<button class="ui black button" onclick="location.href='main.do'" style="width:350px; height:40px; background: #4c4c4c;">오브제 첫화면</button>
 	</div>
 </div>
 

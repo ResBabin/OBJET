@@ -445,7 +445,7 @@ height:13%;
 <!-- 비로그인시 메뉴 아이콘 열리는 사이드바 -->
 <div class="sidebar">
 <div class="sidebar1">
-<button class="ui circular button">오브제 시작하기</button>
+<button class="ui circular button" onclick="location.href='moveLogin.do'">오브제 시작하기</button>
 </div>
 <div class="sidebar2">
 <nav role="navigation">

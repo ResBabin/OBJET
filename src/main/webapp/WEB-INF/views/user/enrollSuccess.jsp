@@ -22,7 +22,7 @@
 		<p style="font-size: 15pt; margin-top:-20px; color:#aaa; text-align:center;">나만의 작은 전시회, 오브제를 만나보세요 :)</p>
 		<br><br>
 		<button class="ui black button" onclick="location.href='moveLogin.do'" style="width:150px; height:40px; background: #4c4c4c;">로그인</button>
-		<button class="ui grey button" onclick="location.href=''" style="width:150px;height:40px; background: #aaa;">HOME</button>
+		<button class="ui grey button" onclick="location.href='main.do'" style="width:150px;height:40px; background: #aaa;">HOME</button>
 	</div>
 </div>
 
