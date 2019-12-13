@@ -1,0 +1,309 @@
+@charset "utf-8"; 
+
+body {
+	background-color: #fff;
+}
+
+/* 작가홈 css ===========================================================================*/
+.wrapHome{
+	background-color: #fff;
+	margin-left: 25%;
+	margin-right: 25%;
+	margin-top:150px; /* 상단바 높이만큼 수정 */
+	height:auto;
+}
+
+
+.wrapProfile{
+	background-color:#fff;
+	width:100%;
+}
+
+.profileTextSection{
+	background-color: #fff;
+	float: left;
+	align:left;
+	width:75%;
+	height: 185px;
+	padding-top: 15px;
+}
+
+.profileText{
+	line-height: 7pt;
+}
+
+.profileImageSection{
+	background-color: #fff;
+	float: left;
+	align:right;
+	text-align: right;
+	width:25%;
+	height: 185px;
+}
+
+
+.profileImage{
+	float: right;
+	width: 120px;
+	height: 120px;
+	background-color: #fff;
+	border-radius: 50%;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+
+.profileMenuOpen{
+	float: right;
+	background: #fff;
+	width:100%;
+	height: 40px;
+	line-height: 40px;
+	text-align: right;
+}
+
+
+/* 작가홈 메뉴 바 */
+.artisthomeMenu{
+	margin-top: 80px;
+	float:right;
+	width:100%;
+	height:50px;
+	background-color: #fff;
+}
+
+.ui tabular menu{
+	width: 100%;
+}
+
+
+
+/* 작가홈 메뉴 바  - 0.공통*/
+.innerTab{
+	padding-top: 30px;
+	padding-botton: 35px;
+	color: #aaa;
+}
+
+
+
+/* 작가홈 메뉴 바  - 1.작가 소개 탭*/
+.artistIntroCategory{
+	font-weight: 600;
+	padding-top: 50px;
+	padding-bottom: 10px;
+	color: #7c7c7c;
+}
+
+.artistIntroContent{
+	font-size: 10pt;
+	line-height: 20pt;
+}
+
+
+.artistURL{
+	float: left;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	border: solid 1px #d1d1d1;
+	line-height: 40px;
+	text-align: center;
+	padding-left:5px;
+	margin-right: 15px;
+}
+
+
+
+
+/* 작가홈 수정 */
+
+.wrapArtistIntroEdit{
+	background-color: #fff;
+	margin-left: 25%;
+	margin-right: 25%;
+	margin-top:200px; /* 상단바 높이만큼 수정 */
+	height:auto;
+}
+
+.profileImage2{
+	width: 120px;
+	height: 120px;
+	background-color: #fff;
+	border-radius: 50%;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.artistIntroCategory2{
+	font-weight: 600;
+	padding-top: 50px;
+	padding-bottom: 10px;
+	color: #474747;
+	font-size: 12pt;
+}
+
+.artistIntroContent2{
+	font-size: 10pt;
+	line-height: 20pt;
+}
+
+.editTagTable{
+	width: 100%;
+	height: 80px;
+	margin-top: -10px;
+}
+
+.editTagTable td{
+	width: 15%;
+}
+
+
+
+
+/* 로그인페이지 =========================================================================== */
+#loginSection{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 400px;
+	height: 420px;
+	overflow: hidden;
+	background-color: #fff;
+	margin-top: -200px;
+	margin-left: -200px;
+	text-align: center;
+	color: #808080;
+	line-height: 5px;
+}
+
+.findResultContent1{
+	padding-right: 10px;
+	padding-left: 10px;
+	padding-top: 15px;
+	font-size: 15pt;
+}
+
+.findResultContent2{
+	padding-right: 10px;
+	padding-left: 10px;
+	font-size: 15pt;
+	font-weight: 600;
+	color:#3a3a3a;
+}
+
+
+/* 회원가입 페이지 ===========================================================================*/
+.wrapEnrollPage{
+	background-color: #fff;
+	margin-left: 25%;
+	margin-right: 25%;
+	margin-top:150px; /* 상단바 높이만큼 수정 */
+}
+
+.enrollSection{
+	align:center;
+	background: #f6f6f6;
+	width: 100%;
+	height: 540px;
+	margin-top: 40px;
+}
+
+.enrollTable{
+	width: 90%;
+	height: 90%;
+	margin-left: 12%;
+	padding-top: 20px;
+}
+
+.enrollTable tr{
+	line-height: 58px;
+}
+
+.enrollTable th{
+	 width:15%;
+	 text-align: left;
+}
+
+.enrollTable td{
+	width:85%;
+	font-size: 10pt;
+}
+
+.enrolldiv{
+	line-height: 3px;
+	color: red;
+	font-size: 9pt;
+	text-indent: 5pt;
+}
+
+.termsSection{
+	align:center;
+	background: #f6f6f6;
+	width: 100%;
+	height: 170px;
+	margin-top: 15px;
+	text-align: left;
+}
+
+.termsCheck{
+	margin-top: -20px;
+	padding-left: 50px;
+	line-height: 30px;
+}
+
+.termsCheckLabel{
+	color:#aaa;
+	font-size: 9pt;
+	vertical-align: 2px;
+}
+
+
+/* 회원가입 완료 */
+
+.wrapEnrollSuccessPage{
+	background-color: #fff;
+	margin-left: 25%;
+	margin-right: 25%;
+	margin-top:250px; /* 상단바 높이만큼 수정 */
+}
+
+/* 회원탈퇴 페이지*/
+.wrapQuitPage{
+	background-color: #fff;
+	margin-left: 25%;
+	margin-right: 25%;
+	margin-top:150px; /* 상단바 높이만큼 수정 */
+	text-align: center;
+}
+
+.quitHeader{
+	line-height: 10px;
+}
+
+.choiceQuitReason{
+	font-size: 20pt;
+	align-self:center;
+	text-align:left;
+	background: #e2e2e2;
+	width: 500px;
+	height: 280px;
+	padding: 20px 40px;
+}
+
+#checkBeforeQuit{
+	align: center;
+	margin-top: -10px;
+	padding-left: 35px;
+	padding-top: 15px;
+	width: 500px;
+	height: 150px;
+	background-color: #f2f2f2;
+	border: 1px solid #e2e2e2;
+	text-align: left;
+	font-size: 9pt;
+	line-height: 15pt;
+	color: #aaa;
+}
