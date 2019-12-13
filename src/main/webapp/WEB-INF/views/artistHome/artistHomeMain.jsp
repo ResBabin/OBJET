@@ -129,7 +129,7 @@ $(function(){
 		 	</div>
 		 	<!-- 작가홈 본인일때만 작가소개 수정 버튼 -->
 		 	<br><br><br><br><br><br>
-			<div align="center"><button class="ui medium grey basic button" id="editArtistIntro">작가소개 수정</button></div>
+			<div align="center"><button class="ui medium grey basic button" id="editArtistIntro" onclick="location.href='moveArtistIntroEdit.do'">작가소개 수정</button></div>
 			<br><br><br>
 		</div>
 		

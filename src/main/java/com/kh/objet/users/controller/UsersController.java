@@ -73,26 +73,26 @@ public class UsersController {
 	// 회원가입 완료 페이지 이동
 		@RequestMapping("moveEnrollSuccess.do")
 		public String moveEnrollSuccessPage() {
-			return "users/enrollSuccess";
+			return "user/enrollSuccess";
 		}
 		
 		
 	// 내정보 수정 페이지 이동
 		@RequestMapping("moveMyPageEdit.do")
 		public String moveMyPageEdit() {
-			return "users/mypageEdit";
+			return "user/mypageEdit";
 		}
 		
 	// 탈퇴페이지 이동
 		@RequestMapping("moveQuitPage.do")
 		public String moveQuitPage() {
-			return "users/quitPage";
+			return "user/quitPage";
 		}
 	
 	// 탈퇴완료 페이지 이동
 		@RequestMapping("moveQuitSuccess.do")
 		public String moveQuitSuccessPage() {
-			return "users/quitSuccess";
+			return "user/quitSuccess";
 		}
 		
 	// 작가홈 관련 -----------------------------------------------
@@ -104,7 +104,7 @@ public class UsersController {
 		}
 		
 		
-	// 작가홈 이동
+	// 작가소개수정 이동
 			@RequestMapping("moveArtistIntroEdit.do")
 			public String moveArtistIntroEdit() {
 				return "artistHome/artistIntroEdit";

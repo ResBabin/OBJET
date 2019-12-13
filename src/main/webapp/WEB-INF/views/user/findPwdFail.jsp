@@ -31,7 +31,7 @@
        <button class="ui black button" onclick="location.href='moveFindUserpwd.do'" style="width:300px; height:40px; background: #4c4c4c;">비밀번호 다시 찾기</button>
        <br><br><br><br><br><br>
        <span style="font-size:9pt;">
-			<span onclick="location.href=''">오브제 홈</span>&ensp;│&ensp;
+			<span onclick="location.href='main.do'">오브제 홈</span>&ensp;│&ensp;
 			<span onclick="location.href='moveLogin.do'">로그인 페이지</span>
 		</span>
 

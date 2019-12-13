@@ -53,7 +53,7 @@
 	
 	<br><br><br><br><br><br><br><br>
 		<span style="font-size:9pt;">
-			<span onclick="location.href=''">오브제 홈</span>&ensp;│&ensp;
+			<span onclick="location.href='main.do'">오브제 홈</span>&ensp;│&ensp;
 			<span onclick="location.href='moveLogin.do'">로그인 페이지</span>
 		</span>
 	

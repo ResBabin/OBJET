@@ -130,7 +130,7 @@
 		<input type="checkbox" id="agree"><label>&ensp;안내사항을 모두 확인하였으며, 이에 동의합니다.</label>
 		<br><br><br>
 		<input type="submit" class="ui green button" value="탈퇴하기" id="btnsub" disabled></a> &nbsp;
-		<input type="reset" class="ui button" value="취소"> &nbsp;
+		<input type="button" class="ui button" value="취소" onclick="location.href='main.do'"> &nbsp;
 		</form>
 	<br><br><a href="moveQuitSuccess.do">탈퇴완료 임시확인용</a>
 	</center>
