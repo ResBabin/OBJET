@@ -105,9 +105,27 @@ public class UsersController {
 		
 		
 	// 작가소개수정 이동
-			@RequestMapping("moveArtistIntroEdit.do")
-			public String moveArtistIntroEdit() {
-				return "artistHome/artistIntroEdit";
-			}
+		@RequestMapping("moveArtistIntroEdit.do")
+		public String moveArtistIntroEdit() {
+			return "artistHome/artistIntroEdit";
+		}
+			
+	// 팔로잉 보기
+		@RequestMapping("moveFollowingPage.do")
+		public String moveFollowingPage() {
+			return "artistHome/following";
+		}
+		
+	// 팔로워 보기
+		@RequestMapping("moveFollowerPage.do")
+		public String moveFollowerPage() {
+			return "artistHome/follower";
+		}
+		
+	// 작가 신고하기 페이지 이동
+		@RequestMapping("moveProfileReport.do")
+		public String moveProfileReport() {
+			return "artistHome/profileReport";
+		}
 			
 }
