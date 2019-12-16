@@ -1,14 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <!DOCTYPE html>
 <html>
 <head>
+<!-- favicon 위치 -->
+<link rel="shortcut icon" href="resources/images/favicon-32x32.png">
+<link rel="icon" href="resources/images/favicon-32x32.png">
 <meta charset="UTF-8">
 <title>Objet</title>
 <c:import url="header.jsp" />
 <!-- 시맨틱유아이 cdn -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <link rel = "stylesheet" type="text/css" href="/objet/resources/css/main.css">
@@ -20,8 +22,6 @@ section:after {
   display: table;
   clear: both;
 }
-
-
   /* 작가 카드*/
   .container1{
    /* border: 2px solid red; */
@@ -119,9 +119,7 @@ section:after {
 </script>
 </head>
 <body>
-
- 
-<section>
+<section class="main">
 <div class="intro">
 <h1>모든 사물들이 영감이 되는 순간, 오브제</h1>
 <h2>전시회에 담을 아름다운 순간들을 기록해 보세요</h2>
