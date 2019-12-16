@@ -34,18 +34,6 @@ input[id="menuicon"]:checked + label span:nth-child(2) {opacity:0;}
 input[id="menuicon"]:checked + label span:nth-child(3) {bottom:50%;transform:translateY(50%) rotate(-45deg);}
 div[class="sidebar"] {width:189px;height:100%;background:#222;position:fixed;top:0;left:-300px;z-index:2;transition:all .35s;}
 input[id="menuicon"]:checked + label + div {left:0;}
-
-/* 오브제 누르면 펼쳐지는 하위메뉴들 */
-* {margin:0; padding:0;}
-.accordion {position:absolute;top:30%;left:50%;transform:translateX(-50%);width:100px;}
-input[id*="answer"] {display:none;}
-input[id*="answer"] + label {display:block;border-bottom:0;color:#fff;font-weight:90;cursor:pointer;position:relative;font-size:18px;}
-input[id*="answer"] + label em {position:absolute;top:50%;right:10px;width:30px;height:30px;margin-top:-15px;display:inline-block;}
-input[id*="answer"] + label + div {max-height:0;transition: all .35s;overflow:hidden;/* background:#ebf8ff; */font-size:15px;}
-input[id*="answer"] + label + div p {display:inline-block;padding:20px;}
-input[id*="answer"]:checked + label + div {max-height:100px;}
-input[id*="answer"]:checked + label em {background-position:0 -30px;}
-
 /*헤더 */
 header {
   weight: 100%;
@@ -58,73 +46,10 @@ header {
   
 } 
 
-* {box-sizing: border-box}/* 이거 없으면 이미지 안에 사진들 아래로 쭉 펼쳐짐 */
-body {font-family: Verdana, sans-serif; margin:0;padding: 0;}
-.mySlides {
-     margin-top: 15px;
-     display: none;
-     text-align:center;
-     /* border:2px solid red; */
-}
-img {vertical-align: middle;}
-/* 이미지 슬라이더 안에 숫자카운트 */
-.numbertext {
-  margin-top: 275px;
-  margin-left : 260px;
-  color: Lightblue;
-  font-size: 20px;
-  padding: 8px 12px;
-  position: absolute;
-  top: 0;
-} 
-
-
 /* 사이트 짧은 소개글 */
 .intro{
  text-align: center;
 }
-/* 이미지 슬라이더 밑에 동그라미 도형도형들 들어가는 공간 */
-.dotbox{
-   margin-top:15px;
-/*  border: 2px solid blue; */
-
-}
-
-/* 이미지 슬라이더 밑에 동그라미 하나의 도형 */
-.dot {
-  cursor: pointer;
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.6s ease;
-}
-
-.active, .dot:hover {
-  background-color: #717171;
-}
-
-
-/* Fading animation */
-.fade {
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 1.5s;
-  animation-name: fade;
-  animation-duration: 1.5s;
-}
-
-@-webkit-keyframes fade {
-  from {opacity: .4} 
-  to {opacity: 1}
-}
-
-@keyframes fade {
-  from {opacity: .4} 
-  to {opacity: 1}
-}
-  
   /* 사이트 로고 */
   .meueicon1{
   float: left;
@@ -140,27 +65,25 @@ img {vertical-align: middle;}
   margin-top: 60px;
   position:fixed;
   font-size: 17px;
- border: 2px solid white;
- width:180px;
-  height: 25%;
+border: 2px solid blue;
+ width:189px;
+  height: 18%;
   
   }
   /* 사이드바 중 메뉴영역2 */
   .accordion{
-   margin-top: 25px;
- /*  border: 2px solid blue; */
+border: 2px solid blue;
+margin-top:10px;
   
   }
   
   /* 사이드바 중 메뉴영역 박스 시작
     -홈, 전시, 작가, 고객센터 써있는 부분*/
   .sidebar2{
-   margin-top: 380px;
   position:fixed;
   list-style:none;
- /*  border: 2px solid yellow; */
   height: 38%;
-  width:175px;
+  width:185px;
   }
   
 nav {
@@ -210,7 +133,7 @@ font-size: 16px;
 }
 
 #sub-menu > li {
-  padding: 11px 39px;
+  padding: 10px 60px;
   border-bottom: 1px solid rgba(0,0,0,0.15);
 }
 
@@ -244,11 +167,43 @@ height:13%;
 /* border: 2px solid white; */
 height:13%;
 }
+.artistHome{
+border: 2px solid white;
+margin-top: 190px;
+font-size: 18px;
+
+}
+.fd{
+border: 2px solid purple;
+font-size: 18px;
+}
+.qna{
+border: 2px solid green;
+font-size: 18px;
+
+}
+
+/* detail 태그인 안에 세모 도형 색 바꿔서 안보이게 만들기 */
+summary::-webkit-details-marker { 
+    color:black; 
+ 
+} 
+ 
+summary {
+  cursor: pointer;
+  font-size: 18px;
+}
+p{
+font-size: 18px;
+}
+.myinfo{
+border: 2px solid white;
+width: 189px;
+height: 22%;
+}
  /*로그아웃, 내정보수정  */
  .logout{
- 
-   /* border: 2px solid white; */
-   margin-top: 680px;
+margin-top: 240px;
  }
 
   /* 사이드바 안에 계정 찾기 */
@@ -265,93 +220,7 @@ height:13%;
   margin-right: 30px;
   margin-bottom:10px;
   }
- 
-  /* 상단바 아코디언 메뉴들 */
-  .homelist{
-  margin-top: 10px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script type="text/javascript">
-	window.onload=function() {	
 
-	var slideIndex = 0;
-	showSlides();
-
-	function showSlides() {
-	    var i;
-	    var slides = document.getElementsByClassName("mySlides");
-	    var dots = document.getElementsByClassName("dot");
-	    for (i = 0; i < slides.length; i++) {
-	       slides[i].style.display = "none";  
-	    }
-	    slideIndex++;
-	    if (slideIndex > slides.length) {slideIndex = 1}    
-	    for (i = 0; i < dots.length; i++) {
-	        dots[i].className = dots[i].className.replace(" active", "");
-	    }
-	    slides[slideIndex-1].style.display = "block";  
-	    dots[slideIndex-1].className += " active";
-	    setTimeout(showSlides, 2500); 
-	}
-	}
-	 /* 검색 아이콘  */
-	 $(function() {
-		  var placeholder = $("#search-text");
-		  
-		  $('#close-btn').click(function() {
-		    $('#search-overlay').fadeOut();
-		    $('#search-btn').show();
-		    $("#search-btn2").css("color", "#d6d6d6");
-		    $(".main").css("display", "table");
-		    $(".objet_main").css("display", "block");
-		    if(placeholder.val() != ""){
-				placeholder.val("");
-				$("#search-btn2").css("color", "#d6d6d6");
-			}
-		  });
-		  $('#search-btn').click(function() {
-		    $(this).hide();
-		    $('#search-overlay').fadeIn();
-		    $("#search-text").focus();
-		    $(".search_suggest").show();
-		    $(".main").css("display", "none");
-		    $(".objet_main").css("display", "none");
-		  });
-		  
-		  $("#search-text").on("keyup", function(){
-		  	if(placeholder.val() != "" || placeholder.val() != null){  //not null
-				$(".search_suggest").hide();
-				$(".search_keyword").fadeIn();
-				$(".search_keyword").css("display", "flex");
-			  }if(placeholder.val() == "" || placeholder.val() == null){ //null
-				$("#search-btn2").show();
-				$(".search_suggest").fadeIn();
-				$(".search_keyword").css("display", "none");
-				$(".search_keyword").hide();
-			  }
-		  });
-		  
-		  $("#search-text").focus(function(){
-			  $("#search-btn2").css("color", "black");
-		  });
-		  $("#search-text").focusout(function(){
-			  if(placeholder.val() == ""){
-				  $("#search-btn2").css("color", "#d6d6d6");
-			  }
-		  });
-		  
-		});
-
-	 	function submit() {
-		  document.getElementById("search-btn2").onclick = function() {
-		      document.getElementById('search-form').submit();
-		      return false;
-			};
-		};
-	
-</script>
 </head>
 <body>
 <header>
@@ -492,8 +361,7 @@ height:13%;
 <div class="forget">
 계정을 잃어버리셨습니까?
 </div>
-</div>
-</div>  -->
+</div> -->
 <!--로그인시 메뉴 아이콘 열리는 사이드바-->
 <div class="sidebar">
 <div class="sidebar1">
@@ -504,14 +372,21 @@ height:13%;
 <div class="follower">팔로워수</div>
 <div class="following">팔로잉수</div>
 </div>
-<div class="accordion">
-<input type="checkbox" name="accordion" id="answer01">
-	<label for="answer01">오브제<em></em></label>
-	<div class="homelist"><a href="artistHomeMain.do">작가홈</a>
-	<div class="homelist"><a href="#">오브제관리</a></div>
-	<div class="homelist"><a href="#">피드알림</a></div>
-	<div class="homelist"><a href="#">문의내역</a></div></div>
-</div>
+
+<div class="artistHome"><a href="artistHomeMain.do">작가홈</a></div>
+<div class= "myinfo">
+<details>
+  <summary>
+    오브제 관리
+  </summary>
+  <p>전시관리</p>
+  <p>전시등록</p>
+  <p>관심오브제</p>
+   <p>다녀온오브제</p>
+</details> 
+	</div>
+	<div class="fd"><a href="#">피드알림</a></div>
+	<div class="qna"><a href="#">문의내역</a></div>
 <div class="sidebar2">
 <nav role="navigation">
  <ul id="main-menu">
@@ -522,7 +397,7 @@ height:13%;
     
     <li><a href="#">작가</a></li>
     
-    <li><a href="#">고객센터</a>
+    <li><a href="Movecs.do">고객센터</a>
       <ul id="sub-menu">
         <li><a href="#" aria-label="subemnu">FAQ</a></li>
         <li><a href="#" aria-label="subemnu">공지사항</a></li>
@@ -539,8 +414,60 @@ height:13%;
  
 </div>
 </div>
-</div> 
-<!--메뉴 아이콘 열리는 사이드바 끝-->
+</div>
+
+ 
+
+<!-- <div class="sidebar">
+<div class="sidebar1">
+<div class="photo">
+<i class="big user circle icon"></i>
+</div>
+<div class="nickname">닉네임</div>
+<div class="follower">팔로워수</div>
+<div class="following">팔로잉수</div>
+</div>
+<div class="artistHome"><a href="artistHomeMain.do">작가홈</a></div>
+<div class="accordion">
+<input type="checkbox" name="accordion" id="answer01">
+	<label for="answer01"><a href="#">오브제관리</a><em></em></label>
+	<div class="homelist">전시관리</div>
+	<div class="homelist"><a href="#">전시등록</a></div>
+	<div class="homelist"><a href="#">관심 오브제</a></div>
+	<div class="homelist"><a href="#">다녀온 오브제</a></div></div>
+</div>
+<div class="fd">피드알림</div>
+<div class="que">문의내역</div>
+<div class="sidebar2">
+<nav role="navigation">
+ <ul id="main-menu">
+ 
+    <li><a href="#">홈</a></li>
+     
+    <li><a href="#">전시</a></li>
+    
+    <li><a href="#">작가</a></li>
+    
+    <li><a href="Movecs.do">고객센터</a>
+      <ul id="sub-menu">
+        <li><a href="#" aria-label="subemnu">FAQ</a></li>
+        <li><a href="#" aria-label="subemnu">공지사항</a></li>
+        </ul>
+        </li>
+        </ul>
+        </nav>
+</div>
+
+<div class="logout">
+<div class="tiny ui buttons">
+  <button class="ui inverted grey button" onclick="location.href='moveMyPageEdit.do'">내정보수정</button>
+  <div class="or"></div>
+  <button onclick="alert('로그아웃 되었습니다.');"class="ui inverted grey button">로그아웃</button>
+ 
+</div>
+</div>
+
+메뉴 아이콘 열리는 사이드바 끝 -->
 </header>
 </body>
 </html>
