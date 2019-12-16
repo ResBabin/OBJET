@@ -13,15 +13,17 @@ public class ReportUDetail implements Serializable {
 	private String reporteru;
 	private Date reportudate;
 	private String reportureason;
+	private int reportucount;
 	
 	public ReportUDetail() {}
 
-	public ReportUDetail(String reportedu, String reporteru, Date reportudate, String reportureason) {
+	public ReportUDetail(String reportedu, String reporteru, Date reportudate, String reportureason, int reportucount) {
 		super();
 		this.reportedu = reportedu;
 		this.reporteru = reporteru;
 		this.reportudate = reportudate;
 		this.reportureason = reportureason;
+		this.reportucount = reportucount;
 	}
 
 	public String getReportedu() {
@@ -56,16 +58,20 @@ public class ReportUDetail implements Serializable {
 		this.reportureason = reportureason;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public int getReportucount() {
+		return reportucount;
+	}
+
+	public void setReportucount(int reportucount) {
+		this.reportucount = reportucount;
 	}
 
 	@Override
 	public String toString() {
 		return "ReportUDetail [reportedu=" + reportedu + ", reporteru=" + reporteru + ", reportudate=" + reportudate
-				+ ", reportureason=" + reportureason + "]";
+				+ ", reportureason=" + reportureason + ", reportucount=" + reportucount + "]";
 	}
-	
+
 	
 
 }
