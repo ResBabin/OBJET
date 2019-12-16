@@ -11,7 +11,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-<link rel = "stylesheet" type="text/css" href="/objet/resources/css/main.css">
+<link rel = "stylesheet" type="text/css" href="resources/css/main.css">
 <style type="text/css">
 
 /* 섹션 */
@@ -20,6 +20,50 @@ section:after {
   display: table;
   clear: both;
 }
+
+* {box-sizing: border-box}/* 이거 없으면 이미지 안에 사진들 아래로 쭉 펼쳐짐 */
+body {font-family: Verdana, sans-serif; margin:0}
+.mySlides {
+     margin-top: 15px;
+     display: none;
+     text-align:center;
+     /* border:2px solid red; */
+}
+img {vertical-align: middle;}
+/* 이미지 슬라이더 안에 숫자카운트 */
+.numbertext {
+  margin-top: 275px;
+  margin-left : 260px;
+  color: Lightblue;
+  font-size: 20px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+} 
+
+/* 이미지 슬라이더 밑에 동그라미 도형도형들 들어가는 공간 */
+.dotbox{
+   margin-top:15px;
+/*  border: 2px solid blue; */
+
+}
+
+/* 이미지 슬라이더 밑에 동그라미 하나의 도형 */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
 
 
   /* 작가 카드*/
@@ -119,7 +163,6 @@ section:after {
 </script>
 </head>
 <body>
-
  
 <section>
 <div class="intro">
@@ -230,7 +273,7 @@ section:after {
 
 		<div class="thecard">
 			<div class="thefront"><br>
-			<img src="resources/images/YY.jpg" width=50%>
+			<img src="resources/images/main/YY.jpg" width=50%>
 				<p><i class="fas fa-user-circle"></i></p>
 				<div class ="writer name">최강예은</div><br>
 				<div class ="writer coment">작가 한줄 소개</div>
@@ -256,7 +299,7 @@ section:after {
 
 		<div class="thecard">
 			<div class="thefront"><br>
-			<img src="resources/images/MY.jpg" width=50%>
+			<img src="resources/images/main/MY.jpg" width=50%>
 				<p><i class="fas fa-user-circle"></i></p>
 				<div class ="writer name">안경민경</div><br>
 				<div class ="writer coment">작가 한줄 소개</div>
@@ -282,7 +325,7 @@ section:after {
 
 		<div class="thecard">
 			<div class="thefront"><br>
-			<img src="resources/images/ES.jpg" width=50%>
+			<img src="resources/images/main/ES.jpg" width=50%>
 				<p><i class="fas fa-user-circle"></i></p>
 				<div class ="writer name">시야은솔</div><br>
 				<div class ="writer coment">작가 한줄 소개</div>
