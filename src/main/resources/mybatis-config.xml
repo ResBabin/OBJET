@@ -6,7 +6,6 @@
 <!-- alias별칭은 vo명과 동일하게 만들었음. -->
 	<typeAliases>
 		<typeAlias type="com.kh.objet.blacklist.model.vo.BlackList" alias="BlackList" />
-		<typeAlias type="com.kh.objet.blacklist.model.vo.BlackList" alias="BlackList" />
 		<typeAlias type="com.kh.objet.faq.model.vo.Faq" alias="Faq" />
 		<typeAlias type="com.kh.objet.feed.model.vo.Feed" alias="Feed" />
 		<typeAlias type="com.kh.objet.follower.model.vo.Follower" alias="Follower" />
@@ -24,11 +23,15 @@
 		<typeAlias type="com.kh.objet.users.model.vo.Users" alias="Users" />
 		<typeAlias type="com.kh.objet.usersprofile.model.vo.UsersProfile" alias="UsersProfile" />
 		<typeAlias type="com.kh.objet.visitedobjet.model.vo.VisitedObjet" alias="VisitedObjet" />
+		<typeAlias type="com.kh.objet.users.model.vo.UserManagement" alias="Userm" />
 	</typeAliases>
-	<!-- <mappers>
-		<mapper resource="mappers/member-mapper.xml" />
+	<mappers>
+<!-- 		<mapper resource="mappers/member-mapper.xml" />
 		<mapper resource="mappers/board-mapper.xml" />
 		<mapper resource="mappers/notice-mapper.xml" />
-		<mapper resource="mappers/test-mapper.xml" />
-	</mappers> -->
+		<mapper resource="mappers/test-mapper.xml" /> -->
+	 	<mapper resource="mappers/userm-mapper.xml" /> 
+	 	<mapper resource="mappers/objetm-mapper.xml" /> 
+		
+	</mappers>
 </configuration>

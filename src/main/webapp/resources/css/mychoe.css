@@ -9,8 +9,8 @@ body {
 	background-color: #fff;
 	margin-left: 25%;
 	margin-right: 25%;
-	margin-top:150px; /* 상단바 높이만큼 수정 */
-	height:auto;
+	margin-top:80px; /* 상단바 높이만큼 수정 */
+	margin-bottom:80px; /* 상단바 높이만큼 수정 */
 }
 
 
@@ -63,6 +63,17 @@ body {
 	text-align: right;
 }
 
+/* 작가 신고하기 */
+.choiceReportReason{
+	font-size: 20pt;
+	align-self:center;
+	text-align:left;
+	background: #e2e2e2;
+	width: 500px;
+	height: 330px;
+	padding: 20px 40px;
+}
+
 
 /* 작가홈 메뉴 바 */
 .artisthomeMenu{
@@ -84,6 +95,7 @@ body {
 	padding-top: 30px;
 	padding-botton: 35px;
 	color: #aaa;
+	background-color: #fff;
 }
 
 
@@ -94,11 +106,13 @@ body {
 	padding-top: 50px;
 	padding-bottom: 10px;
 	color: #7c7c7c;
+	
 }
 
 .artistIntroContent{
 	font-size: 10pt;
 	line-height: 20pt;
+	
 }
 
 
@@ -112,6 +126,7 @@ body {
 	text-align: center;
 	padding-left:5px;
 	margin-right: 15px;
+	
 }
 
 
@@ -123,7 +138,7 @@ body {
 	background-color: #fff;
 	margin-left: 25%;
 	margin-right: 25%;
-	margin-top:200px; /* 상단바 높이만큼 수정 */
+	margin-top:50px; /* 상단바 높이만큼 수정 */
 	height:auto;
 }
 
@@ -152,7 +167,7 @@ body {
 
 .editTagTable{
 	width: 100%;
-	height: 80px;
+	height: 70px;
 	margin-top: -10px;
 }
 
@@ -161,7 +176,85 @@ body {
 }
 
 
+/* 팔로잉 페이지 */
+.wrapFollowingPage{
+	background-color: #fff;
+	margin-left: 25%;
+	margin-right: 25%;
+	margin-top:65px; /* 상단바 높이만큼 수정 */
+	height:auto;
+}
 
+.followingList{
+	margin-top: 30px;
+	width:90%;
+}
+
+.eachFollwing {
+	line-height: 25px;
+	width:100%;
+	text-align: center;
+}
+
+.eachFollwing tr {
+	height: 40px;
+}
+
+.profileImage3{
+	float:left;
+	width: 50px;
+	height: 50px;
+	background-color: #fff;
+	border-radius: 50%;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+
+
+
+/* 방명록 페이지 */
+.profileImage4{
+	vertical-align: middle;
+	width: 80px;
+	height: 80px;
+	margin-left:25px;
+	background-color: #fff;
+	border-radius: 50%;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.gbwrite{
+	border-style:none;
+	width: 100%;
+	border-spacing: 0;
+	margin-bottom: 50px;
+}
+
+
+
+.gbwrite td {
+	background: #f4f4f4;
+}
+
+.gbcontent{
+	margin-left:20px;
+	margin-top:20px;
+	padding-bottom: 20px;
+	color:#202020;
+	text-align: left;
+	line-height: 18pt;
+}
+
+.replycontent{
+	margin-left: 30px;
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+	color: #424242;
+}
 
 /* 로그인페이지 =========================================================================== */
 #loginSection{
@@ -200,7 +293,6 @@ body {
 	background-color: #fff;
 	margin-left: 25%;
 	margin-right: 25%;
-	margin-top:150px; /* 상단바 높이만큼 수정 */
 }
 
 .enrollSection{
@@ -267,15 +359,14 @@ body {
 	background-color: #fff;
 	margin-left: 25%;
 	margin-right: 25%;
-	margin-top:250px; /* 상단바 높이만큼 수정 */
+	margin-top:140px; /* 상단바 높이만큼 수정 */
 }
 
-/* 회원탈퇴 페이지*/
+/* 회원탈퇴 페이지 */
 .wrapQuitPage{
 	background-color: #fff;
 	margin-left: 25%;
 	margin-right: 25%;
-	margin-top:150px; /* 상단바 높이만큼 수정 */
 	text-align: center;
 }
 

@@ -3,13 +3,22 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- favicon 위치 -->
+<link rel="shortcut icon" href="resources/images/favicon-32x32.png">
+<link rel="icon" href="resources/images/favicon-32x32.png">
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 <!-- 시맨틱유아이 cdn -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="/objet/resources/js/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+<link rel='stylesheet' href='//fonts.googleapis.com/earlyaccess/kopubbatang.css'>
+<link rel="stylesheet" type="text/css" href="resources/assets/css/KoPubDotum.css">
+<link rel="stylesheet" href="//fonts.googleapis.com/earlyaccess/nanummyeongjo.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel = "stylesheet" type="text/css" href="/objet/resources/css/main.css">
+<link rel = "stylesheet" type="text/css" href="/objet/resources/css/search.css">
 <style type="text/css">
 /* 메뉴아이콘 */
 input[id="menuicon"] {display:none;}
@@ -27,14 +36,14 @@ div[class="sidebar"] {width:189px;height:100%;background:#222;position:fixed;top
 input[id="menuicon"]:checked + label + div {left:0;}
 /*헤더 */
 header {
- 
   weight: 100%;
   height: 10%;
-  background-color: #666;
+  background-color: #fff;
   padding: 30px;
   text-align: center;
   font-size: 35px;
-  color: white;
+  color: black;
+  
 } 
 
 /* 사이트 짧은 소개글 */
@@ -43,12 +52,12 @@ header {
 }
   /* 사이트 로고 */
   .meueicon1{
-  
-  float: left;}
+  float: left;
+  }
   .sitemain{
   float:left;
   margin-left: 60px;
-  margin-top: 7px;
+  margin-top: -3px;
   }
  
   /* 사이드바 중 로그인 영역 */
@@ -212,11 +221,11 @@ margin-top: 240px;
   margin-bottom:10px;
   }
 
-  </style>
 </head>
 <body>
 <header>
-<div class="sitemain"> 오브제</div> 
+<div class="sitemain"><a href="main.do">
+<img src="resources/images/objet_logo_black.png" width="65px" height="45px"></a></div> 
 <!--메뉴 아이콘-->
 <input type="checkbox" id="menuicon">
 
@@ -226,6 +235,104 @@ margin-top: 240px;
 	<span></span>
 	
 </label>
+
+<!-- 검색 아이콘  -->
+<i id="search-btn" class="material-icons">&#xe8b6;</i>
+<!-- 검색창 시작 -->
+<div id="search-overlay" class="block">
+  <div class="centered">
+    <div id='search-box'>
+      <i id="close-btn" class="material-icons">&#xe5cd;</i>
+      <form action='searchResult.do' id='search-form' method='get' target='_top' 
+      class="ui wide fluid transparent icon input">
+		  <input id='search-text' name="q" type="text" placeholder="검색어를 입력해주세요." />
+		  <i class="material-icons" id="search-btn2" onClick="submit();">&#xe8b6;</i>
+      </form>
+      <!-- 오브제 추천 태그 -->
+      <div class="search_suggest" align="center">
+      	<p><span>오브제</span> 추천 태그</p>
+      	<div class="search_tag">
+      	<div class="ui circular basic blue button">사진</div> &nbsp;
+      	<div class="ui circular basic blue button">디자인</div> &nbsp;
+      	<div class="ui circular basic blue button">기타</div> <br>
+      	</div>
+      	<ul class="search_art_list">
+      		<li class="search_art_list_1">
+      		<a href="">
+      		<img id="search_art_list_img" class="ui small circular image" src="resources/images/objet/나의 오랜 연인에게1.jpg"><br>
+      		<strong>최강예은</strong>
+      		<span>예술가입니다.</span>
+      		</a>
+      		</li>
+      		<li class="search_art_list_1">
+      		<a href="">
+      		<img id="search_art_list_img" class="ui small circular image" src="resources/images/objet/나의 오랜 연인에게2.jpg"><br>
+      		<strong>안경민경</strong>
+      		<span>예술가입니다.</span>
+      		</a>
+      		</li>
+      		<li class="search_art_list_1">
+      		<a href="">
+      		<img id="search_art_list_img" class="ui small circular image" src="resources/images/objet/나의 오랜 연인에게5.jpg"><br>
+      		<strong>유노유진</strong>
+      		<span>예술가입니다.</span>
+      		</a>
+      		</li>
+      		<li class="search_art_list_1">
+      		<a href="">
+      		<img id="search_art_list_img" class="ui small circular image" src="resources/images/objet/나의 오랜 연인에게4.jpeg"><br>
+      		<strong>시아은솔</strong>
+      		<span>예술가입니다.</span>
+      		</a>
+      		</li>
+      		<li class="search_art_list_1">
+      		<a href="">
+      		<img id="search_art_list_img" class="ui small circular image" src="resources/images/objet/나의오랜연인에게커버.jpg"><br>
+      		<strong>믹키근수</strong>
+      		<span>예술가입니다.</span>
+      		</a>
+      		</li>
+      	</ul>
+     </div>
+     <!-- 오브제 검색 키워드 -->
+     <div class="search_keyword">
+     	<div class="objet_keyword"><!-- 오브제 전시 키워드 -->
+     		<h3 class="keyword_title"><a>전시 검색
+     		<i id="arrow" class="material-icons">&#xe5cc;</i></a></h3>
+     		<div class="wrap_objet_list">
+	     		<ul class="objet_list">
+	     			<li class="objet_list_item"><span>오브제</span>를 말하다.</li>
+	     			<li class="objet_list_item"><span>오브제</span>를 말하다.</li>
+	     			<li class="objet_list_item"><span>오브제</span>를 말하다.</li>
+	     			<li class="objet_list_item"><span>오브제</span>를 말하다.</li>
+	     			<li class="objet_list_item"><span>오브제</span>를 말하다.</li>
+	     		</ul>
+	     		
+     		</div>
+     	</div>
+     	<div class="artist_keyword"><!-- 오브제 작가 키워드 -->
+     		<h3 class="keyword_title"><a>작가 검색
+     		<i id="arrow" class="material-icons">&#xe5cc;</i></a></h3>
+     		<div class="wrap_artist_list">
+	     		<div class="artist_list">
+	     			<div class="artist_list_item"><a href="">
+	     			<img id="artist_list_img" class="ui mini circular image" src="resources/images/objet/나의 오랜 연인에게1.jpg">
+	     			<span>오브제</span></a></div>
+	     			<div class="artist_list_item"><a href="">
+	     			<img id="artist_list_img" class="ui mini circular image" src="resources/images/objet/나의 오랜 연인에게2.jpg">
+	     			<span>오브제</span></a></div>
+	     			<div class="artist_list_item"><a href="">
+	     			<img id="artist_list_img" class="ui mini circular image" src="resources/images/objet/나의오랜연인에게커버.jpg">
+	     			<span>오브제</span></a></div>
+	     		</div>
+     		</div>
+     	</div>
+     </div>
+    </div>
+  </div>
+</div>
+<!-- 검색창 끝 -->
+
 <!--메뉴 아이콘-->
 <!-- 비로그인시 메뉴 아이콘 열리는 사이드바 -->
 <!-- <div class="sidebar">

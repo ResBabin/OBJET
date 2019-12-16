@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>오브제 회원탈퇴 완료</title>
+<c:import url="../header.jsp" />
 <!-- 시맨틱유아이 cdn -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
@@ -24,6 +26,7 @@
 		<button class="ui black button" onclick="location.href='main.do'" style="width:350px; height:40px; background: #4c4c4c;">오브제 첫화면</button>
 	</div>
 </div>
-
+<br><br><br><br><br><br><br><br>
 </body>
+<c:import url="../footer.jsp" />
 </html>

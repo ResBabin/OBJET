@@ -474,10 +474,6 @@ public class Objet implements Serializable{
 		this.objetrfile8 = objetrfile8;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	@Override
 	public String toString() {
 		return "Objet [objetno=" + objetno + ", userid=" + userid + ", objettitle=" + objettitle + ", objetintro="

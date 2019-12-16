@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>오브제 탈퇴하기</title>
+<c:import url="../header.jsp" />
 <!-- 시맨틱유아이 cdn -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
@@ -24,11 +26,15 @@
 	            $("#counter").css("display","block");
 	            // radio 버튼의 value 값이 '기타'면 textarea활성화 & 자동포커스 & placeholder & 글자수세기 나오기
 	 
-	        }else {
+	        }else {// 아니라면 text 비활성화&placeholder없음&글자수세기 없음
+	        	$("textarea[name=etc]").val("");
 	              $("textarea[name=etc]").attr("disabled",true);
 	              $("textarea[name=etc]").removeAttr("placeholder","기타 사유를 입력해주세요.(최대 100자)")
 	              $("#counter").css("display","none");
-	            // 아니라면 text 비활성화&placeholder없음&글자수세기 없음
+	          	 // 이전 기타 textarea작성 값 초기화
+			        $("textarea[name=etc]").val("");
+			        $("#counter").html("( <span style='color:#4ecdc4;'>0</span> / 최대 100자 )");
+	            
 	        }
     	});
 		
@@ -136,8 +142,8 @@
 	</center>
 	</div><!-- 탈퇴페이지 끝 -->
 	
-<br><br><br><br><br><br>
-
+<br><br>
 
 </body>
+<c:import url="../footer.jsp" />
 </html>

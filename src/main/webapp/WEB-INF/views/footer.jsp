@@ -3,6 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- favicon 위치 -->
+<link rel="shortcut icon" href="resources/images/favicon-32x32.png">
+<link rel="icon" href="resources/images/favicon-32x32.png">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">

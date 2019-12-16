@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>내 정보 수정</title>
+<c:import url="../header.jsp" />
 <!-- 시맨틱유아이 cdn -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
@@ -80,7 +82,7 @@
 	
 	<!-- 회원정보입력섹션 끝! -->
 	<p style="text-decoration: underline; color:#aaa;padding-top:15px;" onclick="location.href='moveQuitPage.do'">탈퇴하기</p>
-		<br><br>
+		<br>
 		<div align="center">
 			<input type="submit" class="ui green button" value="수정하기" id="btnsub"></a> &nbsp;
 			<input type="reset" class="ui button" value="다시작성"> &nbsp;
@@ -88,6 +90,7 @@
 		</form>
 </div>
 <!-- 회원가입 페이지 끝 -->
-<br><br><br><br>
+<br><br><br>
 </body>
+<c:import url="../footer.jsp" />
 </html>

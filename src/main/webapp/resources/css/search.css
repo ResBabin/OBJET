@@ -1,0 +1,284 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800');
+@import url(http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+
+*{
+	font-family: "Cormorant SemiBold", 'Nanum Gothic';
+/* 	nth-of-type(1) font-weight: 300; 
+	nth-of-type(2) font-weight: 400;
+	nth-of-type(3) font-weight: 700;
+	font-family: 'Nanum Gothic', sans-serif; */
+	font-size:12pt;
+}
+
+/**********************/
+/* 헤더 검색(팝업아이콘) css */
+/**********************/
+body{ 
+	background-color: #fff;
+}
+
+#search-btn{
+  position: fixed;
+  top: 0.88em;
+  right: 1em;
+  font-size:34px;
+  color:black;
+}
+
+#search-btn:hover{
+  cursor: pointer;
+  
+}
+
+#search-overlay{
+  display:none;
+  background-color: #fff;
+}
+
+.block {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom:0 ;
+  left: 0;
+  overflow: auto;
+  text-align: center;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.block:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: 0;
+}
+
+.centered {
+  display: inline-block;
+  vertical-align: middle;
+  width: 70%;
+  padding: 10px 10px;
+  border: none;
+  background: transparent;
+}
+
+#search-box {
+  position: relative;
+  width: 100%;
+  margin: 0;
+}
+
+#search-form {
+  align:center;
+  width:100%;
+  height: 4em;
+  overflow: hidden;
+  position: relative;
+  border-width: 0.5px;
+  border-bottom: 0.5px gray solid;
+}
+
+#search-text[type="text"] {
+	font-size: 28px;
+	font-weight: normal;
+	font-family:'Nanum Gothic';
+  	border-width: 0;
+  	color:black;
+  	background: transparent;
+  	height: auto; /* 높이 초기화 */ 
+  	line-height: normal;
+}
+
+#search-text::placeholder {
+	font-size: 28px;
+	font-weight: normal;
+	font-family:'Nanum Gothic';
+}
+
+#search-btn2 {
+	margin-top:20px;
+	font-size:34px;
+	color: #b5b5b5;
+}
+
+#search-btn2:hover {
+	cursor: pointer;
+}
+
+#search-box input[type="text"] {
+  width: 90%;
+  padding: 20px;
+  color: #333;
+  outline: none;
+  font-size: 1.4em;
+}
+
+#search-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 4.7em;
+  width: 100px;
+  cursor: pointer;
+  align: center;
+  border: 1px white solid;
+  background: none;
+  outline:none !important;
+  color:black;
+}
+
+#close-btn{
+  position: fixed;
+  top: 0.88em;
+  right: 1em;
+  color:black;
+  outline:none !important;
+  font-size:34px;
+}
+#close-btn:hover{
+  cursor: pointer;
+}
+.search_suggest {
+	width:100%;
+	margin-top:40px;
+	overflow: hidden;
+	display:none;
+	align:center;
+}
+.search_suggest p{
+	font-family: 'Nanum Gothic';
+	font-size: 18pt;
+	font-weight: nomal;
+	color: #2185d0;
+}
+.search_suggest span{
+	font-family: 'Nanum Gothic';
+	font-size: 18pt;
+	font-weight: nomal;
+	color: gray;
+}
+.search_tag {
+	margin-top:15px;
+}
+.search_art_list {
+	width:100%;
+	margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display:block; 
+    overflow: hidden;
+}
+
+.search_art_list_1{
+	list-style: none;
+	display:inline-block; 
+	margin:35px;
+}
+#search_art_list_img{
+	width:120px;
+	height:120px;
+}
+.search_art_list strong{
+	color: #333;
+	font-size:16px;
+    text-align: center;
+    font-family: 'Nanum Gothic';
+    font-weight: lighter;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.search_art_list span{
+	font-size: 12px;
+    line-height: 1.5;
+    color: #666;
+    text-align: center;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+    height: 38px;
+    overflow: hidden;
+    display: -webkit-box;
+    font-family: 'Nanum Gothic';
+}
+.keyword_title a {
+	font-family: 'Nanum Gothic';
+	white-space: nowrap;
+	font-size: 13px;
+	color: #959595;
+}
+.search_keyword {
+	margin-top:35px;
+	width:100%;
+	display:none;
+	justify-content:space-between;
+}
+.objet_keyword {
+	width:75%;
+	text-align:left;
+}
+.artist_keyword {
+	width:25%;
+	text-align:left;
+}
+#arrow {
+	font-size:12px;
+	display:inline-block;
+	margin-top:-5px;
+	color:#959595;
+}
+.objet_list {
+	list-style-type: none;
+	margin:0;
+	padding:0;
+}
+.objet_list_item{
+	font-size:20px;
+	color: black;
+	font-family: 'Nanum Gothic';
+	font-weight: lighter;
+	padding: 0;
+    margin: 25px 0 0;
+    border-bottom: none;
+}
+.objet_list_item span{
+	font-weight: bold;
+	font-family: 'Nanum Gothic';
+	font-size:20px;
+	color: #2185d0;
+}
+.artist_list {
+	list-style-type: none;
+	margin:0;
+	padding:0;
+}
+.artist_list_item {
+	padding: 0;
+    margin: 24px 0 0;
+    border-bottom: none;
+}
+.artist_list_item span{
+	font-size:16px;
+	color: black;
+	font-family: 'Nanum Gothic';
+	font-weight: lighter;
+	margin-left:2px;
+	padding:10px;
+	align:center;
+	line-height:40px;
+}
+#artist_list_img {
+	float: left;
+	width:50px;
+	height:50px;
+}
+
+/**/
