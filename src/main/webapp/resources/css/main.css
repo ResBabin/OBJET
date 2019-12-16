@@ -13,4 +13,11 @@
 
 body{ 
 	background-color: #fff;
+	font-family: 'Nanum Myeongjo';
+	color:black;
+}
+
+h1, h2, h3, h4, h5, p, span, strong, a, b{
+	color: black;
+	font-family: 'Nanum Myeongjo';
 }

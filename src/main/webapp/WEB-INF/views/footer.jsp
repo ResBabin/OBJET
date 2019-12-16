@@ -10,16 +10,16 @@
 <title>Insert title here</title>
 <style type="text/css">
  footer {
- 
-  background-color: #777;
+  background-color: #fff;
   padding: 10px;
   text-align: center;
-  color: white;
+  color: black;
   heigt: 500px;
-
+}
 </style>
 </head>
 <body>
+<hr>
  <footer>
   <p>사이트 소개</p>
   <p>고객센터</p>

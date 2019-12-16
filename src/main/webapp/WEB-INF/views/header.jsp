@@ -28,11 +28,11 @@ input[id="menuicon"] + label span:nth-child(1) {top:0;}
 input[id="menuicon"] + label span:nth-child(2) {top:50%;transform:translateY(-50%);} 
 input[id="menuicon"] + label span:nth-child(3) {bottom:0;}
 input[id="menuicon"]:checked + label {z-index:3;}
-input[id="menuicon"]:checked + label span {background:#fff;}
+input[id="menuicon"]:checked + label span {background:black;}
 input[id="menuicon"]:checked + label span:nth-child(1) {top:50%;transform:translateY(-50%) rotate(45deg);}
 input[id="menuicon"]:checked + label span:nth-child(2) {opacity:0;}
 input[id="menuicon"]:checked + label span:nth-child(3) {bottom:50%;transform:translateY(50%) rotate(-45deg);}
-div[class="sidebar"] {width:189px;height:100%;background:#222;position:fixed;top:0;left:-300px;z-index:2;transition:all .35s;}
+div[class="sidebar"] {width:189px;height:100%;background:#fff;position:fixed;top:0;left:-300px;z-index:2;transition:all .35s; border: 1px solid lightgray;}
 input[id="menuicon"]:checked + label + div {left:0;}
 /*헤더 */
 header {
@@ -43,7 +43,6 @@ header {
   text-align: center;
   font-size: 35px;
   color: black;
-  
 } 
 
 /* 사이트 짧은 소개글 */
@@ -52,12 +51,12 @@ header {
 }
   /* 사이트 로고 */
   .meueicon1{
-  float: left;
-  }
+  
+  float: left;}
   .sitemain{
   float:left;
   margin-left: 60px;
-  margin-top: -3px;
+  margin-top: 7px;
   }
  
   /* 사이드바 중 로그인 영역 */
@@ -65,17 +64,13 @@ header {
   margin-top: 60px;
   position:fixed;
   font-size: 17px;
-border: 2px solid blue;
- width:189px;
+	
+ 	width:180px;
   height: 18%;
-  
+  color: black;
+  background-color:#fff;
   }
-  /* 사이드바 중 메뉴영역2 */
-  .accordion{
-border: 2px solid blue;
-margin-top:10px;
-  
-  }
+ 
   
   /* 사이드바 중 메뉴영역 박스 시작
     -홈, 전시, 작가, 고객센터 써있는 부분*/
@@ -84,6 +79,8 @@ margin-top:10px;
   list-style:none;
   height: 38%;
   width:185px;
+  background-color:#fff;
+  color: black;
   }
   
 nav {
@@ -98,25 +95,28 @@ ul, li {
   margin: 0;
   padding: 0;
   list-style: none;
+  color: black;
 }
 
 #main-menu > li {
   position: relative;
+  color:black;
+  background-color:#fff;
 }
 #main-menu > li:hover{
 background-color:#666666;
+color:white;
 }
 
 #main-menu > li > a {
   font-size: 18px;
-  color: rgba(255,255,255,0.85);
+  color: black;
   text-align: center;
   text-decoration: none;
   letter-spacing: 0.05em;
   display: block;
   padding: 10px 36px; 
-  border-right: 1px solid rgba(0,0,0,0.15);
-  text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
 }
 
 #main-menu > li:nth-child(1) > a {
@@ -134,11 +134,10 @@ font-size: 16px;
 
 #sub-menu > li {
   padding: 10px 60px;
-  border-bottom: 1px solid rgba(0,0,0,0.15);
 }
 
 #sub-menu > li >  a {
-  color: rgba(255,255,255,0.6);
+  color: black;
   text-decoration: none;
 }
 
@@ -168,43 +167,40 @@ height:13%;
 height:13%;
 }
 .artistHome{
-border: 2px solid white;
 margin-top: 190px;
 font-size: 18px;
 
 }
 .fd{
-border: 2px solid purple;
 font-size: 18px;
 }
 .qna{
-border: 2px solid green;
 font-size: 18px;
 
 }
 
 /* detail 태그인 안에 세모 도형 색 바꿔서 안보이게 만들기 */
-summary::-webkit-details-marker { 
-    color:black; 
- 
+summary::-webkit-details-marker {
+    color: #fff; 
 } 
- 
+ .myinfo{
+ 	margin-top:10px;
+ }
 summary {
   cursor: pointer;
   font-size: 18px;
+  color: black;
 }
 p{
 font-size: 18px;
+color: black;
 }
 .myinfo{
-border: 2px solid white;
+
 width: 189px;
 height: 22%;
 }
- /*로그아웃, 내정보수정  */
- .logout{
-margin-top: 240px;
- }
+
 
   /* 사이드바 안에 계정 찾기 */
 .forget{
@@ -221,6 +217,8 @@ margin-top: 240px;
   margin-bottom:10px;
   }
 
+  </style>
+  
 </head>
 <body>
 <header>
@@ -230,108 +228,11 @@ margin-top: 240px;
 <input type="checkbox" id="menuicon">
 
 <label for="menuicon">
-	<span></span>
-	<span></span>
-	<span></span>
-	
+   <span></span>
+   <span></span>
+   <span></span>
+   
 </label>
-
-<!-- 검색 아이콘  -->
-<i id="search-btn" class="material-icons">&#xe8b6;</i>
-<!-- 검색창 시작 -->
-<div id="search-overlay" class="block">
-  <div class="centered">
-    <div id='search-box'>
-      <i id="close-btn" class="material-icons">&#xe5cd;</i>
-      <form action='searchResult.do' id='search-form' method='get' target='_top' 
-      class="ui wide fluid transparent icon input">
-		  <input id='search-text' name="q" type="text" placeholder="검색어를 입력해주세요." />
-		  <i class="material-icons" id="search-btn2" onClick="submit();">&#xe8b6;</i>
-      </form>
-      <!-- 오브제 추천 태그 -->
-      <div class="search_suggest" align="center">
-      	<p><span>오브제</span> 추천 태그</p>
-      	<div class="search_tag">
-      	<div class="ui circular basic blue button">사진</div> &nbsp;
-      	<div class="ui circular basic blue button">디자인</div> &nbsp;
-      	<div class="ui circular basic blue button">기타</div> <br>
-      	</div>
-      	<ul class="search_art_list">
-      		<li class="search_art_list_1">
-      		<a href="">
-      		<img id="search_art_list_img" class="ui small circular image" src="resources/images/objet/나의 오랜 연인에게1.jpg"><br>
-      		<strong>최강예은</strong>
-      		<span>예술가입니다.</span>
-      		</a>
-      		</li>
-      		<li class="search_art_list_1">
-      		<a href="">
-      		<img id="search_art_list_img" class="ui small circular image" src="resources/images/objet/나의 오랜 연인에게2.jpg"><br>
-      		<strong>안경민경</strong>
-      		<span>예술가입니다.</span>
-      		</a>
-      		</li>
-      		<li class="search_art_list_1">
-      		<a href="">
-      		<img id="search_art_list_img" class="ui small circular image" src="resources/images/objet/나의 오랜 연인에게5.jpg"><br>
-      		<strong>유노유진</strong>
-      		<span>예술가입니다.</span>
-      		</a>
-      		</li>
-      		<li class="search_art_list_1">
-      		<a href="">
-      		<img id="search_art_list_img" class="ui small circular image" src="resources/images/objet/나의 오랜 연인에게4.jpeg"><br>
-      		<strong>시아은솔</strong>
-      		<span>예술가입니다.</span>
-      		</a>
-      		</li>
-      		<li class="search_art_list_1">
-      		<a href="">
-      		<img id="search_art_list_img" class="ui small circular image" src="resources/images/objet/나의오랜연인에게커버.jpg"><br>
-      		<strong>믹키근수</strong>
-      		<span>예술가입니다.</span>
-      		</a>
-      		</li>
-      	</ul>
-     </div>
-     <!-- 오브제 검색 키워드 -->
-     <div class="search_keyword">
-     	<div class="objet_keyword"><!-- 오브제 전시 키워드 -->
-     		<h3 class="keyword_title"><a>전시 검색
-     		<i id="arrow" class="material-icons">&#xe5cc;</i></a></h3>
-     		<div class="wrap_objet_list">
-	     		<ul class="objet_list">
-	     			<li class="objet_list_item"><span>오브제</span>를 말하다.</li>
-	     			<li class="objet_list_item"><span>오브제</span>를 말하다.</li>
-	     			<li class="objet_list_item"><span>오브제</span>를 말하다.</li>
-	     			<li class="objet_list_item"><span>오브제</span>를 말하다.</li>
-	     			<li class="objet_list_item"><span>오브제</span>를 말하다.</li>
-	     		</ul>
-	     		
-     		</div>
-     	</div>
-     	<div class="artist_keyword"><!-- 오브제 작가 키워드 -->
-     		<h3 class="keyword_title"><a>작가 검색
-     		<i id="arrow" class="material-icons">&#xe5cc;</i></a></h3>
-     		<div class="wrap_artist_list">
-	     		<div class="artist_list">
-	     			<div class="artist_list_item"><a href="">
-	     			<img id="artist_list_img" class="ui mini circular image" src="resources/images/objet/나의 오랜 연인에게1.jpg">
-	     			<span>오브제</span></a></div>
-	     			<div class="artist_list_item"><a href="">
-	     			<img id="artist_list_img" class="ui mini circular image" src="resources/images/objet/나의 오랜 연인에게2.jpg">
-	     			<span>오브제</span></a></div>
-	     			<div class="artist_list_item"><a href="">
-	     			<img id="artist_list_img" class="ui mini circular image" src="resources/images/objet/나의오랜연인에게커버.jpg">
-	     			<span>오브제</span></a></div>
-	     		</div>
-     		</div>
-     	</div>
-     </div>
-    </div>
-  </div>
-</div>
-<!-- 검색창 끝 -->
 
 <!--메뉴 아이콘-->
 <!-- 비로그인시 메뉴 아이콘 열리는 사이드바 -->
@@ -384,9 +285,10 @@ margin-top: 240px;
   <p>관심오브제</p>
    <p>다녀온오브제</p>
 </details> 
-	</div>
-	<div class="fd"><a href="#">피드알림</a></div>
-	<div class="qna"><a href="#">문의내역</a></div>
+   </div>
+   <div class="fd"><a href="#">피드알림</a></div>
+   <div class="qna"><a href="#">문의내역</a></div>
+
 <div class="sidebar2">
 <nav role="navigation">
  <ul id="main-menu">
@@ -406,68 +308,7 @@ margin-top: 240px;
         </ul>
         </nav>
 </div>
-<div class="logout">
-<div class="tiny ui buttons">
-  <button class="ui inverted grey button" onclick="location.href='moveMyPageEdit.do'">내정보수정</button>
-  <div class="or"></div>
-  <button onclick="alert('로그아웃 되었습니다.');"class="ui inverted grey button">로그아웃</button>
- 
 </div>
-</div>
-</div>
-
- 
-
-<!-- <div class="sidebar">
-<div class="sidebar1">
-<div class="photo">
-<i class="big user circle icon"></i>
-</div>
-<div class="nickname">닉네임</div>
-<div class="follower">팔로워수</div>
-<div class="following">팔로잉수</div>
-</div>
-<div class="artistHome"><a href="artistHomeMain.do">작가홈</a></div>
-<div class="accordion">
-<input type="checkbox" name="accordion" id="answer01">
-	<label for="answer01"><a href="#">오브제관리</a><em></em></label>
-	<div class="homelist">전시관리</div>
-	<div class="homelist"><a href="#">전시등록</a></div>
-	<div class="homelist"><a href="#">관심 오브제</a></div>
-	<div class="homelist"><a href="#">다녀온 오브제</a></div></div>
-</div>
-<div class="fd">피드알림</div>
-<div class="que">문의내역</div>
-<div class="sidebar2">
-<nav role="navigation">
- <ul id="main-menu">
- 
-    <li><a href="#">홈</a></li>
-     
-    <li><a href="#">전시</a></li>
-    
-    <li><a href="#">작가</a></li>
-    
-    <li><a href="Movecs.do">고객센터</a>
-      <ul id="sub-menu">
-        <li><a href="#" aria-label="subemnu">FAQ</a></li>
-        <li><a href="#" aria-label="subemnu">공지사항</a></li>
-        </ul>
-        </li>
-        </ul>
-        </nav>
-</div>
-
-<div class="logout">
-<div class="tiny ui buttons">
-  <button class="ui inverted grey button" onclick="location.href='moveMyPageEdit.do'">내정보수정</button>
-  <div class="or"></div>
-  <button onclick="alert('로그아웃 되었습니다.');"class="ui inverted grey button">로그아웃</button>
- 
-</div>
-</div>
-
-메뉴 아이콘 열리는 사이드바 끝 -->
 </header>
 </body>
 </html>
