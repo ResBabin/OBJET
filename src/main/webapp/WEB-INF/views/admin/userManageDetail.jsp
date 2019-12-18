@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 회원 상세조회</title>
-<c:import url="../header.jsp"/>
 
 <!-- 시맨틱유아이 cdn -->
 <script
@@ -25,49 +24,61 @@
 tr {
 	height: 55px;
 }
+
+
 </style>
 <script type="text/javascript">
 	$(function() {
-		$("#a1").click(function() {
+		$("#aa1").click(function() {
 			$(".segment").hide();
-			$(".item").attr('class', 'item');
-			$("#a1").attr('class', 'item active');
+			$("#aa2, #aa3, #aa4").attr('class', 'item');
+			$("#aa1").attr('class', 'item active');
 			$("#d1").show();
 			$("#d01").show();
 		});
-		$("#a2").click(function() {
+		$("#aa2").click(function() {
 			$(".segment").hide();
 			$("#d2").show();
-			$(".item").attr('class', 'item');
-			$("#a2").attr('class', 'item active');
+			$("#aa1, #aa3, #aa4").attr('class', 'item');
+			$("#aa2").attr('class', 'item active');
 		});
-		$("#a3").click(function() {
+		$("#aa3").click(function() {
 			$(".segment").hide();
 			$("#d3").show();
-			$(".item").attr('class', 'item');
-			$("#a3").attr('class', 'item active');
+			$("#aa1, #aa2, #aa4").attr('class', 'item');
+			$("#aa3").attr('class', 'item active');
 		});
-		$("#a4").click(function() {
+		$("#aa4").click(function() {
 			$(".segment").hide();
 			$("#d4").show();
-			$(".item").attr('class', 'item');
-			$("#a4").attr('class', 'item active');
+			$("#aa1, #aa2, #aa3").attr('class', 'item');
+			$("#aa4").attr('class', 'item active');
 		});
+
 		$('.ui.accordion').accordion();
+
+		$("#menucon").click(function() {
+			$('.ui.labeled.icon.sidebar').sidebar('toggle');
+		});
+
+		$('#di').dropdown({
+		});
 	});
 </script>
+	<c:import url="adminHeader.jsp"/>
 </head>
+
 <body>
 	<div id="um">
 		<h2 class="ui center aligned icon header">회원 상세정보</h2>
 		<br>
 		<div class="ui secondary pointing menu">
-			<a class="item active" id="a1" style="line-height: 20px;"> 개인 정보 </a>
-			<a class="item" id="a2" style="line-height: 20px;">작가 소개</a> <a
-				class="item" id="a3"style="line-height: 20px;"> 작품 정보
-				<div class="ui label">${ userob.size() }</div>
-			</a> <a class="item" id="a4"style="line-height: 20px;"> 신고 내역
-				<div class="ui label">${ userrp.size() }</div>
+			<a class="item active" id="aa1" style="line-height: 20px;"> 개인 정보
+			</a> <a class="item" id="aa2" style="line-height: 20px;">작가 소개</a> <a
+				class="item" id="aa3" style="line-height: 20px;"> 작품 정보
+				<div class="ui black label">${ userob.size() }</div>
+			</a> <a class="item" id="aa4" style="line-height: 20px;"> 신고 내역
+				<div class="ui black label">${ userrp.size() }</div>
 			</a>
 		</div>
 		<div class="ui segment" id="d1">
@@ -117,9 +128,7 @@ tr {
 						<i class="plus icon"></i>
 					</div>
 				</div>
-				<table
-					class="ui definition very single line collapsing celled table"
-					style="font-size: 11pt;">
+				<table class="ui definition very single line collapsing celled table" style="font-size: 11pt;">
 					<thead>
 					</thead>
 					<tbody align="center">
@@ -172,7 +181,7 @@ tr {
 			${ usermd.userintrol }<br> <br>
 			<h3 class="ui dividing header">관련 태그</h3>
 			<c:forTokens items="${ usermd.usertag }" delims="," var="usertag">
-				<div class="ui small violet tag label">${ usertag }</div>&nbsp;
+				<div class="ui small label">${ usertag }</div>&nbsp;
 			</c:forTokens>
 			<br> <br>
 			<h3 class="ui dividing header">포트폴리오</h3>
@@ -194,7 +203,7 @@ tr {
 								<div class="description">
 									<c:forTokens items="${ userob.objettag }" var="objettag"
 										delims=",">
-										<div class="ui tiny red tag label">${ objettag }</div>&nbsp;
+										<div class="ui tiny red label">${ objettag }</div>&nbsp;
 								</c:forTokens>
 								</div>
 							</div>
@@ -211,13 +220,13 @@ tr {
 			<c:if test="${ !empty userrp }">
 				<c:set var="userrpcount" value="${ userrp.size() }" />
 				<h5 style="margin-top: 20px; width: 600px;">전체 신고내역 &nbsp; :
-					&nbsp; ${ userrpcount }</h5>
+					&nbsp; ${ userrpcount } 건</h5>
 				<br>
 				<div class="ui styled accordion" align="left">
 					<c:forEach items="${ userrpt }" var="userrpt" varStatus="dd">
-						<div class="title">
-							<div style="position: absolute; right: 50px; color: #444;">${ userrpt.reportucount }</div>
+						<div class="title" style="display: flex;">
 							<i class="dropdown icon"></i> ${ userrpt.reportureason }
+							<div style=" margin-left: 20px; color: #777;">${ userrpt.reportucount } 건 </div>
 						</div>
 						<div class="content">
 							<c:forEach items="${ userrp }" var="userrp">
@@ -255,6 +264,7 @@ tr {
 			</button>
 		</div>
 	</div>
-	<c:import url="../footer.jsp"/>
+	<c:import url="../footer.jsp" />
 </body>
+
 </html>
