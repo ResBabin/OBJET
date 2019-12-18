@@ -21,16 +21,18 @@
        var placeholder = $("#search-text");
        
        $('#close-btn').click(function() {
-         $('#search-overlay').fadeOut();
-         $('#search-btn').show();
-         $("#search-btn2").css("color", "#d6d6d6");
-         $(".main").css("display", "table");
-         $(".objet_main").css("display", "block");
-         if(placeholder.val() != ""){
-           placeholder.val("");
+           $('#search-overlay').fadeOut();
+           $('#search-btn').show();
            $("#search-btn2").css("color", "#d6d6d6");
-        }
-       });
+           $(".main").css("display", "table");
+           $(".objet_main").css("display", "block");
+           $(".search_keyword").css("display", "none");
+           $(".search_keyword").hide();
+           if(placeholder.val() != ""){
+             placeholder.val("");
+             $("#search-btn2").css("color", "#d6d6d6");
+          }
+         });
        $('#search-btn').click(function() {
          $(this).hide();
          $('#search-overlay').fadeIn();
