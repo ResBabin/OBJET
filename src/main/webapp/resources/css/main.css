@@ -3,3 +3,17 @@
 @import url(http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
 
 *{
+	font-family: "Cormorant SemiBold", 'Nanum Gothic';
+/* 	nth-of-type(1) font-weight: 300; 
+	nth-of-type(2) font-weight: 400;
+	nth-of-type(3) font-weight: 700;
+	font-family: 'Nanum Gothic', sans-serif; */
+}
+
+body{ 
+	font-family: 'Nanum Gothic';
+}
+
+h1, h2, h3, h4, h5, p, span, strong, a, b{
+	font-family: 'Nanum Gothic';
+}
