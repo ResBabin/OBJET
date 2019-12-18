@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminMapper">
+
+	<select id="selectUsers" resultType="Userm">
+		select userid, nickname,
+		username, blackyn, enrolldate, quityn, count(reportedu) as
+		"reportcount" from users
+		left join reportudetail on (userid =
+		reportedu)
+		where userid not like '%admin%'
+		group by userid, nickname, username,
+		blackyn, enrolldate, quityn
+		order by userid
+	</select>
+
+	<select id="selectBlacklist" resultType="Userm">
+		select * from blacklist
+		join users using (userid)
+		order by userid
+	</select>
+
+	<select id="selectUserDetail" resultType="Userm"
+		parameterType="string">
+		select * from users
+		left join usersprofile using (userid)
+		where userid = #{value}
+	</select>
+
+	<select id="selectUserObjet" resultType="Objet"
+		parameterType="string">
+		select * from objet
+		where userid = #{value}
+	</select>
+
+	<select id="selectUserReport" resultType="ReportUDetail"
+		parameterType="string">
+		select * from reportudetail
+		where reportedu = #{value}
+	</select>
+
+	<select id="selectUserReportTotal" resultType="ReportUDetail"
+		parameterType="string">
+		select count(*) as "reportucount", reportureason
+		from
+		reportudetail
+		where reportedu = #{value}
+		group by reportureason
+	</select>
+
+	<select id="selectAllObjet" resultType="Objet">
+		select *
+		from objet
+	</select>
+
+	<select id="selectObjetOne" resultType="Objet"
+		parameterType="_int">
+		select *
+		from objet
+		where objetno = #{value}
+	</select>
+
+	<select id="selectNoticeList" resultType="Notice">
+		select *
+		from notice
+		order by noticeno desc
+	</select>
+	
+	<select id="selectNoticeDetail" resultType="Notice" parameterType="_int">
+		select *
+		from notice
+		where noticeno = #{ value } 
+	</select>
+
+</mapper>

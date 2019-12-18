@@ -14,10 +14,10 @@ public class ObjetManagementDao {
 	private SqlSessionTemplate mybatisSession;
 	public ObjetManagementDao() {}
 	public List<Objet> selectAllObjet() {
-		return mybatisSession.selectList("objetmMapper.selectAllObjet");
+		return mybatisSession.selectList("adminMapper.selectAllObjet");
 	}
 	public Objet selectObjetOne(int objetno) {
-		return mybatisSession.selectOne("objetmMapper.selectObjetOne", objetno);
+		return mybatisSession.selectOne("adminMapper.selectObjetOne", objetno);
 	}
 
 }

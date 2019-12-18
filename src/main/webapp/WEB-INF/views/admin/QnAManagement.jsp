@@ -5,12 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<c:import url="adminHeader.jsp"/>
 </head>
 <body>
-
-
-
 
 </body>
 </html>
