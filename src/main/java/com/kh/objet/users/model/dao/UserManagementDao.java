@@ -17,21 +17,21 @@ public class UserManagementDao {
 	private SqlSessionTemplate mybatisSession;
 	public UserManagementDao() {}
 	public List<UserManagement> selectUser() {
-		return mybatisSession.selectList("usermMapper.selectUsers");
+		return mybatisSession.selectList("adminMapper.selectUsers");
 	}
 	public List<BlackList> selectBlacklist() {
-		return mybatisSession.selectList("usermMapper.selectBlacklist");
+		return mybatisSession.selectList("adminMapper.selectBlacklist");
 	}
 	public UserManagement selectUserDetail(String userid) {
-		return mybatisSession.selectOne("usermMapper.selectUserDetail", userid);
+		return mybatisSession.selectOne("adminMapper.selectUserDetail", userid);
 	}
 	public List<Objet> selectUserObjet(String userid) {
-		return mybatisSession.selectList("usermMapper.selectUserObjet", userid);
+		return mybatisSession.selectList("adminMapper.selectUserObjet", userid);
 	}
 	public List<ReportUDetail> selectUserReport(String userid) {
-		return mybatisSession.selectList("usermMapper.selectUserReport", userid);
+		return mybatisSession.selectList("adminMapper.selectUserReport", userid);
 	}
 	public List<ReportUDetail> selectUserReportTotal(String userid) {
-		return mybatisSession.selectList("usermMapper.selectUserReportTotal", userid);
+		return mybatisSession.selectList("adminMapper.selectUserReportTotal", userid);
 	}
 }

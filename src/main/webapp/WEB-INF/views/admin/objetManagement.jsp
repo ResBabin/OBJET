@@ -33,6 +33,7 @@
 		});
 	});
 </script>
+<c:import url="adminHeader.jsp"/>
 </head>
 <body>
 	<div id="um">
@@ -69,7 +70,7 @@
 							<input type="checkbox" id="checkall"> <label></label>
 						</div>
 					</th>
-					<th class="sorted ascending" width="50">번호</th>
+					<th class="" width="50">번호</th>
 					<th class="">작가 ID</th>
 					<th class="">제목</th>
 					<th class="">전시 기간</th>

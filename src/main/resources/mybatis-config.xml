@@ -30,8 +30,7 @@
 		<mapper resource="mappers/board-mapper.xml" />
 		<mapper resource="mappers/notice-mapper.xml" />
 		<mapper resource="mappers/test-mapper.xml" /> -->
-	 	<mapper resource="mappers/userm-mapper.xml" /> 
-	 	<mapper resource="mappers/objetm-mapper.xml" /> 
+	 	<mapper resource="mappers/admin-mapper.xml" /> 
 		
 	</mappers>
 </configuration>

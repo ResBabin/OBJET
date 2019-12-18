@@ -34,6 +34,7 @@
 		});
 	});
 </script>
+<c:import url="adminHeader.jsp"/>
 </head>
 <body>
 	<div id="um">
