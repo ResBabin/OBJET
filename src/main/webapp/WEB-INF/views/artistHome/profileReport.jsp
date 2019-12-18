@@ -32,7 +32,7 @@
 	              $("#counter").css("display","none");
 	           // 이전 기타 textarea작성 값 초기화
 		        $("textarea[name=etc]").val("");
-		        $("#counter").html("( <span style='color:#4ecdc4;'>0</span> / 최대 100자 )");
+		        $("#counter").html("( <span style='color:#4ecdc4;font-size:9pt;'>0</span> / 최대 100자 )");
 	            
 	        }
     	});
@@ -41,12 +41,12 @@
 		// 기타사유 글자수 세기
 		 $("#etc").keyup(function(e){
 			 var content = $(this).val();
-			 $("#counter").html("( <span style='color:#4ecdc4;'>"+content.length+"</span> / 최대 100자 )");	// 글자수 실시간 카운팅
+			 $("#counter").html("( <span style='color:#4ecdc4;font-size:9pt;'>"+content.length+"</span> / 최대 100자 )");	// 글자수 실시간 카운팅
 			 
 			 if(content.length > 100){
 				 alert("최대 100자까지만 입력 가능합니다.");
 				 $(this).val(content.substring(0,100));
-				 $("#counter").html("( <span style='color:red;'>100 </span>/ 최대 100자)");
+				 $("#counter").html("( <span style='color:red;font-size:9pt;'>100 </span>/ 최대 100자)");
 			 } 
 			 
 		 });
@@ -61,9 +61,8 @@
 
 	<p style="font-size: 20pt; padding-top:50px; color:#373737; text-align:center;">작가 신고하기</p>
 	<p class="quitHeader" style="font-weight: 600;">어떤 문제가 있나요?</p>
-
+	<form action="" method="post">
 	<div align="center" style="padding-top: 15px;">
-		<form action="" method="post">
 			<div class="choiceReportReason">
 				<div class="ui form">
 					    <div class="field">
@@ -109,7 +108,7 @@
 					      </div>
 					    </div>
 						    <textarea rows="2" cols="10" name="etc" id="etc" disabled required></textarea>
-							<span style="color:#aaa; display: none;" id="counter">( <span style="color:#4ecdc4">0</span> / 최대 100자 )</span>
+							<span style="color:#aaa; display: none; font-size:9pt;" id="counter">( <span style="color:#4ecdc4;font-size:9pt;">0</span> / 최대 100자 )</span>
 							
 			</div>
 		</div>
@@ -121,15 +120,15 @@
 		<center>
 		<div style="width:515px;">
 		<p class="quitHeader" style="font-size: 8pt; color: #aaa; line-height: 12pt;">
-			오브제 팀에서는 신고된 작가의 커뮤니티 가이드 위반 여부를 판단하기 위해 연중무휴 24시간 검토 작업을 하고 있습니다.&ensp;
-			커뮤니티 가이드를 위반한 계정은 제재를 받게 되며 심각하거나 반복적인 위반 행위에 대해서는<br>계정 해지 조취가 취해질 수 있습니다.
+			오브제 팀에서는 신고된 작가의 커뮤니티 가이드 위반 여부를 판단하기 위해<br>연중무휴 24시간 검토 작업을 하고 있습니다.
+			커뮤니티 가이드를 위반한 계정은 제재를 받게 되며<br>심각하거나 반복적인 위반 행위에 대해서는 계정 해지 조취가 취해질 수 있습니다.
 		</p>
 		</div>
 		<br><br>
 		<input type="submit" class="ui green button" value="신고하기" id="btnsub"></a> &nbsp;
 		<input type="button" class="ui button" value="취소" onclick="location.href='main.do'"> &nbsp;
-		</form>
 	</center>
+	</form>
 	</div><!-- 작가신고 페이지 끝 -->
 	
 <br><br><br>

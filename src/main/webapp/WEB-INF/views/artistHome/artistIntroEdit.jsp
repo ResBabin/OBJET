@@ -169,16 +169,16 @@
 	<p class="artistIntroContent2">
 		<table class="editTagTable">
 			<tr>
-				<td><input type="checkbox" name="usertag" value="건축" onClick="count_ck(this);"> 건축<td>
-				<td><input type="checkbox" name="usertag" value="공예" onClick="count_ck(this);"> 공예<td>
-				<td><input type="checkbox" name="usertag" value="디자인" onClick="count_ck(this);"> 디자인<td>
-				<td><input type="checkbox" name="usertag" value="사진" onClick="count_ck(this);"> 사진<td>
+				<td><input type="checkbox" name="usertag" value="건축" onClick="count_ck(this);"> 건축</td>
+				<td><input type="checkbox" name="usertag" value="공예" onClick="count_ck(this);"> 공예</td>
+				<td><input type="checkbox" name="usertag" value="디자인" onClick="count_ck(this);"> 디자인</td>
+				<td><input type="checkbox" name="usertag" value="사진" onClick="count_ck(this);"> 사진</td>
 			</tr>
 			<tr>
-				<td><input type="checkbox" name="usertag" value="서예" onClick="count_ck(this);"> 서예<td>
-				<td><input type="checkbox" name="usertag" value="조각" onClick="count_ck(this);"> 조각<td>
-				<td><input type="checkbox" name="usertag" value="회화" onClick="count_ck(this);"> 회화<td>
-				<td><input type="checkbox" name="usertag" value="기타" onClick="count_ck(this);"> 기타<td>
+				<td><input type="checkbox" name="usertag" value="서예" onClick="count_ck(this);"> 서예</td>
+				<td><input type="checkbox" name="usertag" value="조각" onClick="count_ck(this);"> 조각</td>
+				<td><input type="checkbox" name="usertag" value="회화" onClick="count_ck(this);"> 회화</td>
+				<td><input type="checkbox" name="usertag" value="기타" onClick="count_ck(this);"> 기타</td>
 			</tr>
 		</table>
 	</p>

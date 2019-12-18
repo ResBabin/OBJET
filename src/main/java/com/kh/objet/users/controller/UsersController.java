@@ -127,5 +127,13 @@ public class UsersController {
 		public String moveProfileReport() {
 			return "artistHome/profileReport";
 		}
+		
+		
+	// 피드알림 관련 -----------------------------------------------
+	// 피드알림 페이지 이동
+		@RequestMapping("moveFeedList.do")
+		public String moveFeedList() {
+			return "user/feedList";
+		}
 			
 }

@@ -24,7 +24,7 @@
 <!-- 팔로잉 목록 페이지 시작! -->
 	<div class="wrapFollowingPage">
 	
-		<p style="font-size: 23pt; padding-top:50px; color:#373737; text-align:center;">오브제프로젝트 작가가 구독하는 <span style="color:#2bddbe;" id="count">34</span>명</p>
+		<p style="font-size: 23pt; padding-top:50px; color:#373737; text-align:center;">이 작가가 구독하는 <span style="color:#2bddbe;font-size: 23pt;" id="count">34</span>명</p>
 		<br><br>
 		<center>
 		<div style="text-decoration: underline; color: #aaa; margin-top: -30px;">&emsp;&emsp;&emsp;</div>
@@ -57,8 +57,7 @@
 		
 	</div><!-- 팔로잉 목록 페이지 끝! -->
 	
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br>
 </body>
 <c:import url="../footer.jsp" />
 </html>

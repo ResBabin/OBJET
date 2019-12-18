@@ -49,12 +49,12 @@ $(function(){
     // 방명록 글자수 세기
 	 $("#gbcontent").keyup(function(e){
 		 var content = $(this).val();
-		 $("#counter").html("( <span style='color:#4ecdc4;'>"+content.length+"</span> / 최대 500자 )");	// 글자수 실시간 카운팅
+		 $("#counter").html("( <span style='color:#4ecdc4;font-size: 9pt;'>"+content.length+"</span> / 최대 500자 )");	// 글자수 실시간 카운팅
 		 
 		 if(content.length > 500){
 			 alert("최대 500자까지만 입력 가능합니다.");
 			 $(this).val(content.substring(0,500));
-			 $("#counter").html("( <span style='color:red;'>500 </span>/ 최대 500자)");
+			 $("#counter").html("( <span style='color:red;font-size: 9pt;'>500 </span>/ 최대 500자)");
 		 } 
 		 
 	 });
@@ -66,6 +66,7 @@ $(function(){
 <body>
 
 <!-- 작가홈 시작 -->
+
 <div class="wrapHome">
 
 	<!-- 상단 프로필 부분 -->
@@ -112,6 +113,7 @@ $(function(){
 			<a id="item" class="item" data-tab="second">오브제</a>
 			<a id="item" class="item" data-tab="thrid">방명록</a>
 		</div>
+	</div>
 		
 	<!-- 작가소개 영역 ************************************************************************************************** -->
 		<div class="ui tab active" data-tab="first">
@@ -135,7 +137,7 @@ $(function(){
 					2019.12.26 프로젝트 구현<br>
 					2019.12.16 클래스,시퀀스 설계<br>
 					2019.12.02 DB설계<br>
-					2019.11.18 UI설계<br>
+					2019.11.18 UI설계<br>	
 					2019.11.11 프로젝트 기획
 		 		</p>
 		 	<p class="artistIntroCategory">작가 연결사이트</p>
@@ -147,22 +149,136 @@ $(function(){
 		 	</div>
 		 	
 		 	<!-- 작가홈 본인일때만 작가소개 수정 버튼 -->
-		 	<br><br><br><br><br><br>
+		 	<br><br><br><br><br>
 			<div align="center"><button class="ui medium grey basic button" id="editArtistIntro" onclick="location.href='moveArtistIntroEdit.do'">작가소개 수정</button></div>
-			<br><br><br>
+			<br>
 		</div>
 		
 		
 	<!-- 오브제 영역 ************************************************************************************************** -->	
 		<div class="ui tab" data-tab="second">
-			<div class="innerTab">오브제 부분</div>
+			<div class="innerTab">
+				<div class="artisthomeObjetSection">
+				
+				<!-- 오브제 리스트 테이블 시작! -->
+				<table class="artisthomeObjetTable">
+					<tr style="height:23px;">
+						<!-- 오브제 제목, 상태, 전시관람 버튼 영역 -->
+						<td style="width:85%;padding-top:30px;">
+							<div style="float: left;font-size: 15pt; font-weight:600; color:#202020;">애니메이션의 확장&ensp;</div>
+							<div class="objetStatusLabel" style="background:#df0000;">전시중</div>
+							<div class="objetStatusLabel" style="background:#202020; display: none;">전시예정</div>
+							<div class="objetStatusLabel" style="background:#aaa; display: none;">전시종료</div>
+						</td>
+						<td rowspan="2" style="width:15%; text-align: center;padding-top:30px;">
+							<button class="ui tiny blue button">전시관람</button>
+						</td>
+					</tr>
+					<tr style="height: 10px;">
+						<!-- 오브제 기간 영역 -->
+						<td style="width:85%; font-size: 9pt;">2019.12.02(월) ~ 2019.12.24(화)</td>
+					</tr>
+					<tr>
+						<!-- 오브제 포스터 영역 -->
+						<td colspan="2">
+							<div class="artisthomeObjetListImg" style="background-image:url('resources/objet_upfiles/animation.jpg') "></div>
+						</td>
+					</tr>
+					<tr>
+						<!-- 오브제 소개 영역 -->
+						<td colspan="2">
+							<div class="artisthomeObjetListIntro">
+								각기 상이하지만, 동시대 뉴 미디어 기술을 바탕으로 새로운 형식의 예술 장르를 탐구하고자 하는 진취적 시도라는 점에서 함께 묶어낼 수 있다. 우리가 함께 살고있는 디지털 환경 속에 애니메이션이라는 장르가 유연하게 녹아들 수 있도록 그 개념을 확장하고, 현대미술 분야에서 애니메이션의 예술적인 어쩌구다.
+								각기 상이하지만, 동시대 뉴 미디어 기술을 바탕으로 새로운 형식의 예술 장르를 탐구하고자 하는 진취적 시도라는 점에서 함께 묶어낼 수 있다. 우리가 함께 살고있는 디지털 환경 속에 애니메이션이라는 장르가 유연하게 녹아들 수 있도록 그 개념을 확장하고, 현대미술 분야에서 애니메이션의 예술적인 어쩌구다.
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<!-- 관련태그 영역 -->
+						<td colspan="2">
+							<a class="ui mini grey basic label">디자인</a>
+							<a class="ui mini grey basic label">건축</a>
+							<a class="ui mini grey basic label">사진</a>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="artisthomeObjetTableLastTr"><!-- 관심 댓글 조회수 영역 -->
+							<div style="font-size: 9pt;">관심 21&ensp;·&ensp;댓글  18&ensp;·&ensp;<i class="small eye icon"></i> 0</div>
+						</td>
+					</tr>
+				</table>
+				
+				
+				<table class="artisthomeObjetTable">
+					<tr style="height:23px;">
+						<!-- 오브제 제목, 상태, 전시관람 버튼 영역 -->
+						<td style="width:85%;padding-top:30px;">
+							<div style="float: left;font-size: 15pt; font-weight:600; color:#202020;">보통의 거짓말&ensp;</div>
+							<div class="objetStatusLabel" style="background:#df0000;display: none;">전시중</div>
+							<div class="objetStatusLabel" style="background:#202020; display: none;">전시예정</div>
+							<div class="objetStatusLabel" style="background:#aaa;">전시종료</div>
+						</td>
+						<td rowspan="2" style="width:15%; text-align: center;padding-top:30px;">
+							<button class="ui tiny grey button" disabled>전시종료</button>
+						</td>
+					</tr>
+					<tr style="height: 10px;">
+						<!-- 오브제 기간 영역 -->
+						<td style="width:85%; font-size: 9pt;">2019.10.09(수) ~ 2019.11.08(금)</td>
+					</tr>
+					<tr>
+						<!-- 오브제 포스터 영역 -->
+						<td colspan="2">
+							<div class="artisthomeObjetListImg" style="background-image:url('resources/objet_upfiles/botong.jpg') "></div>
+						</td>
+					</tr>
+					<tr>
+						<!-- 오브제 소개 영역 -->
+						<td colspan="2">
+							<div class="artisthomeObjetListIntro">
+							누구나 알고는 있지만 깊게 생각하지 않았던, 그러나 어느 순간부터 그 정도와 가치가 너무 흔해진 '거짓말'. 거짓말에 대한 이번 전시  '보통의 거짓말 Ordinary Lie'가 새로운 예술 경험과 다양하게 생각할 주제들을 통해 관람객들에게 의미 있게 전달되기를 기대해 봅니다.
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<!-- 관련태그 영역 -->
+						<td colspan="2">
+							<a class="ui mini grey basic label">사진</a>
+							<a class="ui mini grey basic label">회화</a>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="artisthomeObjetTableLastTr"><!-- 관심 댓글 조회수 영역 -->
+							<div style="font-size: 9pt;">관심 109&ensp;·&ensp;댓글  614&ensp;·&ensp;<i class="small eye icon"></i> 3382</div>
+						</td>
+					</tr>
+				</table>
+				<!-- 오브제 리스트 테이블 끝! -->
+				
+				<br><br><br>
+				<!-- 페이징&검색 -->
+				<div align="center">페이징 부분</div>
+				<br><br>
+				
+				<div align="center">
+					<form action="" method="post">
+						오브제명&ensp;<div class="ui input"><input type="text" name="keyword"></div>
+					&ensp;<div class="ui buttons"><button class="ui button" type="submit">검색</button></div>
+					</form>
+				</div>
+			</div>
 		</div>
+	</div>
+		<!-- 오브제 부분 끝! -->
+		
+		
+		
 		
 		
 	<!-- 방명록 영역 ************************************************************************************************** -->
 		<div class="ui tab" data-tab="thrid">
 			<div class="innerTab">
-			
+			<br><br>
 			<!-- 본인 작가홈이 아닐 때 방명록 작성 칸 보이기 시작 -->
 				<div class="gblist">
 					<form action="" method="post">
@@ -170,12 +286,12 @@ $(function(){
 					<input type="hidden" name="artistid" value="">
 					<table class="gbwrite">
 						<tr><td style="width:15%"><div class="profileImage4" style="background-image:url('resources/images/basicprofilepic.png') "></div></td>
-							<td style="width:85%; height: 150px;"><div class="ui form"><textarea style="width:630px;margin-left:20px;"rows="5" cols="100" name="gbcontent" id="gbcontent" required></textarea></div></td>
+							<td style="width:85%; height: 150px;"><div class="ui form"><textarea style="width:600px;margin-left:20px;"rows="5" cols="100" name="gbcontent" id="gbcontent" required></textarea></div></td>
 						</tr>
 						<tr style="height:25px;">
 							<td></td>
-							<td><div style="color:#202020; margin-left:20px; margin-top:-15px;" id="counter">( <span style="color:#4ecdc4">0</span> / 최대 500자 )</div>
-								<span style="float:left; color:#202020; margin-left:515px; margin-top:-15px;"><input type="checkbox" name="privateyn" value="Y"><label>&ensp;비밀글</label></span>
+							<td><div style="color:#202020; margin-left:20px; margin-top:-15px; font-size: 9pt;" id="counter">( <span style="color:#4ecdc4; font-size: 9pt;">0</span> / 최대 500자 )</div>
+								<span style="float:left; color:#202020; margin-left:495px; margin-top:-15px;"><input type="checkbox" name="privateyn" value="Y"><label style="font-size: 9pt;">&ensp;비밀글</label></span>
 								<span><button class="ui mini button" type="submit" style="background: #4c4c4c; color:#fff; float:left;margin-left:10px; margin-top:-20px;">등록</button></span></td>
 						</tr>
 					</table>
@@ -189,7 +305,7 @@ $(function(){
 				<div class="gblist">
 					<table class="gbwrite">
 						<tr style="height:25px;">
-							<td colspan="2" style="width:auto; background:#dfdfdf;">
+							<td colspan="2" style="width:auto; background:#efefef;">
 								<span style="width:10%; margin-left: 20px;">No. 555551</span>
 				   				<span style="margin-left: 15px;"><a href='' style="font-weight: 600; color:#14123a;">티라미수맛아몬드</a></span>
 				  				<span style="margin-left: 5px;font-size: 9pt;">(2019.11.17  17:11)</span>
@@ -219,7 +335,7 @@ $(function(){
 						</form> -->
 						<!-- 작가홈 주인or관람객 답변 내용이 달렸을 때 -->
 						<tr>
-							<td colspan="2" style="height: 30px;background:#dfdfdf;">
+							<td colspan="2" style="height: 30px;background:#efefef;">
 								<span style="width:10%; margin-left: 20px; color:#4ecdc4; font-weight:600;">오브제프로젝트</span>
 								<span style="margin-left: 5px;font-size: 9pt;">(2019.11.17  17:11)</span>
 								<div style="float:right; margin-right:10px;">
@@ -228,7 +344,7 @@ $(function(){
 							</td>
 						</tr>
 						<tr>
-							<td colspan="2" style="background:#dfdfdf;">
+							<td colspan="2" style="background:#efefef;">
 								<p class="replycontent">아니ㅠㅠ댓글달지마 걍~</p></td>
 						</tr>
 						
@@ -241,7 +357,7 @@ $(function(){
 				<div class="gblist">
 					<table class="gbwrite">
 						<tr style="height:25px;">
-							<td colspan="2" style="width:auto; background:#dfdfdf;">
+							<td colspan="2" style="width:auto; background:#efefef;">
 				<!-- 방명록번호 --> <span style="width:10%; margin-left: 20px;">No. 555550</span>
 				   <!-- 작성자 --> <span style="margin-left: 15px;"><a href='' style="font-weight: 600; color:#14123a;">티라미수맛아몬드</a></span>
 				   <!-- 작성일 --> <span style="margin-left: 5px;font-size: 9pt;">(2019.11.17  17:11)</span>
@@ -256,14 +372,14 @@ $(function(){
 						</tr>
 						<tr><td style="width:15%"><div class="profileImage4" style="background-image:url('resources/images/basicprofilepic.png') "></div></td>
 							<td style="width:85%;"><div class="gbcontent">
-							<i class="large teal lock icon"></i><span style="color:#4ecdc4;">비밀글입니다 :)</span><br><br>
+							<i class="large teal lock icon"></i><span style="color:#4ecdc4;font-size: 10pt;">비밀글입니다 :)</span><br><br>
 							작가홈 주인이거나<br>자신이 남긴 글일 때만<br>해당 비밀글이 보이고<br>아니면 그냥 비밀글입니다만 보이게 해야 함</div>
 						</tr>
 						<tr style="height:60px;">
 						<form action="" method="post">
 						<input type="hidden" name="gbno" value="">
 						<input type="hidden" name="replyprivateyn" value="">
-							<td colspan="2" style="background:#dfdfdf;"><div class="ui form" style="float:left;"><textarea style="width:680px;height:30px;margin-left:20px;"rows="1" cols="100" name="replycontent" id="replycontent" placeholder="댓글을 입력하세요. 최대 100자까지 입력 가능합니다." required></textarea></div>
+							<td colspan="2" style="background:#efefef;"><div class="ui form" style="float:left;"><textarea style="width:650px;height:30px;margin-left:20px;"rows="1" cols="100" name="replycontent" id="replycontent" placeholder="댓글을 입력하세요. 최대 100자까지 입력 가능합니다." required></textarea></div>
 							<span><button class="ui mini button" type="submit" style="background: #4c4c4c; margin-left:20px;color:#fff;">등록</button></span></td>
 						</form>
 						</tr>
@@ -295,8 +411,7 @@ $(function(){
 				<!-- 작가홈 구경온 사람일 때는 내가 쓴 글 보기 -->
 			<br>
 			<div align="center"><button class="ui medium grey basic button" id="mygblist" onclick="location.href=''">내가 쓴 글 보기</button></div>
-			<br><br><br>
-				
+		
 			</div>
 			
 		</div>
@@ -304,11 +419,12 @@ $(function(){
 	</div><!-- 작가홈 메뉴바 끝! -->
 
 	
-</div> <!-- 작가홈 끝! -->
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+ <!-- 작가홈 끝! -->
+
+
 </body>
+
+<br><br>
 <c:import url="../footer.jsp" />
 </html>
