@@ -184,27 +184,27 @@ img {vertical-align: middle;}
   
   <div class="mySlides fade">
   <div class="numbertext">1 / 5</div>
-  <img src="resources/images/main/main1.jpg" style="width:990px; height:320px;">
+  <img src="resources/images/main/main1.jpg" style="width:1400px; height:450px;">
   
 </div>
 
 <div class="mySlides fade">
   <div class="numbertext">2 / 5</div>
-  <img src="resources/images/main/main2.jpg" style="width:990px; height:320px;">
+  <img src="resources/images/main/main2.jpg" style="width:1400px; height:450px;">
   
 </div>
 
 <div class="mySlides fade">
   <div class="numbertext">3 / 5</div>
-  <img src="resources/images/main/main6.jpg" style="width:990px; height:320px;">
+  <img src="resources/images/main/main6.jpg" style="width:1400px; height:450px;">
   </div>
   <div class="mySlides fade">
 <div class="numbertext">4 / 5</div>
-  <img src="resources/images/main/sample2.jpg" style="width:990px; height:320px;">
+  <img src="resources/images/main/sample2.jpg" style="width:1400px; height:450px;">
   </div>
   <div class="mySlides fade">
  <div class="numbertext">5 / 5</div>
-  <img src="resources/images/main/sample4.jpg" style="width:990px; height:320px;">
+  <img src="resources/images/main/sample4.jpg" style="width:1400px; height:450px;">
   </div>
 </div>
 
