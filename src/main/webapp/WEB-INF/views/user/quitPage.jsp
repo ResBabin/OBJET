@@ -33,7 +33,7 @@
 	              $("#counter").css("display","none");
 	          	 // 이전 기타 textarea작성 값 초기화
 			        $("textarea[name=etc]").val("");
-			        $("#counter").html("( <span style='color:#4ecdc4;'>0</span> / 최대 100자 )");
+			        $("#counter").html("( <span style='color:#4ecdc4;font-size:9pt;'>0</span> / 최대 100자 )");
 	            
 	        }
     	});
@@ -42,12 +42,12 @@
 		// 기타사유 글자수 세기
 		 $("#etc").keyup(function(e){
 			 var content = $(this).val();
-			 $("#counter").html("( <span style='color:#4ecdc4;'>"+content.length+"</span> / 최대 100자 )");	// 글자수 실시간 카운팅
+			 $("#counter").html("( <span style='color:#4ecdc4;font-size:9pt;'>"+content.length+"</span> / 최대 100자 )");	// 글자수 실시간 카운팅
 			 
 			 if(content.length > 100){
 				 alert("최대 100자까지만 입력 가능합니다.");
 				 $(this).val(content.substring(0,100));
-				 $("#counter").html("( <span style='color:red;'>100 </span>/ 최대 100자)");
+				 $("#counter").html("( <span style='color:red;font-size:9pt;'>100 </span>/ 최대 100자)");
 			 } 
 			 
 		 });
@@ -107,7 +107,7 @@
 					      </div>
 					    </div>
 						    <textarea rows="2" cols="10" name="etc" id="etc" disabled required></textarea>
-							<span style="color:#aaa; display: none;" id="counter">( <span style="color:#4ecdc4">0</span> / 최대 100자 )</span>
+							<span style="color:#aaa; display: none; font-size:9pt;" id="counter">( <span style="color:#4ecdc4;font-size:9pt;">0</span> / 최대 100자 )</span>
 							
 			</div>
 		</div>
@@ -117,8 +117,9 @@
 
 		<br> <br>
 		<p class="quitHeader" style="font-size: 8pt; color: #aaa;">
+		
 			탈퇴하시면 이용 중인 오브제가 폐쇄되며, 
-			<span style="color: red;">모든 데이터는 복구가불가능합니다.</span>
+			<span style="color: red; font-size: 8pt;">모든 데이터는 복구가 불가능합니다.</span>
 		</p>
 		<p class="quitHeader" style="font-size: 8pt; color: #aaa;">
 		아래 사항을 확인하신 후에 신중하게 결정해 주세요.</p>

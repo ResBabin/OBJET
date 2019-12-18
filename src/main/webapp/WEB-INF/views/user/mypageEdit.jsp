@@ -81,7 +81,7 @@
 	</div>
 	
 	<!-- 회원정보입력섹션 끝! -->
-	<p style="text-decoration: underline; color:#aaa;padding-top:15px;" onclick="location.href='moveQuitPage.do'">탈퇴하기</p>
+	<p style="text-decoration: underline; color:#aaa;padding-top:15px; font-size: 10pt;" onclick="location.href='moveQuitPage.do'">탈퇴하기</p>
 		<br>
 		<div align="center">
 			<input type="submit" class="ui green button" value="수정하기" id="btnsub"></a> &nbsp;

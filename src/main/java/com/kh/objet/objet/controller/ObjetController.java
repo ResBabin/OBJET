@@ -33,6 +33,35 @@ public class ObjetController {
 	public String moveTestPage() {
 		return "objet/NewFile";
 	}
+	
+	
+	
+	
+	
+	// 최민영 *******************************************************************************
+	// 오브제 관리-전시관리 페이지 이동
+	@RequestMapping("moveMyObjetList.do")
+	public String moveMyObjetList() {
+		return "objet/myObjetList";
+	}
+	
+	// 오브제 관리 - 관심오브제 페이지 이동
+	@RequestMapping("moveMyLikeObjetList.do")
+	public String moveMyLikeObjetList() {
+		return "objet/myLikeObjetList";
+	}
+	
+	// 오브제 관리 - 다녀온 오브제 페이지 이동
+	@RequestMapping("moveMyVisitedObjetList.do")
+	public String moveMyVisitedObjetList() {
+		return "objet/myVisitedObjetList";
+	}
+	
+	//오브제 관리 - 전시 등록 페이지 이동
+	@RequestMapping("moveCreateObjet.do")
+	public String moveCreateObjet() {
+		return "objet/createObjet";
+	}
 
 
 

@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+
 <!-- 시맨틱유아이 cdn -->
 <script type="text/javascript" src="/objet/resources/js/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
@@ -20,6 +21,7 @@
 <link rel = "stylesheet" type="text/css" href="/objet/resources/css/main.css">
 <link rel = "stylesheet" type="text/css" href="/objet/resources/css/search.css">
 <style type="text/css">
+
 /* 메뉴아이콘 */
 input[id="menuicon"] {display:none;}
 input[id="menuicon"] + label {display:block;width:40px;height:30px;position:absolute;cursor:pointer;}
@@ -280,22 +282,22 @@ height: 22%;
   <summary>
     오브제 관리
   </summary>
-  <p>전시관리</p>
-  <p>전시등록</p>
-  <p>관심오브제</p>
-   <p>다녀온오브제</p>
+  <p onclick="location.href='moveMyObjetList.do'">내 오브제</p>
+  <p onclick="location.href='moveCreateObjet.do'">오브제 등록</p>
+  <p onclick="location.href='moveMyLikeObjetList.do'">관심 오브제</p>
+   <p onclick="location.href='moveMyVisitedObjetList.do'">다녀온 오브제</p>
 </details> 
    </div>
-   <div class="fd"><a href="#">피드알림</a></div>
-   <div class="qna"><a href="#">문의내역</a></div>
+   <div class="fd"><a href="moveFeedList.do">피드알림</a></div>
+   <div class="qna"><a href="moveMyQnaList.do">문의내역</a></div>
 
 <div class="sidebar2">
 <nav role="navigation">
  <ul id="main-menu">
  
-    <li><a href="#">홈</a></li>
+    <li><a href="main.do">홈</a></li>
      
-    <li><a href="#">전시</a></li>
+    <li><a href="objetMain.do">전시</a></li>
     
     <li><a href="#">작가</a></li>
     
