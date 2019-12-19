@@ -14,7 +14,6 @@
   padding: 10px;
   text-align: center;
   color: black;
-  heigt: 500px;
 }
 </style>
 </head>
