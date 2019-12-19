@@ -19,7 +19,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-<!-- Link Swiper's CSS -->
  <link rel="stylesheet" href="resources/css/swiper.min.css">
  <style>
 .swiper1 {
@@ -121,20 +120,22 @@
 }
 .objet_title{
 	font-family: 'Nanum Myeongjo';
-	nth-of-type(1) font-weight: 300; 
-    font-size: 30pt;
+	nth-of-type(1) font-weight: 400; 
+    font-size: 32px;
     text-align: center;
+    letter-spacing: 1px;
 }
 .objet_subtitle{
-	font-family:'Nanum Myeongjo';
-	nth-of-type(1) font-weight: 300; 
-    font-size: 12pt;
+	font-family:'Nanum Gothic';
+	nth-of-type(1) font-weight: 400; 
+    font-size: 14px;
     text-align: center;
     color: gray;
+    margin-top:-10px;
 }
 
 .objet_info_top{
-	margin-left:10%;
+	margin-left:13%;
 }
 
 .objet_info{
@@ -287,43 +288,123 @@
     opacity: .8;
 }
 /* artist pic */
+.objet_artist{
+	background:#fff;
+}
 .artist_pic {
   margin: 40px 0 0 0;
   width: 100%; 
   overflow:hidden;
-  height:450px;
+  height:auto;
+  
 }
 .artist_pic_main {
   width: 100%; 
   height: 100%;
+  margin-left:5%;
 }
-.swiper3{
-	width: 80%;
-	height: 100%;
+.artist_card {
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
+  min-width: 230px;
+  max-width: 315px;
+  width: 100%;
+  text-align: center;
+  background-color: #ffffff;
+  float:left;
+  /* border: 1px solid #ccc; */
+  margin-right:40px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
-.slide3 {
-	border: 1px solid lightgray;
-	text-align: center;
-	font-size: 14px;
-	background: #fff;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	-webkit-justify-content: center;
-	justify-content: center;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	-webkit-align-items: center;
-	align-items: center;
-	align: center;
-	font-family: 'Nanum Myeongjo', sans-serif;
-	font-weight: 300; 
-	color: #959595;
-	line-height: 36px;
-} 
+.artist_card * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
+.img_blur {
+	-webkit-filter: blur(1px);
+  filter: blur(1px);
+}
+.img_blur:hover {
+	-webkit-filter: blur(0px);
+  filter: blur(0px);
+}
+.profile_back {
+  max-width: 100%;
+  opacity: 0.6;
+  -webkit-filter: grayscale(100%);
+  filter: gray;
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transition: all 0.4s ease-in-out;
+}
+.profile_back:hover {
+  opacity: 1;
+  -webkit-filter: grayscale(0%);
+	filter: none;
+	transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+}
+
+.artist_card figcaption {
+  width: 100%;
+  background-color: #ffffff;
+  padding: 25px;
+  position: relative;
+}
+
+.artist_card .profile_pic {
+  border-radius: 50%;
+  position: absolute;
+  bottom: 90%;
+  left: 105px;
+  max-width: 100px;
+  opacity: 1;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  align:center;
+}
+.artist_card a{
+	align:center;
+}
+.artist_card h2 {
+  margin: 30px 0 0 0px;
+  font-weight: 400;
+  color: #333333;
+  font-size:20px;
+  text-align:center;
+  font-weight: bolder;
+  letter-spacing: 1px; 
+}
+.artist_card h2 span {
+  margin: 10px 0 0 0px;
+  display: block;
+  font-size: 12px;
+  color: #666666;
+  text-align:center;
+  font-weight: bolder;
+  letter-spacing: 1.5px; 
+}
+.artist_card p {
+   margin: 10px 0 15px 0px;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  opacity: 0.9;
+  color: #959595;
+  text-align:center;
+  line-height: 20px;
+  font-weight: normal; 
+}
+.artist_card #tag {
+	margin: 20px 5px 15px 0px;
+}
 </style>
 </head>
 <body>
@@ -339,7 +420,7 @@
 <div class="swiper-container swiper1">
   <div class="swiper-wrapper wrapper1">
     <div class="swiper-slide slide1">
-      <a href="${pageContext.servletContext.contextPath }/objetTest.do">
+      <a href="${pageContext.servletContext.contextPath }/objetReview.do">
       <div class="slide-inner inner1" style="background-image:url(resources/images/objet/objetmainposter.jpg)"></div>
       <div class="info"><span class="text">나는 코코 카피탄, <br> 오늘을 살아가는 너에게<br> 
       <span class="date">2019.08.02 - 2019.12.12<span></span><br></span></div></a>
@@ -420,7 +501,7 @@
 
 	    var swiper = new Swiper(".swiper1", swiperOptions);
 	  </script>
-</div>
+</div><br><br>
 <!-- 전시 추천(더보기 리스트)  -->
 <div class="objet_exhibition">
 <h3 class="objet_title">OBJET EXHIBITION</h3>
@@ -432,7 +513,7 @@
 	<div class="swiper-container swiper2">
   	<div class="swiper-wrapper wrapper2">
     <div class="swiper-slide slide2">
-      <a href="${pageContext.servletContext.contextPath }/objetTest.do">
+      <a href="${pageContext.servletContext.contextPath }/objetReview.do">
       <div class="slide-inner inner2" style="background-image:url(resources/images/objet/objetmainposter.jpg)"></div>
       <div class="info2"><span class="text2">나는 코코 카피탄, <br> 오늘을 살아가는 너에게<br> 
       <span class="artist2">by 코코 카피탄<span></span><br></span></div></a>
@@ -507,7 +588,7 @@
 	  </script>
 	</div>
 </div>
-</div><br><br>
+</div><br><br><br><br><br><br>
 <!-- 작가 추천 (더보기 리스트) -->
 <div class="objet_artist">
 <h3 class="objet_title">OBJET ARTIST</h3>
@@ -516,43 +597,77 @@
 <i class="material-icons" style="font-size:16px;vertical-align: middle;top:5px;">&#xe315;</i></span></a>
 <div class="artist_pic">
 <div class="artist_pic_main">
-<div class="swiper-container swiper3">
-    <div class="swiper-wrapper wrapper3">
-      <div class="swiper-slide slide3">Slide 1</div>
-      <div class="swiper-slide slide3">Slide 2</div>
-      <div class="swiper-slide slide3">Slide 3</div>
-      <div class="swiper-slide slide3">Slide 4</div>
-      <div class="swiper-slide slide3">Slide 5</div>
-      <div class="swiper-slide slide3">Slide 6</div>
-      <div class="swiper-slide slide3">Slide 7</div>
-      <div class="swiper-slide slide3">Slide 8</div>
-      <div class="swiper-slide slide3">Slide 9</div>
-      <div class="swiper-slide slide3">Slide 10</div>
-    </div>
-    <!-- Add Pagination -->
-    <div class="swiper-pagination"></div>
-  </div>
-  <script type="text/javascript" src="resources/js/swiper.min.js"></script>
-  <script type="text/javascript">
-    var swiper = new Swiper('.swiper3', {
-      slidesPerView: 3,
-      spaceBetween: 60,
-      loopFillGroupWithBlank: true,
-      loop: true,
-      navigation: {
-        nextEl: ".swiper-button-next3",
-        prevEl: ".swiper-button-prev3"
-      },
-      pagination: {
-        el: '.swiper-pagination3',
-        clickable: true,
-      },
-    });
-  </script>
+<figure class="artist_card hover">
+<div class="img_blur">
+<img src="resources/images/objet/나의오랜연인에게커버.jpg" class="profile_back"></div>
+  <figcaption>
+    <img src="resources/images/objet/나의 오랜 연인에게2.jpg" class="profile_pic">
+    <h2>이지은<span>창작가</span></h2>
+    <p>본업은 가수. <br>장래희망은 창작가. <br>예술가입니다.</p>
+    <center>
+    <a href="" id="tag" class="ui basic small gray circular button">디자인</a>
+    <a href="" id="tag" class="ui basic small gray circular button">사진</a>
+    <a href="" id="tag" class="ui basic small gray circular button">기타</a>
+    <center>
+  </figcaption>
+</figure>
+<figure class="artist_card hover">
+<div class="img_blur">
+<img src="resources/images/objet/나의오랜연인에게커버.jpg" class="profile_back"></div>
+  <figcaption>
+    <img src="resources/images/objet/나의 오랜 연인에게2.jpg" class="profile_pic">
+    <h2>이지은<span>창작가</span></h2>
+    <p>본업은 가수. <br>장래희망은 창작가. <br>예술가입니다.</p>
+    <center>
+    <a href="" id="tag" class="ui basic small gray circular button">디자인</a>
+    <a href="" id="tag" class="ui basic small gray circular button">사진</a>
+    <a href="" id="tag" class="ui basic small gray circular button">기타</a>
+    <center>
+  </figcaption>
+</figure>
+<figure class="artist_card hover">
+<div class="img_blur">
+<img src="resources/images/objet/나의오랜연인에게커버.jpg" class="profile_back"></div>
+  <figcaption>
+    <img src="resources/images/objet/나의 오랜 연인에게2.jpg" class="profile_pic">
+    <h2>이지은<span>창작가</span></h2>
+    <p>본업은 가수. <br>장래희망은 창작가. <br>예술가입니다.</p>
+    <center>
+    <a href="" id="tag" class="ui basic small gray circular button">디자인</a>
+    <a href="" id="tag" class="ui basic small gray circular button">사진</a>
+    <a href="" id="tag" class="ui basic small gray circular button">기타</a>
+    <center>
+  </figcaption>
+</figure>
+<figure class="artist_card hover">
+<div class="img_blur">
+<img src="resources/images/objet/나의오랜연인에게커버.jpg" class="profile_back"></div>
+  <figcaption>
+    <img src="resources/images/objet/나의 오랜 연인에게2.jpg" class="profile_pic">
+    <h2>이지은<span>창작가</span></h2>
+    <p>본업은 가수. <br>장래희망은 창작가. <br>예술가입니다.</p>
+    <center>
+    <a href="" id="tag" class="ui basic small gray circular button">디자인</a>
+    <a href="" id="tag" class="ui basic small gray circular button">사진</a>
+    <a href="" id="tag" class="ui basic small gray circular button">기타</a>
+    <center>
+  </figcaption>
+</figure>
+	<script type="text/javascript">
+	//Follow Button Effect
+	$(document).ready(function iniciar(){
+		$('#like').on("click", function(){
+			$('#like').css('background-color','red');
+		});	
+		$(".hover").mouseleave(function () {
+			$(this).removeClass("hover");
+		});
+	});
+	</script>
 </div>
 </div>
 </div>
-<br><br><br><br>
+<br><br><br><br><br><br>
 </section>
 <c:import url="../footer.jsp" />
 </body>

@@ -25,9 +25,6 @@ body {
   padding: 0;
 }
 
-.active {
-	background-color: #fff;
-}
 #search-box-top{
   position: fixed;
   top: 1.6em;
