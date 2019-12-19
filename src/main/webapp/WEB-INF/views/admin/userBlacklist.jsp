@@ -32,6 +32,35 @@
 		$("input[name=userselect]").click(function() {
 			$("#checkall").prop("checked", false);
 		});
+		
+		
+		//ajax 정렬
+		$("#thorder").click(function() {
+			
+			$.ajax({ 
+				url: "userbkorder.do",
+				data: {order: "userid asc"},	
+				type: "post",
+				dataType: "json",
+				success: function(result) {
+					console.log(result);
+					var objStr = JSON.stringify(result); 
+					var jsonObj = JSON.parse(objStr);
+					//출력용 문자열 준비 
+					var bk = 0;
+					//출력할 문자열 만들기
+					for(var i in jsonObj.list){
+					bk +='<tr><td></td><td>'+ jsonObj.list[i].userid+ '</td><td>' +
+					'</td><td>'+
+					'</td><td>'+ jsonObj.list[i].blackstart + '</td><td>'+ jsonObj.list[i].blackend + '</td></tr>';
+					}
+					$("#blacktable").html(bk);
+				},
+				error: function(request, status, errorData){
+					console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
+				}
+			});
+		});
 	});
 </script>
 <c:import url="adminHeader.jsp"/>
@@ -61,14 +90,14 @@
 							<input type="checkbox" id="checkall"> <label></label>
 						</div>
 					</th>
-					<th class="sorted ascending">회원ID</th>
+					<th class="sorted ascending" id="thorder">회원ID</th>
 					<th class="">닉네임</th>
 					<th class="">이름</th>
 					<th class="">블랙리스트 등록일</th>
 					<th class="">블랙리스트 종료일</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="blacktable">
 				<c:forEach items="${ bklist }" var="userbk">
 				<c:url value="usermd.do" var="usermd">
 					<c:param name="userid" value="${ userbk.userid }"/>

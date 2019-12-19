@@ -1,5 +1,10 @@
 package com.kh.objet.qna.model.service;
 
-public interface QnaService {
+import java.util.List;
 
+import com.kh.objet.qna.model.vo.Qna;
+
+public interface QnaService {
+	public List<Qna> selectQnaList ();
+	public Qna selectQnaDetail(int qnano);
 }

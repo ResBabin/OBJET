@@ -3,7 +3,7 @@
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="adminMapper">
-
+	<!-- 회원 조회 -->
 	<select id="selectUsers" resultType="Userm">
 		select userid, nickname,
 		username, blackyn, enrolldate, quityn, count(reportedu) as
@@ -11,17 +11,37 @@
 		left join reportudetail on (userid =
 		reportedu)
 		where userid not like '%admin%'
-		group by userid, nickname, username,
+		group by userid, nickname,
+		username,
 		blackyn, enrolldate, quityn
 		order by userid
 	</select>
 
+	<!-- 블랙리스트 조회 -->
 	<select id="selectBlacklist" resultType="Userm">
 		select * from blacklist
 		join users using (userid)
-		order by userid
+		order by userid desc
+		
 	</select>
+	<!-- 블랙리스트 정렬 조회 -->
+	<select id="selectBlacklistOrder" resultType="Userm" >
+		select * from blacklist
+		join users using (userid)
+		order by #{ value } 
+<!-- 		<trim prefix="order by">
+			<if test="order == 'userida'">userid asc</if>
+			<if test="order == 'useridd'">userid desc </if>
+			<if test="order == 'usernamea'">username asc</if>
+			<if test="order == 'usernamed">username desc</if>
+			<if test="order == 'nicknamea'">username asc</if>
+			<if test="order == 'nicknamed">username desc</if>
+			<if test="order == 'enrolldatea'">enrolldate asc</if>
+			<if test="order == 'enrolldated">enrolldate desc</if>
+		</trim> -->
+	</select> 
 
+	<!-- 회원 상세 조회 -->
 	<select id="selectUserDetail" resultType="Userm"
 		parameterType="string">
 		select * from users
@@ -29,18 +49,21 @@
 		where userid = #{value}
 	</select>
 
+	<!-- 회원 전시내역 조회 -->
 	<select id="selectUserObjet" resultType="Objet"
 		parameterType="string">
 		select * from objet
 		where userid = #{value}
 	</select>
 
+	<!-- 회원 신고내역 조회 -->
 	<select id="selectUserReport" resultType="ReportUDetail"
 		parameterType="string">
 		select * from reportudetail
 		where reportedu = #{value}
 	</select>
 
+	<!-- 회원 신고내역 카운트 및 사유 조회 -->
 	<select id="selectUserReportTotal" resultType="ReportUDetail"
 		parameterType="string">
 		select count(*) as "reportucount", reportureason
@@ -50,11 +73,13 @@
 		group by reportureason
 	</select>
 
+	<!-- 전시 전체 목록 조회 -->
 	<select id="selectAllObjet" resultType="Objet">
 		select *
 		from objet
 	</select>
 
+	<!-- 전시 상세 조회 -->
 	<select id="selectObjetOne" resultType="Objet"
 		parameterType="_int">
 		select *
@@ -62,16 +87,50 @@
 		where objetno = #{value}
 	</select>
 
+	<!-- 공지 목록 조회 -->
 	<select id="selectNoticeList" resultType="Notice">
 		select *
 		from notice
 		order by noticeno desc
 	</select>
-	
-	<select id="selectNoticeDetail" resultType="Notice" parameterType="_int">
+
+	<!-- 공지 상세 조회 -->
+	<select id="selectNoticeDetail" resultType="Notice"
+		parameterType="_int">
 		select *
 		from notice
-		where noticeno = #{ value } 
+		where noticeno = #{ value }
 	</select>
+
+	<!-- QnA 목록 조회 -->
+	<select id="selectQnaList" resultType="Qna">
+		select *
+		from qna
+		order by qnano asc
+	</select>
+
+	<!-- QnA 상세 조회 -->
+	<select id="selectQnaDetail" resultType="Qna"
+		parameterType="_int">
+		select *
+		from qna
+		where qnano = #{ value }
+	</select>
+
+	<!-- FAQ 목록 조회 -->
+	<select id="selectFaqList" resultType="Faq">
+		select *
+		from faq
+		order by faqno asc
+	</select>
+
+	<!-- FAQ 목록 조회 -->
+	<select id="selectFaqDetail" resultType="Faq"
+		parameterType="_int">
+		select *
+		from faq
+		where faqno = #{ value }
+	</select>
+
 
 </mapper>

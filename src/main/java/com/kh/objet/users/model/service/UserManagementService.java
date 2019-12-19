@@ -9,7 +9,8 @@ import com.kh.objet.users.model.vo.UserManagement;
 
 public interface UserManagementService {
 	public List<UserManagement> selectUser();
-	public List<BlackList> selectBlacklist();
+	public List<UserManagement> selectBlacklist();
+	public List<UserManagement> selectBlacklistOrder(String order);
 	public UserManagement selectUserDetail(String userid);
 	public List<Objet> selectUserObjet(String userid);
 	public List<ReportUDetail> selectUserReport(String userid);

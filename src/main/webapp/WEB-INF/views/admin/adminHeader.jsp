@@ -28,18 +28,22 @@
 	border-radius: 0px;
 	height: 60px;
 	font-size: 12pt;
+	font-family: 'Nanum Gothic';
+	font-weight: bold;
+	background: black;
 }
-
+ 
 #item{
 	width: 120px;
 }
 #headdi1, #headdi2, #headdi3, #headdi4 {
 	width: 150px;
 	text-align: center;
+	background: black;
 }
 #sub{
  	width: 150px;
-	background: #606163; 
+ 	background: black;
 	font-size: 11pt;
 }
 #heada1, #heada2, #heada3, #heada4, #heada5, #heada6, #heada7, #heada8, #heada9 {
@@ -99,7 +103,7 @@
 	</div>
 
 	<div class="ui inverted sidebar left vertical menu"
-		style="width: 160px;">
+		style="width: 160px; background: black;">
 		<div class="ui accordion">
 			<div class="title">
 				<a class="item"> <i class="user circle icon"></i> 회원 관리

@@ -21,10 +21,15 @@ public class UserManagementServiceImpl implements UserManagementService{
 	public List<UserManagement> selectUser() {
 		return usermDao.selectUser();
 	}
+	
+	@Override
+	public List<UserManagement> selectBlacklist() {
+		return usermDao.selectBlacklist();
+	}
 
 	@Override
-	public List<BlackList> selectBlacklist() {
-		return usermDao.selectBlacklist();
+	public List<UserManagement> selectBlacklistOrder(String order) {
+		return usermDao.selectBlacklistOrder(order);
 	}
 
 	@Override
