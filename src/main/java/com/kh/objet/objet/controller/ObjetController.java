@@ -39,11 +39,23 @@ public class ObjetController {
 	
 	
 	// 최민영 *******************************************************************************
-	// 오브제 관리-전시관리 페이지 이동
+	// 오브제 관리-내 오브제 페이지 이동
 	@RequestMapping("moveMyObjetList.do")
 	public String moveMyObjetList() {
 		return "objet/myObjetList";
 	}
+	
+	//오브제 관리 - 내 오브제 상세보기 페이지 이동
+	@RequestMapping("moveMyObjetDetail.do")
+	public String moveMyObjetDetail() {
+		return "objet/myObjetDetail";
+	}
+	
+	//오브제 관리 - 내 오브제 수정 페이지 이동
+		@RequestMapping("moveEditObjet.do")
+		public String moveEditObjet() {
+			return "objet/editObjet";
+		}
 	
 	// 오브제 관리 - 관심오브제 페이지 이동
 	@RequestMapping("moveMyLikeObjetList.do")
@@ -62,6 +74,7 @@ public class ObjetController {
 	public String moveCreateObjet() {
 		return "objet/createObjet";
 	}
+
 
 
 
