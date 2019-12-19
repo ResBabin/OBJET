@@ -17,64 +17,70 @@ public class ObjetController {
 	
 	public ObjetController() {}
 	
-	//검색페이지 이동
+	//寃��깋�럹�씠吏� �씠�룞
 	@RequestMapping("searchResult.do")
 	public String moveSearchPage() {
 		return "objet/searchList";
 	}
 
-	//전시 메인페이지 이동
+	//�쟾�떆 硫붿씤�럹�씠吏� �씠�룞
 	@RequestMapping("objetMain.do")
 	public String moveObjetPage() {
 		return "objet/objetMain";
 	}
 
-	//전시 더보기 이동
+	//�쟾�떆 �뜑蹂닿린 �씠�룞
 	@RequestMapping("objetMore.do")
 	public String moveTestPage() {
 		return "objet/objetMore";
 	}
 	
-	//전시 소개 이동(한줄평)
+	//�쟾�떆 �냼媛� �씠�룞(�븳以꾪룊)
 	@RequestMapping("objetReview.do")
 	public String moveReviewPage() {
 		return "objet/objetReview";
 	}
 	
+	//전시소개 테스트
+	@RequestMapping("objetIntro.do")
+	public String moveObjetIntroPage() {
+		return "objet/objetIntro";
+	}
 	
 	
-	// 최민영 *******************************************************************************
-	// 오브제 관리-내 오브제 페이지 이동
+	
+	// 理쒕�쇱쁺 *******************************************************************************
+	// �삤釉뚯젣 愿�由�-�궡 �삤釉뚯젣 �럹�씠吏� �씠�룞
 	@RequestMapping("moveMyObjetList.do")
 	public String moveMyObjetList() {
 		return "objet/myObjetList";
 	}
 	
-	//오브제 관리 - 내 오브제 상세보기 페이지 이동
+	//�삤釉뚯젣 愿�由� - �궡 �삤釉뚯젣 �긽�꽭蹂닿린 �럹�씠吏� �씠�룞
 	@RequestMapping("moveMyObjetDetail.do")
 	public String moveMyObjetDetail() {
 		return "objet/myObjetDetail";
 	}
 	
-	//오브제 관리 - 내 오브제 수정 페이지 이동
+	//�삤釉뚯젣 愿�由� - �궡 �삤釉뚯젣 �닔�젙 �럹�씠吏� �씠�룞
 		@RequestMapping("moveEditObjet.do")
 		public String moveEditObjet() {
 			return "objet/editObjet";
 		}
 	
-	// 오브제 관리 - 관심오브제 페이지 이동
+	// �삤釉뚯젣 愿�由� - 愿��떖�삤釉뚯젣 �럹�씠吏� �씠�룞
 	@RequestMapping("moveMyLikeObjetList.do")
 	public String moveMyLikeObjetList() {
 		return "objet/myLikeObjetList";
 	}
 	
-	// 오브제 관리 - 다녀온 오브제 페이지 이동
+	// �삤釉뚯젣 愿�由� - �떎���삩 �삤釉뚯젣 �럹�씠吏� �씠�룞
 	@RequestMapping("moveMyVisitedObjetList.do")
 	public String moveMyVisitedObjetList() {
 		return "objet/myVisitedObjetList";
 	}
 	
-	//오브제 관리 - 전시 등록 페이지 이동
+	//�삤釉뚯젣 愿�由� - �쟾�떆 �벑濡� �럹�씠吏� �씠�룞
 	@RequestMapping("moveCreateObjet.do")
 	public String moveCreateObjet() {
 		return "objet/createObjet";
