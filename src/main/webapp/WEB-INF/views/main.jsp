@@ -26,6 +26,7 @@ section:after {
   content: "";
   display: table;
   clear: both;
+ 
 }
 
 * {box-sizing: border-box}/* 이거 없으면 이미지 안에 사진들 아래로 쭉 펼쳐짐 */
@@ -36,17 +37,22 @@ body {font-family: 'Nanum Myeongjo'; margin:0;padding:0;background-color: #fff;c
      text-align:center;
      /* border:2px solid red; */
 }
+
+.main{
+margin-top: 100px;
+}
+
 img {vertical-align: middle;}
 /* 이미지 슬라이더 안에 숫자카운트 */
-.numbertext {
-  margin-top: 275px;
-  margin-left : 260px;
+/* .numbertext {
+  margin-top: 200px;
+  margin-left : 60px;
   color: Lightblue;
   font-size: 20px;
   padding: 8px 12px;
   position: absolute;
   top: 0;
-} 
+}  */
 
 /* 이미지 슬라이더 밑에 동그라미 도형도형들 들어가는 공간 */
 .dotbox{
