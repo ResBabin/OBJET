@@ -29,12 +29,17 @@ public class ObjetController {
 		return "objet/objetMain";
 	}
 
-	@RequestMapping("objetTest.do")
+	//전시 더보기 이동
+	@RequestMapping("objetMore.do")
 	public String moveTestPage() {
-		return "objet/NewFile";
+		return "objet/objetMore";
 	}
 	
-	
+	//전시 소개 이동(한줄평)
+	@RequestMapping("objetReview.do")
+	public String moveReviewPage() {
+		return "objet/objetReview";
+	}
 	
 	
 	
