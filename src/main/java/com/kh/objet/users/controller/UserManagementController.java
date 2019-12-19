@@ -1,17 +1,23 @@
 package com.kh.objet.users.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
-import org.apache.ibatis.annotations.Param;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.objet.blacklist.model.vo.BlackList;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.users.model.service.UserManagementService;
@@ -48,7 +54,7 @@ public class UserManagementController {
 	}
 	@RequestMapping("userbk.do")
 	public ModelAndView Blacklist(ModelAndView mv) {
-		ArrayList<BlackList> bklist = (ArrayList<BlackList>) usermService.selectBlacklist();
+		ArrayList<UserManagement> bklist = (ArrayList<UserManagement>) usermService.selectBlacklist();
 		if (bklist != null) {
 			mv.addObject("bklist", bklist);
 			mv.setViewName("admin/userBlacklist");
@@ -57,6 +63,35 @@ public class UserManagementController {
 			mv.setViewName("common/error");
 		}
 		return mv;
+	}
+	@RequestMapping(value="userbkorder.do", method=RequestMethod.POST)
+	public void Blacklist(String order, HttpServletResponse response) throws IOException {
+		ArrayList<UserManagement> bklist = (ArrayList<UserManagement>) usermService.selectBlacklistOrder(order);
+		logger.debug(bklist.get(1).getBlackyn());
+		//전송용 json 객체
+				JSONObject sendJson = new JSONObject();
+				//json 배열 객체
+				JSONArray jarr = new JSONArray();
+				//list를 jarr 로 옮겨 저장 (복사)
+				for( UserManagement userbk : bklist) {
+					
+				JSONObject job = new JSONObject();
+				job.put("userid", userbk.getUserid());
+				job.put("username", URLEncoder.encode(userbk.getUserpwd(), "utf-8"));
+				job.put("nickname", URLEncoder.encode(userbk.getNickname(), "utf-8"));
+				job.put("blackstart", userbk.getBlackstart().toString());
+				job.put("blackend", userbk.getBlackend().toString());
+				jarr.add(job);
+				}
+				
+				sendJson.put("list", jarr);
+				logger.debug(jarr.toJSONString());
+				response.setContentType("application/jsonl charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.println(sendJson.toJSONString());
+				out.flush();
+				out.close();
+				
 	}
 	
 	@RequestMapping("usermd.do")

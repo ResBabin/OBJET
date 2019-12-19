@@ -24,17 +24,17 @@
 		where userid = #{value}
 	</select>
 	
-	<select id="selectUserObjet" resultType="com.kh.objet.objet.model.vo.Objet" parameterType="string">
+	<select id="selectUserObjet" resultType="Objet" parameterType="string">
 		select * from objet
 		where userid = #{value}
 	</select>
 	
-	<select id="selectUserReport" resultType="com.kh.objet.reportudetail.model.vo.ReportUDetail" parameterType="string">
+	<select id="selectUserReport" resultType="ReportUDetail" parameterType="string">
 		select  * from reportudetail
 		where reportedu = #{value}
 	</select>
 	
-	<select id="selectUserReportTotal" resultType="com.kh.objet.reportudetail.model.vo.ReportUDetail" parameterType="string">
+	<select id="selectUserReportTotal" resultType="ReportUDetail" parameterType="string">
 		select count(*) as "reportucount", reportureason
 		from reportudetail
 		where reportedu = #{value}

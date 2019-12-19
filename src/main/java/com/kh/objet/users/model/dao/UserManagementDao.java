@@ -19,8 +19,11 @@ public class UserManagementDao {
 	public List<UserManagement> selectUser() {
 		return mybatisSession.selectList("adminMapper.selectUsers");
 	}
-	public List<BlackList> selectBlacklist() {
+	public List<UserManagement> selectBlacklist() {
 		return mybatisSession.selectList("adminMapper.selectBlacklist");
+	}
+	public List<UserManagement> selectBlacklistOrder(String order) {
+		return mybatisSession.selectList("adminMapper.selectBlacklistOrder", order);
 	}
 	public UserManagement selectUserDetail(String userid) {
 		return mybatisSession.selectOne("adminMapper.selectUserDetail", userid);

@@ -23,4 +23,9 @@ public class NoticeServiceImpl implements NoticeService{
 		return noticeDao.selectNoticeDetail(noticeno);
 	}
 
+	@Override
+	public List<Notice> selectNoticeListAsc() {
+		return noticeDao.selectNoticeListAsc();
+	}
+
 }

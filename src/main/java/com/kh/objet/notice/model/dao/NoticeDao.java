@@ -23,4 +23,8 @@ public class NoticeDao {
 	public Notice selectNoticeDetail(int noticeno) {
 		return mybatisSession.selectOne("adminMapper.selectNoticeDetail", noticeno);
 	}
+
+	public List<Notice> selectNoticeListAsc() {
+		return mybatisSession.selectList("adminMapper.selectNoticeListAsc");
+	}
 }
