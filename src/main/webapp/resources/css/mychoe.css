@@ -519,6 +519,7 @@ body {
 	font-size: 10pt;
 }
 
+
 /* 오브제 등록 */
 .wrapCreateObjet{
 	background-color: #fff;
@@ -536,7 +537,7 @@ body {
 }
 
 .createObjetTable tr{
-	height:60px;
+	height:80px;
 }
 
 .createObjetTable th{
@@ -550,33 +551,98 @@ body {
 }
 
 .objetposter{
-	width:650px;
+	width:600px;
 	height: 209px;
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
 }
 
+
+.objetTagTable{
+	width: 100%;
+	margin-top: -10px;
+	line-height: 20px;
+}
+
+.objetTagTable tr{
+	height:20px;
+}
+
+.objetTagTable td{
+	height:20px;
+}
+
+
 .createObjetTable2{
 	width:100%;
 	border-collapse: collapse;
 	border-spacing: 0;
 	font-size: 9pt;
-	border: 1px solid black;
 }
 
 .createObjetTable2 td{
-	border: 1px solid black;
 	padding: 10px 10px;
 	font-size: 10pt;
 }
+
+.createobjetimg{
+	width: 150px;
+	height: 210px;
 }
+
+
+
+/* 오브제 상세보기 */
+.detailText{
+	font-size: 11pt;
+	color:#aaa;
+}
+
+.detailTextBox{
+	width:600px;
+	font-size: 11pt;
+	color:#aaa;
+	line-height: 16pt;
+}
+
+.myobjettitle{
+	width:300px;
+	height:20px;
+	font-size: 11px;
+	color:#aaa;
+}
+
+.myobjetintro{
+	font-size: 11pt;
+	color:#aaa;
+	width:500px; 
+}
+
+
+.myObjetDetailTable {
+	width:100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	font-size: 9pt;
+}
+
+.myObjetDetailTable tr{
+	
+}
+
+.myObjetDetailTable td{
+	padding: 10px 10px;
+	font-size: 10pt;
+	padding-bottom: 50px;
+}
+
 
 
 /* 관심 오브제 */
 .eachObjet{
-	width: 44%;
-	height: 210pt;
+	width: 43%;
+	height: 210px;
 	margin-left:20px;
 	margin-right: 20px;
 	margin-bottom: 50px;
@@ -612,11 +678,11 @@ body {
 
 .objetListSection2{
 	width: 100%;
-	overflow:hidden;
-	height:auto;
 	padding-top: 30px;
 	margin-bottom: 30px;
 	text-align: center;
+	height:auto;
+	overflow: hidden;
 }
 
 
@@ -638,3 +704,58 @@ body {
 	margin-top: 50px;
 }
 
+/* 문의하기 */
+.myQnaDetailTable{
+	width: 100%;
+	height:auto;
+	overflow: hidden;
+	font-size: 9px;
+	border: 1px solid #aaa;
+	border-spacing: 0;
+	border-collapse: collapse;
+	margin-bottom: 20px;
+}
+
+.myQnaDetailTable th{
+	background: #efefef;
+	border: 1px solid #aaa;
+	padding: 10px;
+}
+
+.myQnaDetailTable td{
+	border: 1px solid #aaa;
+	padding: 10px;
+	font-size: 10pt;
+}
+
+
+.myQnaAnswerTable{
+	width: 100%;
+	height:auto;
+	overflow: hidden;
+	font-size: 9px;
+	border: 1px solid #aaa;
+	border-radius:10px;
+	border-spacing: 0;
+	border-collapse: collapse;
+	table-layout: fixed;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.myQnaAnswerTable th{
+	background: #e0effe;
+	border: 1px solid #add5fc;
+	padding: 10px;
+	height:10px;
+	font-size: 10pt;
+}
+
+.myQnaAnswerTable td{
+	background:#f2f9ff;
+	border: 1px solid #add5fc;
+	padding: 10px;
+	font-size: 10pt;
+	height:60px;
+	vertical-align: top;
+}
