@@ -34,31 +34,37 @@ input[id="menuicon"]:checked + label span {background:black;}
 input[id="menuicon"]:checked + label span:nth-child(1) {top:50%;transform:translateY(-50%) rotate(45deg);}
 input[id="menuicon"]:checked + label span:nth-child(2) {opacity:0;}
 input[id="menuicon"]:checked + label span:nth-child(3) {bottom:50%;transform:translateY(50%) rotate(-45deg);}
-div[class="sidebar"] {width:189px;height:100%;background:#fff;position:fixed;top:0;left:-300px;z-index:2;transition:all .35s; border: 1px solid lightgray;}
+div[class="sidebar"] {width:220px;height:100%;background:#fff;position:fixed;top:0;left:-300px;z-index:2;transition:all .35s; border: 1px solid lightgray;}
 input[id="menuicon"]:checked + label + div {left:0;}
 /*헤더 */
 header {
   weight: 100%;
   height: 10%;
-  background-color: #fff;
+  background-color: transparent;
   padding: 30px;
   text-align: center;
   font-size: 35px;
   color: black;
+  transition: top 0.2s ease-in-out;
+  z-index: 10;
+  position:fixed;
 } 
 
 /* 사이트 짧은 소개글 */
 .intro{
+ margin-bottom: 50px;
  text-align: center;
 }
   /* 사이트 로고 */
   .meueicon1{
-  
-  float: left;}
-  .sitemain{
+  float: left;
+  }
+ 
+ 
+.sitemain{
   float:left;
   margin-left: 60px;
-  margin-top: 7px;
+  margin-top: -7px;
   }
  
   /* 사이드바 중 로그인 영역 */
@@ -66,21 +72,22 @@ header {
   margin-top: 60px;
   position:fixed;
   font-size: 17px;
-	
- 	width:180px;
+ width:220px;
   height: 18%;
   color: black;
-  background-color:#fff;
+ 
   }
  
-  
+ 
   /* 사이드바 중 메뉴영역 박스 시작
     -홈, 전시, 작가, 고객센터 써있는 부분*/
   .sidebar2{
+  border: 2px solid yellow;
+  font-size: 20px;
   position:fixed;
   list-style:none;
   height: 38%;
-  width:185px;
+  width:220px;
   background-color:#fff;
   color: black;
   }
@@ -94,23 +101,18 @@ nav {
 }
 
 ul, li {
-  margin: 0;
+ 
   padding: 0;
   list-style: none;
-  color: black;
 }
 
-#main-menu > li {
-  position: relative;
-  color:black;
-  background-color:#fff;
-}
+
 #main-menu > li:hover{
 background-color:#666666;
-color:white;
 }
 
 #main-menu > li > a {
+  margin-left: 10px;
   font-size: 18px;
   color: black;
   text-align: center;
@@ -118,17 +120,15 @@ color:white;
   letter-spacing: 0.05em;
   display: block;
   padding: 10px 36px; 
-  text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+ 
 }
 
-#main-menu > li:nth-child(1) > a {
-  border-left: 1px solid rgba(0,0,0,0.15);
-}
 /* 고객센터 하위메뉴 */
 #sub-menu {
+width: 220px;
 font-size: 16px;
   position: absolute;
- /*  background: #182952; */
+ 
   opacity: 0;
   visibility: hidden;
   transition: all 0.15s ease-in;
@@ -152,43 +152,64 @@ font-size: 16px;
  color: #666666;
 }
 .photo{
-/* border: 2px solid white; */
-width: 170px;
+text-align: center;
+width: 220px;
+border: 2px solid navy;
+
 height:60%;
 }
 .nickname{
-/* border: 2px solid white; */
+text-align: center;
+width: 220px;
+border: 2px solid red;
 height:13%;
 }
 .follower{
-/* border: 2px solid white; */
+text-align: center;
+width: 220px;
+border: 2px solid green;
 height:13%;
 }
 .following{
-/* border: 2px solid white; */
+text-align: center;
+width: 220px;
+border: 2px solid yellow;
 height:13%;
 }
 .artistHome{
-margin-top: 190px;
 font-size: 18px;
-
+width: 220px;
+border: 2px solid yellow;
+margin-top: 190px;
 }
+
 .fd{
+margin-top: 15px;
+width: 220px;
+border: 2px solid yellow;
 font-size: 18px;
 }
 .qna{
+width: 220px;
+border: 2px solid black;
 font-size: 18px;
 
 }
 
+
+
 /* detail 태그인 안에 세모 도형 색 바꿔서 안보이게 만들기 */
+
 summary::-webkit-details-marker {
     color: #fff; 
-} 
+}  
  .myinfo{
  	margin-top:10px;
  }
 summary {
+
+margin-left: 28px;
+width: 150px;
   cursor: pointer;
   font-size: 18px;
   color: black;
@@ -199,16 +220,17 @@ color: black;
 }
 .myinfo{
 
-width: 189px;
+width: 220px;
 height: 22%;
 }
 
-
+a{
+color: black;
+}
   /* 사이드바 안에 계정 찾기 */
 .forget{
-  font-size: 15px;
-   /* border: 2px solid white; */
-   margin-top: 680px;
+  margin-left: 10px;
+  margin-top: 80px;
   } 
   /* 더보기 */
   .more{
@@ -225,7 +247,7 @@ height: 22%;
 <body>
 <header>
 <div class="sitemain"><a href="main.do">
-<img src="resources/images/objet_logo_black.png" width="65px" height="45px"></a></div> 
+<img src="resources/images/objet_logo_black.png" width="70px" height="50px"></a></div> 
 <!--메뉴 아이콘-->
 <input type="checkbox" id="menuicon">
 
@@ -275,8 +297,7 @@ height: 22%;
 <div class="follower">팔로워수</div>
 <div class="following">팔로잉수</div>
 </div>
-
-<div class="artistHome"><a href="artistHomeMain.do">작가홈</a></div>
+<div class="artistHome"><p onclick="location.href='artistHomeMain.do'">작가홈</p></div>
 <div class= "myinfo">
 <details>
   <summary>
@@ -288,9 +309,9 @@ height: 22%;
    <p onclick="location.href='moveMyVisitedObjetList.do'">다녀온 오브제</p>
 </details> 
    </div>
-   <div class="fd"><a href="moveFeedList.do">피드알림</a></div>
-   <div class="qna"><a href="moveMyQnaList.do">문의내역</a></div>
-
+   
+    <div class="fd"><p onclick="location.href='moveFeedList.do'">피드알림</p></div>
+    <div class="qna"><p onclick="location.href='moveMyQnaList.do'">문의내역</p></div>
 <div class="sidebar2">
 <nav role="navigation">
  <ul id="main-menu">
@@ -309,6 +330,13 @@ height: 22%;
         </li>
         </ul>
         </nav>
+        <div class= "forget">
+        <div class="small ui buttons">
+  <button class="ui black basic button">내 정보 수정</button>
+ <!--  <div class="or"></div> -->
+  <button class="ui black basic button">로그아웃</button>
+</div>
+        </div>
 </div>
 </div>
 </header>

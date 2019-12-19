@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>오브제 등록</title>
+<title>오브제 수정</title>
 <c:import url="../header.jsp" />
 <!-- 시맨틱유아이 cdn -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -28,7 +28,7 @@ $(function(){
 	
 	 // 이미지 클릭 시 파일 열리기
 	 $("#objetposter").click(function(){
-		$("#originmainposter").click(); 
+		$("#upmainposter").click(); 
 	 });
 	 
 	 // 닉네임 10자 제한
@@ -178,31 +178,33 @@ function count_ck(obj){
 <!-- 오브제 등록 페이지 시작 -->
 	<div class="wrapCreateObjet">
 	
-		<p style="font-size: 20pt; padding-top:50px; color:#373737; text-align:center;">오브제 등록</p>
+		<p style="font-size: 20pt; padding-top:50px; color:#373737; text-align:center;">오브제 수정</p>
 		
 		<!-- 등록 테이블 시작 -->
 		<form action="" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="userid" value="">
+		<input type="hidden" name="objetno" value="">
 		<div align="center">
 			<table class="createObjetTable">
 				<tr>
 					<th>오브제명</th>
-					<td><div class="ui input"><input type="text" name="objettitle" id="objettitle" placeholder="전시회 제목을 입력해주세요." required style="width:300px; height:30px;"></div>
+					<td><div class="ui input"><input type="text" name="objettitle" id="objettitle" value="애니매이션의 확장" required style="width:300px; height:30px;"></div>
 						<span style="color:#aaa; font-size:9pt;" id="counter1">( <span style="color:#4ecdc4;font-size:9pt;">0</span> / 최대 30자 )</span>
 					</td>
 				</tr>
 				
 				<tr>
 					<th style="vertical-align: top;padding-top: 10px;">오브제 소개</th>
-					<td><div class="ui form"><div class="field"><textarea name="objetintro" id="objetintro" style="font-size: 9pt;width:600px;" placeholder="내용을 입력해주세요."></textarea></div></div>
+					<td><div class="ui form"><div class="field"><textarea name="objetintro" id="objetintro" style="font-size: 9pt;width:600px;">샘플데이터</textarea></div></div>
 						<span style="color:#aaa; font-size:9pt;" id="counter2">( <span style="color:#4ecdc4;font-size:9pt;">0</span> / 최대 500자 )</span>
 					</td>
 				</tr>
 				
 				<tr>
 					<th style="vertical-align: top;padding-top: 10px;">오브제 포스터</th>
-					<td><img class="objetposter" id="objetposter" src="resources/images/objet/originposter.jpg">
-						<input type="file" name="originmainposter" id="originmainposter" accept=".jpg,.jpeg,.png" onChange="preview(this, $('#objetposter'));" style="display:none;">
+					<td><img class="objetposter" id="objetposter" src="resources/objet_upfiles/animation.jpg">
+						<input type="file" name="upmainposter" id="upmainposter" accept=".jpg,.jpeg,.png" onChange="preview(this, $('#objetposter'));" style="display:none;">
+						<input type="hidden" name="originmainposter" id="originmainposter" value="">
+						<input type="hidden" name="renamemainposter" id="renamemainposter" value="">
 						<div style="color:#00c73c; font-size:9pt;">권장 크기 : 1400 x 450px jpg,jpeg,png 형식의 정지 이미지만 등록됩니다.</div>
 					</td>
 				</tr>
@@ -217,7 +219,7 @@ function count_ck(obj){
 					<td>
 						<table class="objetTagTable">
 							<tr>
-								<td><input type="checkbox" name="objettag" value="건축" onClick="count_ck(this);"> 건축</td>
+								<td><input type="checkbox" name="objettag" value="건축" onClick="count_ck(this);" checked="checked"> 건축</td>
 								<td><input type="checkbox" name="objettag" value="공예" onClick="count_ck(this);"> 공예</td>
 								<td><input type="checkbox" name="objettag" value="디자인" onClick="count_ck(this);"> 디자인</td>
 								<td><input type="checkbox" name="objettag" value="사진" onClick="count_ck(this);"> 사진</td>
@@ -255,12 +257,12 @@ function count_ck(obj){
 			            
 			            <td style="width:75%;">
 			            	<a class="ui teal circular label">작품명</a><br>
-			            	<div class="ui input" style="margin-top:10px;"><input type="text" name="objettitle<%=i %>" id="objettitle<%=i %>" placeholder="작품명을 입력해주세요." required style="width:300px; height:30px;"></div>
+			            	<div class="ui input" style="margin-top:10px;"><input type="text" name="objettitle<%=i %>" id="objettitle<%=i %>" value="" required style="width:300px; height:30px;"></div>
 							<span style="color:#aaa; font-size:9pt;">(최대 30자)</span>
 			            	<br><br>
 			            	<a class="ui teal circular label">작품소개</a><br>
 			            	<div class="ui form" style="margin-top:10px;"><div class="field">
-			            	<textarea name="objetintro<%=i%>" id="objetintro<%=i%>" style="font-size: 9pt;width:500px; height:50px;" placeholder="내용을 입력해주세요." required></textarea></div></div>
+			            	<textarea name="objetintro<%=i%>" id="objetintro<%=i%>" style="font-size: 9pt;width:500px; height:50px;" value="" required></textarea></div></div>
 							<span style="color:#aaa; font-size:9pt;">( 최대 500자 )</span>
 			            </td>
 			        </tr>

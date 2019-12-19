@@ -87,7 +87,7 @@ $(function(){
 			</tr>
 			<tr>
 				<td><input type="checkbox" class="chk" name="RowCheck" value=""></td>
-				<td>애니매이션의 확장</td>
+				<td><p style="font-size:10pt;"onclick="location.href='moveMyObjetDetail.do'">애니매이션의 확장</p></td>
 				<td>진행중</td>
 				<td>19.12.02 - 19.12.24</td>
 				<td>승인</td>

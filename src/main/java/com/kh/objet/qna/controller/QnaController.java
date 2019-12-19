@@ -30,8 +30,26 @@ public class QnaController {
 		public String moveMyQnaList() {
 			return "user/myQnaList";
 		}
+
+		// 문의내역 상세보기 페이지 이동
+		@RequestMapping("moveMyQnaDetail.do")
+		public String moveMyQnaDetail() {
+			return "user/myQnaDetail";
+		}
 		
-		@RequestMapping("qnam.do")
+	// 문의내역 수정 페이지 이동
+		@RequestMapping("moveMyQnaEdit.do")
+		public String moveMyQnaEdit() {
+			return "user/myQnaEdit";
+		}
+		
+	// 문의내역 등록 페이지 이동
+		@RequestMapping("moveMyQnaWrite.do")
+		public String moveMyQnaWrite() {
+			return "user/myQnaWrite";
+		}
+
+ 		@RequestMapping("qnam.do")
 		public ModelAndView selectQnaList(ModelAndView mv){
 			ArrayList<Qna> qnalist = (ArrayList<Qna>) qnaService.selectQnaList();
 			mv.addObject("qnalist", qnalist);
@@ -53,5 +71,4 @@ public class QnaController {
 			}
 			return mv;
 		}
-		
 }

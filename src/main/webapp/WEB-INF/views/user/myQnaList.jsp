@@ -77,7 +77,7 @@ $(function(){
 				</tr>
 				<tr>
 					<td><input type="checkbox" class="chk" name="RowCheck" value=""></td>
-					<td>전시 승인 부탁드립니다</td>
+					<td><p style="font-size:10pt;"onclick="location.href='moveMyQnaDetail.do'">전시 승인 부탁드립니다</p></td>
 					<td>19.12.18</td>
 					<td>미답변</td>
 				</tr>
