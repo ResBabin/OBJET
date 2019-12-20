@@ -43,7 +43,7 @@
 	font-family:'Nanum Gothic';
 }
 #searchList-btn{
-  position: fixed;
+  position: absolute;
   top: 1.09em;
   right: 1.3em;
   opacity: 0.8;

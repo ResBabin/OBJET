@@ -10,7 +10,7 @@ body{
 }
 
 #search-btn{
-  position: fixed;
+ position: fixed; 
   top: 0.88em;
   right: 1em;
   font-size:34px;
