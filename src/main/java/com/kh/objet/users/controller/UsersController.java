@@ -1,13 +1,18 @@
 package com.kh.objet.users.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.kh.objet.users.model.service.UsersServiceImpl;
+import com.kh.objet.users.model.vo.Users;
 
 @Controller
 public class UsersController {
@@ -16,15 +21,55 @@ public class UsersController {
 	@Autowired
 	private UsersServiceImpl usersService;
 	
+	// 패스워드 암호화 
+		@Autowired
+		public BCryptPasswordEncoder bcPwdEncoder;
+	
 	public UsersController() {};
 	
 	
 	// 최민영 ****************************************************************************************
 	// 로그인관련 -----------------------------------------------
+	// 회원가입 페이지 이동
+		@RequestMapping("moveEnrollPage.do")
+		public String moveEnrollPage() {
+			return "user/enrollPage";
+		}
+		
+	// 회원가입
+		@RequestMapping(value="insertUsers.do", method=RequestMethod.POST)
+		public String insertUsers(Users users, Model model) {
+			users.setUserpwd(bcPwdEncoder.encode(users.getUserpwd()));
+			
+			int result = usersService.insertUsers(users);
+			
+			String vfn = "user/enrollSuccess";
+			if(result <= 0) {
+				vfn = "common/error";
+				model.addAttribute("message", "회원가입 실패!");
+			}
+			 return vfn;
+		}
+
+			
 	// 로그인 페이지 이동
-	@RequestMapping("moveLogin.do")
+		@RequestMapping("moveLogin.do")
 		public String moveLoginPage() {
 			return "user/login";
+		}
+	
+	// 회원 로그인
+		@RequestMapping(value="login.do", method=RequestMethod.POST)
+		public String selectUsersLogin(Users users, HttpSession session, Model model) {
+			Users loginMember = usersService.selectUsersLogin(users);
+			
+			if(loginMember != null) {
+				session.setAttribute("loginMember", loginMember);
+				return "main";
+			}else {
+				model.addAttribute("message", "로그인 실패!");
+				return "common/error";
+			}
 		}
 	
 	// 아이디 찾기 이동
@@ -32,55 +77,43 @@ public class UsersController {
 		public String moveFindId() {
 			return "user/findUserid";
 		}
-	
-	// 아이디 찾기 성공 페이지 이동
-		@RequestMapping("moveFindIdSuccess.do")
-		public String moveFindIdSuccess() {
+		
+	// 아이디찾기
+		@RequestMapping("findId.do")
+		public String selectFindId() {
+			//성공시 "user/findIdSuccess"
+			//실패시 "user/findIdFail"
 			return "user/findIdSuccess";
 		}
 	
-	// 아이디 찾기 실패 페이지 이동
-		@RequestMapping("moveFindIdFail.do")
-		public String moveFindIdFail() {
-			return "user/findIdFail";
-		}
-	
+		
+		
 	// 비밀번호 찾기 이동 페이지 이동
 		@RequestMapping("moveFindUserpwd.do")
 		public String moveFindUserpwd() {
 			return "user/findUserpwd";
 		}
 		
-	// 비번 찾기 성공 페이지 이동
-		@RequestMapping("moveFindPwdSuccess.do")
-		public String moveFindPwdSuccess() {
+	// 비밀번호 찾기
+		@RequestMapping("findPwd.do")
+		public String selectFindPwd() {
+			//성공시 "user/findPwdSuccess"
+			//실패시 "user/findPwdFail"
 			return "user/findPwdSuccess";
 		}
+
+		
 	
-	// 비번 찾기 실패 페이지 이동
-		@RequestMapping("moveFindPwdFail.do")
-		public String moveFindPwdFail() {
-			return "user/findPwdFail";
-		}	
-		
-		
-	// 회원가입 페이지 이동
-		@RequestMapping("moveEnrollPage.do")
-		public String moveEnrollPage() {
-			return "user/enrollPage";
-		}
-		
-	// 회원가입 완료 페이지 이동
-		@RequestMapping("moveEnrollSuccess.do")
-		public String moveEnrollSuccessPage() {
-			return "user/enrollSuccess";
-		}
-		
-		
 	// 내정보 수정 페이지 이동
 		@RequestMapping("moveMyPageEdit.do")
 		public String moveMyPageEdit() {
 			return "user/mypageEdit";
+		}
+		
+	// 내정보 수정
+		@RequestMapping("updateMyPage.do")
+		public String updateMyPage() {
+			return "main";
 		}
 		
 	// 탈퇴페이지 이동
@@ -88,38 +121,22 @@ public class UsersController {
 		public String moveQuitPage() {
 			return "user/quitPage";
 		}
-	
-	// 탈퇴완료 페이지 이동
-		@RequestMapping("moveQuitSuccess.do")
-		public String moveQuitSuccessPage() {
+		
+	// 회원탈퇴
+		@RequestMapping("updateQuitUser.do")
+		public String updateQuitUser() {
+			// users테이블 업데이트 후 탈퇴테이블 insertQuitUser()도 해야함.
+			// 회원탈퇴 성공 시 "user/quitSuccess"
+			// 실패 시 "common/error"
 			return "user/quitSuccess";
 		}
+
 		
 	// 작가홈 관련 -----------------------------------------------
-	
 	// 작가홈 이동
 		@RequestMapping(value="artistHomeMain.do", method=RequestMethod.GET)
 		public String moveArtistHome() {
 			return "artistHome/artistHomeMain";
-		}
-		
-		
-	// 작가소개수정 이동
-		@RequestMapping("moveArtistIntroEdit.do")
-		public String moveArtistIntroEdit() {
-			return "artistHome/artistIntroEdit";
-		}
-			
-	// 팔로잉 보기
-		@RequestMapping("moveFollowingPage.do")
-		public String moveFollowingPage() {
-			return "artistHome/following";
-		}
-		
-	// 팔로워 보기
-		@RequestMapping("moveFollowerPage.do")
-		public String moveFollowerPage() {
-			return "artistHome/follower";
 		}
 		
 	// 작가 신고하기 페이지 이동
@@ -128,12 +145,12 @@ public class UsersController {
 			return "artistHome/profileReport";
 		}
 		
-		
-	// 피드알림 관련 -----------------------------------------------
-	// 피드알림 페이지 이동
-		@RequestMapping("moveFeedList.do")
-		public String moveFeedList() {
-			return "user/feedList";
+	// 작가 신고하기
+		@RequestMapping("insertUsersReport.do")
+		public String insertUsersReport() {
+			return "artistHome/artistHomeMain";
 		}
+		
+
 			
 }

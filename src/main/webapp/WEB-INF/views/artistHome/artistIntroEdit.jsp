@@ -209,7 +209,7 @@
   	</p>
 	<br><br><br>
 	<div align="center">
-		<input type="submit" class="ui green button" value="수정하기" id="btnsub"></a> &nbsp;
+		<input type="submit" class="ui green button" value="수정하기" id="btnsub"> &nbsp;
 		<input type="reset" class="ui button" value="다시작성"> &nbsp;
 	</div>
 	</form>

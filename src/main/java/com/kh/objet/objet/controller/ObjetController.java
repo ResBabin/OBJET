@@ -49,42 +49,55 @@ public class ObjetController {
 	
 	
 	
-	// 理쒕�쇱쁺 *******************************************************************************
-	// �삤釉뚯젣 愿�由�-�궡 �삤釉뚯젣 �럹�씠吏� �씠�룞
-	@RequestMapping("moveMyObjetList.do")
-	public String moveMyObjetList() {
-		return "objet/myObjetList";
-	}
+	// 최민영 *******************************************************************************
+	// 오브제 관리-내 오브제 페이지 이동
+		@RequestMapping("moveMyObjetList.do")
+		public String moveMyObjetList() {
+			return "objet/myObjetList";
+		}
 	
-	//�삤釉뚯젣 愿�由� - �궡 �삤釉뚯젣 �긽�꽭蹂닿린 �럹�씠吏� �씠�룞
-	@RequestMapping("moveMyObjetDetail.do")
-	public String moveMyObjetDetail() {
-		return "objet/myObjetDetail";
-	}
-	
-	//�삤釉뚯젣 愿�由� - �궡 �삤釉뚯젣 �닔�젙 �럹�씠吏� �씠�룞
+	//오브제 관리 - 내 오브제 상세보기
+		@RequestMapping("moveMyObjetDetail.do")
+		public String moveMyObjetDetail() {
+			return "objet/myObjetDetail";
+		}
+		
+	//오브제 관리 - 내 오브제 수정 페이지 이동
 		@RequestMapping("moveEditObjet.do")
 		public String moveEditObjet() {
 			return "objet/editObjet";
 		}
 	
-	// �삤釉뚯젣 愿�由� - 愿��떖�삤釉뚯젣 �럹�씠吏� �씠�룞
-	@RequestMapping("moveMyLikeObjetList.do")
-	public String moveMyLikeObjetList() {
-		return "objet/myLikeObjetList";
-	}
+	//오브제 관리 - 내 오브제 수정
+		@RequestMapping("updateMyObjet.do")
+		public String updateMyObjet() {
+			return "objet/myObjetDetail";
+		}
 	
-	// �삤釉뚯젣 愿�由� - �떎���삩 �삤釉뚯젣 �럹�씠吏� �씠�룞
-	@RequestMapping("moveMyVisitedObjetList.do")
-	public String moveMyVisitedObjetList() {
-		return "objet/myVisitedObjetList";
-	}
-	
-	//�삤釉뚯젣 愿�由� - �쟾�떆 �벑濡� �럹�씠吏� �씠�룞
-	@RequestMapping("moveCreateObjet.do")
-	public String moveCreateObjet() {
-		return "objet/createObjet";
-	}
+
+	//오브제 관리 - 전시 등록 페이지 이동
+		@RequestMapping("moveCreateObjet.do")
+		public String moveCreateObjet() {
+			return "objet/createObjet";
+		}
+		
+	//오브제 관리 - 전시 등록
+		@RequestMapping("insertObjet.do")
+		public String insertObjet() {
+			return "objet/myObjetList";
+		}
+		
+	// 작가홈 오브제 리스트 보기
+		@RequestMapping("selectArtistObjetList.do")
+		public String selectArtistObjetList() {
+			return "artistHome/artistHomeMain";
+		}
+		
+	// 작가홈 오브제 검색
+		@RequestMapping("selectArtistObjetSearch.do")
+		public String selectArtistObjetSearch() {
+			return "artistHome/artistHomeMain";
+		}
 
 
 
