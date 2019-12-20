@@ -405,6 +405,7 @@
 .artist_card #tag {
 	margin: 20px 5px 15px 0px;
 }
+
 </style>
 </head>
 <body>
