@@ -49,6 +49,13 @@ public class QnaController {
 			return "user/myQnaWrite";
 		}
 		
+
+		
+		
+		
+	// 김은솔 ***************************************************	
+  
+  
 	// 문의내역 삭제
 		@RequestMapping("deleteMyQna.do")
 		public String deleteMyQna() {
@@ -60,10 +67,8 @@ public class QnaController {
 		public String selectMyQnaSearch() {
 			return "user/myQnaList";
 		}	
-		
-		
-		
-	// 김은솔 ***************************************************	
+  
+  
  		@RequestMapping("qnam.do")
 		public ModelAndView selectQnaList(ModelAndView mv){
 			ArrayList<Qna> qnalist = (ArrayList<Qna>) qnaService.selectQnaList();

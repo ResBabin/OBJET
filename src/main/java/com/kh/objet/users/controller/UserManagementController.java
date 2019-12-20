@@ -65,9 +65,12 @@ public class UserManagementController {
 		return mv;
 	}
 	@RequestMapping(value="userbkorder.do", method=RequestMethod.POST)
-	public void Blacklist(String order, HttpServletResponse response) throws IOException {
+	public void BlacklistOrder(String order, HttpServletResponse response) throws IOException {
 		ArrayList<UserManagement> bklist = (ArrayList<UserManagement>) usermService.selectBlacklistOrder(order);
-		logger.debug(bklist.get(1).getBlackyn());
+		logger.debug(bklist.get(0).getUserid());
+		logger.debug(bklist.get(1).getUserid());
+		logger.debug(bklist.get(2).getUserid());
+		logger.debug(bklist.get(3).getUserid());
 		//전송용 json 객체
 				JSONObject sendJson = new JSONObject();
 				//json 배열 객체
@@ -77,7 +80,7 @@ public class UserManagementController {
 					
 				JSONObject job = new JSONObject();
 				job.put("userid", userbk.getUserid());
-				job.put("username", URLEncoder.encode(userbk.getUserpwd(), "utf-8"));
+				job.put("username", URLEncoder.encode(userbk.getUsername(), "utf-8"));
 				job.put("nickname", URLEncoder.encode(userbk.getNickname(), "utf-8"));
 				job.put("blackstart", userbk.getBlackstart().toString());
 				job.put("blackend", userbk.getBlackend().toString());

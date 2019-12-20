@@ -3,6 +3,7 @@
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="adminMapper">
+
 	<!-- 회원 조회 -->
 	<select id="selectUsers" resultType="Userm">
 		select userid, nickname,
@@ -22,24 +23,26 @@
 		select * from blacklist
 		join users using (userid)
 		order by userid desc
-		
+
 	</select>
 	<!-- 블랙리스트 정렬 조회 -->
-	<select id="selectBlacklistOrder" resultType="Userm" >
+	<select id="selectBlacklistOrder" resultType="Userm"
+		parameterType="string">
 		select * from blacklist
 		join users using (userid)
-		order by #{ value } 
-<!-- 		<trim prefix="order by">
-			<if test="order == 'userida'">userid asc</if>
-			<if test="order == 'useridd'">userid desc </if>
-			<if test="order == 'usernamea'">username asc</if>
-			<if test="order == 'usernamed">username desc</if>
-			<if test="order == 'nicknamea'">username asc</if>
-			<if test="order == 'nicknamed">username desc</if>
-			<if test="order == 'enrolldatea'">enrolldate asc</if>
-			<if test="order == 'enrolldated">enrolldate desc</if>
-		</trim> -->
-	</select> 
+		<trim prefix="order by">
+			<if test="_parameter.equals('ida')"> userid asc</if>
+			<if test="_parameter.equals('idd')"> userid desc</if>
+			<if test="_parameter.equals('nicka')"> nickname asc</if>
+			<if test="_parameter.equals('nickd')"> nickname desc</if>
+			<if test="_parameter.equals('namea')"> username asc</if>
+			<if test="_parameter.equals('named')"> username desc</if>
+			<if test="_parameter.equals('starta')"> blackstart asc</if>
+			<if test="_parameter.equals('startd')"> blackstart desc</if>
+			<if test="_parameter.equals('enda')"> blackend asc</if>
+			<if test="_parameter.equals('endd')"> blackend desc</if>
+		</trim>
+	</select>
 
 	<!-- 회원 상세 조회 -->
 	<select id="selectUserDetail" resultType="Userm"
@@ -80,9 +83,9 @@
 	</select>
 
 	<!-- 전시 상세 조회 -->
-	<select id="selectObjetOne" resultType="Objet"
-		parameterType="_int">
-		select *
+	<select id="selectObjetOne" resultType="Objet" parameterType="_int">
+		select
+		*
 		from objet
 		where objetno = #{value}
 	</select>
@@ -106,7 +109,8 @@
 	<select id="selectQnaList" resultType="Qna">
 		select *
 		from qna
-		order by qnano asc
+		order by
+		qnano asc
 	</select>
 
 	<!-- QnA 상세 조회 -->
@@ -121,10 +125,11 @@
 	<select id="selectFaqList" resultType="Faq">
 		select *
 		from faq
-		order by faqno asc
+		order by
+		faqno asc
 	</select>
 
-	<!-- FAQ 목록 조회 -->
+	<!-- FAQ 상세 조회 -->
 	<select id="selectFaqDetail" resultType="Faq"
 		parameterType="_int">
 		select *
@@ -132,5 +137,26 @@
 		where faqno = #{ value }
 	</select>
 
+	<!-- 신고게시글 전체조회 -->
+	<select id="selectReportBList" resultType="ReportBoard">
+		select * from reportboard
+	</select>
+
+	<!-- 신고게시글 상세조회 -->
+	<select id="selectReportBDetail" resultType="ReportBoard" parameterType="string">
+		select * 
+	 	<trim prefix="from">
+			<if test="_parameter.contains('OBJET')"> objet</if>
+			<if test="_parameter.contains('REVIEW')">Review</if>
+		</trim>
+ 		<where>
+			<if test="_parameter.contains('OBJET')">
+			objetno = substr( #{ value } , 6)
+			</if>
+			<if test="_parameter.contains('REVIEW')">
+			objetno = substr( #{ value } , 7) and userid like '%'||#{ value }||'%'
+			</if>
+		</where> 
+	</select> 
 
 </mapper>

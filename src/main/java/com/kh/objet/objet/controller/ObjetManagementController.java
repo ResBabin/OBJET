@@ -36,7 +36,7 @@ public class ObjetManagementController {
 		return mv;
 	}
 	@RequestMapping("objetmd.do")
-	public ModelAndView objetMDetail (ModelAndView mv, @RequestParam("objetno") int objetno) {
+	public ModelAndView objetManageDetail (ModelAndView mv, @RequestParam("objetno") int objetno) {
 		Objet objet = objetmService.selectObjetOne(objetno);
 		if (objet != null) {
 			mv.addObject("objet", objet);
