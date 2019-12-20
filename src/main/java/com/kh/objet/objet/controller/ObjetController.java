@@ -32,7 +32,7 @@ public class ObjetController {
 	//�쟾�떆 �뜑蹂닿린 �씠�룞
 	@RequestMapping("objetMore.do")
 	public String moveTestPage() {
-		return "objet/objetMore";
+		return "objet/objetAllList";
 	}
 	
 	//�쟾�떆 �냼媛� �씠�룞(�븳以꾪룊)
@@ -47,7 +47,41 @@ public class ObjetController {
 		return "objet/objetIntro";
 	}
 	
+	//오브제 검색 결과(전시/작가)
+	@RequestMapping("objetSearchList.do")
+	public String selectObjetSearchList() {
+		return "objet/searchList";
+	}
 	
+	//오브제 전시 전체 리스트
+	@RequestMapping("objetAllList.do")
+	public String selectObjetAllList() {
+		return "objet/objetAllList";
+	}
+	
+	//오브제 작가 전체 리스트
+	@RequestMapping("artistAllList.do")
+	public String selectArtistAllList() {
+		return "objet/artistAllList";
+	}
+	
+	//오브제 상세보기 
+	@RequestMapping("objetOne.do")
+	public String selectObjetOne() {
+		return "objet/objetDetail";
+	}
+
+	//오브제 신고페이지 이동
+	@RequestMapping("moveObjetReport.do")
+	public String moveObjetReport() {
+		return "objet/objetReport";
+	}
+	
+	//오브제 신고
+	@RequestMapping("objetReport.do")
+	public String insertObjetReport() {
+		return "objet/objetMain";
+	}
 	
 	// 최민영 *******************************************************************************
 	// 오브제 관리-내 오브제 페이지 이동
