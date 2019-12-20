@@ -48,7 +48,10 @@ public class QnaController {
 		public String moveMyQnaWrite() {
 			return "user/myQnaWrite";
 		}
+		
+		
 
+		//김은솔 --------------------------------------------------------------------------
  		@RequestMapping("qnam.do")
 		public ModelAndView selectQnaList(ModelAndView mv){
 			ArrayList<Qna> qnalist = (ArrayList<Qna>) qnaService.selectQnaList();

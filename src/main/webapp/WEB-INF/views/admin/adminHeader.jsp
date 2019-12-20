@@ -147,7 +147,7 @@
 		</div>
 	</div>
 	<div class="ui fixed" style="top: 80px; left: 2px; position: fixed;">
-		<button id="menucon" class="ui large red tag label button"
+		<button id="menucon" class="ui big red tag label button"
 			style="padding-left: 20px; padding-right: 15px;">
 			<i class="list icon"></i>Menu
 		</button>
