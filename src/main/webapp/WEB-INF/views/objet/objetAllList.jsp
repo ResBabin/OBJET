@@ -20,6 +20,9 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <style type="text/css">
+.objet_allList {
+	margin-top:40px;
+} 
 .objet_title{
 	font-family: 'Nanum Myeongjo';
 	nth-of-type(1) font-weight: 400; 
@@ -199,6 +202,7 @@ $(function() {
 </script>
 </head>
 <body>
+<section class="objet_allList">
 <h3 class="objet_title">OBJET ALL EXHIBITION</h3>
 <section class="objet_more_section">
 <div class="search-option-cate">
@@ -288,6 +292,7 @@ onclick="javascript:moreContent('more_list', 10);">
 </center>
 </section>
 <br><br><br><br><br>
+</section>
 <c:import url="../headerSearch.jsp" />
 <c:import url="../footer.jsp" />
 </body>

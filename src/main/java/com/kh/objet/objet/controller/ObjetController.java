@@ -16,29 +16,11 @@ public class ObjetController {
 	private ObjetServiceImpl objetService;
 	
 	public ObjetController() {}
-	
-	//寃��깋�럹�씠吏� �씠�룞
-	@RequestMapping("searchResult.do")
-	public String moveSearchPage() {
-		return "objet/searchList";
-	}
 
 	//�쟾�떆 硫붿씤�럹�씠吏� �씠�룞
 	@RequestMapping("objetMain.do")
 	public String moveObjetPage() {
 		return "objet/objetMain";
-	}
-
-	//�쟾�떆 �뜑蹂닿린 �씠�룞
-	@RequestMapping("objetMore.do")
-	public String moveTestPage() {
-		return "objet/objetAllList";
-	}
-	
-	//�쟾�떆 �냼媛� �씠�룞(�븳以꾪룊)
-	@RequestMapping("objetReview.do")
-	public String moveReviewPage() {
-		return "objet/objetReview";
 	}
 	
 	//전시소개 테스트
@@ -82,6 +64,17 @@ public class ObjetController {
 	public String insertObjetReport() {
 		return "objet/objetMain";
 	}
+	
+	/*//한줄평 삭제
+	@RequestMapping("deleteReview.do")
+	public String deleteReview(String userid) {
+		return "objet/objetReviewDelete";
+	}*/
+
+	//한줄평 신고페이지 이동
+	
+	//한줄평 신고
+	
 	
 	// 최민영 *******************************************************************************
 	// 오브제 관리-내 오브제 페이지 이동

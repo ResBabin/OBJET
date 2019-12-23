@@ -483,7 +483,7 @@ window.onload = function(){
 </head>
 <body>
 <div id="search-box-top"> 
-<form action='searchResult.do' id='searchList-form' method='get' target='_top' class="ui icon input">
+<form action='objetSearchList.do' id='searchList-form' method='get' target='_top' class="ui icon input">
 	  <input id='searchList-text' name="q" type="text" placeholder="검색어를 입력해주세요." 
 	  autocomplete="off" value="오브제" />
 	  <!-- <input name="userid" type="hidden" value=""> -->
@@ -492,7 +492,7 @@ window.onload = function(){
 </div>
 <!-- 검색 키워드 -->
 <div id="search-box-main"> 
-<form action='searchResult.do' id='search-form-main' method='get' accept-charset="utf-8"
+<form action='objetSearchList.do' id='search-form-main' method='get' accept-charset="utf-8"
  class="ui massive icon input">
 	  <input id='search-text-main' name="q" type="text" placeholder="검색어를 입력해주세요." 
 	  maxlength="20" onfocus="this.value = this.value;" autocomplete="off" value="오브제" />

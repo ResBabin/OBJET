@@ -21,6 +21,9 @@
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
  <link rel="stylesheet" href="resources/css/swiper.min.css">
  <style>
+.objet_main {
+	margin-top:60px;
+ }
 .swiper1 {
   height: calc(100vh - 410px);
   margin: 50px 50px 60px 50px; 
@@ -421,7 +424,7 @@
 <div class="swiper-container swiper1">
   <div class="swiper-wrapper wrapper1">
     <div class="swiper-slide slide1">
-      <a href="${pageContext.servletContext.contextPath }/objetReview.do">
+      <a href="${pageContext.servletContext.contextPath }/objetOne.do">
       <div class="slide-inner inner1" style="background-image:url(resources/images/objet/objetmainposter.jpg)"></div>
       <div class="info"><span class="text">나는 코코 카피탄, <br> 오늘을 살아가는 너에게<br> 
       <span class="date">2019.08.02 - 2019.12.12<span></span><br></span></div></a>
@@ -507,14 +510,14 @@
 <div class="objet_exhibition">
 <h3 class="objet_title">OBJET EXHIBITION</h3>
 <p class="objet_subtitle">오브제만의 특별한 전시</p>
-<a href="objetMore.do"><span class="more_btn">more 
+<a href="objetAllList.do"><span class="more_btn">more 
 <i class="material-icons" style="font-size:16px;vertical-align: middle;top:5px;">&#xe315;</i></span></a>
 <div class="objet_pic">
 	<div class="objet_pic_main">
 	<div class="swiper-container swiper2">
   	<div class="swiper-wrapper wrapper2">
     <div class="swiper-slide slide2">
-      <a href="${pageContext.servletContext.contextPath }/objetReview.do">
+      <a href="${pageContext.servletContext.contextPath }/objetOne.do">
       <div class="slide-inner inner2" style="background-image:url(resources/images/objet/objetmainposter.jpg)"></div>
       <div class="info2"><span class="text2">나는 코코 카피탄, <br> 오늘을 살아가는 너에게<br> 
       <span class="artist2">by 코코 카피탄<span></span><br></span></div></a>
@@ -594,7 +597,7 @@
 <div class="objet_artist">
 <h3 class="objet_title">OBJET ARTIST</h3>
 <p class="objet_subtitle">오브제의 창작가들</p>
-<a href="artistMore.do"><span class="more_btn">more 
+<a href="artistAllList.do"><span class="more_btn">more 
 <i class="material-icons" style="font-size:16px;vertical-align: middle;top:5px;">&#xe315;</i></span></a>
 <div class="artist_pic">
 <div class="artist_pic_main">
