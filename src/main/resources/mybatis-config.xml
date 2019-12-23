@@ -8,9 +8,9 @@
 		<typeAlias type="com.kh.objet.blacklist.model.vo.BlackList" alias="BlackList" />
 		<typeAlias type="com.kh.objet.faq.model.vo.Faq" alias="Faq" />
 		<typeAlias type="com.kh.objet.feed.model.vo.Feed" alias="Feed" />
-		<typeAlias type="com.kh.objet.follower.model.vo.Follower" alias="Follower" />
-		<typeAlias type="com.kh.objet.following.model.vo.Following" alias="Following" />
-		<typeAlias type="com.kh.objet.gbreply.model.vo.GbReply" alias="GbReply" />
+		<typeAlias type="com.kh.objet.follow.model.vo.Follower" alias="Follower" />
+		<typeAlias type="com.kh.objet.follow.model.vo.Following" alias="Following" />
+		<typeAlias type="com.kh.objet.guestbook.model.vo.GbReply" alias="GbReply" />
 		<typeAlias type="com.kh.objet.guestbook.model.vo.GuestBook" alias="GuestBook" />
 		<typeAlias type="com.kh.objet.likeobjet.model.vo.LikeObjet" alias="LikeObjet" />
 		<typeAlias type="com.kh.objet.notice.model.vo.Notice" alias="Notice" />
@@ -30,6 +30,7 @@
 		<mapper resource="mappers/board-mapper.xml" />
 		<mapper resource="mappers/notice-mapper.xml" />
 		<mapper resource="mappers/test-mapper.xml" /> -->
+	 	<mapper resource="mappers/user-mapper.xml" /> 
 	 	<mapper resource="mappers/admin-mapper.xml" /> 
 		
 	</mappers>

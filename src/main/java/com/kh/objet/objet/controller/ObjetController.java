@@ -4,9 +4,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.objet.objet.model.service.ObjetServiceImpl;
+import com.kh.objet.objet.model.vo.Objet;
+import com.kh.objet.paging.model.vo.Paging;
 
 @Controller
 public class ObjetController {
@@ -84,27 +88,47 @@ public class ObjetController {
 	}
 	
 	// 최민영 *******************************************************************************
+	// 작가홈 오브제 리스트 보기
+			@RequestMapping(value= {"selectArtistObjetList.do", "artistHomeMain.do"})
+			public String selectArtistObjetList(@RequestParam("userid") String userid) {
+				return "artistHome/artistHomeMain";
+			}
+			
+	// 작가홈 오브제 검색
+			@RequestMapping("selectArtistObjetSearch.do")
+			public String selectArtistObjetSearch(@RequestParam(value="objettitle") String objettitle) {
+				return "artistHome/artistHomeMain";
+			}
+
+			
+	
 	// 오브제 관리-내 오브제 페이지 이동
 		@RequestMapping("moveMyObjetList.do")
-		public String moveMyObjetList() {
+		public String moveMyObjetList(@RequestParam(value="userid") String userid, Paging paging) {
+			return "objet/myObjetList";
+		}
+		
+	// 오브제 관리-내 오브제 검색
+		@RequestMapping("selectMyObjetSearch.do")
+		public String selectMyObjetSearch(@RequestParam(value="publicyn") String publicyn, @RequestParam(value="objetstatus") String objetstatus, @RequestParam(value="objettitle") String objettitle, Paging paging) {
 			return "objet/myObjetList";
 		}
 	
 	//오브제 관리 - 내 오브제 상세보기
 		@RequestMapping("moveMyObjetDetail.do")
-		public String moveMyObjetDetail() {
+		public String moveMyObjetDetail(@RequestParam(value="objetno") int objetno, Model model) {
 			return "objet/myObjetDetail";
 		}
 		
 	//오브제 관리 - 내 오브제 수정 페이지 이동
 		@RequestMapping("moveEditObjet.do")
-		public String moveEditObjet() {
+		public String moveEditObjet(@RequestParam(value="objetno") int objetno) {
 			return "objet/editObjet";
 		}
 	
 	//오브제 관리 - 내 오브제 수정
 		@RequestMapping("updateMyObjet.do")
-		public String updateMyObjet() {
+		public String updateMyObjet(Objet objet, Model model) {
 			return "objet/myObjetDetail";
 		}
 	
@@ -117,31 +141,16 @@ public class ObjetController {
 		
 	//오브제 관리 - 전시 등록
 		@RequestMapping("insertObjet.do")
-		public String insertObjet() {
+		public String insertObjet(Objet objet, Model model) {
 			return "objet/myObjetList";
 		}
 		
-	// 작가홈 오브제 리스트 보기
-		@RequestMapping("selectArtistObjetList.do")
-		public String selectArtistObjetList() {
-			return "artistHome/artistHomeMain";
+	// 오브제 관리 - 전시삭제
+		@RequestMapping("deleteObjet.do")
+		public String deleteObjet(int objetno, Model model) {
+			return "objet/myObjetList";
 		}
 		
-	// 작가홈 오브제 검색
-		@RequestMapping("selectArtistObjetSearch.do")
-		public String selectArtistObjetSearch() {
-			return "artistHome/artistHomeMain";
-		}
-
-
-
-
-
-
-
-
-
-
 
 
 }

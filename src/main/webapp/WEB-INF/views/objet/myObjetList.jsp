@@ -62,7 +62,7 @@ $(function(){
 				<input type="radio" name="objetstatus" value="WAIT"><label>&ensp;승인대기</label>
 		<br><br>
 			<a class="ui large teal label">오브제명</a>&ensp;
-				<div class="ui input"><input type="text" name="keyword" style="width:300px; height:35px;"></div>&ensp;
+				<div class="ui input"><input type="text" name="objettitle" style="width:300px; height:35px;"></div>&ensp;
 				<div class="ui buttons"><button class="ui small grey button" type="submit">검색</button></div>
 		</form>
 	

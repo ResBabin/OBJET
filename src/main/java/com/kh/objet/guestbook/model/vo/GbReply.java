@@ -1,4 +1,4 @@
-package com.kh.objet.gbreply.model.vo;
+package com.kh.objet.guestbook.model.vo;
 
 import java.io.Serializable;
 import java.sql.Date;

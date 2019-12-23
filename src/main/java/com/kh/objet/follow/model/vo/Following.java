@@ -1,4 +1,4 @@
-package com.kh.objet.following.model.vo;
+package com.kh.objet.follow.model.vo;
 
 import java.io.Serializable;
 import java.sql.Date;

@@ -50,9 +50,9 @@
 			<div class="objetSearchBox" style="height: 130px;">
 			<form action="" method="post">
 				<a class="ui large teal label">오브제명</a>&ensp;
-					<div class="ui input"><input type="text" name="keyword1" style="width:300px; height:35px;"></div>&emsp;&emsp;&emsp;&emsp;
+					<div class="ui input"><input type="text" name="objettitle" style="width:300px; height:35px;"></div>&emsp;&emsp;&emsp;&emsp;
 				<a class="ui large teal label">작가명</a>&ensp;
-					<div class="ui input"><input type="text" name="keyword2" style="width:150px; height:35px;"></div>
+					<div class="ui input"><input type="text" name="userid" style="width:150px; height:35px;"></div>
 			<br><br>
 				<a class="ui large teal label">전시상태</a>&ensp;
 					<input type="radio" name="objetstatus" value="ALL" checked="checked"><label>&ensp;전체</label>&emsp;&emsp;
