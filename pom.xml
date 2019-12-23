@@ -197,7 +197,7 @@
 		<dependency>
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-core</artifactId>
-		    <version>4.2.13.RELEASE</version>
+		    <version>5.0.0.RELEASE</version>
 		</dependency>
 		
 		<!-- 스프링 시큐리티 웹(위와 같은 버전) -->
@@ -222,7 +222,7 @@
 		<dependency>
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-core</artifactId>
-		    <version>4.2.13.RELEASE</version>
+		    <version>5.0.0.RELEASE</version>
 		</dependency>
 		
 		<!-- 스프링 시큐리티 웹(위와 같은 버전) -->
