@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userMapper">
+	
+	<select id="selectCheckId" parameterType="String" resultType="int">
+		select count(userid) from users where userid = #{userid}
+	</select>
+	
+	<select id="selectCheckNickname" parameterType="String" resultType="int">
+		select count(nickname) from users where nickname = #{nickname}
+	</select>
+	
+	<insert id="insertUsers" parameterType="Users">
+		insert into users values (#{userid}, #{userpwd}, #{usertype}, #{username}, #{nickname}, #{email}, #{phone}, #{gender}, sysdate, default, default)
+	</insert>
+
+	<insert id="insertUsersProfile" parameterType="String">
+		insert into usersprofile (userid) values (#{userid})
+	</insert>
+	
+	<select id="selectUsersLogin" parameterType="Users" resultType="Users">
+		select * from users where userid = #{userid} and userpwd = #{userpwd}
+	</select>
+	
+	<select id="selectFindId" parameterType="Users" resultType="Users">
+		select * from users where username = #{username} and email = #{email}
+	</select>
+
+</mapper>

@@ -16,6 +16,117 @@
  <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
  <script type="text/javascript">
  $(function(){
+	 
+	// 회원가입 유효성 체크
+	var idTF = "F";
+  	var pwTF = "F";
+ 	var pwEq = "F";
+ 	var unTF = "F";
+ 	var nnTF = "F";
+	 
+ 	
+ 	// 아이디 중복체크
+	 $("#checkId").click(function(){
+		 $.ajax({
+	         url:"checkId.do",
+	         type:"post",
+	         data:{userid:$("#userid").val()},
+	         success: function(result){
+	             if(result == "ok"){
+	                var idReg = /^(?=.*[a-z])[a-z0-9]{6,15}$/;     
+	                if(!idReg.test($("#userid").val())){
+	                   $("#divid").html("영어소문자와 숫자만으로 6~15자리로 입력해야 합니다.");
+	                   idTF = "F";
+	                }else{
+	                   $("#divid").html("<span style='color:#48d239;'>사용 가능한 아이디입니다.</span>");
+	                   idTF = "T";
+	                }
+	             }
+	             else{
+	                $("#divid").html("이미 사용중인 아이디입니다.\n다른 아이디를 입력해주세요.");
+	                idTF = "F";
+	             }
+	          },
+	          error: function(request, status, errorData){
+					console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
+				}
+	       });   
+	       return false;
+	    });
+ 	
+ 	// 비밀번호 유효성 체크
+	   $("#userpwd").keyup(function(){
+		      var pwdReg = /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[a-z\d$@$!%*#?&]{8,20}$/;    //비밀번호 유효성 - 영어소문자/숫자/특수문자
+		      if(!pwdReg.test($("#userpwd").val())){
+		         $("#divpwd").html("영어소문자/숫자/특수문자 각 1개씩 포함 8~20자로 입력해야 합니다.");
+		         pwTF = "F";
+		      }
+		      else{
+		         $("#divpwd").html("<span style='color:#48d239;'>사용 가능한 암호입니다.</span>");
+		         pwTF = "T";
+		      }
+		     
+		   });
+		   
+ 	// 비밀번호 일치 확인
+	   $("#userpwd2").keyup(function(){
+	      if($("#userpwd").val() != $("#userpwd2").val()){
+	         $("#divpwd2").html("암호가 일치하지 않습니다.");
+	         pwEq = "F";
+	      }
+	      else{
+	         $("#divpwd2").html("<span style='color:#48d239;'>암호가 일치합니다.</span>");
+	         pwEq = "T";
+	      }
+	      return false;
+	   });
+ 	
+ 	
+ 	// 이름 한글만 입력 
+ 		$("#username").keyup(function(){
+		      var pwdReg = /^[가-힣]{2,5}$/;    //한글만 2~5자입력
+		      if(!pwdReg.test($("#username").val())){
+		         $("#divusername").html("한글만 2~5자 입력 가능합니다");
+		         unTF = "F";
+		      }
+		      else{
+		         $("#divusername").html("<span style='color:#48d239;'>사용 가능합니다.</span>");
+		         unTF = "T";
+		      }
+		     
+		   });
+ 	
+ 	
+ 	// 닉네임 중복체크
+ 		 $("#checkNickname").click(function(){
+ 			 $.ajax({
+ 		         url:"checkNickname.do",
+ 		         type:"post",
+ 		         data:{nickname:$("#nickname").val()},
+ 		         success: function(result){
+ 		             if(result == "ok"){
+ 		                var nnReg = /^[가-힣a-z0-9]{1,8}$/;
+ 		                if(!nnReg.test($("#nickname").val())){
+ 		                   $("#divNickname").html("한글/영소문자/숫자만 가능합니다(최대 8자).");
+ 		                  nnTF = "F";
+ 		                }else{
+ 		                   $("#divNickname").html("<span style='color:#48d239;'>사용 가능한 닉네임 입니다.</span>");
+ 		                  nnTF = "T";
+ 		                }
+ 		             }
+ 		             else{
+ 		                $("#divNickname").html("이미 사용중인 닉네임 입니다.\n다른 닉네임을 입력해주세요.");
+ 		               nnTF = "F";
+ 		             }
+ 		          },
+ 		          error: function(request, status, errorData){
+ 						console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
+ 					}
+ 		       });   
+ 		       return false;
+ 		    });
+	
+	 
 	// 체크박스 전체선택 및 전체해제
 	$("#allCheck").click(function(){
 		if($(this).is(":checked")){
@@ -61,42 +172,46 @@ function winOpen2(){
 	<p style="font-size: 20pt; padding-top:50px; color:#373737; text-align:center;">오브제 회원가입</p>
 	
 	<!-- 회원정보입력섹션 시작! -->
+	
 	<div class="enrollSection">
-	<form action="" method="post">
+	<form action="insertUsers.do" method="post">
+			<input type="hidden" name="usertype" value="USER">
 		<table class="enrollTable">
+			
 			<tr>
 				<th>아이디</th>
 				<td><div class="ui input" style="width:350px;"><input type="text" id="userid" name="userid" placeholder="영문소문자/숫자, 8~12자" required></div>&emsp;
 									<button class="ui teal button" id="checkId">중복확인</button>
-									<div class="enrolldiv" id="divid">사용 가능한 아이디입니다.</div>
+									<div class="enrolldiv" id="divid"></div>
 				</td>
 			</tr>
 			
 			<tr>
 				<th>비밀번호</th>
-				<td><div class="ui input" style="width:350px;"><input type="password" id="userpwd" name="userpwd" placeholder="영문 소문자/숫자 중 3가지 이상 조합(4자~20자)" required></div>
-					<div class="enrolldiv" id="divpwd">암호는 영어소문자와 숫자만으로 4~20자리로 입력해야 합니다.</div>
+				<td><div class="ui input" style="width:350px;"><input type="password" id="userpwd" name="userpwd" placeholder="영소문자/숫자/특수문자 각 1개 이상 포함하여 8-20자" required></div>
+					<div class="enrolldiv" id="divpwd"></div>
 				</td>
 			</tr>
 			
 			<tr>
 				<th>비밀번호 확인</th>
 				<td><div class="ui input" style="width:350px;"><input type="password" id="userpwd2" placeholder="작성한 비밀번호와 동일하게 입력해주세요." required></div>
-					<div class="enrolldiv" id="divpwd2">암호가 일치하지 않습니다. 다시 입력하세요.</div>
+					<div class="enrolldiv" id="divpwd2"></div>
 				</td>
 			</tr>
 			
 			<tr>
 				<th>이름</th>
 				<td><div class="ui input" style="width:350px;"><input type="text" id="username" name="username" placeholder="한글만 가능(최대 5자)" required></div>
+					<div class="enrolldiv" id="divusername"></div>
 				</td>
 			</tr>
 			
 			<tr>
 				<th>닉네임</th>
-				<td><div class="ui input" style="width:350px;"><input type="text" id="nickname" name="nickname" placeholder="한글 최대 8자, 영문  최대 24자" required></div>&emsp;
+				<td><div class="ui input" style="width:350px;"><input type="text" id="nickname" name="nickname" placeholder="한글/영소문자/숫자만 가능(최대 8자)" required></div>&emsp;
 									<button class="ui teal button" id="checkNickname">중복확인</button>
-									<div class="enrolldiv" id="divid">사용 가능한 닉네임입니다.</div>
+									<div class="enrolldiv" id="divNickname"></div>
 				</td>
 			</tr>
 			
@@ -108,7 +223,7 @@ function winOpen2(){
 			
 			<tr>
 				<th>휴대폰</th>
-				<td><div class="ui input" style="width:350px;"><input type="tel" id="phone" name="phone" placeholder="숫자만 입력" required></div>
+				<td><div class="ui input" style="width:350px;"><input type="tel" id="phone" name="phone" placeholder="숫자만 입력" onKeyup="this.value=this.value.replace(/[^0-9]/g, '');" required></div>
 				</td>
 			</tr>
 			
@@ -136,12 +251,10 @@ function winOpen2(){
 	<div align="center">
 		<input type="submit" class="ui green button" value="가입하기" id="btnsub" disabled></a> &nbsp;
 		<input type="reset" class="ui button" value="다시작성"> &nbsp;
-		<br><a href="moveEnrollSuccess.do">회원가입완료 임시이동</a>
 	</div>
 	</form>
-		<br><br>
-		
 </div>
+
 <!-- 회원가입 페이지 끝 -->
 <br>
 </body>
