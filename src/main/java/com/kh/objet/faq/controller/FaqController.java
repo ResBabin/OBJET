@@ -22,18 +22,30 @@ public class FaqController {
 	private FaqService faqService;
 
 	public FaqController() {};
-	
+	////////////////////////////////////////////////이유진/////////////////////////////////////////////////
 	//csmain으로 이동(고객센터 메인)
-	@RequestMapping("Movecs.do")
-	public String MovecsPage() {
+	@RequestMapping("moveCs.do")
+	public String moveCsPage() {
 		return "cs/csmain";
 	}
-	
-	@RequestMapping("Movefaqmain.do")
-	public String MovefaqPage() {
+    //faqmain으로 이동
+	@RequestMapping("moveFaqMain.do")
+	public String moveFaqPage() {
 		return "cs/faqmain";
 	}
 	
+	//faqmain 전체 목록 불러오기
+	@RequestMapping("selectfaqList.do")
+		public String selectFaqList() {
+		
+			return "faq/faqmain";
+		}
+	
+
+	
+		
+	
+//////////////////////////////////////////////////////관리자//////////////////////////////////////////////////////////////////////
 	@RequestMapping("faqm.do")
 	public ModelAndView selectFaqList(ModelAndView mv) {
 		ArrayList<Faq> faqlist = (ArrayList<Faq>) faqService.selectFaqList();

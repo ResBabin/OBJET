@@ -24,18 +24,55 @@ public class NoticeController {
 
 	public NoticeController() {
 	}
-
-	@RequestMapping("Movenotice.do")
-	public String MoveNoticePage() {
+	//////////////////////////////////////////////이유진////////////////////////////////////////////////
+    //공지사항 메인 페이지로 이동
+	@RequestMapping("moveNotice.do")
+	public String moveNoticePage() {
 		return "notice/noticemain";
 	}
-
-	// 공지사항 디테일
-	@RequestMapping("Movenoticedetail.do")
-	public String MoveNoticeDetailPage() {
-		return "notice/noticeDetail";
-	}
-
+	
+	//공지사항 상세보기 페이지로 이동
+	@RequestMapping("moveNoticeDetail.do")
+		public String noticeDetailPage() {
+			return "notice/noticeDetail";
+		}
+	
+	//공지사항 전체보기
+     @RequestMapping("selectNoticeList.do")
+     public String selectNoticeList() {
+    	 return "notice/noticemain";
+     }
+     
+   //공지사항 상세보기
+     @RequestMapping("selectNoticeDetail.do")
+     public String selectNoticeDetail() {
+    	 return "notice/noticedetail";
+     }
+     //공지사항 갯수
+     @RequestMapping("getListCountNotice.do")
+     public String getListCountNotice() {
+    	 return "notice/noticemain";
+     }
+     
+     //공지사항 제목검색
+     @RequestMapping("selectSearchNoticeTitle.do")
+     public String selectSearchNoticeTitle() {
+    	 return"notice/noticemain";
+     }
+     
+     /*//공지사항 분류검색
+     @RequestMapping("searchNoticeType.do")
+     public String searchNoticeType() {
+    	 return"notice/noticemain";
+     }
+     */
+    //공지사항 날짜 검색
+     @RequestMapping("selectSearchNoticeDate.do")
+     public String selectSearchNoticeDate() {
+    	 return "notice/noticemain";
+     }
+	
+//////////////////////////////////////////////////////////////////////////관리자//////////////////////////////////////////////////
 	@RequestMapping("noticem.do")
 	public ModelAndView noticeListM(ModelAndView mv) {
 		ArrayList<Notice> noticelist = (ArrayList<Notice>) noticeService.selectNoticeList();

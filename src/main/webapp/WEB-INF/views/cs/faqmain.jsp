@@ -92,7 +92,7 @@ margin-left: 430px;
 <br>
 <div class="group">
     <h1>FAQ</h1> 
-<!--  <div class="faq_more"><h4><a href="Movefaqmain.do">고객센터로 가기</a></h4></div> -->
+<
     <div class="box">
         <strong class="title">오브제 가입은 어떻게 하나요?</strong>
         <div class="cont">

@@ -15,11 +15,17 @@ public class QnaDao {
 	private SqlSessionTemplate mybatisSession;
 	
 	public QnaDao() {}
-
+	/////////////////////////////////이유진/////////////////////////////////////////////////////
+	public int insertWriteQna(Qna qna) {
+		return mybatisSession.insert("csMapper.insertQnaWrite",qna);
+	}
+      ////////////////////////////////////////관리자/////////////////////////////////////////////////
 	public List<Qna> selectQnaList(){
 		return mybatisSession.selectList("adminMapper.selectQnaList");
 	}
 	public Qna selectQnaDetail(int qnano) {
 		return mybatisSession.selectOne("adminMapper.selectQnaDetail", qnano);
 	}
+
+	
 }
