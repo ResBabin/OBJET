@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminMapper">
+
+	<!-- 전시일정 조회 -->
+	<select id="selectCalendar" resultType="Calendar">
+		select calnum, objettitle, description, to_char(startdate, 'yyyy-mm-dd')||'T'||to_char(startdate, 'HH24:MM') as startdate,
+		to_char(enddate, 'yyyy-mm-dd')||'T'||to_char(enddate, 'HH24:MM') as enddate, category, backgroundcolor, textcolor 
+		from calendar where username = #{username}
+	</select>
+
+	<!-- 전시일정 추가 -->
+	<insert id="insertCalendar" parameterType="String">
+		insert into calendar values ()
+	</insert>
+	
+	<!-- 전시일정 수정 -->
+	<update id="updateCalendar" parameterType="Calendar">
+		update calendar set calnum = #{calnum}, objettitle = #{objettitle}, description = #{description}, startdate = #{startdate}, enddate = #{enddate},
+		category = #{category}, backgroundcolor = #{backgroundcolor}, textcolor = #{textcolor} where calnum = #{calnum}
+	</update>
+	
+	<!-- 전시일정 삭제 -->
+	<delete id="deleteCalendar" parameterType="String">
+		delete from calendar where calnum = #{calnum}
+	</delete>
+
+</mapper>

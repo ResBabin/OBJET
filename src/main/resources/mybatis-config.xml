@@ -24,6 +24,7 @@
 		<typeAlias type="com.kh.objet.usersprofile.model.vo.UsersProfile" alias="UsersProfile" />
 		<typeAlias type="com.kh.objet.visitedobjet.model.vo.VisitedObjet" alias="VisitedObjet" />
 		<typeAlias type="com.kh.objet.users.model.vo.UserManagement" alias="Userm" />
+		<typeAlias type="com.kh.objet.calendar.model.vo.Calendar" alias="Calendar" />
 	</typeAliases>
 	<mappers>
 <!-- 		<mapper resource="mappers/member-mapper.xml" />
@@ -32,6 +33,7 @@
 		<mapper resource="mappers/test-mapper.xml" /> -->
 	 	<mapper resource="mappers/user-mapper.xml" /> 
 	 	<mapper resource="mappers/admin-mapper.xml" /> 
+	 	<mapper resource="mappers/calendar-mapper.xml"/>
 		
 	</mappers>
 </configuration>
