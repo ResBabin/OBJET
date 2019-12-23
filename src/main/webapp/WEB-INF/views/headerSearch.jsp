@@ -84,7 +84,7 @@ window.onload = function() {
 <!-- 검색 아이콘  -->
 <section class="headerSearch">
 <div id="search-box-top"> 
-<form action='searchResult.do' id='searchList-form' method='get' target='_top' class="ui icon input">
+<form action='objetSearchList.do' id='searchList-form' method='get' target='_top' class="ui icon input">
   <input id='searchList-text' name="q" type="text" placeholder="검색어를 입력해주세요." 
   autocomplete="off" value="" />
   <span id="searchList-btn" class="material-icons" onClick="submit();">&#xe8b6;</span>

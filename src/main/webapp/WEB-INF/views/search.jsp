@@ -83,7 +83,7 @@
   <div class="centered">
     <div id='search-box'>
       <i id="close-btn" class="material-icons">&#xe5cd;</i>
-      <form action='searchResult.do' id='search-form' method='get' target='_top' 
+      <form action='objetSearchList.do' id='search-form' method='get' target='_top' 
       class="ui wide fluid transparent icon input">
         <input id='search-text' name="q" type="text" placeholder="검색어를 입력해주세요." />
         <i class="material-icons" id="search-btn2" onClick="submit();">&#xe8b6;</i>
