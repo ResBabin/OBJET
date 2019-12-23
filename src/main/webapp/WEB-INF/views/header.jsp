@@ -47,7 +47,7 @@ header {
   color: black;
   transition: top 0.2s ease-in-out;
   z-index: 10;
-  position:fixed;
+
 } 
 
 /* 사이트 짧은 소개글 */
@@ -60,7 +60,6 @@ header {
   float: left;
   }
  
- 
 .sitemain{
   float:left;
   margin-left: 60px;
@@ -69,20 +68,22 @@ header {
  
   /* 사이드바 중 로그인 영역 */
   .sidebar1{
-  margin-top: 60px;
+  
+   background:rgba(0, 0, 0, 0.03);
+
   position:fixed;
   font-size: 17px;
  width:220px;
-  height: 18%;
+ height: 22%;
   color: black;
  
   }
  
- 
   /* 사이드바 중 메뉴영역 박스 시작
     -홈, 전시, 작가, 고객센터 써있는 부분*/
   .sidebar2{
-  border: 2px solid yellow;
+  margin-top: -35px;
+ /*  border: 2px solid yellow; */
   font-size: 20px;
   position:fixed;
   list-style:none;
@@ -107,11 +108,12 @@ ul, li {
 }
 
 
-#main-menu > li:hover{
-background-color:#666666;
-}
+/*  #main-menu > li:hover{
+color:#666666;
+}  */ 
 
 #main-menu > li > a {
+margin-top: -22px;
   margin-left: 10px;
   font-size: 18px;
   color: black;
@@ -119,23 +121,24 @@ background-color:#666666;
   text-decoration: none;
   letter-spacing: 0.05em;
   display: block;
-  padding: 10px 36px; 
+  padding: 22px 19px; 
  
 }
 
 /* 고객센터 하위메뉴 */
 #sub-menu {
-width: 220px;
-font-size: 16px;
+
+  width: 220px;
+  font-size: 16px;
   position: absolute;
- 
   opacity: 0;
   visibility: hidden;
   transition: all 0.15s ease-in;
 }
 
 #sub-menu > li {
-  padding: 10px 60px;
+margin-top: -17px;
+  padding: 15px 60px;
 }
 
 #sub-menu > li >  a {
@@ -154,83 +157,119 @@ font-size: 16px;
 .photo{
 text-align: center;
 width: 220px;
-border: 2px solid navy;
+margin-top: 50px;
+/* border: 2px solid navy; */
 
 height:60%;
 }
 .nickname{
+margin-top: -50px;
 text-align: center;
 width: 220px;
-border: 2px solid red;
+/* border: 2px solid red; */
 height:13%;
 }
 .follower{
 text-align: center;
 width: 220px;
-border: 2px solid green;
+/* border: 2px solid green; */
 height:13%;
 }
 .following{
 text-align: center;
 width: 220px;
-border: 2px solid yellow;
+/* border: 2px solid yellow; */
 height:13%;
 }
 .artistHome{
 font-size: 18px;
 width: 220px;
-border: 2px solid yellow;
-margin-top: 190px;
+/* border: 2px solid yellow; */
+margin-top: 166px;
 }
 
 .fd{
-margin-top: 15px;
+margin-bottom: 7px;
+margin-top: 7px;
 width: 220px;
-border: 2px solid yellow;
+/* border: 2px solid yellow; */
 font-size: 18px;
 }
 .qna{
 width: 220px;
-border: 2px solid black;
+/* border: 2px solid black; */
 font-size: 18px;
-
 }
 
-
-
-/* detail 태그인 안에 세모 도형 색 바꿔서 안보이게 만들기 */
-
-summary::-webkit-details-marker {
-    color: #fff; 
-}  
- .myinfo{
- 	margin-top:10px;
- }
-summary {
-
-margin-left: 28px;
-width: 150px;
-  cursor: pointer;
-  font-size: 18px;
-  color: black;
-}
-p{
-font-size: 18px;
-color: black;
-}
-.myinfo{
-
-width: 220px;
-height: 22%;
+#accordian1 {
+    margin-top:-30px;
+	background: #fff;
+	width: 220px;
+	color: black;
 }
 
+/* 메뉴 스타일 */
+.accordian1 {
+    font-size: 18px;
+	cursor: pointer;
+	background: #fff;
+}
+
+#accordian1 li {
+	list-style-type: none;
+}
+
+/* 서브메뉴 스타일 */
+#accordian1 ul ul li a {
+	color: black;
+	text-decoration: none;
+	font-size: 18px;
+	display: block;
+	padding: 10px;
+	transition: all 0.15s;
+}
+/* active 클래스 외에 것은 보이지 않게 하기 */
+#accordian1 ul ul {
+	display: none;
+}
+#accordian1 li.active ul {
+	display: block;
+}
+.sidebar3{
+  height: 30%;
+ background:rgba(0, 0, 0, 0.03);
+
+}
+.bloginwrite{/* 비로그인시 박스안에 들어갈 글 */
+margin-top: 10px;
+font-size: 14px;
+font-family: Courier New;
+font-style: oblique;
+}
+#blogo{/* 비로그인시 안에 들어가는 아이콘 */
+margin-top: 50px;
+border-radius:50%;
+}
+
+.sidebar4{
+
+}
 a{
 color: black;
 }
-  /* 사이드바 안에 계정 찾기 */
+/* 사이드바 안에 계정 찾기 */
 .forget{
+  
+  font-size: 16px;
+  margin-left: 2px;
+  margin-top: 230px;
+  } 
+  /* 사이드 바 안에 로그아웃 내 정보 수정 */
+  .logout{
+  
+  font-size: 16px;
   margin-left: 10px;
-  margin-top: 80px;
+  margin-top: 55px;
   } 
   /* 더보기 */
   .more{
@@ -240,9 +279,26 @@ color: black;
   margin-right: 30px;
   margin-bottom:10px;
   }
-
-  </style>
+  #startbutton{
+  margin-top: 27px;
+  }
   
+ </style>
+  
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+   <script type="text/javascript">
+   
+   $(function(){
+		$(".accordian1").click(function(){
+			$("#accordian1 ul ul").slideUp();
+			if(!$(this).next().is(":visible"))
+			{
+				$(this).next().slideDown();
+			}
+		})
+	})
+	</script>
 </head>
 <body>
 <header>
@@ -250,21 +306,21 @@ color: black;
 <img src="resources/images/objet_logo_black.png" width="70px" height="50px"></a></div> 
 <!--메뉴 아이콘-->
 <input type="checkbox" id="menuicon">
-
 <label for="menuicon">
    <span></span>
    <span></span>
    <span></span>
-   
 </label>
 
 <!--메뉴 아이콘-->
 <!-- 비로그인시 메뉴 아이콘 열리는 사이드바 -->
-<!-- <div class="sidebar">
-<div class="sidebar1">
-<button class="ui circular button">오브제 시작하기</button>
+<div class="sidebar">
+<div class="sidebar3">
+<img id="blogo" src="resources/images/basicprofilepic.png" width="60px" height="60px">
+<div class="bloginwrite">The moment everything becomes an inspiration</div>
+<button class="tiny ui black basic circular button" id= "startbutton">오브제 시작하기</button>
 </div>
-<div class="sidebar2">
+<div class="sidebar4">
 <nav role="navigation">
  <ul id="main-menu">
  
@@ -286,9 +342,9 @@ color: black;
 <div class="forget">
 계정을 잃어버리셨습니까?
 </div>
-</div> -->
+</div> 
 <!--로그인시 메뉴 아이콘 열리는 사이드바-->
-<div class="sidebar">
+<!-- <div class="sidebar">
 <div class="sidebar1">
 <div class="photo">
 <i class="big user circle icon"></i>
@@ -298,20 +354,23 @@ color: black;
 <div class="following">팔로잉수</div>
 </div>
 <div class="artistHome"><p onclick="location.href='artistHomeMain.do'">작가홈</p></div>
-<div class= "myinfo">
-<details>
-  <summary>
-    오브제 관리
-  </summary>
-  <p onclick="location.href='moveMyObjetList.do'">내 오브제</p>
-  <p onclick="location.href='moveCreateObjet.do'">오브제 등록</p>
-  <p onclick="location.href='moveMyLikeObjetList.do'">관심 오브제</p>
-   <p onclick="location.href='moveMyVisitedObjetList.do'">다녀온 오브제</p>
-</details> 
-   </div>
-   
-    <div class="fd"><p onclick="location.href='moveFeedList.do'">피드알림</p></div>
-    <div class="qna"><p onclick="location.href='moveMyQnaList.do'">문의내역</p></div>
+<div id="accordian1">
+	<ul>
+		<li>
+			<span class="accordian1">오브제관리</span>
+			<ul>
+				<li><a href="moveMyObjetList.do">내 오브제</a></li>
+				<li><a href="moveCreateObjet.do">오브제 등록</a></li>
+				<li><a href="moveMyLikeObjetList.do">관심오브제</a></li>
+				<li><a href="moveMyVisitedObjetList.do">다녀온오브제</a></li>
+			</ul>
+		</li>
+		
+		<li><div class="fd"><p onclick="location.href='moveFeedList.do'">피드알림</p></div></li>
+		<li><div class="qna"><p onclick="location.href='moveMyQnaList.do'">문의내역</p></div></li>
+	</ul>
+</div>
+
 <div class="sidebar2">
 <nav role="navigation">
  <ul id="main-menu">
@@ -322,23 +381,22 @@ color: black;
     
     <li><a href="#">작가</a></li>
     
-    <li><a href="Movecs.do">고객센터</a>
+    <li><a href="moveCs.do">고객센터</a>
       <ul id="sub-menu">
-        <li><a href="#" aria-label="subemnu">FAQ</a></li>
-        <li><a href="#" aria-label="subemnu">공지사항</a></li>
+        <li><a href="moveFaqMain.do" aria-label="subemnu">FAQ</a></li>
+        <li><a href="moveNotice.do" aria-label="subemnu">공지사항</a></li>
         </ul>
         </li>
         </ul>
         </nav>
-        <div class= "forget">
+        <div class= "logout">
         <div class="small ui buttons">
   <button class="ui black basic button">내 정보 수정</button>
- <!--  <div class="or"></div> -->
   <button class="ui black basic button">로그아웃</button>
 </div>
-        </div>
 </div>
 </div>
+</div> -->
 </header>
 </body>
 </html>

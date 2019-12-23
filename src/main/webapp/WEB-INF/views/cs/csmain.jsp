@@ -153,9 +153,9 @@ margin-bottom: 30px;
 <c:import url="../search.jsp" />
 <div class="group">
     <h1>FAQ</h1> 
- <div class="faq_more"><h4><a href="Movefaqmain.do">더보기</a></h4></div>
+ <div class="faq_more"><h4><a href="moveFaqMain.do">더보기</a></h4></div>
     <div class="box">
-        <strong class="title">오브제 가입은 어떻게 하나요?</strong>
+        <strong class="title"> ${ faqmd.faqno }. ${ faqmd.faqtitle }</strong>
         <div class="cont">
      <p>오른쪽 상단에 가입하기 버튼을 누르시고 
 사용하고 계시는 카카오, 이메일 계정 중 원하는 계정으로

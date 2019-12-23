@@ -46,12 +46,41 @@ public class QnaController {
 	// 문의내역 등록 페이지 이동
 		@RequestMapping("moveMyQnaWrite.do")
 		public String moveMyQnaWrite() {
-			return "user/myQnaWrite";
+			return "user/myQnaList";
 		}
 		
+		
+		
 
+		////////////////////////////////////이유진///////////////////////////////////////////////
+	
+		//문의내역 전체보기
+	     @RequestMapping("selectQnaList.do")
+	     public String selectQnaList() {
+	    	 return "user/myQnaList";
+	     }
+	     
+	   //공지사항 상세보기
+	     @RequestMapping("selectQnaDetail.do")
+	     public String selectQnaDetail() {
+	    	 return "user/myQnaDetail";
+	     }
 		
-		
+		//문의하기 글쓰기
+		@RequestMapping("insertWriteQna.do")
+		public String insertWriteQna() {
+				return"cs/csmain";
+		}
+		//문의내역 수정하기
+		@RequestMapping("updateWriteQna.do")
+		public String updateWriteQna() {
+			return"user/myQnaList";
+		}
+		//문의내역 삭제하기
+		@RequestMapping("deleteWriteQna.do")
+		public String deleteWriteQna() {
+			return "user/myQnaList";
+		}
 		
 	// 김은솔 ***************************************************	
   
