@@ -20,11 +20,10 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <style>
-body {
-  margin: 0;
-  padding: 0;
+html, body { height: 100%; margin: 0; padding: 0; } 
+.all {
+min-height:100%;
 }
-
 #search-box-top{
   position: fixed;
   top: 1.6em;
@@ -58,6 +57,7 @@ body {
 
 #searchList-text {
 	opacity: 0.8;
+	margin-top:4px;
 }
 
 #search-box-main {
@@ -482,6 +482,7 @@ window.onload = function(){
 </script>
 </head>
 <body>
+<section class="all">
 <div id="search-box-top"> 
 <form action='objetSearchList.do' id='searchList-form' method='get' target='_top' class="ui icon input">
 	  <input id='searchList-text' name="q" type="text" placeholder="검색어를 입력해주세요." 
@@ -584,18 +585,16 @@ window.onload = function(){
 					</a>
 					</li><br><hr style="border: 1px solid #eee;"><br>
 					</ul>
-				</div><br><br><br>
-				<!-- <div id="more-btn" align="center">
-					<a class="ui basic gray button" id="more-btn-a" href="javascript:moreContent('more_list', 10);">
-					더보기<span class="material-icons" style="font-size:20px;vertical-align:middle;text-align:center">&#xe313;</span></a>
-				</div> -->
+				</div><br>
+				<center>
 				<div class="ui basic gray animated button" style="vertical-align:middle;" align="center" tabindex="0"  onclick="javascript:moreContent('more_list', 10);">
 				  <div class="visible content">더보기</div>
 				  <div class="hidden content">
 				    <i class="ui chevron down icon" style="font-size:16px;vertical-align:middle;text-align:center"></i>
 				  </div>
 				</div>
-			</div><br><br><br><br>
+				</center>
+			</div><br><br><br>
 			<div class="object-keyword">
         <div class="wrap-keywords">
             <strong>추천 태그</strong>
@@ -737,21 +736,18 @@ window.onload = function(){
 						</div>
 					</div>
 				</li></ul>
-			</div><br><br><br><br>
-			<!-- <div id="more-btn" align="center" style="margin-top:60px;padding-top:60px;">
-				<a class="ui basic gray button" id="more-btn-a" href="javascript:moreContent('more_list', 10);">
-				더보기<span class="material-icons" style="font-size:20px;vertical-align:middle;text-align:center">&#xe313;</span></a>
-			</div> -->
+			</div><br>
+			<center>
 			<div class="ui basic gray animated button" style="vertical-align:middle;" align="center" tabindex="0"  onclick="javascript:moreContent('more_list', 10);">
 			  <div class="visible content">더보기</div>
 			  <div class="hidden content">
 			    <i class="ui chevron down icon" style="font-size:16px;vertical-align:middle;text-align:center"></i>
 			  </div>
-			</div>
+			</div></center><br><br><br>
 		</div>
     </div>
  	</div> 
- 	<br><br><br><br>
+ 	</section>
+ 	<c:import url="../footer.jsp" />
 </body>
-
 </html>

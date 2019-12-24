@@ -6,7 +6,7 @@
 /* 헤더 검색(팝업아이콘) css */
 /**********************/
 body{ 
-	background-color: #fff;
+   background-color: #fff;
 }
 
 #search-btn{
@@ -77,30 +77,30 @@ body{
 }
 
 #search-text[type="text"] {
-	font-size: 28px;
-	font-weight: normal;
-	font-family:'Nanum Gothic';
-  	border-width: 0;
-  	color:black;
-  	background: transparent;
-  	height: auto; /* 높이 초기화 */ 
-  	line-height: normal;
+   font-size: 28px;
+   font-weight: normal;
+   font-family:'Nanum Gothic';
+     border-width: 0;
+     color:black;
+     background: transparent;
+     height: auto; /* 높이 초기화 */ 
+     line-height: normal;
 }
 
 #search-text::placeholder {
-	font-size: 28px;
-	font-weight: normal;
-	font-family:'Nanum Gothic';
+   font-size: 28px;
+   font-weight: normal;
+   font-family:'Nanum Gothic';
 }
 
 #search-btn2 {
-	margin-top:20px;
-	font-size:34px;
-	color: #b5b5b5;
+   margin-top:20px;
+   font-size:34px;
+   color: #b5b5b5;
 }
 
 #search-btn2:hover {
-	cursor: pointer;
+   cursor: pointer;
 }
 
 #search-box input[type="text"] {
@@ -137,30 +137,30 @@ body{
   cursor: pointer;
 }
 .search_suggest {
-	width:100%;
-	margin-top:40px;
-	overflow: hidden;
-	display:none;
-	align:center;
+   width:100%;
+   margin-top:40px;
+   overflow: hidden;
+   display:none;
+   align:center;
 }
 .search_suggest p{
-	font-family: 'Nanum Gothic';
-	font-size: 18pt;
-	font-weight: nomal;
-	color: #2185d0;
+   font-family: 'Nanum Gothic';
+   font-size: 18pt;
+   font-weight: nomal;
+   color: #2185d0;
 }
 .search_suggest span{
-	font-family: 'Nanum Gothic';
-	font-size: 18pt;
-	font-weight: nomal;
-	color: gray;
+   font-family: 'Nanum Gothic';
+   font-size: 18pt;
+   font-weight: nomal;
+   color: gray;
 }
 .search_tag {
-	margin-top:15px;
+   margin-top:15px;
 }
 .search_art_list {
-	width:100%;
-	margin: 0;
+   width:100%;
+   margin: 0;
     padding: 0;
     list-style-type: none;
     display:block; 
@@ -168,17 +168,17 @@ body{
 }
 
 .search_art_list_1{
-	list-style: none;
-	display:inline-block; 
-	margin:35px;
+   list-style: none;
+   display:inline-block; 
+   margin:35px;
 }
 #search_art_list_img{
-	width:120px;
-	height:120px;
+   width:120px;
+   height:120px;
 }
 .search_art_list strong{
-	color: #333;
-	font-size:16px;
+   color: #333;
+   font-size:16px;
     text-align: center;
     font-family: 'Nanum Gothic';
     font-weight: lighter;
@@ -187,7 +187,7 @@ body{
     white-space: nowrap;
 }
 .search_art_list span{
-	font-size: 12px;
+   font-size: 12px;
     line-height: 1.5;
     color: #666;
     text-align: center;
@@ -201,75 +201,75 @@ body{
     font-family: 'Nanum Gothic';
 }
 .keyword_title a {
-	font-family: 'Nanum Gothic';
-	white-space: nowrap;
-	font-size: 13px;
-	color: #959595;
+   font-family: 'Nanum Gothic';
+   white-space: nowrap;
+   font-size: 13px;
+   color: #959595;
 }
 .search_keyword {
-	margin-top:35px;
-	width:100%;
-	display:none;
-	justify-content:space-between;
+   margin-top:35px;
+   width:100%;
+   display:none;
+   justify-content:space-between;
 }
 .objet_keyword {
-	width:75%;
-	text-align:left;
+   width:75%;
+   text-align:left;
 }
 .artist_keyword {
-	width:25%;
-	text-align:left;
+   width:25%;
+   text-align:left;
 }
 #arrow {
-	font-size:12px;
-	display:inline-block;
-	margin-top:-5px;
-	color:#959595;
+   font-size:12px;
+   display:inline-block;
+   margin-top:-5px;
+   color:#959595;
 }
 .objet_list {
-	list-style-type: none;
-	margin:0;
-	padding:0;
+   list-style-type: none;
+   margin:0;
+   padding:0;
 }
 .objet_list_item{
-	font-size:20px;
-	color: black;
-	font-family: 'Nanum Gothic';
-	font-weight: lighter;
-	padding: 0;
+   font-size:20px;
+   color: black;
+   font-family: 'Nanum Gothic';
+   font-weight: lighter;
+   padding: 0;
     margin: 25px 0 0;
     border-bottom: none;
 }
 .objet_list_item span{
-	font-weight: bold;
-	font-family: 'Nanum Gothic';
-	font-size:20px;
-	color: #2185d0;
+   font-weight: bold;
+   font-family: 'Nanum Gothic';
+   font-size:20px;
+   color: #2185d0;
 }
 .artist_list {
-	list-style-type: none;
-	margin:0;
-	padding:0;
+   list-style-type: none;
+   margin:0;
+   padding:0;
 }
 .artist_list_item {
-	padding: 0;
+   padding: 0;
     margin: 24px 0 0;
     border-bottom: none;
 }
 .artist_list_item span{
-	font-size:16px;
-	color: black;
-	font-family: 'Nanum Gothic';
-	font-weight: lighter;
-	margin-left:2px;
-	padding:10px;
-	align:center;
-	line-height:40px;
+   font-size:16px;
+   color: black;
+   font-family: 'Nanum Gothic';
+   font-weight: lighter;
+   margin-left:2px;
+   padding:10px;
+   align:center;
+   line-height:40px;
 }
 #artist_list_img {
-	float: left;
-	width:50px;
-	height:50px;
+   float: left;
+   width:50px;
+   height:50px;
 }
 
 /**/
