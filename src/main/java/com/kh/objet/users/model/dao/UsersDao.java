@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.objet.quit.model.vo.Quit;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
+import com.kh.objet.users.model.vo.UAUP;
 import com.kh.objet.users.model.vo.Users;
 
 @Repository("usersDao")
@@ -41,7 +42,7 @@ public class UsersDao {
 	}
 
 	// 회원 로그인
-	public Users selectUsersLogin(Users users) {
+	public UAUP selectUsersLogin(UAUP users) {
 		return mybatisSession.selectOne("userMapper.selectUsersLogin", users);
 	}
 
@@ -53,13 +54,17 @@ public class UsersDao {
 
 	// 비밀번호 찾기
 	public Users selectFindPwd(Users users) {
-		// TODO Auto-generated method stub
-		return mybatisSession.selectOne("",users);
+		return mybatisSession.selectOne("userMapper.selectFindPwd",users);
+	}
+	
+	// 임시비밀번호 수정
+	public int updateUserPwd(Users users) {
+		return mybatisSession.update("userMapper.updateUserPwd", users);
 	}
 
 	// 내정보 수정 페이지 이동
 	public Users moveMyPageEdit(String userid) {
-		return mybatisSession.selectOne("", userid);
+		return mybatisSession.selectOne("userMapper.moveMyPageEdit", userid);
 	}
 
 	// 내정보 수정
@@ -81,6 +86,7 @@ public class UsersDao {
 	public int insertUsersReport(ReportUDetail reportUDetail) {
 		return mybatisSession.insert("", reportUDetail);
 	}
+
 
 
 

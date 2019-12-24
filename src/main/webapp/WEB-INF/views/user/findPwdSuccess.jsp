@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +29,7 @@
         <div><i class=" huge teal clipboard check icon"></i><p class="findResultContent1">임시 비밀번호가 발급되었습니다.</p></div>
         
         <p style="font-size: 9pt;">로그인 후 임시 비밀번호를 꼭 변경해주세요!</p>
-        <p class="findResultContent2">임시비밀번호 : fd3sd2hrf4sz</p>
+        <p class="findResultContent2">임시비밀번호 : <c:out value="${findPwd.userpwd}"/></p>
         <br><br><br>
        <button class="ui black button" onclick="location.href='moveLogin.do'" style="width:300px; height:40px; background: #4c4c4c;">로그인</button>
 	

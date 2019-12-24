@@ -205,42 +205,19 @@
 		<dependency>
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-web</artifactId>
-		    <version>4.2.13.RELEASE</version>
-		</dependency>
-		
-		<!-- 스프링 시큐리티 config(위와 같은 버전) -->
-		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
-		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-config</artifactId>
-		    <version>4.2.13.RELEASE</version>
-		</dependency>
-		
-		
-		<!-- 스프링 시큐리티 -->
-		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
-		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-core</artifactId>
 		    <version>5.0.0.RELEASE</version>
 		</dependency>
 		
-		<!-- 스프링 시큐리티 웹(위와 같은 버전) -->
-		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
-		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-web</artifactId>
-		    <version>4.2.13.RELEASE</version>
-		</dependency>
-		
 		<!-- 스프링 시큐리티 config(위와 같은 버전) -->
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
 		<dependency>
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-config</artifactId>
-		    <version>4.2.13.RELEASE</version>
+		    <version>5.0.0.RELEASE</version>
 		</dependency>
-				
+		
+		
+	
 				
 				
 		<!-- FileUpload -->

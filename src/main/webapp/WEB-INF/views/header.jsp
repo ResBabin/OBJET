@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,7 +75,7 @@ header {
   position:fixed;
   font-size: 17px;
  width:220px;
- height: 22%;
+ height: 25%;
   color: black;
  
   }
@@ -82,7 +83,7 @@ header {
   /* 사이드바 중 메뉴영역 박스 시작
     -홈, 전시, 작가, 고객센터 써있는 부분*/
   .sidebar2{
-  margin-top: -35px;
+  margin-top: -25px;
  /*  border: 2px solid yellow; */
   font-size: 20px;
   position:fixed;
@@ -160,7 +161,19 @@ width: 220px;
 margin-top: 50px;
 /* border: 2px solid navy; */
 
-height:60%;
+height:50%;
+}
+.profilePic{
+	vertical-align: middle;
+	width: 50px;
+	height: 50px;
+	margin-left:39%;
+	margin-top:-20px;
+	background-color: #fff;
+	border-radius: 50%;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
 }
 .nickname{
 margin-top: -50px;
@@ -168,24 +181,38 @@ text-align: center;
 width: 220px;
 /* border: 2px solid red; */
 height:13%;
+font-weight: 600;
+}
+.userid{
+margin-top: -5px;
+font-size: 10pt; 
+color:#aaa;"
 }
 .follower{
-text-align: center;
 width: 220px;
 /* border: 2px solid green; */
 height:13%;
+text-align: left;
+font-weight: 400; 
+font-size: 11pt;
+padding-left:30%;
+margin-top: 10px;
 }
 .following{
-text-align: center;
 width: 220px;
 /* border: 2px solid yellow; */
 height:13%;
+text-align: left;
+font-weight: 400; 
+font-size: 11pt;
+padding-left:30%;
+margin-top: -5px;
 }
 .artistHome{
 font-size: 18px;
 width: 220px;
 /* border: 2px solid yellow; */
-margin-top: 166px;
+margin-top: 200px;
 }
 
 .fd{
@@ -314,11 +341,13 @@ color: black;
 
 <!--메뉴 아이콘-->
 <!-- 비로그인시 메뉴 아이콘 열리는 사이드바 -->
+
+ <c:if test="${sessionScope.loginUser==null}">
 <div class="sidebar">
 <div class="sidebar3">
 <img id="blogo" src="resources/images/basicprofilepic.png" width="60px" height="60px">
 <div class="bloginwrite">The moment everything becomes an inspiration</div>
-<button class="tiny ui black basic circular button" id= "startbutton">오브제 시작하기</button>
+<button class="tiny ui black basic circular button" id= "startbutton" onclick="location.href='moveLogin.do'">오브제 시작하기</button>
 </div>
 <div class="sidebar4">
 <nav role="navigation">
@@ -339,19 +368,29 @@ color: black;
         </ul>
         </nav>
 </div>
-<div class="forget">
+<div class="forget" onclick="location.href='moveLogin.do'">
 계정을 잃어버리셨습니까?
 </div>
 </div> 
+</c:if>
+
+ <c:if test="${sessionScope.loginUser!=null}">
 <!--로그인시 메뉴 아이콘 열리는 사이드바-->
-<!-- <div class="sidebar">
+<div class="sidebar">
 <div class="sidebar1">
 <div class="photo">
-<i class="big user circle icon"></i>
+<c:if test="${loginUser.userrpic==null }">
+<div class="profilePic" style="background-image:url('resources/images/basicprofilepic.png') "></div>
+</c:if>
+<c:if test="${loginUser.userrpic!=null }">
+<div class="profilePic" style="background-image:url('resources/users_upfiles/${loginUser.userrpic}') "></div>
+</c:if>
 </div>
-<div class="nickname">닉네임</div>
-<div class="follower">팔로워수</div>
-<div class="following">팔로잉수</div>
+<br>
+<div class="nickname">${sessionScope.loginUser.nickname }</div>
+<div class="userid">@${sessionScope.loginUser.userid }</div>
+<div class="follower">팔로워&emsp;<span style="font-weight: 800;">123</span></div>
+<div class="following">팔로잉&emsp;<span style="font-weight: 800;">45</span></div>
 </div>
 <div class="artistHome"><p onclick="location.href='artistHomeMain.do'">작가홈</p></div>
 <div id="accordian1">
@@ -391,12 +430,13 @@ color: black;
         </nav>
         <div class= "logout">
         <div class="small ui buttons">
-  <button class="ui black basic button">내 정보 수정</button>
-  <button class="ui black basic button">로그아웃</button>
+  <button class="ui black basic button" onclick="location.href='moveMyPageEdit.do'">내 정보 수정</button>
+  <button class="ui black basic button" onclick="location.href='logout.do'">로그아웃</button>
 </div>
 </div>
 </div>
-</div> -->
+</div>
+</c:if>
 </header>
 </body>
 </html>

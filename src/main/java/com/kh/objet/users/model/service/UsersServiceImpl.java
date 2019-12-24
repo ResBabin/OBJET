@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.kh.objet.quit.model.vo.Quit;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.users.model.dao.UsersDao;
+import com.kh.objet.users.model.vo.UAUP;
 import com.kh.objet.users.model.vo.Users;
 
 @Service("usersService")
@@ -44,7 +45,7 @@ public class UsersServiceImpl implements UsersService{
 
 	// 회원 로그인
 	@Override
-	public Users selectUsersLogin(Users users) {
+	public UAUP selectUsersLogin(UAUP users) {
 		return usersDao.selectUsersLogin(users);
 	}
 
@@ -58,6 +59,11 @@ public class UsersServiceImpl implements UsersService{
 	@Override
 	public Users selectFindPwd(Users users) {
 		return usersDao.selectFindPwd(users);
+	}
+	
+	// 임시비밀번호 수정
+	public int updateUserPwd(Users users) {
+		return usersDao.updateUserPwd(users);
 	}
 	
 	// 내정보 수정 페이지 이동
