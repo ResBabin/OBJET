@@ -21,7 +21,10 @@
 <link rel = "stylesheet" type="text/css" href="/objet/resources/css/main.css">
 <link rel = "stylesheet" type="text/css" href="/objet/resources/css/search.css">
 <style type="text/css">
-
+body {
+  margin: 0;
+  padding: 0;
+}
 /* 검색 */
 #search-box-top{
   position: fixed;
@@ -43,7 +46,7 @@
 	font-family:'Nanum Gothic';
 }
 #searchList-btn{
-  position: absolute;
+  position: fixed;
   top: 1.09em;
   right: 1.3em;
   opacity: 0.8;
@@ -56,6 +59,7 @@
 
 #searchList-text {
 	opacity: 0.8;
+	margin-top:4px;
 }
 </style>
 <script type="text/javascript">

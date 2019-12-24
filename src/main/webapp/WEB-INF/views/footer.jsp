@@ -14,11 +14,12 @@
   padding: 10px;
   text-align: center;
   color: black;
+  border-top:1px solid lightgray;
+  height: 80px;
 }
 </style>
 </head>
 <body>
-<hr>
  <footer>
   <p>사이트 소개</p>
   <p>고객센터</p>

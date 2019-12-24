@@ -56,8 +56,14 @@ public class ObjetController {
 	public String selectObjetOne() {
 		return "objet/objetDetail";
 	}
+	
+	//오브제 전시감상페이지 이동
+	@RequestMapping("objetView.do")
+	public String objetVRView() {
+		return "objet/objetView";
+	}
 
-	//오브제 신고페이지 이동
+	/*//오브제 신고페이지 이동
 	@RequestMapping("moveObjetReport.do")
 	public String moveObjetReport() {
 		return "objet/objetReport";
@@ -67,7 +73,7 @@ public class ObjetController {
 	@RequestMapping("objetReport.do")
 	public String insertObjetReport() {
 		return "objet/objetMain";
-	}
+	}*/
 	
 	/*//한줄평 삭제
 	@RequestMapping("deleteReview.do")
@@ -75,9 +81,6 @@ public class ObjetController {
 		return "objet/objetReviewDelete";
 	}*/
 
-	//한줄평 신고페이지 이동
-	
-	//한줄평 신고
 	
 	
 	// 최민영 *******************************************************************************

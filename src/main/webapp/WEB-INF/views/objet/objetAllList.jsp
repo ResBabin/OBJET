@@ -21,7 +21,7 @@
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <style type="text/css">
 .objet_allList {
-	margin-top:40px;
+	margin-top:0px;
 } 
 .objet_title{
 	font-family: 'Nanum Myeongjo';
@@ -98,10 +98,14 @@
 	 position: relative; 
 	 list-style: none;
 	 display: block; 
+	 margin:0;
+	padding: 0;
 }
 .objet_list .objet_li {
 	list-style: none;
 	border-top: 1px solid #e9e9e9;
+	margin:0;
+	padding: 0;
 }
 .objet_list .info {
 	float: left;
@@ -202,6 +206,7 @@ $(function() {
 </script>
 </head>
 <body>
+<c:import url="../headerSearch.jsp" />
 <section class="objet_allList">
 <h3 class="objet_title">OBJET ALL EXHIBITION</h3>
 <section class="objet_more_section">
@@ -291,9 +296,8 @@ onclick="javascript:moreContent('more_list', 10);">
 </div>
 </center>
 </section>
-<br><br><br><br><br>
+<br><br>
 </section>
-<c:import url="../headerSearch.jsp" />
 <c:import url="../footer.jsp" />
 </body>
 </html>
