@@ -27,6 +27,7 @@
 	<br>
 	
 	<form action="findUserpwd.do" method="post">
+	<input type="hidden" name="userpwd" value="">
 		<div class="field">
 	        <div class="ui large left icon input" style="width:300px;">
 	          <i class="id badge icon"></i><input type="text" name="username" placeholder="이름">

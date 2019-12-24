@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.objet.quit.model.vo.Quit;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
+import com.kh.objet.users.model.vo.UAUP;
 import com.kh.objet.users.model.vo.Users;
 
 public interface UsersService {
@@ -16,11 +17,13 @@ public interface UsersService {
 	
 	int insertUsersProfile(String userid);
 	
-	Users selectUsersLogin(Users users);
+	UAUP selectUsersLogin(UAUP users);
 	
 	ArrayList<Users> selectFindId(Users users);
 	
 	Users selectFindPwd(Users users);
+	
+	int updateUserPwd(Users users);
 	
 	Users moveMyPageEdit(String userid);
 	

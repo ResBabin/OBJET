@@ -1,9 +1,14 @@
 package com.kh.objet.follow.controller;
 
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.objet.follow.model.service.FollowServiceImpl;
@@ -24,9 +29,10 @@ public class FollowController {
 	
 	// 팔로잉 보기
 		@RequestMapping("moveFollowingPage.do")
-		public String moveFollowingPage(String userid, Paging paging) {
+		public String moveFollowingPage(String userid, Paging paging, HttpServletRequest request) {
 			return "artistHome/following";
 		}
+	
 		
 	// 팔로워 보기
 		@RequestMapping("moveFollowerPage.do")

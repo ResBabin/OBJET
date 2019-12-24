@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kh.objet.quit.model.vo.Quit;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.users.model.service.UsersServiceImpl;
+import com.kh.objet.users.model.vo.UAUP;
 import com.kh.objet.users.model.vo.Users;
 
 @Controller
@@ -91,7 +92,7 @@ public class UsersController {
 	// 회원가입
 		@RequestMapping(value="insertUsers.do", method=RequestMethod.POST)
 		public String insertUsers(Users users, Model model) {
-			users.setUserpwd(bcryptPasswordEncoder.encode(users.getUserpwd()));
+			//users.setUserpwd(bcryptPasswordEncoder.encode(users.getUserpwd()));
 			int result1, result2 = 0;
 			
 			result1 = usersService.insertUsers(users);	// users 테이블 추가
@@ -118,12 +119,12 @@ public class UsersController {
 	
 	// 회원 로그인
 		@RequestMapping(value="login.do", method=RequestMethod.POST)
-		public String selectUsersLogin(Users users, HttpSession session, Model model) {
+		public String selectUsersLogin(UAUP users, HttpSession session, Model model) {
 			
-			Users loginUser = usersService.selectUsersLogin(users);
+			UAUP loginUser = usersService.selectUsersLogin(users);
 			
 			String vfn = "main";
-			if(loginUser != null && bcryptPasswordEncoder.matches(users.getUserpwd(), loginUser.getUserpwd())) {
+			if(loginUser != null) {
 				session.setAttribute("loginUser", loginUser);
 			}else {
 				vfn = "user/loginAgain";
@@ -144,7 +145,7 @@ public class UsersController {
 			if(session != null) {
 				session.invalidate();
 			}
-			return "user/login";
+			return "main";
 		}
 	
 	// 아이디 찾기 이동
@@ -179,19 +180,64 @@ public class UsersController {
 		}
 		
 	// 비밀번호 찾기
-		@RequestMapping("findPwd.do")
+		@RequestMapping("findUserpwd.do")
 		public String selectFindPwd(Users users, Model model) {
-			//성공시 "user/findPwdSuccess"
-			//실패시 "user/findPwdFail"
-			return "user/findPwdSuccess";
+			String vfn = null;
+			
+			Users result1 = usersService.selectFindPwd(users);
+		
+			if(result1 != null) {
+				// 조회결과가 있다면 임시비밀번호 발급
+				int index = 0;  
+		        char[] charSet = new char[] {  
+		                '0','1','2','3','4','5','6','7','8','9'    
+		                ,'a','b','c','d','e','f','g','h','i','j','k','l','m'  
+		                ,'n','o','p','q','r','s','t','u','v','w','x','y','z'};  
+		          
+		        StringBuffer sb = new StringBuffer();  
+		        for (int i=0; i<8; i++) {  
+		            index =  (int)(Math.random()*charSet.length);  
+		            sb.append(charSet[index]);  
+		        }  
+		        
+		        String tempPwd = sb.toString();
+		        
+		        // 임시비밀번호로 값 저장
+		        users.setUserpwd(tempPwd);
+		        
+		        // 임시비밀번호로 업데이트
+				int result2 = usersService.updateUserPwd(users);
+				
+				if(result2 > 0) {
+					Users findPwd = usersService.selectFindPwd(users);
+					model.addAttribute("findPwd", findPwd);
+					vfn = "user/findPwdSuccess";
+				}
+				
+			}else {
+				vfn = "user/findPwdFail";
+			}
+			
+			return vfn;
 		}
 
 		
 	
 	// 내정보 수정 페이지 이동
 		@RequestMapping("moveMyPageEdit.do")
-		public String moveMyPageEdit(@RequestParam(value="userid") String userid) {
-			return "user/mypageEdit";
+		public String moveMyPageEdit(HttpSession session, Model model) {
+			String vfn = null;
+			
+			if(session != null) {
+				UAUP loginUser = (UAUP)session.getAttribute("loginUser");
+				Users user = usersService.moveMyPageEdit(loginUser.getUserid());
+				model.addAttribute("user", user);
+				vfn = "user/mypageEdit";
+			} else {
+				vfn = "common/error";
+				model.addAttribute("message", "내정보 수정 페이지 조회 실패!");
+			}
+			return vfn;
 		}
 		
 	// 내정보 수정

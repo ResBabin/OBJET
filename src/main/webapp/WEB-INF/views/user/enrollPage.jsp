@@ -56,9 +56,9 @@
  	
  	// 비밀번호 유효성 체크
 	   $("#userpwd").keyup(function(){
-		      var pwdReg = /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[a-z\d$@$!%*#?&]{8,20}$/;    //비밀번호 유효성 - 영어소문자/숫자/특수문자
+		      var pwdReg = /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[a-zA-Z\d$@$!%*#?&]{8,20}$/;    //비밀번호 유효성 - 영어/숫자/특수문자
 		      if(!pwdReg.test($("#userpwd").val())){
-		         $("#divpwd").html("영어소문자/숫자/특수문자 각 1개씩 포함 8~20자로 입력해야 합니다.");
+		         $("#divpwd").html("영문/숫자/특수문자 각 1개씩 포함 8~20자로 입력해야 합니다.");
 		         pwTF = "F";
 		      }
 		      else{
@@ -125,6 +125,16 @@
  		       });   
  		       return false;
  		    });
+ 	
+ 	// 가입하기 버튼 눌렀을 때
+ 		 $("#btnsub").click(function(){
+ 		      if(idTF=="T" && pwTF=="T" && pwEq=="T" && unTF=="T" && nnTF = "T")
+ 		         return true;
+ 		      else{
+ 		         alert("입력한 내용을 다시 확인해주세요.");
+ 		         return false;
+ 		      }
+ 		   });
 	
 	 
 	// 체크박스 전체선택 및 전체해제
@@ -188,7 +198,7 @@ function winOpen2(){
 			
 			<tr>
 				<th>비밀번호</th>
-				<td><div class="ui input" style="width:350px;"><input type="password" id="userpwd" name="userpwd" placeholder="영소문자/숫자/특수문자 각 1개 이상 포함하여 8-20자" required></div>
+				<td><div class="ui input" style="width:350px;"><input type="password" id="userpwd" name="userpwd" placeholder="영문/숫자/특수문자 각 1개 이상 포함하여 8-20자" required></div>
 					<div class="enrolldiv" id="divpwd"></div>
 				</td>
 			</tr>

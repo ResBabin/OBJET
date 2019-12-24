@@ -20,12 +20,24 @@
 		insert into usersprofile (userid) values (#{userid})
 	</insert>
 	
-	<select id="selectUsersLogin" parameterType="Users" resultType="Users">
-		select * from users where userid = #{userid} and userpwd = #{userpwd}
+	<select id="selectUsersLogin" parameterType="UAUP" resultType="UAUP">
+		select * from users A left outer join usersprofile B on A.userid = B.userid where A.userid= #{userid} and A.userpwd = #{userpwd}
 	</select>
 	
 	<select id="selectFindId" parameterType="Users" resultType="Users">
 		select * from users where username = #{username} and email = #{email}
+	</select>
+	
+	<select id="selectFindPwd" parameterType="Users" resultType="Users">
+		select * from users where userid = #{userid} and username = #{username} and email = #{email}
+	</select>
+	
+	<update id="updateUserPwd" parameterType="Users">
+		update users set userpwd = #{userpwd} where userid = #{userid}
+	</update>
+	
+	<select id="moveMyPageEdit" parameterType="Users" resultType="Users">
+		select * from users where userid = #{userid}
 	</select>
 
 </mapper>
