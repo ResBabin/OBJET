@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="csMapper">
+
+<!-- Notice 갯수 조회 -->
+<select  id="selectCountNotice" resultType="int" >select count(*) from notice </select>
+
+
+<!-- 공지 목록 조회 -->
+	<select id="selectNoticeList" resultType="Notice">
+		select *
+		from notice
+		order by noticeno desc
+	</select>
+
+	<!-- 공지 상세 조회 -->
+	<select id="selectNoticeDetail" resultType="Notice"
+		parameterType="_int">
+		select *
+		from notice
+		where noticeno = #{ value }
+	</select>
+
+   <!-- 공지사항 제목검색 -->
+   <select  id="selectsearchNoticeTitle"  resultType="Notice"
+   parameterType="string">
+        select * 
+        from notice 
+        where noticetitle like '%' || #{value} || '%'
+        order by noticeno desc </select>
+
+        <!-- 공지사항 날짜 검색 -->
+        <select id="selectSearchNoticeDate" resultType="Notice" parameterType="com.kh.objet.notice.model.vo.SearchDate">
+        select * from notice     
+         where noticedate between #{begin} and #{end} 
+         order by noticeno desc 
+         </select>
+
+
+      <!-- FAQ 목록 조회 -->
+	<select id="selectFaqList" resultType="Faq">
+		select *
+		from faq
+		order by faqno desc
+	</select>
+
+    <!-- QnA 갯수 조회 -->
+    <select resultType="int" id="getQnaListCount">
+    select count(*) from qna
+    </select>
+
+	<!-- QnA 목록 조회 -->
+	<select id="selectQnaList" resultType="Qna">
+		select *
+		from qna
+		order by qnano desc
+	</select>
+
+	<!-- QnA 상세 조회 -->
+	<select id="selectQnaDetail" resultType="Qna"
+		parameterType="_int">
+		select *
+		from qna
+		where qnano = #{ value }
+	</select>
+ 
+   <!-- Qna 문의사항 글 쓰기 -->
+    <insert id="insertQna" parameterType="Qna">
+    insert into qna values 
+    ((select max(qnano) from qna) + 1, 
+    #{userid},null, #{qnatype}, #{qnatitle},#{qnacontent},#{questiondate} ,#{qnaanswer} ,#{answerdate} 
+    <if test="original_filepath != null">, #{original_filepath}, #{rename_filepath} </if>
+    </insert>
+
+   <!-- Qna 문의글 수정하기  --> 
+   <update id="updateQna" parameterType="Qna">
+   update qna set qnatitle = #{qnatitle}, noticecontent = #{noticecontent} 
+   <if test="original_filepath != null"><if test="qnaanswer = null">, original_filepath = #{original_filepath}, rename_filepath = #{rename_filepath} </if></if>
+   where qnano = #{qnano} 
+   </update>
+
+   <!-- Qna 문의글 삭제하기  --> 
+   
+   <delete id="deleteQna" parameterType="_int">
+   delete from qna
+   where qnano = #{value}
+    </delete>
+   
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

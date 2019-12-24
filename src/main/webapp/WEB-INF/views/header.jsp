@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,28 +67,28 @@ header {
   margin-top: -7px;
   }
  
-  /* 사이드바 중 로그인 영역 */
+ /* 사이드바 중 로그인 영역 */
   .sidebar1{
   
    background:rgba(0, 0, 0, 0.03);
-
+letter-spacing: 2px;
   position:fixed;
   font-size: 17px;
  width:220px;
- height: 22%;
+ height: 25%;
   color: black;
  
   }
  
-  /* 사이드바 중 메뉴영역 박스 시작
+ /* 사이드바 중 메뉴영역 박스 시작
     -홈, 전시, 작가, 고객센터 써있는 부분*/
   .sidebar2{
+  
   margin-top: -35px;
- /*  border: 2px solid yellow; */
-  font-size: 20px;
+ letter-spacing: 4px;
   position:fixed;
   list-style:none;
-  height: 38%;
+  height: 35%;
   width:220px;
   background-color:#fff;
   color: black;
@@ -113,23 +114,24 @@ color:#666666;
 }  */ 
 
 #main-menu > li > a {
-margin-top: -22px;
+/*홈 전시 작가  */
+margin-top: -60px;
   margin-left: 10px;
-  font-size: 18px;
+  font-size: 17px;
   color: black;
   text-align: center;
   text-decoration: none;
-  letter-spacing: 0.05em;
   display: block;
-  padding: 22px 19px; 
+  padding: 40px 19px; 
  
 }
 
 /* 고객센터 하위메뉴 */
 #sub-menu {
-
+ margin-top: -23px;
+ letter-spacing: 4px;
   width: 220px;
-  font-size: 16px;
+  font-size: 15px;
   position: absolute;
   opacity: 0;
   visibility: hidden;
@@ -137,8 +139,8 @@ margin-top: -22px;
 }
 
 #sub-menu > li {
-margin-top: -17px;
-  padding: 15px 60px;
+ margin-top: -20px;
+padding: 19px 15px; 
 }
 
 #sub-menu > li >  a {
@@ -150,7 +152,6 @@ margin-top: -17px;
   opacity: 1;
   visibility: visible;
 }
-
 #sub-menu > li >  a:hover {
  color: #666666;
 }
@@ -159,50 +160,84 @@ text-align: center;
 width: 220px;
 margin-top: 50px;
 /* border: 2px solid navy; */
-
-height:60%;
+height:50%;
 }
+
+.profilePic{
+   vertical-align: middle;
+   width: 50px;
+   height: 50px;
+   margin-left:39%;
+   margin-top:-20px;
+   background-color: #fff;
+   border-radius: 50%;
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: cover;
+}
+
 .nickname{
 margin-top: -50px;
 text-align: center;
 width: 220px;
 /* border: 2px solid red; */
 height:13%;
+font-weight: 600;
 }
+
+.userid{
+margin-top: -5px;
+font-size: 10pt; 
+color:#aaa;"
+}
+
 .follower{
-text-align: center;
 width: 220px;
+text-align: center;
 /* border: 2px solid green; */
 height:13%;
+font-weight: 400; 
+font-size: 11pt;
+padding-left:30%;
+margin-top: 10px;
 }
 .following{
-text-align: center;
+
 width: 220px;
 /* border: 2px solid yellow; */
 height:13%;
+text-align: left;
+font-weight: 400; 
+font-size: 11pt;
+padding-left:30%;
+margin-top: -5px;
 }
 .artistHome{
-font-size: 18px;
+letter-spacing: 3px;
+font-size: 17px;
 width: 220px;
 /* border: 2px solid yellow; */
-margin-top: 166px;
+margin-top: 200px;
 }
 
 .fd{
 margin-bottom: 7px;
-margin-top: 7px;
+margin-top: 6px;
 width: 220px;
 /* border: 2px solid yellow; */
-font-size: 18px;
+letter-spacing: 3px;
+font-size: 17px;
 }
 .qna{
 width: 220px;
 /* border: 2px solid black; */
-font-size: 18px;
+letter-spacing: 3px;
+font-size: 17px;
 }
 
 #accordian1 {
-    margin-top:-30px;
+    margin-bottom: 5px;
+    margin-top:-35px;
 	background: #fff;
 	width: 220px;
 	color: black;
@@ -210,7 +245,8 @@ font-size: 18px;
 
 /* 메뉴 스타일 */
 .accordian1 {
-    font-size: 18px;
+    letter-spacing: 3px;
+    font-size: 17px;
 	cursor: pointer;
 	background: #fff;
 }
@@ -223,17 +259,18 @@ font-size: 18px;
 #accordian1 ul ul li a {
 	color: black;
 	text-decoration: none;
-	font-size: 18px;
+	letter-spacing: 3px;
+    font-size: 17px;
 	display: block;
-	padding: 10px;
+	padding: 8px;
 	transition: all 0.15s;
 }
 /* active 클래스 외에 것은 보이지 않게 하기 */
 #accordian1 ul ul {
-	display: none;
+   display: none;
 }
 #accordian1 li.active ul {
-	display: block;
+   display: block;
 }
 .sidebar3{
   height: 30%;
@@ -252,16 +289,21 @@ border-radius:50%;
 }
 
 .sidebar4{
-
+margin-top: 40px;
+letter-spacing: 4px;
+font-size: 17px;
 }
 a{
 color: black;
 }
 /* 사이드바 안에 계정 찾기 */
 .forget{
-  
-  font-size: 16px;
-  margin-left: 2px;
+
+width: 190px;
+ border-bottom: 1.1px solid black;
+  letter-spacing: 3px;
+  font-size: 13px;
+  margin-left: 15px;
   margin-top: 230px;
   } 
   /* 사이드 바 안에 로그아웃 내 정보 수정 */
@@ -269,7 +311,7 @@ color: black;
   
   font-size: 16px;
   margin-left: 10px;
-  margin-top: 55px;
+  margin-top: 50px;
   } 
   /* 더보기 */
   .more{
@@ -290,15 +332,15 @@ color: black;
    <script type="text/javascript">
    
    $(function(){
-		$(".accordian1").click(function(){
-			$("#accordian1 ul ul").slideUp();
-			if(!$(this).next().is(":visible"))
-			{
-				$(this).next().slideDown();
-			}
-		})
-	})
-	</script>
+      $(".accordian1").click(function(){
+         $("#accordian1 ul ul").slideUp();
+         if(!$(this).next().is(":visible"))
+         {
+            $(this).next().slideDown();
+         }
+      })
+   })
+   </script>
 </head>
 <body>
 <header>
@@ -311,14 +353,15 @@ color: black;
    <span></span>
    <span></span>
 </label>
-
-<!--메뉴 아이콘-->
+<!--메뉴 아이콘 끝-->
 <!-- 비로그인시 메뉴 아이콘 열리는 사이드바 -->
+
+ <c:if test="${sessionScope.loginUser==null}">
 <div class="sidebar">
 <div class="sidebar3">
 <img id="blogo" src="resources/images/basicprofilepic.png" width="60px" height="60px">
 <div class="bloginwrite">The moment everything becomes an inspiration</div>
-<button class="tiny ui black basic circular button" id= "startbutton">오브제 시작하기</button>
+<button class="tiny ui black basic circular button" id= "startbutton" onclick="location.href='moveLogin.do'">오브제 시작하기</button>
 </div>
 <div class="sidebar4">
 <nav role="navigation">
@@ -339,36 +382,46 @@ color: black;
         </ul>
         </nav>
 </div>
-<div class="forget">
+<div class="forget" onclick="location.href='moveLogin.do'">
 계정을 잃어버리셨습니까?
 </div>
 </div> 
+</c:if>
+
+ <c:if test="${sessionScope.loginUser!=null}">
 <!--로그인시 메뉴 아이콘 열리는 사이드바-->
-<!-- <div class="sidebar">
+<div class="sidebar">
 <div class="sidebar1">
 <div class="photo">
-<i class="big user circle icon"></i>
+<c:if test="${loginUser.userrpic==null }">
+<div class="profilePic" style="background-image:url('resources/images/basicprofilepic.png') "></div>
+</c:if>
+<c:if test="${loginUser.userrpic!=null }">
+<div class="profilePic" style="background-image:url('resources/users_upfiles/${loginUser.userrpic}') "></div>
+</c:if>
 </div>
-<div class="nickname">닉네임</div>
-<div class="follower">팔로워수</div>
-<div class="following">팔로잉수</div>
+<br>
+<div class="nickname">${sessionScope.loginUser.nickname }</div>
+<div class="userid">@${sessionScope.loginUser.userid }</div>
+<div class="follower">팔로워&emsp;<span style="font-weight: 800;">123</span></div>
+<div class="following">팔로잉&emsp;<span style="font-weight: 800;">45</span></div>
 </div>
 <div class="artistHome"><p onclick="location.href='artistHomeMain.do'">작가홈</p></div>
 <div id="accordian1">
-	<ul>
-		<li>
-			<span class="accordian1">오브제관리</span>
-			<ul>
-				<li><a href="moveMyObjetList.do">내 오브제</a></li>
-				<li><a href="moveCreateObjet.do">오브제 등록</a></li>
-				<li><a href="moveMyLikeObjetList.do">관심오브제</a></li>
-				<li><a href="moveMyVisitedObjetList.do">다녀온오브제</a></li>
-			</ul>
-		</li>
-		
-		<li><div class="fd"><p onclick="location.href='moveFeedList.do'">피드알림</p></div></li>
-		<li><div class="qna"><p onclick="location.href='moveMyQnaList.do'">문의내역</p></div></li>
-	</ul>
+   <ul>
+      <li>
+         <span class="accordian1">오브제관리</span>
+         <ul>
+            <li><a href="moveMyObjetList.do">내 오브제</a></li>
+            <li><a href="moveCreateObjet.do">오브제 등록</a></li>
+            <li><a href="moveMyLikeObjetList.do">관심오브제</a></li>
+            <li><a href="moveMyVisitedObjetList.do">다녀온오브제</a></li>
+         </ul>
+      </li>
+      
+      <li><div class="fd"><p onclick="location.href='moveFeedList.do'">피드알림</p></div></li>
+      <li><div class="qna"><p onclick="location.href='moveMyQnaList.do'">문의내역</p></div></li>
+   </ul>
 </div>
 
 <div class="sidebar2">
@@ -391,12 +444,13 @@ color: black;
         </nav>
         <div class= "logout">
         <div class="small ui buttons">
-  <button class="ui black basic button">내 정보 수정</button>
-  <button class="ui black basic button">로그아웃</button>
+  <button class="ui black basic button" onclick="location.href='moveMyPageEdit.do">내 정보 수정</button>
+  <button class="ui black basic button" onclick="location.href='logout.do'">로그아웃</button>
 </div>
 </div>
 </div>
-</div> -->
+</div>
+</c:if>
 </header>
 </body>
 </html>

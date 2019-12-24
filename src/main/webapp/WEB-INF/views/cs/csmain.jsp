@@ -183,10 +183,10 @@ margin-bottom: 30px;
 <!-- 공지사항 -->
 <div id="notice">
 <h1>공지사항</h1> 
-<div class="notice_more"><a href="Movenotice.do"><h4>더보기</h4></a></div>
+<div class="notice_more"><a href="moveNotice.do"><h4>더보기</h4></a></div>
 <ul>
 <li class= "ntitle">제목<span class="ndate">날짜</span></li>
-<li class="ncontent"><a href="Movenoticedetail.do">공지사항 제목 출력 하는 곳</a><span>2019-12-12</span></li>
+<li class="ncontent"><a href="moveNoticeDetail.do">공지사항 제목 출력 하는 곳</a><span>2019-12-12</span></li>
 <li class= "ntitle">제목<span class="ndate">날짜</span></li>
 <li class="ncontent">공지사항 제목 출력 하는 곳<span>2019-12-12</span></li>
 <li class= "ntitle">제목<span class="ndate">날짜</span></li>

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+   pageEncoding="UTF-8"%>
      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
@@ -12,9 +12,9 @@
 
 
 
-/* °øÁö»çÇ× */
+/* ê³µì§€ì‚¬í•­ */
 
-/* °øÁö»çÇ× Å¸ÀÌÆ² */
+/* ê³µì§€ì‚¬í•­ íƒ€ì´í‹€ */
 .noticestart{
 margin-top:5px;
 margin-left: 25px;
@@ -30,302 +30,168 @@ margin-left: 90px;
 .notice-list:hover{
 background-color:;
 }
-.notice-list {width: 1000px; margin:10px 0;  padding:24px 20px 26px; background:rgba(0, 0, 0, 0.04); /* border:1.5px solid black */ }
+.notice-list {width: 2000px;margin:10px 0;  padding:24px 20px 26px;   background:rgba(0, 0, 0, 0.00);  }
 .notice-list:after { content:''; clear:both; display:block }
 .notice-list .notice-item {text-decoration:none}
-.notice-list:hover{ background:rgba(0, 0, 0, 0.1);}
-/* .notice-list .notice-item:hover .title {color:black} */
+/* .notice-list:hover{ background:black;} */
+.notice-list .notice-item:hover .title {color:white} 
 .notice-list .notice-item .thumb {float:left; width:150px; height:150px; margin:6px 30px 5px 0}
-.notice-list .notice-item .title {font-weight:bold;font-size:1.375em}
+.notice-list .notice-item .title {font-weight:bold;font-size:1.375em; color:black;}
 .notice-list .notice-item .writer {margin-top:4px; color:black; vertical-align:top; font:normal 0.875em 'NanumBarunGothic','Noto Sans', sans-serif; line-height:1.5em;}
 .notice-list .info {margin-top:6px; font-size:0.875em; color:black;}
 
 .notice-list .info .pipe {display:inline-block; margin:0 10px; color:black}
 .notice-list .info .date {color:black}
 
-/* ¿·¿¡ ÀÌ¹ÌÁö */
+        
+* {padding: 0; margin: 0;}
+/* body {background: #1a237e;} */
+.box-wrap {
+/* margin-bottom: 20px; */
+margin-top: 30px;
+margin-left: 30px;
+   box-shadow: 8px 8px 13px 5px rgba(0,0,0,0.3);
+  width: 95%;
+    height: 150px;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center
+}
+.box {
+    position: relative;
 
+    /* overflow: hidden; */
+}
 
-* {
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+ .box:hover {
+ width: 100%;
+    background:black;
+} 
+.box:before, .box:after {
 
+    content:'';
+    background: #fff;
+    position: absolute;
+    left: 50%; top: 50%;
+    opacity: 0;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    transition: all 0.4s ease;
+}
+.box:before {
+    width: 60px; height: 1px; left: 100%;
+}
+.box:after {
+    width: 1px; height: 60px; top: 0%;
+}
+.box:hover:before, 
+.box:hover:after {
+
+    opacity: 1;
+    left: 50%; top: 50%;
+}
        
-        .gallery_content:hover .overlay.right {
-            top: 0;
-        }
-
-        #gallery_layout {
-        margin-left: 540px;
-        margin-top: 235px;
-       /* border: 2px solid yellow; */
-            width: 300px;
-            
-        }
-
-        #gallery_layout:after {
-            content: "";
-            display: block;
-            clear: both;
-        }
-
-        .gallery_content {
         
-          margin-bottom: 10px;
-          /* border: 2px solid red; */
-            position: relative;
-            float: left;
-            width: 300px;
-            height: 140px;
-            overflow: hidden;
-        }
-
-        .gallery_content img {
-            width: 100%;
-            height: 100%;
-            display: block;
-            margin: 0 auto;
-            transition: all 1s ease-in-out;
-        }
-
-        .content {
-            z-index: 1;
-            display: none;
-            color: #fff;
-            
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        
-        .content h1 {
-        color: white;
-            font-size: 1.2em;
-            text-transform: uppercase;
-            text-align: center;
-        }
-        .content p {
-           color: white;
-            padding: 2px 0;
-            font-size: 0.8em;
-            text-align: center;
-        }        
-        .gallery_content:hover .content {
-            display: block;
-            transition: all 1s ease-in-out;
-        }
-
-        .gallery_content:hover img {
-            transform: scale(1.2);
-            transition: all 1s ease-in-out;
-        }
-
-        .overlay {
-            display: none;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            transition: top 0.3s, right 0.3s, bottom 0.3s, left 0.3s;
-        }
-
-        /* overlay color */
-        .overlay {
-            background-color:rgba(0, 0, 0, 0.5);
-        }
-          .gallery_content:hover .overlay {
-            display: block;
-            transition: all 0.5s ease-in-out;
-        }
-        
-        @media all and (min-width: 960px) {
-            #gallery_layout {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-            }  
-        }
-
-        @media all and (max-width: 959px) {
-        #gallery_layout {
-            width: 100%;
-        }
-        .gallery_content {
-            width: 50%;
-        }
-
-        }
-        @media all and (max-width: 499px) {
-        #gallery_layout {
-            width: 100%;
-        }
-        .gallery_content {
-            width: 100%;
-        }
-
-        }
 </style>
 <body>
 <c:import url="../search.jsp" />
 
-     <div class="noticelist">
-     
-        <div class="notice-list">
+<div class="box-wrap">
+    <div class="box">
+       <div class="notice-list">
             <a href="#" class="notice-item">
-                <h1 class="title">°øÁö»çÇ× Á¦¸ñ</h1>
+                <h1 class="title">ê³µì§€ì‚¬í•­ ì œëª©</h1>
                 <p class="writer">admin01 </p>
             </a>
-            <p class="info"> ºĞ·ù[ÀÏ¹İ]
+            <p class="info"> ë¶„ë¥˜[ì¼ë°˜]
                 <span class="pipe">|</span>
-                <span class="date">12¿ù14ÀÏ</span>
+                <span class="date">12ì›”14ì¼</span>
             </p>
         </div>
-        <div class="notice-list">
-            <a href="#" class="notice-item">
-                <h1 class="title">°øÁö»çÇ× Á¦¸ñ</h1>
-                <p class="writer">admin01 </p>
-            </a>
-            <p class="info"> ºĞ·ù[ÀÏ¹İ]
-                <span class="pipe">|</span>
-                <span class="date">12¿ù14ÀÏ</span>
-            </p>
-        </div>
-        <div class="notice-list">
-            <a href="#" class="notice-item">
-                <h1 class="title">°øÁö»çÇ× Á¦¸ñ</h1>
-                <p class="writer">admin01 </p>
-            </a>
-            <p class="info"> ºĞ·ù[ÀÏ¹İ]
-                <span class="pipe">|</span>
-                <span class="date">12¿ù14ÀÏ</span>
-            </p>
-        </div>
-        <div class="notice-list">
-            <a href="#" class="notice-item">
-                <h1 class="title">°øÁö»çÇ× Á¦¸ñ</h1>
-                <p class="writer">admin01 </p>
-            </a>
-            <p class="info"> ºĞ·ù[ÀÏ¹İ]
-                <span class="pipe">|</span>
-                <span class="date">12¿ù14ÀÏ</span>
-            </p>
-        </div>
-        <div class="notice-list">
-            <a href="#" class="notice-item">
-                <h1 class="title">°øÁö»çÇ× Á¦¸ñ</h1>
-                <p class="writer">admin01 </p>
-            </a>
-            <p class="info"> ºĞ·ù[ÀÏ¹İ]
-                <span class="pipe">|</span>
-                <span class="date">12¿ù14ÀÏ</span>
-            </p>
-        </div>
-        <div class="notice-list">
-            <a href="#" class="notice-item">
-                <h1 class="title">°øÁö»çÇ× Á¦¸ñ</h1>
-                <p class="writer">admin01 </p>
-            </a>
-            <p class="info"> ºĞ·ù[ÀÏ¹İ]
-                <span class="pipe">|</span>
-                <span class="date">12¿ù14ÀÏ</span>
-            </p>
-        </div>
-        <div class="notice-list">
-            <a href="#" class="notice-item">
-                <h1 class="title">°øÁö»çÇ× Á¦¸ñ</h1>
-                <p class="writer">admin01 </p>
-            </a>
-            <p class="info"> ºĞ·ù[ÀÏ¹İ]
-                <span class="pipe">|</span>
-                <span class="date">12¿ù14ÀÏ</span>
-            </p>
-        </div>
-        <div class="notice-list">
-            <a href="#" class="notice-item">
-                <h1 class="title">°øÁö»çÇ× Á¦¸ñ</h1>
-                <p class="writer">admin01 </p>
-            </a>
-            <p class="info"> ºĞ·ù[ÀÏ¹İ]
-                <span class="pipe">|</span>
-                <span class="date">12¿ù14ÀÏ</span>
-            </p>
-        </div>
-        <div class="notice-list">
-            <a href="#" class="notice-item">
-                <h1 class="title">°øÁö»çÇ× Á¦¸ñ</h1>
-                <p class="writer">admin01 </p>
-            </a>
-            <p class="info"> ºĞ·ù[ÀÏ¹İ]
-                <span class="pipe">|</span>
-                <span class="date">12¿ù14ÀÏ</span>
-            </p>
-        </div>
-        </div>
-<!-- ¿·¿¡ ÀÌ¹ÌÁö -->
-
-<div id="gallery_layout">
-        <div class="gallery_content">
-            <img src="resources/images/main/sample6.jpg" alt="travel_img">
-            <div class="content">
-                <h1>travel</h1>
-                <p>µµÀüÇÏÁö ¾ÊÀ¸¸é, ¾Æ¹«°Íµµ ¾òÀ» ¼ö ¾ø´Ù.</p>
-            </div>
-            <div class="overlay darkBlue"></div>
-        </div>
-        <div class="gallery_content top">
-            <img src="resources/images/main/main1.jpg"> 
-             
-            <div class="content">
-                <h1>travel</h1>
-                <p>¿©ÇàÀº ¾ğÁ¦³ª µ·ÀÇ ¹®Á¦°¡ ¾Æ´Ï°í ¿ë±âÀÇ ¹®Á¦´Ù.</p>
-            </div>
-            <div class="overlay"></div>
-        </div>
-        <div class="gallery_content">
-            <img src="resources/images/main/sample1.jpg" alt="¿©ÇàÀÌ¹ÌÁö3">
-            <div class="content">
-                <h1>travel</h1>
-                <p>¿©ÇàÀº Á¤½ÅÀ» ´Ù½Ã Àş¾îÁö°Ô ÇÏ´Â »ùÀÌ´Ù.</p>
-            </div>
-            <div class="overlay"></div>
-        </div>
-        <div class="gallery_content">
-            <img src="resources/images/main/sample5.jpg"  alt="¿©ÇàÀÌ¹ÌÁö4">
-            <div class="content">
-                <h1>travel</h1>
-                <p>¿©Çà°ú º¯È­¸¦ »ç¶ûÇÏ´Â »ç¶÷Àº »ı¸íÀ» °¡Áø »ç¶÷ÀÌ´Ù.</p>
-            </div>
-            <div class="overlay"></div>
-        </div>
-        <div class="gallery_content">
-            <img src="resources/images/main/sample2.jpg" alt="¿©ÇàÀÌ¹ÌÁö5">
-            <div class="content">
-                <h1>travel</h1>
-                <p>¹Ùº¸´Â ¹æÈ²À» ÇÏ°í Çö¸íÇÑ »ç¶÷Àº ¿©ÇàÀ» ÇÑ´Ù.</p>
-            </div>
-            <div class="overlay"></div>
-        </div>
-        <div class="gallery_content">
-            <img src="resources/images/main/sample4.jpg" alt="¿©ÇàÀÌ¹ÌÁö6">
-            <div class="content">
-                <h1>travel</h1>
-                <p>³¸¼± ¶¥ÀÌ¶õ ¾ø´Ù.</p>
-                <p>´ÜÁö ¿©ÇàÀÚ°¡ ³¸¼³ »ÓÀÌ´Ù.</p>
-            </div>
-            <div class="overlay gold"></div>
+            <a href="#"></a>
         </div>
     </div>
 
-       
+<div class="box-wrap">
+    <div class="box">
+       <div class="notice-list">
+            <a href="#" class="notice-item">
+                <h1 class="title">ê³µì§€ì‚¬í•­ ì œëª©</h1>
+                <p class="writer">admin01 </p>
+            </a>
+            <p class="info"> ë¶„ë¥˜[ì¼ë°˜]
+                <span class="pipe">|</span>
+                <span class="date">12ì›”14ì¼</span>
+            </p>
+        </div>
+            <a href="#"></a>
+        </div>
+    </div>
 
+<div class="box-wrap">
+    <div class="box">
+       <div class="notice-list">
+            <a href="#" class="notice-item">
+                <h1 class="title">ê³µì§€ì‚¬í•­ ì œëª©</h1>
+                <p class="writer">admin01 </p>
+            </a>
+            <p class="info"> ë¶„ë¥˜[ì¼ë°˜]
+                <span class="pipe">|</span>
+                <span class="date">12ì›”14ì¼</span>
+            </p>
+        </div>
+            <a href="#"></a>
+        </div>
+    </div>
+
+       <div class="box-wrap">
+    <div class="box">
+       <div class="notice-list">
+            <a href="#" class="notice-item">
+                <h1 class="title">ê³µì§€ì‚¬í•­ ì œëª©</h1>
+                <p class="writer">admin01 </p>
+            </a>
+            <p class="info"> ë¶„ë¥˜[ì¼ë°˜]
+                <span class="pipe">|</span>
+                <span class="date">12ì›”14ì¼</span>
+            </p>
+        </div>
+            <a href="#"></a>
+        </div>
+    </div>
+        
+       <div class="box-wrap">
+    <div class="box">
+       <div class="notice-list">
+            <a href="#" class="notice-item">
+                <h1 class="title">ê³µì§€ì‚¬í•­ ì œëª©</h1>
+                <p class="writer">admin01 </p>
+            </a>
+            <p class="info"> ë¶„ë¥˜[ì¼ë°˜]
+                <span class="pipe">|</span>
+                <span class="date">12ì›”14ì¼</span>
+            </p>
+        </div>
+            <a href="#"></a>
+        </div>
+    </div>
+       
+       
+      <div class="box-wrap">
+    <div class="box">
+       <div class="notice-list">
+            <a href="#" class="notice-item">
+                <h1 class="title">ê³µì§€ì‚¬í•­ ì œëª©</h1>
+                <p class="writer">admin01 </p>
+            </a>
+            <p class="info"> ë¶„ë¥˜[ì¼ë°˜]
+                <span class="pipe">|</span>
+                <span class="date">12ì›”14ì¼</span>
+            </p>
+        </div>
+            <a href="#"></a>
+        </div>
+    </div>
 <c:import url="../footer.jsp" />
 </body>
 </html>
