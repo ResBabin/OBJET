@@ -19,15 +19,15 @@ public class FaqDao {
 	public FaqDao() {}
 	///////////////////////////이유진//////////////////////////////////////////////////////////////////
 	//자주묻는 질문 전체목록
-	public List<Faq> selectFaqList1() {
+	public List<Faq> selectFaqList() {
 		return mybatisSession.selectList("csMapper.selectFaqList");
 	}
 	
 	///////////////////////////////////////////////관리자///////////////////////////////////////////////
-	public List<Faq> selectFaqList() {
+	/*public List<Faq> selectFaqList() {
 		return mybatisSession.selectList("adminMapper.selectFaqList");
 	}
-
+*/
 	public Faq selectFaqDetail(int faqno) {
 		return mybatisSession.selectOne("adminMapper.selectFaqDetail", faqno);
 	}
