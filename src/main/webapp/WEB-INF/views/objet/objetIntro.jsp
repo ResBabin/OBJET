@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>전시 소개</title>
+<title>Objet</title>
 <style type="text/css">
 .banner_exhibition {
 	width : auto;
