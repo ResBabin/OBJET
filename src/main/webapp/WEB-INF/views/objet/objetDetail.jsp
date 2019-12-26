@@ -36,10 +36,10 @@
 <script src="resources/js/addEvent.js"></script>
 <script src="resources/js/editEvent.js"></script>
 <script src="resources/js/etcSetting.js"></script> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/popper.js" integrity="sha256-Ay8FUC6Dm+HcDdSaEOoggcHDUSyBg/tX2j3pwdzBjC4=" crossorigin="anonymous"></script>
+<!-- <script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<link rel="stylesheet" href='resources/css/calendar.css' />
+<link rel="stylesheet" href='resources/css/calendar.css' /> -->
 <style type="text/css">
 html, body {
 	height: 100%;
@@ -54,13 +54,15 @@ html, body {
 .objet_infomation {
 	padding-bottom: 0px;
 }
-
+.wrap_icon_img {
+	position: relative;
+}
 #banner_img {
 	z-index: -999;
 	width: 100%;
 	height: 420px;
 	vertical-align: top;
-	margin-top: -107px;
+	margin-top: -109px;
 	overflow: scroll;
 	position: relative;
 }
@@ -76,7 +78,7 @@ html, body {
 
 .banner_img_btn {
 	position: absolute;
-	top: 34%;
+	top: 62%;
 	left: 27%;
 	transform: translate(-50%, -50%);
 	height: auto;
@@ -99,40 +101,298 @@ html, body {
 	letter-spacing: -.05em;
 }
 
-.header_icons {
+/* 배너 아이콘 스타일 */
+.wrap_all {
+	margin-top:-55px;
+}
+.f_r{
+	float:right;
+}
+.wrap_action_article {
+    margin-top: -5px;
+    margin-right: -8px;
+}
+.wrap_action_article .ico_action {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-left: 22px;
+    margin-top: 5px;
+    background-position: -180px 0;
+    -webkit-transition: transform 200ms;
+    -moz-transition: transform 200ms;
+    -ms-transition: transform 200ms;
+    -o-transition: transform 200ms;
+    transition: transform 200ms;
+    color:#fff;
+    position: absolute;
+    right:20px;
+}
+
+.img_ico {
+    background: url(//t1.daumcdn.net/brunch/static/img/help/pc/ico_view_cover.v4.png) no-repeat;
+}
+.text_hide {
+    overflow: hidden;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    text-indent: -9999px;
+}
+button {
+    border: 0 none;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+    border-radius: 0px;
+    vertical-align: middle;
+} 
+
+.wrap_action_article .more_action_wrap {
+    position: absolute;
+    right: 67px;
+    transition: transform 300ms;
+    transform: translate(0, -50px);
+    opacity: 0;
+}
+
+.wrap_action_article .ico_report {
+    background-position: -150px -90px;
+    margin-top: 5px;
+}
+.more_action_wrap .img_ico.more_action {
+    margin-left: 30px;
+}
+.wrap_action_article .more_action {
+    display: inline-block;
+}
+.img_ico.img_ico_single {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+.f_l {
+    float: left;
+}
+.img_ico_wrap {
+    margin-left: 18px;
+    float: left;
+    padding: 5px 0 5px 5px;
+    height: 20px;
+    box-sizing: content-box;
+}
+.wrapButtonSocialShare {
+    position: relative;
+    display: inline;
+}
+.show {
+    display: block;
+}
+a {
+    text-decoration: none;
+}
+a:-webkit-any-link {
+    cursor: pointer;
+}
+.wrap_action_article .img_ico.ico_likeit_like {
+    background-position: -60px -90px;
+    margin-top: 1px;
+    width: 21px;
+}
+
+.wrap_action_article .text_with_img_ico {
+    margin-left: 3px;
+    margin-top: -1px;
+}
+.wrap_action_article .text_with_img_ico {
+    padding-top: 1px;
+    min-width: 6px;
+    min-height: 1px;
+}
+.wrap_action_article .ico_comment {
+    background-position: -30px -120px;
+}
+
+.img_ico.img_ico_with_text {
+    width: 20px;
+    height: 20px;
+}
+
+.wrap_action_article .text_with_img_ico {
+    margin-left: 3px;
+    margin-top: -1px;
+}
+.wrap_action_article .text_with_img_ico {
+    padding-top: 1px;
+    margin-left: 4px;
+    min-width: 6px;
+    min-height: 1px;
+}
+
+.wrapButtonSocialShare {
+    position: relative;
+    display: inline;
+}
+#facebook, #instagram, #twitter {
+	width:28px;
+	height: 28px;
+}
+.wrap_action_article .ico_share {
+    background-position: -90px -121px;
+    margin-right: 0;
+}
+.wrapButtonSocialShare .wrap_share_gnb {
+    display: none;
+}
+.wrapButtonSocialShare.show .wrap_share_gnb {
+    position: absolute;
+    display: block;
+    width: 240px;
+    padding-top: 18px;
+    top: 45px;
+    right: -34px;
+    text-align: center;
+    box-shadow: 1px 1px 0 rgba(255,255,255,.06);
+    background-color: #FFF;
+}
+.wrapButtonSocialShare.show .wrap_share_gnb:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #000;
+    opacity: 0.1;
+    filter: alpha(opacity=10);
+    content: '';
+    box-sizing: border-box;
+}
+.tit_sharegnb {
+    display: block;
+    font-weight: normal;
+    font-size: 12px;
+    color: #959595 !important;
+    letter-spacing: -0.025em;
+    text-align: center;
+    font-family: 'Nanum Gothic', sans-serif !important;
+}
+
+.wrap_share_gnb .ico_share_common {
+    position: relative;
+    z-index: 10;
+    margin: 12px 0 18px;
+}
+
+.wrap_share_common .btn_share_facebook {
+    background-position: -2px -2px;
+}
+.wrap_share_common button {
+    width: 35px;
+    height: 35px;
+    font-family: 'Nanum Gothic', sans-serif !important;
+    font-size: 14px;
+    line-height: 1.5;
+}
+.wrap_share_common .btn_share_facebook {
+    background-position: -2px -2px;
+}
+.wrap_share_common .btn_share_kakaotalk {
+    background-position: -37px -2px;
+}
+.wrap_share_common .btn_share_kakaostory {
+    background-position: -72px -2px;
+}
+.wrap_share_common .btn_share_twitter {
+    background-position: -107px -2px;
+}
+
+/* .ico_share_common {
+    background: url(//t1.daumcdn.net/brunch/static/img/help/pc/ico_share_rtn_20180103.png) no-repeat;
+    background-size: 300px 210px;
+} */
+
+.screen_out {
+    overflow: hidden;
+    position: absolute;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    text-indent: -9999px;
+}
+
+.wrap_action_article * {
+    color: #fff;
+}
+.wrap_action_article.show_more_action .more_action_wrap {
+    transform: translate(0, 0);
+    display: block;
+    opacity: 1;
+}
+.wrap_action_article .default_action_wrap {
+    position: absolute;
+    transform: translate(0, 0);
+    font-size: 14px;
+    right: 63px;
+    padding-top: 0px;
+    font-family: 'Nanum Gothic', sans-serif !important;
+}
+.wrap_action_article.show_more_action .ico_action {
+    margin-top: 6px;
+    margin-left: 25px;
+    transform: rotate(-90deg);
+}
+/* .header_icons {
 	float: right;
-}
-
-.default_wrap {
 	position: absolute;
-	transform: translate(0, 0);
-	font-size: 14px;
-	right: 1px;
-	padding-top: 0px;
-	margin-top: -100px;
+	right: 63px; 
+    padding-top: 0px;
+    transform: translate(0, 0);
+    
 }
-
+.left .wrap .icons {
+	float:right;
+}
 #heart {
-	position: relative;
+	position: absolute;
+	width: 10%;
+	height: auto;
+	background-image: url("resources/images/objet/heart.png");
 }
 
 .like_cnt {
-	position: relative;
+	position: absolute;
 	color: #fff;
 	font-size: 14px;
 }
 
 #chat {
-	position: relative;
+	position: absolute;
+	width: 10%;
+	height: auto;
+	background-image: url("resources/images/objet/chat.png");
 }
 
 #share {
-	position: relative;
+	position: absolute;
+	width: 10%;
+	height: auto;
+	background-image: url("resources/images/objet/share.png");
 }
 
 #more {
-	position: relative;
+	position: absolute;
 }
+
+.report {
+	position: absolute;
+	width: 10%;
+	height: auto;
+	background-image: url("resources/images/objet/report.png");
+}
+#more_after {
+	position: absolute;
+} *//* // 배너 아이콘 스타일 */
 
 #objet_info_menu {
 	margin-top: 0px;
@@ -748,6 +1008,43 @@ html, body {
 </style>
 <script type="text/javascript">
 	$(function() {
+		//헤더 아이콘
+		var check = false;
+			$("#btnToggleArticleMoreAction").on("click", function(){
+				if(check === false){
+				$(".wrap_action_article").addClass("show_more_action");
+				$("#default").css("visibility", "hidden");
+				$(".more_action_wrap").css("display", "block");
+				check = true;
+			}else{
+				$(".wrap_action_article").removeClass("show_more_action");
+				$("#default").css("visibility", "visible");
+				$(".more_action_wrap").css("display", "none");
+				check = false;				
+			}
+			});
+			$(".wrapButtonSocialShare").on("click", function(){
+				if(check === false){
+					$(".wrapButtonSocialShare").addClass("show");
+					check = true;
+				}else{
+					$(".wrapButtonSocialShare").removeClass("show");
+					check = false;
+				}
+			});
+		
+		//헤더아이콘 한줄평 이동
+		$(".comment").on("click", function(){
+			var scrollTop = 390;
+			$(".review").click();
+			$("html, body").animate({ scrollTop: scrollTop }, 1000);
+		});
+			
+		//전시 신고 모달
+		$(".ico_report").on("click", function() {
+			$("#rep_modal").modal('show');
+		});	
+			
 		//tab menu
 		$("#objet_info_menu #item").on("click", function() {
 			var tab = $(this).attr("data-tab");
@@ -887,127 +1184,117 @@ html, body {
 						});
 
 		//캘린더
-		/* $('#calendar').fullCalendar({
-		    defaultView: 'month',
-		    defaultDate: '2019-11-12',
-
-		    eventRender: function (eventObj, $el) {
-		        $el.popover({
-		            title: eventObj.title,
-		            content: eventObj.description,
-		            trigger: 'hover',
-		            placement: 'top',
-		            container: 'body'
-		        });
-		    },
-
-		    events: [{
-		            title: 'All Day Event',
-		            description: 'description for All Day Event',
-		            start: '2019-11-01'
-		        },
-		        {
-		            title: 'Long Event',
-		            description: 'description for Long Event',
-		            start: '2018-10-07',
-		            end: '2019-11-10'
-		        },
-		        {
-		            id: 999,
-		            title: 'Repeating Event',
-		            description: 'description for Repeating Event',
-		            start: '2019-11-09T16:00:00'
-		        },
-		        {
-		            id: 999,
-		            title: 'Repeating Event',
-		            description: 'description for Repeating Event',
-		            start: '2019-11-16T16:00:00'
-		        },
-		        {
-		            title: 'Conference',
-		            description: 'description for Conference',
-		            start: '2018-11-11',
-		            end: '2019-11-13'
-		        },
-		        {
-		            title: 'Meeting',
-		            description: 'description for Meeting',
-		            start: '2019-11-12T10:30:00',
-		            end: '2019-11-12T12:30:00'
-		        },
-		        {
-		            title: 'Lunch',
-		            description: 'description for Lunch',
-		            start: '2019-11-12T12:00:00'
-		        },
-		        {
-		            title: 'Meeting',
-		            description: 'description for Meeting',
-		            start: '2019-11-12T14:30:00'
-		        },
-		        {
-		            title: 'Birthday Party',
-		            description: 'description for Birthday Party',
-		            start: '2019-11-13T07:00:00'
-		        },
-		        {
-		            title: 'Click for Google',
-		            description: 'description for Click for Google',
-		            url: 'http://google.com/',
-		            start: '2019-11-28'
-		        }
-		    ]
-		}); */
+		
 	});
 </script>
 </head>
 <body>
 <section class="all">
 <section class="objet_infomation">
-<!-- <div class="header_icons">
-<i class="material-icons" style="color:#fff;font-size:24px;" id="heart">&#xe87e;</i>
-<span class="like_cnt">153</span>
-<i class="right floated chat outline icon" style="color:#fff;font-size:24px;" id="chat"></i>
-<i class="material-icons" style="color:#fff;font-size:24px;" id="share">&#xe80d;</i>
-<i class="material-icons" style="color:#fff;font-size:24px;" id="more">&#xe5d4;</i>
-</div> -->
- <div class="header_icons">
-<div class="wrap_action">
+<div class="wrap_icon_img">
+<!-- 배너 상단 아이콘들  -->
+<div class="wrap_all">
+<div class="f_r">
+<div class="wrap_action_article">
 <button id="btnToggleArticleMoreAction" type="button" class="f_r img_ico text_hide ico_action #more">실행</button>
-<div class="more_action header_icons ">
+<div class="more_action_wrap f_r ">
 <button class="reportArticle f_l more_action text_hide img_ico img_ico_single ico_report #report">신고</button>
 </div>
-
-<div class="default_wrap header_icons">
+<div id="default" class="default_action_wrap f_r" style="visibility: visible;">
 <a href="#likeit" class="default_action headerLikeBtn img_ico_wrap #likeit" onclick="return B.ArticleLike.like(this)">
-<i class="material-icons" style="color:#fff;font-size:24px;" id="heart">&#xe87e;</i>
-<span class="like_cnt">6</span>
-</a>
+<span class="f_l text_hide img_ico img_ico_with_text ico_likeit_like #like">관심오브제</span>
+<span class="f_l text_like_count text_default text_with_img_ico ico_likeit_like #like">7</span> </a>
 <a href="#comments" class="default_action img_ico_wrap comment #comment">
-<i class="right floated chat outline icon" style="color:#fff;font-size:24px;" id="chat"></i>
-</a>
-<i class="material-icons" style="color:#fff;font-size:24px;" id="share">&#xe80d;</i>
-<span class="wrap_share_gnb wrap_share_common">
-<strong class="tit_sharegnb">오브제 전시를 SNS에 공유해보세요</strong>
-<button type="button" class="ico_share_common btn_share_facebook #facebook" data-servicename="facebook">
-    <span class="screen_out">페이스북공유</span>
+<span class="f_l text_hide img_ico img_ico_with_text ico_comment">한줄평</span></a>
+<span class="wrapButtonSocialShare f_l default_action img_ico_wrap #share">
+<span class="f_l text_hide img_ico img_ico_with_text ico_share" style="cursor: pointer;">공유</span>
+<span class="wrap_share_gnb wrap_share_common"><strong class="tit_sharegnb">오브제 전시를 SNS에 공유해보세요</strong>
+<button type="button" id="facebook" class="ico_share_common btn_share_facebook ui mini circular facebook icon button" data-servicename="facebook">
+     <i class="large facebook icon"></i><span class="screen_out">페이스북공유</span>
 </button>
-<button type="button" class="ico_share_common btn_share_kakaotalk #kakaotalk" data-servicename="kakaotalk">
-    <span class="screen_out">카카오톡공유</span>
+<button type="button" id="instagram" class="ico_share_common btn_share_instagram ui mini circular instagram icon button" data-servicename="kakaostory">
+    <i class="large instagram icon"></i><span class="screen_out">인스타그램 공유</span>
 </button>
-<button type="button" class="ico_share_common btn_share_twitter #twitter" data-servicename="twitter">
-    <span class="screen_out">트위터공유</span>
-</button>
+<button type="button" id="twitter" class="ico_share_common btn_share_twitter ui circular mini twitter icon button" data-servicename="twitter">
+    <i class="large twitter icon"></i><span class="screen_out">트위터공유</span>
+</button>												
 </span>
+</span>							
 </div>
 </div>
 </div>
+</div>
+<!--// 배너 상단 아이콘들  -->
+<!-- 전시신고 모달 시작 -->
+<div class="ui modal" id="rep_modal">
+<p style="font-size: 20pt; padding-top:40px; color:#373737; text-align:center;">전시 신고하기</p>
+<p class="quitHeader" style="font-weight: 600;text-align: center;">어떤 문제가 있나요?</p>
+<center>
+<form action="" method="post">
+<div align="center" style="padding-top: 15px;">
+	<div class="choiceReportReason1">
+		<div class="ui form">
+			    <div class="field">
+			      <div class="ui radio checkbox">
+			        <input type="radio" name="reportreason" value="명예훼손/사생활 침해 및 저작권 침해" checked="checked">
+			        <label>명예훼손/사생활 침해 및 저작권 침해</label>
+			      </div>
+			    </div>
+			    <div class="field">
+			      <div class="ui radio checkbox">
+			        <input type="radio" name="reportreason" value="음란성 또는 청소년에게 부적합한 내용">
+			        <label>음란성 또는 청소년에게 부적합한 내용</label>
+			      </div>
+			    </div>
+			    <div class="field">
+			      <div class="ui radio checkbox">
+			        <input type="radio" name="reportreason" value="명의 도용">
+			        <label>명의 도용</label>
+			      </div>
+			    </div>
+			    <div class="field">
+			      <div class="ui radio checkbox">
+			        <input type="radio" name="reportreason" value="부적절한 콘텐츠">
+			        <label>부적절한 콘텐츠</label>
+			      </div>
+			    </div>
+			    <div class="field">
+			      <div class="ui radio checkbox">
+			        <input type="radio" name="reportreason" value="개인정보노출">
+			        <label>개인정보노출</label>
+			      </div>
+			    </div>
+			    <div class="field">
+			      <div class="ui radio checkbox">
+			        <input type="radio" name="reportreason" value="기타">
+			        <label>기타</label>
+			      </div>
+			    </div>
+			    <textarea rows="3" cols="10" name="etc" id="etc1" style="resize: none;" disabled required></textarea>
+				<span style="color:#aaa; display: none; text-align:right; font-size:9pt;" id="count">( <span style="color:#4ecdc4;font-size:9pt;">0</span> / 최대 100자 )</span>
+		</div>
+	</div>
+</div>
+<br><br>
+<div class="actions">
+    <div class="ui red cancel inverted button" onClick="location.href ='objetOne.do'" style="cursor: pointer;">
+      <i class="remove icon"></i>
+      	취소
+    </div>
+    <div id="btnsub_rev_rep" class="ui blue ok inverted button" onClick="location.href ='objetReport.do'" style="cursor: pointer;">
+      <i class="bell outline icon"></i>
+             신고하기
+    </div>
+  </div><br><br>
+</center>
+</form>
+</div>
+<!-- 전시 신고 모달 끝 -->
 <img src="resources/images/objet/objetmainposter.jpg" id="banner_img">
 <div class="banner_img_text"><!-- <span class="banner_date">2019. 08. 02 - 2019. 12. 12 </span> -->
 <div class="ui inverted black icon button banner_img_btn" style="font-size: 18px;" onclick="location.href='objetView.do'">전시 감상하러 가기
 &nbsp;<i class="ui arrow right icon" style="font-size:18px;"></i>
-</div></div>
+</div></div></div>
 <div class="ui fluid four item inverted menu" id="objet_info_menu">
   <a class="active item" id="item" data-tab="objet_info">
     전시소개
@@ -1018,7 +1305,7 @@ html, body {
   <a class="item" id="item" data-tab="objet_calendar">
     전시일정
   </a>
-  <a class="item" id="item" data-tab="objet_review">
+  <a class="item review" id="item" data-tab="objet_review">
     한줄평
   </a>
 </div>
@@ -1111,110 +1398,6 @@ FF+WE Prize를 수상하였으며, <br>2016년 프랑스 예르 패션 & 포토�
 <center>
 <div class="ui bottom attached tab" id="objet_calendar">
 <span class="det_title">CALENDAR</span><br>
-<div class="container">
-        <!-- 일자 클릭시 메뉴오픈 -->
-        <div id="contextMenu" class="dropdown clearfix">
-            <ul class="dropdown-menu dropNewEvent" role="menu" aria-labelledby="dropdownMenu"
-                style="display:block;position:static;margin-bottom:5px;">
-                <li><a tabindex="-1" href="#">카테고리1</a></li>
-                <li><a tabindex="-1" href="#">카테고리2</a></li>
-                <li><a tabindex="-1" href="#">카테고리3</a></li>
-                <li><a tabindex="-1" href="#">카테고리4</a></li>
-                <li class="divider"></li>
-                <li><a tabindex="-1" href="#" data-role="close">Close</a></li>
-            </ul>
-        </div>
-
-        <div id="wrapper">
-            <div id="loading"></div>
-            <div id="calendar"></div>
-        </div>
-        <!-- 일정 추가 MODAL -->
-        <div class="modal fade" tabindex="-1" role="dialog" id="eventModal">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title"></h4>
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-allDay">하루종일</label>
-                                <input class='allDayNewEvent' id="edit-allDay" type="checkbox"></label>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-title">일정명</label>
-                                <input class="inputModal" type="text" name="edit-title" id="edit-title"
-                                    required="required" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-start">시작</label>
-                                <input class="inputModal" type="text" name="edit-start" id="edit-start" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-end">끝</label>
-                                <input class="inputModal" type="text" name="edit-end" id="edit-end" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-type">구분</label>
-                                <select class="inputModal" type="text" name="edit-type" id="edit-type">
-                                    <option value="카테고리1">카테고리1</option>
-                                    <option value="카테고리2">카테고리2</option>
-                                    <option value="카테고리3">카테고리3</option>
-                                    <option value="카테고리4">카테고리4</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-color">색상</label>
-                                <select class="inputModal" name="color" id="edit-color">
-                                    <option value="#D25565" style="color:#D25565;">빨간색</option>
-                                    <option value="#9775fa" style="color:#9775fa;">보라색</option>
-                                    <option value="#ffa94d" style="color:#ffa94d;">주황색</option>
-                                    <option value="#74c0fc" style="color:#74c0fc;">파란색</option>
-                                    <option value="#f06595" style="color:#f06595;">핑크색</option>
-                                    <option value="#63e6be" style="color:#63e6be;">연두색</option>
-                                    <option value="#a9e34b" style="color:#a9e34b;">초록색</option>
-                                    <option value="#4d638c" style="color:#4d638c;">남색</option>
-                                    <option value="#495057" style="color:#495057;">검정색</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-desc">설명</label>
-                                <textarea rows="4" cols="50" class="inputModal" name="edit-desc"
-                                    id="edit-desc"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer modalBtnContainer-addEvent">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-                        <button type="button" class="btn btn-primary" id="save-event">저장</button>
-                    </div>
-                    <div class="modal-footer modalBtnContainer-modifyEvent">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-                        <button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>
-                        <button type="button" class="btn btn-primary" id="updateEvent">저장</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-    </div>
-    <!-- /.container -->
 </div>
 <div class="ui bottom attached tab " id="objet_review">
    <span class="det_title">REVIEW</span><br>

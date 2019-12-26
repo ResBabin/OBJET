@@ -21,12 +21,6 @@ public class ObjetController {
 	
 	public ObjetController() {}
 
-	//�쟾�떆 硫붿씤�럹�씠吏� �씠�룞
-	@RequestMapping("objetMain.do")
-	public String moveObjetPage() {
-		return "objet/objetMain";
-	}
-	
 	//전시소개 테스트
 	@RequestMapping("objetIntro.do")
 	public String moveObjetIntroPage() {
