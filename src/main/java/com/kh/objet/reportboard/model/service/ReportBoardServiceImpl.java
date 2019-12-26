@@ -1,6 +1,8 @@
 package com.kh.objet.reportboard.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +21,24 @@ public class ReportBoardServiceImpl implements ReportBoardService{
 	}
 
 	@Override
-	public ReportBoard selectReportBDetail(String reportb) {
-		return reportbDao.selectReportBDetail(reportb);
+	public ReportBoard selectReportBDetail(Map<String, String> map) {
+		return reportbDao.selectReportBDetail(map);
+	}
+
+	@Override
+	public List<ReportBoard> selectReportAllList(ReportBoard report) {
+		return reportbDao.selectReportAllList(report);
+	}
+
+	@Override
+	public List<ReportBoard> selectReportReason() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ReportBoard> selectReportAll() {
+		return reportbDao.selectReportAll();
 	}
 
 }

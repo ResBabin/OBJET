@@ -3,8 +3,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- favicon 위치 -->
+<link rel="shortcut icon" href="../resources/images/favicon-32x32.png">
+<link rel="icon" href="../resources/images/favicon-32x32.png">
+<meta charset="UTF-8">
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 <!-- 시맨틱유아이 cdn -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
