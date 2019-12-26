@@ -1,11 +1,9 @@
 package com.kh.objet.users.model.service;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.objet.quit.model.vo.Quit;
+import com.kh.objet.quit.model.vo.Quit2;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.users.model.dao.UsersDao;
 import com.kh.objet.users.model.vo.UAUP;
@@ -31,6 +29,13 @@ public class UsersServiceImpl implements UsersService{
 		return usersDao.selectCheckNickname(nickname);
 	}
 	
+	
+	// 이메일 중복확인
+	@Override
+	public int selectCheckEmail(String email) {
+		return usersDao.selectCheckEmail(email);
+	}
+	
 	// 회원가입
 	@Override
 	public int insertUsers(Users users) {
@@ -51,7 +56,7 @@ public class UsersServiceImpl implements UsersService{
 
 	// 아이디찾기
 	@Override
-	public ArrayList<Users> selectFindId(Users users) {
+	public Users selectFindId(Users users) {
 		return usersDao.selectFindId(users);
 	}
 
@@ -87,7 +92,7 @@ public class UsersServiceImpl implements UsersService{
 
 	// 회원탈퇴2
 	@Override
-	public int insertQuitUser(Quit quit) {
+	public int insertQuitUser(Quit2 quit) {
 		return usersDao.insertQuitUser(quit);
 	}
 	
@@ -97,6 +102,7 @@ public class UsersServiceImpl implements UsersService{
 	public int insertUsersReport(ReportUDetail reportUDetail) {
 		return usersDao.insertUsersReport(reportUDetail);
 	}
+
 
 
 

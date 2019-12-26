@@ -39,5 +39,30 @@
 	<select id="moveMyPageEdit" parameterType="Users" resultType="Users">
 		select * from users where userid = #{userid}
 	</select>
+	
+	<select id="selectCheckEmail" parameterType="String" resultType="int">
+		select count(*) from users where email = #{email}
+	</select>
+	
+	<update id="updateQuitUser" parameterType="String">
+		update users set quityn = 'Y' where userid = #{userid} 
+	</update>
+	
+	<insert id="insertQuitUser" parameterType="Quit2">
+		 insert into quit values (#{userid}, 'G', #{quitreason}, sysdate )
+	</insert>
+	
+	<select id="FollowerGetListCount" parameterType="String" resultType="int">
+		select count(to_user) from follower where from_user = #{userid}
+	</select>
+	
+	<select id="FollowingGetListCount" parameterType="String" resultType="int">
+		select count(to_user) from following where from_user = #{userid}
+	</select>
+	
+	<select id="moveArtistHome" parameterType="String" resultType="UAUP">
+		select * from users A left outer join usersprofile B on A.userid = B.userid where A.userid= #{userid}
+	</select>
+	
 
 </mapper>

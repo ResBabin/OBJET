@@ -28,9 +28,7 @@
        
         <div><i class=" huge teal clipboard check icon"></i></div>
         <p class="findResultContent1">고객님의<br>아이디 찾기가 완료되었습니다!</p>
-        <p class="findResultContent2">아이디 : <c:forEach var="findId" items = "${findUser}">
-        										<c:out value="${findId.userid}"/>
-        									</c:forEach></p>
+        <p class="findResultContent2">아이디 : ${findUser.userid}</p>
         <br><br>
        <button class="ui black button" onclick="location.href='moveLogin.do'" style="width:300px; height:40px; background: #4c4c4c;">로그인</button>
 	

@@ -22,7 +22,7 @@
   	var pwTF = "F";
  	var pwEq = "F";
  	var unTF = "F";
- 	var nnTF = "F";
+ 	var emTF = "F";
 	 
  	
  	// 아이디 중복체크
@@ -43,7 +43,7 @@
 	                }
 	             }
 	             else{
-	                $("#divid").html("이미 사용중인 아이디입니다.\n다른 아이디를 입력해주세요.");
+	                $("#divid").html("이미 사용중인 아이디입니다. 다른 아이디를 입력해주세요.");
 	                idTF = "F";
 	             }
 	          },
@@ -65,6 +65,14 @@
 		         $("#divpwd").html("<span style='color:#48d239;'>사용 가능한 암호입니다.</span>");
 		         pwTF = "T";
 		      }
+		      
+		      if($("#userpwd").val() != $("#userpwd2").val()){
+			         $("#divpwd2").html("암호가 일치하지 않습니다.");
+			         pwEq = "F";
+			  }else{
+			         $("#divpwd2").html("<span style='color:#48d239;'>암호가 일치합니다.</span>");
+			         pwEq = "T";
+			  }
 		     
 		   });
 		   
@@ -115,8 +123,37 @@
  		                }
  		             }
  		             else{
- 		                $("#divNickname").html("이미 사용중인 닉네임 입니다.\n다른 닉네임을 입력해주세요.");
+ 		                $("#divNickname").html("이미 사용중인 닉네임 입니다. 다른 닉네임을 입력해주세요.");
  		               nnTF = "F";
+ 		             }
+ 		          },
+ 		          error: function(request, status, errorData){
+ 						console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
+ 					}
+ 		       });   
+ 		       return false;
+ 		    });
+ 	
+ 		// 이메일 중복체크
+ 		 $("#checkEmail").click(function(){
+ 			 $.ajax({
+ 		         url:"checkEmail.do",
+ 		         type:"post",
+ 		         data:{email:$("#email").val()},
+ 		         success: function(result){
+ 		             if(result == "ok"){
+ 		                var emReg = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+ 		                if(!emReg.test($("#email").val())){
+ 		                   $("#divEmail").html("이메일 형식에 맞지않습니다. 다시 입력해 주세요.");
+ 		                  emTF = "F";
+ 		                }else{
+ 		                   $("#divEmail").html("<span style='color:#48d239;'>사용 가능한 이메일 입니다.</span>");
+ 		                  emTF = "T";
+ 		                }
+ 		             }
+ 		             else{
+ 		                $("#divEmail").html("이미 사용중인 이메일 입니다. 다른 이메일을 입력해주세요.");
+ 		               emTF = "F";
  		             }
  		          },
  		          error: function(request, status, errorData){
@@ -128,7 +165,7 @@
  	
  	// 가입하기 버튼 눌렀을 때
  		 $("#btnsub").click(function(){
- 		      if(idTF=="T" && pwTF=="T" && pwEq=="T" && unTF=="T" && nnTF = "T")
+ 		      if(idTF=="T" && pwTF=="T" && pwEq=="T" && unTF=="T" && nnTF=="T" && emTF=="T")
  		         return true;
  		      else{
  		         alert("입력한 내용을 다시 확인해주세요.");
@@ -220,14 +257,17 @@ function winOpen2(){
 			<tr>
 				<th>닉네임</th>
 				<td><div class="ui input" style="width:350px;"><input type="text" id="nickname" name="nickname" placeholder="한글/영소문자/숫자만 가능(최대 8자)" required></div>&emsp;
-									<button class="ui teal button" id="checkNickname">중복확인</button>
+									<input type="button" class="ui teal button" value="중복확인" id="checkNickname">
 									<div class="enrolldiv" id="divNickname"></div>
 				</td>
 			</tr>
 			
 			<tr>
 				<th>이메일</th>
-				<td><div class="ui input" style="width:350px;"><input type="email" id="email" name="email" placeholder="예: objetofficial@objet.com" required></div>
+				<td><div class="ui input" style="width:350px;"><input type="email" id="email" name="email" placeholder="예: objetofficial@objet.com" required></div>&emsp;
+									<input type="button" class="ui teal button" value="중복확인" id="checkEmail">
+									<div class="enrolldiv" id="divEmail"></div>
+				
 				</td>
 			</tr>
 			

@@ -22,7 +22,7 @@ public class FollowDao {
 	
 	// 팔로잉 리스트카운트용
 	public int FollowingGetListCount(String userid) {
-		return mybatisSession.selectOne("", userid);
+		return mybatisSession.selectOne("userMapper.FollowingGetListCount", userid);
 	}
 
 	// 팔로잉 보기
@@ -47,7 +47,7 @@ public class FollowDao {
 
 	// 팔로워 리스트카운트용
 	public int FollowerGetListCount(String userid) {
-		return mybatisSession.selectOne("", userid);
+		return mybatisSession.selectOne("userMapper.FollowerGetListCount", userid);
 	}
 
 	// 팔로워 보기

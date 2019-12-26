@@ -17,6 +17,7 @@
 		<typeAlias type="com.kh.objet.objet.model.vo.Objet" alias="Objet" />
 		<typeAlias type="com.kh.objet.qna.model.vo.Qna" alias="Qna" />
 		<typeAlias type="com.kh.objet.quit.model.vo.Quit" alias="Quit" />
+		<typeAlias type="com.kh.objet.quit.model.vo.Quit2" alias="Quit2" />
 		<typeAlias type="com.kh.objet.reportboard.model.vo.ReportBoard" alias="ReportBoard" />
 		<typeAlias type="com.kh.objet.reportudetail.model.vo.ReportUDetail" alias="ReportUDetail" />
 		<typeAlias type="com.kh.objet.review.model.vo.Review" alias="Review" />

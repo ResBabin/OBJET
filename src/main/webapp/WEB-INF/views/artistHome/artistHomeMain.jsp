@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,8 +60,12 @@ $(function(){
 		 } 
 		 
 	 });
-
+    
+	
 	});	// document ready...
+	
+
+	
 	
 </script>
 </head>
@@ -74,25 +80,32 @@ $(function(){
 		<!-- 프로필 글자부분 -->
 		<div class="profileTextSection">
 		<span>
-			<p class="profileText" style="font-size: 25px; color:#373737;">오브제프로젝트</p>
-			<p class="profileText" style="font-size: 10pt; color:#aaa;">작전조</p>
+			<p class="profileText" style="font-size: 25px; color:#373737;">${usersProfile.nickname}</p>
+			<p class="profileText" style="font-size: 10pt; color:#aaa;">${usersProfile.userintros}</p>
 			<br><br>
 		</span>
 			<table>
 				<tr><td style="width:100px; font-size: 10pt; color: #aaa;">구독자</td>
 					<td style="width:100px; font-size: 10pt; color: #aaa;">관심작가</td>
-				<tr><td style="font-size: 17pt;color: #9c9c9c;" onclick="location.href='moveFollowerPage.do'">12</td>
-					<td style="font-size: 17pt;color: #9c9c9c;" onclick="location.href='moveFollowingPage.do'">34</td></tr>
+				<tr><td style="font-size: 17pt;color: #9c9c9c;" onclick="location.href='moveFollowerPage.do'">${follower }</td>
+					<td style="font-size: 17pt;color: #9c9c9c;" onclick="location.href='moveFollowingPage.do'">${following }</td></tr>
 			</table>
 		</div>
 		
 		<!-- 프로필 사진부분 -->
-		<div class="profileImageSection">
-			<div class="profileImage" style="background-image:url('resources/images/basicprofilepic.png') "></div>
+			<div class="profileImageSection">
+			<c:if test="${usersProfile.userrpic==null }">
+				<div class="profileImage" style="background-image:url('resources/images/basicprofilepic.png') "></div>
+			</c:if>
+			<c:if test="${usersProfile.userrpic!=null }">
+				<div class="profileImage" style="background-image:url('resources/users_upfiles/${usersProfile.userrpic}') "></div>
+			</c:if>
 			<br><br><br><br><br><br><br><br>
 			<button class="mini ui teal button" onclick="">전시일정</button>
+			<c:if test="${usersProfile.userid != loginUser.userid }">
 			<button class="mini ui teal button" onclick="" style="display:none;">구독중</button>
 			<button class="mini ui teal basic button" onclick="" style="display:inline">구독하기</button>
+			</c:if>
 			<i class="grey ellipsis vertical icon" id="profileMenu"></i>
 		</div>
 		
@@ -100,8 +113,12 @@ $(function(){
 		<div class="profileMenuOpen">
 			<div id="ProfileMenuBtn" style="display:none">
 			<!-- 작가홈 아이디와 로그인 아이디에 따라 아래 버튼 다르게 보이게 해야 함 -->
+			<c:if test="${usersProfile.userid == loginUser.userid }">
 				<button class="ui mini grey basic button" id="profileEdit" onclick="location.href='moveMyPageEdit.do'">내정보 수정</button>
+			</c:if>
+			<c:if test="${usersProfile.userid != loginUser.userid }">
 				<button class="ui mini grey basic button" id="profileReport" onclick="location.href='moveProfileReport.do'">작가 신고</button>
+			</c:if>
 			</div>
 		</div>
 	</div> <!-- 상단 프로필 부분 끝! -->
@@ -120,37 +137,61 @@ $(function(){
 		 	<div class="innerTab">
 		 	<p class="artistIntroCategory">소개</p>
 			 	<p class="artistIntroContent">
-				 	일상 생활에 쓰이는 모든 물체는 그 나름의 용도나 기능 또는 독특한 의미를 지니고 있게 마련이나<br>
-					이러한 물체가 일단 오브제로 쓰이면 그 본래의 용도나 기능은 의미를 잃게 되고<br>
-					이때까지 우리가 미처 체험하지 못했던 어떤 연상작용이나 기묘한 효과를 얻을 수 있게 된다.<br>
-					생활에 쓰이는 갖가지 물건들이 작품이 되는 공간, 오브제.
+			 	<c:if test="${usersProfile.userintrol != null }">
+				 	${usersProfile.userintrol}
+				</c:if>
+				<c:if test="${usersProfile.userintrol == null }">
+				 	작성한 소개글이 없습니다.
+				</c:if>
+				
 				</p>
+				
 				<!-- 관련태그 영역 -->
-				<a class="ui mini grey basic label">디자인</a>
-				<a class="ui mini grey basic label">건축</a>
-				<a class="ui mini grey basic label">사진</a>
-		 	
+				<c:if test="${usersProfile.usertag != null}">
+				<c:forTokens var="tag" items="${ usersProfile.usertag }" delims="," >
+					<c:if test="${value eq '건축'}"><c:set var="usertag1" value="건축"/></c:if>
+					<c:if test="${value eq '공예'}"><c:set var="usertag2" value="공예"/></c:if>
+					<c:if test="${value eq '디자인'}"><c:set var="usertag3" value="디자인"/></c:if>
+					<c:if test="${value eq '사진'}"><c:set var="usertag4" value="사진"/></c:if>
+					<c:if test="${value eq '서예'}"><c:set var="usertag5" value="서예"/></c:if>
+					<c:if test="${value eq '조각'}"><c:set var="usertag6" value="조각"/></c:if>
+					<c:if test="${value eq '회화'}"><c:set var="usertag7" value="회화"/></c:if>
+					<c:if test="${value eq '기타'}"><c:set var="usertag8" value="기타"/></c:if>
+					<a class="ui mini grey basic label">${tag }</a>
+				</c:forTokens>
+		 		</c:if>
+		 		
+		 	<c:if test="${usersProfile.portfolio != null }">
 		 	<p class="artistIntroCategory">기타 이력 및 포트폴리오</p>
 		 		<p class="artistIntroContent">
-		 			2019.01.30 프로젝트 발표<br>
-					2019.01.23 Beta Test<br>
-					2019.12.26 프로젝트 구현<br>
-					2019.12.16 클래스,시퀀스 설계<br>
-					2019.12.02 DB설계<br>
-					2019.11.18 UI설계<br>	
-					2019.11.11 프로젝트 기획
+		 			${usersProfile.portfolio }
+			</c:if>
 		 		</p>
+		 		
+		 	<c:if test="${usersProfile.facebook != null or usersProfile.instagram != null or usersProfile.etcurl != null or usersProfile.artistemail != null}">
 		 	<p class="artistIntroCategory">작가 연결사이트</p>
-		 	<!-- 페이스북 --><div class="artistURL" value="http://www.facebook.com"><i class="facebook f icon"></i></div>
-		 	<!-- 인스타그램 --><div class="artistURL" value="http://www.instagram.com"><i class="instagram icon"></i></div>
-		 	<!-- 기타URL --><div class="artistURL" value="http://www.youtube.com"><i class="linkify icon"></i></div>
-		 	<!-- 이메일 --><div class="artistURL" value="mailto:my_choe@naver.com"><i class="envelope outline icon"></i></div>
 		 	
+		 	<c:if test="${usersProfile.facebook != null }">
+		 	<!-- 페이스북 --><div class="artistURL" value="${usersProfile.facebook}"><i class="facebook f icon"></i></div>
+		 	</c:if>
+		 	<c:if test="${usersProfile.instagram != null }">
+		 	<!-- 인스타그램 --><div class="artistURL" value="${usersProfile.instagram }"><i class="instagram icon"></i></div>
+		 	</c:if>
+		 	<c:if test="${usersProfile.etcurl != null }">
+		 	<!-- 기타URL --><div class="artistURL" value="${usersProfile.etcurl }"><i class="linkify icon"></i></div>
+		 	</c:if>
+		 	<c:if test="${usersProfile.artistemail != null }">
+		 	<!-- 이메일 --><div class="artistURL" value="mailto:${usersProfile.artistemail }"><i class="envelope outline icon"></i></div>
+		 	</c:if>
+		 	
+		 	</c:if>
 		 	</div>
 		 	
 		 	<!-- 작가홈 본인일때만 작가소개 수정 버튼 -->
 		 	<br><br><br><br><br>
-			<div align="center"><button class="ui medium grey basic button" id="editArtistIntro" onclick="location.href='moveArtistIntroEdit.do'">작가소개 수정</button></div>
+		 	<c:if test="${usersProfile.userid == loginUser.userid }">
+			<div align="center"><button class="ui medium grey basic button" id="editArtistIntro" onclick="location.href='moveArtistIntroEdit.do?userid=${loginUser.userid}'">작가소개 수정</button></div>
+			</c:if>
 			<br>
 		</div>
 		
@@ -280,6 +321,7 @@ $(function(){
 			<div class="innerTab">
 			<br><br>
 			<!-- 본인 작가홈이 아닐 때 방명록 작성 칸 보이기 시작 -->
+			<c:if test="${usersProfile.userid != loginUser.userid }">
 				<div class="gblist">
 					<form action="" method="post">
 					<input type="hidden" name="userid" value="">
@@ -297,7 +339,7 @@ $(function(){
 					</table>
 					</form>
 				</div>
-				
+			</c:if>
 				<!-- 본인 작가홈이 아닐 때 방명록 작성 칸 보이기 끝!-->
 				
 				

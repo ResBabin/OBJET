@@ -20,19 +20,19 @@
 		// 기타 선택 시에만 textarea 활성화
 		$("input:radio[name=quitreason]").click(function(){
 	        if($("input[name=quitreason]:checked").val() == "기타"){
-	            $("textarea[name=etc]").attr("disabled",false);
-	            $("textarea[name=etc]").focus();
-	            $("textarea[name=etc]").attr("placeholder","기타 사유를 입력해주세요.(최대 100자)")
+	            $("textarea[name=quitreasonDetail]").attr("disabled",false);
+	            $("textarea[name=quitreasonDetail]").focus();
+	            $("textarea[name=quitreasonDetail]").attr("placeholder","기타 사유를 입력해주세요.(최대 100자)")
 	            $("#counter").css("display","block");
 	            // radio 버튼의 value 값이 '기타'면 textarea활성화 & 자동포커스 & placeholder & 글자수세기 나오기
 	 
 	        }else {// 아니라면 text 비활성화&placeholder없음&글자수세기 없음
-	        	$("textarea[name=etc]").val("");
-	              $("textarea[name=etc]").attr("disabled",true);
-	              $("textarea[name=etc]").removeAttr("placeholder","기타 사유를 입력해주세요.(최대 100자)")
+	        	$("textarea[name=quitreasonDetail]").val("");
+	              $("textarea[name=quitreasonDetail]").attr("disabled",true);
+	              $("textarea[name=quitreasonDetail]").removeAttr("placeholder","기타 사유를 입력해주세요.(최대 100자)")
 	              $("#counter").css("display","none");
 	          	 // 이전 기타 textarea작성 값 초기화
-			        $("textarea[name=etc]").val("");
+			        $("textarea[name=quitreasonDetail]").val("");
 			        $("#counter").html("( <span style='color:#4ecdc4;font-size:9pt;'>0</span> / 최대 100자 )");
 	            
 	        }
@@ -40,7 +40,7 @@
 		
 		
 		// 기타사유 글자수 세기
-		 $("#etc").keyup(function(e){
+		 $("#quitreasonDetail").keyup(function(e){
 			 var content = $(this).val();
 			 $("#counter").html("( <span style='color:#4ecdc4;font-size:9pt;'>"+content.length+"</span> / 최대 100자 )");	// 글자수 실시간 카운팅
 			 
@@ -65,7 +65,8 @@
  </script>
 </head>
 <body>
-
+<form action="updateQuitUser.do" method="post">
+<input type="hidden" name="userid" value=${sessionScope.loginUser.userid }>
  <div class="wrapQuitPage">
 
 	<p style="font-size: 20pt; padding-top:50px; color:#373737; text-align:center;">오브제 탈퇴하기</p>
@@ -73,7 +74,7 @@
 	<p class="quitHeader" style="font-size: 8pt; color: #aaa;">회원님께서 오브제를 탈퇴하시는 이유를 알려주시면 보다 좋은 서비스제공을 위해 노력하겠습니다.</p>
 	
 	<div align="center" style="padding-top: 15px;">
-		<form action="" method="post">
+		
 			<div class="choiceQuitReason">
 				<div class="ui form">
 					    <div class="field">
@@ -106,7 +107,7 @@
 					        <label>기타</label>
 					      </div>
 					    </div>
-						    <textarea rows="2" cols="10" name="etc" id="etc" disabled required></textarea>
+						    <textarea rows="2" cols="10" name="quitreasonDetail" id="quitreasonDetail" disabled required></textarea>
 							<span style="color:#aaa; display: none; font-size:9pt;" id="counter">( <span style="color:#4ecdc4;font-size:9pt;">0</span> / 최대 100자 )</span>
 							
 			</div>
@@ -129,7 +130,7 @@
 		· 제작한 전시회, 첨부파일 등 모든 정보가 삭제됩니다.<br>
 		· 오브제 프로필 및 연결된 SNS 정보 등이 모두 삭제됩니다.<br>
 		· 관심작가, 관심전시회, 다녀온 전시회 등 모든 정보가 삭제 됩니다.<br>
-		· 30일 동안 동일한 아이디로 오브제 재가입이 불가능합니다.<br>
+		· 30일 동안 동일한 아이디와 닉네임으로 오브제 재가입이 불가능합니다.<br>
 		· 작성한 댓글은 삭제되지 않고 남게 되오니 탈퇴 전 미리 확인하시기 바랍니다.<br>
 		· 가입 시 입력한 정보는 탈퇴 후 30일간 보관한 뒤에 삭제됩니다.
 		</div>
@@ -138,11 +139,10 @@
 		<br><br><br>
 		<input type="submit" class="ui green button" value="탈퇴하기" id="btnsub" disabled></a> &nbsp;
 		<input type="button" class="ui button" value="취소" onclick="location.href='main.do'"> &nbsp;
-		</form>
-	<br><br><a href="moveQuitSuccess.do">탈퇴완료 임시확인용</a>
+		
 	</center>
 	</div><!-- 탈퇴페이지 끝 -->
-	
+	</form>
 <br><br>
 
 </body>
