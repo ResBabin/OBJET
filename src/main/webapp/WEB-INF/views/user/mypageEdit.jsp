@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,6 +33,16 @@
 			         $("#divpwd").html("<span style='color:#48d239;'>사용 가능한 암호입니다.</span>");
 			         pwTF = "T";
 			      }
+			      
+			      if($("#userpwd").val() != $("#userpwd2").val()){
+				         $("#divpwd2").html("암호가 일치하지 않습니다.");
+				         pwEq = "F";
+				  }else{
+				         $("#divpwd2").html("<span style='color:#48d239;'>암호가 일치합니다.</span>");
+				         pwEq = "T";
+				  }
+			      
+			      
 			     
 			   });
 			   
@@ -51,6 +61,9 @@
 	 	
 		// 닉네임 중복체크
 	 		 $("#checkNickname").click(function(){
+	 			var nickname1 = '<c:out value="${sessionScope.loginUser.nickname}"/>';
+		 		var nickname2 = $("#nickname").val();
+	 		if(nickname1 != nickname2) {
 	 			 $.ajax({
 	 		         url:"checkNickname.do",
 	 		         type:"post",
@@ -66,7 +79,7 @@
 	 		                  nnTF = "T";
 	 		                }
 	 		             }
-	 		             else{
+	 		             else {
 	 		                $("#divNickname").html("이미 사용중인 닉네임 입니다.\n다른 닉네임을 입력해주세요.");
 	 		               nnTF = "F";
 	 		             }
@@ -75,20 +88,85 @@
 	 						console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
 	 					}
 	 		       });   
-	 		       return false;
-	 		    });
+	 		     
+	 		    
+	 		} else {
+	 			$("#divNickname").html("<span style='color:#48d239;'>현재 닉네임입니다.</span>");
+			nnTF = "T";
+		}
+	 		  return false;
+	 		 });
 		
-	 		// 수정하기 버튼 눌렀을 때
-	 		 $("#btnsub").click(function(){
-	 		      if(pwTF=="T" && pwEq=="T" && nnTF = "T")
-	 		         return true;
-	 		      else{
-	 		         alert("입력한 내용을 다시 확인해주세요.");
-	 		         return false;
-	 		      }
-	 		   });
+		
+	 		// 이메일 중복체크
+	 		 $("#checkEmail").click(function(){
+	 			var email1 = '<c:out value="${sessionScope.loginUser.email}"/>';
+		 		var email2 = $("#email").val();
+	 		if(email1 != email2) {
+	 			 $.ajax({
+	 		         url:"checkEmail.do",
+	 		         type:"post",
+	 		        data:{nickname:$("#email").val()},
+	 		         success: function(result){
+	 		             if(result == "ok"){
+	 		                var emReg = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+	 		                if(!emReg.test($("#email").val())){
+	 		                   $("#divEmail").html("이메일 형식에 맞지않습니다. 다시 입력해 주세요.");
+	 		                  emTF = "F";
+	 		                }else{
+	 		                   $("#divEmail").html("<span style='color:#48d239;'>사용 가능한 이메일 입니다.</span>");
+	 		                  emTF = "T";
+	 		                }
+	 		             }
+	 		             else{
+	 		                $("#divEmail").html("이미 사용중인 이메일 입니다. 다른 이메일을 입력해주세요.");
+	 		               emTF = "F";
+	 		             }
+	 		          },
+	 		          error: function(request, status, errorData){
+	 						console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
+	 					}
+	 		       });    
+	 		} else {
+	 			$("#divEmail").html("<span style='color:#48d239;'>현재 이메일 입니다.</span>");
+	 			emTF = "T";
+		}
+	 		  return false;
+	 		 });
 	 		
- }); // document Ready
+	 		
+		
+ 		// 수정하기 버튼 눌렀을 때
+ 		 $("#btnsub").click(function(){
+ 			 var userid = '<c:out value="${sessionScope.loginUser.userid}"/>'
+ 		      if(pwTF=="T" && pwEq=="T" && nnTF=="T" && emTF=="T" ){
+ 		    	 $.ajax({
+	 		         url:"updateMyPage.do",
+	 		         type:"post",
+	 		        data:{userid:userid, userpwd:$("#userpwd").val(), nickname:$("#email").val(), email:$("email").val(), phone:$("#phone") },
+	 		         success: function(result){
+	 		             if(result == "ok"){
+	 		                alert("입력하신 정보로 수정 완료 되었습니다. \n 오브제 메인 화면으로 이동합니다.");
+	 		                window.location.href='main.do';
+	 		             }
+	 		             else{
+	 		                alert("내 정보 수정에 실패하였습니다.")
+	 		             }
+	 		          },
+	 		          error: function(request, status, errorData){
+	 						console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
+	 					}
+	 		       }); 
+ 		         return true;
+ 		         
+ 		      }else{
+ 		         alert("입력한 내용을 다시 확인해주세요.");
+ 		         return false;
+ 		      }
+ 		   });
+
+	 	
+ }); // document Ready...
  
  </script>
 </head>
@@ -104,54 +182,56 @@
 		<table class="enrollTable">
 			<tr>
 				<th>아이디</th>
-				<td style="font-size: 12pt; color:#aaa;"> ${user.userid}
+				<td style="font-size: 12pt; color:#aaa;"> ${sessionScope.loginUser.userid}
 				</td>
 			</tr>
 			
 			<tr>
 				<th>비밀번호</th>
-				<td><div class="ui input" style="width:350px;"><input type="password" id="userpwd" name="userpwd" value="${user.userpwd}" placeholder="영문/숫자/특수문자 각 1개 이상 포함하여 8-20자" required></div>
+				<td><div class="ui input" style="width:350px;"><input type="password" id="userpwd" name="userpwd" value="${sessionScope.loginUser.userpwd}" placeholder="영문/숫자/특수문자 각 1개 이상 포함하여 8-20자" required></div>
 					<div class="enrolldiv" id="divpwd"></div>
 				</td>
 			</tr>
 			
 			<tr>
 				<th>비밀번호 확인</th>
-				<td><div class="ui input" style="width:350px;"><input type="password" id="userpwd2" value="${user.userpwd}" placeholder="작성한 비밀번호와 동일하게 입력해주세요." required></div>
+				<td><div class="ui input" style="width:350px;"><input type="password" id="userpwd2" value="${sessionScope.loginUser.userpwd}" placeholder="작성한 비밀번호와 동일하게 입력해주세요." required></div>
 					<div class="enrolldiv" id="divpwd2"></div>
 				</td>
 			</tr>
 			
 			<tr>
 				<th>이름</th>
-				<td style="font-size: 12pt; color:#aaa;">${user.username}
+				<td style="font-size: 12pt; color:#aaa;">${sessionScope.loginUser.username}
 				</td>
 			</tr>
 			
 			<tr>
 				<th>닉네임</th>
-				<td><div class="ui input" style="width:350px;"><input type="text" id="nickname" name="nickname" value="${user.nickname}" placeholder="한글 최대 8자, 영문  최대 24자" required></div>&emsp;
-									<button class="ui teal button" id="checkNickname">중복확인</button>
+				<td><div class="ui input" style="width:350px;"><input type="text" id="nickname" name="nickname" value="${sessionScope.loginUser.nickname}" placeholder="한글 최대 8자, 영문  최대 24자" required></div>&emsp;
+									<input type="button" class="ui teal button" value="중복확인" id="checkNickname"/>
 									<div class="enrolldiv" id="divNickname"></div>
 				</td>
 			</tr>
 			
 			<tr>
 				<th>이메일</th>
-				<td><div class="ui input" style="width:350px;"><input type="email" id="email" name="email" value="${user.email}" placeholder="예: objetofficial@objet.com" required></div>
+				<td><div class="ui input" style="width:350px;"><input type="email" id="email" name="email" value="${sessionScope.loginUser.email}" placeholder="예: objetofficial@objet.com" required></div>&emsp;
+									<input type="button" class="ui teal button" value="중복확인" id="checkEmail"/>
+									<div class="enrolldiv" id="divEmail"></div>
 				</td>
 			</tr>
 			
 			<tr>
 				<th>휴대폰</th>
-				<td><div class="ui input" style="width:350px;"><input type="tel" id="phone" name="phone" value="${user.phone}" placeholder="숫자만 입력" required></div>
+				<td><div class="ui input" style="width:350px;"><input type="tel" id="phone" name="phone" value="${sessionScope.loginUser.phone}" placeholder="숫자만 입력" required></div>
 				</td>
 			</tr>
 			
 			<tr>
 				<th>성별</th>
-				<td style="font-size: 12pt; color:#aaa;"><c:if test="${user.gender eq 'F'}">여성</c:if>
-														<c:if test="${user.gender eq 'M'}">남성</c:if>
+				<td style="font-size: 12pt; color:#aaa;"><c:if test="${sessionScope.loginUser.gender eq 'F'}">여성</c:if>
+														<c:if test="${sessionScope.loginUser.gender eq 'M'}">남성</c:if>
 				</td>
 			</tr>
 		</table>

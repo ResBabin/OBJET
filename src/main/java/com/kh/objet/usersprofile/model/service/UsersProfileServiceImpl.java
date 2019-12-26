@@ -3,6 +3,7 @@ package com.kh.objet.usersprofile.model.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.objet.users.model.vo.UAUP;
 import com.kh.objet.usersprofile.model.dao.UsersProfileDao;
 import com.kh.objet.usersprofile.model.vo.UsersProfile;
 
@@ -16,7 +17,7 @@ public class UsersProfileServiceImpl implements UsersProfileService{
 	// 최민영 *********************************
 	// 작가홈 이동
 	@Override
-	public UsersProfile moveArtistHome(String userid) {
+	public UAUP moveArtistHome(String userid) {
 		return usersProfileDao.moveArtistHome(userid);
 	}
 

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class BeforeAdvice {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
-	// 1. pointcut 설정
+	/*// 1. pointcut 설정
 	@Pointcut("execution(* com.kh.objet..*(..))")	
 	public void allPointcut() {}	
 	
@@ -34,5 +34,5 @@ public class BeforeAdvice {
 		}
 		
 		
-	}
+	}*/
 }

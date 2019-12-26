@@ -51,6 +51,10 @@ header {
 
 } 
 
+ li > a:hover{
+	font-weight: 600;
+}
+
 /* 사이트 짧은 소개글 */
 .intro{
  margin-bottom: 50px;
@@ -165,10 +169,11 @@ height:50%;
 
 .profilePic{
    vertical-align: middle;
-   width: 60px;
-   height: 60px;
-   margin-left:39%;
+   width: 65px;
+   height: 65px;
+   margin-left:36%;
    margin-top:-20px;
+   margin-bottom:7px;
    background-color: #fff;
    border-radius: 50%;
    background-repeat: no-repeat;
@@ -191,27 +196,13 @@ font-size: 10pt;
 color:#aaa;"
 }
 
-.follower{
-width: 220px;
-text-align: center;
-/* border: 2px solid green; */
-height:13%;
-font-weight: 400; 
-font-size: 11pt;
-padding-left:8px;
-margin-top: 10px;
-}
-.following{
-
+.createObjetBtn{
 width: 220px;
 /* border: 2px solid yellow; */
-height:13%;
-text-align: left;
-font-weight: 400; 
-font-size: 11pt;
-padding-left:30%;
-margin-top: -5px;
+height:16%;
+margin-top: 10px;
 }
+
 .artistHome{
 letter-spacing: 3px;
 font-size: 17px;
@@ -219,6 +210,7 @@ width: 220px;
 /* border: 2px solid yellow; */
 margin-top: 200px;
 }
+
 
 .fd{
 margin-bottom: 7px;
@@ -339,7 +331,27 @@ width: 190px;
             $(this).next().slideDown();
          }
       })
-   })
+   }); // document Ready...
+   
+   
+   function loadUsersProfile(){
+	   var userid = '<c:out value="${sessionScope.loginUser.userid}"/>';
+	   $.ajax({
+		   url: "artistHomeMain.do",
+		   type: "post",
+		   data : { userid : userid }
+	   }); // ajax
+   } // loadUsersProfile
+   
+   function loadFollow(){
+	   var userid = '<c:out value="${sessionScope.loginUser.userid}"/>';
+	   $.ajax({
+		   url: "countAllOfFollow.do",
+		   type: "post",
+		   data : { userid : userid }
+	   }); // ajax
+   } // loadUsersProfile
+
    </script>
 </head>
 <body>
@@ -361,7 +373,7 @@ width: 190px;
 <div class="sidebar3">
 <img id="blogo" src="resources/images/basicprofilepic.png" width="60px" height="60px">
 <div class="bloginwrite">The moment everything becomes an inspiration</div>
-<button class="tiny ui black basic circular button" id= "startbutton" onclick="location.href='moveLogin.do'">오브제 시작하기</button>
+<button class="tiny ui teal basic circular button" id= "startbutton" onclick="location.href='moveLogin.do'">오브제 시작하기</button>
 </div>
 <div class="sidebar4">
 <nav role="navigation">
@@ -403,10 +415,9 @@ width: 190px;
 <br>
 <div class="nickname">${sessionScope.loginUser.nickname }</div>
 <div class="userid">@${sessionScope.loginUser.userid }</div>
-<div class="follower">팔로워&emsp;<span style="font-weight: 800;">123</span></div>
-<div class="following">팔로잉&emsp;<span style="font-weight: 800;">45</span></div>
+<div class="createObjetBtn"><button class="tiny ui teal basic circular button" onclick="location.href='moveCreateObjet.do'">오브제 등록</button></div>
 </div>
-<div class="artistHome"><p onclick="location.href='artistHomeMain.do'">작가홈</p></div>
+<div class="artistHome"><p onclick="location.href='artistHomeMain.do?userid=${loginUser.userid}'">작가홈</p></div>
 <div id="accordian1">
    <ul>
       <li>
@@ -419,7 +430,7 @@ width: 190px;
          </ul>
       </li>
       
-      <li><div class="fd"><p onclick="location.href='moveFeedList.do'">피드알림</p></div></li>
+      <li><div class="fd"><p onclick="location.href='moveFeedList.do?userid=${loginUser.userid}'">피드알림</p></div></li>
       <li><div class="qna"><p onclick="location.href='moveMyQnaList.do'">문의내역</p></div></li>
    </ul>
 </div>
@@ -444,7 +455,7 @@ width: 190px;
         </nav>
         <div class= "logout">
         <div class="small ui buttons">
-  <button class="ui black basic button" onclick="location.href='moveMyPageEdit.do">내 정보 수정</button>
+  <button class="ui black basic button" onclick="location.href='moveReaffirmUserpwd.do'">내 정보 수정</button>
   <button class="ui black basic button" onclick="location.href='logout.do'">로그아웃</button>
 </div>
 </div>

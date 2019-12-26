@@ -140,26 +140,32 @@
 <br><br>
 
 	<!-- 프로필 사진 유무에 따라 조건 걸어야 함. -->
-	<form>
-	<input type="hidden" name="userid" value="">
+	<form action="" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="userid" value="${loginUser.userid}">
 	<div align="center">
+
+		<c:if test="${loginUser.userrpic != null }">
+		<img class="profileImage2" id="userpic" src="resources/users_upfiles/${loginUser.userrpic}">
+		</c:if>
+		<c:if test="${loginUser.userrpic == null }">
 		<img class="profileImage2" id="userpic" src="resources/images/basicprofilepic2.png">
+		</c:if>
 			<input type="file" name="up_useropic" id="useropic"accept=".jpg,.jpeg,.png" onChange="preview(this, $('#userpic'));" style="display:none;">
 			<input type="hidden" name="useropic" id="useropic" value="">
 			<input type="hidden" name="userrpic" id="userrpic" value="">
 		<br><br>
-		<p style="font-size: 15pt; font-weight: 500;">오브제프로젝트</p>
+		<p style="font-size: 15pt; font-weight: 500;">${loginUser.nickname }</p>
 	</div>
 	
 	<p class="artistIntroCategory2">한 단어 소개</p>
-	<p class="artistIntroContent2"><div class="ui input"><input type="text" name="userintros" id="userintros" value="" placeholder="나를 표현할 한 단어"></div>
+	<p class="artistIntroContent2"><div class="ui input"><input type="text" name="userintros" id="userintros" value="${loginUser.userintros }" placeholder="나를 표현할 한 단어"></div>
 	<span style="color:#aaa;" id="counter1">( <span style="color:#4ecdc4">0</span> / 최대 10자 )</span></p>
 	
 	<p class="artistIntroCategory2">소개</p>
 	<p class="artistIntroContent2">
 		<div class="ui form">
 			<div class="field">
-    			<textarea name="userintrol" id="userintrol" value="" placeholder="본인에 대해 소개해주세요.(최대 500자)"></textarea>
+    			<textarea name="userintrol" id="userintrol" value="" placeholder="본인에 대해 소개해주세요.(최대 500자)"><c:if test="${loginUser.userintrol != null}">${loginUser.userintrol }</c:if></textarea>
   			</div>
   			<span style="color:#aaa;" id="counter2">( <span style="color:#4ecdc4">0</span> / 최대 500자 )</span>
   		</div>
@@ -167,18 +173,32 @@
 	
 	<p class="artistIntroCategory2">관련태그<span style="color:#aaa; font-size: 9pt; font-weight: normal;">&ensp;(최대 3개 선택가능)</span></p>
 	<p class="artistIntroContent2">
+	<c:if test="${usersProfile.usertag != null}">
+		<c:forTokens var="check" items="${ usersProfile.usertag }" delims="," >
+			<c:if test="${value eq '건축'}"><c:set var="usertag1" value="checked"/></c:if>
+			<c:if test="${value eq '공예'}"><c:set var="usertag2" value="checked"/></c:if>
+			<c:if test="${value eq '디자인'}"><c:set var="usertag3" value="checked"/></c:if>
+			<c:if test="${value eq '사진'}"><c:set var="usertag4" value="checked"/></c:if>
+			<c:if test="${value eq '서예'}"><c:set var="usertag5" value="checked"/></c:if>
+			<c:if test="${value eq '조각'}"><c:set var="usertag6" value="checked"/></c:if>
+			<c:if test="${value eq '회화'}"><c:set var="usertag7" value="checked"/></c:if>
+			<c:if test="${value eq '기타'}"><c:set var="usertag8" value="checked"/></c:if>
+			<a class="ui mini grey basic label">${tag }</a>
+		</c:forTokens>
+ 		</c:if>
+ 		
 		<table class="editTagTable">
 			<tr>
-				<td><input type="checkbox" name="usertag" value="건축" onClick="count_ck(this);"> 건축</td>
-				<td><input type="checkbox" name="usertag" value="공예" onClick="count_ck(this);"> 공예</td>
-				<td><input type="checkbox" name="usertag" value="디자인" onClick="count_ck(this);"> 디자인</td>
-				<td><input type="checkbox" name="usertag" value="사진" onClick="count_ck(this);"> 사진</td>
+				<td><input type="checkbox" name="usertag" value="건축" onClick="count_ck(this);" ${usertag1}> 건축</td>
+				<td><input type="checkbox" name="usertag" value="공예" onClick="count_ck(this);" ${usertag2}> 공예</td>
+				<td><input type="checkbox" name="usertag" value="디자인" onClick="count_ck(this);" ${usertag3}> 디자인</td>
+				<td><input type="checkbox" name="usertag" value="사진" onClick="count_ck(this);" ${usertag4}> 사진</td>
 			</tr>
 			<tr>
-				<td><input type="checkbox" name="usertag" value="서예" onClick="count_ck(this);"> 서예</td>
-				<td><input type="checkbox" name="usertag" value="조각" onClick="count_ck(this);"> 조각</td>
-				<td><input type="checkbox" name="usertag" value="회화" onClick="count_ck(this);"> 회화</td>
-				<td><input type="checkbox" name="usertag" value="기타" onClick="count_ck(this);"> 기타</td>
+				<td><input type="checkbox" name="usertag" value="서예" onClick="count_ck(this);" ${usertag5}> 서예</td>
+				<td><input type="checkbox" name="usertag" value="조각" onClick="count_ck(this);" ${usertag6}> 조각</td>
+				<td><input type="checkbox" name="usertag" value="회화" onClick="count_ck(this);" ${usertag7}> 회화</td>
+				<td><input type="checkbox" name="usertag" value="기타" onClick="count_ck(this);" ${usertag8}> 기타</td>
 			</tr>
 		</table>
 	</p>
@@ -187,7 +207,7 @@
 	<p class="artistIntroContent2">
 		<div class="ui form">
 			<div class="field">
-    			<textarea name="portfolio" id="portfolio" value="" placeholder="기타 이력 및 수상내역 등을 자유롭게 기술하세요."></textarea>
+    			<textarea name="portfolio" id="portfolio" value="${loginUser.portfolio }" placeholder="기타 이력 및 수상내역 등을 자유롭게 기술하세요."></textarea>
   			</div>
   			<span style="color:#aaa;" id="counter3">( <span style="color:#4ecdc4">0</span> / 최대 1000자 )</span>
   		</div>

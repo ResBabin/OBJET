@@ -341,6 +341,15 @@
 		    <scope>test</scope>
 		</dependency>
 		
+		<!-- jQuery 쿠키 -->
+		<!-- https://mvnrepository.com/artifact/org.webjars/jquery-cookie -->
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>jquery-cookie</artifactId>
+		    <version>1.4.1</version>
+		</dependency>
+		
+		
 		   
 	</dependencies>
     <build>
