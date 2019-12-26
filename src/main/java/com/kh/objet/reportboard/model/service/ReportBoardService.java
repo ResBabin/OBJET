@@ -12,4 +12,4 @@ public ReportBoard selectReportBDetail(Map<String, String> map);
 public List<ReportBoard> selectReportAllList(ReportBoard report);
 public List<ReportBoard> selectReportReason();
 public List<ReportBoard> selectReportAll(); 
-}    
+}     
