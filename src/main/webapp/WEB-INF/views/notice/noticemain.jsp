@@ -95,7 +95,7 @@ margin-left: 30px;
 </style>
 <body>
 <c:import url="../search.jsp" />
-
+<h1 align="center">공지사항 전체 목록 보기 : </h1>
 <div class="box-wrap">
     <div class="box">
        <div class="notice-list">
