@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<% pageContext.setAttribute("newLineN", "\n"); %>
 
 <!DOCTYPE html>
 <html>
@@ -15,7 +16,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <!-- 제작용 css -->
  <link rel= "stylesheet" type="text/css" href="resources/css/mychoe.css">
- 
  
 <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
@@ -31,14 +31,14 @@ $(function(){
    });
     
 
-    // 점점점 버튼 클릭 시 버튼 보이기
-    $("#profileMenu").on("click", function(){
-    	if($("#ProfileMenuBtn").css("display")=="none"){	// 클릭 안한 상태이면
-    		$("#ProfileMenuBtn").show();
-    	}else{		// 클릭한 상태면
-    		$("#ProfileMenuBtn").hide();
-    	}
-    });
+   // 점점점 버튼 클릭 시 버튼 보이기
+   $("#profileMenu").on("click", function(){
+   	if($("#ProfileMenuBtn").css("display")=="none"){	// 클릭 안한 상태이면
+   		$("#ProfileMenuBtn").show();
+   	}else{		// 클릭한 상태면
+   		$("#ProfileMenuBtn").hide();
+   	}
+   });
     
     
     // 작가 연결 계정 사이트 이동
@@ -60,11 +60,12 @@ $(function(){
 		 } 
 		 
 	 });
-    
+
 	
 	});	// document ready...
 	
 
+	
 	
 	
 </script>
@@ -84,12 +85,17 @@ $(function(){
 			<p class="profileText" style="font-size: 10pt; color:#aaa;">${usersProfile.userintros}</p>
 			<br><br>
 		</span>
+		<c:if test="${usersProfile.blackyn == 'N'}">
 			<table>
 				<tr><td style="width:100px; font-size: 10pt; color: #aaa;">구독자</td>
 					<td style="width:100px; font-size: 10pt; color: #aaa;">관심작가</td>
-				<tr><td style="font-size: 17pt;color: #9c9c9c;" onclick="location.href='moveFollowerPage.do'">${follower }</td>
-					<td style="font-size: 17pt;color: #9c9c9c;" onclick="location.href='moveFollowingPage.do'">${following }</td></tr>
+				<tr><td style="font-size: 17pt;color: #9c9c9c;" onclick="location.href='moveFollowerPage.do?artistid=${usersProfile.userid}&loginUserid=${loginUser.userid }'">${follower }</td>
+					<td style="font-size: 17pt;color: #9c9c9c;" onclick="location.href='moveFollowingPage.do?artistid=${usersProfile.userid}&loginUserid=${loginUser.userid }&'">${following }</td></tr>
 			</table>
+		</c:if>
+		<c:if test="${usersProfile.blackyn == 'Y'}">
+		<p style="color:red;">오브제 가이드라인을 위반하여 일시 정지된 계정입니다.</p>
+		</c:if>
 		</div>
 		
 		<!-- 프로필 사진부분 -->
@@ -101,10 +107,14 @@ $(function(){
 				<div class="profileImage" style="background-image:url('resources/users_upfiles/${usersProfile.userrpic}') "></div>
 			</c:if>
 			<br><br><br><br><br><br><br><br>
+			<c:if test="${usersProfile.blackyn == 'N'}">
 			<button class="mini ui teal button" onclick="">전시일정</button>
+			</c:if>
 			<c:if test="${usersProfile.userid != loginUser.userid }">
+			<c:if test="${usersProfile.blackyn == 'N'}">
 			<button class="mini ui teal button" onclick="" style="display:none;">구독중</button>
 			<button class="mini ui teal basic button" onclick="" style="display:inline">구독하기</button>
+			</c:if>
 			</c:if>
 			<i class="grey ellipsis vertical icon" id="profileMenu"></i>
 		</div>
@@ -117,28 +127,29 @@ $(function(){
 				<button class="ui mini grey basic button" id="profileEdit" onclick="location.href='moveMyPageEdit.do'">내정보 수정</button>
 			</c:if>
 			<c:if test="${usersProfile.userid != loginUser.userid }">
-				<button class="ui mini grey basic button" id="profileReport" onclick="location.href='moveProfileReport.do'">작가 신고</button>
+			<button class="ui mini grey basic button" id="profileReport" onclick="location.href='moveProfileReport.do?reportedu=${usersProfile.userid}'">작가 신고</button>
 			</c:if>
 			</div>
 		</div>
 	</div> <!-- 상단 프로필 부분 끝! -->
 
 	<!-- 작가홈 메뉴바 -->	
+	<c:if test="${usersProfile.blackyn == 'N'}">
 	<div class="artisthomeMenu">
 		<div id="artistMenu" class="three item ui tabular menu" style="width:100%;">
 			<a id="item" class="item active" data-tab="first">작가소개</a>
-			<a id="item" class="item" data-tab="second">오브제</a>
-			<a id="item" class="item" data-tab="thrid">방명록</a>
+			<!-- <a id="item" class="item" data-tab="second" onclick="location.href='moveLogin.do'">오브제</a>
+			<a id="item" class="item" data-tab="thrid">방명록</a> -->
 		</div>
 	</div>
-		
 	<!-- 작가소개 영역 ************************************************************************************************** -->
+	
 		<div class="ui tab active" data-tab="first">
 		 	<div class="innerTab">
 		 	<p class="artistIntroCategory">소개</p>
 			 	<p class="artistIntroContent">
 			 	<c:if test="${usersProfile.userintrol != null }">
-				 	${usersProfile.userintrol}
+			 		${fn:replace(usersProfile.userintrol, newLineN, "<br>")}
 				</c:if>
 				<c:if test="${usersProfile.userintrol == null }">
 				 	작성한 소개글이 없습니다.
@@ -164,7 +175,7 @@ $(function(){
 		 	<c:if test="${usersProfile.portfolio != null }">
 		 	<p class="artistIntroCategory">기타 이력 및 포트폴리오</p>
 		 		<p class="artistIntroContent">
-		 			${usersProfile.portfolio }
+		 		${fn:replace(usersProfile.portfolio, newLineN, "<br>")}
 			</c:if>
 		 		</p>
 		 		
@@ -200,13 +211,12 @@ $(function(){
 		<div class="ui tab" data-tab="second">
 			<div class="innerTab">
 				<div class="artisthomeObjetSection">
-				
 				<!-- 오브제 리스트 테이블 시작! -->
-				<table class="artisthomeObjetTable">
+				 <table class="artisthomeObjetTable">
 					<tr style="height:23px;">
 						<!-- 오브제 제목, 상태, 전시관람 버튼 영역 -->
 						<td style="width:85%;padding-top:30px;">
-							<div style="float: left;font-size: 15pt; font-weight:600; color:#202020;">애니메이션의 확장&ensp;</div>
+							<div style="float: left;font-size: 15pt; font-weight:600; color:#202020;"></div>
 							<div class="objetStatusLabel" style="background:#df0000;">전시중</div>
 							<div class="objetStatusLabel" style="background:#202020; display: none;">전시예정</div>
 							<div class="objetStatusLabel" style="background:#aaa; display: none;">전시종료</div>
@@ -249,56 +259,48 @@ $(function(){
 					</tr>
 				</table>
 				
-				
-				<table class="artisthomeObjetTable">
-					<tr style="height:23px;">
-						<!-- 오브제 제목, 상태, 전시관람 버튼 영역 -->
-						<td style="width:85%;padding-top:30px;">
-							<div style="float: left;font-size: 15pt; font-weight:600; color:#202020;">보통의 거짓말&ensp;</div>
-							<div class="objetStatusLabel" style="background:#df0000;display: none;">전시중</div>
-							<div class="objetStatusLabel" style="background:#202020; display: none;">전시예정</div>
-							<div class="objetStatusLabel" style="background:#aaa;">전시종료</div>
-						</td>
-						<td rowspan="2" style="width:15%; text-align: center;padding-top:30px;">
-							<button class="ui tiny grey button" disabled>전시종료</button>
-						</td>
-					</tr>
-					<tr style="height: 10px;">
-						<!-- 오브제 기간 영역 -->
-						<td style="width:85%; font-size: 9pt;">2019.10.09(수) ~ 2019.11.08(금)</td>
-					</tr>
-					<tr>
-						<!-- 오브제 포스터 영역 -->
-						<td colspan="2">
-							<div class="artisthomeObjetListImg" style="background-image:url('resources/objet_upfiles/botong.jpg') "></div>
-						</td>
-					</tr>
-					<tr>
-						<!-- 오브제 소개 영역 -->
-						<td colspan="2">
-							<div class="artisthomeObjetListIntro">
-							누구나 알고는 있지만 깊게 생각하지 않았던, 그러나 어느 순간부터 그 정도와 가치가 너무 흔해진 '거짓말'. 거짓말에 대한 이번 전시  '보통의 거짓말 Ordinary Lie'가 새로운 예술 경험과 다양하게 생각할 주제들을 통해 관람객들에게 의미 있게 전달되기를 기대해 봅니다.
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<!-- 관련태그 영역 -->
-						<td colspan="2">
-							<a class="ui mini grey basic label">사진</a>
-							<a class="ui mini grey basic label">회화</a>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2" class="artisthomeObjetTableLastTr"><!-- 관심 댓글 조회수 영역 -->
-							<div style="font-size: 9pt;">관심 109&ensp;·&ensp;댓글  614&ensp;·&ensp;<i class="small eye icon"></i> 3382</div>
-						</td>
-					</tr>
-				</table>
 				<!-- 오브제 리스트 테이블 끝! -->
 				
 				<br><br><br>
 				<!-- 페이징&검색 -->
-				<div align="center">페이징 부분</div>
+				<div align="center">
+				<%-- 	<div id="paging">
+					
+						<!-- 전체 리스트 페이징 -->
+						 <c:if test="${ objetkind eq 'all' }"> 
+							 <c:if test="${ paging.startPage != 1 }">
+							 	<a href="selectArtistObjetList.do?currentPage=${paging.startPage - 1}">이전</a>
+							 </c:if>
+							 
+							<c:forEach var="num" begin="${ paging.startPage }"
+								end="${ paging.endPage }">
+								<a href="selectArtistObjetList.do?currentPage=${num}">${num}</a>
+							</c:forEach>
+							
+							<c:if test="${ paging.endPage != paging.maxPage }">
+								<a href="selectArtistObjetList.do?currentPage=${paging.endPage + 1}">다음</a>
+							</c:if>
+						 </c:if> 
+						 
+						 
+						 <!-- 검색용 페이징 -->
+						<c:if test="${ objetkind eq 'sort' }">
+							<c:if test="${ paging.startPage != 1 }">
+							 	<a href="selectArtistObjetSearch.do?currentPage=${paging.startPage - 1}&type=${type}">이전</a>
+							 </c:if>
+							
+							<c:forEach var="num" begin="${ paging.startPage }"
+								end="${ paging.endPage }">
+								<a href="selectArtistObjetSearch.do?currentPage=${num}&type=${ type }">${num}</a>
+							</c:forEach>
+							
+							<c:if test="${ paging.endPage != paging.maxPage }">
+								<a href="selectArtistObjetSearch.do?currentPage=${paging.endPage + 1}&type=${type}">다음</a>
+							</c:if>
+						</c:if>
+					</div> --%>
+				
+				</div>
 				<br><br>
 				
 				<div align="center">
@@ -311,6 +313,7 @@ $(function(){
 		</div>
 	</div>
 		<!-- 오브제 부분 끝! -->
+
 		
 		
 		
@@ -327,7 +330,7 @@ $(function(){
 					<input type="hidden" name="userid" value="">
 					<input type="hidden" name="artistid" value="">
 					<table class="gbwrite">
-						<tr><td style="width:15%"><div class="profileImage4" style="background-image:url('resources/images/basicprofilepic.png') "></div></td>
+						<tr><td style="width:15%"><div class="profileImage4" style="background-image:url('resources/users_upfiles/${loginUser.userrpic}') "></div></td>
 							<td style="width:85%; height: 150px;"><div class="ui form"><textarea style="width:600px;margin-left:20px;"rows="5" cols="100" name="gbcontent" id="gbcontent" required></textarea></div></td>
 						</tr>
 						<tr style="height:25px;">
@@ -459,8 +462,9 @@ $(function(){
 			</div>
 			
 		</div>
-			
+		</c:if>
 	</div><!-- 작가홈 메뉴바 끝! -->
+	
 
 	
 
@@ -468,7 +472,6 @@ $(function(){
 
 
 </body>
-
-<br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br>
 <c:import url="../footer.jsp" />
 </html>

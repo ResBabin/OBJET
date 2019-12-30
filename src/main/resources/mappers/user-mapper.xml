@@ -53,16 +53,70 @@
 	</insert>
 	
 	<select id="FollowerGetListCount" parameterType="String" resultType="int">
-		select count(to_user) from follower where from_user = #{userid}
+		select count(*) from follower where to_user = #{userid}
 	</select>
 	
 	<select id="FollowingGetListCount" parameterType="String" resultType="int">
-		select count(to_user) from following where from_user = #{userid}
+		select count(*) from following where from_user = #{userid}
 	</select>
 	
 	<select id="moveArtistHome" parameterType="String" resultType="UAUP">
 		select * from users A left outer join usersprofile B on A.userid = B.userid where A.userid= #{userid}
 	</select>
 	
-
+	<select id="moveArtistIntroEdit" parameterType="String">
+		select * from usersprofile where userid = #{userid}
+	</select>
+	
+	<update id="updateArtistIntro" parameterType="UsersProfile">
+		update usersprofile
+		<trim prefix="set" suffixOverrides=",">
+			<if test="useropic != null">useropic = #{useropic},</if>
+			<if test="userrpic != null">userrpic = #{userrpic},</if>
+			<if test="userintros != null">userintros = #{userintros},</if>
+			<if test="userintrol != null">userintrol = #{userintrol},</if>
+			<if test="usertag != null">usertag = #{usertag},</if>
+			<if test="portfolio != null">portfolio = #{portfolio},</if>
+			<if test="facebook != null">facebook = #{facebook},</if>
+			<if test="instagram != null">instagram = #{instagram},</if>
+			<if test="etcurl != null">etcurl = #{etcurl},</if>
+			<if test="artistemail != null">artistemail = #{artistemail},</if>
+		</trim>
+		where userid = #{userid}
+	</update>
+	
+	<insert id="insertUsersReport" parameterType="ReportUDetail">
+		insert into ReportUDetail values ( #{reportedu}, #{reporteru}, sysdate, #{reportureason})
+	</insert>
+	
+	<select id="selectUsersReportOverlap" parameterType="ReportUDetail" resultType="int">
+		<![CDATA[ select count(*) from (select reportedu, reporteru, reportudate, reportureason from reportudetail where reportedu = #{reportedu} and reporteru = #{reporteru}) where sysdate - reportudate < 8 ]]>
+	</select>
+	
+	<select id="moveFeedList" parameterType="String" resultType="Feed">
+		select * from feed where artistid = #{artistid} order by feeddate desc
+	</select>
+	
+	
+	<delete id="deleteFeed" parameterType="int">
+		delete feed where feedno = #{feedno}
+	</delete>
+	
+	<select id="moveFollowerPage" parameterType="String" resultType="Follow">
+		select users.userid, users.nickname, usersprofile.userintros, usersprofile.userrpic
+		from users join usersprofile on (users.userid = usersprofile.userid)
+		join follower on (users.userid = follower.from_user)
+		where follower.to_user = #{value}
+	</select>
+	
+	<select id="moveFollowingPage" parameterType="String" resultType="Follow">
+		select users.userid, users.nickname, usersprofile.userintros, usersprofile.userrpic
+		from users join usersprofile on (users.userid = usersprofile.userid)
+		join following on (users.userid = following.to_user)
+		where following.from_user = #{value}
+	</select>
+	
+	<select id="selectFollowingList" parameterType="Following" resultType="int">
+		select count(*) from following where to_user = #{to_user} and from_user = #{from_user}
+	</select>
 </mapper>

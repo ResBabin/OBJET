@@ -334,23 +334,17 @@ width: 190px;
    }); // document Ready...
    
    
-   function loadUsersProfile(){
-	   var userid = '<c:out value="${sessionScope.loginUser.userid}"/>';
-	   $.ajax({
-		   url: "artistHomeMain.do",
-		   type: "post",
-		   data : { userid : userid }
-	   }); // ajax
-   } // loadUsersProfile
-   
-   function loadFollow(){
-	   var userid = '<c:out value="${sessionScope.loginUser.userid}"/>';
-	   $.ajax({
-		   url: "countAllOfFollow.do",
-		   type: "post",
-		   data : { userid : userid }
-	   }); // ajax
-   } // loadUsersProfile
+   function reportUserCheck(){
+	   var blackyn = '<c:out value="${loginUser.blackyn}"/>'
+	   
+	   if(blackyn == 'N'){
+		   location.href='moveCreateObjet.do';
+		   return true;
+	   }else{
+		   alert("블랙리스트 회원의 경우, 오브제등록이 불가합니다.");
+		   return false;
+	   }
+   }
 
    </script>
 </head>
@@ -415,7 +409,8 @@ width: 190px;
 <br>
 <div class="nickname">${sessionScope.loginUser.nickname }</div>
 <div class="userid">@${sessionScope.loginUser.userid }</div>
-<div class="createObjetBtn"><button class="tiny ui teal basic circular button" onclick="location.href='moveCreateObjet.do'">오브제 등록</button></div>
+
+<div class="createObjetBtn"><button class="tiny ui teal basic circular button" onclick="return reportUserCheck()">오브제 등록</button></div>
 </div>
 <div class="artistHome"><p onclick="location.href='artistHomeMain.do?userid=${loginUser.userid}'">작가홈</p></div>
 <div id="accordian1">
@@ -430,7 +425,7 @@ width: 190px;
          </ul>
       </li>
       
-      <li><div class="fd"><p onclick="location.href='moveFeedList.do?userid=${loginUser.userid}'">피드알림</p></div></li>
+      <li><div class="fd"><p onclick="location.href='moveFeedList.do?artistid=${loginUser.userid}'">피드알림</p></div></li>
       <li><div class="qna"><p onclick="location.href='moveMyQnaList.do'">문의내역</p></div></li>
    </ul>
 </div>

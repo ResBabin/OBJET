@@ -1,5 +1,11 @@
 package com.kh.objet.usersprofile.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.objet.follow.model.service.FollowServiceImpl;
 import com.kh.objet.users.model.vo.UAUP;
@@ -56,14 +63,70 @@ public class UsersProfileController {
 	
 	// 작가소개수정 이동
 		@RequestMapping("moveArtistIntroEdit.do")
-		public String moveArtistIntroEdit(@RequestParam(value="userid") String userid) {
-			return "artistHome/artistIntroEdit";
+		public String moveArtistIntroEdit(@RequestParam(value="userid") String userid, Model model) {
+			UAUP usersProfile = usersProfileService.moveArtistHome(userid);
+			
+			String vfn = null;
+			if(usersProfile != null) {
+				model.addAttribute("usersProfile", usersProfile);
+				vfn = "artistHome/artistIntroEdit";
+			} else {
+				model.addAttribute("message", "작가홈 로딩 실패!");
+				vfn = "common/error";
+			}
+			return vfn;
 		}
 	
 	// 작가소개수정
-		@RequestMapping("updateArtistIntro.do")
-		public String updateArtistIntro(UsersProfile usersprofile) {
-			return "artistHome/artistHomeMain";
+		@RequestMapping(value="updateArtistIntro.do", method=RequestMethod.POST)
+		public String updateArtistIntro(UsersProfile usersprofile, HttpServletRequest request, @RequestParam(value="up_useropic", required=false) MultipartFile file, Model model) {
+			String vfn = null;
+			
+			// 태그 체크된 것 ,로 묶어서 한줄로 DB에 저장하기
+			if(usersprofile.getUsertag() != null) {
+				usersprofile.setUsertag(String.join(",", usersprofile.getUsertag()));
+			}
+			
+			/*
+			// textarea 엔터 키 <br>로 바꿔서 DB저장하기
+			if(usersprofile.getUserintrol() != null) {
+				usersprofile.setUserintrol(usersprofile.getUserintrol().replace("\n", "<br>"));
+			}
+			if(usersprofile.getPortfolio() != null) {
+				usersprofile.setPortfolio(usersprofile.getPortfolio().replace("\n", "<br>"));
+			}
+			*/
+			String savePath = request.getSession().getServletContext().getRealPath("resources/users_upfiles");
+			
+			try {
+				if(file != null && file.getOriginalFilename() != "") {
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+					String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+					file.transferTo(new File(savePath + "\\" + renameFileName));
+					usersprofile.setUseropic(file.getOriginalFilename());
+					usersprofile.setUserrpic(renameFileName);
+				}else {
+					if(usersprofile.getUseropic() != null && usersprofile.getUserrpic() != null) {
+						usersprofile.setUseropic(usersprofile.getUseropic());
+						usersprofile.setUserrpic(usersprofile.getUserrpic());
+					}
+				}
+				
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+			
+			
+			int result = usersProfileService.updateArtistIntro(usersprofile);
+			
+			if(result > 0) {
+				vfn = "redirect:artistHomeMain.do?userid="+usersprofile.getUserid();
+			}else {
+				vfn = "common/error";
+				model.addAttribute("message", "작가소개수정 실패!");
+			}
+			
+			return "redirect:artistHomeMain.do?userid="+usersprofile.getUserid();
 		}
 
 }

@@ -51,4 +51,19 @@
  <insert id="insertReviewReport" parameterType="ReportBoard">
  	insert into reportboard values ( #{originno}, #{reportedb}, #{reporterb}, sysdate, #{reportreason}, #{reportbtype}) 
  </insert>
+ 
+ 
+ 
+ <!-- 최민영 *************************** -->
+ 	<select id="selectArtistObjetGetListCount" parameterType="string" resultType="int">
+ 		select count(*) from objet where userid = #{userid}
+ 	</select>
+ 
+	 <select id="selectArtistObjetList" parameterType="hashmap" resultType="objet">
+	 	select * from (
+	 	select rownum rnum, objetno, userid, objettitle, objetintro, originmainposter, renamemainposter,objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview
+		from (select objetno, userid, objettitle, objetintro, originmainposter, renamemainposter,objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview from objet
+		where userid = #{userid} order by objetstatus desc)) <![CDATA[ where rnum between #{startRow} and #{endRow} ]]>
+	 </select>
+ 
 </mapper>

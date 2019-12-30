@@ -23,12 +23,12 @@ public class UsersProfileDao {
 
 	// 작가소개수정 이동
 	public UsersProfile moveArtistIntroEdit(String userid) {
-		return mybatisSession.selectOne("", userid);
+		return mybatisSession.selectOne("userMapper.moveArtistIntroEdit", userid);
 	}
 
 	// 작가소개  수정
 	public int updateArtistIntro(UsersProfile usersprofile) {
-		return mybatisSession.update("", usersprofile);
+		return mybatisSession.update("userMapper.updateArtistIntro", usersprofile);
 	}
 
 }

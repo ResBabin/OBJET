@@ -26,17 +26,13 @@ public class FeedDao {
 	}
 
 	// 피드알림 페이지 이동
-	public ArrayList<Feed> moveFeedList(String userid, Paging paging) {
-		int offset = 0;
-		int limit = 0;
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		
-		List<Feed> list = mybatisSession.selectList("", userid, rowBounds);
+	public ArrayList<Feed> moveFeedList(String artistid) {
+		List<Feed> list = mybatisSession.selectList("userMapper.moveFeedList", artistid);
 		return (ArrayList<Feed>) list;
 	}
 
 	// 피드알림 삭제
 	public int deleteFeed(int feedno) {
-		return mybatisSession.delete("", feedno);
+		return mybatisSession.delete("userMapper.deleteFeed", feedno);
 	}
 }

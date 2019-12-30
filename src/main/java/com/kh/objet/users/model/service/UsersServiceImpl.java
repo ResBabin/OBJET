@@ -103,6 +103,12 @@ public class UsersServiceImpl implements UsersService{
 		return usersDao.insertUsersReport(reportUDetail);
 	}
 
+	// 작가 중복신고 확인
+	@Override
+	public int selectUsersReportOverlap(ReportUDetail reportUDetail) {
+		return usersDao.selectUsersReportOverlap(reportUDetail);
+	}
+
 
 
 

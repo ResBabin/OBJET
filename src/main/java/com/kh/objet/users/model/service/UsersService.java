@@ -34,6 +34,8 @@ public interface UsersService {
 	int insertQuitUser(Quit2 quit);
 	
 	int insertUsersReport(ReportUDetail reportUDetail);
+	
+	int selectUsersReportOverlap(ReportUDetail reportUDetail);
 
 	
 }
