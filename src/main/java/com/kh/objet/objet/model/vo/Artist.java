@@ -65,6 +65,17 @@ public class Artist implements java.io.Serializable {
 	private Date enrolldate;
 	private String quityn;
 	private String blackyn;
+	//Usersprofile 필드
+	private String useropic;
+	private String userrpic;
+	private String userintros;
+	private String userintrol;
+	private String usertag;
+	private String portfolio;
+	private String facebook;
+	private String instagram;
+	private String etcurl;
+	private String artistemail;
 	
 	public Artist() {}
 
@@ -78,7 +89,9 @@ public class Artist implements java.io.Serializable {
 			String objetofile6, String objetrfile6, String objettitle7, String objetintro7, String objetofile7,
 			String objetrfile7, String objettitle8, String objetintro8, String objetofile8, String objetrfile8,
 			String userpwd, String usertype, String username, String nickname, String email, String phone,
-			String gender, Date enrolldate, String quityn, String blackyn) {
+			String gender, Date enrolldate, String quityn, String blackyn, String useropic, String userrpic,
+			String userintros, String userintrol, String usertag, String portfolio, String facebook, String instagram,
+			String etcurl, String artistemail) {
 		super();
 		this.objetno = objetno;
 		this.userid = userid;
@@ -135,6 +148,16 @@ public class Artist implements java.io.Serializable {
 		this.enrolldate = enrolldate;
 		this.quityn = quityn;
 		this.blackyn = blackyn;
+		this.useropic = useropic;
+		this.userrpic = userrpic;
+		this.userintros = userintros;
+		this.userintrol = userintrol;
+		this.usertag = usertag;
+		this.portfolio = portfolio;
+		this.facebook = facebook;
+		this.instagram = instagram;
+		this.etcurl = etcurl;
+		this.artistemail = artistemail;
 	}
 
 	public int getObjetno() {
@@ -577,6 +600,86 @@ public class Artist implements java.io.Serializable {
 		this.blackyn = blackyn;
 	}
 
+	public String getUseropic() {
+		return useropic;
+	}
+
+	public void setUseropic(String useropic) {
+		this.useropic = useropic;
+	}
+
+	public String getUserrpic() {
+		return userrpic;
+	}
+
+	public void setUserrpic(String userrpic) {
+		this.userrpic = userrpic;
+	}
+
+	public String getUserintros() {
+		return userintros;
+	}
+
+	public void setUserintros(String userintros) {
+		this.userintros = userintros;
+	}
+
+	public String getUserintrol() {
+		return userintrol;
+	}
+
+	public void setUserintrol(String userintrol) {
+		this.userintrol = userintrol;
+	}
+
+	public String getUsertag() {
+		return usertag;
+	}
+
+	public void setUsertag(String usertag) {
+		this.usertag = usertag;
+	}
+
+	public String getPortfolio() {
+		return portfolio;
+	}
+
+	public void setPortfolio(String portfolio) {
+		this.portfolio = portfolio;
+	}
+
+	public String getFacebook() {
+		return facebook;
+	}
+
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
+	}
+
+	public String getInstagram() {
+		return instagram;
+	}
+
+	public void setInstagram(String instagram) {
+		this.instagram = instagram;
+	}
+
+	public String getEtcurl() {
+		return etcurl;
+	}
+
+	public void setEtcurl(String etcurl) {
+		this.etcurl = etcurl;
+	}
+
+	public String getArtistemail() {
+		return artistemail;
+	}
+
+	public void setArtistemail(String artistemail) {
+		this.artistemail = artistemail;
+	}
+
 	@Override
 	public String toString() {
 		return "Artist [objetno=" + objetno + ", userid=" + userid + ", objettitle=" + objettitle + ", objetintro="
@@ -596,8 +699,12 @@ public class Artist implements java.io.Serializable {
 				+ ", objetintro8=" + objetintro8 + ", objetofile8=" + objetofile8 + ", objetrfile8=" + objetrfile8
 				+ ", userpwd=" + userpwd + ", usertype=" + usertype + ", username=" + username + ", nickname="
 				+ nickname + ", email=" + email + ", phone=" + phone + ", gender=" + gender + ", enrolldate="
-				+ enrolldate + ", quityn=" + quityn + ", blackyn=" + blackyn + "]";
+				+ enrolldate + ", quityn=" + quityn + ", blackyn=" + blackyn + ", useropic=" + useropic + ", userrpic="
+				+ userrpic + ", userintros=" + userintros + ", userintrol=" + userintrol + ", usertag=" + usertag
+				+ ", portfolio=" + portfolio + ", facebook=" + facebook + ", instagram=" + instagram + ", etcurl="
+				+ etcurl + ", artistemail=" + artistemail + "]";
 	}
+
 	
 	
 }

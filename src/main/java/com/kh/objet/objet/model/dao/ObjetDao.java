@@ -27,24 +27,32 @@ public class ObjetDao {
 		return (ArrayList<Objet>)list;
 	}
 	
-	ArrayList<Artist> selectArtistAllList(){
+	public ArrayList<Artist> selectArtistAllList(){
 		List<Artist> list = mybatisSession.selectList("objetMapper.selectArtistAll");
 		return (ArrayList<Artist>)list;
 	}
 	
-	int insertObjetReport(ReportBoard rb) {
-		return mybatisSession.insert("objetMapper.insertMember", rb);
+	public ArrayList<Artist> selectArtistListOrder(String order) {
+		List<Artist> list = mybatisSession.selectList("objetMapper.selectArtistListOrder", order);
+		return (ArrayList<Artist>)list;
+	};
+	
+	public int insertObjetReport(ReportBoard rb) {
+		return mybatisSession.insert("objetMapper.insertObjetReport", rb);
 	}
 	
-	ArrayList<Objet> selectObjetSearchList(String keyword){
+	public ArrayList<Objet> selectObjetSearchList(String keyword){
 		List<Objet> list = mybatisSession.selectList("objetMapper.objetSearchList", keyword);
 		return (ArrayList<Objet>)list;
 	}
 	
-	Objet selectObjetOne(int objetno) {
+	public Artist selectObjetOne(int objetno) {
 		return mybatisSession.selectOne("objetMapper.selectObjetOne", objetno);
 	}
 	
+	public int insertReviewReport(ReportBoard rb) {
+		return mybatisSession.insert("objetMapper.insertReviewReport", rb);
+	}
 	
 	// 최민영
 	// 작가홈 오브제 리스트카운트
@@ -116,6 +124,7 @@ public class ObjetDao {
 	// 오브제 관리 - 전시삭제
 	public int deleteObjet(int objetno) {
 		return mybatisSession.delete("", objetno);
-	};
+	}
+
 	
 }

@@ -120,6 +120,7 @@ html, body {
 	position: relative;
 	left:8%;
 	top:55px;
+	width:30%;
 }
 .obj_name {
   color: #333333;

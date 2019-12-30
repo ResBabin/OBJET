@@ -47,8 +47,6 @@ header {
   font-size: 35px;
   color: black;
   transition: top 0.2s ease-in-out;
-  z-index: 10;
-
 } 
 
  li > a:hover{
@@ -373,11 +371,11 @@ width: 190px;
 <nav role="navigation">
  <ul id="main-menu">
  
-    <li><a href="#">홈</a></li>
+    <li><a href="main.do">홈</a></li>
      
-    <li><a href="#">전시</a></li>
+    <li><a href="objetAllList.do">전시</a></li>
     
-    <li><a href="#">작가</a></li>
+    <li><a href="artistAllList.do">작가</a></li>
     
     <li><a href="#">고객센터</a>
       <ul id="sub-menu">
