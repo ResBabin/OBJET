@@ -7,9 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-${ reportbmd.reportedb }
-${ reportbmd.reporterb }
-${ reportbmd.reportbtype }
-
+${ reportbmd.objetno }
+${ reportbmd.objettitle }
+${ reportbmd.userid }
 </body>
 </html>

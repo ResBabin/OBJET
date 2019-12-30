@@ -18,8 +18,8 @@
 	$(function(){
 		
 		// 기타 선택 시에만 textarea 활성화
-		$("input:radio[name=quitreason]").click(function(){
-	        if($("input[name=quitreason]:checked").val() == "기타"){
+		$("input:radio[name=reportureason]").click(function(){
+	        if($("input[name=reportureason]:checked").val() == "기타"){
 	            $("textarea[name=etc]").attr("disabled",false);
 	            $("textarea[name=etc]").focus();
 	            $("textarea[name=etc]").attr("placeholder","기타 사유를 입력해주세요.(최대 100자)")
@@ -51,6 +51,33 @@
 			 
 		 });
 		
+		
+		// ajax로 값 넘기기
+		 $("#btnsub").click(function(){
+			 var reportedu = '<c:out value="${reportedu}"/>';
+			 var reporteru = '<c:out value="${loginUser.userid}"/>';
+			 var reportureason = $('input[name="reportureason"]:checked').val()
+		 $.ajax({
+	         url:"insertUsersReport.do",
+	         type:"post",
+	         data:{reportedu:reportedu, reporteru:reporteru, reportureason:reportureason, etc:$("#etc").val()},
+	         success: function(result){
+	             if(result == "ok"){
+	                alert("작가 신고가 접수되었습니다.");
+	             }else if(result == "overlap"){
+	            	 alert("7일 이내 중복신고가 불가합니다.");
+	         	}else{
+	               alert("작가 신고에 실패하였습니다.")
+	             }
+		             window.location.href="artistHomeMain.do?userid="+reportedu;
+	          },
+	          error: function(request, status, errorData){
+					console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
+				}
+	       });   
+	       return false;
+	    });
+		
 	})//documentReady...
  </script>
 </head>
@@ -61,49 +88,51 @@
 
 	<p style="font-size: 20pt; padding-top:50px; color:#373737; text-align:center;">작가 신고하기</p>
 	<p class="quitHeader" style="font-weight: 600;">어떤 문제가 있나요?</p>
-	<form action="" method="post">
+	<form action="insertUsersReport.do" method="post">
+	<input type="hidden" name="reportedu" value="${reportedu}">
+	<input type="hidden" name="reporteru" value="${loginUser.userid}">
 	<div align="center" style="padding-top: 15px;">
 			<div class="choiceReportReason">
 				<div class="ui form">
 					    <div class="field">
 					      <div class="ui radio checkbox">
-					        <input type="radio" name="quitreason" value="권리침해 및 저작권 침해" checked="checked">
+					        <input type="radio" name="reportureason" id="reportureason" value="권리침해 및 저작권 침해" checked="checked">
 					        <label>권리침해 및 저작권 침해</label>
 					      </div>
 					    </div>
 					    <div class="field">
 					      <div class="ui radio checkbox">
-					        <input type="radio" name="quitreason" value="명의 도용">
+					        <input type="radio" name="reportureason" id="reportureason" value="명의 도용">
 					        <label>명의 도용</label>
 					      </div>
 					    </div>
 					    <div class="field">
 					      <div class="ui radio checkbox">
-					        <input type="radio" name="quitreason" value="폭력적 위협">
+					        <input type="radio" name="reportureason" id="reportureason" value="폭력적 위협">
 					        <label>폭력적 위협</label>
 					      </div>
 					    </div>
 					    <div class="field">
 					      <div class="ui radio checkbox">
-					        <input type="radio" name="quitreason" value="부적절한 콘텐츠">
+					        <input type="radio" name="reportureason" id="reportureason" value="부적절한 콘텐츠">
 					        <label>부적절한 콘텐츠</label>
 					      </div>
 					    </div>
 					    <div class="field">
 					      <div class="ui radio checkbox">
-					        <input type="radio" name="quitreason" value="스팸 및 사기">
+					        <input type="radio" name="reportureason" id="reportureason" value="스팸 및 사기">
 					        <label>스팸 및 사기</label>
 					      </div>
 					    </div>
 					    <div class="field">
 					      <div class="ui radio checkbox">
-					        <input type="radio" name="quitreason" value="사생활 침해">
+					        <input type="radio" name="reportureason" id="reportureason" value="사생활 침해">
 					        <label>사생활 침해</label>
 					      </div>
 					    </div>
 					    <div class="field">
 					      <div class="ui radio checkbox">
-					        <input type="radio" name="quitreason" value="기타">
+					        <input type="radio" name="reportureason" id="reportureason" value="기타">
 					        <label>기타</label>
 					      </div>
 					    </div>

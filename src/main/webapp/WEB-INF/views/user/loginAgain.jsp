@@ -19,6 +19,10 @@
 	background-size: cover;
  }
  </style>
+ <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
+ <script type="text/javascript">
+ 
+ </script>
 </head>
 <body>
 <!-- 로그인 섹션 시작! -->
@@ -42,7 +46,7 @@
         </div>
         <br><br><br><br>
         
-       <button class="ui black button" type="submit" style="width:300px; height:40px; background: #4c4c4c;">로그인</button>
+       <button class="ui black button" onclick="autoChk()" style="width:300px; height:40px; background: #4c4c4c;">로그인</button>
 	</form>
 	
 	<br>
@@ -50,7 +54,7 @@
 		<br><br><br><br><br><br>
 		
 		<div class="ui checkbox">
-		  <input type="checkbox" name="idSave"><label>아이디 저장</label>
+		  <input type="checkbox" name="idSave" value="1"><label>아이디 저장</label>
 		</div>&emsp;&emsp;&emsp;
 		<span style="font-size:9pt;">
 			<span onclick="location.href='moveFindUserid.do'">아이디 찾기</span>&ensp;│&ensp;

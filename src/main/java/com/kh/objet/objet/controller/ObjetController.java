@@ -1,9 +1,13 @@
 package com.kh.objet.objet.controller;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,7 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.kh.objet.objet.model.service.ObjetServiceImpl;
 import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
@@ -31,6 +37,11 @@ public class ObjetController {
 
 	@Autowired
 	private ObjetServiceImpl objetService;
+	
+	@Autowired
+	private Paging paging;
+	
+	
 	
 	public ObjetController() {}
 	
@@ -152,9 +163,39 @@ public class ObjetController {
 	
 	// 최민영 *******************************************************************************
 	// 작가홈 오브제 리스트 보기
-			@RequestMapping(value= {"selectArtistObjetList.do", "artistHomeMain.do"})
-			public String selectArtistObjetList(@RequestParam("userid") String userid) {
-				return "artistHome/artistHomeMain";
+			@RequestMapping(value= "selectArtistObjetList.do", method=RequestMethod.POST)
+			@ResponseBody
+			public void selectArtistObjetList(@RequestParam("userid") String userid, @RequestParam("currentPage") String currentPage, HttpServletResponse response, Model model) throws IOException {
+				
+				//페이징처리 
+				int curPage = Integer.valueOf(currentPage);
+				int listCount = objetService.selectArtistObjetGetListCount(userid);
+				paging.makePage(listCount, curPage);
+
+				// HashMap 객체 생성
+				HashMap<String, Object> map = new HashMap<String, Object>();
+
+				map.put("startRow", paging.getStartRow());
+				map.put("endRow", paging.getEndRow());
+				map.put("userid", userid); // 대상 아티스트 아이디
+
+				logger.debug(paging.toString());
+				
+				List<Objet> objetlist = objetService.selectArtistObjetList(map);
+						
+				//가져온 객체 담기
+				HashMap<String, Object> result = null;
+				if(objetlist.size() >= 0) {
+					result = new HashMap<String,Object>();
+					result.put("paging", paging);
+					result.put("objetlist", objetlist);
+					result.put("objetkind", "all"); //출력타입은 전체(all) 과 분류(sort)로 나뉘어져있음
+				} 
+				
+				//담은것 gson으로 처리
+				response.setContentType("application/json");
+				response.setCharacterEncoding("utf-8");
+				new Gson().toJson(result,response.getWriter());
 			}
 			
 	// 작가홈 오브제 검색

@@ -20,28 +20,52 @@
 	background-size: cover;
  }
  </style>
+ <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
+ <script type="text/javascript">
+ $(function(){
+		if(localStorage.getItem("userid") != null && localStorage.getItem("userpwd") != null){
+			$("#userid").val(localStorage.getItem("userid"));
+			$("#userpwd").val(localStorage.getItem("userpwd"));
+		}
+	});
+
+	function autoChk(){
+		if($("input:checkbox[name='autoLogin']").is(":checked") == true){
+			localStorage.setItem("userid",$("#userid").val());
+			localStorage.setItem("userpwd",$("#userpwd").val());
+		}
+		else{
+			if(localStorage.getItem("userid") != null && localStorage.getItem("userpwd") != null){
+				localStorage.removeItem("userid");
+				localStorage.removeItem("userpwd");
+			}
+		}
+		return true;
+	}
+ 
+ </script>
 </head>
 <body>
 <!-- 로그인 섹션 시작! -->
 <div id="loginSection">
 	<p style="font-size: 25pt; padding-top:50px; color:#373737;">오브제 시작하기</p>
 	
-	<form action="login.do" method="post">
+	<form action="login.do" method="post" id="loginForm">
 	<div class="field">
           <div class="ui large left icon input" style="width:300px;">
-            <i class="user icon"></i><input type="text" name="userid" placeholder="ID">
+            <i class="user icon"></i><input type="text" name="userid" placeholder="ID" required>
           </div>
         </div>
         <br>
         
         <div class="field">
           <div class="ui large left icon input" style="width:300px;">
-            <i class="lock icon"></i><input type="password" name="userpwd" placeholder="PASSWORD">
+            <i class="lock icon"></i><input type="password" name="userpwd" placeholder="PASSWORD" required>
           </div>
         </div>
         <br><br><br><br>
         
-       <button class="ui black button" type="submit" style="width:300px; height:40px; background: #4c4c4c;">로그인</button>
+       <button class="ui black button" id="btnsub" onclick="autoChk()" style="width:300px; height:40px; background: #4c4c4c;">로그인</button>
 	</form>
 	
 	<br>
@@ -49,7 +73,7 @@
 		<br><br><br><br><br><br>
 		
 		<div class="ui checkbox">
-		  <input type="checkbox" name="idSave"><label>아이디 저장</label>
+		  <input type="checkbox" name="autoLogin" value="1"><label>로그인 정보 저장</label>
 		</div>&emsp;&emsp;&emsp;
 		<span style="font-size:9pt;">
 			<span onclick="location.href='moveFindUserid.do'">아이디 찾기</span>&ensp;│&ensp;

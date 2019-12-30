@@ -1,13 +1,10 @@
 package com.kh.objet.users.model.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.kh.objet.quit.model.vo.Quit;
+import com.kh.objet.quit.model.vo.Quit2;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.users.model.vo.UAUP;
 import com.kh.objet.users.model.vo.Users;
@@ -31,6 +28,11 @@ public class UsersDao {
 		return mybatisSession.selectOne("userMapper.selectCheckNickname", nickname);
 	}
 	
+	// 이메일 중복확인
+	public int selectCheckEmail(String email) {
+		return mybatisSession.selectOne("userMapper.selectCheckEmail", email);
+	}
+	
 	// 회원가입
 	public int insertUsers(Users users) {
 		return mybatisSession.insert("userMapper.insertUsers", users);
@@ -47,9 +49,8 @@ public class UsersDao {
 	}
 
 	// 아이디찾기
-	public ArrayList<Users> selectFindId(Users users) {
-		List<Users> list = mybatisSession.selectList("userMapper.selectFindId",users);
-		return (ArrayList<Users>) list;
+	public Users selectFindId(Users users) {
+		return mybatisSession.selectOne("userMapper.selectFindId",users);
 	}
 
 	// 비밀번호 찾기
@@ -74,18 +75,25 @@ public class UsersDao {
 
 	// 회원탈퇴1
 	public int updateQuitUser(String userid) {
-		return mybatisSession.update("", userid);
+		return mybatisSession.update("userMapper.updateQuitUser", userid);
 	}
 	
 	// 회원탈퇴2
-	public int insertQuitUser(Quit quit) {
-		return mybatisSession.insert("", quit);
+	public int insertQuitUser(Quit2 quit) {
+		return mybatisSession.insert("userMapper.insertQuitUser", quit);
 	}
 
 	// 작가 신고하기
 	public int insertUsersReport(ReportUDetail reportUDetail) {
-		return mybatisSession.insert("", reportUDetail);
+		return mybatisSession.insert("userMapper.insertUsersReport", reportUDetail);
 	}
+
+	// 작가 중복신고 확인
+	public int selectUsersReportOverlap(ReportUDetail reportUDetail) {
+		return mybatisSession.selectOne("userMapper.selectUsersReportOverlap",reportUDetail);
+	}
+
+
 
 
 

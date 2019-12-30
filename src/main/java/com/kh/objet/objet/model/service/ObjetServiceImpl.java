@@ -1,6 +1,8 @@
 package com.kh.objet.objet.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,7 @@ public class ObjetServiceImpl implements ObjetService{
 	public ArrayList<Artist> selectArtistListOrder(String order) {
 		return objetDao.selectArtistListOrder(order);
 	}
+	
 
 	@Override
 	public int insertObjetReport(ReportBoard rb) {
@@ -62,10 +65,10 @@ public class ObjetServiceImpl implements ObjetService{
 			return objetDao.selectArtistObjetGetListCount(userid);
 		}
 
-	// 작가홈 오브제 리스트 보기
+	// 작가홈 오브제 리스트 보기		
 		@Override
-		public ArrayList<Objet> selectArtistObjetList(String userid, Paging paging) {
-			return objetDao.selectArtistObjetList(userid, paging);
+		public List<Objet> selectArtistObjetList(HashMap<String, Object> map) {
+			return objetDao.selectArtistObjetList(map);
 		}
 		
 		

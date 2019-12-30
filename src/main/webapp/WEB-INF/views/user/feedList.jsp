@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +17,36 @@
  
 <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
+	function deleteFeed(feedno){
+		$.ajax({
+	         url:"deleteFeed.do",
+	         type:"post",
+	         data:{feedno:feedno},
+	         success: function(result){
+	             if(result == "ok"){
+	               alert("피드 알림이 삭제되었습니다.");
+	               window.location.reload();
+	             }else {
+	               alert("해당 알림 삭제 실패!");
+	             }
+	          },
+	          error: function(request, status, errorData){
+					console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
+				}
+	       });  
+	}
+	
+	
+	$(function(){
+		$(".feedtr").slice(0, 10).fadeIn();
+        $("#moreFeedList").click(function(e) { 
+              e.preventDefault();
+              $(".feedtr:hidden").slice(0, 5).fadeIn(); 
+              if ($(".feedtr:hidden").length == 0) { 
+                  $('#moreFeedList').fadeOut();
+              }
+          });
+	}) //document Ready...
 </script>
 </head>
 <body>
@@ -23,27 +54,34 @@
 	<!-- 피드알림 페이지 시작 -->
 	<div class="wrapFeedList">
 		<p style="font-size: 20pt; padding-top:50px; color:#373737; text-align:center;">피드알림</p>
-			<table class="feedTable">
-				<tr>
-					<td width="5%"><i class="blue envelope outline icon"></i></td>
-					<td width="90%">허니버터아몬드 님이 회원님을 관심작가로 추가하였습니다.<span style="font-size: 9pt; color:#aaa;">&ensp;(19.11.17)</span></td>
-					<td width="15%"><i class="trash alternate outline icon" onclick="location.href=''"></i></td>
-				</tr>
-				<tr>
-					<td width="5%"><i class="blue envelope outline icon"></i></td>
-					<td width="90%">티라미수아몬드 님이 방명록을 남겼습니다.<span style="font-size: 9pt; color:#aaa;">&ensp;(19.11.05)</span></td>
-					<td width="15%"><i class="trash alternate outline icon" onclick="location.href=''"></i></td>
-				</tr>
-				<tr>
-					<td width="5%"><i class="blue envelope outline icon"></i></td>
-					<td width="90%">관심오브제 <춘화 속의  동식물> 오픈!<span style="font-size: 9pt; color:#aaa;">&ensp;(19.10.23)</span></td>
-					<td width="15%"><i class="trash alternate outline icon" onclick="location.href=''"></i></td>
-				</tr>
-			</table>
-		
+			<form id="moreViewForm">
+			<input type="hidden" name="viewCount" id="viewCount" value="0">
+			<input type="hidden" name="startCount" id="startCount" value="0">
+				<table class="feedTable">
+				<!-- 반복영역 -->
+				<c:forEach items="${feedlist }" var="feed" varStatus="status">
+					<tr class="feedtr" style="display: none;">
+						<td width="5%"><i class="blue envelope outline icon"></i></td>
+						<td width="90%">${feed.feedcontent }<span style="font-size: 9pt; color:#aaa;">&ensp;
+						<fmt:formatDate value="${feed.feeddate}" pattern="(yy.MM.dd E)"/></span></td>
+						<td width="15%"><i class="trash alternate outline icon" onclick="deleteFeed('<c:out value="${feed.feedno }"/>');"></i></td>
+					</tr>
+				</c:forEach>
+					<!-- <tr>
+						<td width="5%"><i class="blue envelope outline icon"></i></td>
+						<td width="90%">티라미수아몬드 님이 방명록을 남겼습니다.<span style="font-size: 9pt; color:#aaa;">&ensp;(19.11.05)</span></td>
+						<td width="15%"><i class="trash alternate outline icon" onclick="location.href=''"></i></td>
+					</tr>
+					<tr>
+						<td width="5%"><i class="blue envelope outline icon"></i></td>
+						<td width="90%">관심오브제 <춘화 속의  동식물> 오픈!<span style="font-size: 9pt; color:#aaa;">&ensp;(19.10.23)</span></td>
+						<td width="15%"><i class="trash alternate outline icon" onclick="location.href=''"></i></td>
+					</tr> -->
+				</table>
+			</form>
 	</div>
 	<br><br><br>
-		<div align="center"><button class="ui medium grey basic button" id="moreFeedList" onclick="">더 보기</button></div>
+		<div align="center"><button class="ui medium grey basic button" id="moreFeedList">더 보기</button></div>
 		
 		
 <br><br><br><br><br><br><br><br><br><br><br>

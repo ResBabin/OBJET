@@ -599,10 +599,12 @@ box-shadow: 0px 0px 13px 5px gray;
       <span class="date">2019.08.02 - 2019.12.12<span></span><br></span></div></a>
     </div>
     <div class="swiper-slide slide1">
+      
     <a href="${pageContext.servletContext.contextPath }/objetOne.do?objetno=${objet.objetno}">
       <div class="slide-inner inner1" style="background-image:url(resources/images/objet/display2.jpg)"></div>
       <div class="info"><span class="text">나는 코코 카피탄, <br> 오늘을 살아가는 너에게<br> 
       <span class="date">2019.08.02 - 2019.12.12<span></span><br></span></div></a>
+
     </div>
     <div class="swiper-slide slide1">
     <a href="${pageContext.servletContext.contextPath }/objetOne.do?objetno=${objet.objetno}">
@@ -886,7 +888,7 @@ box-shadow: 0px 0px 13px 5px gray;
             
                <div>전시제목</div>
                <div>작가 전시에 대한 제목 or 설명글 짧게</div>
-             <center> <img src="resources/images/objet/display5.jpg" width=80%></center>
+             <center> <img src="resources/images/objet/display8.jpg" width=80%></center>
              
             </div>
             

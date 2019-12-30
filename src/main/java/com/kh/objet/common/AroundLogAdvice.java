@@ -11,7 +11,7 @@ import org.springframework.util.StopWatch;
 @Aspect	// aop를 의미 함
 public class AroundLogAdvice {
 	
-	// 포인트컷 선언
+/*	// 포인트컷 선언
 	@Pointcut("execution(* com.kh.objet..*Impl.*(..))")
 	public void servicePointcut() {}
 	
@@ -34,5 +34,5 @@ public class AroundLogAdvice {
 		System.out.println(methodName + "()메소드 수행에 걸린 시간 : " + stopWatch.getTotalTimeMillis() + "(ms)초");	// 보통은 파일에 기록하지만 지금은 syso로!
 		
 		return obj;
-	}
+	}*/
 }

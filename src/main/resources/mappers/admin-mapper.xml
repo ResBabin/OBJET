@@ -83,7 +83,8 @@
 	</select>
 
 	<!-- 전시 상세 조회 -->
-	<select id="selectObjetOne" resultType="Objet" parameterType="_int">
+	<select id="selectObjetOne" resultType="Objet"
+		parameterType="_int">
 		select
 		*
 		from objet
@@ -139,24 +140,42 @@
 
 	<!-- 신고게시글 전체조회 -->
 	<select id="selectReportBList" resultType="ReportBoard">
-		select * from reportboard
+		select * from
+		reportboard
 	</select>
 
-	<!-- 신고게시글 상세조회 -->
-	<select id="selectReportBDetail" resultType="ReportBoard" parameterType="string">
-		select * 
-	 	<trim prefix="from">
-			<if test="_parameter.contains('OBJET')"> objet</if>
-			<if test="_parameter.contains('REVIEW')">Review</if>
-		</trim>
- 		<where>
-			<if test="_parameter.contains('OBJET')">
-			objetno = substr( #{ value } , 6)
-			</if>
-			<if test="_parameter.contains('REVIEW')">
-			objetno = substr( #{ value } , 7) and userid like '%'||#{ value }||'%'
-			</if>
-		</where> 
+	<!-- 신고게시글 전체조회 -->
+ 	<select id="selectReportAll" resultType="ReportBoard">
+		select originno, 
+		reportedb ,count(originno) as "reportcount", reportbtype
+		from reportboard
+		group by originno, reportedb, reportbtype
 	</select> 
 
-</mapper>
+	<!-- 신고게시글 사유별 조회 -->
+	<select id="selectReportAllList" resultType="ReportBoard" parameterType="map">
+		select count(reportbreason) as "reportcount", reportbreason, reporterb, reportbdate
+		from reportboard
+		where originno = #{originno} and reportedb = #{reportedb}
+		group by reportbreason, reporterb, reportbdate
+	</select>
+
+
+	<!-- 신고게시글 상세조회 -->
+	<select id="selectReportBDetail" resultType="ReportBoard"
+		parameterType="map">
+		select *
+		<trim prefix="from">
+			<if test="rptype.equals('OBJET')">objet</if>
+			<if test="rptype.equals('REVIEW')">Review</if>
+		</trim>
+		<where>
+			objetno = #{ originno }
+			<if test="rptype.equals('REVIEW')">
+				and userid = #{ reportedb }
+			</if>
+		</where>
+	</select>
+
+
+</mapper> 

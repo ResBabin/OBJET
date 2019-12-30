@@ -67,10 +67,6 @@ public class UserManagementController {
 	@RequestMapping(value="userbkorder.do", method=RequestMethod.POST)
 	public void BlacklistOrder(String order, HttpServletResponse response) throws IOException {
 		ArrayList<UserManagement> bklist = (ArrayList<UserManagement>) usermService.selectBlacklistOrder(order);
-		logger.debug(bklist.get(0).getUserid());
-		logger.debug(bklist.get(1).getUserid());
-		logger.debug(bklist.get(2).getUserid());
-		logger.debug(bklist.get(3).getUserid());
 		//전송용 json 객체
 				JSONObject sendJson = new JSONObject();
 				//json 배열 객체

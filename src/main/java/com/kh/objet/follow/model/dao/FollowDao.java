@@ -1,16 +1,14 @@
 package com.kh.objet.follow.model.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.objet.follow.model.vo.Follow;
 import com.kh.objet.follow.model.vo.Follower;
 import com.kh.objet.follow.model.vo.Following;
-import com.kh.objet.paging.model.vo.Paging;
 
 @Repository("followDao")
 public class FollowDao {
@@ -22,17 +20,15 @@ public class FollowDao {
 	
 	// 팔로잉 리스트카운트용
 	public int FollowingGetListCount(String userid) {
-		return mybatisSession.selectOne("", userid);
+		return mybatisSession.selectOne("userMapper.FollowingGetListCount", userid);
 	}
 
 	// 팔로잉 보기
-	public ArrayList<Following> moveFollowingPage(String userid, Paging paging) {
-		int offset = 0;
-		int limit = 0;
-		RowBounds rowBounds = new RowBounds(offset, limit);
+	public List<Following> moveFollowingPage(String artistid) {
+	
 		
-		List<Following> list = mybatisSession.selectList("", userid, rowBounds);
-		return (ArrayList<Following>) list;
+		List<Following> list = mybatisSession.selectList("userMapper.moveFollowingPage", artistid);
+		return list;
 	}
 
 	// 팔로우 하기
@@ -45,20 +41,26 @@ public class FollowDao {
 		return mybatisSession.delete("", following);
 	}
 
+	
+	
+	
 	// 팔로워 리스트카운트용
 	public int FollowerGetListCount(String userid) {
-		return mybatisSession.selectOne("", userid);
+		return mybatisSession.selectOne("userMapper.FollowerGetListCount", userid);
 	}
 
 	// 팔로워 보기
-	public ArrayList<Follower> moveFollowerPage(String userid, Paging paging) {
-		int offset = 0;
-		int limit = 0;
-		RowBounds rowBounds = new RowBounds(offset, limit);
+	public List<Follow> moveFollowerPage(String artistid) {
 		
-		List<Follower> list = mybatisSession.selectList("", userid, rowBounds);
-		return (ArrayList<Follower>) list;
+		List<Follow> list = mybatisSession.selectList("userMapper.moveFollowerPage", artistid);
+		return list;
 	}
+	
+	// 팔로우 여부를 알기위해 로그인 유저의 팔로잉 리스트 확인
+	public int selectFollowingList(Following following) {
+		return mybatisSession.selectOne("userMapper.selectFollowingList", following);
+	}
+	
 
 	// 팔로워 증가
 	public int insertFollower(Follower follower) {
@@ -68,7 +70,7 @@ public class FollowDao {
 	public int deleteFollower(Follower follower) {
 		return mybatisSession.delete("", follower);
 	}
-	
+
 	
 
 }

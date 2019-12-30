@@ -2,7 +2,6 @@ package com.kh.objet.users.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.kh.objet.quit.model.vo.Quit;
+import com.kh.objet.quit.model.vo.Quit2;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.users.model.service.UsersServiceImpl;
 import com.kh.objet.users.model.vo.UAUP;
@@ -88,6 +87,27 @@ public class UsersController {
 			out.close();
 		}
 		
+		// 이메일 중복확인
+		@RequestMapping(value="checkEmail.do", method=RequestMethod.POST)
+		public void selectCheckEmail(@RequestParam(value="email") String email, HttpServletResponse response) throws IOException {
+			
+			logger.info("email : " + email);
+			int result = usersService.selectCheckEmail(email);
+
+			
+			String returnValue = null;
+			
+			if(result < 1) 
+				returnValue = "ok";
+			else
+				returnValue = "fail";
+			
+			PrintWriter out = response.getWriter();
+			out.append(returnValue);
+			out.flush();
+			out.close();
+		}
+		
 		
 	// 회원가입
 		@RequestMapping(value="insertUsers.do", method=RequestMethod.POST)
@@ -124,7 +144,7 @@ public class UsersController {
 			UAUP loginUser = usersService.selectUsersLogin(users);
 			
 			String vfn = "main";
-			if(loginUser != null) {
+			if(loginUser != null && loginUser.getQuityn().equals("N")) {
 				session.setAttribute("loginUser", loginUser);
 			}else {
 				vfn = "user/loginAgain";
@@ -132,11 +152,6 @@ public class UsersController {
 			return vfn;
 	}
 			
-			
-			
-			
-			
-		
 		
 	// 회원 로그아웃
 		@RequestMapping("logout.do")	
@@ -157,10 +172,10 @@ public class UsersController {
 	// 아이디찾기
 		@RequestMapping("findUserid.do")
 		public String selectFindId(Users users, Model model) {
-			ArrayList<Users> findUser = usersService.selectFindId(users);
+			Users findUser = usersService.selectFindId(users);
 			
 			String vfn = null;
-			if(findUser.size() > 0) {
+			if(findUser != null) {
 				model.addAttribute("findUser", findUser);
 				vfn = "user/findIdSuccess";
 			} else {
@@ -240,10 +255,42 @@ public class UsersController {
 			return vfn;
 		}
 		
+	// 비밀번호 재확인 페이지 이동
+		@RequestMapping("moveReaffirmUserpwd.do")
+		public String moveReaffirmUserpwd() {
+			return "user/reaffirmUserpwd";
+		}
+		
+			
+	// 비밀번호 재확인 페이지 이동
+	@RequestMapping("reaffirmUserpwd.do")
+	public String reaffirmUserpwd(UAUP users, Model model) {
+		UAUP loginUser = usersService.selectUsersLogin(users);
+		String vfn = null;
+		if(loginUser != null) 
+			vfn = "user/mypageEdit";
+		else {
+			vfn = "user/reaffirmUserpwd";
+			model.addAttribute("message", "비밀번호가 일치하지 않습니다. 다시 입력해주세요");
+		}
+		return vfn;
+			
+	}
+		
 	// 내정보 수정
 		@RequestMapping("updateMyPage.do")
-		public String updateMyPage(Users users, Model model) {
-			return "main";
+		public void updateMyPage(Users users, HttpServletResponse response) throws IOException {
+			int result = usersService.updateMyPage(users);
+			String returnValue = null;
+			if(result > 0) 
+				returnValue = "ok";
+			else
+				returnValue = "fail";
+				
+			PrintWriter out = response.getWriter();
+			out.append(returnValue);
+			out.flush();
+			out.close();
 		}
 		
 	// 탈퇴페이지 이동
@@ -254,25 +301,69 @@ public class UsersController {
 		
 	// 회원탈퇴
 		@RequestMapping("updateQuitUser.do")
-		public String updateQuitUser(Quit quit, Model model) {
-			// users테이블 업데이트 후 탈퇴테이블 insertQuitUser()도 해야함.
-			// 회원탈퇴 성공 시 "user/quitSuccess"
-			// 실패 시 "common/error"
-			return "user/quitSuccess";
+		public String updateQuitUser(Quit2 quit, HttpServletRequest request, HttpSession session, Model model) {
+			int result1, result2 = 0;
+			String vfn = null;
+			if(quit.getQuitreason().equals("기타")) {
+				quit.setQuitreason(quit.getQuitreasonDetail());
+			}
+			
+			String userid = quit.getUserid();
+			result1 = usersService.updateQuitUser(userid);
+			
+			if(result1 > 0) {
+				result2 = usersService.insertQuitUser(quit);
+				if(result2 > 0)
+					session = request.getSession(false);
+				if(session != null) {
+					//세션 객체가 존재한다면 없애기
+					session.invalidate();
+				}
+				vfn = "user/quitSuccess";
+			}else {
+				vfn = "common/error";
+				model.addAttribute("message", "회원탈퇴 실패!");
+			}
+			return vfn;
 		}
 
 
 		
 	// 작가 신고하기 페이지 이동
 		@RequestMapping("moveProfileReport.do")
-		public String moveProfileReport(@RequestParam(value="artistid") String artistid) {
+		public String moveProfileReport(@RequestParam(value="reportedu") String reportedu, Model model) {
+			model.addAttribute("reportedu", reportedu);
 			return "artistHome/profileReport";
 		}
 		
 	// 작가 신고하기
 		@RequestMapping("insertUsersReport.do")
-		public String insertUsersReport(ReportUDetail reportUDetail, Model model) {
-			return "artistHome/artistHomeMain";
+		public void insertUsersReport(ReportUDetail reportUDetail, @RequestParam(value="etc") String etc, HttpServletResponse response, Model model) throws IOException {
+			int result1, result2 = 0;
+			// 기타 사유가 있으면
+			if(reportUDetail.getReportureason().equals("기타")) {
+				reportUDetail.setReportureason(etc);
+			}
+			
+			String returnValue = null;
+			// 7일 이내 중복 신고가 있는지 확인
+			result1 = usersService.selectUsersReportOverlap(reportUDetail);
+			if(result1 > 0) {
+				returnValue = "overlap";
+			} else {
+				// 중복 신고가 없다면
+				result2 = usersService.insertUsersReport(reportUDetail);
+				if(result2 > 0) 
+					returnValue = "ok";
+				else 
+					returnValue = "fail";
+			}
+			
+			
+			PrintWriter out = response.getWriter();
+			out.append(returnValue);
+			out.flush();
+			out.close();
 		}
 		
 

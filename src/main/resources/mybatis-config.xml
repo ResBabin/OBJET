@@ -10,6 +10,7 @@
 		<typeAlias type="com.kh.objet.feed.model.vo.Feed" alias="Feed" />
 		<typeAlias type="com.kh.objet.follow.model.vo.Follower" alias="Follower" />
 		<typeAlias type="com.kh.objet.follow.model.vo.Following" alias="Following" />
+		<typeAlias type="com.kh.objet.follow.model.vo.Follow" alias="Follow" />
 		<typeAlias type="com.kh.objet.guestbook.model.vo.GbReply" alias="GbReply" />
 		<typeAlias type="com.kh.objet.guestbook.model.vo.GuestBook" alias="GuestBook" />
 		<typeAlias type="com.kh.objet.likeobjet.model.vo.LikeObjet" alias="LikeObjet" />
@@ -18,6 +19,7 @@
 		<typeAlias type="com.kh.objet.objet.model.vo.Artist" alias="Artist" />
 		<typeAlias type="com.kh.objet.qna.model.vo.Qna" alias="Qna" />
 		<typeAlias type="com.kh.objet.quit.model.vo.Quit" alias="Quit" />
+		<typeAlias type="com.kh.objet.quit.model.vo.Quit2" alias="Quit2" />
 		<typeAlias type="com.kh.objet.reportboard.model.vo.ReportBoard" alias="ReportBoard" />
 		<typeAlias type="com.kh.objet.reportudetail.model.vo.ReportUDetail" alias="ReportUDetail" />
 		<typeAlias type="com.kh.objet.review.model.vo.Review" alias="Review" />
@@ -27,6 +29,7 @@
 		<typeAlias type="com.kh.objet.users.model.vo.UserManagement" alias="Userm" />
 		<typeAlias type="com.kh.objet.calendar.model.vo.Calendar" alias="Calendar" />
 		<typeAlias type="com.kh.objet.users.model.vo.UAUP" alias="UAUP" />
+		<typeAlias type="com.kh.objet.objet.model.vo.Artist" alias="Artist" />
 	</typeAliases>
 	<mappers>
 <!-- 		<mapper resource="mappers/member-mapper.xml" />
@@ -34,8 +37,10 @@
 		<mapper resource="mappers/notice-mapper.xml" />
 		<mapper resource="mappers/test-mapper.xml" /> -->
 	 	<mapper resource="mappers/user-mapper.xml" /> 
+	 	<mapper resource="mappers/objet-mapper.xml" /> 
 	 	<mapper resource="mappers/admin-mapper.xml" /> 
 	 	<mapper resource="mappers/calendar-mapper.xml"/>
 		<mapper resource="mappers/objet-mapper.xml"/>
+	 	<mapper resource="mappers/cs-mapper.xml"/>
 	</mappers>
 </configuration>

@@ -1,8 +1,6 @@
 package com.kh.objet.users.model.service;
 
-import java.util.ArrayList;
-
-import com.kh.objet.quit.model.vo.Quit;
+import com.kh.objet.quit.model.vo.Quit2;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.users.model.vo.UAUP;
 import com.kh.objet.users.model.vo.Users;
@@ -13,13 +11,15 @@ public interface UsersService {
 	
 	int selectCheckNickname(String nickname);
 	
+	int selectCheckEmail(String email);
+	
 	int insertUsers(Users users);
 	
 	int insertUsersProfile(String userid);
 	
 	UAUP selectUsersLogin(UAUP users);
 	
-	ArrayList<Users> selectFindId(Users users);
+	Users selectFindId(Users users);
 	
 	Users selectFindPwd(Users users);
 	
@@ -31,7 +31,11 @@ public interface UsersService {
 
 	int updateQuitUser(String userid);
 	
-	int insertQuitUser(Quit quit);
+	int insertQuitUser(Quit2 quit);
 	
 	int insertUsersReport(ReportUDetail reportUDetail);
+	
+	int selectUsersReportOverlap(ReportUDetail reportUDetail);
+
+	
 }

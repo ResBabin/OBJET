@@ -92,52 +92,14 @@ margin-left: 430px;
 <br>
 <div class="group">
     <h1>FAQ</h1> 
-<
-    <div class="box">
-        <strong class="title">오브제 가입은 어떻게 하나요?</strong>
+<c:forEach var = "faq" items="${ list }">
+<div class="box">
+        <strong class="title">${ faq.faqtitle }</strong>
         <div class="cont">
-     <p>오른쪽 상단에 가입하기 버튼을 누르시고 
-사용하고 계시는 카카오, 이메일 계정 중 원하는 계정으로
-가입하기를 누릅니다. 해당 계정으로 인증을 받은 후, 
-이름과 이메일 주소만 입력하시면 가입이 완료됩니다.</p></div>
+     <p>${ faq.faqcontent } </p></div>
     </div>
-    <div class="box">
-        <strong class="title">타이틀2</strong>
-        <div class="cont">내용222222222222222</div>
+    </c:forEach>
     </div>
-    <div class="box">
-        <strong class="title">타이틀3</strong>
-        <div class="cont"> 내용33333333333</div>
-    </div>
-    <div class="box">
-        <strong class="title">타이틀4</strong>
-        <div class="cont">44444</div>
-    </div>
-    <div class="box">
-        <strong class="title">타이틀5</strong>
-        <div class="cont">55555555555555555</div>
-    </div>
-      <div class="box">
-        <strong class="title">타이틀5</strong>
-        <div class="cont">55555555555555555</div>
-    </div>
-      <div class="box">
-        <strong class="title">타이틀5</strong>
-        <div class="cont">55555555555555555</div>
-    </div>
-      <div class="box">
-        <strong class="title">타이틀5</strong>
-        <div class="cont">55555555555555555</div>
-    </div>
-      <div class="box">
-        <strong class="title">타이틀5</strong>
-        <div class="cont">55555555555555555</div>
-    </div>
-      <div class="box">
-        <strong class="title">타이틀5</strong>
-        <div class="cont">55555555555555555</div>
-    </div>
-</div>
 
 <c:import url="../footer.jsp" />	
 </body>
