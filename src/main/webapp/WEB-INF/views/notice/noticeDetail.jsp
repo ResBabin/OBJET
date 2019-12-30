@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>공지사항 자세히 보기</title>
 <c:import url="../header.jsp" />
 </head>

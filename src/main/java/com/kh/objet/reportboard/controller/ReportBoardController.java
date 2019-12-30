@@ -68,6 +68,7 @@ public class ReportBoardController {
 					
 				JSONObject job = new JSONObject();
 				job.put("id", reportb.getReporterb());
+				job.put("date", reportb.getReportbdate().toString());
 				job.put("reason", URLEncoder.encode(reportb.getReportbreason(), "utf-8"));
 				jarr.add(job);
 				}

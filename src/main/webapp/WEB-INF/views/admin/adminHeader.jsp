@@ -4,8 +4,8 @@
 <html>
 <head>
 <!-- favicon 위치 -->
-<link rel="shortcut icon" href="../resources/images/favicon-32x32.png">
-<link rel="icon" href="../resources/images/favicon-32x32.png">
+<link rel="shortcut icon" href="resources/images/favicon-32x32.png">
+<link rel="icon" href="resources/images/favicon-32x32.png">
 <meta charset="UTF-8">
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -90,7 +90,7 @@
 		<div class="ui dropdown item" id="headdi3" align="center" style="padding-left: 35px;">
 			신고 관리 <i class="dropdown icon"></i>
 			<div class="menu" id="sub">
-				<a class="item" href="reportu.do" id="heada5">회원 신고</a> <a class="item" href="reportb.do" id="heada6">게시글 신고</a> 
+				<a class="item" href="reportu.do" id="heada5">회원 신고</a> <a class="item" href="reportbm.do" id="heada6">게시글 신고</a> 
 			</div>
 		</div>
 		<div class="ui dropdown item" id="headdi4" align="center" style="padding-left: 35px;">
@@ -128,7 +128,7 @@
 			<div class="content" id="cont">
 				<a class="item" href="objetm.do"> 전시 조회 </a> <a class="item"
 					href="objereq.do"> 신청작 조회</a>
-			</div>
+			</div> 
 		</div>
 		<div class="ui accordion">
 			<div class="title">
@@ -136,9 +136,8 @@
 				</a>
 			</div>
 			<div class="content" id="cont">
-				<a class="item" href="reportu.do"> 회원 신고</a> <a class="item"
-					href="reportb.do"> 게시글 신고</a>
-			</div>
+				<a class="item" href="reportu.do"> 회원 신고</a> <a class="item" href="reportbm.do"> 게시글 신고</a>
+			</div> 
 		</div>
 		<div class="ui accordion">
 			<div class="title">
