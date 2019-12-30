@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,9 +56,6 @@ html, body {
 .objet_infomation {
 	padding-bottom: 0px;
 }
-.wrap_icon_img {
-	position: relative;
-}
 #banner_img {
 	z-index: -999;
 	width: 100%;
@@ -72,13 +71,12 @@ html, body {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	z-index: 2;
 	font-family: 'Nanum Gothic', sans-serif;
-}
+} 
 
 .banner_img_btn {
 	position: absolute;
-	top: 62%;
+	top: 32%;
 	left: 27%;
 	transform: translate(-50%, -50%);
 	height: auto;
@@ -259,7 +257,7 @@ a:-webkit-any-link {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1;
+    /* z-index: 1; */
     width: 100%;
     height: 100%;
     border: 1px solid #000;
@@ -280,7 +278,7 @@ a:-webkit-any-link {
 
 .wrap_share_gnb .ico_share_common {
     position: relative;
-    z-index: 10;
+    /* z-index: 5; */
     margin: 12px 0 18px;
 }
 
@@ -449,7 +447,7 @@ a:-webkit-any-link {
 	font-size: 32px;
 	font-weight: bold;
 	align: center;
-	margin: 0;
+	/* margin: 0; */
 	position: relative;
 	top: 70px;
 	letter-spacing: -0.3px;
@@ -828,20 +826,21 @@ a:-webkit-any-link {
 
 /* 전시 소개 스타일  */
 #exhibition_img {
-	width: 60%;
+	width:35%;
 	height: auto;
 	margin-top: 12%;
 	align: center;
 }
 
 .exhibition_info_txt {
-	font-size: 23px;
+	font-size: 22px;
 	font-weight: bolder;
 	color: #959595;
 	font-family: 'Nanum Myeongjo';
-	line-height: 30px;
+	line-height: 40px;
 	align-content: center;
-	margin-top: 50px;
+	margin-top: 43px;
+	width:80%;
 }
 
 .exhibition_intro {
@@ -849,10 +848,10 @@ a:-webkit-any-link {
 }
 
 .exhibition_vp {
-	margin-top: 60px;
-	background: rgba(41, 128, 185, 0.38);
+	margin-top: 80px;
+	/* background: #93c5e6; */
 	width: 100%;
-	height: 800px;
+	height: 860px;
 	align: left;
 }
 
@@ -867,25 +866,26 @@ a:-webkit-any-link {
 	margin-top: 40px;
 	font-weight: bolder;
 	font-family: 'Nanum Gothic';
-	line-height: 30px;
+	line-height: 34px;
 	text-align: center;
 	text-align-last: auto;
 	text-justify: inter-word;
 	align: center;
 	font-size: 15px;
+	width:80%;
 }
 
 .intro_txt h1 {
 	font-weight: bold;
 	font-family: 'Nanum Gothic';
-	line-height: 50px;
+	line-height: 52px;
 	font-size: 32px;
 }
 
 .swiper-container {
 	margin-top: 190px;
 	width: 60%;
-	height: 50%;
+	height: 60%;
 	overflow: hidden;
 	position: absolute;
 	right: 95%;
@@ -908,10 +908,12 @@ a:-webkit-any-link {
 }
 
 .swiper-slide img {
-	max-width: 100%;
-	max-height: 100%;
+	max-width: 90%;
+	max-height: 90%;
+	
 	height: auto;
 	align: center;
+	margin-right:100px;
 }
 
 .swiper-pagination {
@@ -942,7 +944,7 @@ a:-webkit-any-link {
 
 .vp_txt {
 	float: right;
-	margin: 240px 180px 10px 0px;
+	margin: 250px 200px 10px 20px;
 }
 
 #vp_last_txt {
@@ -953,28 +955,28 @@ a:-webkit-any-link {
 	line-height: 68px;
 	font-size: 48px;
 	position: absolute;
-	margin-top: 650px;
-	margin-left: -180px;
+	margin-top: 720px;
+	margin-left: -210px;
 	margin-bottom: 20px;
 }
 
 .vp_top {
 	float: right;
 	position: absolute;
-	margin-top: 760px;
+	margin-top: 790px;
 	margin-left: 90%;
 }
 /* 작가소개 스타일 */
 .artist_cont {
-	width: 80%;
-	height: 650px;
+	width: 75%;
+	height: 750px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	position: relative;
 	top: 60px;
 	align: center;
-	left: 10%;
+	left: 12%;
 }
 
 .artist_cont1 {
@@ -1042,8 +1044,43 @@ a:-webkit-any-link {
 			
 		//전시 신고 모달
 		$(".ico_report").on("click", function() {
+			/* <c:if test="${!empty User}"> */
 			$("#rep_modal").modal('show');
+			/* </c:if>
+			<c:if test="${empty User}">
+			
+			</c:if> */
 		});	
+		
+		//전시 신고 기타사유
+		// 기타 선택 시에만 textarea 활성화
+		$("input:radio[name='reportreason']").click(function() {
+			if ($("input:radio[id='reportreason1']:checked").val() == "기타") {
+				$("#etc1").attr("disabled", false);
+				$("#etc1").focus();
+				$("#etc1").attr("placeholder", "기타 사유를 입력해주세요.(최대 100자)")
+				$("#obj_rep_cnt").css("display", "block");
+				// radio 버튼의 value 값이 '기타'면 textarea활성화 & 자동포커스 & placeholder & 글자수세기 나오기
+			} else {// 아니라면 text 비활성화&placeholder없음&글자수세기 없음
+				$("#etc1").attr("disabled", true);
+				$("#etc1").removeAttr("placeholder", "기타 사유를 입력해주세요.(최대 100자)")
+				$("#obj_rep_cnt").css("display", "none");
+				// 이전 기타 textarea작성 값 초기화
+				$("#etc1").val("");
+				$("#obj_rep_cnt").html("( <span style='color:#4ecdc4;font-size:9pt;'>0</span> / 최대 100자 )");
+			}
+		});
+
+		// 한줄평 기타사유 글자수 세기
+ 		$("#etc1").keyup(function(e) {
+			var content = $(this).val();
+			$("#obj_rep_cnt").html("( <span style='color:#4ecdc4;font-size:9pt;'>" + content.length + "</span> / 최대 100자 )"); // 글자수 실시간 카운팅
+			if (content.length > 100) {
+				alert("최대 100자까지만 입력 가능합니다.");
+				$(this).val(content.substring(0, 100));
+				$("#obj_rep_cnt").html("( <span style='color:red;font-size:9pt;'>100 </span>/ 최대 100자)");
+			}
+		});
 			
 		//tab menu
 		$("#objet_info_menu #item").on("click", function() {
@@ -1085,41 +1122,27 @@ a:-webkit-any-link {
 		});
 
 		//한줄평 등록 글자수 카운팅
-		$('.rev_ins_cont')
-				.keyup(
-						function(e) {
-							var content = $(this).val();
-							$("#counter_ins").html(
-									"( <span style='color:#4ecdc4;'>"
-											+ content.length
-											+ "</span> / 최대 100자 )"); // 글자수 실시간 카운팅
-							if (content.length > 100) {
-								alert("최대 100자까지만 입력 가능합니다.");
-								$(this).val(content.substring(0, 100));
-								$("#counter_ins")
-										.html(
-												"( <span style='color:red;'>100 </span>/ 최대 100자)");
-							}
-						});
+		$('.rev_ins_cont').keyup(function(e) {
+			var content = $(this).val();
+			$("#counter_ins").html("( <span style='color:#4ecdc4;'>" + content.length + "</span> / 최대 100자 )"); // 글자수 실시간 카운팅
+			if (content.length > 100) {
+				alert("최대 100자까지만 입력 가능합니다.");
+				$(this).val(content.substring(0, 100));
+				$("#counter_ins").html("( <span style='color:red;'>100 </span>/ 최대 100자)");
+			}
+		});
 		$('rev_ins_cont').keyup();
 
 		//한줄평 수정 글자수 카운팅
-		$(".rev_up_cont")
-				.keyup(
-						function(e) {
-							var content = $(this).val();
-							$("#counter_up").html(
-									"( <span style='color:#4ecdc4;font-size:9pt;'>"
-											+ content.length
-											+ "</span> / 최대 100자 )"); // 글자수 실시간 카운팅
-							if (content.length > 100) {
-								alert("최대 100자까지만 입력 가능합니다.");
-								$(this).val(content.substring(0, 100));
-								$("#counter_up")
-										.html(
-												"( <span style='color:red;font-size:9pt;'>100 </span>/ 최대 100자)");
-							}
-						});
+		$(".rev_up_cont").keyup(function(e) {
+			var content = $(this).val();
+			$("#counter_up").html("( <span style='color:#4ecdc4;font-size:9pt;'>" + content.length + "</span> / 최대 100자 )"); // 글자수 실시간 카운팅
+			if (content.length > 100) {
+				alert("최대 100자까지만 입력 가능합니다.");
+				$(this).val(content.substring(0, 100));
+				$("#counter_up").html("( <span style='color:red;font-size:9pt;'>100 </span>/ 최대 100자)");
+			}
+		});
 		$('rev_up_cont').keyup();
 
 		//내 한줄평 수정/삭제 버튼
@@ -1141,57 +1164,57 @@ a:-webkit-any-link {
 
 		//한줄평 신고 기타사유
 		// 기타 선택 시에만 textarea 활성화
-		$("input:radio[name=reportreason]")
-				.click(
-						function() {
-							if ($("input[name=reportreason]:checked").val() == "기타") {
-								$("textarea[name=etc]").attr("disabled", false);
-								$("textarea[name=etc]").focus();
-								$("textarea[name=etc]").attr("placeholder",
-										"기타 사유를 입력해주세요.(최대 100자)")
-								$("#count").css("display", "block");
-								// radio 버튼의 value 값이 '기타'면 textarea활성화 & 자동포커스 & placeholder & 글자수세기 나오기
-							} else {// 아니라면 text 비활성화&placeholder없음&글자수세기 없음
-								$("textarea[name=etc]").attr("disabled", true);
-								$("textarea[name=etc]").removeAttr(
-										"placeholder",
-										"기타 사유를 입력해주세요.(최대 100자)")
-								$("#count").css("display", "none");
-								// 이전 기타 textarea작성 값 초기화
-								$("textarea[name=etc]").val("");
-								$("#count")
-										.html(
-												"( <span style='color:#4ecdc4;font-size:9pt;'>0</span> / 최대 100자 )");
-							}
-						});
+		$("input:radio[name='reportreason']").click(function() {
+			if ($("input:radio[id='reportreason2']:checked").val() == "기타") {
+				$("#etc2").attr("disabled", false);
+				$("#etc2").focus();
+				$("#etc2").attr("placeholder", "기타 사유를 입력해주세요.(최대 100자)")
+				$("#rev_rep_cnt").css("display", "block");
+				// radio 버튼의 value 값이 '기타'면 textarea활성화 & 자동포커스 & placeholder & 글자수세기 나오기
+			} else {// 아니라면 text 비활성화&placeholder없음&글자수세기 없음
+				$("#etc2").attr("disabled", true);
+				$("#etc2").removeAttr("placeholder", "기타 사유를 입력해주세요.(최대 100자)")
+				$("#rev_rep_cnt").css("display", "none");
+				// 이전 기타 textarea작성 값 초기화
+				$("#etc2").val("");
+				$("#rev_rep_cnt").html("( <span style='color:#4ecdc4;font-size:9pt;'>0</span> / 최대 100자 )");
+			}
+		});
 
-		// 기타사유 글자수 세기
-		$("textarea[name=etc]")
-				.keyup(
-						function(e) {
-							var content = $(this).val();
-							$("#count").html(
-									"( <span style='color:#4ecdc4;font-size:9pt;'>"
-											+ content.length
-											+ "</span> / 최대 100자 )"); // 글자수 실시간 카운팅
-							if (content.length > 100) {
-								alert("최대 100자까지만 입력 가능합니다.");
-								$(this).val(content.substring(0, 100));
-								$("#count")
-										.html(
-												"( <span style='color:red;font-size:9pt;'>100 </span>/ 최대 100자)");
-							}
-						});
+		// 한줄평 기타사유 글자수 세기
+ 		$("#etc2").keyup(function(e) {
+			var content = $(this).val();
+			$("#rev_rep_cnt").html("( <span style='color:#4ecdc4;font-size:9pt;'>" + content.length + "</span> / 최대 100자 )"); // 글자수 실시간 카운팅
+			if (content.length > 100) {
+				alert("최대 100자까지만 입력 가능합니다.");
+				$(this).val(content.substring(0, 100));
+				$("#rev_rep_cnt").html("( <span style='color:red;font-size:9pt;'>100 </span>/ 최대 100자)");
+			}
+		});
 
 		//캘린더
 		
+		
+		
+		
+
+		
 	});
+	
+	window.onload = function(){
+		//바탕색 랜덤
+		var color = '#'; 
+		var letters = ['e4eef5', '93c5e6', '46a3e0', '8eccf5', '6475A0', 'acc7bf', '5e5f67', 'c37070', 'eae160', 'bf7aa3', 'd7d967', 'bc8fcf', 'edd48e', 'e68b4e', 'cc6039']; 
+		// 원하는 색상을 'letters'에 지정한다. 변소는 맘데로 변경해도 무관하다. 
+		color += letters[Math.floor(Math.random() * letters.length)]; // 컬러는 상기 변수들을 조립하는데 랜덤으로 조립한다. 
+		document.getElementById('exhibition_vp').style.background = color; // 조립한 컬러를 프론트엔드에서 지정한 ID에 적용한다.
+	}
+	
 </script>
 </head>
 <body>
 <section class="all">
 <section class="objet_infomation">
-<div class="wrap_icon_img">
 <!-- 배너 상단 아이콘들  -->
 <div class="wrap_all">
 <div class="f_r">
@@ -1210,13 +1233,13 @@ a:-webkit-any-link {
 <span class="f_l text_hide img_ico img_ico_with_text ico_share" style="cursor: pointer;">공유</span>
 <span class="wrap_share_gnb wrap_share_common"><strong class="tit_sharegnb">오브제 전시를 SNS에 공유해보세요</strong>
 <button type="button" id="facebook" class="ico_share_common btn_share_facebook ui mini circular facebook icon button" data-servicename="facebook">
-     <i class="large facebook icon"></i><span class="screen_out">페이스북공유</span>
+     <i class="big facebook icon"></i><span class="screen_out">페이스북공유</span>
 </button>
 <button type="button" id="instagram" class="ico_share_common btn_share_instagram ui mini circular instagram icon button" data-servicename="kakaostory">
-    <i class="large instagram icon"></i><span class="screen_out">인스타그램 공유</span>
+    <i class="big instagram icon"></i><span class="screen_out">인스타그램 공유</span>
 </button>
 <button type="button" id="twitter" class="ico_share_common btn_share_twitter ui circular mini twitter icon button" data-servicename="twitter">
-    <i class="large twitter icon"></i><span class="screen_out">트위터공유</span>
+    <i class="big twitter icon"></i><span class="screen_out">트위터공유</span>
 </button>												
 </span>
 </span>							
@@ -1226,14 +1249,16 @@ a:-webkit-any-link {
 </div>
 <!--// 배너 상단 아이콘들  -->
 <!-- 전시신고 모달 시작 -->
+<c:if test="${!empty sessionScope.User }">
 <div class="ui modal" id="rep_modal">
-<p style="font-size: 20pt; padding-top:40px; color:#373737; text-align:center;">전시 신고하기</p>
-<p class="quitHeader" style="font-weight: 600;text-align: center;">어떤 문제가 있나요?</p>
+<p style="font-size: 20pt; padding-top:40px; color:#373737; text-align:center;font-weight: bold;">전시 신고하기</p>
+<p class="quitHeader" style="font-weight: 600;text-align: center;font-weight: bolder;">어떤 문제가 있나요?</p>
 <center>
-<form action="" method="post">
+<form action="objetReport.do" method="post">
 <div align="center" style="padding-top: 15px;">
 	<div class="choiceReportReason1">
 		<div class="ui form">
+		
 			    <div class="field">
 			      <div class="ui radio checkbox">
 			        <input type="radio" name="reportreason" value="명예훼손/사생활 침해 및 저작권 침해" checked="checked">
@@ -1266,18 +1291,18 @@ a:-webkit-any-link {
 			    </div>
 			    <div class="field">
 			      <div class="ui radio checkbox">
-			        <input type="radio" name="reportreason" value="기타">
+			        <input type="radio" name="reportreason" id="reportreason1" value="기타">
 			        <label>기타</label>
 			      </div>
 			    </div>
 			    <textarea rows="3" cols="10" name="etc" id="etc1" style="resize: none;" disabled required></textarea>
-				<span style="color:#aaa; display: none; text-align:right; font-size:9pt;" id="count">( <span style="color:#4ecdc4;font-size:9pt;">0</span> / 최대 100자 )</span>
+				<span style="color:#aaa; display: none; text-align:right; font-size:9pt;margin-top:2px;" id="obj_rep_cnt">( <span style="color:#4ecdc4;font-size:9pt;">0</span> / 최대 100자 )</span>
 		</div>
 	</div>
 </div>
 <br><br>
 <div class="actions">
-    <div class="ui red cancel inverted button" onClick="location.href ='objetOne.do'" style="cursor: pointer;">
+    <div class="ui red cancel inverted button" onClick="location.href='objetOne.do?objetno=${objet.objetno}'" style="cursor: pointer;">
       <i class="remove icon"></i>
       	취소
     </div>
@@ -1286,15 +1311,20 @@ a:-webkit-any-link {
              신고하기
     </div>
   </div><br><br>
-</center>
 </form>
+</center>
 </div>
+</c:if>
 <!-- 전시 신고 모달 끝 -->
-<img src="resources/images/objet/objetmainposter.jpg" id="banner_img">
+<!-- 미로그인시 신고 버튼 클릭시에 -->
+
+<!-- 미로그인시 신고 버튼 클릭시에 -->
+<img src="resources/images/objet/${objet.renamemainposter }" id="banner_img">
 <div class="banner_img_text"><!-- <span class="banner_date">2019. 08. 02 - 2019. 12. 12 </span> -->
-<div class="ui inverted black icon button banner_img_btn" style="font-size: 18px;" onclick="location.href='objetView.do'">전시 감상하러 가기
-&nbsp;<i class="ui arrow right icon" style="font-size:18px;"></i>
-</div></div></div>
+<div class="ui black icon button banner_img_btn" 
+style="font-size: 18px;" onclick="location.href='objetView.do'">전시 감상하러 가기
+&nbsp;<i class="ui large white arrow right icon" style="font-size:18px;"></i>
+</div></div>
 <div class="ui fluid four item inverted menu" id="objet_info_menu">
   <a class="active item" id="item" data-tab="objet_info">
     전시소개
@@ -1315,15 +1345,11 @@ a:-webkit-any-link {
 <span class="det_title">EXHIBITION</span><br>
 <div class="objet_section">
 <div class="exhibition_main">
-<p><img src="resources/images/objet/text_tomorrow.PNG" alt="IS IT TOMORROW YET?" id="exhibition_img"></p><br>
+<p><img src="resources/images/objet/${objet.objetrfile1 }" alt="${objet.objettitle1 }" id="exhibition_img"></p><br>
 </div>
 <div class="exhibition_info_txt">
 <i style="font-family:'Nanum Myeongjo';"><img src="resources/images/objet/quotation.PNG" style="width:25px;height: auto;"> 
-&nbsp;&nbsp;&nbsp;&nbsp;I am &amp; I will be &amp; I am being now &amp; today &amp; forever &amp; at the moment for the present &amp; the future<br>
-&amp; I was as well in the past when I decided I would always be the bluest blue jumping &amp; running to &amp; falling into
-&amp; diving<br> deep deep down into a deeper blue &amp; swimming to find the one, the most absolute &amp; purest of blues.<br><br>
-나는 &amp; 앞으로 &amp; 바로 지금 &amp; 항상 &amp; 현재 이 순간 & 미래에 &amp; 나의 과거에도 푸르디 푸른 모습으로 도약하고<br> 
-&amp; 짙은 파랑 속으로 깊게 깊게 내려가 &amp; 가장 완벽하고 순수한 파랑을 찾을 때까지 헤엄칠 수 있기를.&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;${objet.objetintro }&nbsp;
 <img src="resources/images/objet/quotation.PNG" style="transform: rotate(180deg); width:25px;height: auto;"></i>
 </div>
 <div class="exhibition_intro">
@@ -1331,32 +1357,36 @@ a:-webkit-any-link {
 <video class="intro_mp3" src="${pageContext.servletContext.contextPath }/resources/media/objet.avi" 
 controls poster="${pageContext.servletContext.contextPath }/resources/images/objet/22.JPG"></video>
 <br>
-<div class="intro_txt">		
-<h1>나는 코코 카피탄,<br> 
-오늘을 살아가는 너에게</h1>		
-<p>코코 카피탄은 밀레니얼 세대의 성장 과정에서 한 번쯤은 겪었거나 현재 겪고 있는 여러 감정을 솔직하게 담은 글귀, <br>
-그리고 정형화되지 않은 색감과 구도의 사진 작업으로 순수 예술 영역뿐만 아니라 패션과 같은 상업 영역에 신선한 반향을 일으키고 있습니다. <br>
-특히 구찌(Gucci)의 ‘2017 가을/겨울 컬렉션 콜라보레이션’ 및 아트월 프로젝트는 각종 온/오프라인 매체를 통해 국내외 대중들에게 <br>
-뜨거운 관심과 화제를 불러일으키며 브랜드와 아티스트 간의 이상적인 협업을 이끌어 낸 대표적인 사례로 손꼽히고 있습니다.</p>
-<p>이번 전시에서는 팝 아트를 현대적으로 재해석한 설치 작품부터, 작가의 상상을 표현한 페인팅 및 이중적인 감정들을 위트 있게 담아낸 핸드라이팅 작업까지 <br>
-코코 카피탄의 작품세계를 다채롭게 선보입니다. 오늘에 대한 고민과 오지 않은 미래에 대한 불안 등의 다양한 감정을 담고 있는 작가의 작품은, <br>
-질풍노도의 사춘기 시절만큼이나 폭풍 같은 오춘기를 겪고 있는 우리에게 위로와 공감을 선사할 것입니다.</p>		
+<%-- <div class="intro_txt">		
+<h1>${objet.objettitle}</h1>
+<c:set var="length" value="${fn:length(objet.userintrol)}"/>
+<c:if test="${ length < 80 }">		
+<p>${fn:substring(objet.userintrol,0,80)}</p>
+</c:if><c:if test="${ length > 80 }">
+<p>${fn:substring(objet.userintrol,80,200)}...</p>
+</c:if>
+</div> --%>
 </div>
-</div>
-<div class="exhibition_vp">
+<div class="exhibition_vp" id="exhibition_vp"><br>
 <span class="det_title">VIEW POINT</span><br>
   <div class="swiper-container">
   <div class="swiper-pagination" ></div>
     <div class="swiper-wrapper">
-      <div class="swiper-slide"><img src="resources/images/objet/coco_ex.jpg"></div>
-      <div class="swiper-slide"><img src="resources/images/objet/Boy in Socks.jpg"></div>
-      <div class="swiper-slide"><img src="resources/images/objet/Girl in Yellow.jpg"></div>
-      <div class="swiper-slide"><img src="resources/images/objet/Hasta La Vista.jpg"></div>
+      <div class="swiper-slide"><img src="resources/images/objet/${objet.objetrfile2 }"></div>
+      <div class="swiper-slide"><img src="resources/images/objet/${objet.objetrfile3 }"></div>
+      <div class="swiper-slide"><img src="resources/images/objet/${objet.objetrfile4 }"></div>
+      <div class="swiper-slide"><img src="resources/images/objet/${objet.objetrfile5 }"></div>
     </div>
   </div>
 <div class="vp_txt">
-<b><h1>나는 아티스트 코코 카피탄. <br>
-조금은 남달라도 괜찮아.</h1></b>
+<c:set var="title" value="${fn:length(objet.objettitle)}"/>
+<c:if test="${ title < 20 }">		
+<b><h1>${fn:substring(objet.objettitle,0,10)}</h1></b>
+</c:if>
+<c:if test="${ title > 20 }">		
+<b><h1>${fn:substring(objet.objettitle,0,10)}<br>
+${fn:substring(objet.objettitle,10,30)}</h1></b>
+</c:if>
 </div>
 <strong id="vp_last_txt">VR EXHIBITION으로 <br>좋아하는 작가의 전시를 더 생생하게 느껴보세요!</strong>
 
@@ -1382,22 +1412,15 @@ controls poster="${pageContext.servletContext.contextPath }/resources/images/obj
 <center><span class="det_title">ARTIST</span></center><br>
 <div class="artist_cont">
 <div class="artist_cont1">
-<span id="artist_tit">코코 카피탄</span><br>
-<span id="artist_info_cont">코코 카피탄(Coco Capitán, 1992년 스페인 출생)은 런던을 기반으로 활동하는 <br>포토그래퍼이자 아티스트로,
-런던패션대학(London College of Fashion)에서 패션 사진을 전공하고, 영국 왕립예술학교 (Royal College of Art)에서 사진학 석사를 졸업하였다.<br>
-작가는 특유의 꾸밈없는 솔직함과 자유로움으로 사진, 페인팅, 벽화, 핸드라이팅, 영상, 설치 등을 선보이며 <보그(Vogue)>, <데이즈드(Dazed)>, ‘멀버리(Mulberry)’,<br>
-‘메종 마르틴 마르지엘라(Maison Martin Margiela)’, ‘컨버스(Converse)’ 등 세계 유명 패션 브랜드 및 매거진과의 화보촬영을 진행하였고,<br>
-지난 해 구찌(Gucci)의 ‘Young Art Star’로 지목되어 <br>아티스트로서의 가능성을 성공적으로 입증하였다.
-연이어 그녀의 작품은 뉴욕과 밀라노, 피렌체, 마이애미의 구찌 건물과 외벽을 장식하였으며, 아트 바젤 마이애미(Art Basel Miami 2017)에 초대되어<br>
-단편 영화 ‘Learning to Transcend the Physical Barriers that Owning a Body Implies’를 개봉한 바 있다.<br> 또한 2015년 영국 런던 포토그래퍼스 갤러리에서
-FF+WE Prize를 수상하였으며, <br>2016년 프랑스 예르 패션 & 포토그래피 페스티벌(Hyères Fashion & Photography Festival)의 심사위원으로 위촉되는 등
-재능과 실력을 겸비한 아티스트로서 연일 새로운 행보를 보여주고 있다.</span></div>
-<div class="artist_cont2"><img src="resources/images/objet/coco.jpg" id="artist_pic"></div>
+<span id="artist_tit">${objet.nickname }</span><br>
+<span id="artist_info_cont">${objet.userintrol }</span></div>
+<div class="artist_cont2"><img src="resources/users_upfiles/${objet.userrpic }" id="artist_pic"></div>
 </div>
 </div>
 <center>
 <div class="ui bottom attached tab" id="objet_calendar">
 <span class="det_title">CALENDAR</span><br>
+
 </div>
 <div class="ui bottom attached tab " id="objet_review">
    <span class="det_title">REVIEW</span><br>
@@ -1448,23 +1471,6 @@ FF+WE Prize를 수상하였으며, <br>2016년 프랑스 예르 패션 & 포토�
 </div>
 </div> 
 <!-- //내 한줄평 있을시 수정 공간 끝 -->
-<!-- 한줄평 수정 버튼 클릭시 모달-->
-<!-- <div class="ui mini modal actions" id="modal">
-  <div class="content">
-    <p>정말 한줄평을 수정하시겠습니까?</p>
-  </div>
-  <div class="actions">
-    <div class="ui red cancel inverted button">
-      <i class="remove icon"></i>
-      	취소
-    </div>
-    <div class="ui blue ok inverted button" onClick="location.href ='updateReview.do'" style="cursor: pointer;">
-      <i class="checkmark icon"></i>
-      	수정
-    </div>
-  </div>
-</div> -->
-<!-- //한줄평 수정 버튼 클릭시 모달 끝 -->
 <!-- 한줄평 삭제 버튼 클릭시 모달 -->
 <div class="ui mini modal actions" id="rev_del_modal">
   <div class="content">
@@ -1498,8 +1504,8 @@ FF+WE Prize를 수상하였으며, <br>2016년 프랑스 예르 패션 & 포토�
 </div>
 <!-- 한줄평 신고 -->
 <div class="ui modal" id="rev_rep_modal">
-<p style="font-size: 20pt; padding-top:40px; color:#373737; text-align:center;">한줄평 신고하기</p>
-<p class="quitHeader" style="font-weight: 600;text-align: center;">어떤 문제가 있나요?</p>
+<p style="font-size: 20pt; padding-top:40px; color:#373737; text-align:center;font-weight: bold;">한줄평 신고하기</p>
+<p class="quitHeader" style="font-weight: 600;text-align: center;font-weight: bolder;">어떤 문제가 있나요?</p>
 <!-- <span class="" style="font-weight: 300;text-align: left;margin:0 0 0 40px;">작성자 : user**</span><br>
 <span class="" style="font-weight: 300;text-align: left;margin:20px 0 0 40px;">내   용 : 너무 좋아요.... 생각보다 더 좋았어요 또 보고 싶어요~~  좋아요 정말~~~짜루짜루진짜루~~</span> -->
 <center>
@@ -1527,12 +1533,12 @@ FF+WE Prize를 수상하였으며, <br>2016년 프랑스 예르 패션 & 포토�
 			    </div>
 			    <div class="field">
 			      <div class="ui radio checkbox">
-			        <input type="radio" name="reportreason" value="기타">
+			        <input type="radio" name="reportreason" id="reportreason2" value="기타">
 			        <label>기타</label>
 			      </div>
 			    </div>
 			    <textarea class="ui input textarea" rows="3" cols="10" name="etc" id="etc2" style="resize: none;" disabled required></textarea>
-				<span style="color:#aaa; display: none; text-align:right; font-size:9pt;" id="count">( <span style="color:#4ecdc4;font-size:9pt;">0</span> / 최대 100자 )</span>
+				<span style="color:#aaa; display: none; text-align:right; font-size:9pt;margin-top:2px;" id="rev_rep_cnt">( <span style="color:#4ecdc4;font-size:9pt;">0</span> / 최대 100자 )</span>
 		</div>
 	</div>
 </div>

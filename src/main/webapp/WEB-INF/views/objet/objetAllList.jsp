@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,8 +34,28 @@
     /* margin-right:-20px; */
     padding:0;
 }
+.objet_title a{
+	font-family: 'Nanum Myeongjo';
+	font-weight: bold;
+    font-size: 32px;
+    text-align: center;
+    letter-spacing: 1px;
+    text-decoration:none;
+    padding:0;
+    color:rgba(0,0,0.87);
+}
+.objet_title a:hover{
+	font-family: 'Nanum Myeongjo';
+	font-weight: bold;
+    font-size: 32px;
+    text-align: center;
+    letter-spacing: 1px;
+    text-decoration:none;
+    padding:0;
+    color:#959595;
+}
 .objet_more_section {
-	margin:0 120px 10px 120px;
+	margin:40px 120px 10px 120px;
 	height:auto;
 }
 .search-option-cate {
@@ -87,12 +109,14 @@
 	width:100%;
 	height: 100%;
 	border-bottom: 1px solid #151515;
-	border-top: 3px solid #151515;
+	border-top: 2px solid #151515;
+	
 }
 .objet_list {
 	width:100%;
 	height:320px;
 	overflow: hidden;
+	display: none;
 }
 .objet_list ul {
 	 position: relative; 
@@ -101,6 +125,7 @@
 	 margin:0;
 	padding: 0;
 }
+
 .objet_list .objet_li {
 	list-style: none;
 	border-top: 1px solid #e9e9e9;
@@ -109,7 +134,7 @@
 }
 .objet_list .info {
 	float: left;
-    padding: 75px 0px 0 75px;
+    padding: 55px 0px 0 40px;
 }
 .objet_list .info a {
 	color: #222;
@@ -124,12 +149,13 @@
 }
 .objet_list .info .tit01 {
 	font-size: 32px;
-    line-height: 32px;
+    line-height: 42px;
     font-weight: bolder;
 }
 .objet_list .info .tit02 {
 	margin-top: 12px;
 	font-weight: bolder;
+	margin-top: 20px;
 }
 .objet_list .info .date {
 	display: block;
@@ -137,7 +163,7 @@
     color: #909090;
     font-size: 14px;
 }
-.objet_list img {
+.objet_list img {	
 	width: 70%;
 	height:320px;
 	float:right;
@@ -156,66 +182,33 @@ $(function() {
   		$(".search-option .i .off").removeClass("off");
   		$(".search-option .i").addClass("off");
   	});
+
+	//더보기 버튼
+	$(".objet_list").slice(0, 4).show(); // 최초 4개 선택
+	$("#more_load").click(function(e) { // Load More를 위한 클릭 이벤트e
+	    e.preventDefault();
+	    $(".objet_list:hidden").slice(0, 4).show(); // 숨김 설정된 다음 4개를 선택하여 표시
+	    if ($(".objet_list:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
+	        $('#more_load').css('display', 'none');// 더 이상 로드할 항목이 없는 경우
+	    }
+	});
+
+
 });
 
-//더보기 버튼 함수
-/* function moreContent(id, cnt){
-	var list_length = $("#"+id+" tr").length-1; //tr갯수 구하기 , 1을 빼는 이유는 제목,작성자 tr이 하나 존재하기 때문.
-	var aname = id+"_btn";
-	var callLength = list_length;
-	$('#startCount').val(callLength);
-	$('#viewCount').val(cnt);
-	    $.ajax({
-	        type    :   "post",
-	        url     :   "/getMoreContents_ajax.do",
-	        data    :   $('#searchTxtForm').serialize(),
-	        dataType:   "json",
-	        success :   function(result) {
-	                       if(result.resultCnt > 0){
-	                    	   var list = result.resultList;
-	                    		   if(resultVO.title != '') {
-	                    			 $('#'+aname).attr('href',"javascript:moreContent('"+id+"', "+cnt+");");
-	                    			   getMoreList(list);
-	                    		   }else{
-	                    			$("#"+id+"_div").remove();
-	                    		   }
-	                    	   }
-	                       }else{
-	                       }
-	                    },
-	        error   :   function(request,status,error){
-	                    alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
-	                    }
-	    });
-	    
-	    function getMoreList(list){
-	    	var content = "";
-	    	var length = list.length;
-	    	for(i=0; i<list.length; i++){
-	    		var resultVO = list[i];
-	    		if(resultVO.title != ''){
-   	    		content += "<tr>";
-   	   	    	content += "<td>"+resultVO.title+"</td>";
-   	   	    	content += "<td>"+resultVO.reg_date+"</td>";
-   	 	    	content += "</tr>";
-	    		}
-	    	}
-	    	 $("#more_list tr:last").after(content); 
-         // id가 more_list 인 tr의 마지막에 content 값을 추가함
-	    } */
 </script>
 </head>
 <body>
 <c:import url="../headerSearch.jsp" />
 <section class="objet_allList">
-<h3 class="objet_title">OBJET ALL EXHIBITION</h3>
+<h3 class="objet_title"><a href="objetAllList.do">OBJET ALL EXHIBITION</a></h3>
 <section class="objet_more_section">
 <div class="search-option-cate">
-<span class="search-option">
+<!-- <span class="search-option">
     <a href="#" class="option on" data-type="accu">&nbsp;정확도</a>&nbsp;&nbsp;
     <a href="#" class="option" data-type="recency">&nbsp;최신순</a>&nbsp;&nbsp;
-</span>&nbsp;&nbsp;
-<div class="ui compact selection dropdown" id="dateoption">
+</span>&nbsp;&nbsp;-->
+<!-- <div class="ui compact selection dropdown" name="dateoption" id="dateoption">
   <div class="text">전체 기간</div>
   <i class="dropdown icon"></i>
   <div class="menu">
@@ -223,72 +216,45 @@ $(function() {
     <div class="item" data-value="2018" >2018</div>
 	<div class="item" data-value="2017" >2017</div>
 	<div class="item" data-value="2016" >2016</div>
-	<div class="item" data-value="2015" >2015</div>
-	<div class="item" data-value="2014" >2014</div>
-	<div class="item" data-value="2013" >2013</div>
   </div>
-</div>
+</div>  -->
 </div>
 <div class="objet_all_list">
+<c:forEach var="Objet" items="${objetList }">
+ <c:set var="length" value="${fn:length(Objet.objettitle)}"/>
 <div class="objet_list">
 <ul class="objet_ul">
 <li class="objet_li">
 	<div class="info">
-		<a href="">
-			<em class="tit01">Coco Capitan: <br>Is It Tomorrow Yet?</em>
-			<em class="tit02">나는 코코 카피탄, <br>오늘을 살아가는 너에게</em>
-			<span class="date">2018.08.02&nbsp;-&nbsp;2019.01.27</span>
+		<a href="objetOne.do?objetno=${Objet.objetno }">
+		  <c:choose>
+           <c:when test="${fn:length(Objet.objettitle) > 12}">
+            <em class="tit01"><c:out value="${fn:substring(Objet.objettitle,0,11)}"/><br>
+            <c:out value="${fn:substring(Objet.objettitle,11,23)}"/><br>
+            <c:out value="${fn:substring(Objet.objettitle,23,length)}"/></em>
+           </c:when>
+           <c:otherwise>
+            <em class="tit01"><c:out value="${Objet.objettitle}"/></em>
+           </c:otherwise> 
+			</c:choose>
+			<em class="tit02"><c:out value="${fn:substring(Objet.objettitle,0,11)}"/><br>
+			<c:out value="${fn:substring(Objet.objettitle,11,23)}"/></em> 
+			<span class="date"><fmt:formatDate value="${Objet.objetstartdate }" />&nbsp;-&nbsp;<fmt:formatDate value="${Objet.objetenddate }" /></span>
 		</a>
 	</div>
 	<span class="thumbnail">
-		<a href="">
-			<img src="resources/images/objet/objetmainposter.jpg" alt="나는 코코 카피탄, 오늘을 살아가는 너에게">
+		<a href="objetOne.do?objetno=${Objet.objetno }">
+			<img src="resources/images/objet/${Objet.renamemainposter }" alt="${Objet.objettitle }">
 		</a>
 	</span>
 </li>
 </ul>
 </div>
-<div class="objet_list">
-<ul class="objet_ul">
-<li class="objet_li">
-	<div class="info">
-		<a href="">
-			<em class="tit01">Coco Capitan: <br>Is It Tomorrow Yet?</em>
-			<em class="tit02">나는 코코 카피탄, <br>오늘을 살아가는 너에게</em>
-			<span class="date">2018.08.02&nbsp;-&nbsp;2019.01.27</span>
-		</a>
-	</div>
-	<span class="thumbnail">
-		<a href="">
-			<img src="resources/images/objet/objetmainposter.jpg" alt="나는 코코 카피탄, 오늘을 살아가는 너에게">
-		</a>
-	</span>
-</li>
-</ul>
-</div>
-<div class="objet_list">
-<ul class="objet_ul">
-<li class="objet_li">
-	<div class="info">
-		<a href="">
-			<em class="tit01">Coco Capitan: <br>Is It Tomorrow Yet?</em>
-			<em class="tit02">나는 코코 카피탄, <br>오늘을 살아가는 너에게</em>
-			<span class="date">2018.08.02&nbsp;-&nbsp;2019.01.27</span>
-		</a>
-	</div>
-	<span class="thumbnail">
-		<a href="">
-			<img src="resources/images/objet/objetmainposter.jpg" alt="나는 코코 카피탄, 오늘을 살아가는 너에게">
-		</a>
-	</span>
-</li>
-</ul>
-</div>
+</c:forEach>
 </div>
 <br><br>
 <center>
-<div class="ui basic large gray animated button" style="vertical-align:middle;" align="center" tabindex="0"  
-onclick="javascript:moreContent('more_list', 10);">
+<div class="ui basic large gray animated button" id="more_load" style="vertical-align:middle;" align="center">
  <div class="visible content">더보기</div>
  <div class="hidden content">
    <i class="ui chevron down icon" style="font-size:16px;vertical-align:middle;text-align:center"></i>

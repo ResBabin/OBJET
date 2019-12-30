@@ -593,30 +593,34 @@ box-shadow: 0px 0px 13px 5px gray;
 <div class="swiper-container swiper1">
   <div class="swiper-wrapper wrapper1">
     <div class="swiper-slide slide1">
-      <a href="${pageContext.servletContext.contextPath }/objetOne.do">
+      <a href="${pageContext.servletContext.contextPath }/objetOne.do?objetno=${objet.objetno}">
       <div class="slide-inner inner1" style="background-image:url(resources/images/objet/exhibi7.jpg)"></div>
       <div class="info"><span class="text">나는 코코 카피탄, <br> 오늘을 살아가는 너에게<br> 
       <span class="date">2019.08.02 - 2019.12.12<span></span><br></span></div></a>
     </div>
     <div class="swiper-slide slide1">
+    <a href="${pageContext.servletContext.contextPath }/objetOne.do?objetno=${objet.objetno}">
       <div class="slide-inner inner1" style="background-image:url(resources/images/objet/display2.jpg)"></div>
       <div class="info"><span class="text">나는 코코 카피탄, <br> 오늘을 살아가는 너에게<br> 
-      <span class="date">2019.08.02 - 2019.12.12<span></span><br></span></div>
+      <span class="date">2019.08.02 - 2019.12.12<span></span><br></span></div></a>
     </div>
     <div class="swiper-slide slide1">
+    <a href="${pageContext.servletContext.contextPath }/objetOne.do?objetno=${objet.objetno}">
       <div class="slide-inner inner1" style="background-image:url(resources/images/objet/exhibi4.jpg)"></div>
       <div class="info"><span class="text">나는 코코 카피탄, <br> 오늘을 살아가는 너에게<br> 
-      <span class="date">2019.08.02 - 2019.12.12<span></span><br></span></div>
+      <span class="date">2019.08.02 - 2019.12.12<span></span><br></span></div></a>
     </div>
     <div class="swiper-slide slide1" >
+    <a href="${pageContext.servletContext.contextPath }/objetOne.do?objetno=${objet.objetno}">
       <div class="slide-inner inner1" style="background-image:url(resources/images/objet/exhibi3.jpg)"></div>
       <div class="info"><span class="text">나는 코코 카피탄, <br> 오늘을 살아가는 너에게<br> 
-      <span class="date">2019.08.02 - 2019.12.12<span></span><br></span></div>
+      <span class="date">2019.08.02 - 2019.12.12<span></span><br></span></div></a>
     </div>
     <div class="swiper-slide slide1">
+    <a href="${pageContext.servletContext.contextPath }/objetOne.do?objetno=${objet.objetno}">
       <div class="slide-inner inner1" style="background-image:url(resources/images/objet/exhibi13.jpg)"></div>
       <div class="info"><span class="text">나는 코코 카피탄, <br> 오늘을 살아가는 너에게<br> 
-      <span class="date">2019.08.02 - 2019.12.12<span></span><br></span></div>
+      <span class="date">2019.08.02 - 2019.12.12<span></span><br></span></div></a>
     </div>
   </div>
   <div class="swiper-pagination swiper-pagination1"></div>
@@ -686,26 +690,29 @@ box-shadow: 0px 0px 13px 5px gray;
    <div class="swiper-container swiper2">
      <div class="swiper-wrapper wrapper2">
     <div class="swiper-slide slide2">
-      <a href="${pageContext.servletContext.contextPath }/objetOne.do">
+      <a href="${pageContext.servletContext.contextPath }/objetOne.do?objetno=${objet.objetno}">
       <div class="slide-inner inner2" style="background-image:url(resources/images/objet/exhibi1.jpg)"></div>
       <div class="info2"><span class="text2">나는 코코 카피탄, <br> 오늘을 살아가는 너에게<br> 
       <span class="artist2">by 코코 카피탄<span></span><br></span></div></a>
     </div>
     <div class="swiper-slide slide2">
+    <a href="${pageContext.servletContext.contextPath }/objetOne.do?objetno=${objet.objetno}">
       <div class="slide-inner inner2" style="background-image:url(resources/images/objet/exhibi5.jpg)"></div>
       <div class="info2"><span class="text2">To. 나의 오랜연인<br>
-      <span class="artist2">by 이지은<span></span><br></span></div>
+      <span class="artist2">by 이지은<span></span><br></span></div></a>
     </div>
     <div class="swiper-slide slide2">
+    <a href="${pageContext.servletContext.contextPath }/objetOne.do?objetno=${objet.objetno}">
       <div class="slide-inner inner2" style="background-image:url(resources/images/objet/display2.jpg)"></div>
       <div class="info2"><span class="text2">나는 코코 카피탄, <br> 오늘을 살아가는 너에게<br> 
-      <span class="artist2">by 코코 카피탄<span></span><br></span></div>
+      <span class="artist2">by 코코 카피탄<span></span><br></span></div></a>
     </div>
     <div class="swiper-slide slide2" >
+    <a href="${pageContext.servletContext.contextPath }/objetOne.do?objetno=${objet.objetno}">
       <div class="slide-inner inner2" style="background-image:url(resources/images/objet/exhibi12.jpg)"></div>
       <br>
       <div class="info2"><span class="text2">To. 나의 오랜연인<br></span>
-      <span class="artist2">by 이지은<span></span><br></span></div>
+      <span class="artist2">by 이지은<span></span><br></span></div></a>
     </div>
     <div class="swiper-slide slide2">
       <div class="slide-inner inner2" style="background-image:url(resources/images/objet/objetmainposter.jpg)"></div>

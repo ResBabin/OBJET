@@ -5,12 +5,36 @@
 <mapper namespace="objetMapper">
 <!-- 오브제 전체 리스트   -->
 <select id="selectObjetAll" resultType="Objet">
- select * from objet order by OBJETREGIDATE desc
+ select objetno, userid, objettitle, objetintro, originmainposter, renamemainposter, objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview 
+ from objet
+ where objetstatus = 'OPEN' and publicyn = 'Y' or objetstatus = 'STANDBY' 
+ order by objetstartdate desc
  </select>
  
  <!-- 작가 전체 리스트   -->
 <select id="selectArtistAll" resultType="Artist">
- select * from objet a join users b on a.userid = b.userid order by objetregidate desc
+select distinct userid, usertype, username, nickname, quityn, blackyn, useropic, userrpic,
+userintros, userintrol, usertag, portfolio, objetstatus, originmainposter, renamemainposter, objettag
+from (select a.userid, a.usertype, a.username, a.nickname, a.quityn, a.blackyn, b.useropic, b.userrpic, b.userintros, b.userintrol, b.usertag, b.portfolio, 
+c.objetstatus, c.originmainposter, c.renamemainposter, c.objettag from users a
+join usersprofile b on a.userid = b.userid
+left outer join objet c on a.userid = c.userid
+where quityn = 'N' and blackyn = 'N')
+order by objetstatus asc
+</select>
+<!-- 작가 전체 리스트 정렬  -->
+<select id="selectArtistListOrder" resultType="Artist" parameterType="string">
+select distinct userid, usertype, username, nickname, quityn, blackyn, useropic, userrpic,
+userintros, userintrol, usertag, portfolio, objetstatus, originmainposter, renamemainposter, objettag
+from (select a.userid, a.usertype, a.username, a.nickname, a.quityn, a.blackyn, b.useropic, b.userrpic, b.userintros, b.userintrol, b.usertag, b.portfolio, 
+c.objetstatus, c.originmainposter, c.renamemainposter, c.objettag from users a
+join usersprofile b on a.userid = b.userid
+left outer join objet c on a.userid = c.userid
+where quityn = 'N' and blackyn = 'N')
+<trim prefix="order by">
+<if test="_parameter=='statusasc'"> objetstatus asc</if>
+<if test="_parameter=='nameasc'"> nickname asc</if>
+</trim>
 </select>
  
 <!-- 오브제 검색 결과 리스트(전시/작가)  -->
@@ -21,14 +45,18 @@
  select * form objet a join users b on a.userid = b.userid where a.userid like '%' || #{userid} || '%' or nickname like '%' || #{nickname} || '%' order by #{objetstartdate} asc
 </select> 
  
- <!-- 오브제 단일   -->
- <select id="selectObjetOne" resultType="Objet">
- select * from objet where objetno = #{objetno}
+ <!-- 오브제 하나   -->
+ <select id="selectObjetOne" resultType="Artist">
+ select * from objet a
+ join usersprofile b on a.userid = b.userid
+ join users c on a.userid = c.userid
+ where objetno = #{objetno}
  </select>
  
  <!-- 전시 신고 -->
  <insert id="insertObjetReport" parameterType="ReportBoard">
- 	insert into reportboard values ( #{originno}, #{reportedb}, #{reporterb}, sysdate, #{reportreason}, #{reportbtype}) 
+ 	insert into reportboard values 
+ 	(#{originno}, #{reportedb}, #{reporterb}, #{reportbtype}, sysdate, #{reportbreason}) 
  </insert>
  
  <!-- 한줄평 리스트  -->

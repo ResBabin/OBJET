@@ -19,20 +19,21 @@ public class ObjetServiceImpl implements ObjetService{
 	
 	@Override
 	public ArrayList<Objet> selectObjetAllList() {
-		// TODO Auto-generated method stub
-		return null;
+		return objetDao.selectObjetAllList();
 	}
 
 	@Override
 	public ArrayList<Artist> selectArtistAllList() {
-		// TODO Auto-generated method stub
-		return null;
+		return objetDao.selectArtistAllList();
+	}
+	
+	public ArrayList<Artist> selectArtistListOrder(String order) {
+		return objetDao.selectArtistListOrder(order);
 	}
 
 	@Override
 	public int insertObjetReport(ReportBoard rb) {
-		// TODO Auto-generated method stub
-		return 0;
+		return objetDao.insertObjetReport(rb);
 	}
 
 	@Override
@@ -42,11 +43,16 @@ public class ObjetServiceImpl implements ObjetService{
 	}
 
 	@Override
-	public Objet selectObjetOne(int objetno) {
-		// TODO Auto-generated method stub
-		return null;
+	public Artist selectObjetOne(int objetno) {
+		return objetDao.selectObjetOne(objetno);
 	}
 
+	@Override
+	public int insertReviewReport(ReportBoard rb) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 	
 	// 최민영 *******************************************************
 	
@@ -124,5 +130,9 @@ public class ObjetServiceImpl implements ObjetService{
 	public int deleteObjet(int objetno) {
 		return objetDao.deleteObjet(objetno);
 	}
+
+	
+
+	
 	
 }

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,8 +34,28 @@ html, body { height: 100%; margin: 0; padding: 0; }
     letter-spacing: 1px;
     padding:0;
 }
+.objet_title a{
+	font-family: 'Nanum Myeongjo';
+	font-weight: bold;
+    font-size: 32px;
+    text-align: center;
+    letter-spacing: 1px;
+    text-decoration:none;
+    padding:0;
+    color:rgba(0,0,0.87);
+}
+.objet_title a:hover{
+	font-family: 'Nanum Myeongjo';
+	font-weight: bold;
+    font-size: 32px;
+    text-align: center;
+    letter-spacing: 1px;
+    text-decoration:none;
+    padding:0;
+    color:#959595;
+}
 .objet_more_section {
-	margin:0 60px 10px 10px;
+	margin:0 60px 40px 10px;
 	height:auto;
 }
 .objet_subtitle{
@@ -93,8 +115,10 @@ html, body { height: 100%; margin: 0; padding: 0; }
   width: 100%; 
   height: 100%;
   margin-left:5%;
+  margin-top: 10px;
 }
 .artist_card {
+display:none; 
   position: relative;
   overflow: hidden;
   margin: 10px;
@@ -106,6 +130,7 @@ html, body { height: 100%; margin: 0; padding: 0; }
   float:left;
   /* border: 1px solid #ccc; */
   margin-right:40px;
+  margin-bottom: 40px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 .artist_card * {
@@ -124,6 +149,7 @@ html, body { height: 100%; margin: 0; padding: 0; }
 }
 .profile_back {
   max-width: 100%;
+  height : 210px;
   opacity: 0.6;
   -webkit-filter: grayscale(100%);
   filter: gray;
@@ -147,6 +173,7 @@ html, body { height: 100%; margin: 0; padding: 0; }
 
 .artist_card figcaption {
   width: 100%;
+  height: 254px;
   background-color: #ffffff;
   padding: 25px;
   position: relative;
@@ -157,7 +184,10 @@ html, body { height: 100%; margin: 0; padding: 0; }
   position: absolute;
   bottom: 90%;
   left: 105px;
-  max-width: 100px;
+  max-width: 110px;
+  max-height:110px;
+  width:110px;
+  height:110px;
   opacity: 1;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   align:center;
@@ -192,6 +222,7 @@ html, body { height: 100%; margin: 0; padding: 0; }
   text-align:center;
   line-height: 20px;
   font-weight: normal; 
+  height: 40px;
 }
 .artist_card #tag {
 	margin: 20px 5px 15px 0px;
@@ -205,142 +236,140 @@ $(function() {
   		$(".search-option .i .off").removeClass("off");
   		$(".search-option .i").addClass("off");
   	});
+  	
+  //더보기 버튼
+  	$(".artist_card").slice(0, 4).fadeIn(); // 최초 4개 선택
+  	$("#more_load").click(function(e) { // Load More를 위한 클릭 이벤트e
+  	    e.preventDefault();
+  	    $(".artist_card:hidden").slice(0, 4).fadeIn(); // 숨김 설정된 다음 4개를 선택하여 표시
+  	    if ($(".artist_card:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
+  	        $('#more_load').fadeOut();// 더 이상 로드할 항목이 없는 경우
+  	    }
+  	});
+  	
 });
 
-//더보기 버튼 함수
-/* function moreContent(id, cnt){
-	var list_length = $("#"+id+" tr").length-1; //tr갯수 구하기 , 1을 빼는 이유는 제목,작성자 tr이 하나 존재하기 때문.
-	var aname = id+"_btn";
-	var callLength = list_length;
-	$('#startCount').val(callLength);
-	$('#viewCount').val(cnt);
-	    $.ajax({
-	        type    :   "post",
-	        url     :   "/getMoreContents_ajax.do",
-	        data    :   $('#searchTxtForm').serialize(),
-	        dataType:   "json",
-	        success :   function(result) {
-	                       if(result.resultCnt > 0){
-	                    	   var list = result.resultList;
-	                    		   if(resultVO.title != '') {
-	                    			 $('#'+aname).attr('href',"javascript:moreContent('"+id+"', "+cnt+");");
-	                    			   getMoreList(list);
-	                    		   }else{
-	                    			$("#"+id+"_div").remove();
-	                    		   }
-	                    	   }
-	                       }else{
-	                       }
-	                    },
-	        error   :   function(request,status,error){
-	                    alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
-	                    }
-	    });
-	    
-	    function getMoreList(list){
-	    	var content = "";
-	    	var length = list.length;
-	    	for(i=0; i<list.length; i++){
-	    		var resultVO = list[i];
-	    		if(resultVO.title != ''){
-   	    		content += "<tr>";
-   	   	    	content += "<td>"+resultVO.title+"</td>";
-   	   	    	content += "<td>"+resultVO.reg_date+"</td>";
-   	 	    	content += "</tr>";
-	    		}
-	    	}
-	    	 $("#more_list tr:last").after(content); 
-         // id가 more_list 인 tr의 마지막에 content 값을 추가함
-	    } */
+//전시중 ajax
+	function artistOrder(order){
+	  	$.ajax({
+			url : "artistOrder.do",
+			type : "post",
+			data : { order : order },
+			dataType : "json",
+			success : function(result){
+				var objStr = JSON.stringify(result);
+				var jsonObj = JSON.parse(objStr);
+				var values = "";
+				for ( var i in jsonObj.list) {
+					var length = decodeURIComponent(jsonObj.list[i].userintrol.replace(/\+/gi, " ")).length;
+					var newline = "\n";
+					var noimages = "'resources/images/noimg2.jpg'";
+					var noimg = "'resources/images/noimg.jpg'";
+					var tagl = decodeURIComponent(jsonObj.list[i].usertag.replace(/\+/gi, " ")).length;
+					var tags = decodeURIComponent(jsonObj.list[i].usertag.replace(/\+/gi, " ")).split(',');
+					var userintrol = decodeURIComponent(jsonObj.list[i].userintrol.replace(/\+/gi, " "));
+					values += '<figure class="artist_card hover">'+
+						'<div class="img_blur">'+
+						'<img src="resources/images/objet/' + jsonObj.list[i].renamemainposter + '" onerror="this.src=' + noimages + '"' + ' class="profile_back"></div>' +
+						  '<a href=""><figcaption>' +
+						   '<img src="resources/users_upfiles/' + jsonObj.list[i].userrpic + '" onerror="this.src=' + noimg + '"' + ' class="profile_pic">' +
+						    '<h2>' + decodeURIComponent(jsonObj.list[i].nickname.replace(/\+/gi, " ")) +
+						    '<span>' + decodeURIComponent(jsonObj.list[i].userintros.replace(/\+/gi, " ")) + '</span></h2>';
+					         if(length < 60){
+					        	values += '<p>' + userintrol.replace(/\\n/gi, "<br/>") + '</p>' ;
+					        }else{
+					        	values += '<p>' + userintrol.substring(0,30) + '...</p>' ;
+					        } 
+					values += '<center>';
+					     for(var i in tags){
+					    	if(tagl < 4){
+					    		values +='<a href="" id="tag" class="ui basic small gray circular button">' + tags[i] + '</a>' ;
+							}else{
+								values +='<a href="" id="tag" class="ui basic small gray circular button">' + tags[i] + '</a>' ;
+							}
+					    } 
+					     values += '<a href="" id="tag" class="ui basic small gray circular button">...</a>' +
+						   '</center>' +
+						  '</figcaption></a>' +
+						'</figure>';
+				}
+				
+				$(".artist_card").empty().before(values);
+				$(".artist_card").slice(0, 4).fadeIn();
+				$("#more_load").show();
+				$("#more_load").click(function(e) { 
+			  	    e.preventDefault();
+			  	    $(".artist_card:hidden").slice(0, 4).fadeIn(); 
+			  	    if ($(".artist_card:hidden").length == 0) { 
+			  	        $('#more_load').fadeOut();
+			  	    }
+			  	});
+				console.log("ok : " + order);
+			},
+			error : function(jqXHR, textStatus, errorThrown){
+				console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+			}
+		});// 전시중 ajax
+	}
 </script>
 </head>
 <body>
 <c:import url="../headerSearch.jsp" />
 <section class="artist_allList">
-<h3 class="objet_title">OBJET ALL ARTIST</h3>
+<h3 class="objet_title"><a href="artistAllList.do">OBJET ALL ARTIST</a></h3>
 <section class="objet_more_section">
 <div class="search-option-cate">
 <span class="search-option">
-    <a href="#" class="option on" data-type="accu">&nbsp;전시중인순</a>&nbsp;&nbsp;
-    <a href="#" class="option" data-type="recency">&nbsp;가나다순</a>&nbsp;&nbsp;
+    <a href="javascript:void(0);" onclick="artistOrder('statusasc');" class="option on" data-type="accu">&nbsp;전시중인순</a>&nbsp;&nbsp;
+    <a href="javascript:void(0);" onclick="artistOrder('nameasc');" class="option" data-type="recency">&nbsp;가나다순</a>&nbsp;&nbsp;
 </span>&nbsp;&nbsp;
 </div>
 <div class="artist_pic">
 <div class="artist_pic_main">
+<c:if test="${artistList != null && list == null}">
+<c:forEach var="Artist" items="${artistList }">
+<c:set var="length" value="${fn:length(Artist.userintrol)}"/>
+<c:set var="newline" value="\n" />
+<c:set var="noimages" value="resources/images/noimg2.jpg" />
+<c:set var="noimg" value="resources/images/noimg.jpg" />
+<c:set var="tagl" value="${fn:length(Artist.usertag)}"/>
 <figure class="artist_card hover">
 <div class="img_blur">
-<img src="resources/images/objet/나의오랜연인에게커버.jpg" class="profile_back"></div>
-  <figcaption>
-    <img src="resources/images/objet/나의 오랜 연인에게2.jpg" class="profile_pic">
-    <h2>이지은<span>창작가</span></h2>
-    <p>본업은 가수. <br>장래희망은 창작가. <br>예술가입니다.</p>
+<img src="resources/images/objet/${Artist.renamemainposter }" onerror="this.src='${noimages }'"  class="profile_back"></div>
+  <a href="artistHomeMain.do?userid=${Artist.userid }"><figcaption>
+   <img src="resources/users_upfiles/${Artist.userrpic }" onerror="this.src='${noimg }'" class="profile_pic">
+    <h2><c:out value="${Artist.nickname}"/>
+    <span><c:out value="${Artist.userintros}"/></span></h2>
+    <c:choose>
+        <c:when test="${length < 65}">
+        <p>${fn:replace(Artist.userintrol, newline, '<br>')}</p>
+        </c:when>
+        <c:otherwise>
+         <p><c:out value="${fn:substring(Artist.userintrol,0,30)}"/>...</p>
+        </c:otherwise> 
+	</c:choose>
     <center>
-    <a href="" id="tag" class="ui basic small gray circular button">디자인</a>
-    <a href="" id="tag" class="ui basic small gray circular button">사진</a>
-    <a href="" id="tag" class="ui basic small gray circular button">기타</a>
-    <center>
-  </figcaption>
+    <c:forTokens var="tags" items="${Artist.usertag }" delims=",">
+    <c:choose>
+        <c:when test="${tagl < 4}">
+        <a href="" id="tag" class="ui basic small gray circular button">${tags}</a>
+        </c:when>
+        <c:otherwise>
+        <a href="" id="tag" class="ui basic small gray circular button">${tags}</a>
+        </c:otherwise>
+	</c:choose>
+    </c:forTokens>
+    <a href="" id="tag" class="ui basic small gray circular button">...</a>
+    </center>
+  </figcaption></a>
 </figure>
-<figure class="artist_card hover">
-<div class="img_blur">
-<img src="resources/images/objet/나의오랜연인에게커버.jpg" class="profile_back"></div>
-  <figcaption>
-    <img src="resources/images/objet/나의 오랜 연인에게2.jpg" class="profile_pic">
-    <h2>이지은<span>창작가</span></h2>
-    <p>본업은 가수. <br>장래희망은 창작가. <br>예술가입니다.</p>
-    <center>
-    <a href="" id="tag" class="ui basic small gray circular button">디자인</a>
-    <a href="" id="tag" class="ui basic small gray circular button">사진</a>
-    <a href="" id="tag" class="ui basic small gray circular button">기타</a>
-    <center>
-  </figcaption>
-</figure>
-<figure class="artist_card hover">
-<div class="img_blur">
-<img src="resources/images/objet/나의오랜연인에게커버.jpg" class="profile_back"></div>
-  <figcaption>
-    <img src="resources/images/objet/나의 오랜 연인에게2.jpg" class="profile_pic">
-    <h2>이지은<span>창작가</span></h2>
-    <p>본업은 가수. <br>장래희망은 창작가. <br>예술가입니다.</p>
-    <center>
-    <a href="" id="tag" class="ui basic small gray circular button">디자인</a>
-    <a href="" id="tag" class="ui basic small gray circular button">사진</a>
-    <a href="" id="tag" class="ui basic small gray circular button">기타</a>
-    <center>
-  </figcaption>
-</figure>
-<figure class="artist_card hover">
-<div class="img_blur">
-<img src="resources/images/objet/나의오랜연인에게커버.jpg" class="profile_back"></div>
-  <figcaption>
-    <img src="resources/images/objet/나의 오랜 연인에게2.jpg" class="profile_pic">
-    <h2>이지은<span>창작가</span></h2>
-    <p>본업은 가수. <br>장래희망은 창작가. <br>예술가입니다.</p>
-    <center>
-    <a href="" id="tag" class="ui basic small gray circular button">디자인</a>
-    <a href="" id="tag" class="ui basic small gray circular button">사진</a>
-    <a href="" id="tag" class="ui basic small gray circular button">기타</a>
-    <center>
-  </figcaption>
-</figure>
-	<script type="text/javascript">
-	//Follow Button Effect
-	$(document).ready(function iniciar(){
-		$('#like').on("click", function(){
-			$('#like').css('background-color','red');
-		});	
-		$(".hover").mouseleave(function () {
-			$(this).removeClass("hover");
-		});
-	});
-	</script>
+</c:forEach>
+</c:if>
 </div>
 </div>
-<br><br>
 </section>
 <center>
-<div class="ui basic large gray animated button" style="vertical-align:middle;" align="center" tabindex="0"  
-onclick="javascript:moreContent('more_list', 10);">
+<div class="ui basic large gray animated button" id="more_load" style="vertical-align:middle;" align="center">
  <div class="visible content">더보기</div>
  <div class="hidden content">
    <i class="ui chevron down icon" style="font-size:16px;vertical-align:middle;text-align:center"></i>

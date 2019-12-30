@@ -9,11 +9,14 @@ import com.kh.objet.reportboard.model.vo.ReportBoard;
 
 public interface ObjetService {
 	
+	//박예은
 	ArrayList<Objet> selectObjetAllList();
 	ArrayList<Artist> selectArtistAllList();
+	ArrayList<Artist> selectArtistListOrder(String order);
 	int insertObjetReport(ReportBoard rb);
+	int insertReviewReport(ReportBoard rb);
 	ArrayList<Objet> selectObjetSearchList(String keyword);
-	Objet selectObjetOne(int objetno);
+	Artist selectObjetOne(int objetno);
 	
 	// 최민영
 	int selectArtistObjetGetListCount(String userid);
