@@ -73,7 +73,7 @@ public class ReportBoard implements Serializable{
 	private int revgood;
 	private int revhate;
 	private Date revdate;
-	private int reportCount;
+	private int reportcount;
 	
 	public ReportBoard() {
 	}
@@ -89,7 +89,7 @@ public class ReportBoard implements Serializable{
 			String objetintro6, String objetofile6, String objetrfile6, String objettitle7, String objetintro7,
 			String objetofile7, String objetrfile7, String objettitle8, String objetintro8, String objetofile8,
 			String objetrfile8, String revcontent, int revstars, int revgood, int revhate, Date revdate,
-			int reportCount) {
+			int Reportcount) {
 		super();
 		this.originno = originno;
 		this.reportedb = reportedb;
@@ -147,7 +147,7 @@ public class ReportBoard implements Serializable{
 		this.revgood = revgood;
 		this.revhate = revhate;
 		this.revdate = revdate;
-		this.reportCount = reportCount;
+		this.reportcount = reportcount;
 	}
 
 	public int getOriginno() {
@@ -598,12 +598,12 @@ public class ReportBoard implements Serializable{
 		this.revdate = revdate;
 	}
 
-	public int getReportCount() {
-		return reportCount;
+	public int getReportcount() {
+		return reportcount;
 	}
 
-	public void setReportCount(int reportCount) {
-		this.reportCount = reportCount;
+	public void setReportcount(int reportcount) {
+		this.reportcount = reportcount;
 	}
 
 	@Override
@@ -626,7 +626,7 @@ public class ReportBoard implements Serializable{
 				+ ", objetofile7=" + objetofile7 + ", objetrfile7=" + objetrfile7 + ", objettitle8=" + objettitle8
 				+ ", objetintro8=" + objetintro8 + ", objetofile8=" + objetofile8 + ", objetrfile8=" + objetrfile8
 				+ ", revcontent=" + revcontent + ", revstars=" + revstars + ", revgood=" + revgood + ", revhate="
-				+ revhate + ", revdate=" + revdate + ", reportCount=" + reportCount + "]";
+				+ revhate + ", revdate=" + revdate + ", reportcount=" + reportcount + "]";
 	}
 	
 	

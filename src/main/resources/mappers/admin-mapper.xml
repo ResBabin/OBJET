@@ -146,18 +146,18 @@
 
 	<!-- 신고게시글 전체조회 -->
  	<select id="selectReportAll" resultType="ReportBoard">
-		select originno,
-		reportedb ,count(originno)
+		select originno, 
+		reportedb ,count(originno) as "reportcount", reportbtype
 		from reportboard
-		group by originno, reportedb
+		group by originno, reportedb, reportbtype
 	</select> 
 
 	<!-- 신고게시글 사유별 조회 -->
 	<select id="selectReportAllList" resultType="ReportBoard" parameterType="map">
-		select count(reportbreason) as "reportcount", reportbreason, reporterb
+		select count(reportbreason) as "reportcount", reportbreason, reporterb, reportbdate
 		from reportboard
 		where originno = #{originno} and reportedb = #{reportedb}
-		group by reportbreason, reporterb
+		group by reportbreason, reporterb, reportbdate
 	</select>
 
 
@@ -178,4 +178,4 @@
 	</select>
 
 
-</mapper>
+</mapper> 
