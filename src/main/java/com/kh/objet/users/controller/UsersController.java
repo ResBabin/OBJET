@@ -144,7 +144,7 @@ public class UsersController {
 			UAUP loginUser = usersService.selectUsersLogin(users);
 			
 			String vfn = "main";
-			if(loginUser != null) {
+			if(loginUser != null && loginUser.getQuityn().equals("N")) {
 				session.setAttribute("loginUser", loginUser);
 			}else {
 				vfn = "user/loginAgain";
@@ -331,14 +331,39 @@ public class UsersController {
 		
 	// 작가 신고하기 페이지 이동
 		@RequestMapping("moveProfileReport.do")
-		public String moveProfileReport(@RequestParam(value="artistid") String artistid) {
+		public String moveProfileReport(@RequestParam(value="reportedu") String reportedu, Model model) {
+			model.addAttribute("reportedu", reportedu);
 			return "artistHome/profileReport";
 		}
 		
 	// 작가 신고하기
 		@RequestMapping("insertUsersReport.do")
-		public String insertUsersReport(ReportUDetail reportUDetail, Model model) {
-			return "artistHome/artistHomeMain";
+		public void insertUsersReport(ReportUDetail reportUDetail, @RequestParam(value="etc") String etc, HttpServletResponse response, Model model) throws IOException {
+			int result1, result2 = 0;
+			// 기타 사유가 있으면
+			if(reportUDetail.getReportureason().equals("기타")) {
+				reportUDetail.setReportureason(etc);
+			}
+			
+			String returnValue = null;
+			// 7일 이내 중복 신고가 있는지 확인
+			result1 = usersService.selectUsersReportOverlap(reportUDetail);
+			if(result1 > 0) {
+				returnValue = "overlap";
+			} else {
+				// 중복 신고가 없다면
+				result2 = usersService.insertUsersReport(reportUDetail);
+				if(result2 > 0) 
+					returnValue = "ok";
+				else 
+					returnValue = "fail";
+			}
+			
+			
+			PrintWriter out = response.getWriter();
+			out.append(returnValue);
+			out.flush();
+			out.close();
 		}
 		
 

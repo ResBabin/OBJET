@@ -1,6 +1,7 @@
 package com.kh.objet.objet.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -12,7 +13,6 @@ import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
-import com.sun.rowset.internal.Row;
 
 @Repository("objetDao")
 public class ObjetDao {
@@ -49,17 +49,12 @@ public class ObjetDao {
 	// 최민영
 	// 작가홈 오브제 리스트카운트
 	public int selectArtistObjetGetListCount(String userid) {
-		return mybatisSession.selectOne("", userid);
+		return mybatisSession.selectOne("objetMapper.selectArtistObjetGetListCount", userid);
 	}
 
 	// 작가홈 오브제 리스트 보기
-	public ArrayList<Objet> selectArtistObjetList(String userid, Paging paging) {
-		int offset = 0;
-		int limit = 0;
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		
-		List<Objet> list = mybatisSession.selectList("", userid, rowBounds);
-		return (ArrayList<Objet>) list;
+	public List<Objet> selectArtistObjetList(HashMap<String, Object> map) {
+		return mybatisSession.selectList("objetMapper.selectArtistObjetList",map);
 	}
 
 	// 작가홈 오브제 검색용 리스트카운트

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +25,7 @@
 <!-- 팔로잉 목록 페이지 시작! -->
 	<div class="wrapFollowingPage">
 	
-		<p style="font-size: 23pt; padding-top:50px; color:#373737; text-align:center;">이 작가를 구독하는 <span style="color:#2bddbe;font-size: 23pt;" id="count">12</span>명</p>
+		<p style="font-size: 23pt; padding-top:50px; color:#373737; text-align:center;">이 작가를 구독하는 <span style="color:#2bddbe;font-size: 23pt;" id="count">${fn:length(followerList)} </span>명</p>
 		<br><br>
 		<center>
 		<div style="text-decoration: underline; color: #aaa; margin-top: -30px;">&emsp;&emsp;&emsp;</div>
@@ -32,21 +33,24 @@
 		
 		<div class="followingList">
 				<table class="eachFollwing">
+				<c:forEach var="list" items="${followerList }">
 					<tr>
-						<td style="width:10%"><div class="profileImage3" style="background-image:url('resources/images/basicprofilepic.png') "></div></td>
-						<td style="width:70%; text-align: left;"><span style="font-size: 15pt;">김맛아몬드</span><br>
-																<span style="font-size: 10pt; color:#aaa;">개발자</span></td>
-						<td style="width:20%"><button class="small ui teal button" onclick="" style="display:none;">구독중</button>
-												<button class="small ui teal basic button" onclick="" >구독하기</button></td>
+						<td style="width:10%"><c:if test="${list.userrpic == null }">
+												<div class="profileImage3" onclick="location.href='artistHomeMain.do?userid=${list.userid}'" style="background-image:url('resources/images/basicprofilepic.png') "></div>
+											</c:if>
+											<c:if test="${list.userrpic != null }">
+												<div class="profileImage3" onclick="location.href='artistHomeMain.do?userid=${list.userid}'" style="background-image:url('resources/users_upfiles/${list.userrpic}') "></div>
+											</c:if>
+						</td>
+						<td style="width:70%; text-align: left;"><span style="font-size: 15pt;" onclick="location.href='artistHomeMain.do?userid=${list.userid}'">${list.nickname }</span><br>
+																<span style="font-size: 10pt; color:#aaa;">${list.userintros }</span></td>
+						<td style="width:20%"><c:if test="${list.followyn eq'Y' }"><button class="small ui teal button" onclick="">구독중</button></c:if>
+											 <c:if test="${list.followyn eq 'N' }"><button class="small ui teal basic button" onclick="" >구독하기</button></c:if>
+											 <c:if test="${list.followyn eq 'E' }">&ensp;</c:if>
+											 
+						</td>
 					<tr>
-					
-					<tr>
-						<td style="width:10%"><div class="profileImage3" style="background-image:url('resources/images/basicprofilepic.png') "></div></td>
-						<td style="width:70%; text-align: left;"><span style="font-size: 15pt;">김맛아몬드</span><br>
-																<span style="font-size: 10pt; color:#aaa;">개발자</span></td>
-						<td style="width:20%"><button class="small ui teal button" onclick="" style="display:none;">구독중</button>
-												<button class="small ui teal basic button" onclick="">구독하기</button></td>
-					<tr>
+				</c:forEach>	
 				</table>
 				
 				<br><br>

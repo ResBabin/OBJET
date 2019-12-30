@@ -9,6 +9,6 @@ public interface FeedService {
 
 	// 최민영 *****************************
 	int feedListCount(String userid);
-	ArrayList<Feed> moveFeedList(String userid, Paging paging);
+	ArrayList<Feed> moveFeedList(String artistid);
 	int deleteFeed(int feedno);
 }

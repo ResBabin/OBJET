@@ -1,6 +1,8 @@
 package com.kh.objet.objet.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
@@ -17,7 +19,7 @@ public interface ObjetService {
 	
 	// 최민영
 	int selectArtistObjetGetListCount(String userid);
-	ArrayList<Objet> selectArtistObjetList(String userid, Paging paging);
+	List<Objet> selectArtistObjetList(HashMap<String, Object> map);
 	int selectArtistObjetSearchGetListCount(String objettitle);
 	ArrayList<Objet> selectArtistObjetSearch(String objettitle, Paging paging);
 	

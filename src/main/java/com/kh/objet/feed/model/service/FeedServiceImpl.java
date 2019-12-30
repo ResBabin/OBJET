@@ -24,8 +24,8 @@ public class FeedServiceImpl implements FeedService{
 	
 	// 피드알림 페이지 이동
 	@Override
-	public ArrayList<Feed> moveFeedList(String userid, Paging paging) {
-		return feedDao.moveFeedList(userid, paging);
+	public ArrayList<Feed> moveFeedList(String artistid) {
+		return feedDao.moveFeedList(artistid);
 	}
 
 	// 피드알림 삭제

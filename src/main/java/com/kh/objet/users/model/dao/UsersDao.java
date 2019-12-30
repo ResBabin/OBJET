@@ -85,7 +85,12 @@ public class UsersDao {
 
 	// 작가 신고하기
 	public int insertUsersReport(ReportUDetail reportUDetail) {
-		return mybatisSession.insert("", reportUDetail);
+		return mybatisSession.insert("userMapper.insertUsersReport", reportUDetail);
+	}
+
+	// 작가 중복신고 확인
+	public int selectUsersReportOverlap(ReportUDetail reportUDetail) {
+		return mybatisSession.selectOne("userMapper.selectUsersReportOverlap",reportUDetail);
 	}
 
 

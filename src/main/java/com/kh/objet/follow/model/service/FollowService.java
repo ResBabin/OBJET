@@ -1,16 +1,16 @@
 package com.kh.objet.follow.model.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import com.kh.objet.follow.model.vo.Follow;
 import com.kh.objet.follow.model.vo.Follower;
 import com.kh.objet.follow.model.vo.Following;
-import com.kh.objet.paging.model.vo.Paging;
 
 public interface FollowService {
 	
 	int FollowingGetListCount(String userid);
 	
-	ArrayList<Following> moveFollowingPage(String userid, Paging paging);
+	List<Following> moveFollowingPage(String artistid);
 	
 	int insertFollowing(Following following);
 	
@@ -20,9 +20,12 @@ public interface FollowService {
 	
 	int FollowerGetListCount(String userid);
 	
-	ArrayList<Follower> moveFollowerPage(String userid, Paging paging);
+	List<Follow> moveFollowerPage(String artistid);
+	
+	int selectFollowingList(Following following);
 	
 	int insertFollower(Follower follower);
 	
 	int deleteFollower(Follower follower);
+
 }

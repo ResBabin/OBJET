@@ -1,14 +1,14 @@
 package com.kh.objet.follow.model.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.objet.follow.model.dao.FollowDao;
+import com.kh.objet.follow.model.vo.Follow;
 import com.kh.objet.follow.model.vo.Follower;
 import com.kh.objet.follow.model.vo.Following;
-import com.kh.objet.paging.model.vo.Paging;
 
 @Service("followService")
 public class FollowServiceImpl implements FollowService{
@@ -24,8 +24,8 @@ public class FollowServiceImpl implements FollowService{
 
 	// 팔로잉 보기
 	@Override
-	public ArrayList<Following> moveFollowingPage(String userid, Paging paging) {
-		return followDao.moveFollowingPage(userid, paging);
+	public List<Following> moveFollowingPage(String artistid) {
+		return followDao.moveFollowingPage(artistid);
 	}
 
 	// 팔로우 하기
@@ -40,6 +40,8 @@ public class FollowServiceImpl implements FollowService{
 		return followDao.deleteFollowing(following);
 	}
 
+	
+	
 	// 팔로워 리스트카운트용
 	@Override
 	public int FollowerGetListCount(String userid) {
@@ -48,9 +50,18 @@ public class FollowServiceImpl implements FollowService{
 
 	// 팔로워 보기
 	@Override
-	public ArrayList<Follower> moveFollowerPage(String userid, Paging paging) {
-		return followDao.moveFollowerPage(userid, paging);
+	public List<Follow> moveFollowerPage(String artistid) {
+		return followDao.moveFollowerPage(artistid);
 	}
+	
+	// 팔로우 여부를 알기위해 로그인 유저의 팔로잉 확인
+	public int selectFollowingList(Following following) {
+		return followDao.selectFollowingList(following);
+	}
+		
+		
+		
+		
 
 	// 팔로워 증가
 	@Override
@@ -63,5 +74,8 @@ public class FollowServiceImpl implements FollowService{
 	public int deleteFollower(Follower follower) {
 		return followDao.deleteFollower(follower);
 	}
+
+
+	
 
 }
