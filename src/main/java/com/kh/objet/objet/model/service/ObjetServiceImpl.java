@@ -12,6 +12,7 @@ import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
+import com.kh.objet.review.model.vo.Review;
 
 @Service("objetService")
 public class ObjetServiceImpl implements ObjetService{
@@ -55,6 +56,17 @@ public class ObjetServiceImpl implements ObjetService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	@Override
+	public ArrayList<Review> selectReview() {
+		return objetDao.selectReview();
+	}
+	
+	public Review selectReviewOne(String userid) {
+		return objetDao.selectReviewOne(userid);
+	}
+	
+	
 	
 	
 	// 최민영 *******************************************************
@@ -133,6 +145,10 @@ public class ObjetServiceImpl implements ObjetService{
 	public int deleteObjet(int objetno) {
 		return objetDao.deleteObjet(objetno);
 	}
+
+	
+
+
 
 	
 

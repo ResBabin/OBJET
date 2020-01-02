@@ -249,7 +249,7 @@ $(function() {
   	
 });
 
-//전시중 ajax
+//정렬 ajax
 	function artistOrder(order){
 	  	$.ajax({
 			url : "artistOrder.do",
@@ -282,19 +282,22 @@ $(function() {
 					        } 
 					values += '<center>';
 					     for(var i in tags){
-					    	if(tagl < 4){
-					    		values +='<a href="" id="tag" class="ui basic small gray circular button">' + tags[i] + '</a>' ;
-							}else{
-								values +='<a href="" id="tag" class="ui basic small gray circular button">' + tags[i] + '</a>' ;
-							}
-					    }
-					     values += '<a href="" id="tag" class="ui basic small gray circular button">...</a>' +
-						   '</center>' +
+
+					    	values +='<a href="" id="tag" class="ui basic small gray circular button">' + tags[i] + '</a>' ;
+					    	
+					    } 
+					    
+					     
+						if(tagl > 4){
+					     values += '<a href="" id="tag" class="ui basic small gray circular button">...</a>'; 
+						}
+						values +=  '</center>' +
+
 						  '</figcaption></a>' +
 						'</figure>';
 				}
 				
-				$(".artist_card").empty().before(values);
+				$(".artist_pic_main").html(values);
 				$(".artist_card").slice(0, 4).fadeIn();
 				$("#more_load").show();
 				$("#more_load").click(function(e) { 
@@ -309,7 +312,7 @@ $(function() {
 			error : function(jqXHR, textStatus, errorThrown){
 				console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
 			}
-		});// 전시중 ajax
+		});// 정렬 ajax
 	}
 </script>
 </head>
@@ -320,8 +323,8 @@ $(function() {
 <section class="objet_more_section">
 <div class="search-option-cate">
 <span class="search-option">
-    <a href="javascript:void(0);" onclick="artistOrder('statusasc');" class="option on" data-type="accu">&nbsp;전시중인순</a>&nbsp;&nbsp;
-    <a href="javascript:void(0);" onclick="artistOrder('nameasc');" class="option" data-type="recency">&nbsp;가나다순</a>&nbsp;&nbsp;
+    <a href="javascript:void(0);" onclick="artistOrder('statusasc');" class="option on">&nbsp;전시중인순</a>&nbsp;&nbsp;
+    <a href="javascript:void(0);" onclick="artistOrder('nameasc');" class="option">&nbsp;가나다순</a>&nbsp;&nbsp;
 </span>&nbsp;&nbsp;
 </div>
 <div class="artist_pic">
@@ -336,7 +339,7 @@ $(function() {
 <figure class="artist_card hover">
 <div class="img_blur">
 <img src="resources/images/objet/${Artist.renamemainposter }" onerror="this.src='${noimages }'"  class="profile_back"></div>
-  <a href="artistHomeMain.do?userid=${Artist.userid }"><figcaption>
+  <a href="artistHomeMain.do?userid=${Artist.userid }&loginUser=${loginUser.userid}"><figcaption>
    <img src="resources/users_upfiles/${Artist.userrpic }" onerror="this.src='${noimg }'" class="profile_pic">
     <h2><c:out value="${Artist.nickname}"/>
     <span><c:out value="${Artist.userintros}"/></span></h2>
@@ -350,16 +353,11 @@ $(function() {
 	</c:choose>
     <center>
     <c:forTokens var="tags" items="${Artist.usertag }" delims=",">
-    <c:choose>
-        <c:when test="${tagl < 4}">
         <a href="" id="tag" class="ui basic small gray circular button">${tags}</a>
-        </c:when>
-        <c:otherwise>
-        <a href="" id="tag" class="ui basic small gray circular button">${tags}</a>
-        </c:otherwise>
-	</c:choose>
     </c:forTokens>
+    <c:if test="${tagl > 4}">
     <a href="" id="tag" class="ui basic small gray circular button">...</a>
+    </c:if>
     </center>
   </figcaption></a>
 </figure>

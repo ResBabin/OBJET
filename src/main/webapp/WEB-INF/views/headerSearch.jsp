@@ -25,11 +25,13 @@ body {
   margin: 0;
   padding: 0;
 }
+
 /* 검색 */
-#search-box-top{
+.search-box-top{
   position: fixed;
   top: 1.6em;
   right: 2em;
+  transition: top 0.2s ease-in-out;
 }
 
 #searchList-text[type="text"] {
@@ -61,6 +63,9 @@ body {
 	opacity: 0.8;
 	margin-top:4px;
 }
+
+
+
 </style>
 <script type="text/javascript">
 $(function() {
@@ -69,6 +74,17 @@ $(function() {
 		$("#searchList-text").focus();
 		$("#searchList-btn").css("color", "#959595");
 	});
+	
+	$("body").on('mousewheel',function(e){ 
+        var wheel = e.originalEvent.wheelDelta; 
+        if(wheel>0){ 
+          //스크롤 올릴때 
+          $(".search-box-top").fadeIn();
+        } else { 
+          //스크롤  내릴때 
+           $(".search-box-top").fadeOut();
+        } 
+      });
 });
 
 function submit() {
@@ -82,12 +98,14 @@ window.onload = function() {
 	$("#searchList-text").hide();
 	$("#searchList-btn").show();
 }
+
+
 </script>
 </head>
 <body>
 <!-- 검색 아이콘  -->
 <section class="headerSearch">
-<div id="search-box-top"> 
+<div class="search-box-top"> 
 <form action='objetSearchList.do' id='searchList-form' method='get' target='_top' class="ui icon input">
   <input id='searchList-text' name="q" type="text" placeholder="검색어를 입력해주세요." 
   autocomplete="off" value="" />

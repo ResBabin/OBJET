@@ -61,8 +61,29 @@ where quityn = 'N' and blackyn = 'N')
  
  <!-- 한줄평 리스트  -->
  <select id="selectReview" resultType="Review">
- select * from review order by revdate desc
+ select a.userid, a.objetno, a.revcontent, a.revstars, a.revgood, a.revhate, a.revdate, b.userrpic, c.nickname
+ from review a
+ join usersprofile b on a.userid = b.userid
+ join users c on a.userid = c.userid
+ where a.objetno = #{objetno}
+ order by a.revdate desc
  </select>
+ 
+ <!-- 한줄평 리스트 정렬  -->
+  <!-- <select id="selectReview" resultType="Review">
+ select * from review order by revdate desc
+ </select> -->
+ 
+ <!-- 내 한줄평 -->
+ <select id="selectReviewOne" resultType="Review">
+ select a.userid, a.objetno, a.revcontent, a.revstars, a.revgood, a.revhate, a.revdate, b.userrpic, c.nickname
+ from review a
+ join usersprofile b on a.userid = b.userid
+ join users c on a.userid = c.userid
+ where a.userid = #{userid} and a.objetno = #{objetno}
+ order by a.revdate desc
+ </select>
+ 
 <!-- 한줄평 등록 -->
 <insert id="insertReview" parameterType="Review">
 	insert into review values ( #{userid}, #{objetno}, #{revcontent}, #{revstars}, #{revgood}, #{revhate}, #{revdate}) 

@@ -13,6 +13,7 @@ import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
+import com.kh.objet.review.model.vo.Review;
 
 @Repository("objetDao")
 public class ObjetDao {
@@ -53,6 +54,17 @@ public class ObjetDao {
 	public int insertReviewReport(ReportBoard rb) {
 		return mybatisSession.insert("objetMapper.insertReviewReport", rb);
 	}
+	
+	public ArrayList<Review> selectReview() {
+		List<Review> list = mybatisSession.selectList("objetMapper.selectReview");
+		return (ArrayList<Review>)list;
+	}
+
+	public Review selectReviewOne(String userid) {
+		return mybatisSession.selectOne("objetMapper.selectReviewOne", userid);
+	}
+	
+	
 	
 	// 최민영
 	// 작가홈 오브제 리스트카운트
@@ -126,5 +138,8 @@ public class ObjetDao {
 		return mybatisSession.delete("", objetno);
 	}
 
+	
+
+	
 	
 }
