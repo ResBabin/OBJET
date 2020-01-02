@@ -26,9 +26,9 @@ public class GuestBookController {
 	
 	// 최민영 **************************************
 	// 방명록 리스트 보기
-	@RequestMapping({"selectArtistGuestBook.do", "artistHomeMain.do"})
+	@RequestMapping("moveArtistGuestBook.do")
 	public String selectArtistGuestBook(@RequestParam(value="userid") String userid, Paging paging) {
-		return "artistHome/artistHomeMain";
+		return "artistHome/guestBook";
 	}
 	
 	// 방명록 작성

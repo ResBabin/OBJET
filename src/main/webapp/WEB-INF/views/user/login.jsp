@@ -70,6 +70,8 @@
 	
 	<br>
 		<button class="ui grey button" onclick="location.href='moveEnrollPage.do'" style="width:300px;height:40px; background: #aaa;">회원가입</button>
+		<br>
+		<!-- <img src="resources/images/kakaoLogin.png" style="vertical-align: center;" onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=008a8c7a2afc70539d4c97fd7898b3dc&redirect_uri=http://localhost:12345/objet/oauth&response_type=code'"> -->
 		<br><br><br><br><br><br>
 		
 		<div class="ui checkbox">

@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.kh.objet.quit.model.vo.Quit2;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.users.model.service.UsersServiceImpl;
+import com.kh.objet.users.model.vo.KakaoRestApi;
 import com.kh.objet.users.model.vo.UAUP;
 import com.kh.objet.users.model.vo.Users;
 
@@ -262,14 +264,15 @@ public class UsersController {
 		}
 		
 			
-	// 비밀번호 재확인 페이지 이동
+	// 비밀번호 재확인
 	@RequestMapping("reaffirmUserpwd.do")
 	public String reaffirmUserpwd(UAUP users, Model model) {
-		UAUP loginUser = usersService.selectUsersLogin(users);
+		UAUP loginUser2 = usersService.selectUsersLogin(users);
 		String vfn = null;
-		if(loginUser != null) 
+		if(loginUser2 != null) {
 			vfn = "user/mypageEdit";
-		else {
+			model.addAttribute("loginUser2", loginUser2);
+		}else {
 			vfn = "user/reaffirmUserpwd";
 			model.addAttribute("message", "비밀번호가 일치하지 않습니다. 다시 입력해주세요");
 		}
@@ -278,20 +281,28 @@ public class UsersController {
 	}
 		
 	// 내정보 수정
-		@RequestMapping("updateMyPage.do")
-		public void updateMyPage(Users users, HttpServletResponse response) throws IOException {
+		@RequestMapping(value="updateMyPage.do", method=RequestMethod.POST)
+		public String updateMyPage(Users users, Model model, HttpServletRequest request) {
 			int result = usersService.updateMyPage(users);
-			String returnValue = null;
-			if(result > 0) 
-				returnValue = "ok";
-			else
-				returnValue = "fail";
-				
-			PrintWriter out = response.getWriter();
-			out.append(returnValue);
-			out.flush();
-			out.close();
+			
+			String vfn = null;
+			
+			if(result > 0) {
+				// 업데이트 성공하면 세션 가져와 로그아웃 후 재로그인 하게 만들기
+				HttpSession session = request.getSession(false);
+				if(session != null) {
+					session.invalidate();
+				}
+				vfn = "main";
+				model.addAttribute("message", "내 정보 수정에 성공하였습니다. 다시 로그인해주세요.");
+			}else {
+				vfn = "message";
+				model.addAttribute("message", "내 정보 수정에 실패하여 메인페이지로 이동합니다.");
+			}
+			return vfn;
 		}
+		
+		
 		
 	// 탈퇴페이지 이동
 		@RequestMapping("moveQuitPage.do")
@@ -366,6 +377,6 @@ public class UsersController {
 			out.close();
 		}
 		
-
+		
 			
 }

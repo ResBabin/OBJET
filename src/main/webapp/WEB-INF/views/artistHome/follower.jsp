@@ -17,7 +17,64 @@
  
 <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
+$(function(){
+	$(".listTr").slice(0, 10).fadeIn();
+    $("#moreFollowList").click(function(e) { 
+          e.preventDefault();
+          $(".listTr:hidden").slice(0, 5).fadeIn(); 
+          if ($(".listTr:hidden").length == 0) { 
+              $('#moreFollowList').fadeOut();
+          }
+      });
+}) //document Ready...
 
+
+//팔로우 추가
+function insertFollowing(data){
+		var from_user = '<c:out value="${loginUser.userid}"/>'
+		
+			$.ajax({
+		         url:"insertFollowing.do",
+		         type:"get",
+		         data:{from_user:from_user, to_user:data },
+		         success: function(result){
+		             if(result == "ok"){
+		               console.log("팔로우 추가 성공!")
+		               window.location.reload();
+		             }
+		             else{
+		            	alert("팔로우 추가 실패!")
+		             }
+		          },
+		          error: function(request, status, errorData){
+						console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
+					}
+		       });   
+	}
+	
+	
+// 구독취소
+function deleteFollowing(data){
+	var from_user = '<c:out value="${loginUser.userid}"/>'
+	
+		$.ajax({
+	         url:"deleteFollowing.do",
+	         type:"get",
+	         data:{from_user:from_user, to_user:data },
+	         success: function(result){
+	             if(result == "ok"){
+	               console.log("팔로잉 취소 성공!")
+	               window.location.reload();
+	             }
+	             else{
+	            	alert("팔로잉 취소 실패!")
+	             }
+	          },
+	          error: function(request, status, errorData){
+					console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
+				}
+	       });   
+}
 
 </script>
 </head>
@@ -34,18 +91,19 @@
 		<div class="followingList">
 				<table class="eachFollwing">
 				<c:forEach var="list" items="${followerList }">
-					<tr>
+					<tr class="listTr" style="display: none;">
 						<td style="width:10%"><c:if test="${list.userrpic == null }">
-												<div class="profileImage3" onclick="location.href='artistHomeMain.do?userid=${list.userid}'" style="background-image:url('resources/images/basicprofilepic.png') "></div>
+												<div class="profileImage3" onclick="location.href='artistHomeMain.do?userid=${list.userid}&loginUser=${loginUser.userid }'" style="background-image:url('resources/images/basicprofilepic.png') "></div>
 											</c:if>
 											<c:if test="${list.userrpic != null }">
-												<div class="profileImage3" onclick="location.href='artistHomeMain.do?userid=${list.userid}'" style="background-image:url('resources/users_upfiles/${list.userrpic}') "></div>
+												<div class="profileImage3" onclick="location.href='artistHomeMain.do?userid=${list.userid}&loginUser=${loginUser.userid }'" style="background-image:url('resources/users_upfiles/${list.userrpic}') "></div>
 											</c:if>
 						</td>
-						<td style="width:70%; text-align: left;"><span style="font-size: 15pt;" onclick="location.href='artistHomeMain.do?userid=${list.userid}'">${list.nickname }</span><br>
-																<span style="font-size: 10pt; color:#aaa;">${list.userintros }</span></td>
-						<td style="width:20%"><c:if test="${list.followyn eq'Y' }"><button class="small ui teal button" onclick="">구독중</button></c:if>
-											 <c:if test="${list.followyn eq 'N' }"><button class="small ui teal basic button" onclick="" >구독하기</button></c:if>
+						<td style="width:70%; text-align: left;"><span style="font-size: 15pt;" onclick="location.href='artistHomeMain.do?userid=${list.userid}&loginUser=${loginUser.userid }'">${list.nickname }</span><br>
+																<span style="font-size: 10pt; color:#aaa;">${list.userintros }</span>
+						</td>
+						<td style="width:20%"><c:if test="${list.followyn eq'Y' }"><button class="small ui teal basic button" onclick="deleteFollowing('${list.userid}')">구독중&ensp;<i class="check icon" style="width:7px;"></i></button></c:if>
+											 <c:if test="${list.followyn eq 'N' }"><button class="small ui teal button" onclick="insertFollowing('${list.userid}')" >구독하기</button></c:if>
 											 <c:if test="${list.followyn eq 'E' }">&ensp;</c:if>
 											 
 						</td>
@@ -54,7 +112,7 @@
 				</table>
 				
 				<br><br>
-				<button class="ui grey basic button" style="width:200px;">더 보기</button>		
+				<button class="ui grey basic button" style="width:200px;" id="moreFollowList">더 보기</button>		
 		</div>
 		
 		

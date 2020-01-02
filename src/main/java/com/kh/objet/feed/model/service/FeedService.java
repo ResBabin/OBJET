@@ -11,4 +11,5 @@ public interface FeedService {
 	int feedListCount(String userid);
 	ArrayList<Feed> moveFeedList(String artistid);
 	int deleteFeed(int feedno);
+	int insertFeed(Feed feed);
 }

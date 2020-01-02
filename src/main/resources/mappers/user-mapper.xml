@@ -36,6 +36,17 @@
 		update users set userpwd = #{userpwd} where userid = #{userid}
 	</update>
 	
+	<update id="updateMyPage" parameterType="Users">
+		update users
+		<trim prefix="set" suffixOverrides=",">
+			<if test="userpwd != null">userpwd = #{userpwd},</if>
+			<if test="nickname != null">nickname = #{nickname},</if>
+			<if test="email != null">email = #{email},</if>
+			<if test="phone != null">phone = #{phone}, </if>
+		</trim>
+		where userid = #{userid}
+	</update>
+	
 	<select id="moveMyPageEdit" parameterType="Users" resultType="Users">
 		select * from users where userid = #{userid}
 	</select>
@@ -106,17 +117,42 @@
 		select users.userid, users.nickname, usersprofile.userintros, usersprofile.userrpic
 		from users join usersprofile on (users.userid = usersprofile.userid)
 		join follower on (users.userid = follower.from_user)
-		where follower.to_user = #{value}
+		where follower.to_user = #{value} order by users.blackyn asc, follower.followdate desc
 	</select>
 	
 	<select id="moveFollowingPage" parameterType="String" resultType="Follow">
 		select users.userid, users.nickname, usersprofile.userintros, usersprofile.userrpic
 		from users join usersprofile on (users.userid = usersprofile.userid)
 		join following on (users.userid = following.to_user)
-		where following.from_user = #{value}
+		where following.from_user = #{value} order by users.blackyn asc, following.followdate desc
 	</select>
 	
 	<select id="selectFollowingList" parameterType="Following" resultType="int">
 		select count(*) from following where to_user = #{to_user} and from_user = #{from_user}
 	</select>
+	
+	<insert id="insertFollowing" parameterType="Following">
+		insert into following values (#{from_user}, #{to_user}, sysdate)
+	</insert>
+	
+	<insert id="insertFollower" parameterType="Follower">
+		insert into follower values (#{to_user}, #{from_user}, sysdate)
+	</insert>
+	
+	<delete id="deleteFollowing" parameterType="Following">
+		delete following where to_user = #{to_user} and from_user = #{from_user}
+	</delete>
+	
+	<delete id="deleteFollower" parameterType="Follower">
+		delete follower where to_user = #{to_user} and from_user = #{from_user}
+	</delete>
+	
+	<select id="getNickname" parameterType="String" resultType="String">
+		select nickname from users where userid = #{value}
+	</select>
+	
+	<insert id="insertFeed" parameterType="Feed">
+		insert into feed values (FEEDNO_SEQ.NEXTVAL, #{artistid}, #{userid}, #{feedcontent}, sysdate)
+	</insert>
+	
 </mapper>

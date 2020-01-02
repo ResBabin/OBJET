@@ -10,6 +10,7 @@
 <meta charset="UTF-8">
 <title>오브제프로젝트의 오브제</title>
 <c:import url="../header.jsp" />
+<c:import url="../headerSearch.jsp" />
 <!-- 시맨틱유아이 cdn -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
@@ -19,6 +20,65 @@
  
 <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
+
+function artistObjetList(){
+	var userid = '<c:out value="${usersProfile.userid}"/>';
+	$.ajax({
+		url : "selectArtistObjetList.do",
+		type : "post",
+		data : { userid: userid, currentPage:"1" },
+		dataType : "json",
+		success : function(result){
+			var objStr = JSON.stringify(result);
+			var jsonObj = JSON.parse(objStr);
+			var start = '';
+
+			for ( var i in jsonObj.objetlist) {
+				var tagl = decodeURIComponent(jsonObj.objetlist[i].objettag.replace(/\+/gi, " ")).length;
+				var tags = decodeURIComponent(jsonObj.objetlist[i].objettag.replace(/\+/gi, " ")).split(",");
+				var objettitle = decodeURIComponent(jsonObj.objetlist[i].objettitle.replace(/\+/gi, " "));
+				var tag = "";
+				start += '<table class="artisthomeObjetTable"><tr style="height:23px;"><td style="width:85%;padding-top:30px;">';
+				start += '<div style="float: left;font-size: 15pt; font-weight:600; color:#202020;">'+ objettitle +'&ensp;</div>';
+				
+				if(jsonObj.objetlist[i].objetstatus=='OPEN'){
+					start += '<div class="objetStatusLabel" style="background:#df0000;">전시중</div></td>' + '<td rowspan="2" style="width:15%; text-align: center;padding-top:30px;">'
+					+ '<button class="ui tiny blue button" onclick="">전시관람</button></td></tr>';
+				}else if(jsonObj.objetlist[i].objetstatus=='STANDBY'){
+					start += '<div class="objetStatusLabel" style="background:lightpink;">전시예정</div></td>' + '<td rowspan="2" style="width:15%; text-align: center;padding-top:30px;">'
+						+ '<button class="ui tiny blue button" disabled>전시예정</button></td></tr>';
+				}else if(jsonObj.objetlist[i].objetstatus=='CLOSE'){
+					start += '<div class="objetStatusLabel" style="background:#aaa;">전시종료</div></td>' + '<td rowspan="2" style="width:15%; text-align: center;padding-top:30px;">'
+					+ '<button class="ui tiny grey button" onclick="">전시종료</button></td></tr>';
+				}
+				
+				start += '<tr style="height: 10px;"><td style="width:85%; font-size: 9pt;">' + jsonObj.objetlist[i].objetstartdate + ' ~ ' +  jsonObj.objetlist[i].objetenddate + '</td></tr>';
+				
+				start += '<tr><td colspan="2"><div class="artisthomeObjetListImg" style="background-image:url(\'resources/images/objet/' + jsonObj.objetlist[i].renamemainposter + '\') "></div></td></tr>';
+				
+				start += '<tr><td colspan="2"><div class="artisthomeObjetListIntro">' + decodeURIComponent(jsonObj.objetlist[i].objetintro.replace(/\+/gi, " ")) + '</div></td></tr>';
+				
+				start += '<tr><td colspan="2">';
+				
+				 for(var i in tags){
+					start +='<a class="ui mini grey basic label">' + tags[i] + '</a>';
+				 }
+				 
+			    start += '</td></tr>';
+			    
+			    start += '<tr><td colspan="2" class="artisthomeObjetTableLastTr"></div></td></tr></table>'; 
+			}
+			
+			$(".artisthomeObjetSection").html(start);
+
+
+		},
+		error : function(jqXHR, textStatus, errorThrown){
+			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+		}
+	});// 전시중 ajax
+}
+
 $(function(){
     //Tab 메뉴
    $("#artistMenu #item").on("click", function(){
@@ -64,9 +124,55 @@ $(function(){
 	
 	});	// document ready...
 	
+// 팔로우 추가
+function insertFollowing(){
+		var from_user = '<c:out value="${loginUser.userid}"/>'
+		var to_user = '<c:out value="${param.userid}"/>'
+		
+			$.ajax({
+		         url:"insertFollowing.do",
+		         type:"get",
+		         data:{from_user:from_user, to_user:to_user },
+		         success: function(result){
+		             if(result == "ok"){
+		               console.log("팔로우 추가 성공!")
+		               window.location.reload();
+		             }
+		             else{
+		            	alert("팔로우 추가 실패!")
+		             }
+		          },
+		          error: function(request, status, errorData){
+						console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
+					}
+		       });   
+	}
+	
+	
+// 구독취소
+function deleteFollowing(){
+	var from_user = '<c:out value="${loginUser.userid}"/>'
+	var to_user = '<c:out value="${param.userid}"/>'
+	
+		$.ajax({
+	         url:"deleteFollowing.do",
+	         type:"get",
+	         data:{from_user:from_user, to_user:to_user },
+	         success: function(result){
+	             if(result == "ok"){
+	               console.log("팔로잉 취소 성공!")
+	               window.location.reload();
+	             }
+	             else{
+	            	alert("팔로잉 취소 실패!")
+	             }
+	          },
+	          error: function(request, status, errorData){
+					console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
+				}
+	       });   
+}
 
-	
-	
 	
 </script>
 </head>
@@ -90,7 +196,7 @@ $(function(){
 				<tr><td style="width:100px; font-size: 10pt; color: #aaa;">구독자</td>
 					<td style="width:100px; font-size: 10pt; color: #aaa;">관심작가</td>
 				<tr><td style="font-size: 17pt;color: #9c9c9c;" onclick="location.href='moveFollowerPage.do?artistid=${usersProfile.userid}&loginUserid=${loginUser.userid }'">${follower }</td>
-					<td style="font-size: 17pt;color: #9c9c9c;" onclick="location.href='moveFollowingPage.do?artistid=${usersProfile.userid}&loginUserid=${loginUser.userid }&'">${following }</td></tr>
+					<td style="font-size: 17pt;color: #9c9c9c;" onclick="location.href='moveFollowingPage.do?artistid=${usersProfile.userid}&loginUserid=${loginUser.userid }'">${following }</td></tr>
 			</table>
 		</c:if>
 		<c:if test="${usersProfile.blackyn == 'Y'}">
@@ -112,8 +218,12 @@ $(function(){
 			</c:if>
 			<c:if test="${usersProfile.userid != loginUser.userid }">
 			<c:if test="${usersProfile.blackyn == 'N'}">
-			<button class="mini ui teal button" onclick="" style="display:none;">구독중</button>
-			<button class="mini ui teal basic button" onclick="" style="display:inline">구독하기</button>
+			<c:if test="${followyn eq 'Y' }">
+			<button class="mini ui basic teal button" onclick="deleteFollowing()">구독중&ensp;<i class="check icon" style="width:7px;"></i></button>
+			</c:if>
+			<c:if test="${followyn eq 'N' }">
+			<button class="mini ui teal button" onclick="insertFollowing()">구독하기</button>
+			</c:if>
 			</c:if>
 			</c:if>
 			<i class="grey ellipsis vertical icon" id="profileMenu"></i>
@@ -124,7 +234,7 @@ $(function(){
 			<div id="ProfileMenuBtn" style="display:none">
 			<!-- 작가홈 아이디와 로그인 아이디에 따라 아래 버튼 다르게 보이게 해야 함 -->
 			<c:if test="${usersProfile.userid == loginUser.userid }">
-				<button class="ui mini grey basic button" id="profileEdit" onclick="location.href='moveMyPageEdit.do'">내정보 수정</button>
+				<button class="ui mini grey basic button" id="profileEdit" onclick="location.href='moveReaffirmUserpwd.do'">내정보 수정</button>
 			</c:if>
 			<c:if test="${usersProfile.userid != loginUser.userid }">
 			<button class="ui mini grey basic button" id="profileReport" onclick="location.href='moveProfileReport.do?reportedu=${usersProfile.userid}'">작가 신고</button>
@@ -138,12 +248,12 @@ $(function(){
 	<div class="artisthomeMenu">
 		<div id="artistMenu" class="three item ui tabular menu" style="width:100%;">
 			<a id="item" class="item active" data-tab="first">작가소개</a>
-			<!-- <a id="item" class="item" data-tab="second" onclick="location.href='moveLogin.do'">오브제</a>
-			<a id="item" class="item" data-tab="thrid">방명록</a> -->
+			<a id="item" class="item" data-tab="second" href="javascript:artistObjetList();">오브제</a>
+			<a id="item" class="item" data-tab="thrid">방명록</a>
 		</div>
 	</div>
 	<!-- 작가소개 영역 ************************************************************************************************** -->
-	
+
 		<div class="ui tab active" data-tab="first">
 		 	<div class="innerTab">
 		 	<p class="artistIntroCategory">소개</p>
@@ -180,21 +290,20 @@ $(function(){
 		 		</p>
 		 		
 		 	<c:if test="${usersProfile.facebook != null or usersProfile.instagram != null or usersProfile.etcurl != null or usersProfile.artistemail != null}">
-		 	<p class="artistIntroCategory">작가 연결사이트</p>
-		 	
-		 	<c:if test="${usersProfile.facebook != null }">
-		 	<!-- 페이스북 --><div class="artistURL" value="${usersProfile.facebook}"><i class="facebook f icon"></i></div>
-		 	</c:if>
-		 	<c:if test="${usersProfile.instagram != null }">
-		 	<!-- 인스타그램 --><div class="artistURL" value="${usersProfile.instagram }"><i class="instagram icon"></i></div>
-		 	</c:if>
-		 	<c:if test="${usersProfile.etcurl != null }">
-		 	<!-- 기타URL --><div class="artistURL" value="${usersProfile.etcurl }"><i class="linkify icon"></i></div>
-		 	</c:if>
-		 	<c:if test="${usersProfile.artistemail != null }">
-		 	<!-- 이메일 --><div class="artistURL" value="mailto:${usersProfile.artistemail }"><i class="envelope outline icon"></i></div>
-		 	</c:if>
-		 	
+			 	<p class="artistIntroCategory">작가 연결사이트</p>
+			 	
+			 	<c:if test="${usersProfile.facebook != null }">
+			 	<!-- 페이스북 --><div class="artistURL" value="${usersProfile.facebook}"><i class="facebook f icon"></i></div>
+			 	</c:if>
+			 	<c:if test="${usersProfile.instagram != null }">
+			 	<!-- 인스타그램 --><div class="artistURL" value="${usersProfile.instagram }"><i class="instagram icon"></i></div>
+			 	</c:if>
+			 	<c:if test="${usersProfile.etcurl != null }">
+			 	<!-- 기타URL --><div class="artistURL" value="${usersProfile.etcurl }"><i class="linkify icon"></i></div>
+			 	</c:if>
+			 	<c:if test="${usersProfile.artistemail != null }">
+			 	<!-- 이메일 --><div class="artistURL" value="mailto:${usersProfile.artistemail }"><i class="envelope outline icon"></i></div>
+			 	</c:if>
 		 	</c:if>
 		 	</div>
 		 	
@@ -202,6 +311,9 @@ $(function(){
 		 	<br><br><br><br><br>
 		 	<c:if test="${usersProfile.userid == loginUser.userid }">
 			<div align="center"><button class="ui medium grey basic button" id="editArtistIntro" onclick="location.href='moveArtistIntroEdit.do?userid=${loginUser.userid}'">작가소개 수정</button></div>
+			</c:if>
+			<c:if test="${usersProfile.userid != loginUser.userid }">
+			<div align="center"><button class="ui medium grey basic button" id="editArtistIntro" onclick="window.open('moveArtistGuestBook.do?userid=${usersProfile.userid}')">방명록 남기기</button></div>
 			</c:if>
 			<br>
 		</div>
@@ -212,11 +324,11 @@ $(function(){
 			<div class="innerTab">
 				<div class="artisthomeObjetSection">
 				<!-- 오브제 리스트 테이블 시작! -->
-				 <table class="artisthomeObjetTable">
+				 <!-- <table class="artisthomeObjetTable">
 					<tr style="height:23px;">
-						<!-- 오브제 제목, 상태, 전시관람 버튼 영역 -->
+						오브제 제목, 상태, 전시관람 버튼 영역
 						<td style="width:85%;padding-top:30px;">
-							<div style="float: left;font-size: 15pt; font-weight:600; color:#202020;"></div>
+							<div style="float: left;font-size: 15pt; font-weight:600; color:#202020;">애니매이션의 확장</div>
 							<div class="objetStatusLabel" style="background:#df0000;">전시중</div>
 							<div class="objetStatusLabel" style="background:#202020; display: none;">전시예정</div>
 							<div class="objetStatusLabel" style="background:#aaa; display: none;">전시종료</div>
@@ -226,17 +338,17 @@ $(function(){
 						</td>
 					</tr>
 					<tr style="height: 10px;">
-						<!-- 오브제 기간 영역 -->
+						오브제 기간 영역
 						<td style="width:85%; font-size: 9pt;">2019.12.02(월) ~ 2019.12.24(화)</td>
 					</tr>
 					<tr>
-						<!-- 오브제 포스터 영역 -->
+						오브제 포스터 영역
 						<td colspan="2">
 							<div class="artisthomeObjetListImg" style="background-image:url('resources/objet_upfiles/animation.jpg') "></div>
 						</td>
 					</tr>
 					<tr>
-						<!-- 오브제 소개 영역 -->
+						오브제 소개 영역
 						<td colspan="2">
 							<div class="artisthomeObjetListIntro">
 								각기 상이하지만, 동시대 뉴 미디어 기술을 바탕으로 새로운 형식의 예술 장르를 탐구하고자 하는 진취적 시도라는 점에서 함께 묶어낼 수 있다. 우리가 함께 살고있는 디지털 환경 속에 애니메이션이라는 장르가 유연하게 녹아들 수 있도록 그 개념을 확장하고, 현대미술 분야에서 애니메이션의 예술적인 어쩌구다.
@@ -245,7 +357,7 @@ $(function(){
 						</td>
 					</tr>
 					<tr>
-						<!-- 관련태그 영역 -->
+						관련태그 영역
 						<td colspan="2">
 							<a class="ui mini grey basic label">디자인</a>
 							<a class="ui mini grey basic label">건축</a>
@@ -253,18 +365,17 @@ $(function(){
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2" class="artisthomeObjetTableLastTr"><!-- 관심 댓글 조회수 영역 -->
+						<td colspan="2" class="artisthomeObjetTableLastTr">관심 댓글 조회수 영역
 							<div style="font-size: 9pt;">관심 21&ensp;·&ensp;댓글  18&ensp;·&ensp;<i class="small eye icon"></i> 0</div>
 						</td>
 					</tr>
-				</table>
-				
+				</table> -->
 				<!-- 오브제 리스트 테이블 끝! -->
 				
 				<br><br><br>
 				<!-- 페이징&검색 -->
 				<div align="center">
-				<%-- 	<div id="paging">
+				 	<div id="paging">
 					
 						<!-- 전체 리스트 페이징 -->
 						 <c:if test="${ objetkind eq 'all' }"> 
@@ -298,7 +409,7 @@ $(function(){
 								<a href="selectArtistObjetSearch.do?currentPage=${paging.endPage + 1}&type=${type}">다음</a>
 							</c:if>
 						</c:if>
-					</div> --%>
+					</div>
 				
 				</div>
 				<br><br>
@@ -318,7 +429,6 @@ $(function(){
 		
 		
 		
-		
 	<!-- 방명록 영역 ************************************************************************************************** -->
 		<div class="ui tab" data-tab="thrid">
 			<div class="innerTab">
@@ -330,7 +440,7 @@ $(function(){
 					<input type="hidden" name="userid" value="">
 					<input type="hidden" name="artistid" value="">
 					<table class="gbwrite">
-						<tr><td style="width:15%"><div class="profileImage4" style="background-image:url('resources/users_upfiles/${loginUser.userrpic}') "></div></td>
+						<tr><td style="width:15%"><div class="profileImage4" style="background-image:url('resources/users_upfiles/${usersProfile.userrpic}') "></div></td>
 							<td style="width:85%; height: 150px;"><div class="ui form"><textarea style="width:600px;margin-left:20px;"rows="5" cols="100" name="gbcontent" id="gbcontent" required></textarea></div></td>
 						</tr>
 						<tr style="height:25px;">
@@ -463,7 +573,8 @@ $(function(){
 			
 		</div>
 		</c:if>
-	</div><!-- 작가홈 메뉴바 끝! -->
+		
+	</div><!-- 작가홈 메뉴바 끝! wrapHome -->
 	
 
 	

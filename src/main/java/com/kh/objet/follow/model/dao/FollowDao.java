@@ -24,22 +24,36 @@ public class FollowDao {
 	}
 
 	// 팔로잉 보기
-	public List<Following> moveFollowingPage(String artistid) {
-	
-		
-		List<Following> list = mybatisSession.selectList("userMapper.moveFollowingPage", artistid);
+	public List<Follow> moveFollowingPage(String artistid) {
+		List<Follow> list = mybatisSession.selectList("userMapper.moveFollowingPage", artistid);
 		return list;
 	}
 
 	// 팔로우 하기
 	public int insertFollowing(Following following) {
-		return mybatisSession.insert("", following);
+		return mybatisSession.insert("userMapper.insertFollowing", following);
 	}
 
-	// 팔로우 취소
-	public int deleteFollowing(Following following) {
-		return mybatisSession.delete("", following);
+	// 팔로워 증가
+	public int insertFollower(Follower follower) {
+		return mybatisSession.insert("userMapper.insertFollower", follower);
 	}
+	
+	// 팔로잉 피드알림 보낼 때 닉네임 얻어오기
+	public String getNickname(String from_user) {
+		return mybatisSession.selectOne("userMapper.getNickname", from_user);
+	}
+
+	// 구독하기 취소
+	public int deleteFollowing(Following following) {
+		return mybatisSession.delete("userMapper.deleteFollowing", following);
+	}
+	
+	// 팔로워에서도 삭제
+	public int deleteFollower(Follower follower) {
+		return mybatisSession.delete("userMapper.deleteFollower", follower);
+	}
+
 
 	
 	
@@ -60,16 +74,11 @@ public class FollowDao {
 	public int selectFollowingList(Following following) {
 		return mybatisSession.selectOne("userMapper.selectFollowingList", following);
 	}
+
+
 	
 
-	// 팔로워 증가
-	public int insertFollower(Follower follower) {
-		return mybatisSession.insert("", follower);
-	}
 
-	public int deleteFollower(Follower follower) {
-		return mybatisSession.delete("", follower);
-	}
 
 	
 

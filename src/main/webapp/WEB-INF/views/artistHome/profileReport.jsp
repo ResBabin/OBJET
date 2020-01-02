@@ -69,7 +69,7 @@
 	         	}else{
 	               alert("작가 신고에 실패하였습니다.")
 	             }
-		             window.location.href="artistHomeMain.do?userid="+reportedu;
+		             window.location.href="artistHomeMain.do?userid="+reportedu+"&loginUser="+reporteru;
 	          },
 	          error: function(request, status, errorData){
 					console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);

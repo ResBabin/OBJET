@@ -287,7 +287,7 @@ $(function() {
 							}else{
 								values +='<a href="" id="tag" class="ui basic small gray circular button">' + tags[i] + '</a>' ;
 							}
-					    } 
+					    }
 					     values += '<a href="" id="tag" class="ui basic small gray circular button">...</a>' +
 						   '</center>' +
 						  '</figcaption></a>' +
