@@ -7,23 +7,23 @@
 	<!-- 전시일정 조회 -->
 	<select id="selectCalendar" resultType="Calendar">
 		select calnum, objettitle, description, to_char(startdate, 'yyyy-mm-dd')||'T'||to_char(startdate, 'HH24:MM') as startdate,
-		to_char(enddate, 'yyyy-mm-dd')||'T'||to_char(enddate, 'HH24:MM') as enddate, category, backgroundcolor, textcolor 
-		from calendar where username = #{username}
+		to_char(enddate, 'yyyy-mm-dd')||'T'||to_char(enddate, 'HH24:MM') as enddate, category, userid, backgroundcolor, textcolor 
+		from calendar where userid = #{userid}
 	</select>
 
 	<!-- 전시일정 추가 -->
-	<insert id="insertCalendar" parameterType="String">
-		insert into calendar values ()
+	<insert id="insertCalendar" parameterType="Calendar">
+		insert into calendar values (cal_seq.nextval, #{objettitle}, #{description}, sysdate, sysdate, #{category}, #{userid}, #{backgroundcolor}, #{textcolor})
 	</insert>
 	
 	<!-- 전시일정 수정 -->
 	<update id="updateCalendar" parameterType="Calendar">
 		update calendar set calnum = #{calnum}, objettitle = #{objettitle}, description = #{description}, startdate = #{startdate}, enddate = #{enddate},
-		category = #{category}, backgroundcolor = #{backgroundcolor}, textcolor = #{textcolor} where calnum = #{calnum}
+		category = #{category}, #{userid}, backgroundcolor = #{backgroundcolor}, textcolor = #{textcolor} where calnum = #{calnum}
 	</update>
 	
 	<!-- 전시일정 삭제 -->
-	<delete id="deleteCalendar" parameterType="String">
+	<delete id="deleteCalendar" parameterType="Calendar">
 		delete from calendar where calnum = #{calnum}
 	</delete>
 

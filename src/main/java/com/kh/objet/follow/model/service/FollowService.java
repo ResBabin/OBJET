@@ -10,7 +10,7 @@ public interface FollowService {
 	
 	int FollowingGetListCount(String userid);
 	
-	List<Following> moveFollowingPage(String artistid);
+	List<Follow> moveFollowingPage(String artistid);
 	
 	int insertFollowing(Following following);
 	
@@ -27,5 +27,7 @@ public interface FollowService {
 	int insertFollower(Follower follower);
 	
 	int deleteFollower(Follower follower);
+	
+	String getNickname(String from_user);
 
 }

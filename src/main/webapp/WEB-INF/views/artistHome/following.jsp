@@ -17,6 +17,16 @@
  
 <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
+$(function(){
+	$(".listTr").slice(0, 10).fadeIn();
+    $("#moreFollowList").click(function(e) { 
+          e.preventDefault();
+          $(".listTr:hidden").slice(0, 5).fadeIn(); 
+          if ($(".listTr:hidden").length == 0) { 
+              $('#moreFollowList').fadeOut();
+          }
+      });
+}) //document Ready...
 
 
 </script>
@@ -33,25 +43,30 @@
 		
 		<div class="followingList">
 				<table class="eachFollwing">
+				<c:forEach var="list" items="${followingList }">
+					<tr class="listTr" style="display: none;">
+						<td style="width:10%"><c:if test="${list.userrpic == null }">
+												<div class="profileImage3" onclick="location.href='artistHomeMain.do?userid=${list.userid}&loginUser=${loginUser.userid }'" style="background-image:url('resources/images/basicprofilepic.png') "></div>
+											</c:if>
+											<c:if test="${list.userrpic != null }">
+												<div class="profileImage3" onclick="location.href='artistHomeMain.do?userid=${list.userid}&loginUser=${loginUser.userid }'" style="background-image:url('resources/users_upfiles/${list.userrpic}') "></div>
+											</c:if>
+						</td>
+						<td style="width:70%; text-align: left;"><span style="font-size: 15pt;" onclick="location.href='artistHomeMain.do?userid=${list.userid}&loginUser=${loginUser.userid }'">${list.nickname }</span><br>
+																<span style="font-size: 10pt; color:#aaa;">${list.userintros }</span>
+						</td>
+						<td style="width:20%"><c:if test="${list.followyn eq'Y' }"><button class="small ui teal basic button" onclick="">구독중&ensp;<i class="check icon" style="width:7px;"></i></button></c:if>
+											 <c:if test="${list.followyn eq 'N' }"><button class="small ui teal button" onclick="" >구독하기</button></c:if>
+											 <c:if test="${list.followyn eq 'E' }">&ensp;</c:if>
+											 
+						</td>
 					<tr>
-						<td style="width:10%"><div class="profileImage3" style="background-image:url('resources/images/basicprofilepic.png') "></div></td>
-						<td style="width:70%; text-align: left;"><span style="font-size: 15pt;">김맛아몬드</span><br>
-																<span style="font-size: 10pt; color:#aaa;">개발자</span></td>
-						<td style="width:20%"><button class="small ui teal button" onclick="">구독중</button>
-												<button class="small ui teal basic button" onclick="" style="display:none;">구독하기</button></td>
-					<tr>
+				</c:forEach>	
 					
-					<tr>
-						<td style="width:10%"><div class="profileImage3" style="background-image:url('resources/images/basicprofilepic.png') "></div></td>
-						<td style="width:70%; text-align: left;"><span style="font-size: 15pt;">김맛아몬드</span><br>
-																<span style="font-size: 10pt; color:#aaa;">개발자</span></td>
-						<td style="width:20%"><button class="small ui teal button" onclick="">구독중</button>
-												<button class="small ui teal basic button" onclick="" style="display:none;">구독하기</button></td>
-					<tr>
 				</table>
 				
 				<br><br>
-				<button class="ui grey basic button" style="width:200px;">더 보기</button>		
+				<button class="ui grey basic button" style="width:200px;" id="moreFollowList">더 보기</button>		
 		</div>
 		
 		

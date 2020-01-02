@@ -18,9 +18,10 @@
  $(function(){
 	 
 	// 내정보수정 유효성 체크
-	  	var pwTF = "F";
-	 	var pwEq = "F";
-	 	var nnTF = "F";
+	  	var pwTF = "T";
+	 	var pwEq = "T";
+	 	var nnTF = "T";
+	 	var emTF = "T";
 	 
 	 // 비밀번호 유효성 체크
 		   $("#userpwd").keyup(function(){
@@ -61,7 +62,7 @@
 	 	
 		// 닉네임 중복체크
 	 		 $("#checkNickname").click(function(){
-	 			var nickname1 = '<c:out value="${sessionScope.loginUser.nickname}"/>';
+	 			var nickname1 = '<c:out value="${sessionScope.loginUser2.nickname}"/>';
 		 		var nickname2 = $("#nickname").val();
 	 		if(nickname1 != nickname2) {
 	 			 $.ajax({
@@ -94,13 +95,12 @@
 	 			$("#divNickname").html("<span style='color:#48d239;'>현재 닉네임입니다.</span>");
 			nnTF = "T";
 		}
-	 		  return false;
 	 		 });
 		
 		
 	 		// 이메일 중복체크
 	 		 $("#checkEmail").click(function(){
-	 			var email1 = '<c:out value="${sessionScope.loginUser.email}"/>';
+	 			var email1 = '<c:out value="${sessionScope.loginUser2.email}"/>';
 		 		var email2 = $("#email").val();
 	 		if(email1 != email2) {
 	 			 $.ajax({
@@ -131,43 +131,23 @@
 	 			$("#divEmail").html("<span style='color:#48d239;'>현재 이메일 입니다.</span>");
 	 			emTF = "T";
 		}
-	 		  return false;
 	 		 });
 	 		
 	 		
 		
  		// 수정하기 버튼 눌렀을 때
  		 $("#btnsub").click(function(){
- 			 var userid = '<c:out value="${sessionScope.loginUser.userid}"/>'
  		      if(pwTF=="T" && pwEq=="T" && nnTF=="T" && emTF=="T" ){
- 		    	 $.ajax({
-	 		         url:"updateMyPage.do",
-	 		         type:"post",
-	 		        data:{userid:userid, userpwd:$("#userpwd").val(), nickname:$("#email").val(), email:$("email").val(), phone:$("#phone") },
-	 		         success: function(result){
-	 		             if(result == "ok"){
-	 		                alert("입력하신 정보로 수정 완료 되었습니다. \n 오브제 메인 화면으로 이동합니다.");
-	 		                window.location.href='main.do';
-	 		             }
-	 		             else{
-	 		                alert("내 정보 수정에 실패하였습니다.")
-	 		             }
-	 		          },
-	 		          error: function(request, status, errorData){
-	 						console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
-	 					}
-	 		       }); 
- 		         return true;
- 		         
+ 		    	 return true;
  		      }else{
  		         alert("입력한 내용을 다시 확인해주세요.");
- 		         return false;
+ 		         return false
  		      }
  		   });
-
 	 	
  }); // document Ready...
  
+
  </script>
 </head>
 <body>
@@ -175,40 +155,41 @@
 <div class="wrapEnrollPage">
 
 	<p style="font-size: 20pt; padding-top:50px; color:#373737; text-align:center;">내 정보 수정</p>
-	
+	<form action="updateMyPage.do" method="post">
+	<input type="hidden" name="userid" id="userid" value="${loginUser2.userid}">
 	<!-- 내정보수정 섹션 시작! -->
 	<div class="enrollSection">
-	<form action="updateMyPage.do" method="post">
+	
 		<table class="enrollTable">
 			<tr>
 				<th>아이디</th>
-				<td style="font-size: 12pt; color:#aaa;"> ${sessionScope.loginUser.userid}
+				<td style="font-size: 12pt; color:#aaa;"> ${loginUser2.userid}
 				</td>
 			</tr>
 			
 			<tr>
 				<th>비밀번호</th>
-				<td><div class="ui input" style="width:350px;"><input type="password" id="userpwd" name="userpwd" value="${sessionScope.loginUser.userpwd}" placeholder="영문/숫자/특수문자 각 1개 이상 포함하여 8-20자" required></div>
+				<td><div class="ui input" style="width:350px;"><input type="password" id="userpwd" name="userpwd" value="${loginUser2.userpwd}" placeholder="영문/숫자/특수문자 각 1개 이상 포함하여 8-20자" required></div>
 					<div class="enrolldiv" id="divpwd"></div>
 				</td>
 			</tr>
 			
 			<tr>
 				<th>비밀번호 확인</th>
-				<td><div class="ui input" style="width:350px;"><input type="password" id="userpwd2" value="${sessionScope.loginUser.userpwd}" placeholder="작성한 비밀번호와 동일하게 입력해주세요." required></div>
+				<td><div class="ui input" style="width:350px;"><input type="password" id="userpwd2" value="${loginUser2.userpwd}" placeholder="작성한 비밀번호와 동일하게 입력해주세요." required></div>
 					<div class="enrolldiv" id="divpwd2"></div>
 				</td>
 			</tr>
 			
 			<tr>
 				<th>이름</th>
-				<td style="font-size: 12pt; color:#aaa;">${sessionScope.loginUser.username}
+				<td style="font-size: 12pt; color:#aaa;">${loginUser2.username}
 				</td>
 			</tr>
 			
 			<tr>
 				<th>닉네임</th>
-				<td><div class="ui input" style="width:350px;"><input type="text" id="nickname" name="nickname" value="${sessionScope.loginUser.nickname}" placeholder="한글 최대 8자, 영문  최대 24자" required></div>&emsp;
+				<td><div class="ui input" style="width:350px;"><input type="text" id="nickname" name="nickname" value="${loginUser2.nickname}" placeholder="한글 최대 8자, 영문  최대 24자" required></div>&emsp;
 									<input type="button" class="ui teal button" value="중복확인" id="checkNickname"/>
 									<div class="enrolldiv" id="divNickname"></div>
 				</td>
@@ -216,7 +197,7 @@
 			
 			<tr>
 				<th>이메일</th>
-				<td><div class="ui input" style="width:350px;"><input type="email" id="email" name="email" value="${sessionScope.loginUser.email}" placeholder="예: objetofficial@objet.com" required></div>&emsp;
+				<td><div class="ui input" style="width:350px;"><input type="email" id="email" name="email" value="${loginUser2.email}" placeholder="예: objetofficial@objet.com" required></div>&emsp;
 									<input type="button" class="ui teal button" value="중복확인" id="checkEmail"/>
 									<div class="enrolldiv" id="divEmail"></div>
 				</td>
@@ -224,18 +205,18 @@
 			
 			<tr>
 				<th>휴대폰</th>
-				<td><div class="ui input" style="width:350px;"><input type="tel" id="phone" name="phone" value="${sessionScope.loginUser.phone}" placeholder="숫자만 입력" required></div>
+				<td><div class="ui input" style="width:350px;"><input type="text" id="phone" name="phone" value="${loginUser2.phone}" placeholder="숫자만 입력" required></div>
 				</td>
 			</tr>
 			
 			<tr>
 				<th>성별</th>
-				<td style="font-size: 12pt; color:#aaa;"><c:if test="${sessionScope.loginUser.gender eq 'F'}">여성</c:if>
-														<c:if test="${sessionScope.loginUser.gender eq 'M'}">남성</c:if>
+				<td style="font-size: 12pt; color:#aaa;"><c:if test="${loginUser2.gender eq 'F'}">여성</c:if>
+														<c:if test="${loginUser2.gender eq 'M'}">남성</c:if>
 				</td>
 			</tr>
 		</table>
-		</form>
+		
 	</div>
 	
 	<!-- 회원정보입력섹션 끝! -->
@@ -245,7 +226,7 @@
 			<input type="submit" class="ui green button" value="수정하기" id="btnsub"> &nbsp;
 			<input type="reset" class="ui button" value="다시작성"> &nbsp;
 		</div>
-		
+	</form>	
 </div>
 
 <!-- 회원가입 페이지 끝 -->

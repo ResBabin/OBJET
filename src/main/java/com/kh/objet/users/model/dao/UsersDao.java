@@ -70,7 +70,7 @@ public class UsersDao {
 
 	// 내정보 수정
 	public int updateMyPage(Users users) {
-		return mybatisSession.update("", users);
+		return mybatisSession.update("userMapper.updateMyPage", users);
 	}
 
 	// 회원탈퇴1

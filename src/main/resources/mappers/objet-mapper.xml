@@ -105,14 +105,14 @@ where quityn = 'N' and blackyn = 'N')
  
  <!-- 최민영 *************************** -->
  	<select id="selectArtistObjetGetListCount" parameterType="string" resultType="int">
- 		select count(*) from objet where userid = #{userid}
+ 		select count(*) from objet where userid = #{userid} and objetstatus in ('STANDBY', 'OPEN', 'CLOSE')
  	</select>
  
 	 <select id="selectArtistObjetList" parameterType="hashmap" resultType="objet">
 	 	select * from (
-	 	select rownum rnum, objetno, userid, objettitle, objetintro, originmainposter, renamemainposter,objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview
+	 	select rownum rnum, objetno, userid, objettitle, objetintro, originmainposter, renamemainposter, objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview
 		from (select objetno, userid, objettitle, objetintro, originmainposter, renamemainposter,objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview from objet
-		where userid = #{userid} order by objetstatus desc)) <![CDATA[ where rnum between #{startRow} and #{endRow} ]]>
+		where userid = #{userid} and objetstatus in ('STANDBY', 'OPEN', 'CLOSE') order by case when objetstatus = 'open' then 0 end)) <![CDATA[ where rnum between #{startRow} and #{endRow} ]]>
 	 </select>
  
 </mapper>

@@ -67,16 +67,6 @@
 						<td width="15%"><i class="trash alternate outline icon" onclick="deleteFeed('<c:out value="${feed.feedno }"/>');"></i></td>
 					</tr>
 				</c:forEach>
-					<!-- <tr>
-						<td width="5%"><i class="blue envelope outline icon"></i></td>
-						<td width="90%">티라미수아몬드 님이 방명록을 남겼습니다.<span style="font-size: 9pt; color:#aaa;">&ensp;(19.11.05)</span></td>
-						<td width="15%"><i class="trash alternate outline icon" onclick="location.href=''"></i></td>
-					</tr>
-					<tr>
-						<td width="5%"><i class="blue envelope outline icon"></i></td>
-						<td width="90%">관심오브제 <춘화 속의  동식물> 오픈!<span style="font-size: 9pt; color:#aaa;">&ensp;(19.10.23)</span></td>
-						<td width="15%"><i class="trash alternate outline icon" onclick="location.href=''"></i></td>
-					</tr> -->
 				</table>
 			</form>
 	</div>

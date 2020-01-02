@@ -282,6 +282,7 @@ $(function() {
 					        } 
 					values += '<center>';
 					     for(var i in tags){
+
 					    	values +='<a href="" id="tag" class="ui basic small gray circular button">' + tags[i] + '</a>' ;
 					    	
 					    } 
@@ -291,6 +292,7 @@ $(function() {
 					     values += '<a href="" id="tag" class="ui basic small gray circular button">...</a>'; 
 						}
 						values +=  '</center>' +
+
 						  '</figcaption></a>' +
 						'</figure>';
 				}

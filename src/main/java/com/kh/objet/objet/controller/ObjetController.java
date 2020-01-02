@@ -195,6 +195,7 @@ public class ObjetController {
 				//페이징처리 
 				int curPage = Integer.valueOf(currentPage);
 				int listCount = objetService.selectArtistObjetGetListCount(userid);
+				
 				paging.makePage(listCount, curPage);
 
 				// HashMap 객체 생성
@@ -203,24 +204,52 @@ public class ObjetController {
 				map.put("startRow", paging.getStartRow());
 				map.put("endRow", paging.getEndRow());
 				map.put("userid", userid); // 대상 아티스트 아이디
-
-				logger.debug(paging.toString());
 				
 				List<Objet> objetlist = objetService.selectArtistObjetList(map);
 						
 				//가져온 객체 담기
-				HashMap<String, Object> result = null;
+			/*	HashMap<String, Object> result = null;
 				if(objetlist.size() >= 0) {
 					result = new HashMap<String,Object>();
 					result.put("paging", paging);
 					result.put("objetlist", objetlist);
 					result.put("objetkind", "all"); //출력타입은 전체(all) 과 분류(sort)로 나뉘어져있음
-				} 
+				} */
 				
-				//담은것 gson으로 처리
-				response.setContentType("application/json");
-				response.setCharacterEncoding("utf-8");
-				new Gson().toJson(result,response.getWriter());
+				//전송용 json 객체
+				JSONObject sendJson = new JSONObject();
+				//json 배열 객체
+				JSONArray jarr = new JSONArray();
+				//list를 jarr 로 옮겨 저장 (복사)
+				for(Objet objet : objetlist) {
+				JSONObject job = new JSONObject();
+				
+				job.put("objetno", objet.getObjetno());
+				job.put("userid", objet.getUserid());
+				job.put("objettitle", URLEncoder.encode(objet.getObjettitle(), "utf-8"));
+				job.put("objetintro", URLEncoder.encode(objet.getObjetintro(), "utf-8"));
+				job.put("originmainposter", URLEncoder.encode(objet.getOriginmainposter(), "utf-8"));
+				job.put("renamemainposter", objet.getRenamemainposter());
+				job.put("objetstartdate", objet.getObjetstartdate().toString());
+				job.put("objetenddate", objet.getObjetenddate().toString());
+				job.put("objettag", URLEncoder.encode(objet.getObjettag(), "utf-8"));
+				job.put("publicyn", objet.getPublicyn());
+				job.put("objetregidate", objet.getObjetregidate().toString());
+				job.put("objetstatus", objet.getObjetstatus());
+				job.put("objetview", objet.getObjetview());
+				jarr.add(job);
+				}
+
+				sendJson.put("objetlist", jarr);
+				logger.debug(jarr.toJSONString());
+				
+				
+				response.setContentType("application/jsonl charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.println(sendJson.toJSONString());
+				out.flush();
+				out.close();
+				
 			}
 			
 	// 작가홈 오브제 검색

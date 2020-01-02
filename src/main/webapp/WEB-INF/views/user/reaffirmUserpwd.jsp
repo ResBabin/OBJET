@@ -15,6 +15,11 @@
  <link rel= "stylesheet" type="text/css" href="resources/css/mychoe.css">
  <style type="text/css">
  </style>
+ <script type="text/javascript">
+ window.onload = function(){
+	 $("#userpwd").focus();
+ }
+ </script>
 </head>
 <body>
 <!-- 로그인 섹션 시작! -->
@@ -32,7 +37,7 @@
         
         <div class="field">
           <div class="ui large left icon input" style="width:300px;">
-            <i class="lock icon"></i><input type="password" name="userpwd" placeholder="PASSWORD" required>
+            <i class="lock icon"></i><input type="password" name="userpwd" id="userpwd" placeholder="PASSWORD" required>
           </div>
         </div>
         <br><br><br><br>

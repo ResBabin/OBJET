@@ -235,14 +235,15 @@ public class UAUP implements Serializable{
 
 	@Override
 	public String toString() {
-		return "UsersAndUsersProfile [userid=" + userid + ", userpwd=" + userpwd + ", usertype=" + usertype
-				+ ", username=" + username + ", nickname=" + nickname + ", email=" + email + ", phone=" + phone
-				+ ", gender=" + gender + ", enrolldate=" + enrolldate + ", quityn=" + quityn + ", blackyn=" + blackyn
-				+ ", useropic=" + useropic + ", userrpic=" + userrpic + ", userintros=" + userintros + ", userintrol="
-				+ userintrol + ", usertag=" + usertag + ", portfolio=" + portfolio + ", facebook=" + facebook
-				+ ", instagram=" + instagram + ", etcurl=" + etcurl + ", artistemail=" + artistemail + "]";
+		return "UAUP [userid=" + userid + ", userpwd=" + userpwd + ", usertype=" + usertype + ", username=" + username
+				+ ", nickname=" + nickname + ", email=" + email + ", phone=" + phone + ", gender=" + gender
+				+ ", enrolldate=" + enrolldate + ", quityn=" + quityn + ", blackyn=" + blackyn + ", useropic="
+				+ useropic + ", userrpic=" + userrpic + ", userintros=" + userintros + ", userintrol=" + userintrol
+				+ ", usertag=" + usertag + ", portfolio=" + portfolio + ", facebook=" + facebook + ", instagram="
+				+ instagram + ", etcurl=" + etcurl + ", artistemail=" + artistemail + "]";
 	}
-	
+
+
 	
 
 }
