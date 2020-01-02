@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.objet.reportboard.model.dao.ReportBoardDao;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
+import com.kh.objet.review.model.vo.Review;
 
 @Service("reportbService")
 public class ReportBoardServiceImpl implements ReportBoardService{
@@ -21,8 +22,8 @@ public class ReportBoardServiceImpl implements ReportBoardService{
 	}
 
 	@Override
-	public ReportBoard selectReportBDetail(Map<String, String> map) {
-		return reportbDao.selectReportBDetail(map);
+	public List<ReportBoard> selectReportBDetail() {
+		return reportbDao.selectReportBDetail();
 	}
 
 	@Override
@@ -40,5 +41,21 @@ public class ReportBoardServiceImpl implements ReportBoardService{
 	public List<ReportBoard> selectReportAll() {
 		return reportbDao.selectReportAll();
 	}
+
+	@Override
+	public int deleteReportbOrigin(ReportBoard reportb) {
+		return reportbDao.deleteReportbOrigin(reportb);
+	}
+
+	@Override
+	public int deleteReportb(ReportBoard reportb) {
+		return reportbDao.deleteReportb(reportb);
+	}
+
+	@Override
+	public Review selectReportDetail(Review review) {
+		return reportbDao.selectReportDetail(review);
+	}
+	
 
 }
