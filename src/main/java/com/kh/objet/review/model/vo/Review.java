@@ -16,10 +16,13 @@ public class Review implements Serializable{
 	private int revgood;
 	private int revhate;
 	private Date revdate;
+	private String userrpic;
+	private String nickname;
 	
 	public Review() {}
 
-	public Review(String userid, int objetno, String revcontent, int revstars, int revgood, int revhate, Date revdate) {
+	public Review(String userid, int objetno, String revcontent, int revstars, int revgood, int revhate, Date revdate,
+			String userrpic, String nickname) {
 		super();
 		this.userid = userid;
 		this.objetno = objetno;
@@ -28,6 +31,8 @@ public class Review implements Serializable{
 		this.revgood = revgood;
 		this.revhate = revhate;
 		this.revdate = revdate;
+		this.userrpic = userrpic;
+		this.nickname = nickname;
 	}
 
 	public String getUserid() {
@@ -86,15 +91,31 @@ public class Review implements Serializable{
 		this.revdate = revdate;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public String getUserrpic() {
+		return userrpic;
+	}
+
+	public void setUserrpic(String userrpic) {
+		this.userrpic = userrpic;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	@Override
 	public String toString() {
 		return "Review [userid=" + userid + ", objetno=" + objetno + ", revcontent=" + revcontent + ", revstars="
-				+ revstars + ", revgood=" + revgood + ", revhate=" + revhate + ", revdate=" + revdate + "]";
+				+ revstars + ", revgood=" + revgood + ", revhate=" + revhate + ", revdate=" + revdate + ", userrpic="
+				+ userrpic + ", nickname=" + nickname + "]";
 	}
+
+	
+	
 	
 	
 

@@ -8,6 +8,7 @@ import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
+import com.kh.objet.review.model.vo.Review;
 
 public interface ObjetService {
 	
@@ -19,6 +20,7 @@ public interface ObjetService {
 	int insertReviewReport(ReportBoard rb);
 	ArrayList<Objet> selectObjetSearchList(String keyword);
 	Artist selectObjetOne(int objetno);
+	ArrayList<Review> selectReview();
 	
 	// 최민영
 	int selectArtistObjetGetListCount(String userid);

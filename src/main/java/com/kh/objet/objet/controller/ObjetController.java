@@ -1,11 +1,9 @@
 package com.kh.objet.objet.controller;
 
 import java.io.IOException;
-
 import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,8 +19,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.kh.objet.objet.model.service.ObjetServiceImpl;
@@ -30,6 +28,7 @@ import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
+import com.kh.objet.review.model.vo.Review;
 
 @Controller
 public class ObjetController {
@@ -114,15 +113,28 @@ public class ObjetController {
 		out.close();
 	}
 	
-	//오브제 상세보기 
+	//오브제, 작가 상세보기, 한줄평 리스트
 	@RequestMapping("objetOne.do")
-	public ModelAndView selectObjetOne(@RequestParam("objetno") int objetno, ModelAndView mv) {
+	public ModelAndView selectObjetOne(@RequestParam(value="objetno") int objetno, @RequestParam(value="userid", required=false) String userid, ModelAndView mv) {
 		Artist objet = objetService.selectObjetOne(objetno);
-		if(objet != null) {
+		ArrayList<Review> reviewList = objetService.selectReview();
+		if(userid != null) {
+			Review myReview = objetService.selectReviewOne(userid);
+			if(myReview != null) {
+				mv.addObject("myReview", myReview);
+				mv.setViewName("objet/objetDetail");
+			}else {
+				mv.addObject("myReview", myReview);
+				mv.setViewName("common/error");
+			}
+		}
+		if(objet != null && reviewList != null) {
 			mv.addObject("objet", objet);
+			mv.addObject("reviewList", reviewList);
 			mv.setViewName("objet/objetDetail");
 		}else {
 			mv.addObject("objet", objet);
+			mv.addObject("reviewList", reviewList);
 			mv.setViewName("common/error");
 		}
 		return mv;
@@ -135,7 +147,7 @@ public class ObjetController {
 	}
 	
 	//오브제 신고
-	@RequestMapping(value="objetReport.do", method= {RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="objetReport.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String insertObjetReport(ReportBoard rb, Model model) {
 		int result = objetService.insertObjetReport(rb);
 		
@@ -147,6 +159,19 @@ public class ObjetController {
 		
 		return viewFileName;
 	}
+	
+	
+	/*//한줄평 등록
+	@RequestMapping("reviewReport.do")
+	public String insertReviewReport(ReportBoard rb) {
+		return "objet/objetDetail";
+	}*/
+	
+	/*//한줄평 수정
+	@RequestMapping("reviewReport.do")
+	public String insertReviewReport(ReportBoard rb) {
+		return "objet/objetDetail";
+	}*/
 	
 	/*//한줄평 삭제
 	@RequestMapping("deleteReview.do")

@@ -469,7 +469,8 @@ a:-webkit-any-link {
 	font-weight: bold;
 	letter-spacing: 1px;
 	color: #9e9e9e;
-	font-family: 'Nanum Gothic'
+	font-family: 'Nanum Gothic';
+	cursor: pointer;
 }
 
 #more_btn:after {
@@ -500,6 +501,7 @@ a:-webkit-any-link {
 	align: center;
 	text-align: left;
 	line-height: 28px;
+	display:none;
 }
 
 #writer_pic {
@@ -1043,18 +1045,20 @@ a:-webkit-any-link {
 		});
 			
 		//전시 신고 모달
-		$(".ico_report").on("click", function() {
-			/* <c:if test="${!empty User}"> */
-			$("#rep_modal").modal('show');
-			/* </c:if>
-			<c:if test="${empty User}">
-			
-			</c:if> */
-		});	
+		<c:if test="${!empty loginUser }">
+			$(".ico_report").on("click", function() {
+				$("#rep_modal").modal("show");
+			});	
+		</c:if>
+		<c:if test="${empty loginUser }">
+			$(".ico_report").on("click", function() {
+				alert("로그인 하셔야 신고하실 수 있습니다.");
+			});	
+		</c:if>
 		
 		//전시 신고 기타사유
 		// 기타 선택 시에만 textarea 활성화
-		$("input:radio[name='reportreason']").click(function() {
+		$("input:radio[name='reportbreason']").click(function() {
 			if ($("input:radio[id='reportreason1']:checked").val() == "기타") {
 				$("#etc1").attr("disabled", false);
 				$("#etc1").focus();
@@ -1091,17 +1095,32 @@ a:-webkit-any-link {
 			$("#" + tab).addClass("active");
 		});
 
+		//한줄평 최신순 평점순
 		$(".search-option .option").on("click", function() {
 			$(".search-option .option").removeClass("on");
 			$(this).addClass("on");
 			$(".search-option .i .off").removeClass("off");
 			$(".search-option .i").addClass("off");
 		});
+		
+		//한줄평 더보기 버튼
+		$(".review_list").slice(0, 4).fadeIn(); // 최초 4개 선택
+		$("#more_btn").click(function(e) { // Load More를 위한 클릭 이벤트e
+		    e.preventDefault();
+		    $(".review_list:hidden").slice(0, 4).fadeIn(); // 숨김 설정된 다음 4개를 선택하여 표시
+		    if ($(".review_list:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
+		        $('#more_btn').fadeOut();// 더 이상 로드할 항목이 없는 경우
+		        $('.rev_insert').css("margin-top", "180px");
+		    }
+		});
 
+		//한줄평 좋아요
 		$("#rev_like .icon").on("click", function() {
 			$(this).removeClass("outline");
 			$(this).addClass("blue");
 		});
+		
+		//한줄평 싫어요
 		$("#rev_hate .icon").on("click", function() {
 			$(this).removeClass("outline");
 			$(this).addClass("gray");
@@ -1195,11 +1214,28 @@ a:-webkit-any-link {
 		//캘린더
 		
 		
-		
-		
-
-		
 	});
+	
+	function submit1() {
+		document.getElementById("btnsub_rep").onclick = function() {
+			document.getElementById('rep_form').submit();
+			return false;
+		};
+	};
+	
+	function submit2() {
+		document.getElementById("btnsub_rev_rep").onclick = function() {
+			document.getElementById('rev_rep_form').submit();
+			return false;
+		};
+	};
+	
+	/* function submit3() {
+		document.getElementById("btnsub_rev_del").onclick = function() {
+			document.getElementById('rev_del_modal').submit();
+			return false;
+		};
+	}; */
 	
 	window.onload = function(){
 		//바탕색 랜덤
@@ -1210,6 +1246,43 @@ a:-webkit-any-link {
 		document.getElementById('exhibition_vp').style.background = color; // 조립한 컬러를 프론트엔드에서 지정한 ID에 적용한다.
 	}
 	
+
+	//review order ajax
+	function reviewOrder(order){
+	  	$.ajax({
+			url : "reviewOrder.do",
+			type : "post",
+			data : { order : order },
+			dataType : "json",
+			success : function(result){
+				var objStr = JSON.stringify(result);
+				var jsonObj = JSON.parse(objStr);
+				var values = "";
+				for ( var i in jsonObj.list) {
+					var length = decodeURIComponent(jsonObj.list[i].userintrol.replace(/\+/gi, " ")).length;
+					var tagl = decodeURIComponent(jsonObj.list[i].usertag.replace(/\+/gi, " ")).length;
+					var tags = decodeURIComponent(jsonObj.list[i].usertag.replace(/\+/gi, " ")).split(',');
+					var userintrol = decodeURIComponent(jsonObj.list[i].userintrol.replace(/\+/gi, " "));
+					
+				}
+				
+				$(".artist_pic_main").html(values);
+				$(".artist_card").slice(0, 4).fadeIn();
+				$("#more_load").show();
+				$("#more_load").click(function(e) { 
+			  	    e.preventDefault();
+			  	    $(".artist_card:hidden").slice(0, 4).fadeIn(); 
+			  	    if ($(".artist_card:hidden").length == 0) { 
+			  	        $('#more_load').fadeOut();
+			  	    }
+			  	});
+				console.log("ok : " + order);
+			},
+			error : function(jqXHR, textStatus, errorThrown){
+				console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+			}
+		});// review order ajax
+	}
 </script>
 </head>
 <body>
@@ -1249,53 +1322,55 @@ a:-webkit-any-link {
 </div>
 <!--// 배너 상단 아이콘들  -->
 <!-- 전시신고 모달 시작 -->
-<c:if test="${!empty sessionScope.User }">
 <div class="ui modal" id="rep_modal">
 <p style="font-size: 20pt; padding-top:40px; color:#373737; text-align:center;font-weight: bold;">전시 신고하기</p>
 <p class="quitHeader" style="font-weight: 600;text-align: center;font-weight: bolder;">어떤 문제가 있나요?</p>
 <center>
-<form action="objetReport.do" method="post">
+<form action="objetReport.do" method="post" id="rep_form">
 <div align="center" style="padding-top: 15px;">
 	<div class="choiceReportReason1">
 		<div class="ui form">
-		
+		<input type="hidden" name="originno" value="${objet.objetno }">
+		<input type="hidden" name="reportedb" value="${objet.userid }">
+		<input type="hidden" name="reporterb" value="${loginUser.userid }">
+		<input type="hidden" name="reportbtype" value="OBJET">
 			    <div class="field">
 			      <div class="ui radio checkbox">
-			        <input type="radio" name="reportreason" value="명예훼손/사생활 침해 및 저작권 침해" checked="checked">
+			        <input type="radio" name="reportbreason" value="명예훼손/사생활 침해 및 저작권 침해" checked="checked">
 			        <label>명예훼손/사생활 침해 및 저작권 침해</label>
 			      </div>
 			    </div>
 			    <div class="field">
 			      <div class="ui radio checkbox">
-			        <input type="radio" name="reportreason" value="음란성 또는 청소년에게 부적합한 내용">
+			        <input type="radio" name="reportbreason" value="음란성 또는 청소년에게 부적합한 내용">
 			        <label>음란성 또는 청소년에게 부적합한 내용</label>
 			      </div>
 			    </div>
 			    <div class="field">
 			      <div class="ui radio checkbox">
-			        <input type="radio" name="reportreason" value="명의 도용">
+			        <input type="radio" name="reportbreason" value="명의 도용">
 			        <label>명의 도용</label>
 			      </div>
 			    </div>
 			    <div class="field">
 			      <div class="ui radio checkbox">
-			        <input type="radio" name="reportreason" value="부적절한 콘텐츠">
+			        <input type="radio" name="reportbreason" value="부적절한 콘텐츠">
 			        <label>부적절한 콘텐츠</label>
 			      </div>
 			    </div>
 			    <div class="field">
 			      <div class="ui radio checkbox">
-			        <input type="radio" name="reportreason" value="개인정보노출">
+			        <input type="radio" name="reportbreason" value="개인정보노출">
 			        <label>개인정보노출</label>
 			      </div>
 			    </div>
 			    <div class="field">
 			      <div class="ui radio checkbox">
-			        <input type="radio" name="reportreason" id="reportreason1" value="기타">
+			        <input type="radio" name="reportbreason" id="reportreason1" value="기타">
 			        <label>기타</label>
 			      </div>
 			    </div>
-			    <textarea rows="3" cols="10" name="etc" id="etc1" style="resize: none;" disabled required></textarea>
+			    <textarea rows="3" cols="10" name="reportbreason" id="etc1" style="resize: none;" disabled required></textarea>
 				<span style="color:#aaa; display: none; text-align:right; font-size:9pt;margin-top:2px;" id="obj_rep_cnt">( <span style="color:#4ecdc4;font-size:9pt;">0</span> / 최대 100자 )</span>
 		</div>
 	</div>
@@ -1306,7 +1381,7 @@ a:-webkit-any-link {
       <i class="remove icon"></i>
       	취소
     </div>
-    <div id="btnsub_rev_rep" class="ui blue ok inverted button" onClick="location.href ='objetReport.do'" style="cursor: pointer;">
+    <div id="btnsub_rep" class="ui blue ok inverted button" onClick="submit1();" style="cursor: pointer;">
       <i class="bell outline icon"></i>
              신고하기
     </div>
@@ -1314,7 +1389,6 @@ a:-webkit-any-link {
 </form>
 </center>
 </div>
-</c:if>
 <!-- 전시 신고 모달 끝 -->
 <!-- 미로그인시 신고 버튼 클릭시에 -->
 
@@ -1341,6 +1415,7 @@ style="font-size: 18px;" onclick="location.href='objetView.do'">전시 감상하
 </div>
 <center>
 <div class="objet_cont">
+<!-- EXHIBITION  -->
 <div class="ui bottom attached tab active" id="objet_info">
 <span class="det_title">EXHIBITION</span><br>
 <div class="objet_section">
@@ -1408,6 +1483,7 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 </div>
 </div>
 </center>
+<!-- ARTIST  -->
 <div class="ui bottom attached tab" id="artist_info">
 <center><span class="det_title">ARTIST</span></center><br>
 <div class="artist_cont">
@@ -1418,22 +1494,25 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 </div>
 </div>
 <center>
+<!-- CALENDAR  -->
 <div class="ui bottom attached tab" id="objet_calendar">
 <span class="det_title">CALENDAR</span><br>
 
 </div>
+<!-- REVIEW  -->
 <div class="ui bottom attached tab " id="objet_review">
    <span class="det_title">REVIEW</span><br>
    <div class="search-option-cate">
   <span class="search-option">
-      <a class="option on" data-type="accu">&nbsp;최신순</a>&nbsp;&nbsp;
-      <a class="option" data-type="recency">&nbsp;평점순</a>&nbsp;&nbsp;
+      <a href="javascript:void(0);" onclick="reviewOrder('reviewdateasc');" class="option on" >&nbsp;최신순</a>&nbsp;&nbsp;
+      <a href="javascript:void(0);" onclick="reviewOrder('reviewstarasc');" class="option" >&nbsp;평점순</a>&nbsp;&nbsp;
 </span>
 </div><br>
 <div class="review_all_list">
 <!-- 내 한줄평 있을시 보이는 공간 -->
+<c:if test="${!empty loginUser && loginUser.userid eq myReview.userid}">
 <div class="review_mylist">
-<img class="ui circular image" src="resources/images/objet/나의 오랜 연인에게1.jpg" id="writer_mypic">
+<img class="ui circular image" src="resources/users_upfiles/${loginUser.userrpic }" id="writer_mypic">
 <div class="review_mycontent">
 <span class="rev_mywriter">최강예은</span><span class="rev_mydate">Dec.&nbsp;21.&nbsp;2019</span>
 <div class="ui icon top left pointing floating dropdown button" id="rev_mymore">
@@ -1453,10 +1532,12 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 </div></div>
 </div>
 </div>
+</c:if>
 <!-- //내 한줄평 있을시 보이는 공간 끝 -->
 <!-- 내 한줄평 있을시 수정 공간-->
+<c:if test="${!empty loginUser }">
 <div class="review_mylist_up">
-<img class="ui circular image" src="resources/images/objet/나의 오랜 연인에게1.jpg" id="writer_mypic">
+<img class="ui circular image" src="resources/users_upfiles/${loginUser.userrpic }" id="writer_mypic">
 <div class="review_ins_content">
 <textarea class="ui fluid input rev_up_cont" maxlength="200">
 완벽했습니다..! 그치만 평점은 4점 드릴게요</textarea>
@@ -1470,6 +1551,7 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 <input class="ui circular basic gray button" type="submit" value="수정"/>
 </div>
 </div> 
+</c:if>
 <!-- //내 한줄평 있을시 수정 공간 끝 -->
 <!-- 한줄평 삭제 버튼 클릭시 모달 -->
 <div class="ui mini modal actions" id="rev_del_modal">
@@ -1481,27 +1563,13 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
       <i class="remove icon"></i>
       	취소
     </div>
-    <div class="ui blue ok inverted button" onClick="location.href ='deleteReview.do'" style="cursor: pointer;">
+    <div id="btnsub_rev_del" class="ui blue ok inverted button" onClick="location.href='deleteReview.do'" style="cursor: pointer;">
       <i class="checkmark icon"></i>
       	삭제
     </div>
   </div>
 </div>
 <!-- //한줄평 삭제 버튼 클릭시 모달 끝 -->
-<div class="review_list">
-<img class="ui circular image" src="resources/images/objet/나의 오랜 연인에게2.jpg" id="writer_pic">
-<div class="review_content">
-<span class="rev_writer">안경민경</span><span class="rev_date">Dec.&nbsp;21.&nbsp;2019</span>
-<span class="rev_report">신고</span><br>
-<span class="rev_cont">너무 좋아요.... 생각보다 더 좋았어요 또 보고 싶어요~~  좋아요 정말~~~짜루짜루진짜루~~</span><br>
-<div class="extra">
-<div class="ui star rating" data-rating="5" data-max-rating="5" >5</div>
-<div class="rev_like_btn">
-<div class="ui basic circular gray icon button" id="rev_like"><i class="thumbs up outline icon" style="font-size:14px;"></i><span class="rev_cnt"> 34</span></div>&nbsp;
-<div class="ui basic circular gray icon button" id="rev_hate"><i class="thumbs down outline icon" style="font-size:14px;"></i><span class="rev_cnt"> 2</span></div>
-</div></div>
-</div>
-</div>
 <!-- 한줄평 신고 -->
 <div class="ui modal" id="rev_rep_modal">
 <p style="font-size: 20pt; padding-top:40px; color:#373737; text-align:center;font-weight: bold;">한줄평 신고하기</p>
@@ -1509,35 +1577,39 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 <!-- <span class="" style="font-weight: 300;text-align: left;margin:0 0 0 40px;">작성자 : user**</span><br>
 <span class="" style="font-weight: 300;text-align: left;margin:20px 0 0 40px;">내   용 : 너무 좋아요.... 생각보다 더 좋았어요 또 보고 싶어요~~  좋아요 정말~~~짜루짜루진짜루~~</span> -->
 <center>
-<form action="" method="post">
+<form action="reviewReport.do" method="post" id="rev_rep_form">
 <div align="center" style="padding-top: 15px;">
 	<div class="choiceReportReason2">
 		<div class="ui form">
+		<input type="hidden" name="originno" value="${objet.objetno }">
+		<input type="hidden" name="reportedb" value="${objet.userid }">
+		<input type="hidden" name="reporterb" value="${loginUser.userid }">
+		<input type="hidden" name="reportbtype" value="REVIEW">
 			    <div class="field">
 			      <div class="ui radio checkbox">
-			        <input type="radio" name="reportreason" value="영리목적/홍보성/불법정보" checked="checked">
+			        <input type="radio" name="reportbreason" value="영리목적/홍보성/불법정보" checked="checked">
 			        <label>영리목적/홍보성/불법정보</label>
 			      </div>
 			    </div>
 			    <div class="field">
 			      <div class="ui radio checkbox">
-			        <input type="radio" name="reportreason" value="음란/선정성">
+			        <input type="radio" name="reportbreason" value="음란/선정성">
 			        <label>음란/선정성</label>
 			      </div>
 			    </div>
 			    <div class="field">
 			      <div class="ui radio checkbox">
-			        <input type="radio" name="reportreason" value="욕설/인신공격/같은내용도배">
+			        <input type="radio" name="reportbreason" value="욕설/인신공격/같은내용도배">
 			        <label>욕설/인신공격/같은내용도배</label>
 			      </div>
 			    </div>
 			    <div class="field">
 			      <div class="ui radio checkbox">
-			        <input type="radio" name="reportreason" id="reportreason2" value="기타">
+			        <input type="radio" name="reportbreason" id="reportreason2" value="기타">
 			        <label>기타</label>
 			      </div>
 			    </div>
-			    <textarea class="ui input textarea" rows="3" cols="10" name="etc" id="etc2" style="resize: none;" disabled required></textarea>
+			    <textarea class="ui input textarea" rows="3" cols="10" name="reportbreason" id="etc2" style="resize: none;" disabled required></textarea>
 				<span style="color:#aaa; display: none; text-align:right; font-size:9pt;margin-top:2px;" id="rev_rep_cnt">( <span style="color:#4ecdc4;font-size:9pt;">0</span> / 최대 100자 )</span>
 		</div>
 	</div>
@@ -1555,7 +1627,7 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
       <i class="remove icon"></i>
       	취소
     </div>
-    <div id="btnsub_rev_rep" class="ui blue ok inverted button" onClick="location.href ='reviewReport.do'" style="cursor: pointer;">
+    <div id="btnsub_rev_rep" class="ui blue ok inverted button" onClick="submit2();" style="cursor: pointer;">
       <i class="bell outline icon"></i>
         	신고하기
     </div>
@@ -1564,66 +1636,32 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 </center>
 </div>
 <!-- //한줄평 신고  끝 -->
+<!-- 한줄평 리스트 -->
+<c:forEach var="Review" items="${reviewList }">
 <div class="review_list">
-<img class="ui circular image" src="resources/images/objet/나의 오랜 연인에게2.jpg" id="writer_pic">
+<img class="ui circular image" src="resources/users_upfiles/${Review.userrpic }" id="writer_pic">
 <div class="review_content">
-<span class="rev_writer">안경민경</span><span class="rev_date">Dec.&nbsp;21.&nbsp;2019</span><span class="rev_report">신고</span><br>
-<span class="rev_cont">너무 좋아요.... 생각보다 더 좋았어요 또 보고 싶어요~~  좋아요 정말~~~짜루짜루진짜루~~</span><br>
+<span class="rev_writer">${Review.nickname }</span><span class="rev_date">Dec.&nbsp;21.&nbsp;2019</span><span class="rev_report">신고</span><br>
+<span class="rev_cont">${Review.revcontent }</span><br>
 <div class="extra">
-<div class="ui star rating" data-rating="5" data-max-rating="5" >5</div>
+<div class="ui star rating" data-rating="5" data-max-rating="5" >${Review.revstars }</div>
 <div class="rev_like_btn">
-<div class="ui basic circular gray icon button" id="rev_like"><i class="thumbs up outline icon" style="font-size:14px;"></i><span class="rev_cnt"> 34</span></div>&nbsp;
-<div class="ui basic circular gray icon button" id="rev_hate"><i class="thumbs down outline icon" style="font-size:14px;"></i><span class="rev_cnt"> 2</span></div>
+<div class="ui basic circular gray icon button" id="rev_like"><i class="thumbs up outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${Review.revgood }</span></div>&nbsp;
+<div class="ui basic circular gray icon button" id="rev_hate"><i class="thumbs down outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${Review.revhate }</span></div>
 </div></div>
 </div>
 </div>
-<div class="review_list">
-<img class="ui circular image" src="resources/images/objet/나의 오랜 연인에게2.jpg" id="writer_pic">
-<div class="review_content">
-<span class="rev_writer">안경민경</span><span class="rev_date">Dec.&nbsp;21.&nbsp;2019</span><span class="rev_report">신고</span><br>
-<span class="rev_cont">너무 좋아요.... 생각보다 더 좋았어요 또 보고 싶어요~~  좋아요 정말~~~짜루짜루진짜루~~</span><br>
-<div class="extra">
-<div class="ui star rating" data-rating="4" data-max-rating="5"     >4</div>
-<div class="rev_like_btn">
-<div class="ui basic circular gray icon button" id="rev_like"><i class="thumbs up outline icon" style="font-size:14px;"></i><span class="rev_cnt"> 34</span></div>&nbsp;
-<div class="ui basic circular gray icon button" id="rev_hate"><i class="thumbs down outline icon" style="font-size:14px;"></i><span class="rev_cnt"> 2</span></div>
-</div></div>
-</div>
-</div>
-<div class="review_list">
-<img class="ui circular image" src="resources/images/objet/나의 오랜 연인에게3.jpg" id="writer_pic">
-<div class="review_content">
-<span class="rev_writer">안경민경</span><span class="rev_date">Dec.&nbsp;21.&nbsp;2019</span><span class="rev_report">신고</span><br>
-<span class="rev_cont">너무 좋아요.... 생각보다 더 좋았어요 또 보고 싶어요~~  좋아요 정말~~~짜루짜루진짜루~~</span><br>
-<div class="extra">
-<div class="ui star rating" data-rating="3" data-max-rating="5" >3</div>
-<div class="rev_like_btn">
-<div class="ui basic circular gray icon button" id="rev_like"><i class="thumbs up outline icon" style="font-size:14px;"></i><span class="rev_cnt"> 34</span></div>&nbsp;
-<div class="ui basic circular gray icon button" id="rev_hate"><i class="thumbs down outline icon" style="font-size:14px;"></i><span class="rev_cnt"> 2</span></div>
-</div></div>
-</div>
-</div>
-<div class="review_list">
-<img class="ui circular image" src="resources/images/objet/나의 오랜 연인에게5.jpg" id="writer_pic">
-<div class="review_content">
-<span class="rev_writer">안경민경</span><span class="rev_date">Dec.&nbsp;21.&nbsp;2019</span><span class="rev_report">신고</span><br>
-<span class="rev_cont">너무 좋아요.... 생각보다 더 좋았어요 또 보고 싶어요~~  좋아요 정말~~~짜루짜루진짜루~~</span><br>
-<div class="extra">
-<div class="ui star rating" data-rating="5" data-max-rating="5">5</div>
-<div class="rev_like_btn">
-<div class="ui basic circular gray icon button" id="rev_like"><i class="thumbs up outline icon" style="font-size:14px;"></i><span class="rev_cnt"> 34</span></div>&nbsp;
-<div class="ui basic circular gray icon button" id="rev_hate"><i class="thumbs down outline icon" style="font-size:14px;"></i><span class="rev_cnt"> 2</span></div>
-</div></div>
-</div>
-</div>
-</div>
+</c:forEach>
+<!-- //한줄평 리스트 끝  -->
+</div> <!-- //한줄평 끝 -->
 <div id="more_btn">
-<a href="" onclick="javascript:moreContent('more_list', 10);"><span>다음 리뷰 보기</span></a>
+<span>다음 리뷰 보기</span>
 </div>
 <br><br>
+<!-- 한줄평 등록  -->
 <div class="rev_insert">
 <div class="review_insert">
-<img class="ui circular image" src="resources/images/objet/나의 오랜 연인에게3.jpg" id="writer_pic_2">
+<img class="ui circular image" src="resources/users_upfiles/${loginUser.userrpic }" id="writer_pic_2">
 <div class="review_ins_content">
 <textarea class="ui fluid input rev_ins_cont" maxlength="200" 
 placeholder="이 전시의 감상평(한줄평)을 남겨주세요. 전시와 상관없는 내용은 제재를 받을 수 있습니다."></textarea>
@@ -1639,6 +1677,7 @@ placeholder="이 전시의 감상평(한줄평)을 남겨주세요. 전시와 �
 </div>
 <br><br><br>
 </div>
+<!-- 한줄평 등록  끝 -->
 </div>
 </center>
 </section>
