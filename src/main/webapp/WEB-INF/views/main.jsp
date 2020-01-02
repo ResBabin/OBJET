@@ -632,6 +632,12 @@ box-shadow: 0px 0px 13px 5px gray;
      <!-- Swiper JS -->
    <script type="text/javascript" src="resources/js/swiper.min.js"></script>
      <script type="text/javascript">
+     // 내정보수정 완료 시 완료 메시지 표출용 코드 여기서부터 ---
+     var message = '${message}';
+     if(message != null && message != ""){
+    	 alert(message);
+     }// 여기까지 ----
+     
        var interleaveOffset = 0.5;
 
        var swiperOptions = {

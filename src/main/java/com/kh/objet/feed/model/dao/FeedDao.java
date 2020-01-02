@@ -35,4 +35,9 @@ public class FeedDao {
 	public int deleteFeed(int feedno) {
 		return mybatisSession.delete("userMapper.deleteFeed", feedno);
 	}
+
+	// 피드 추가
+	public int insertFeed(Feed feed) {
+		return mybatisSession.insert("userMapper.insertFeed", feed);
+	}
 }

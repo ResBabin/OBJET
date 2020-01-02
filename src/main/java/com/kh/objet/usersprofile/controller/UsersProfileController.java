@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.objet.follow.model.service.FollowServiceImpl;
+import com.kh.objet.follow.model.vo.Following;
 import com.kh.objet.users.model.vo.UAUP;
 import com.kh.objet.usersprofile.model.service.UsersProfileServiceImpl;
 import com.kh.objet.usersprofile.model.vo.UsersProfile;
@@ -39,16 +40,30 @@ public class UsersProfileController {
 	
 	// 작가홈 이동
 		@RequestMapping(value="artistHomeMain.do", method=RequestMethod.GET)
-		public String moveArtistHome(@RequestParam(value="userid") String userid, Model model) {
+		public String moveArtistHome(@RequestParam(value="userid") String userid, @RequestParam(value="loginUser") String loginUser, Following following2, Model model) {
 			String vfn = "artistHome/artistHomeMain";
 			UAUP usersProfile = usersProfileService.moveArtistHome(userid);
 			
 			int follower = followService.FollowerGetListCount(userid);
 			int following = followService.FollowingGetListCount(userid);
 			
+			// 구독 여부 확인용
+			String followyn = null;
+			following2.setFrom_user(loginUser);
+			following2.setTo_user(userid);
+			int result = followService.selectFollowingList(following2);
+			// 구독중이라면
+			if(result > 0) 
+				followyn = "Y";
+			// 아니라면
+			else
+				followyn = "N";
+			
+			
 			model.addAttribute("usersProfile", usersProfile);
 			model.addAttribute("follower", follower);
 			model.addAttribute("following", following);
+			model.addAttribute("followyn", followyn);
 			
 			if(usersProfile == null) {
 				vfn = "common/error";
@@ -120,13 +135,13 @@ public class UsersProfileController {
 			int result = usersProfileService.updateArtistIntro(usersprofile);
 			
 			if(result > 0) {
-				vfn = "redirect:artistHomeMain.do?userid="+usersprofile.getUserid();
+				vfn = "redirect:artistHomeMain.do?userid="+usersprofile.getUserid()+"&loginUser="+usersprofile.getUserid();
 			}else {
 				vfn = "common/error";
 				model.addAttribute("message", "작가소개수정 실패!");
 			}
 			
-			return "redirect:artistHomeMain.do?userid="+usersprofile.getUserid();
+			return vfn;
 		}
 
 }

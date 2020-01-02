@@ -34,6 +34,12 @@ public class FeedServiceImpl implements FeedService{
 		return feedDao.deleteFeed(feedno);
 	}
 
+	// 피드 추가
+	@Override
+	public int insertFeed(Feed feed) {
+		return feedDao.insertFeed(feed);
+	}
+
 	
 
 }
