@@ -10,13 +10,13 @@ public class Calendar implements java.io.Serializable{
 	private String startdate;
 	private String enddate;
 	private String category;
-	private String username;
+	private String userid;
 	private String backgroundcolor;
 	private String textcolor;
 	
 	public Calendar() {}
 	
-	public Calendar(int calnum, String objettitle, String description, String startdate, String enddate, String category, String username, String backgroundcolor, String textcolor) {
+	public Calendar(int calnum, String objettitle, String description, String startdate, String enddate, String category, String userid, String backgroundcolor, String textcolor) {
 		super();
 		this.calnum = calnum;
 		this.objettitle = objettitle;
@@ -24,7 +24,7 @@ public class Calendar implements java.io.Serializable{
 		this.startdate = startdate;
 		this.enddate = enddate;
 		this.category = category;
-		this.username = username;
+		this.userid = userid;
 		this.backgroundcolor = backgroundcolor;
 		this.textcolor = textcolor;
 	}
@@ -77,12 +77,12 @@ public class Calendar implements java.io.Serializable{
 		this.category = category;
 	}
 	
-	public String getUsername() {
-		return username;
+	public String getUserid() {
+		return userid;
 	}
 	
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 	
 	public String getBackgroundcolor() {
@@ -104,8 +104,8 @@ public class Calendar implements java.io.Serializable{
 	@Override
 	public String toString() {
 		return "Calendar [calnum=" + calnum + ", objettitle=" + objettitle + ", description=" + description
-				+ ", startdate=" + startdate + ", enddate=" + enddate + ", category=" + category + ", username="
-				+ username + ", backgroundcolor=" + backgroundcolor + ", textcolor=" + textcolor + "]";
+				+ ", startdate=" + startdate + ", enddate=" + enddate + ", category=" + category + ", userid="
+				+ userid + ", backgroundcolor=" + backgroundcolor + ", textcolor=" + textcolor + "]";
 	}
 	
 }
