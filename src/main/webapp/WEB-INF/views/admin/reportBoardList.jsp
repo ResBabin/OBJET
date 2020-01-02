@@ -18,7 +18,7 @@ cursor: pointer;
 #detaillabel{
 margin: 5px;
 width: 935px;
-padding: 15px;
+padding: 10px;
 padding-left: 20px;
 padding-right: 20px;
 text-align: left;
@@ -45,6 +45,9 @@ color: white;
 	background: #555;
 }
 
+
+
+
 </style>
 
 <script type="text/javascript">
@@ -63,44 +66,49 @@ $(function() {
 		console.log(originno);
 		console.log(reportedb);
 		// 반복문을 이용해서 배열에 값을 담아 사용할 수 도 있다.
-		$.ajax({
-			url : "reportd.do",
-			data : {reportedb : reportedb, originno : originno},
-			type : "post",
-			dataType : "json",
-			success : function(result) {
-				var objStr = JSON.stringify(result);
-				var jsonObj = JSON.parse(objStr);
-				//출력용 문자열 준비 
-				var rd = "";
-				//출력할 문자열 만들기
-				for ( var i in jsonObj.list) {
-					rd +="<div class='ui large label' id='detaillabel'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div>" 
-					+ decodeURIComponent(jsonObj.list[i].id.replace(/\+/gi, " ")) + 
-					"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-							 + decodeURIComponent(jsonObj.list[i].reason.replace(/\+/gi, " ")) + 
-							"</div><div id='datediv'>" + jsonObj.list[i].date + "</div></div>"
-				}
-				var rc = $(rptr).children().eq(2).find('input[name="rcount"]').val();
-				console.log(rc);
-				
-	/* 		 $(rptr).next().html("<td style='background : #f9f9f9' width='150'> 총" + rc +
-						"건</td><td colspan='2' style='background : #f9f9f9;' width='200'>" + rd + 
-						"<button id='linkbtn' class='ui button'>원글로 이동</button><button class='ui button closebtn'>닫기</button></td>"); 
- */
-			 $(rptr).next().html("<td style='background : #f9f9f9' width='150'> 총" + rc +
-						"건</td><td colspan='2' style='background : #f9f9f9;' width='200'>" + rd + 
-						"<button id='linkbtn' class='ui button'>원글로 이동</button></td>"); 
-			}, 
-			
-			
-			error : function(request, status, errorData) { 
-				console.log("error code : " + request.status
-						+ "\nMessage : " + request.responseText
-						+ "\nError : " + errorData);
-			} 
- 
-		});
+		
+		$(rptr).next().toggle(
+		);
+		function bringreport() {
+			$.ajax({
+				url : "reportd.do",
+				data : {reportedb : reportedb, originno : originno},
+				type : "post",
+				dataType : "json",
+				success : function(result) {
+					var objStr = JSON.stringify(result);
+					var jsonObj = JSON.parse(objStr);
+					//출력용 문자열 준비 
+					var rd = "";
+					//출력할 문자열 만들기
+					for ( var i in jsonObj.list) {
+						rd +="<div class='ui large label' id='detaillabel'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div>" 
+						+ decodeURIComponent(jsonObj.list[i].id.replace(/\+/gi, " ")) + 
+						"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+								 + decodeURIComponent(jsonObj.list[i].reason.replace(/\+/gi, " ")) + 
+								"</div><div id='datediv'>" + jsonObj.list[i].date + "</div></div>"
+					}
+					var rc = $(rptr).children().eq(2).find('input[name="rcount"]').val();
+					console.log(rc);
+					
+		/* 		 $(rptr).next().html("<td style='background : #f9f9f9' width='150'> 총" + rc +
+							"건</td><td colspan='2' style='background : #f9f9f9;' width='200'>" + rd + 
+							"<button id='linkbtn' class='ui button'>원글로 이동</button><button class='ui button closebtn'>닫기</button></td>"); 
+	 */
+				var rptrvar =  $(rptr).next();
+			 	 $(rptrvar).html("<td style='background : #f9f9f9;' width='150'> 총" + rc +
+							"건</td><td colspan='2' style='background : #f9f9f9;' width='200'>" + rd + 
+							"<button id='linkbtn' class='ui button'>원글로 이동</button></td>");  
+				}, 
+				error : function(request, status, errorData) { 
+					console.log("error code : " + request.status
+							+ "\nMessage : " + request.responseText
+							+ "\nError : " + errorData);
+				} 
+	 
+			});
+		};
+		
 	});
 	});
 </script>

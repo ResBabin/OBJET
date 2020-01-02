@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.objet.reportboard.model.vo.ReportBoard;
+import com.kh.objet.review.model.vo.Review;
 
 @Repository("reportbDao")
 public class ReportBoardDao {
@@ -29,12 +30,24 @@ public class ReportBoardDao {
 		return mybatisSession.selectList("adminMapper.selectReportReason"); 
 	}
 
-	public ReportBoard selectReportBDetail(Map<String, String> map) {
-		return mybatisSession.selectOne("adminMapper.selectReportBDetail", map);
+	public List<ReportBoard> selectReportBDetail() {
+		return mybatisSession.selectList("adminMapper.selectReportBDetail");
+	}
+	
+	public Review selectReportDetail(Review review) {
+		return mybatisSession.selectOne("adminMapper.selectReportDetail", review);
 	}
 
 	public List<ReportBoard> selectReportAll() {
 		return mybatisSession.selectList("adminMapper.selectReportAll");
+	}
+
+	public int deleteReportbOrigin(ReportBoard reportb) {
+		return mybatisSession.delete("adminMapper.deleteReportbOrigin", reportb);
+	}
+	
+	public int deleteReportb(ReportBoard reportb) {
+		return mybatisSession.delete("adminMapper.deleteReportb", reportb);
 	}
 	
 }

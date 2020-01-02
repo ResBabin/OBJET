@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.reportboard.model.service.ReportBoardService;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
+import com.kh.objet.review.model.vo.Review;
 import com.kh.objet.users.controller.UserManagementController;
 import com.kh.objet.users.model.vo.UserManagement;
 
@@ -39,25 +40,28 @@ public class ReportBoardController {
 	public String selectReportBList (Model model) {
 		ArrayList<ReportBoard> reportblist = (ArrayList<ReportBoard>)reportbService.selectReportBList();  
 		ArrayList<ReportBoard> reportbm = (ArrayList<ReportBoard>) reportbService.selectReportAll();
+		ArrayList<ReportBoard> reportbdetail = (ArrayList<ReportBoard>) reportbService.selectReportBDetail();
+		
 		model.addAttribute("reportblist", reportblist);
 		model.addAttribute("reportall", reportbm);
-		return  "admin/reportBoardList";
+		model.addAttribute("reportbdetail", reportbdetail);
+		return  "admin/reportBoardList2";
 	}
 	
 	@RequestMapping("reportbmd.do")
 	public String selectReportBDetail (HttpServletRequest request, Model model) {
 		//신고상세조회
-		Map<String, String> map = new HashMap<>();
+		Map<String, String> map = new HashMap<>(); 
 		map.put("rptype", request.getParameter("rptype"));
 		map.put("originno", request.getParameter("originno"));
 		map.put("reportedb", request.getParameter("reportedb"));
-		ReportBoard reportbmd = reportbService.selectReportBDetail(map);
+		ReportBoard reportbmd = (ReportBoard) reportbService.selectReportBDetail();
 		model.addAttribute("reportbmd", reportbmd);
 		return "admin/reportBoardDetail";
 	}
 	
 	@RequestMapping(value="reportd.do", method=RequestMethod.POST)
-	public void BlacklistOrder(ReportBoard report, HttpServletResponse response) throws IOException {
+	public void selectReportAllList(ReportBoard report, HttpServletResponse response) throws IOException {
 		ArrayList<ReportBoard> reportall = (ArrayList<ReportBoard>) reportbService.selectReportAllList(report);
 		//전송용 json 객체
 				JSONObject sendJson = new JSONObject();
@@ -82,6 +86,35 @@ public class ReportBoardController {
 				out.close();
 				
 	}
+	
+	@RequestMapping(value="reportdel.do", method=RequestMethod.POST)
+	public void deleteReportb (ReportBoard reportb, HttpServletResponse response) throws IOException {
+		int result = reportbService.deleteReportbOrigin(reportb);
+		int result2 = reportbService.deleteReportb(reportb);
+		PrintWriter out = response.getWriter();
+		
+		if(result > 0 && result2 > 0) {
+			out.append("success");
+		}else {
+			out.append("fail");
+		}
+		out.flush();
+	}
+	
+	@RequestMapping(value="reportdetail.do", method=RequestMethod.POST)
+	public void selectReportDetail (Review review, HttpServletResponse response) throws IOException {
+		Review reportdetail = reportbService.selectReportDetail(review);
+		reportdetail.getRevcontent();
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		
+		out.append(reportdetail.getRevcontent());
+		out.flush();
+	}
+	
+	
+	
+	
 	
 }
 

@@ -145,37 +145,64 @@
 	</select>
 
 	<!-- 신고게시글 전체조회 -->
- 	<select id="selectReportAll" resultType="ReportBoard">
-		select originno, 
+	<select id="selectReportAll" resultType="ReportBoard">
+		select originno,
 		reportedb ,count(originno) as "reportcount", reportbtype
-		from reportboard
+		from
+		reportboard
 		group by originno, reportedb, reportbtype
-	</select> 
+	</select>
 
 	<!-- 신고게시글 사유별 조회 -->
-	<select id="selectReportAllList" resultType="ReportBoard" parameterType="map">
-		select count(reportbreason) as "reportcount", reportbreason, reporterb, reportbdate
+	<select id="selectReportAllList" resultType="ReportBoard"
+		parameterType="map">
+		select count(reportbreason) as "reportcount",
+		reportbreason, reporterb, reportbdate
 		from reportboard
-		where originno = #{originno} and reportedb = #{reportedb}
-		group by reportbreason, reporterb, reportbdate
+		where originno =
+		#{originno} and reportedb = #{reportedb}
+		group by reportbreason,
+		reporterb, reportbdate
 	</select>
 
 
 	<!-- 신고게시글 상세조회 -->
-	<select id="selectReportBDetail" resultType="ReportBoard"
-		parameterType="map">
+	<select id="selectReportBDetail" resultType="ReportBoard">
+		select * from review
+	</select>
+	
+	<!-- 신고게시글 상세조회 -->
+	 <select id="selectReportDetail" resultType="Review"
+		parameterType="Review">
 		select *
+			from Review
+		where objetno = #{ objetno }
+				and userid = #{ userid }
+	</select> 
+
+	<delete id="deleteReportbOrigin" parameterType="ReportBoard">
+		delete
 		<trim prefix="from">
-			<if test="rptype.equals('OBJET')">objet</if>
-			<if test="rptype.equals('REVIEW')">Review</if>
+			<if test="reportbtype.equals('OBJET')">objet</if>
+			<if test="reportbtype.equals('REVIEW')">review</if>
 		</trim>
 		<where>
 			objetno = #{ originno }
-			<if test="rptype.equals('REVIEW')">
+			<if test="reportbtype.equals('REVIEW')">
 				and userid = #{ reportedb }
 			</if>
 		</where>
-	</select>
 
+	</delete>
+	<delete id="deleteReportb" parameterType="ReportBoard">
+		delete from reportboard
+		<where>
+		reportbtype = #{ reportbtype } 
+		and originno = #{ originno }
+		<if test="reportbtype.equals('REVIEW')">
+		and reportedb = #{ reportedb }
+		</if>
+		</where> 
+	</delete>
 
 </mapper> 
