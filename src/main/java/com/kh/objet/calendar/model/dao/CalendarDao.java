@@ -15,16 +15,16 @@ public class CalendarDao {
 	@Autowired
 	private SqlSessionTemplate mybatisSession;
 	
-	public int insertCalendar() {
-		return mybatisSession.insert("calendarMapper.insertCalendar");
+	public int insertCalendar(Calendar calendar) {
+		return mybatisSession.insert("calendarMapper.insertCalendar", calendar);
 	}
 
-	public int updateCalendar() {
-		return mybatisSession.update("calendarMapper.updateCalendar");
+	public int updateCalendar(Calendar calendar) {
+		return mybatisSession.update("calendarMapper.updateCalendar", calendar);
 	}
 
-	public int deleteCalendar() {
-		return mybatisSession.delete("calendarMapper.deleteCalendar");
+	public int deleteCalendar(Calendar calendar) {
+		return mybatisSession.delete("calendarMapper.deleteCalendar", calendar);
 	}
 
 	public ArrayList<Calendar> selectList() {
