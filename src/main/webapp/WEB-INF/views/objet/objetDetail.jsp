@@ -1248,32 +1248,43 @@ a:-webkit-any-link {
 	
 
 	//review order ajax
-	function reviewOrder(order){
+	function reviewOrder(no, order){
 	  	$.ajax({
 			url : "reviewOrder.do",
 			type : "post",
-			data : { order : order },
+			data : { no : no, order : order },
 			dataType : "json",
 			success : function(result){
 				var objStr = JSON.stringify(result);
 				var jsonObj = JSON.parse(objStr);
 				var values = "";
-				for ( var i in jsonObj.list) {
-					var length = decodeURIComponent(jsonObj.list[i].userintrol.replace(/\+/gi, " ")).length;
-					var tagl = decodeURIComponent(jsonObj.list[i].usertag.replace(/\+/gi, " ")).length;
-					var tags = decodeURIComponent(jsonObj.list[i].usertag.replace(/\+/gi, " ")).split(',');
-					var userintrol = decodeURIComponent(jsonObj.list[i].userintrol.replace(/\+/gi, " "));
-					
+				for (var i in jsonObj.list) {
+					values += '<div class="review_list">' +
+					'<img class="ui circular image" src="resources/users_upfiles/' + jsonObj.list[i].userrpic + '" id="writer_pic">' +
+					'<div class="review_content">' +
+					'<span class="rev_writer">' + decodeURIComponent(jsonObj.list[i].nickname.replace(/\+/gi, " ")) +
+					'</span><span class="rev_date">Dec.&nbsp;21.&nbsp;2019</span><span class="rev_report">신고</span><br>' +
+					'<span class="rev_cont">' + decodeURIComponent(jsonObj.list[i].revcontent.replace(/\+/gi, " ")) + '</span><br>' +
+					'<div class="extra">' +
+					'<div class="ui star rating" data-rating="' + jsonObj.list[i].revstars + '" data-max-rating="5" >' + jsonObj.list[i].revstars + '</div>' +
+					'<div class="rev_like_btn">' +
+					'<div class="ui basic circular gray icon button" id="rev_like"><i class="thumbs up outline icon" style="font-size:14px;"></i><span class="rev_cnt">'
+					+ jsonObj.list[i].revgood + '</span></div>&nbsp;' +
+					'<div class="ui basic circular gray icon button" id="rev_hate"><i class="thumbs down outline icon" style="font-size:14px;"></i><span class="rev_cnt">'
+					+ jsonObj.list[i].revhate + '</span></div>' +
+					'</div></div>' +
+					'</div>' +
+					'</div>';
 				}
-				
-				$(".artist_pic_main").html(values);
-				$(".artist_card").slice(0, 4).fadeIn();
-				$("#more_load").show();
-				$("#more_load").click(function(e) { 
+
+				$(".review_list_main").html(values);
+				$(".review_list").slice(0, 4).fadeIn();
+				$("#more_btn").show();
+				$("#more_btn").click(function(e) { 
 			  	    e.preventDefault();
-			  	    $(".artist_card:hidden").slice(0, 4).fadeIn(); 
-			  	    if ($(".artist_card:hidden").length == 0) { 
-			  	        $('#more_load').fadeOut();
+			  	    $(".review_list:hidden").slice(0, 4).fadeIn(); 
+			  	    if ($(".review_list:hidden").length == 0) { 
+			  	        $('#more_btn').fadeOut();
 			  	    }
 			  	});
 				console.log("ok : " + order);
@@ -1504,8 +1515,8 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
    <span class="det_title">REVIEW</span><br>
    <div class="search-option-cate">
   <span class="search-option">
-      <a href="javascript:void(0);" onclick="reviewOrder('reviewdateasc');" class="option on" >&nbsp;최신순</a>&nbsp;&nbsp;
-      <a href="javascript:void(0);" onclick="reviewOrder('reviewstarasc');" class="option" >&nbsp;평점순</a>&nbsp;&nbsp;
+      <a href="javascript:void(0);" onclick="reviewOrder(${objet.objetno}, 'reviewdatedesc');" class="option on" >&nbsp;최신순</a>&nbsp;&nbsp;
+      <a href="javascript:void(0);" onclick="reviewOrder(${objet.objetno}, 'reviewstardesc');" class="option" >&nbsp;평점순</a>&nbsp;&nbsp;
 </span>
 </div><br>
 <div class="review_all_list">
@@ -1637,6 +1648,7 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 </div>
 <!-- //한줄평 신고  끝 -->
 <!-- 한줄평 리스트 -->
+<div class="review_list_main">
 <c:forEach var="Review" items="${reviewList }">
 <div class="review_list">
 <img class="ui circular image" src="resources/users_upfiles/${Review.userrpic }" id="writer_pic">
@@ -1644,7 +1656,7 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 <span class="rev_writer">${Review.nickname }</span><span class="rev_date">Dec.&nbsp;21.&nbsp;2019</span><span class="rev_report">신고</span><br>
 <span class="rev_cont">${Review.revcontent }</span><br>
 <div class="extra">
-<div class="ui star rating" data-rating="5" data-max-rating="5" >${Review.revstars }</div>
+<div class="ui star rating" data-rating="${Review.revstars }" data-max-rating="5" >${Review.revstars }</div>
 <div class="rev_like_btn">
 <div class="ui basic circular gray icon button" id="rev_like"><i class="thumbs up outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${Review.revgood }</span></div>&nbsp;
 <div class="ui basic circular gray icon button" id="rev_hate"><i class="thumbs down outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${Review.revhate }</span></div>
@@ -1652,6 +1664,7 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 </div>
 </div>
 </c:forEach>
+</div>
 <!-- //한줄평 리스트 끝  -->
 </div> <!-- //한줄평 끝 -->
 <div id="more_btn">

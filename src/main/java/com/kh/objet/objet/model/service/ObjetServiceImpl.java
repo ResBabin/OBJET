@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.objet.objet.model.dao.ObjetDao;
 import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
+import com.kh.objet.objet.model.vo.ReviewKey;
 import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
 import com.kh.objet.review.model.vo.Review;
@@ -58,12 +59,16 @@ public class ObjetServiceImpl implements ObjetService{
 	}
 	
 	@Override
-	public ArrayList<Review> selectReview() {
-		return objetDao.selectReview();
+	public ArrayList<Review> selectReview(int objetno) {
+		return objetDao.selectReview(objetno);
 	}
 	
-	public Review selectReviewOne(String userid) {
-		return objetDao.selectReviewOne(userid);
+	public Review selectReviewOne(ReviewKey rk) {
+		return objetDao.selectReviewOne(rk);
+	}
+	
+	public ArrayList<Review> selectReviewOrder(ReviewKey rk) {
+		return objetDao.selectReviewOrder(rk);
 	}
 	
 	
@@ -145,6 +150,10 @@ public class ObjetServiceImpl implements ObjetService{
 	public int deleteObjet(int objetno) {
 		return objetDao.deleteObjet(objetno);
 	}
+
+	
+
+	
 
 	
 

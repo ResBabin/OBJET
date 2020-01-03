@@ -23,10 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
 import com.kh.objet.objet.model.service.ObjetServiceImpl;
 import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
+import com.kh.objet.objet.model.vo.ReviewKey;
 import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
 import com.kh.objet.review.model.vo.Review;
@@ -114,13 +114,15 @@ public class ObjetController {
 		out.close();
 	}
 	
-	//오브제, 작가 상세보기, 한줄평 리스트
+	//오브제, 작가 상세보기, 한줄평 리스트, 내 한줄평
 	@RequestMapping("objetOne.do")
 	public ModelAndView selectObjetOne(@RequestParam(value="objetno") int objetno, @RequestParam(value="userid", required=false) String userid, ModelAndView mv) {
 		Artist objet = objetService.selectObjetOne(objetno);
-		ArrayList<Review> reviewList = objetService.selectReview();
+		ArrayList<Review> reviewList = objetService.selectReview(objetno);
+		
 		if(userid != null) {
-			Review myReview = objetService.selectReviewOne(userid);
+			ReviewKey rk = new ReviewKey(objetno, userid, null);
+			Review myReview = objetService.selectReviewOne(rk);
 			if(myReview != null) {
 				mv.addObject("myReview", myReview);
 				mv.setViewName("objet/objetDetail");
@@ -129,6 +131,7 @@ public class ObjetController {
 				mv.setViewName("common/error");
 			}
 		}
+		
 		if(objet != null && reviewList != null) {
 			mv.addObject("objet", objet);
 			mv.addObject("reviewList", reviewList);
@@ -139,6 +142,44 @@ public class ObjetController {
 			mv.setViewName("common/error");
 		}
 		return mv;
+	}
+	
+	//한줄평 리스트 정렬
+	@RequestMapping(value="reviewOrder.do", method=RequestMethod.POST)
+	public void selectReviewOrder(int no, String order, HttpServletResponse response) throws IOException {
+		ReviewKey rk = new ReviewKey(no, null, order);
+		ArrayList<Review> reviewListOrder = objetService.selectReviewOrder(rk);
+		logger.debug(reviewListOrder.get(0).getUserid());
+		logger.debug(reviewListOrder.get(1).getUserid());
+		logger.debug(reviewListOrder.get(2).getUserid());
+		logger.debug(reviewListOrder.get(3).getUserid());
+		//전송용 json 객체
+		JSONObject sendJson = new JSONObject();
+		//json 배열 객체
+		JSONArray jarr = new JSONArray();
+		//list를 jarr 로 옮겨 저장 (복사)
+		for( Review review : reviewListOrder) {
+			
+		JSONObject job = new JSONObject();
+		job.put("userid", URLEncoder.encode(review.getUserid(), "utf-8"));
+		job.put("objetno", review.getObjetno());
+		job.put("revcontent", URLEncoder.encode(review.getRevcontent(), "utf-8"));
+		job.put("revstars", review.getRevstars());
+		job.put("revgood", review.getRevgood());
+		job.put("revhate", review.getRevhate());
+		job.put("revdate", review.getRevdate());
+		job.put("userrpic", review.getUserrpic());
+		job.put("nickname", URLEncoder.encode(review.getNickname(), "utf-8"));
+		jarr.add(job);
+		}
+		
+		sendJson.put("list", jarr);
+		logger.debug(jarr.toJSONString());
+		response.setContentType("application/jsonl charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.println(sendJson.toJSONString());
+		out.flush();
+		out.close();
 	}
 	
 	//오브제 전시감상페이지 이동

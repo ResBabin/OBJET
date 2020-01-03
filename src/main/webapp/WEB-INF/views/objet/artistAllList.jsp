@@ -260,7 +260,7 @@ $(function() {
 				var objStr = JSON.stringify(result);
 				var jsonObj = JSON.parse(objStr);
 				var values = "";
-				for ( var i in jsonObj.list) {
+				for (var i in jsonObj.list) {
 					var length = decodeURIComponent(jsonObj.list[i].userintrol.replace(/\+/gi, " ")).length;
 					var newline = "\n";
 					var noimages = "'resources/images/noimg2.jpg'";
@@ -282,17 +282,13 @@ $(function() {
 					        } 
 					values += '<center>';
 					     for(var i in tags){
-
 					    	values +='<a href="" id="tag" class="ui basic small gray circular button">' + tags[i] + '</a>' ;
-					    	
 					    } 
 					    
-					     
 						if(tagl > 4){
 					     values += '<a href="" id="tag" class="ui basic small gray circular button">...</a>'; 
 						}
 						values +=  '</center>' +
-
 						  '</figcaption></a>' +
 						'</figure>';
 				}
@@ -323,7 +319,7 @@ $(function() {
 <section class="objet_more_section">
 <div class="search-option-cate">
 <span class="search-option">
-    <a href="javascript:void(0);" onclick="artistOrder('statusasc');" class="option on">&nbsp;전시중인순</a>&nbsp;&nbsp;
+    <a href="javascript:void(0);" onclick="artistOrder('statusdesc');" class="option on">&nbsp;전시중인순</a>&nbsp;&nbsp;
     <a href="javascript:void(0);" onclick="artistOrder('nameasc');" class="option">&nbsp;가나다순</a>&nbsp;&nbsp;
 </span>&nbsp;&nbsp;
 </div>
