@@ -84,7 +84,7 @@
 		<div class="ui dropdown item" id="headdi2" align="center" style="padding-left: 35px;">
 			전시 관리 <i class="dropdown icon"></i>
 			<div class="menu" id="sub">
-				<a class="ui grey item" href="objetm.do" id="heada3">전시 조회</a> <a class="item" href="objereq.do" id="heada4">신청작 조회</a> 
+				<a class="ui grey item" href="objetm.do" id="heada3">전시 조회</a> <a class="item" href="objetreq.do" id="heada4">신청작 조회</a> 
 			</div>
 		</div>
 		<div class="ui dropdown item" id="headdi3" align="center" style="padding-left: 35px;">
@@ -102,8 +102,13 @@
 			</div>
 		</div>
 		<div class="right menu">
+			<div class="item">안녕하세요 관리자님</div>
+			<div class="item">알림
+			<i class="icon bell"></i>
+			<div class="ui circular red label" style="margin-left: -5px;">10</div>
+			</div>
 			<div class="item">
-				<div class="ui red button icons" style="font-size: 10pt;"><i class="home icon"></i>사용자</div>
+				<a href="main.do"><button class="ui red button icons" style="font-size: 10pt;"><i class="home icon"></i>사용자</button></a>
 			</div>
 		</div>
 	</div>
@@ -126,8 +131,7 @@
 				</a>
 			</div>
 			<div class="content" id="cont">
-				<a class="item" href="objetm.do"> 전시 조회 </a> <a class="item"
-					href="objereq.do"> 신청작 조회</a>
+				<a class="item" href="objetm.do"> 전시 조회 </a> <a class="item" href="objetreq.do"> 신청작 조회</a>
 			</div> 
 		</div>
 		<div class="ui accordion">

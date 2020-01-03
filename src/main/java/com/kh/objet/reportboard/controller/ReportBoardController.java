@@ -40,11 +40,11 @@ public class ReportBoardController {
 	public String selectReportBList (Model model) {
 		ArrayList<ReportBoard> reportblist = (ArrayList<ReportBoard>)reportbService.selectReportBList();  
 		ArrayList<ReportBoard> reportbm = (ArrayList<ReportBoard>) reportbService.selectReportAll();
-		ArrayList<ReportBoard> reportbdetail = (ArrayList<ReportBoard>) reportbService.selectReportBDetail();
+		ArrayList<ReportBoard> reportcount = (ArrayList<ReportBoard>) reportbService.selectReportCount();
 		
 		model.addAttribute("reportblist", reportblist);
 		model.addAttribute("reportall", reportbm);
-		model.addAttribute("reportbdetail", reportbdetail);
+		model.addAttribute("reportcount", reportcount);
 		return  "admin/reportBoardList2";
 	}
 	
@@ -107,7 +107,6 @@ public class ReportBoardController {
 		reportdetail.getRevcontent();
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
-		
 		out.append(reportdetail.getRevcontent());
 		out.flush();
 	}

@@ -49,5 +49,9 @@ public class ReportBoardDao {
 	public int deleteReportb(ReportBoard reportb) {
 		return mybatisSession.delete("adminMapper.deleteReportb", reportb);
 	}
+
+	public List<ReportBoard> selectReportCount() {
+		return mybatisSession.selectList("adminMapper.selectReportCount");
+	}
 	
 }

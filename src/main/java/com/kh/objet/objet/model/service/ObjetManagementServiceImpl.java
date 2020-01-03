@@ -22,4 +22,9 @@ public class ObjetManagementServiceImpl implements ObjetManagementService{
 		return objetmDao.selectObjetOne(objetno);
 	}
 
+	@Override
+	public List<Objet> selectObjetRequestManage() {
+		return objetmDao.selectObjetRequestManage();
+	}
+
 }

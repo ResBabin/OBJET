@@ -17,6 +17,10 @@
 #um {
 	padding: 150px;
 }
+.taglabel{
+	width: 50px;
+	text-align: center; 
+}
 </style>
 <script type="text/javascript">
 	$(function() {
@@ -31,7 +35,9 @@
 		$("input[name=userselect]").click(function() {
 			$("#checkall").prop("checked", false);
 		});
+		$('.dropdown').dropdown({});
 	});
+
 </script>
 <c:import url="adminHeader.jsp"/>
 </head>
@@ -39,7 +45,7 @@
 	<div id="um">
 		<br>
 		<div align="right">
-			<div class="ui small button">상세 검색</div>
+			<div class="ui small basic button">상세 검색</div>
 			<!-- 		<div class="ui small basic buttons">
 				<div class="ui button">전체</div>
 				<div class="ui button">회원ID</div>
@@ -54,15 +60,34 @@
 			<div></div>
 		</div>
 		<br>
-		<div>
-			<div class="ui  secondary  menu">
-				<a class="item">태그</a>
-				<a class="item">공개</a>
-				<a class="item">상태</a>
+
+
+
+		<div style="width: 240px;">
+		<div class="ui item two menu">
+				<div class="ui pointing dropdown link item">
+				<span class="text">전시상태</span> <i class="dropdown icon"></i>
+				<div class="menu">
+					<div class="item">전시</div>
+					<div class="item">종료</div>
+					<div class="item">대기</div>
+				</div>
+			</div>
+				<div class="ui pointing dropdown link item">
+				<span class="text">승인여부</span> <i class="dropdown icon"></i>
+				<div class="menu">
+					<div class="item">대기</div>
+					<div class="item">승인</div>
+					<div class="item">반려</div>
+				</div>
 			</div>
 		</div>
-		<table class="ui sortable celled table selectable"
-			style="font-size: 10pt;">
+		</div>
+<br>
+
+
+
+		<table class="ui sortable celled table selectable" style="font-size: 10pt;">
 			<thead>
 				<tr>
 					<th width="10">
@@ -70,14 +95,14 @@
 							<input type="checkbox" id="checkall"> <label></label>
 						</div>
 					</th>
-					<th class="" width="50">번호</th>
-					<th class="">작가 ID</th>
-					<th class="">제목</th>
-					<th class="">전시 기간</th>
-					<th class="">태그</th>
-					<th class="" width="60">공개</th>
-					<th class="" width="100">등록일</th>
-					<th class="">상태</th>
+					<th class="" width="80" style="text-align: center;">번호</th>
+					<th class="" style="text-align: center;">제목</th>
+					<th class="" width="100" style="text-align: center;">작가 ID</th>
+					<th class="" width="190" style="text-align: center;">전시 기간</th>
+					<th class="" width="210" style="text-align: center;">태그</th>
+					<th class="" width="75" style="text-align: center;">승인여부</th>
+					<th class="" width="95" style="text-align: center;">등록일</th>
+					<th class="" width="50" style="text-align: center;">상태</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -91,22 +116,22 @@
 								<input type="checkbox" name="userselect"> <label></label>
 							</div>
 						</td>
-						<td>${ objetm.objetno }</td>
-						<td>${ objetm.userid }</td>
+						<td style="text-align: right;">${ objetm.objetno }</td> 
 						<td><a href="${ objetmd }">${ objetm.objettitle }</a></td>
-						<td>${ objetm.objetstartdate }~ ${ objetm.objetenddate }</td>
+						<td style="text-align: right;">${ objetm.userid }</td>
+						<td>${ objetm.objetstartdate } &nbsp;&nbsp;~&nbsp;&nbsp; ${ objetm.objetenddate }</td>
 						<td>
 							<div style="display: flex;">
 								<c:forTokens items="${ objetm.objettag }" delims=","
 									var="objettag">
-									<div class="ui tiny label">${ objettag }</div>&nbsp;
+									<div class="ui tiny label taglabel"> ${ objettag } </div>&nbsp;	&nbsp;
 					</c:forTokens>
 							</div>
 						</td>
 						<td><c:if test="${ objetm.publicyn eq 'Y' }">
-					공개
+					승인
 					</c:if> <c:if test="${ objetm.publicyn eq 'N' }">
-					비공개
+					반려
 					</c:if></td>
 						<td>${ objetm.objetregidate }</td>
 						<td><c:if test="${ objetm.objetstatus eq 'OPEN' }"> 전시	
