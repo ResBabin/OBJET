@@ -111,8 +111,15 @@ where quityn = 'N' and blackyn = 'N')
 	 <select id="selectArtistObjetList" parameterType="hashmap" resultType="objet">
 	 	select * from (
 	 	select rownum rnum, objetno, userid, objettitle, objetintro, originmainposter, renamemainposter, objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview
-		from (select objetno, userid, objettitle, objetintro, originmainposter, renamemainposter,objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview from objet
-		where userid = #{userid} and objetstatus in ('STANDBY', 'OPEN', 'CLOSE') order by case when objetstatus = 'open' then 0 end)) <![CDATA[ where rnum between #{startRow} and #{endRow} ]]>
+		from (select objetno, userid, objettitle, objetintro, originmainposter, renamemainposter,objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview from (select * from objet where publicyn = 'Y')
+		where userid = #{userid} and objetstatus in ('STANDBY', 'OPEN', 'CLOSE') order by decode(objetstatus, 'OPEN',1,'STANDBY', 2, 3))) <![CDATA[ where rnum between #{startRow} and #{endRow} ]]>
+	 </select>
+	 
+	 <select id="selectArtistObjetSearch" parameterType="hashmap" resultType="objet">
+	 	select * from (
+	 	select objetno, userid, objettitle, objetintro, originmainposter, renamemainposter, objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview
+		from (select objetno, userid, objettitle, objetintro, originmainposter, renamemainposter,objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview from (select * from objet where publicyn = 'Y')
+		where objettitle like '%' || #{objettitle} || '%' and objetstatus in ('STANDBY', 'OPEN', 'CLOSE') order by decode(objetstatus, 'OPEN',1,'STANDBY', 2, 3))) where userid = #{userid}
 	 </select>
  
 </mapper>

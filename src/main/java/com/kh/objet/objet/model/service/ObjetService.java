@@ -26,7 +26,7 @@ public interface ObjetService {
 	int selectArtistObjetGetListCount(String userid);
 	List<Objet> selectArtistObjetList(HashMap<String, Object> map);
 	int selectArtistObjetSearchGetListCount(String objettitle);
-	ArrayList<Objet> selectArtistObjetSearch(String objettitle, Paging paging);
+	List<Objet> selectArtistObjetSearch(HashMap<String, Object> map);
 	
 	ArrayList<Objet> moveMyObjetList(String userid, Paging paging);
 	ArrayList<Objet> selectMyObjetSearch(String publicyn, String objetstatus, String objettitle, Paging paging);

@@ -1,11 +1,14 @@
 package com.kh.objet.guestbook.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.objet.guestbook.model.dao.GuestBookDao;
+import com.kh.objet.guestbook.model.vo.GB;
 import com.kh.objet.guestbook.model.vo.GbReply;
 import com.kh.objet.guestbook.model.vo.GuestBook;
 import com.kh.objet.paging.model.vo.Paging;
@@ -20,14 +23,14 @@ public class GuestBookServiceImpl implements GuestBookService{
 	// 최민영 *******************************
 	// 방명록 갯수 가져오기
 	@Override
-	public int getGuestBookListCount(String userid) {
-		return guestBookDao.getGuestBookListCount(userid);
+	public int getGuestBookListCount(String artistid) {
+		return guestBookDao.getGuestBookListCount(artistid);
 	}
 	
 	// 방명록 리스트 보기
 	@Override
-	public ArrayList<GuestBook> selectArtistGuestBook(String userid, Paging paging) {
-		return guestBookDao.selectArtistGuestBook(userid, paging);
+	public List<GB> selectArtistGuestBook(HashMap<String, Object> map) {
+		return guestBookDao.selectArtistGuestBook(map);
 	}
 	
 	// 방명록 작성
@@ -36,6 +39,12 @@ public class GuestBookServiceImpl implements GuestBookService{
 		return guestBookDao.insertGuestBook(guestbook);
 	}
 
+	// 방명록 비밀글 여부 수정
+	public int updateGuestBookPrivate(HashMap<String, Object> map) {
+		return guestBookDao.updateGuestBookPrivate(map);
+	}
+	
+	
 	// 방명록 수정
 	@Override
 	public int updateGuestBook(int gbno) {
@@ -78,9 +87,15 @@ public class GuestBookServiceImpl implements GuestBookService{
 
 	// 방명록 댓글 삭제
 	@Override
-	public int ideleteGuestBookReply(int gbno) {
-		return guestBookDao.ideleteGuestBookReply(gbno);
+	public int deleteGuestBookReply(int gbno) {
+		return guestBookDao.deleteGuestBookReply(gbno);
 	}
+	// 방명록 댓글 작성시 원글 답변 여부 Y로 
+	public int updateReplyyn(int gbno) {
+		return guestBookDao.updateReplyyn(gbno);
+	}
+
+	
 
 
 	

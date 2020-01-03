@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>오브제프로젝트의 오브제</title>
+<title>${usersProfile.nickname}의 오브제</title>
 <c:import url="../header.jsp" />
 <c:import url="../headerSearch.jsp" />
 <!-- 시맨틱유아이 cdn -->
@@ -38,7 +38,7 @@ function artistObjetList(){
 				var tags = decodeURIComponent(jsonObj.objetlist[i].objettag.replace(/\+/gi, " ")).split(",");
 				var objettitle = decodeURIComponent(jsonObj.objetlist[i].objettitle.replace(/\+/gi, " "));
 				var tag = "";
-				start += '<table class="artisthomeObjetTable"><tr style="height:23px;"><td style="width:85%;padding-top:30px;">';
+				start += '<table class="artisthomeObjetTable" style="display: none;"><tr style="height:23px;"><td style="width:85%;padding-top:30px;">';
 				start += '<div style="float: left;font-size: 15pt; font-weight:600; color:#202020;">'+ objettitle +'&ensp;</div>';
 				
 				if(jsonObj.objetlist[i].objetstatus=='OPEN'){
@@ -70,13 +70,101 @@ function artistObjetList(){
 			}
 			
 			$(".artisthomeObjetSection").html(start);
+			
+			var end = '<button class="ui grey basic button" style="width:200px;" id="moreObjetList">더 보기</button><br><br><br><br><br><br>';
+			$("#objetListBottom").html(end);
+			
+			$(".artisthomeObjetTable").slice(0, 3).fadeIn();
+		    $("#moreObjetList").click(function(e) { 
+		          e.preventDefault();
+		          $(".artisthomeObjetTable:hidden").slice(0, 3).fadeIn(); 
+		          if($(".artisthomeObjetTable:hidden").length == 0) { 
+		              $('#moreObjetList').fadeOut();
+		          }
+		      });
+			
 
 
 		},
 		error : function(jqXHR, textStatus, errorThrown){
 			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
 		}
-	});// 전시중 ajax
+	});// 전시용 ajax
+}
+	
+	function objetSearch(){
+		var userid = '<c:out value="${usersProfile.userid}"/>';
+		var keyword = $("#keyword").val();
+		$.ajax({
+			url : "selectArtistObjetSearch.do",
+			type : "post",
+			data : { userid: userid, keyword: keyword },
+			dataType : "json",
+			success : function(result){
+				var objStr = JSON.stringify(result);
+				var jsonObj = JSON.parse(objStr);
+				var start = '';
+
+				for ( var i in jsonObj.objetlist) {
+					var tagl = decodeURIComponent(jsonObj.objetlist[i].objettag.replace(/\+/gi, " ")).length;
+					var tags = decodeURIComponent(jsonObj.objetlist[i].objettag.replace(/\+/gi, " ")).split(",");
+					var objettitle = decodeURIComponent(jsonObj.objetlist[i].objettitle.replace(/\+/gi, " "));
+					var tag = "";
+					start += '<table class="artisthomeObjetTable" style="display: none;"><tr style="height:23px;"><td style="width:85%;padding-top:30px;">';
+					start += '<div style="float: left;font-size: 15pt; font-weight:600; color:#202020;">'+ objettitle +'&ensp;</div>';
+					
+					if(jsonObj.objetlist[i].objetstatus=='OPEN'){
+						start += '<div class="objetStatusLabel" style="background:#df0000;">전시중</div></td>' + '<td rowspan="2" style="width:15%; text-align: center;padding-top:30px;">'
+						+ '<button class="ui tiny blue button" onclick="">전시관람</button></td></tr>';
+					}else if(jsonObj.objetlist[i].objetstatus=='STANDBY'){
+						start += '<div class="objetStatusLabel" style="background:lightpink;">전시예정</div></td>' + '<td rowspan="2" style="width:15%; text-align: center;padding-top:30px;">'
+							+ '<button class="ui tiny blue button" disabled>전시예정</button></td></tr>';
+					}else if(jsonObj.objetlist[i].objetstatus=='CLOSE'){
+						start += '<div class="objetStatusLabel" style="background:#aaa;">전시종료</div></td>' + '<td rowspan="2" style="width:15%; text-align: center;padding-top:30px;">'
+						+ '<button class="ui tiny grey button" onclick="">전시종료</button></td></tr>';
+					}
+					
+					start += '<tr style="height: 10px;"><td style="width:85%; font-size: 9pt;">' + jsonObj.objetlist[i].objetstartdate + ' ~ ' +  jsonObj.objetlist[i].objetenddate + '</td></tr>';
+					
+					start += '<tr><td colspan="2"><div class="artisthomeObjetListImg" style="background-image:url(\'resources/images/objet/' + jsonObj.objetlist[i].renamemainposter + '\') "></div></td></tr>';
+					
+					start += '<tr><td colspan="2"><div class="artisthomeObjetListIntro">' + decodeURIComponent(jsonObj.objetlist[i].objetintro.replace(/\+/gi, " ")) + '</div></td></tr>';
+					
+					start += '<tr><td colspan="2">';
+					
+					 for(var i in tags){
+						start +='<a class="ui mini grey basic label">' + tags[i] + '</a>';
+					 }
+					 
+				    start += '</td></tr>';
+				    start += '<tr><td colspan="2" class="artisthomeObjetTableLastTr"></div></td></tr></table>'; 
+				}
+				
+				$(".artisthomeObjetSection").html(start);
+				
+				if($(".artisthomeObjetTable") != null || $(".artisthomeObjetTable") != ""){
+					var end = '<button class="ui grey basic button" style="width:200px;" id="moreObjetList">더 보기</button><br><br><br><br><br><br>';
+					$("#objetListBottom").html(end);
+				}else{
+					$("#moreObjetList").css("display","none");
+				}
+				
+				
+				$(".artisthomeObjetTable").slice(0, 3).fadeIn();
+			    $("#moreObjetList").click(function(e) { 
+			          e.preventDefault();
+			          $(".artisthomeObjetTable:hidden").slice(0, 3).fadeIn(); 
+			          if($(".artisthomeObjetTable:hidden").length == 0) { 
+			              $('#moreObjetList').fadeOut();
+			          }
+			      });
+
+
+			},
+			error : function(jqXHR, textStatus, errorThrown){
+				console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+			}
+		});// 전시검색용 ajax
 }
 
 $(function(){
@@ -213,18 +301,19 @@ function deleteFollowing(){
 				<div class="profileImage" style="background-image:url('resources/users_upfiles/${usersProfile.userrpic}') "></div>
 			</c:if>
 			<br><br><br><br><br><br><br><br>
-			<c:if test="${usersProfile.blackyn == 'N'}">
-			<button class="mini ui teal button" onclick="">전시일정</button>
+			
+			<c:if test="${usersProfile.userid != loginUser.userid and usersProfile.blackyn == 'N' }">
+					<c:if test="${followyn eq 'Y' }">
+						<button class="mini ui basic teal button" onclick="deleteFollowing()">구독중&ensp;<i class="check icon" style="width:7px;"></i></button>
+					</c:if>
+					<c:if test="${followyn eq 'N' }">
+						<button class="mini ui teal button" onclick="insertFollowing()">구독하기</button>
+					</c:if>
+					<button class="mini ui teal button" onclick="location.href='moveArtistGuestBook.do?artistid=${usersProfile.userid}&userid=${loginUser.userid }&currentPage=1'">방명록 작성</button>
 			</c:if>
-			<c:if test="${usersProfile.userid != loginUser.userid }">
-			<c:if test="${usersProfile.blackyn == 'N'}">
-			<c:if test="${followyn eq 'Y' }">
-			<button class="mini ui basic teal button" onclick="deleteFollowing()">구독중&ensp;<i class="check icon" style="width:7px;"></i></button>
-			</c:if>
-			<c:if test="${followyn eq 'N' }">
-			<button class="mini ui teal button" onclick="insertFollowing()">구독하기</button>
-			</c:if>
-			</c:if>
+			
+			<c:if test="${usersProfile.blackyn == 'N' && usersProfile.userid == loginUser.userid}">
+				<button class="mini ui teal button" onclick="location.href='moveArtistGuestBook.do?artistid=${usersProfile.userid}&userid=${loginUser.userid }&currentPage=1'">방명록 관리</button>
 			</c:if>
 			<i class="grey ellipsis vertical icon" id="profileMenu"></i>
 		</div>
@@ -246,10 +335,10 @@ function deleteFollowing(){
 	<!-- 작가홈 메뉴바 -->	
 	<c:if test="${usersProfile.blackyn == 'N'}">
 	<div class="artisthomeMenu">
-		<div id="artistMenu" class="three item ui tabular menu" style="width:100%;">
+		<div id="artistMenu" class="two item ui tabular menu" style="width:100%;">
 			<a id="item" class="item active" data-tab="first">작가소개</a>
 			<a id="item" class="item" data-tab="second" href="javascript:artistObjetList();">오브제</a>
-			<a id="item" class="item" data-tab="thrid">방명록</a>
+			<!-- <a id="item" class="item" data-tab="third">방명록</a> -->
 		</div>
 	</div>
 	<!-- 작가소개 영역 ************************************************************************************************** -->
@@ -313,7 +402,7 @@ function deleteFollowing(){
 			<div align="center"><button class="ui medium grey basic button" id="editArtistIntro" onclick="location.href='moveArtistIntroEdit.do?userid=${loginUser.userid}'">작가소개 수정</button></div>
 			</c:if>
 			<c:if test="${usersProfile.userid != loginUser.userid }">
-			<div align="center"><button class="ui medium grey basic button" id="editArtistIntro" onclick="window.open('moveArtistGuestBook.do?userid=${usersProfile.userid}')">방명록 남기기</button></div>
+			<div align="center"><button class="ui medium grey basic button" id="editArtistIntro" onclick="">전시일정 보기</button></div>
 			</c:if>
 			<br>
 		</div>
@@ -374,7 +463,7 @@ function deleteFollowing(){
 				
 				<br><br><br>
 				<!-- 페이징&검색 -->
-				<div align="center">
+<%-- 				<div align="center">
 				 	<div id="paging">
 					
 						<!-- 전체 리스트 페이징 -->
@@ -409,28 +498,38 @@ function deleteFollowing(){
 								<a href="selectArtistObjetSearch.do?currentPage=${paging.endPage + 1}&type=${type}">다음</a>
 							</c:if>
 						</c:if>
-					</div>
+					</div> --%>
 				
 				</div>
-				<br><br>
+				<br><br><br><br>
 				
+				
+				<div align="center" id="objetListBottom">
+				</div>
 				<div align="center">
-					<form action="" method="post">
-						오브제명&ensp;<div class="ui input"><input type="text" name="keyword"></div>
-					&ensp;<div class="ui buttons"><button class="ui button" type="submit">검색</button></div>
-					</form>
+				오브제명&ensp;<div class="ui input"><input type="text" name="keyword" id="keyword"></div>
+					&ensp;<div class="ui buttons"><button class="ui button" type="submit" onclick="javascript:objetSearch();">검색</button></div>
 				</div>
 			</div>
 		</div>
 	</div>
 		<!-- 오브제 부분 끝! -->
+		<script type="text/javascript">
+		$(function(){
+			$('#keyword').keypress(function(e){
+				if(e.keyCode == 13){
+					objetSearch();
+				}
+				});
+		})
+		</script>
 
 		
 		
 		
 		
 	<!-- 방명록 영역 ************************************************************************************************** -->
-		<div class="ui tab" data-tab="thrid">
+		<div class="ui tab" data-tab="third">
 			<div class="innerTab">
 			<br><br>
 			<!-- 본인 작가홈이 아닐 때 방명록 작성 칸 보이기 시작 -->
