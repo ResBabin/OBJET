@@ -89,7 +89,7 @@ public class ReportBoard implements Serializable{
 			String objetintro6, String objetofile6, String objetrfile6, String objettitle7, String objetintro7,
 			String objetofile7, String objetrfile7, String objettitle8, String objetintro8, String objetofile8,
 			String objetrfile8, String revcontent, int revstars, int revgood, int revhate, Date revdate,
-			int Reportcount) {
+			int reportcount) {
 		super();
 		this.originno = originno;
 		this.reportedb = reportedb;
@@ -628,7 +628,7 @@ public class ReportBoard implements Serializable{
 				+ ", revcontent=" + revcontent + ", revstars=" + revstars + ", revgood=" + revgood + ", revhate="
 				+ revhate + ", revdate=" + revdate + ", reportcount=" + reportcount + "]";
 	}
-	
+
 	
 
 }

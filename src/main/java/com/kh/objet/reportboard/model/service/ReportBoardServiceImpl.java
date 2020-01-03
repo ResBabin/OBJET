@@ -56,6 +56,11 @@ public class ReportBoardServiceImpl implements ReportBoardService{
 	public Review selectReportDetail(Review review) {
 		return reportbDao.selectReportDetail(review);
 	}
+
+	@Override
+	public List<ReportBoard> selectReportCount() {
+		return reportbDao.selectReportCount();
+	}
 	
 
 }

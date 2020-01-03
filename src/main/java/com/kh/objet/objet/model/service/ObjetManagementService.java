@@ -7,4 +7,5 @@ import com.kh.objet.objet.model.vo.Objet;
 public interface ObjetManagementService {
 	public List<Objet> selectAllObet();
 	public Objet selectObjetOne(int objetno);
+	public List<Objet> selectObjetRequestManage();
 }
