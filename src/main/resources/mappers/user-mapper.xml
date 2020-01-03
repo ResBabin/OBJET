@@ -72,7 +72,7 @@
 	</select>
 	
 	<select id="moveArtistHome" parameterType="String" resultType="UAUP">
-		select * from users A left outer join usersprofile B on A.userid = B.userid where A.userid= #{userid}
+		select * from users A left outer join usersprofile B on A.userid = B.userid where A.userid= #{value}
 	</select>
 	
 	<select id="moveArtistIntroEdit" parameterType="String">
@@ -155,4 +155,36 @@
 		insert into feed values (FEEDNO_SEQ.NEXTVAL, #{artistid}, #{userid}, #{feedcontent}, sysdate)
 	</insert>
 	
+	
+	
+	<!-- 방명록 -->
+	<select id="getGuestBookListCount" parameterType="String" resultType="int">
+		select count(*) from guestbook g left join gbreply r on (G.GBNO = R.GBNO) where g.artistid = #{artistid}
+	</select>
+	
+	<select id="selectArtistGuestBook" parameterType="hashmap" resultType="GB">
+		select * from (select g.gbno, g.artistid, g.userid, g.gbcontent, g.gbdate, g.privateyn, g.replyyn, r.replycontent, r.replydate 
+		from guestbook g left join gbreply r on (g.gbno = r.gbno) where g.artistid = #{artistid} order by g.gbno desc)
+		where rownum between #{startRow} and #{endRow}
+	</select>
+	
+	<insert id="insertGuestBook" parameterType="GuestBook">
+		insert into guestbook values (GBNO_SEQ.NEXTVAL, #{artistid}, #{userid}, #{gbcontent}, sysdate, #{privateyn}, default )
+	</insert>
+
+	<update id="updateGuestBookPrivate" parameterType="hashmap">
+		update guestbook set privateyn = #{privateyn} where gbno = #{gbno}
+	</update>
+	
+	<delete id="deleteGuestBook" parameterType="int">
+		delete guestbook where gbno = #{value}
+	</delete>
+	
+	<insert id="insertGuestBookReply" parameterType="GbReply">
+		insert into gbreply values (#{gbno}, #{artistid}, #{replycontent}, sysdate)
+	</insert>
+	
+	<update id="updateReplyyn" parameterType="int">
+		update guestbook set replyyn = 'Y' where gbno = #{value}
+	</update>
 </mapper>

@@ -11,17 +11,17 @@ public class GbReply implements Serializable{
 	private static final long serialVersionUID = 6000L;
 	
 	private int gbno;
-	private String artistno;
+	private String artistid;
 	private String replycontent;
 	private Date replydate;
 	private String replyprivateyn;
 	
 	public GbReply() {}
 
-	public GbReply(int gbno, String artistno, String replycontent, Date replydate, String replyprivateyn) {
+	public GbReply(int gbno, String artistid, String replycontent, Date replydate, String replyprivateyn) {
 		super();
 		this.gbno = gbno;
-		this.artistno = artistno;
+		this.artistid = artistid;
 		this.replycontent = replycontent;
 		this.replydate = replydate;
 		this.replyprivateyn = replyprivateyn;
@@ -35,12 +35,12 @@ public class GbReply implements Serializable{
 		this.gbno = gbno;
 	}
 
-	public String getArtistno() {
-		return artistno;
+	public String getArtistid() {
+		return artistid;
 	}
 
-	public void setArtistno(String artistno) {
-		this.artistno = artistno;
+	public void setArtistid(String artistid) {
+		this.artistid = artistid;
 	}
 
 	public String getReplycontent() {
@@ -73,10 +73,10 @@ public class GbReply implements Serializable{
 
 	@Override
 	public String toString() {
-		return "GbReply [gbno=" + gbno + ", artistno=" + artistno + ", replycontent=" + replycontent + ", replydate="
+		return "GbReply [gbno=" + gbno + ", artistid=" + artistid + ", replycontent=" + replycontent + ", replydate="
 				+ replydate + ", replyprivateyn=" + replyprivateyn + "]";
 	}
-	
+
 	
 	
 }

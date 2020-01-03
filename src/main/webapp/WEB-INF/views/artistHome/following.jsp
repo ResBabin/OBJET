@@ -46,13 +46,13 @@ $(function(){
 				<c:forEach var="list" items="${followingList }">
 					<tr class="listTr" style="display: none;">
 						<td style="width:10%"><c:if test="${list.userrpic == null }">
-												<div class="profileImage3" onclick="location.href='artistHomeMain.do?userid=${list.userid}&loginUser=${loginUser.userid }'" style="background-image:url('resources/images/basicprofilepic.png') "></div>
+												<div class="profileImage3" onclick="window.open('artistHomeMain.do?userid=${list.userid}&loginUser=${loginUser.userid }')" style="background-image:url('resources/images/basicprofilepic.png') "></div>
 											</c:if>
 											<c:if test="${list.userrpic != null }">
-												<div class="profileImage3" onclick="location.href='artistHomeMain.do?userid=${list.userid}&loginUser=${loginUser.userid }'" style="background-image:url('resources/users_upfiles/${list.userrpic}') "></div>
+												<div class="profileImage3" onclick="window.open('artistHomeMain.do?userid=${list.userid}&loginUser=${loginUser.userid }')" style="background-image:url('resources/users_upfiles/${list.userrpic}') "></div>
 											</c:if>
 						</td>
-						<td style="width:70%; text-align: left;"><span style="font-size: 15pt;" onclick="location.href='artistHomeMain.do?userid=${list.userid}&loginUser=${loginUser.userid }'">${list.nickname }</span><br>
+						<td style="width:70%; text-align: left;"><span style="font-size: 15pt;" onclick="window.open('artistHomeMain.do?userid=${list.userid}&loginUser=${loginUser.userid }')">${list.nickname }</span><br>
 																<span style="font-size: 10pt; color:#aaa;">${list.userintros }</span>
 						</td>
 						<td style="width:20%"><c:if test="${list.followyn eq'Y' }"><button class="small ui teal basic button" onclick="">구독중&ensp;<i class="check icon" style="width:7px;"></i></button></c:if>

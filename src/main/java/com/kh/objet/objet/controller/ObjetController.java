@@ -2,6 +2,7 @@ package com.kh.objet.objet.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -187,15 +188,15 @@ public class ObjetController {
 	
 	
 	// 최민영 *******************************************************************************
-	// 작가홈 오브제 리스트 보기
+	// 작가홈 오브제 전체 리스트 보기
 			@RequestMapping(value= "selectArtistObjetList.do", method=RequestMethod.POST)
 			@ResponseBody
-			public void selectArtistObjetList(@RequestParam("userid") String userid, @RequestParam("currentPage") String currentPage, HttpServletResponse response, Model model) throws IOException {
+			public void selectArtistObjetList(@RequestParam("userid") String userid, @RequestParam("currentPage") String currentPage, HttpServletResponse response) throws IOException {
 				
 				//페이징처리 
 				int curPage = Integer.valueOf(currentPage);
 				int listCount = objetService.selectArtistObjetGetListCount(userid);
-				
+				String objetkind = "all";
 				paging.makePage(listCount, curPage);
 
 				// HashMap 객체 생성
@@ -239,8 +240,12 @@ public class ObjetController {
 				job.put("objetview", objet.getObjetview());
 				jarr.add(job);
 				}
+				
+				
 
 				sendJson.put("objetlist", jarr);
+				
+				
 				logger.debug(jarr.toJSONString());
 				
 				
@@ -253,9 +258,54 @@ public class ObjetController {
 			}
 			
 	// 작가홈 오브제 검색
-			@RequestMapping("selectArtistObjetSearch.do")
-			public String selectArtistObjetSearch(@RequestParam(value="objettitle") String objettitle) {
-				return "artistHome/artistHomeMain";
+			@RequestMapping(value="selectArtistObjetSearch.do", method=RequestMethod.POST)
+			public void selectArtistObjetSearch(@RequestParam(value="userid") String userid, @RequestParam(value="keyword") String keyword, HttpServletResponse response) throws IOException {
+				// HashMap 객체 생성
+				HashMap<String, Object> map = new HashMap<String, Object>();
+
+				map.put("userid", userid); // 대상 아티스트 아이디
+				map.put("objettitle", keyword);
+				
+				List<Objet> objetlist = objetService.selectArtistObjetSearch(map);
+				
+				//전송용 json 객체
+				JSONObject sendJson = new JSONObject();
+				//json 배열 객체
+				JSONArray jarr = new JSONArray();
+				//list를 jarr 로 옮겨 저장 (복사)
+				for(Objet objet : objetlist) {
+				JSONObject job = new JSONObject();
+				
+				job.put("objetno", objet.getObjetno());
+				job.put("userid", objet.getUserid());
+				job.put("objettitle", URLEncoder.encode(objet.getObjettitle(), "utf-8"));
+				job.put("objetintro", URLEncoder.encode(objet.getObjetintro(), "utf-8"));
+				job.put("originmainposter", URLEncoder.encode(objet.getOriginmainposter(), "utf-8"));
+				job.put("renamemainposter", objet.getRenamemainposter());
+				job.put("objetstartdate", objet.getObjetstartdate().toString());
+				job.put("objetenddate", objet.getObjetenddate().toString());
+				job.put("objettag", URLEncoder.encode(objet.getObjettag(), "utf-8"));
+				job.put("publicyn", objet.getPublicyn());
+				job.put("objetregidate", objet.getObjetregidate().toString());
+				job.put("objetstatus", objet.getObjetstatus());
+				job.put("objetview", objet.getObjetview());
+				jarr.add(job);
+				}
+				
+				
+
+				sendJson.put("objetlist", jarr);
+				
+				
+				logger.debug(jarr.toJSONString());
+				
+				
+				response.setContentType("application/jsonl charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.println(sendJson.toJSONString());
+				out.flush();
+				out.close();
+				
 			}
 
 			

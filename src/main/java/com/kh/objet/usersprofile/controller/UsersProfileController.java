@@ -1,8 +1,10 @@
-package com.kh.objet.usersprofile.controller;
+                                                                                                                                                                                                                                                                                                                                                  package com.kh.objet.usersprofile.controller;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,6 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.objet.follow.model.service.FollowServiceImpl;
 import com.kh.objet.follow.model.vo.Following;
+import com.kh.objet.objet.model.service.ObjetServiceImpl;
+import com.kh.objet.objet.model.vo.Objet;
+import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.users.model.vo.UAUP;
 import com.kh.objet.usersprofile.model.service.UsersProfileServiceImpl;
 import com.kh.objet.usersprofile.model.vo.UsersProfile;
@@ -32,6 +37,7 @@ public class UsersProfileController {
 	
 	@Autowired
 	private FollowServiceImpl followService;
+
 	
 	public UsersProfileController() {}
 	
@@ -75,6 +81,8 @@ public class UsersProfileController {
 			
 			return vfn;
 		}
+		
+		
 	
 	// 작가소개수정 이동
 		@RequestMapping("moveArtistIntroEdit.do")

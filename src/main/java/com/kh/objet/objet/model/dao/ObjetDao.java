@@ -83,13 +83,8 @@ public class ObjetDao {
 	}
 
 	// 작가홈 오브제 검색
-	public ArrayList<Objet> selectArtistObjetSearch(String objettitle, Paging paging) {
-		int offset = 0;
-		int limit = 0;
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		
-		List<Objet> list = mybatisSession.selectList("", objettitle, rowBounds);
-		return (ArrayList<Objet>) list;
+	public List<Objet> selectArtistObjetSearch(HashMap<String, Object> map) {
+		return mybatisSession.selectList("objetMapper.selectArtistObjetSearch",map);
 	}
 
 	

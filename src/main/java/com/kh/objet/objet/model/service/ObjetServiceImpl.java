@@ -93,8 +93,8 @@ public class ObjetServiceImpl implements ObjetService{
 		
 	// 작가홈 오브제 검색
 		@Override
-		public ArrayList<Objet> selectArtistObjetSearch(String objettitle, Paging paging) {
-			return objetDao.selectArtistObjetSearch(objettitle, paging);
+		public List<Objet> selectArtistObjetSearch(HashMap<String, Object> map) {
+			return objetDao.selectArtistObjetSearch(map);
 		}
 		
 		
