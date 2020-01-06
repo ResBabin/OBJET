@@ -602,6 +602,15 @@ a:-webkit-any-link {
 	align: center;
 }
 
+.rev_insert_no {
+	width: 80%;
+	height: 50px;
+	margin: 50px 40px 10px 40px;
+	position: relative;
+	top: 10px;
+	align: center;
+}
+
 .review_insert {
 	width: 100%;
 	height: 135px;
@@ -1075,7 +1084,7 @@ a:-webkit-any-link {
 			}
 		});
 
-		// 한줄평 기타사유 글자수 세기
+		// 전시 신고  기타사유 글자수 세기
  		$("#etc1").keyup(function(e) {
 			var content = $(this).val();
 			$("#obj_rep_cnt").html("( <span style='color:#4ecdc4;font-size:9pt;'>" + content.length + "</span> / 최대 100자 )"); // 글자수 실시간 카운팅
@@ -1111,6 +1120,7 @@ a:-webkit-any-link {
 		    if ($(".review_list:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
 		        $('#more_btn').fadeOut();// 더 이상 로드할 항목이 없는 경우
 		        $('.rev_insert').css("margin-top", "180px");
+		        $('.rev_insert_no').css("margin-top", "120px");
 		    }
 		});
 
@@ -1175,15 +1185,28 @@ a:-webkit-any-link {
 		$(".del_btn").on("click", function() {
 			$("#rev_del_modal").modal('show');
 		});
-
-		//한줄평 신고 모달
-		$(".rev_report").on("click", function() {
-			$("#rev_rep_modal").modal('show');
+		
+		$("#update_can").on("click", function(){
+			$(".review_mylist_up").css("display", "none");
+			$(".review_mylist").css("display", "block");
 		});
 
+		//한줄평 신고 모달
+		<c:if test="${!empty loginUser }">
+			$(".rev_report").on("click", function() {
+				$("#rev_rep_modal").modal('show');
+			});	
+		</c:if>
+		<c:if test="${empty loginUser }">
+			$(".rev_report").on("click", function() {
+				alert("로그인 하셔야 신고하실 수 있습니다.");
+			});	
+		</c:if>
+		
+		
 		//한줄평 신고 기타사유
 		// 기타 선택 시에만 textarea 활성화
-		$("input:radio[name='reportreason']").click(function() {
+		$("input:radio[id='reportreason2']").click(function() {
 			if ($("input:radio[id='reportreason2']:checked").val() == "기타") {
 				$("#etc2").attr("disabled", false);
 				$("#etc2").focus();
@@ -1219,13 +1242,17 @@ a:-webkit-any-link {
 	function submit1() {
 		document.getElementById("btnsub_rep").onclick = function() {
 			document.getElementById('rep_form').submit();
-			return false;
+			alert("신고되었습니다.");
+			location.href = "objetOne.do?objetno="+${objet.objetno };
+			return false; 
 		};
 	};
 	
 	function submit2() {
 		document.getElementById("btnsub_rev_rep").onclick = function() {
 			document.getElementById('rev_rep_form').submit();
+			alert("신고되었습니다.");
+			location.href = "objetOne.do?objetno="+${objet.objetno };
 			return false;
 		};
 	};
@@ -1250,23 +1277,38 @@ a:-webkit-any-link {
 	//review order ajax
 	function reviewOrder(no, order){
 	  	$.ajax({
-			url : "reviewOrder.do",
-			type : "post",
+			url : 'reviewOrder.do',
+			type : 'post',
 			data : { no : no, order : order },
-			dataType : "json",
-			success : function(result){
-				var objStr = JSON.stringify(result);
+			dataType : 'json',
+			success : function(data){
+			    var objStr = JSON.stringify(data); 
 				var jsonObj = JSON.parse(objStr);
 				var values = "";
 				for (var i in jsonObj.list) {
+					var month_names =["Jan","Feb","Mar",
+	                      "Apr","May","Jun",
+	                      "Jul","Aug","Sep",
+	                      "Oct","Nov","Dec"];
+					var day = jsonObj.list[i].revdate.substring(8, 10);
+					if(jsonObj.list[i].revdate.substring(5) != 0){
+						var month = jsonObj.list[i].revdate.substring(5, 7) - 1;
+					}else {
+						var month = jsonObj.list[i].revdate.substring(6, 7) - 1;
+					}
+				    var year = jsonObj.list[i].revdate.substring(0, 4);
+				    var nickname = "${loginUser.nickname}";
+				    var nicknames = decodeURIComponent(jsonObj.list[i].nickname.replace(/\+/gi, " "));
+				    if(nicknames != nickname){
 					values += '<div class="review_list">' +
 					'<img class="ui circular image" src="resources/users_upfiles/' + jsonObj.list[i].userrpic + '" id="writer_pic">' +
 					'<div class="review_content">' +
 					'<span class="rev_writer">' + decodeURIComponent(jsonObj.list[i].nickname.replace(/\+/gi, " ")) +
-					'</span><span class="rev_date">Dec.&nbsp;21.&nbsp;2019</span><span class="rev_report">신고</span><br>' +
-					'<span class="rev_cont">' + decodeURIComponent(jsonObj.list[i].revcontent.replace(/\+/gi, " ")) + '</span><br>' +
-					'<div class="extra">' +
-					'<div class="ui star rating" data-rating="' + jsonObj.list[i].revstars + '" data-max-rating="5" >' + jsonObj.list[i].revstars + '</div>' +
+					'</span><span class="rev_date">' + month_names[month] + '.&nbsp;' + day + 
+					'.&nbsp;' + year + '</span><span class="rev_report">신고</span><br>' +
+					'<span class="rev_cont">' + decodeURIComponent(jsonObj.list[i].revcontent.replace(/\+/gi, " ")) + '</span><br>';
+					values += '<div class="extra">' +
+					'<div class="ui star rating" data-rating="' + jsonObj.list[i].revstars + '" data-max-rating="5" ></div>' +
 					'<div class="rev_like_btn">' +
 					'<div class="ui basic circular gray icon button" id="rev_like"><i class="thumbs up outline icon" style="font-size:14px;"></i><span class="rev_cnt">'
 					+ jsonObj.list[i].revgood + '</span></div>&nbsp;' +
@@ -1275,22 +1317,78 @@ a:-webkit-any-link {
 					'</div></div>' +
 					'</div>' +
 					'</div>';
+				    }
 				}
+				
+				$(function(){
+					//한줄평 리스트 평점
+					$('.rating').rating('disable', {
+						initialRating : 1,
+						maxRating : 5,
+						clearable : false,
+					});
+					
+					//한줄평 신고 모달
+					<c:if test="${!empty loginUser }">
+						$(".rev_report").on("click", function() {
+							$("#rev_rep_modal").modal('show');
+						});	
+					</c:if>
+					<c:if test="${empty loginUser }">
+						$(".rev_report").on("click", function() {
+							alert("로그인 하셔야 신고하실 수 있습니다.");
+						});	
+					</c:if>
+					
+					//한줄평 신고 기타사유
+					// 기타 선택 시에만 textarea 활성화
+					$("input:radio[id='reportreason2']").click(function() {
+						if ($("input:radio[id='reportreason2']:checked").val() == "기타") {
+							$("#etc2").attr("disabled", false);
+							$("#etc2").focus();
+							$("#etc2").attr("placeholder", "기타 사유를 입력해주세요.(최대 100자)")
+							$("#rev_rep_cnt").css("display", "block");
+							// radio 버튼의 value 값이 '기타'면 textarea활성화 & 자동포커스 & placeholder & 글자수세기 나오기
+						} else {// 아니라면 text 비활성화&placeholder없음&글자수세기 없음
+							$("#etc2").attr("disabled", true);
+							$("#etc2").removeAttr("placeholder", "기타 사유를 입력해주세요.(최대 100자)")
+							$("#rev_rep_cnt").css("display", "none");
+							// 이전 기타 textarea작성 값 초기화
+							$("#etc2").val("");
+							$("#rev_rep_cnt").html("( <span style='color:#4ecdc4;font-size:9pt;'>0</span> / 최대 100자 )");
+						}
+					});
 
+					// 한줄평 기타사유 글자수 세기
+			 		$("#etc2").keyup(function(e) {
+						var content = $(this).val();
+						$("#rev_rep_cnt").html("( <span style='color:#4ecdc4;font-size:9pt;'>" + content.length + "</span> / 최대 100자 )"); // 글자수 실시간 카운팅
+						if (content.length > 100) {
+							alert("최대 100자까지만 입력 가능합니다.");
+							$(this).val(content.substring(0, 100));
+							$("#rev_rep_cnt").html("( <span style='color:red;font-size:9pt;'>100 </span>/ 최대 100자)");
+						}
+					});
+					
+				});
+				
+				
 				$(".review_list_main").html(values);
 				$(".review_list").slice(0, 4).fadeIn();
 				$("#more_btn").show();
 				$("#more_btn").click(function(e) { 
 			  	    e.preventDefault();
-			  	    $(".review_list:hidden").slice(0, 4).fadeIn(); 
+			  	    $(".review_list:hidden").slice(0, 4).fadeIn();
 			  	    if ($(".review_list:hidden").length == 0) { 
 			  	        $('#more_btn').fadeOut();
+			  	      	$('.rev_insert_no').css("margin-top", "120px");
 			  	    }
 			  	});
-				console.log("ok : " + order);
+				console.log("ok : " + data);
 			},
-			error : function(jqXHR, textStatus, errorThrown){
-				console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+			error : function(request, error, XMLHttpRequest, textStatus, jqXHR, errorThrown) {
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				/* console.log("XMLHttpRequest : " + XMLHttpRequest + "\n" + "error : " + jqXHR + ", " + textStatus + ", " + errorThrown); */
 			}
 		});// review order ajax
 	}
@@ -1388,7 +1486,7 @@ a:-webkit-any-link {
 </div>
 <br><br>
 <div class="actions">
-    <div class="ui red cancel inverted button" onClick="location.href='objetOne.do?objetno=${objet.objetno}'" style="cursor: pointer;">
+    <div class="ui red cancel inverted button" style="cursor: pointer;">
       <i class="remove icon"></i>
       	취소
     </div>
@@ -1525,7 +1623,10 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 <div class="review_mylist">
 <img class="ui circular image" src="resources/users_upfiles/${loginUser.userrpic }" id="writer_mypic">
 <div class="review_mycontent">
-<span class="rev_mywriter">최강예은</span><span class="rev_mydate">Dec.&nbsp;21.&nbsp;2019</span>
+<span class="rev_mywriter">${myReview.nickname }</span>
+<span class="rev_date"><fmt:formatDate value="${myReview.revdate }" pattern="MMM"/>.&nbsp;
+<fmt:formatDate value="${myReview.revdate }" pattern="dd"/>.&nbsp;
+<fmt:formatDate value="${myReview.revdate }" pattern="yyyy"/></span>
 <div class="ui icon top left pointing floating dropdown button" id="rev_mymore">
 <i class="material-icons" style="color:#959595;font-size:22px;">&#xe5d4;</i>
 <div class="menu">
@@ -1534,34 +1635,38 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 </div>
 </div><br>
 <button class="ui red horizontal label" id="my_rev_btn">내리뷰</button>&nbsp;
- <span class="rev_mycont">완벽했습니다..! 그치만 평점은 4점 드릴게요</span><br>
+ <span class="rev_mycont">${myReview.revcontent }</span><br>
 <div class="extra">
-<div class="ui star rating my" data-rating="4" data-max-rating="5" >5</div>
+<div class="ui star rating my" data-rating="${myReview.revstars }" data-max-rating="5" >${myReview.revstars }</div>
 <div class="rev_like_btn">
-<div class="ui basic circular gray icon button" id="rev_like"><i class="thumbs up outline icon" style="font-size:14px;"></i><span class="rev_cnt"> 34</span></div>&nbsp;
-<div class="ui basic circular gray icon button" id="rev_hate"><i class="thumbs down outline icon" style="font-size:14px;"></i><span class="rev_cnt"> 2</span></div>
+<div class="ui basic circular gray icon button" id="rev_like"><i class="thumbs up outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${myReview.revgood }</span></div>&nbsp;
+<div class="ui basic circular gray icon button" id="rev_hate"><i class="thumbs down outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${myReview.revhate }</span></div>
 </div></div>
 </div>
 </div>
 </c:if>
 <!-- //내 한줄평 있을시 보이는 공간 끝 -->
 <!-- 내 한줄평 있을시 수정 공간-->
-<c:if test="${!empty loginUser }">
+<c:if test="${!empty loginUser && loginUser.userid eq myReview.userid }">
+<form action="updateReview.do" method="post">
+<input type="hidden" name="userid" value="${loginUser.userid }">
+<input type="hidden" name="revstars" value="">
 <div class="review_mylist_up">
 <img class="ui circular image" src="resources/users_upfiles/${loginUser.userrpic }" id="writer_mypic">
 <div class="review_ins_content">
-<textarea class="ui fluid input rev_up_cont" maxlength="200">
-완벽했습니다..! 그치만 평점은 4점 드릴게요</textarea>
+<textarea class="ui fluid input rev_up_cont" name="revcontent" maxlength="200">
+${myReview.revcontent }</textarea>
 <span id="counter_up">( <span style="color:#4ecdc4;font-size:0.85em;">현재</span> / 최대 100자 )</span>
 </div>
 <div class="extra" id="rev_myrating">
-<div class="ui star rating insert" data-rating="4" data-max-rating="5" id="rev_ins_star">4</div>
+<div class="ui star rating insert" data-rating="${myReview.revstars }" data-max-rating="5" id="rev_up_star"></div>
 </div>
 <div class="update_mybtn">
-<input class="ui circular basic gray button" type="reset" value="취소" />&nbsp;
+<input class="ui circular basic gray button" id="update_can" type="reset" value="취소" />&nbsp;
 <input class="ui circular basic gray button" type="submit" value="수정"/>
 </div>
 </div> 
+</form>
 </c:if>
 <!-- //내 한줄평 있을시 수정 공간 끝 -->
 <!-- 한줄평 삭제 버튼 클릭시 모달 -->
@@ -1634,13 +1739,13 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 </div><br>
 <br>
 <div class="actions">
-    <div class="ui red cancel inverted button" onClick="location.href ='objetOne.do'" style="cursor: pointer;">
+    <div class="ui red cancel inverted button" style="cursor: pointer;">
       <i class="remove icon"></i>
       	취소
     </div>
     <div id="btnsub_rev_rep" class="ui blue ok inverted button" onClick="submit2();" style="cursor: pointer;">
       <i class="bell outline icon"></i>
-        	신고하기
+                   신고하기
     </div>
   </div><br><br>
 </form>
@@ -1650,10 +1755,13 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 <!-- 한줄평 리스트 -->
 <div class="review_list_main">
 <c:forEach var="Review" items="${reviewList }">
+<c:if test="${Review.nickname ne loginUser.nickname }">
 <div class="review_list">
 <img class="ui circular image" src="resources/users_upfiles/${Review.userrpic }" id="writer_pic">
 <div class="review_content">
-<span class="rev_writer">${Review.nickname }</span><span class="rev_date">Dec.&nbsp;21.&nbsp;2019</span><span class="rev_report">신고</span><br>
+<span class="rev_writer">${Review.nickname }</span>
+<span class="rev_date"><fmt:formatDate value="${Review.revdate }" pattern="MMM"/>.&nbsp;<fmt:formatDate value="${Review.revdate }" pattern="dd"/>.&nbsp;<fmt:formatDate value="${Review.revdate }" pattern="yyyy"/></span>
+<span class="rev_report">신고</span><br>
 <span class="rev_cont">${Review.revcontent }</span><br>
 <div class="extra">
 <div class="ui star rating" data-rating="${Review.revstars }" data-max-rating="5" >${Review.revstars }</div>
@@ -1663,6 +1771,7 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 </div></div>
 </div>
 </div>
+</c:if>
 </c:forEach>
 </div>
 <!-- //한줄평 리스트 끝  -->
@@ -1672,6 +1781,8 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 </div>
 <br><br>
 <!-- 한줄평 등록  -->
+<c:if test="${myReview == null && myReview.userid ne loginUser.userid }">
+<form action="insertReview.do" method="post">
 <div class="rev_insert">
 <div class="review_insert">
 <img class="ui circular image" src="resources/users_upfiles/${loginUser.userrpic }" id="writer_pic_2">
@@ -1690,8 +1801,15 @@ placeholder="이 전시의 감상평(한줄평)을 남겨주세요. 전시와 �
 </div>
 <br><br><br>
 </div>
-<!-- 한줄평 등록  끝 -->
+</form>
+</c:if>
+<c:if test="${myReview != null && myReview.userid eq loginUser.userid }">
+<div class="rev_insert_no">
+<br>
 </div>
+</c:if>
+<!-- 한줄평 등록  끝 -->
+</div><br>
 </center>
 </section>
 </section>

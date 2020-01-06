@@ -16,6 +16,12 @@ public class ReviewKey implements java.io.Serializable{
 		this.userid = userid;
 		this.order = order;
 	}
+	
+	public ReviewKey(int objetno, String order) {
+		super();
+		this.objetno = objetno;
+		this.order = order;
+	}
 
 	public int getObjetno() {
 		return objetno;
