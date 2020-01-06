@@ -33,9 +33,10 @@ $(function(){
 		 
 	 });
 	 
+	 
 });// documentReady...
 
-	 // 방명록 제출
+	 // 방명록 쓰기
 	 function GbFormSub(){
 		var form = $("form[name=gbform]").serialize();
 	
@@ -46,7 +47,7 @@ $(function(){
 			success : function(result){
 				if(result == "ok"){
 					alert("등록이 완료되었습니다.");
-					location.reload();
+					window.location.reload();
 				}else{
 					alert("등록에 실패하였습니다.");
 					location.reload();
@@ -67,6 +68,8 @@ function changePrivate(gbno, privateyn, artistid, userid, curPage){
 		str = '비밀';
 	else
 		str = '공개'
+		
+	if(confirm(str+"글로 변경하시겠습니까?")){
 	$.ajax({
 		url : "updateGuestBookPrivate.do",
 		type: "post",
@@ -74,7 +77,7 @@ function changePrivate(gbno, privateyn, artistid, userid, curPage){
 		success : function(result){
 			if(result == "ok"){
 				alert(str+"글로 변경되었습니다.");
-				window.location.href='moveArtistGuestBook.do?artistid='+artistid + '&userid=' + userid + '&currentPage='+ curPage;
+				window.location.reload();
 			}else{
 				alert(str+"글 변경에 실패하였습니다.");
 				window.location.href='moveArtistGuestBook.do?artistid='+artistid + '&userid=' + userid + '&currentPage='+ curPage;
@@ -86,11 +89,15 @@ function changePrivate(gbno, privateyn, artistid, userid, curPage){
 		}
 		
 	})//ajax...
+	}else{
+		return false;
+	}
 } //changePrivate()...
 
 
 //방명록 삭제
 function deleteGB(gbno, artistid, userid, curPage){
+	if(confirm("정말로 삭제하시겠습니까?")){
 	$.ajax({
 		url : "deleteGuestBook.do",
 		type: "post",
@@ -98,7 +105,7 @@ function deleteGB(gbno, artistid, userid, curPage){
 		success : function(result){
 			if(result == "ok"){
 				alert("방명록이 삭제 되었습니다.");
-				window.location.href='moveArtistGuestBook.do?artistid='+artistid + '&userid=' + userid + '&currentPage='+ curPage;
+				window.location.reload();
 			}else{
 				alert("방명록 삭제에 실패하였습니다.");
 				window.location.href='moveArtistGuestBook.do?artistid='+artistid + '&userid=' + userid + '&currentPage='+ curPage;
@@ -110,7 +117,39 @@ function deleteGB(gbno, artistid, userid, curPage){
 		}
 		
 	})//ajax...
-} //deletePrivate()...
+	}else{
+		return false;
+	}
+} //deleteGB()...
+
+
+//방명록 댓글삭제
+function deleteReply(gbno, artistid, userid, curPage){
+	if(confirm("정말로 삭제하시겠습니까?")){
+	$.ajax({
+		url : "deleteGuestBookReply.do",
+		type: "post",
+		data: {gbno: gbno},
+		success : function(result){
+			if(result == "ok"){
+				alert("댓글이 삭제 되었습니다.");
+				window.location.reload();
+			}else{
+				alert("댓글 삭제에 실패하였습니다.");
+				window.location.href='moveArtistGuestBook.do?artistid='+artistid + '&userid=' + userid + '&currentPage='+ curPage;
+			}
+			
+		},
+		error : function(jqXHR, textStatus, errorThrown){
+			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+		}
+		
+	})//ajax...
+	}else{
+		return false;
+	}
+} //deleteReply()...
+
 
 
 //방명록 댓글 작성
@@ -122,7 +161,7 @@ function insertReply(gbno, artistid, userid, curPage){
 		success : function(result){
 			if(result == "ok"){
 				alert("댓글이 작성되었습니다.");
-				window.location.href='moveArtistGuestBook.do?artistid='+artistid + '&userid=' + userid + '&currentPage='+ curPage;
+				window.location.reload();
 			}else{
 				alert("댓글 작성에 실패하였습니다.");
 				window.location.href='moveArtistGuestBook.do?artistid='+artistid + '&userid=' + userid + '&currentPage='+ curPage;
@@ -135,6 +174,17 @@ function insertReply(gbno, artistid, userid, curPage){
 		
 	})//ajax...
 } //changePrivate()...
+
+
+function modalshow(gbno,replyyn){
+		if(replyyn=='N'){
+			$('#editgbno").modal('show');
+		}else{
+			alert("댓글이 달린 방명록은 수정 불가합니다.");
+			return false;
+		}
+	};
+
 	 
 </script>
 </head>
@@ -149,7 +199,7 @@ function insertReply(gbno, artistid, userid, curPage){
 		<!-- 프로필 글자부분 -->
 		<div class="profileTextSection">
 		<span>
-			<p class="profileText" style="font-size: 25px; color:#373737;">${artist.nickname}</p>
+			<p class="profileText" style="font-size: 25px; color:#373737;">${artist.nickname}&nbsp;<i class="small olive home icon" style="cursor: pointer;" onclick="location.href='artistHomeMain.do?userid=${artist.userid }&loginUser=${loginUser.userid}&currentPage=1'"></i></p>
 			<p class="profileText" style="font-size: 10pt; color:#aaa;">${artist.userintros}</p>
 			<br><br>
 		</span>
@@ -161,10 +211,10 @@ function insertReply(gbno, artistid, userid, curPage){
 		<!-- 프로필 사진부분 -->
 			<div class="profileImageSection">
 			<c:if test="${artist.userrpic == null }">
-				<div class="profileImage" style="background-image:url('resources/images/basicprofilepic.png') "></div>
+				<div class="profileImage" style="background-image:url('resources/images/basicprofilepic.png');" onclick="location.href='artistHomeMain.do?userid=${artist.userid}&loginUser=${loginUser.userid }&currentPage=1'"></div>
 			</c:if>
 			<c:if test="${artist.userrpic!=null }">
-				<div class="profileImage" style="background-image:url('resources/users_upfiles/${artist.userrpic}') "></div>
+				<div class="profileImage" style="background-image:url('resources/users_upfiles/${artist.userrpic}');" onclick="location.href='artistHomeMain.do?userid=${artist.userid}&loginUser=${loginUser.userid }&currentPage=1'"></div>
 			</c:if>
 			<br><br><br><br><br><br><br><br>
 		</div>
@@ -180,6 +230,9 @@ function insertReply(gbno, artistid, userid, curPage){
 					<input type="hidden" name="artistid" value="${artist.userid}">
 					<input type="hidden" name="currentPage" value="${paging.currentPage }">
 						<table class="gbwrite">
+							<tr style="height:20px;">
+								<td colspan="2" style="background-image: url('resources/images/border.png')"></td>
+							</tr>
 							<tr>
 								<td style="width:15%">
 								<c:if test="${loginUser.userrpic == null }">
@@ -189,7 +242,7 @@ function insertReply(gbno, artistid, userid, curPage){
 									<div class="profileImage4" style="background-image:url('resources/users_upfiles/${loginUser.userrpic}') "></div>
 								</c:if>
 							</td>
-								<td style="width:85%; height: 150px;"><div class="ui form"><textarea style="width:600px;margin-left:20px;"rows="5" cols="100" name="gbcontent" id="gbcontent" required></textarea></div></td>
+								<td style="width:85%; height: 150px;"><div class="ui form"><textarea style="width:600px;margin-left:20px;"rows="5" cols="100" name="gbcontent" id="gbcontent" required placeholder="저작권 등 다른 사람의 권리를 침해하거나 명예를 훼손하는 방명록은 이용약관 및 관련 법률에 의해 제재를 받을 수 있습니다. 건전한 방명록 문화를 위해, 타인에게 불쾌감을 주는 욕설 또는 비속어를 사용할 경우 계정이 일시중지될 수 있습니다."></textarea></div></td>
 							</tr>
 							<tr style="height:25px;">
 								<td></td>
@@ -205,16 +258,21 @@ function insertReply(gbno, artistid, userid, curPage){
 
 
 <!-- 방명록 리스트 시작! -->
+	<c:if test="${!empty list}">
 				<c:forEach var="list" items="${list }" varStatus="status">
 				<!-- 방명록 리스트 보기 시작-->
 				<div class="gblist">
 					<table class="gbwrite">
 						<tr style="height:25px;">
-							<td colspan="2" style="width:auto; background:#efefef;">
-								<span style="width:10%; margin-left: 20px;">No. ${list.gbno}</span>
-<%-- 								<span style="width:10%; margin-left: 20px;">No. ${(paging.listCount - status.index)-((paging.currentPage-1)*paging.limit)}</span> --%>
-				   				<span style="margin-left: 15px;"><a href='artistHomeMain.do?userid=${list.userid}&loginUser=${loginUser.userid }' style="font-weight: 600; color:#14123a;">${list.usernickname }</a></span>
-				  				<span style="margin-left: 5px;font-size: 9pt;"><fmt:formatDate value="${list.gbdate}" pattern="(yyyy.MM.dd hh:ss)"/></span>
+							<c:if test="${list.privateyn eq 'Y' }">
+								<td colspan="2" style="width:auto; background:#9fe3de;">
+							</c:if>
+							<c:if test="${list.privateyn eq 'N' }">
+								<td colspan="2" style="width:auto; background:#efefef;">
+							</c:if>
+ 								<span style="width:10%; margin-left: 20px;">No. ${(paging.listCount - status.index)-((paging.currentPage-1)*paging.limit)}</span>
+				   				<span style="margin-left: 15px;"><a href='artistHomeMain.do?userid=${list.userid}&loginUser=${loginUser.userid }&currentPage=1' style="font-weight: 600; color:#14123a;">${list.usernickname }</a></span>
+				  				<span style="margin-left: 5px;font-size: 9pt;"><fmt:formatDate value="${list.gbdate}" pattern="(yyyy.MM.dd E)"/></span>
 			     				<div style="float:right; margin-right:10px;">
 			     				<!-- 작가홈 주인일 때 -->
 			     				<c:if test="${list.artistid == loginUser.userid}">
@@ -236,18 +294,18 @@ function insertReply(gbno, artistid, userid, curPage){
 			     				 <c:if test="${list.privateyn == 'Y' }">
 			     				 	<a onclick="changePrivate('${list.gbno}', 'N', '${list.artistid }','${loginUser.userid }','${paging.currentPage }');">공개하기</a> | 
 			     				 </c:if>
-			     					<a onclick="location.href=''">수정</a> | 
+			     					<a href="javascript:void(0);" onclick="modalshow('${list.gbno}', '${list.replyyn}');">수정</a> | 
 			     					<a onclick="deleteGB('${list.gbno}', '${list.artistid}','${loginUser.userid}','${paging.currentPage }');">삭제</a></div> 
 			     				</c:if>
 							</td>
 						</tr>
 						<!-- 방명록 내용 -->
-						<tr><td style="width:15%">
+						<tr><td style="width:15%;">
 							<c:if test="${list.userrpic == null }">
-								<div class="profileImage4" style="background-image:url('resources/images/basicprofilepic.png') "></div>
+								<div class="profileImage4" style="background-image:url('resources/images/basicprofilepic.png')" onclick="location.href='artistHomeMain.do?userid=${list.userid}&loginUser=${loginUser.userid }&currentPage=1'"></div>
 							</c:if>
 							<c:if test="${list.userrpic != null }">
-								<div class="profileImage4" style="background-image:url('resources/users_upfiles/${list.userrpic}') "></div>
+								<div class="profileImage4" style="background-image:url('resources/users_upfiles/${list.userrpic}')" onclick="location.href='artistHomeMain.do?userid=${list.userid}&loginUser=${loginUser.userid }&currentPage=1'"></div>
 							</c:if>
 						</td>
 							<td style="width:85%;"><div class="gbcontent">
@@ -265,11 +323,14 @@ function insertReply(gbno, artistid, userid, curPage){
 							</c:if>
 							</div>
 						</tr>
-						<!-- ★★ ArrayList로 방명록 리스트 불러와서 포문 돌릴 때 그 안에 방명록 댓글 폼 포함해서 넣어야 gbno를 hidden으로 보낼 수 있음. 방명록댓글이 있으면 방명록 댓글 보이게~! -->
 						
+						<!-- 수정용 모달창 -->
+						<div class="ui modal" id="edit${list.gbno }">
+							확인용
+						</div>
 						
 						<!-- 작가 홈 주인일 때 답변 내용이 없으면 답변 쓰기 창 -->
-						<c:if test="${list.artistid == loginUser.userid && list.replyyn == 'N' }">
+						<c:if test="${(list.artistid == loginUser.userid) && list.replyyn == 'N' }">
 						<tr style="height:60px;">
 									<td colspan="2"><div class="ui form" style="float:left;"><textarea style="width:650px;height:30px;margin-left:20px;"rows="1" cols="100" name="replycontent" id="replycontent" placeholder="댓글은 최대 100자까지 입력 가능합니다." required></textarea></div>
 									<span><button class="ui mini button" onclick="insertReply('${list.gbno}','${list.artistid }','${list.userid }','${paging.currentPage}')" style="background: #4c4c4c; margin-left:10px;color:#fff;">등록</button></span></td>
@@ -281,12 +342,12 @@ function insertReply(gbno, artistid, userid, curPage){
 						<tr>
 							<td colspan="2" style="height: 30px;background:#efefef;">
 								<span style="width:10%; margin-left: 20px; color:#4ecdc4; font-weight:600;">${list.artistnickname }</span>
-								<span style="margin-left: 5px;font-size: 9pt;"><fmt:formatDate value="${list.replydate}" pattern="(yyyy.MM.dd hh:ss)"/></span>
+								<span style="margin-left: 5px;font-size: 9pt;"><fmt:formatDate value="${list.replydate}" pattern="(yyyy.MM.dd E)"/></span>
 								<!-- 작가홈 주인일 때 -->
 									<c:if test="${list.artistid == loginUser.userid }">
 										<div style="float:right; margin-right:10px;">
 				     						<a onclick="location.href=''">수정</a> | 
-				     						<a onclick="location.href=''">삭제</a>
+				     						<a onclick="deleteReply('${list.gbno}', '${list.artistid}','${loginUser.userid}','${paging.currentPage }');">삭제</a>
 				     					</div>
 				     				</c:if>
 							</td>
@@ -316,19 +377,87 @@ function insertReply(gbno, artistid, userid, curPage){
 				
 				
 				<!--  페이징 -->
-				<div align="center">페이징 부분</div><br><br>
+				<div align="center">
+					<div id="paging">
+
+						 <c:if test="${ kind eq 'all' }"> 
+							 <c:if test="${ paging.startPage != 1 }">
+							 	<a href="moveArtistGuestBook.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=${paging.startPage - 1}">이전</a>
+							 </c:if>
+							 
+							<c:forEach var="num" begin="${ paging.startPage }" end="${ paging.endPage }">
+								<a href="moveArtistGuestBook.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=${num}">&emsp;${num}</a>
+							</c:forEach>
+							
+							<c:if test="${ paging.endPage != paging.maxPage }">
+								<a href="moveArtistGuestBook.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=${paging.endPage + 1}">다음</a>
+							</c:if>
+						 </c:if> 
+						
+						
+						<c:if test="${ kind eq 'sort' }">
+							<c:if test="${ paging.startPage != 1 }">
+						 		<a href="moveMyGuestBook.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=${paging.startPage - 1}">이전</a>
+							</c:if>
+						
+							<c:forEach var="num" begin="${ paging.startPage }" end="${ paging.endPage }">
+								<a href="moveMyGuestBook.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=${num}">&emsp;${num}</a>
+							</c:forEach>
+							
+							<c:if test="${ paging.endPage != paging.maxPage }">
+								<a href="moveMyGuestBook.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=${paging.endPage + 1}">다음</a>
+							</c:if>
+						</c:if>
+						
+						
+						<c:if test="${ kind eq 'search' }">
+							<c:if test="${ paging.startPage != 1 }">
+						 		<a href="moveGuestBookSearch.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=${paging.startPage - 1}&searchtype=${searchtype}&keyword=${keyword}">이전</a>
+							</c:if>
+						
+							<c:forEach var="num" begin="${ paging.startPage }" end="${ paging.endPage }">
+								<a href="moveGuestBookSearch.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=${num}&searchtype=${searchtype}&keyword=${keyword}">&emsp;${num}</a>
+							</c:forEach>
+							
+							<c:if test="${ paging.endPage != paging.maxPage }">
+								<a href="moveGuestBookSearch.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=${paging.endPage + 1}&searchtype=${searchtype}&keyword=${keyword}">다음</a>
+							</c:if>
+						</c:if>
+					</div>
+		</c:if>
+		<c:if test="${empty list}">
+		<c:if test="${artist.userid == loginUser.userid }">
+			<div align="center" style="padding-top: 240px;"><div class="ui olive message"><p><i class="edit outline icon"></i>&nbsp;작성된 방명록이 없습니다.</p></div>
+			</div>
+		</c:if>
+		<c:if test="${artist.userid != loginUser.userid }">
+			<div align="center" style="padding-top: 30px;"><div class="ui olive message"><p>작성된 방명록이 없습니다. 한번 남겨보시는 건 어떠세요? <i class="smile outline icon"></i></p></div>
+			</div>
+		</c:if>
+		</c:if>
+				</div><br><br>
 				
 				<!-- 작가홈 주인일 때 검색창 -->
 				<c:if test="${artist.userid == loginUser.userid }">
 				<div align="center">
-					<form action="" method="post">
+					<form action="moveGuestBookSearch.do" method="get">
+					<input type="hidden" name="artistid" value="${artist.userid}">
+					<input type="hidden" name="currentPage" value="1">
 						<select class="ui search dropdown" name="searchtype" id="searchtype">
-						  <option value="userid">작성자</option>
-						  <option value="gbcontent">내용</option>
+						  <option value="u.nickname">작성자</option>
+						  <option value="g.gbcontent">내용</option>
 						</select>
-					<div class="ui input"><input type="text" name="keyword"></div>
-					&ensp;<div class="ui buttons"><button class="ui button" type="submit">검색</button></div>
+					<c:if test="${keyword != null and keyword != ''}">
+						<div class="ui input"><input type="text" name="keyword" value="${keyword }"></div>
+					</c:if>
+					<c:if test="${keyword == null or keyword == ''}">
+						<div class="ui input"><input type="text" name="keyword" id="keyword" required></div>
+					</c:if>
+					&ensp;<div class="ui buttons"><button class="ui button" id="gbsearchbtn" type="submit">검색</button></div>
 					</form>
+					
+					<br><div align="center"><button class="ui medium grey basic button" onclick="location.href='moveArtistGuestBook.do?artistid=${artist.userid}&userid=${loginUser.userid }&currentPage=1'">목록보기</button>&emsp;
+					</div>
 				</div>
 				</c:if>
 				
@@ -339,7 +468,9 @@ function insertReply(gbno, artistid, userid, curPage){
 				<!-- 작가홈 구경온 사람일 때는 내가 쓴 글 보기 -->
 			<br>
 			<c:if test="${artist.userid != loginUser.userid }">
-				<div align="center"><button class="ui medium grey basic button" id="mygblist" onclick="location.href=''">내가 쓴 글 보기</button></div>
+				<div align="center"><button class="ui medium grey basic button" id="mygblist" onclick="location.href='moveArtistGuestBook.do?artistid=${artist.userid}&userid=${loginUser.userid }&currentPage=1'">목록보기</button>&emsp;
+									<button class="ui medium grey basic button" id="mygblist" onclick="location.href='moveMyGuestBook.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=1'">내가 쓴 글 보기</button>
+				</div>
 			</c:if>
 			</div>
 

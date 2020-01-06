@@ -23,8 +23,8 @@ public class GuestBookServiceImpl implements GuestBookService{
 	// 최민영 *******************************
 	// 방명록 갯수 가져오기
 	@Override
-	public int getGuestBookListCount(String artistid) {
-		return guestBookDao.getGuestBookListCount(artistid);
+	public int selectGuestBookListCount(String artistid) {
+		return guestBookDao.selectGuestBookListCount(artistid);
 	}
 	
 	// 방명록 리스트 보기
@@ -32,6 +32,20 @@ public class GuestBookServiceImpl implements GuestBookService{
 	public List<GB> selectArtistGuestBook(HashMap<String, Object> map) {
 		return guestBookDao.selectArtistGuestBook(map);
 	}
+	
+	// 내가 쓴 방명록 보기 리스트카운트용
+		public int selectMyGuestBookListCount(HashMap<String, Object> map1) {
+			return guestBookDao.selectMyGuestBookListCount(map1);
+		}
+
+	// 내가 쓴 방명록 가져오기
+	public List<GB> selectMyGuestBook(HashMap<String, Object> map2) {
+		return guestBookDao.selectMyGuestBook(map2);
+	}
+
+		
+		
+		
 	
 	// 방명록 작성
 	@Override
@@ -58,16 +72,17 @@ public class GuestBookServiceImpl implements GuestBookService{
 		return guestBookDao.deleteGuestBook(gbno);
 	}
 
-	// 방명록 검색 리스트카운트
-	@Override
-	public int getGuestBookSearchListCount(String userid) {
-		return guestBookDao.getGuestBookSearchListCount(userid);
+	
+
+	// 작가 방명록 검색 리스트 카운트용
+	public int selectGuestBookSearchListCount(HashMap<String, Object> map1) {
+		return guestBookDao.selectGuestBookSearchListCount(map1);
 	}
 	
 	// 방명록 검색
 	@Override
-	public ArrayList<GuestBook> selectGuestBookSearch(String userid, String gbcontent, Paging paging) {
-		return guestBookDao.selectGuestBookSearch(userid,gbcontent,paging);
+	public List<GB> selectGuestBookSearch(HashMap<String, Object> map2) {
+		return guestBookDao.selectGuestBookSearch(map2);
 	}
 	
 	
@@ -94,6 +109,17 @@ public class GuestBookServiceImpl implements GuestBookService{
 	public int updateReplyyn(int gbno) {
 		return guestBookDao.updateReplyyn(gbno);
 	}
+
+	// 방명록 댓글 삭제시 원글 답변 여부 N으로 
+	public int updateGuestBook2(int gbno) {
+		return guestBookDao.updateGuestBook2(gbno);
+	}
+
+	// 아이디 가져오기 용
+	public String selectUserid(String keyword) {
+		return guestBookDao.selectUserid(keyword);
+	}
+
 
 	
 

@@ -27,6 +27,8 @@ public class Paging implements Serializable {
 	
 	private int endRow;  //쿼리에서 검색할 끝 행 수 
 	
+	private int underlimit = 5; // 프론트 하단 페이지 개수 
+	
 	public Paging() {
 		// TODO Auto-generated constructor stub
 	}
@@ -45,21 +47,22 @@ public class Paging implements Serializable {
 		
 		// 현재 페이지에 보여줄 시작페이지 수
 		// 1, 11, 21, 31,...
-		this.setStartPage((((int)((double)curPage / limit + add)) - 1) * limit + 1);
+		this.setStartPage((int)((double) currentPage / limit + 0.9));
 		// 목록 아래쪽에 보여질 마지막 페이지 수(10, 20, 30, ...)
-		this.setEndPage(startPage + limit - 1);
-		this.setStartRow((curPage-1 ) * limit +1 );
-		this.setEndRow( startRow + limit - 1 );
+		this.setEndPage( startPage + limit - 1);
 		
 		if(maxPage < endPage) {
 			endPage = maxPage;
 		}
+		
+		this.setStartRow((curPage -1 ) * limit +1 );
+		this.setEndRow( startRow + limit - 1 );
 	}
-	
+
 
 
 	public Paging(int currentPage, int limit, double add, int listCount, int maxPage, int startPage, int endPage,
-			int startRow, int endRow) {
+			int startRow, int endRow, int underlimit) {
 		super();
 		this.currentPage = currentPage;
 		this.limit = limit;
@@ -70,15 +73,7 @@ public class Paging implements Serializable {
 		this.endPage = endPage;
 		this.startRow = startRow;
 		this.endRow = endRow;
-	}
-
-
-
-	@Override
-	public String toString() {
-		return "Paging [currentPage=" + currentPage + ", limit=" + limit + ", add=" + add + ", listCount=" + listCount
-				+ ", maxPage=" + maxPage + ", startPage=" + startPage + ", endPage=" + endPage + ", startRow="
-				+ startRow + ", endRow=" + endRow + "]";
+		this.underlimit = underlimit;
 	}
 
 
@@ -191,9 +186,31 @@ public class Paging implements Serializable {
 
 
 
+	public int getUnderlimit() {
+		return underlimit;
+	}
+
+
+
+	public void setUnderlimit(int underlimit) {
+		this.underlimit = underlimit;
+	}
+
+
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "Paging [currentPage=" + currentPage + ", limit=" + limit + ", add=" + add + ", listCount=" + listCount
+				+ ", maxPage=" + maxPage + ", startPage=" + startPage + ", endPage=" + endPage + ", startRow="
+				+ startRow + ", endRow=" + endRow + ", underlimit=" + underlimit + "]";
+	}
+	
 
 
 	
