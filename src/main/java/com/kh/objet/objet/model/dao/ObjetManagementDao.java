@@ -22,5 +22,8 @@ public class ObjetManagementDao {
 	public List<Objet> selectObjetRequestManage() {
 		return mybatisSession.selectList("adminMapper.selectObjetRequestList");
 	}
+	public List<Objet> selectObjetReqMain() {
+		return mybatisSession.selectList("adminMapper.selectObjetReqMain");
+	}
 
 }

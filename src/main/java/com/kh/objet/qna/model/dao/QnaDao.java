@@ -26,6 +26,8 @@ public class QnaDao {
 	public Qna selectQnaDetail(int qnano) {
 		return mybatisSession.selectOne("adminMapper.selectQnaDetail", qnano);
 	}
-
+	public List<Qna> selectQnaMain() {
+		return mybatisSession.selectList("adminMapper.selectQnaMain");
+	}
 	
 }

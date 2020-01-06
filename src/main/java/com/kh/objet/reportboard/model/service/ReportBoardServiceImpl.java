@@ -61,6 +61,11 @@ public class ReportBoardServiceImpl implements ReportBoardService{
 	public List<ReportBoard> selectReportCount() {
 		return reportbDao.selectReportCount();
 	}
+
+	@Override
+	public List<ReportBoard> selectReportMain() {
+		return reportbDao.selectReportMain();
+	}
 	
 
 }

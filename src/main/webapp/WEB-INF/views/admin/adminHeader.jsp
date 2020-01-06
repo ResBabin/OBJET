@@ -8,8 +8,7 @@
 <link rel="icon" href="resources/images/favicon-32x32.png">
 <meta charset="UTF-8">
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<title>Insert title here</title>
+<title>adminMenu</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 <!-- 시맨틱유아이 cdn -->
 <script
@@ -73,7 +72,9 @@
 <body>
 	<div class="ui inverted menu" id="topmenu" align="center">
 		<div class="item" align="center" id="item"> 
-			<img src="${ pageContext.request.contextPath }/resources/images/objet_logo_white.png" style="width: 75px; margin-top: 6px; ">
+			<a href="adminmain.do">
+			<img src="${ pageContext.request.contextPath }/resources/images/objet_logo_white.png" style="width: 75px; margin-top: 12px;">
+			</a>
 		</div>
 		<div class="ui inverted dropdown item" id="headdi1" align="center" style="padding-left: 35px;">
 			회원 관리 <i class="dropdown icon"></i>

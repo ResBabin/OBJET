@@ -68,35 +68,29 @@ font-weight: bold;
 </style>
 </head>
 <body>
-	<div id="um" align="center">
+	<div id="um" align="center" >
 		<div style="padding: 50px;" align="center">
 			<table id="nod">
 				<tbody align="center">
 				<tr><th colspan="4" id="not">공지사항</th></tr>
 					<tr>
 						<th width="150" align="center" id="aaa">분류
-						</td>
 						<td width="200">${ noticemd.noticetype }</td>
 						<th width="150">번호
-						</td>
 						<td width="200">${ noticemd.noticeno }</td>
 					</tr>
 					<tr>
 						<th align="center">작성자
-						</td>
 						<td>${ noticemd.adminid }</td>
 						<th align="center">작성일
-						</td>
 						<td>${ noticemd.noticedate }</td>
 					</tr>
 					<tr>
 						<th align="center">제목
-						</td>
 						<td colspan="3" style="text-align: left; padding-left: 20px;">${ noticemd.noticetitle }</td>
 					</tr>
 					<tr>
 						<th height="500" align="center" id="bbb">내용
-						</td>
 						<td colspan="3" valign="top"
 							style="padding: 20px; text-align: left;">${ noticemd.noticecontent }</td>
 					</tr>
@@ -150,7 +144,6 @@ font-weight: bold;
 				</button>
 				</a>
 			</div>
-		</div>
-	</div>
+		</div></div>
 </body>
 </html>

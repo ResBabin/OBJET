@@ -45,16 +45,23 @@
 	<div id="um">
 		<br>
 		<div align="right">
-			<div class="ui small basic button">상세 검색</div>
+			<div class="ui basic grey button">상세 검색</div>
 			<!-- 		<div class="ui small basic buttons">
 				<div class="ui button">전체</div>
 				<div class="ui button">회원ID</div>
 				<div class="ui button">닉네임</div>
 				<div class="ui button active">이름</div>
 			</div> -->
-			<div class="ui small icon input">
-				<input type="search" placeholder="회원 검색"> <i
-					class="search icon"></i>
+			<div class="ui right action left icon input">
+				<i class="search icon"></i> <input type="text" placeholder="검색" style="border: 1px solid #777;">
+				<div class="ui basic grey floating dropdown button">
+					<div class="text">선택</div>
+					<i class="dropdown icon"></i>
+					<div class="menu">
+						<div class="item">회원 아이디</div>
+						<div class="item">전시명</div>
+					</div>
+				</div>
 			</div>
 			<br>
 			<div></div>

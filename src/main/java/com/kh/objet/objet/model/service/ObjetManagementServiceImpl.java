@@ -27,4 +27,9 @@ public class ObjetManagementServiceImpl implements ObjetManagementService{
 		return objetmDao.selectObjetRequestManage();
 	}
 
+	@Override
+	public List<Objet> selectObjetReqMain() {
+		return objetmDao.selectObjetReqMain();
+	}
+
 }

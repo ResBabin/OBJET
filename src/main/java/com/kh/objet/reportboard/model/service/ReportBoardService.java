@@ -17,5 +17,6 @@ public List<ReportBoard> selectReportAll();
 public int deleteReportbOrigin (ReportBoard reportb);
 public int deleteReportb (ReportBoard reportb);
 public List<ReportBoard> selectReportCount();
+public List<ReportBoard> selectReportMain();
 
 }     
