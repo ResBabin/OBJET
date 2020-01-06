@@ -17,6 +17,21 @@
 #um {
 	padding: 150px;
 }
+
+#popdiv {
+	position: absolute;
+	background: #f7f7f7;
+	border: 1px solid #ccc;
+	width: 500px;
+	height: 310px;
+	left: 35%;
+	top: 70%; 
+	border-radius: 5px;
+	padding: 20px;
+}
+#popselect{
+	width: 458px;
+}
 </style>
 
 <script type="text/javascript">
@@ -32,12 +47,31 @@
 		$("input[name=userselect]").click(function() {
 			$("#checkall").prop("checked", false);
 		});
+		
+		
 	});
 </script>
 <c:import url="adminHeader.jsp"/>
 </head>
 <body>
 	<div id="um">
+	<div id="popdiv">
+<!-- 		<select id="popselect">
+		<option>사유를 선택하세요</option>
+		<option>ㅇㅇㅇ</option>
+		<option>ㅇㅇㅇ</option>
+		</select><br><br><br><br><br><br>  -->
+		<input type="radio" value="" name="blackreason">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 욕설 및 비방<br><br>
+		<input type="radio" value="" name="blackreason">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 부적절한 컨텐츠<br><br>
+		<input type="radio" value="" name="blackreason">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 광고 및 스팸<br><br>
+		<input type="radio" value="" name="blackreason">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 기타<br>
+		<textarea rows="3" cols="58" placeholder="기타 사유를 작성해주세요." style="margin-top: 10px; margin-left: 25px; padding: 10px; margin-bottom: 13px; resize: none;"></textarea>
+		<br>
+		<div align="center">
+		<button class="ui grey button">등록</button> &nbsp;&nbsp;&nbsp;
+		<button class="ui button">취소</button>
+		</div>
+	</div>
 		<br>
 		<div align="right">
 			<div class="ui small button">상세 검색</div>

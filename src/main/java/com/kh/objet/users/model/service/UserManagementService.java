@@ -15,4 +15,5 @@ public interface UserManagementService {
 	public List<Objet> selectUserObjet(String userid);
 	public List<ReportUDetail> selectUserReport(String userid);
 	public List<ReportUDetail> selectUserReportTotal(String userid);
+	public List<ReportUDetail> selectReportUDetailMain();
 }

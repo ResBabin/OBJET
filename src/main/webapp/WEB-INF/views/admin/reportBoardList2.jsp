@@ -15,7 +15,7 @@ tbody{
 cursor: pointer;
 }
 .detailbtn:active, .detailbtn:hover{
-background: #ddd;
+background: #f5f5f5;
 }
 #detaillabel{
 margin: 5px;
@@ -24,8 +24,8 @@ padding-top: 20px;
 padding-left: 15px;
 padding-right: 15px;
 text-align: left;
-background: #cccccc99;
-border: 1px solid #ddd;
+background: #eee;
+border: 1px solid #eee;
 }
 #datediv{
 text-align: right;
@@ -62,7 +62,7 @@ padding-right: 10px;
 display: flex;
 }
 .detailtr{
-background: #f5f5f5;
+background: #f8f8f8;
 }
 
 </style>
@@ -92,7 +92,7 @@ $(function() {
 				type : "post",
 				success : function(result) {
 					console.log(result);
-					var detail = "<div class='ui large label' style='width: 1080px; padding: 15px; background: #ffffff99; border: 1px solid #ddd;margin: 5px;'>" + result + "</div>";
+					var detail = "<div class='ui large label' style='width: 1080px; padding: 25px; background: #ffffff99; border: 1px solid #eee;margin: 5px;'>" + result + "</div>";
 					var rptrnext = $(rptr).next();
 					$(rptrnext).find(".detaild").html(detail +$(".detaild").html() ); 
 				},

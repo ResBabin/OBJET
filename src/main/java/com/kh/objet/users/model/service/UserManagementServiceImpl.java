@@ -5,10 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.objet.users.model.dao.UserManagementDao;
-import com.kh.objet.blacklist.model.vo.BlackList;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
+import com.kh.objet.users.model.dao.UserManagementDao;
 import com.kh.objet.users.model.vo.UserManagement;
 
 @Service("usermService")
@@ -50,6 +49,11 @@ public class UserManagementServiceImpl implements UserManagementService{
 	@Override
 	public List<ReportUDetail> selectUserReportTotal(String userid) {
 		return usermDao.selectUserReportTotal(userid);
+	}
+
+	@Override
+	public List<ReportUDetail> selectReportUDetailMain() {
+		return usermDao.selectReportuDetailMain();
 	}
 
 	

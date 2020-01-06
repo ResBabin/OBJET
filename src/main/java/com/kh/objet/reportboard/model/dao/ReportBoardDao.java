@@ -53,5 +53,8 @@ public class ReportBoardDao {
 	public List<ReportBoard> selectReportCount() {
 		return mybatisSession.selectList("adminMapper.selectReportCount");
 	}
+	public List<ReportBoard> selectReportMain() {
+		return mybatisSession.selectList("adminMapper.selectReportMain");
+	}
 	
 }

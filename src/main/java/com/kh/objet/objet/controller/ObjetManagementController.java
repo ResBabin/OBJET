@@ -13,6 +13,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.objet.objet.model.service.ObjetManagementService;
 import com.kh.objet.objet.model.vo.Objet;
+import com.kh.objet.qna.model.service.QnaService;
+import com.kh.objet.qna.model.vo.Qna;
+import com.kh.objet.reportboard.model.service.ReportBoardService;
+import com.kh.objet.reportboard.model.vo.ReportBoard;
+import com.kh.objet.reportudetail.model.vo.ReportUDetail;
+import com.kh.objet.users.model.service.UserManagementService;
+import com.kh.objet.users.model.vo.UserManagement;
 
 
 @Controller
@@ -21,6 +28,12 @@ public class ObjetManagementController {
 	
 	@Autowired
 	private ObjetManagementService objetmService;
+	@Autowired
+	private ReportBoardService reportbService;
+	@Autowired
+	private QnaService qnaService;
+	@Autowired
+	private UserManagementService usermService;
 	
 	public ObjetManagementController() {}
 	
@@ -54,6 +67,33 @@ public class ObjetManagementController {
 		ArrayList<Objet> objetreqlist = (ArrayList<Objet>) objetmService.selectObjetRequestManage();
 		model.addAttribute("objetreqlist", objetreqlist);
 		return "admin/objetRequestManage";
+	}
+	
+	@RequestMapping("adminmain.do")
+	public String adminMain(Model model) {
+		ArrayList<Objet> objetreqlist = (ArrayList<Objet>) objetmService.selectObjetRequestManage();
+		ArrayList<ReportBoard> reportblist = (ArrayList<ReportBoard>) reportbService.selectReportMain();
+		ArrayList<Qna>qnalist = (ArrayList<Qna>) qnaService.selectQnaMain();
+		ArrayList<ReportUDetail> reportulist= (ArrayList<ReportUDetail>) usermService.selectReportUDetailMain();
+		ArrayList<Objet> objetmlist = (ArrayList<Objet>) objetmService.selectAllObet();
+		ArrayList<UserManagement> userlist = (ArrayList<UserManagement>) usermService.selectUser();
+		ArrayList<String> objettag = new ArrayList<String>();
+		
+		for(int i = 0; i < objetmlist.size(); i++) {
+			String[] tag = objetmlist.get(i).getObjettag().split(","); 
+			for(int j = 0; j < tag.length; j++) {
+				objettag.add(tag[j]);
+			}
+		}
+		System.out.println(objettag);
+		model.addAttribute("objettag", objettag);
+		model.addAttribute("objetreqlist", objetreqlist);
+		model.addAttribute("objetmlist", objetmlist);
+		model.addAttribute("reportblist", reportblist);
+		model.addAttribute("qnalist", qnalist);
+		model.addAttribute("reportulist", reportulist);
+		model.addAttribute("userlist", userlist);
+		return "admin/adminmain"; 
 	}
 
 }

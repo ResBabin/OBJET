@@ -37,4 +37,9 @@ public class UserManagementDao {
 	public List<ReportUDetail> selectUserReportTotal(String userid) {
 		return mybatisSession.selectList("adminMapper.selectUserReportTotal", userid);
 	}
+	public List<ReportUDetail> selectReportuDetailMain() {
+		return mybatisSession.selectList("adminMapper.selectReportUDetailMain");
+	}
+	
+
 }

@@ -31,6 +31,11 @@ public class QnaServiceImpl implements QnaService{
 		return qnaDao.selectQnaDetail(qnano);
 	}
 
+	@Override
+	public List<Qna> selectQnaMain() {
+		return qnaDao.selectQnaMain();
+	}
+
 	
 	
 }

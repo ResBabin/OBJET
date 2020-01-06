@@ -10,6 +10,7 @@
 <style type="text/css">
 #um {
 	padding: 150px;
+	padding-top: 80px;
 }
 </style>
 
@@ -26,10 +27,10 @@
 <table class="ui sortable celled table selectable">
 <thead>
 <tr>
-<th width="100">번호</th>
-<th>관리자ID</th>
-<th>분류</th>
-<th>제목</th>
+<th width="100" id="thth">번호</th>
+<th id="thth">관리자ID</th>
+<th id="thth">분류</th>
+<th id="thth">제목</th>
 </tr>
 </thead>
 <tbody>
