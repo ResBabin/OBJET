@@ -2,7 +2,6 @@ package com.kh.objet.objet.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +26,7 @@ import com.kh.objet.objet.model.service.ObjetServiceImpl;
 import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.objet.model.vo.ReviewKey;
+import com.kh.objet.objet.model.vo.ReviewUp;
 import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
 import com.kh.objet.review.model.vo.Review;
@@ -107,7 +107,7 @@ public class ObjetController {
 		
 		sendJson.put("list", jarr);
 		logger.debug(jarr.toJSONString());
-		response.setContentType("application/jsonl charset=utf-8");
+		response.setContentType("application/json; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.println(sendJson.toJSONString());
 		out.flush();
@@ -146,8 +146,9 @@ public class ObjetController {
 	
 	//한줄평 리스트 정렬
 	@RequestMapping(value="reviewOrder.do", method=RequestMethod.POST)
+	@ResponseBody
 	public void selectReviewOrder(int no, String order, HttpServletResponse response) throws IOException {
-		ReviewKey rk = new ReviewKey(no, null, order);
+		ReviewKey rk = new ReviewKey(no, order);
 		ArrayList<Review> reviewListOrder = objetService.selectReviewOrder(rk);
 		logger.debug(reviewListOrder.get(0).getUserid());
 		logger.debug(reviewListOrder.get(1).getUserid());
@@ -158,16 +159,13 @@ public class ObjetController {
 		//json 배열 객체
 		JSONArray jarr = new JSONArray();
 		//list를 jarr 로 옮겨 저장 (복사)
-		for( Review review : reviewListOrder) {
-			
+		for(Review review : reviewListOrder) {
 		JSONObject job = new JSONObject();
-		job.put("userid", URLEncoder.encode(review.getUserid(), "utf-8"));
-		job.put("objetno", review.getObjetno());
 		job.put("revcontent", URLEncoder.encode(review.getRevcontent(), "utf-8"));
 		job.put("revstars", review.getRevstars());
 		job.put("revgood", review.getRevgood());
 		job.put("revhate", review.getRevhate());
-		job.put("revdate", review.getRevdate());
+		job.put("revdate", review.getRevdate().toString());
 		job.put("userrpic", review.getUserrpic());
 		job.put("nickname", URLEncoder.encode(review.getNickname(), "utf-8"));
 		jarr.add(job);
@@ -175,9 +173,9 @@ public class ObjetController {
 		
 		sendJson.put("list", jarr);
 		logger.debug(jarr.toJSONString());
-		response.setContentType("application/jsonl charset=utf-8");
+		response.setContentType("application/json; charset=utf-8");
 		PrintWriter out = response.getWriter();
-		out.println(sendJson.toJSONString());
+		out.write(sendJson.toJSONString());
 		out.flush();
 		out.close();
 	}
@@ -203,29 +201,56 @@ public class ObjetController {
 	}
 	
 	
-	/*//한줄평 등록
-	@RequestMapping("reviewReport.do")
-	public String insertReviewReport(ReportBoard rb) {
-		return "objet/objetDetail";
-	}*/
+	//한줄평 등록
+	@RequestMapping(value="insertReview.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String insertReview(Review review, Model model) {
+		int result = objetService.insertReview(review);
+		String viewFileName = "objet/objetDetail";
+		if(result <= 0) { //신고 실패시
+			model.addAttribute("message", "한줄평 등록 실패!");
+			viewFileName = "common/error";
+		}
+		return viewFileName;
+	}
 	
-	/*//한줄평 수정
-	@RequestMapping("reviewReport.do")
-	public String insertReviewReport(ReportBoard rb) {
-		return "objet/objetDetail";
-	}*/
+	//한줄평 수정
+	@RequestMapping(value="updateReview.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String updateReview(ReviewUp review, Model model) {
+		int result = objetService.updateReview(review);
+		String viewFileName = "objet/objetDetail";
+		if(result <= 0) { //신고 실패시
+			model.addAttribute("message", "한줄평 수정 실패!");
+			viewFileName = "common/error";
+		}
+		return viewFileName;
+	}
 	
-	/*//한줄평 삭제
-	@RequestMapping("deleteReview.do")
-	public String deleteReview(String userid) {
-		return "objet/objetReviewDelete";
-	}*/
+	//한줄평 삭제
+	@RequestMapping(value="deleteReview.do")
+	public String deleteReview(String userid, Model model) {
+		int result = objetService.deleteReview(userid);
+		String viewFileName = "objet/objetDetail";
+		if(result <= 0) {
+			model.addAttribute("message", "한줄평 삭제 실패!");
+			viewFileName = "common/error";
+		}
+		
+		return viewFileName;
+	}
 
-	/*//한줄평 신고
-	@RequestMapping("reviewReport.do")
-	public String insertReviewReport(ReportBoard rb) {
-		return "objet/objetDetail";
-	}*/
+	//한줄평 신고
+	@RequestMapping(value="reviewReport.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String insertReviewReport(ReportBoard rb, Model model) {
+		int result = objetService.insertReviewReport(rb);
+		
+		String viewFileName = "objet/objetDetail";
+		if(result <= 0) { //신고 실패시
+			model.addAttribute("message", "한줄평 신고 실패!");
+			viewFileName = "common/error";
+		}
+		
+		return viewFileName;
+	}
 	
 	
 	// 최민영 *******************************************************************************

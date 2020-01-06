@@ -242,6 +242,7 @@ $(function() {
   	$("#more_load").click(function(e) { // Load More를 위한 클릭 이벤트e
   	    e.preventDefault();
   	    $(".artist_card:hidden").slice(0, 4).fadeIn(); // 숨김 설정된 다음 4개를 선택하여 표시
+  	  	$("#more_load").css("margin-bottom", "30px");
   	    if ($(".artist_card:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
   	        $('#more_load').fadeOut();// 더 이상 로드할 항목이 없는 경우
   	    }
@@ -299,6 +300,7 @@ $(function() {
 				$("#more_load").click(function(e) { 
 			  	    e.preventDefault();
 			  	    $(".artist_card:hidden").slice(0, 4).fadeIn(); 
+			  	  	$("#more_load").css("margin-bottom", "30px");
 			  	    if ($(".artist_card:hidden").length == 0) { 
 			  	        $('#more_load').fadeOut();
 			  	    }

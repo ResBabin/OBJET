@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.objet.model.vo.ReviewKey;
+import com.kh.objet.objet.model.vo.ReviewUp;
 import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
 import com.kh.objet.review.model.vo.Review;
@@ -70,6 +71,17 @@ public class ObjetDao {
 		return (ArrayList<Review>)list;
 	}
 
+	public int insertReview(Review review) {
+		return mybatisSession.insert("objetMapper.insertReview", review);
+	}
+	
+	public int updateReview(ReviewUp review) {
+		return mybatisSession.insert("objetMapper.updateReview", review);
+	}
+	
+	public int deleteReview(String userid) {
+		return mybatisSession.insert("objetMapper.deleteReview", userid);
+	}
 	
 	// 최민영
 	// 작가홈 오브제 리스트카운트
@@ -137,6 +149,8 @@ public class ObjetDao {
 	public int deleteObjet(int objetno) {
 		return mybatisSession.delete("", objetno);
 	}
+
+	
 
 	
 	

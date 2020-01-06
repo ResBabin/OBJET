@@ -434,9 +434,9 @@ width: 190px;
  
     <li><a href="main.do">홈</a></li>
      
-    <li><a href="objetMain.do">전시</a></li>
+    <li><a href="objetAllList.do">전시</a></li>
     
-    <li><a href="#">작가</a></li>
+    <li><a href="artistAllList.do">작가</a></li>
     
     <li><a href="moveCs.do">고객센터</a>
       <ul id="sub-menu">
