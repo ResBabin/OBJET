@@ -158,15 +158,41 @@
 	
 	
 	<!-- 방명록 -->
-	<select id="getGuestBookListCount" parameterType="String" resultType="int">
-		select count(*) from guestbook g left join gbreply r on (G.GBNO = R.GBNO) where g.artistid = #{artistid}
+	<select id="selectGuestBookListCount" parameterType="String" resultType="int">
+		select count(*) from guestbook where artistid = #{artistid}
 	</select>
 	
 	<select id="selectArtistGuestBook" parameterType="hashmap" resultType="GB">
-		select * from (select g.gbno, g.artistid, g.userid, g.gbcontent, g.gbdate, g.privateyn, g.replyyn, r.replycontent, r.replydate 
+		select * from (select rownum rnum, g.gbno, g.artistid, g.userid, g.gbcontent, g.gbdate, g.privateyn, g.replyyn, r.replycontent, r.replydate 
 		from guestbook g left join gbreply r on (g.gbno = r.gbno) where g.artistid = #{artistid} order by g.gbno desc)
-		where rownum between #{startRow} and #{endRow}
+		where rnum between #{startRow} and #{endRow}
 	</select>
+	
+	<select id="selectMyGuestBookListCount" parameterType="hashmap" resultType="int">
+		select count(*) from guestbook where artistid = #{artistid} and userid = #{userid}
+	</select>
+	
+	<select id="selectMyGuestBook" parameterType="hashmap" resultType="GB">
+		select * from (select rownum rnum,g.gbno, g.artistid, g.userid, g.gbcontent, g.gbdate, g.privateyn, g.replyyn, r.replycontent, r.replydate 
+		from guestbook g left join gbreply r on (g.gbno = r.gbno) where g.artistid = #{artistid} and g.userid = #{userid} order by g.gbno desc)
+		where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	
+	<!-- 여기서부터 해야함 -->
+	<select id="selectGuestBookSearchListCount" parameterType="hashmap" resultType="int">
+		select count(*) from guestbook g left join users u on(g.userid = u.userid) where g.artistid = #{artistid} and ${searchtype} like '%' || #{keyword} || '%' order by g.gbno desc
+	</select>
+	
+	<select id="selectGuestBookSearch" parameterType="hashmap" resultType="GB">
+	    select * from (select rownum rnum, g.gbno, g.artistid as artistid, g.userid, u.nickname as usernickname, g.gbcontent, g.gbdate, g.privateyn, g.replyyn, r.replycontent, r.replydate 
+		from guestbook g left join gbreply r on (g.gbno = r.gbno) left join users u on(g.userid = u.userid) where g.artistid = #{artistid} and 
+		${searchtype} like '%' || #{keyword} || '%' 
+		order by g.gbno desc) where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	
+	
 	
 	<insert id="insertGuestBook" parameterType="GuestBook">
 		insert into guestbook values (GBNO_SEQ.NEXTVAL, #{artistid}, #{userid}, #{gbcontent}, sysdate, #{privateyn}, default )
@@ -180,11 +206,19 @@
 		delete guestbook where gbno = #{value}
 	</delete>
 	
+	<delete id="deleteGuestBookReply" parameterType="int">
+		delete gbreply where gbno = #{value}
+	</delete>
+	
 	<insert id="insertGuestBookReply" parameterType="GbReply">
 		insert into gbreply values (#{gbno}, #{artistid}, #{replycontent}, sysdate)
 	</insert>
 	
 	<update id="updateReplyyn" parameterType="int">
 		update guestbook set replyyn = 'Y' where gbno = #{value}
+	</update>
+	
+	<update id="updateReplyyn2" parameterType="int">
+		update guestbook set replyyn = 'N' where gbno = #{value}
 	</update>
 </mapper>
