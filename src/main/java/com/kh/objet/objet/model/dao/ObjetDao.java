@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.objet.likeobjet.model.vo.LikeObjet;
 import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.objet.model.vo.ReviewKey;
@@ -25,6 +26,8 @@ public class ObjetDao {
 	
 	public ObjetDao() {}
 	
+	
+	//박예은
 	public ArrayList<Objet> selectObjetAllList(){
 		List<Objet> list = mybatisSession.selectList("objetMapper.selectObjetAll");
 		return (ArrayList<Objet>)list;
@@ -76,12 +79,39 @@ public class ObjetDao {
 	}
 	
 	public int updateReview(ReviewUp review) {
-		return mybatisSession.insert("objetMapper.updateReview", review);
+		return mybatisSession.update("objetMapper.updateReview", review);
 	}
 	
-	public int deleteReview(String userid) {
-		return mybatisSession.insert("objetMapper.deleteReview", userid);
+	public int deleteReview(Review review) {
+		return mybatisSession.delete("objetMapper.deleteReview", review);
 	}
+	
+	public int updateRevGood(Review review) {
+		return mybatisSession.update("objetMapper.updateRevGood", review);
+	}
+
+	public int updateRevGoodReset(Review review) {
+		return mybatisSession.update("objetMapper.updateRevGoodReset", review);
+	}
+
+	public int updateRevHate(Review review) {
+		return mybatisSession.update("objetMapper.updateRevHate", review);
+	}
+
+	public int updateRevHateReset(Review review) {
+		return mybatisSession.update("objetMapper.updateRevHateReset", review);
+	}
+
+	public int insertLikeObjet(LikeObjet likeobjet) {
+		return mybatisSession.insert("objetMapper.insertLikeObjet", likeobjet);
+	}
+
+	public int deleteLikeObjet(LikeObjet likeobjet) {
+		return mybatisSession.delete("objetMapper.deleteLikeObjet", likeobjet);
+	}
+	
+	
+	
 	
 	// 최민영
 	// 작가홈 오브제 리스트카운트
@@ -149,6 +179,9 @@ public class ObjetDao {
 	public int deleteObjet(int objetno) {
 		return mybatisSession.delete("", objetno);
 	}
+
+
+	
 
 	
 

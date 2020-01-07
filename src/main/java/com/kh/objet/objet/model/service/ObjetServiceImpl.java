@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.objet.likeobjet.model.vo.LikeObjet;
 import com.kh.objet.objet.model.dao.ObjetDao;
 import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
@@ -22,6 +23,8 @@ public class ObjetServiceImpl implements ObjetService{
 	@Autowired
 	private ObjetDao objetDao;
 	
+	
+	//박예은
 	@Override
 	public ArrayList<Objet> selectObjetAllList() {
 		return objetDao.selectObjetAllList();
@@ -79,9 +82,36 @@ public class ObjetServiceImpl implements ObjetService{
 		return objetDao.updateReview(review);
 	}
 	
-	public int deleteReview(String userid) {
-		return objetDao.deleteReview(userid);
+	public int deleteReview(Review review) {
+		return objetDao.deleteReview(review);
 	}
+	
+	public int updateRevGood(Review review) {
+		return objetDao.updateRevGood(review);
+	}
+
+	public int updateRevGoodReset(Review review) {
+		return objetDao.updateRevGoodReset(review);
+	}
+
+	public int updateRevHate(Review review) {
+		return objetDao.updateRevHate(review);
+	}
+
+	public int updateRevHateReset(Review review) {
+		return objetDao.updateRevHateReset(review);
+	}
+	
+	public int insertLikeObjet(LikeObjet likeobjet) {
+		return objetDao.insertLikeObjet(likeobjet);
+	}
+
+	public int deleteLikeObjet(LikeObjet likeobjet) {
+		return objetDao.deleteLikeObjet(likeobjet);
+	}
+	
+	
+	
 	
 	
 	// 최민영 *******************************************************
@@ -161,13 +191,6 @@ public class ObjetServiceImpl implements ObjetService{
 		return objetDao.deleteObjet(objetno);
 	}
 
-	
-
-	
-
-	
-
-	
 
 
 

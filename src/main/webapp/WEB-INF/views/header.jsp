@@ -408,9 +408,11 @@ width: 190px;
 <div class="nickname">${sessionScope.loginUser.nickname }</div>
 <div class="userid">@${sessionScope.loginUser.userid }</div>
 
-<div class="createObjetBtn"><button class="tiny ui teal basic circular button" onclick="return reportUserCheck()">오브제 등록</button></div>
-</div>
-<div class="artistHome"><p onclick="location.href='artistHomeMain.do?userid=${loginUser.userid}&loginUser=${loginUser.userid}&currentPage=1'">작가홈</p></div>
+
+<div class="createObjetBtn"><button class="tiny ui teal basic circular button" onclick="return reportUserCheck()" style="cursor: pointer;">오브제 등록</button></div>
+</div><br><br>
+<div class="artistHome"><p onclick="location.href='artistHomeMain.do?userid=${loginUser.userid}&loginUser=${loginUser.userid}'" style="cursor: pointer;">작가홈</p></div>
+
 <div id="accordian1">
    <ul>
       <li>
@@ -423,8 +425,8 @@ width: 190px;
          </ul>
       </li>
       
-      <li><div class="fd"><p onclick="location.href='moveFeedList.do?artistid=${loginUser.userid}'">피드알림</p></div></li>
-      <li><div class="qna"><p onclick="location.href='moveMyQnaList.do'">문의내역</p></div></li>
+      <li><div class="fd"><p onclick="location.href='moveFeedList.do?artistid=${loginUser.userid}'" style="cursor: pointer;">피드알림</p></div></li>
+      <li><div class="qna"><p onclick="location.href='moveMyQnaList.do'" style="cursor: pointer;">문의내역</p></div></li>
    </ul>
 </div>
 

@@ -35,6 +35,22 @@ public class Review implements Serializable{
 		this.nickname = nickname;
 	}
 
+	public Review(int objetno, String userid, String revcontent, int revstars) {
+		super();
+		this.objetno = objetno;
+		this.userid = userid;
+		this.revcontent = revcontent;
+		this.revstars = revstars;
+	}
+	
+	public Review(String userid, int objetno) {
+		super();
+		this.userid = userid;
+		this.objetno = objetno;
+	}
+
+	
+	
 	public String getUserid() {
 		return userid;
 	}
