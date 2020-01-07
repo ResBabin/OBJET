@@ -1,6 +1,5 @@
 package com.kh.objet.guestbook.model.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,7 +10,6 @@ import com.kh.objet.guestbook.model.dao.GuestBookDao;
 import com.kh.objet.guestbook.model.vo.GB;
 import com.kh.objet.guestbook.model.vo.GbReply;
 import com.kh.objet.guestbook.model.vo.GuestBook;
-import com.kh.objet.paging.model.vo.Paging;
 
 @Service("guestbookService")
 public class GuestBookServiceImpl implements GuestBookService{
@@ -61,8 +59,8 @@ public class GuestBookServiceImpl implements GuestBookService{
 	
 	// 방명록 수정
 	@Override
-	public int updateGuestBook(int gbno) {
-		return guestBookDao.updateGuestBook(gbno);
+	public int updateGuestBook(GuestBook guestbook) {
+		return guestBookDao.updateGuestBook(guestbook);
 	}
 
 	

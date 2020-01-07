@@ -11,7 +11,6 @@
 <title>Objet</title>
 <c:import url="header.jsp" />
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-<script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
 <link rel='stylesheet' href='//fonts.googleapis.com/earlyaccess/kopubbatang.css'>
 <link rel="stylesheet" type="text/css" href="resources/assets/css/KoPubDotum.css">
 <link rel="stylesheet" href="//fonts.googleapis.com/earlyaccess/nanummyeongjo.css">
@@ -20,6 +19,15 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
  <link rel="stylesheet" href="resources/css/swiper.min.css">
+ <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
+ <script type="text/javascript">
+ // 메인페이지 접속시마다 탈퇴 30일 경과한 회원 삭제하기
+ $.ajax({
+	url: "delQuitUsers.do"
+	type:"post"
+	 
+ });
+ </script>
  <style>
 .objet_main {
    margin-top: 0px;

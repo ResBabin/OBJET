@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<% pageContext.setAttribute("newLineN", "\n"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,6 +37,7 @@ $(function(){
 	 
 });// documentReady...
 
+
 	 // 방명록 쓰기
 	 function GbFormSub(){
 		var form = $("form[name=gbform]").serialize();
@@ -60,6 +62,7 @@ $(function(){
 			
 		})//ajax...
 }// GbFormSub()...
+
 
 // 비밀로 하기
 function changePrivate(gbno, privateyn, artistid, userid, curPage){
@@ -151,7 +154,6 @@ function deleteReply(gbno, artistid, userid, curPage){
 } //deleteReply()...
 
 
-
 //방명록 댓글 작성
 function insertReply(gbno, artistid, userid, curPage){
 	$.ajax({
@@ -176,24 +178,122 @@ function insertReply(gbno, artistid, userid, curPage){
 } //changePrivate()...
 
 
-function modalshow(gbno,replyyn){
+// 방명록 수정창 열기
+function editGB(gbno,replyyn){
+	// 댓글 없으면
 		if(replyyn=='N'){
-			$('#editgbno").modal('show');
+			// 기존 내용 숨기고 수정창으로 바꾸기
+			$("#showGB"+gbno).css("display","none");
+			$("#updateGB"+gbno).css("display", "block");
+			$("#showGBMenu"+gbno).css("display", "none");
+			$("#upGBMenu"+gbno).css("display", "block");
+			
+			// 수정 textarea 글자수 세기
+			$("#gbcontent"+gbno).keyup(function(e){
+				 var content = $(this).val();
+				 $("#counter"+gbno).html("( <span style='color:#4ecdc4;font-size: 9pt;'>"+content.length+"</span> / 최대 500자 )");	// 글자수 실시간 카운팅
+				 
+				 if(content.length > 500){
+					 alert("최대 500자까지만 입력 가능합니다.");
+					 $(this).val(content.substring(0,500));
+					 $("#counter"+gbno).html("( <span style='color:red;font-size: 9pt;'>500 </span>/ 최대 500자)");
+				 } 
+			 });
+			
+			// 수정 취소 누르면 원상복구
+			$("#upCancel"+gbno).click(function(e){
+				$("#showGB"+gbno).css("display","block");
+				$("#updateGB"+gbno).css("display", "none");
+				$("#showGBMenu"+gbno).css("display", "block");
+				$("#upGBMenu"+gbno).css("display", "none");
+			 });
+			
+			
+			// 완료 클릭 시 에이작스 보내기
+			$("#goUpdateGB"+gbno).click(function(e){
+				
+				var gbcontent = $("#gbcontent"+gbno).val();
+				$.ajax({
+					url : "updateGuestBook.do",
+					type: "post",
+					data: {gbno : gbno, gbcontent: gbcontent},
+					success : function(result){
+						if(result == "ok"){
+							alert("수정이 완료되었습니다.");
+							window.location.reload();
+						}else{
+							alert("수정에 실패하였습니다.");
+							location.reload();
+						}
+						
+					},
+					error : function(jqXHR, textStatus, errorThrown){
+						console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+					}
+					
+				})//ajax...
+			});
+	// 댓글 있으면
 		}else{
 			alert("댓글이 달린 방명록은 수정 불가합니다.");
 			return false;
 		}
-	};
-
+		
+	}; // editGB()...
+	
+	
+	
+	// 방명록 댓글 수정창 열기
+	function editReply(gbno){
+			// 기존 내용 숨기고 수정창으로 바꾸기
+			$("#showReplyMenu"+gbno).css("display","none");
+			$("#upReplyMenu"+gbno).css("display", "block");
+			$("#showReply"+gbno).css("display", "none");
+			$("#updateGBReply"+gbno).css("display", "block");
+			
+			// 수정 취소 누르면 원상복구
+			$("#upReplyCancel"+gbno).click(function(e){
+				$("#showReplyMenu"+gbno).css("display","block");
+				$("#upReplyMenu"+gbno).css("display", "none");
+				$("#showReply"+gbno).css("display", "block");
+				$("#updateGBReply"+gbno).css("display", "none");
+			 });
+			
+			
+			// 완료 클릭 시 에이작스 보내기
+			$("#goUpdateReply"+gbno).click(function(e){
+				
+				var replycontent = $("#replycontent"+gbno).val();
+				$.ajax({
+					url : "updateGuestBookReply.do",
+					type: "post",
+					data: {gbno : gbno, replycontent: replycontent},
+					success : function(result){
+						if(result == "ok"){
+							alert("수정이 완료되었습니다.");
+							window.location.reload();
+						}else{
+							alert("수정에 실패하였습니다.");
+							location.reload();
+						}
+						
+					},
+					error : function(jqXHR, textStatus, errorThrown){
+						console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+					}
+					
+				})//ajax...
+			});
+			
+		}; // editReply()...
+	
+	
 	 
 </script>
 </head>
 <body>
-
 <!-- 방명록 시작 -->
 <div class="wrapHome">
-
-
 	<!-- 상단 프로필 부분 -->
 	<div class="wrapProfile">
 		<!-- 프로필 글자부분 -->
@@ -220,8 +320,6 @@ function modalshow(gbno,replyyn){
 		</div>
 	
 	</div> <!-- 상단 프로필 부분 끝! -->
-
-
 <!-- 본인 작가홈이 아닐 때 방명록 작성 칸 보이기 시작 -->
 			<c:if test="${artist.userid != loginUser.userid }">
 				<div class="gblist">
@@ -255,8 +353,6 @@ function modalshow(gbno,replyyn){
 				</div>
 			</c:if>
 <!-- 본인 작가홈이 아닐 때 방명록 작성 칸 보이기 끝!-->
-
-
 <!-- 방명록 리스트 시작! -->
 	<c:if test="${!empty list}">
 				<c:forEach var="list" items="${list }" varStatus="status">
@@ -264,10 +360,10 @@ function modalshow(gbno,replyyn){
 				<div class="gblist">
 					<table class="gbwrite">
 						<tr style="height:25px;">
-							<c:if test="${list.privateyn eq 'Y' }">
+							<c:if test="${list.userid eq loginUser.userid }">
 								<td colspan="2" style="width:auto; background:#9fe3de;">
 							</c:if>
-							<c:if test="${list.privateyn eq 'N' }">
+							<c:if test="${list.userid ne loginUser.userid }">
 								<td colspan="2" style="width:auto; background:#efefef;">
 							</c:if>
  								<span style="width:10%; margin-left: 20px;">No. ${(paging.listCount - status.index)-((paging.currentPage-1)*paging.limit)}</span>
@@ -283,20 +379,28 @@ function modalshow(gbno,replyyn){
 			     				 		<a onclick="changePrivate('${list.gbno}', 'N', '${list.artistid }','${loginUser.userid }','${paging.currentPage }');">공개하기</a> | 
 			     				 	</c:if>
 			     						<a onclick="location.href='moveProfileReport.do?reportedu=${list.userid}'">신고</a> | 
-			     						<a onclick="deleteGB('${list.gbno}', '${list.artistid}','${loginUser.userid}','${paging.currentPage }');">삭제</a></div>
+			     						<a onclick="deleteGB('${list.gbno}', '${list.artistid}','${loginUser.userid}','${paging.currentPage }');">삭제</a>
 			     				</c:if>
 			     				
 			     				<!-- 글쓴이일때 -->
 			     				<c:if test="${list.userid == loginUser.userid && list.artistid != loginUser.userid}">
+			     				<div id="showGBMenu${list.gbno}" style="display:block;">
 			     				<c:if test="${list.privateyn == 'N' }">
 			     				 	<a onclick="changePrivate('${list.gbno}', 'Y', '${list.artistid }','${loginUser.userid }','${paging.currentPage }');">비밀로하기</a> | 
 			     				 </c:if>
 			     				 <c:if test="${list.privateyn == 'Y' }">
 			     				 	<a onclick="changePrivate('${list.gbno}', 'N', '${list.artistid }','${loginUser.userid }','${paging.currentPage }');">공개하기</a> | 
 			     				 </c:if>
-			     					<a href="javascript:void(0);" onclick="modalshow('${list.gbno}', '${list.replyyn}');">수정</a> | 
-			     					<a onclick="deleteGB('${list.gbno}', '${list.artistid}','${loginUser.userid}','${paging.currentPage }');">삭제</a></div> 
+			     					<a href="javascript:void(0);" onclick="editGB('${list.gbno}','${list.replyyn }')">수정</a> | 
+			     					<a onclick="deleteGB('${list.gbno}', '${list.artistid}','${loginUser.userid}','${paging.currentPage }');">삭제</a>
 			     				</c:if>
+								</div>
+								<div id="upGBMenu${list.gbno}" style="display:none;">
+								<a href="" id="goUpdateGB${list.gbno }">완료</a> | 
+			     				<a id="upCancel${list.gbno}">취소</a>
+								</div>
+			     				
+			   					</div> 
 							</td>
 						</tr>
 						<!-- 방명록 내용 -->
@@ -308,26 +412,30 @@ function modalshow(gbno,replyyn){
 								<div class="profileImage4" style="background-image:url('resources/users_upfiles/${list.userrpic}')" onclick="location.href='artistHomeMain.do?userid=${list.userid}&loginUser=${loginUser.userid }&currentPage=1'"></div>
 							</c:if>
 						</td>
-							<td style="width:85%;"><div class="gbcontent">
+							<td style="width:85%;"><div class="gbcontent" id="showGB${list.gbno }" style="display: block">
 							<c:if test="${list.privateyn == 'Y' }">
 								<c:if test="${artist.userid != loginUser.userid && list.userid != loginUser.userid }">
 									<i class="large teal lock icon"></i><span style="color:#4ecdc4;font-size: 10pt;">비밀글입니다 :)</span><br><br>
 								</c:if>
 								<c:if test="${artist.userid == loginUser.userid || list.userid == loginUser.userid }">
 									<i class="large teal lock icon"></i><span style="color:#4ecdc4;font-size: 10pt;">비밀글입니다 :)</span><br><br>
-									${list.gbcontent }
+									${fn:replace(list.gbcontent, newLineN, "<br>")}
 								</c:if>
 							</c:if>
 							<c:if test="${list.privateyn == 'N'}">
-								${list.gbcontent }
+								${fn:replace(list.gbcontent, newLineN, "<br>")}
 							</c:if>
 							</div>
+							<!-- 방명록 수정창 -->
+							<div class="upGB" id="updateGB${list.gbno }" style="display:none;">
+								<br>
+									<div class="ui form"><textarea style="width:600px;margin-left:20px;"rows="5" cols="100" name="gbcontent" id="gbcontent${list.gbno }" required>${list.gbcontent }</textarea></div><br>
+									<div style="color:#202020; margin-left:20px; margin-top:-15px; font-size: 9pt;" id="counter${list.gbno }">( <span style="color:#4ecdc4; font-size: 9pt;">0</span> / 최대 500자 )</div>
+							</div>
+							
+							</td>
 						</tr>
 						
-						<!-- 수정용 모달창 -->
-						<div class="ui modal" id="edit${list.gbno }">
-							확인용
-						</div>
 						
 						<!-- 작가 홈 주인일 때 답변 내용이 없으면 답변 쓰기 창 -->
 						<c:if test="${(list.artistid == loginUser.userid) && list.replyyn == 'N' }">
@@ -345,26 +453,36 @@ function modalshow(gbno,replyyn){
 								<span style="margin-left: 5px;font-size: 9pt;"><fmt:formatDate value="${list.replydate}" pattern="(yyyy.MM.dd E)"/></span>
 								<!-- 작가홈 주인일 때 -->
 									<c:if test="${list.artistid == loginUser.userid }">
-										<div style="float:right; margin-right:10px;">
-				     						<a onclick="location.href=''">수정</a> | 
+										<div id="showReplyMenu${list.gbno}" style="display:block; float:right; margin-right:10px;">
+				     						<a href="javascript:void(0);" onclick="editReply('${list.gbno}')">수정</a> | 
 				     						<a onclick="deleteReply('${list.gbno}', '${list.artistid}','${loginUser.userid}','${paging.currentPage }');">삭제</a>
+				     					</div>
+										<div id="upReplyMenu${list.gbno}" style="display:none; float:right; margin-right:10px;">
+				     						<a href="" id="goUpdateReply${list.gbno }">완료</a> | 
+				     						<a id="upReplyCancel${list.gbno}">취소</a>
 				     					</div>
 				     				</c:if>
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2" class="replybg" style="background:#efefef; min-height: 60px;">
+							<div class="gbreply" id="showReply${list.gbno }" style="display: block">
 							<c:if test="${list.privateyn == 'N'}">
-									<p class="replycontent">${list.replycontent }</p>
+									<p class="replycontent">${fn:replace(list.replycontent, newLineN, "<br>")}</p>
 							</c:if>
 							<c:if test="${list.privateyn == 'Y' }">
 								<c:if test="${list.artistid != loginUser.userid || list.userid != loginUser.userid }">
 									&emsp;<i class="large teal lock icon"></i><span style="color:#4ecdc4;font-size: 10pt;">작성자만 볼 수 있습니다.</span>
 								</c:if>
 								<c:if test="${list.artistid == loginUser.userid || list.userid == loginUser.userid }">
-									<p class="replycontent">${list.replycontent }</p>
+									<p class="replycontent">${fn:replace(list.replycontent, newLineN, "<br>")}</p>
 								</c:if>
 							</c:if>
+							</div>
+							<!-- 댓글 수정창 -->
+							<div class="upGBReply" id="updateGBReply${list.gbno }" style="display:none;">
+								<div class="ui form" style="float:left;"><textarea style="width:650px;height:30px;margin-left:20px;"rows="1" cols="100" name="replycontent" id="replycontent${list.gbno }" placeholder="최대 100자까지만 입력 가능합니다." required>${list.replycontent }</textarea></div>
+							</div>
 							</td>
 						</tr>
 						</c:if>
@@ -379,7 +497,6 @@ function modalshow(gbno,replyyn){
 				<!--  페이징 -->
 				<div align="center">
 					<div id="paging">
-
 						 <c:if test="${ kind eq 'all' }"> 
 							 <c:if test="${ paging.startPage != 1 }">
 							 	<a href="moveArtistGuestBook.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=${paging.startPage - 1}">이전</a>
@@ -462,7 +579,6 @@ function modalshow(gbno,replyyn){
 				</c:if>
 				
 					
-
 				
 				
 				<!-- 작가홈 구경온 사람일 때는 내가 쓴 글 보기 -->
@@ -473,8 +589,8 @@ function modalshow(gbno,replyyn){
 				</div>
 			</c:if>
 			</div>
-
-</body>
-<br><br><br><br><br><br><br><br><br><br><br><br>
+			
+			
 <c:import url="../footer.jsp" />
+</body>
 </html>
