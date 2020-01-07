@@ -120,9 +120,9 @@ public class ObjetDao {
 	}
 
 	//오브제 관리-내 오브제 검색
-	public ArrayList<Objet> selectMyObjetSearch(String publicyn, String objetstatus, String objettitle, Paging paging) {
+	public List<Objet> selectMyObjetSearch(HashMap<String, Object> map) {
 		//검색용 vo 새로 만들어야 할듯
-		return null;
+		return mybatisSession.selectList("objetMapper.selectMyObjetSearch", map);
 	}
 
 	//오브제 관리 - 내 오브제 상세보기
