@@ -398,19 +398,21 @@ width: 190px;
 <div class="sidebar1">
 <div class="photo">
 <c:if test="${loginUser.userrpic==null }">
-<div class="profilePic" style="background-image:url('resources/images/basicprofilepic.png')" onclick="location.href='artistHomeMain.do?userid=${loginUser.userid}&loginUser=${loginUser.userid }'"></div>
+<div class="profilePic" style="background-image:url('resources/images/basicprofilepic.png');' cursor: pointer;" onclick="location.href='artistHomeMain.do?userid=${loginUser.userid}&loginUser=${loginUser.userid }'"></div>
 </c:if>
 <c:if test="${loginUser.userrpic!=null }">
-<div class="profilePic" style="background-image:url('resources/users_upfiles/${loginUser.userrpic}')" onclick="location.href='artistHomeMain.do?userid=${loginUser.userid}&loginUser=${loginUser.userid }'"></div>
+<div class="profilePic" style="background-image:url('resources/users_upfiles/${loginUser.userrpic}'); cursor: pointer;" onclick="location.href='artistHomeMain.do?userid=${loginUser.userid}&loginUser=${loginUser.userid }'"></div>
 </c:if>
 </div>
 <br>
 <div class="nickname">${sessionScope.loginUser.nickname }</div>
 <div class="userid">@${sessionScope.loginUser.userid }</div>
 
+
 <div class="createObjetBtn"><button class="tiny ui teal basic circular button" onclick="return reportUserCheck()" style="cursor: pointer;">오브제 등록</button></div>
 </div><br><br>
 <div class="artistHome"><p onclick="location.href='artistHomeMain.do?userid=${loginUser.userid}&loginUser=${loginUser.userid}'" style="cursor: pointer;">작가홈</p></div>
+
 <div id="accordian1">
    <ul>
       <li>

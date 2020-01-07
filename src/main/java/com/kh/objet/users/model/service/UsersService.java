@@ -36,6 +36,8 @@ public interface UsersService {
 	int insertUsersReport(ReportUDetail reportUDetail);
 	
 	int selectUsersReportOverlap(ReportUDetail reportUDetail);
+	
+	void dropQuitUser(String userid);
 
 	
 }

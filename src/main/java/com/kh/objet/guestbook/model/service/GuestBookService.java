@@ -21,7 +21,7 @@ public interface GuestBookService {
 	int insertGuestBook(GuestBook guestbook);
 	int updateGuestBookPrivate(HashMap<String, Object> map);
 	int updateReplyyn(int gbno);
-	int updateGuestBook(int gbno);
+	int updateGuestBook(GuestBook guestbook);
 	int updateGuestBook2(int gbno);
 	int deleteGuestBook(int gbno);
 	
