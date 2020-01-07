@@ -2,6 +2,7 @@ package com.kh.objet.objet.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -487,20 +488,67 @@ public class ObjetController {
 	
 	// 오브제 관리-내 오브제 페이지 이동
 		@RequestMapping("moveMyObjetList.do")
-		public String moveMyObjetList(@RequestParam(value="userid") String userid, Paging paging) {
+		public String moveMyObjetList() {
 			return "objet/myObjetList";
 		}
 		
 	// 오브제 관리-내 오브제 검색
 		@RequestMapping("selectMyObjetSearch.do")
-		public String selectMyObjetSearch(@RequestParam(value="publicyn") String publicyn, @RequestParam(value="objetstatus") String objetstatus, @RequestParam(value="objettitle") String objettitle, Paging paging) {
-			return "objet/myObjetList";
+		public void selectMyObjetSearch(@RequestParam(value="publicyn") String publicyn, @RequestParam(value="objetstatus") String objetstatus, 
+				@RequestParam(value="objettitle") String objettitle, HttpServletResponse response) throws IOException {
+			
+			HashMap<String, Object> map =new HashMap<String, Object>();  
+			
+			map.put("publicyn", publicyn);
+			map.put("objetstatus", objetstatus);
+			map.put("objettitle", objettitle);
+			
+			List<Objet> objetList = objetService.selectMyObjetSearch(map);
+			
+			//전송용 JSON 객체
+			JSONObject sendJson = new JSONObject();
+			
+			//JSON 배열 객체
+			JSONArray jarr = new JSONArray();
+			
+			//list를 jarr 로 옮겨 저장 (복사)
+			for(Objet objet : objetList) {
+			JSONObject job = new JSONObject();
+			
+			job.put("objetno", objet.getObjetno());
+			job.put("userid", objet.getUserid());
+			job.put("objettitle", URLEncoder.encode(objet.getObjettitle(), "utf-8"));
+			job.put("objetintro", URLEncoder.encode(objet.getObjetintro(), "utf-8"));
+			job.put("originmainposter", URLEncoder.encode(objet.getOriginmainposter(), "utf-8"));
+			job.put("renamemainposter", objet.getRenamemainposter());
+			job.put("objetstartdate", objet.getObjetstartdate().toString());
+			job.put("objetenddate", objet.getObjetenddate().toString());
+			job.put("objettag", URLEncoder.encode(objet.getObjettag(), "utf-8"));
+			job.put("publicyn", objet.getPublicyn());
+			job.put("objetregidate", objet.getObjetregidate().toString());
+			job.put("objetstatus", objet.getObjetstatus());
+			job.put("objetview", objet.getObjetview());
+			jarr.add(job);
+			}
+			
+			sendJson.put("objetList", jarr);
+			
+			
+			logger.debug(jarr.toJSONString());
+			
+			
+			response.setContentType("application/jsonl charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println(sendJson.toJSONString());
+			out.flush();
+			out.close();
+			
 		}
 	
 	//오브제 관리 - 내 오브제 상세보기
 		@RequestMapping("moveMyObjetDetail.do")
-		public String moveMyObjetDetail(@RequestParam(value="objetno") int objetno, Model model) {
-			return "objet/myObjetDetail";
+		public ModelAndView moveMyObjetDetail(@RequestParam(value="objetno") int objetno, ModelAndView mv) {
+			return mv;
 		}
 		
 	//오브제 관리 - 내 오브제 수정 페이지 이동

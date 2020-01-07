@@ -155,8 +155,8 @@ public class ObjetServiceImpl implements ObjetService{
 
 	//오브제 관리-내 오브제 검색
 	@Override
-	public ArrayList<Objet> selectMyObjetSearch(String publicyn, String objetstatus, String objettitle, Paging paging) {
-		return objetDao.selectMyObjetSearch(publicyn, objetstatus, objettitle,paging);
+	public List<Objet> selectMyObjetSearch(HashMap<String, Object> map) {
+		return objetDao.selectMyObjetSearch(map);
 	}
 	
 	//오브제 관리 - 내 오브제 상세보기

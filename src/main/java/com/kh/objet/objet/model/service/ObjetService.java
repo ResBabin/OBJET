@@ -44,7 +44,7 @@ public interface ObjetService {
 	List<Objet> selectArtistObjetSearch(HashMap<String, Object> map);
 	
 	ArrayList<Objet> moveMyObjetList(String userid, Paging paging);
-	ArrayList<Objet> selectMyObjetSearch(String publicyn, String objetstatus, String objettitle, Paging paging);
+	List<Objet> selectMyObjetSearch(HashMap<String, Object> map);
 	Objet moveMyObjetDetail(int objetno);
 	Objet moveEditObjet(int objetno);
 	int updateMyObjet(Objet objet);
