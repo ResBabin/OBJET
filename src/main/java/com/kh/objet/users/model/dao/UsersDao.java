@@ -93,6 +93,10 @@ public class UsersDao {
 		return mybatisSession.selectOne("userMapper.selectUsersReportOverlap",reportUDetail);
 	}
 
+	public void dropQuitUser(String userid) {
+		mybatisSession.delete("userMapper.dropQuitUser2", userid);
+	}
+
 
 
 

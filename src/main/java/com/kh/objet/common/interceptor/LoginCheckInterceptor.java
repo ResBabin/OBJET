@@ -12,7 +12,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 
 	private Logger logger = LoggerFactory.getLogger(LoginCheckInterceptor.class);
 
-	/*@Override
+	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		HttpSession session = request.getSession(false);
@@ -22,5 +22,5 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 			logger.debug("비로그인 상태로 접근 : " + request.getRequestURI() + " 요청");
 		}
 		return super.preHandle(request, response, handler);	// 항상 true를 리턴
-	}*/
+	}
 }

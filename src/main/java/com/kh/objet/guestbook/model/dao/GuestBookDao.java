@@ -71,8 +71,8 @@ public class GuestBookDao {
 	
 	
 	// 방명록 수정
-	public int updateGuestBook(int gbno) {
-		return mybatisSession.update("", gbno);
+	public int updateGuestBook(GuestBook guestbook) {
+		return mybatisSession.update("userMapper.updateGuestBook", guestbook);
 	}
 
 	// 방명록 삭제
@@ -91,7 +91,7 @@ public class GuestBookDao {
 
 	// 방명록 댓글 수정
 	public int updateGuestBookReply(GbReply gbreply) {
-		return mybatisSession.update("", gbreply);
+		return mybatisSession.update("userMapper.updateGuestBookReply", gbreply);
 	}
 
 	// 방명록 댓글 삭제

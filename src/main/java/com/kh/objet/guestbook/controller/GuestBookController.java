@@ -253,9 +253,20 @@ public class GuestBookController {
 	}
 	
 	// 방명록 수정
-	@RequestMapping("updateGuestBook.do")
-	public String updateGuestBook(@RequestParam(value="gbno") int gbno, Model model) {
-		return "artistHome/artistHomeMain";
+	@RequestMapping(value="updateGuestBook.do", method=RequestMethod.POST)
+	public void updateGuestBook(GuestBook guestbook, Model model, HttpServletResponse response) throws IOException {
+		int result = guestbookService.updateGuestBook(guestbook);
+		
+		String returnValue = null;
+		if(result > 0) 
+			returnValue = "ok";
+		else 
+			returnValue = "fail";
+		
+		PrintWriter out = response.getWriter();
+		out.append(returnValue);
+		out.flush();
+		out.close();
 	}
 	
 	// 방명록 삭제
@@ -323,9 +334,20 @@ public class GuestBookController {
 		}
 	
 	// 방명록 댓글 수정
-		@RequestMapping("updateGuestBookReply.do")
-		public String updateGuestBookReply(@RequestParam(value="gbno") int gbno, GbReply gbreply) {
-			return "artistHome/artistHomeMain";
+		@RequestMapping(value="updateGuestBookReply.do", method=RequestMethod.POST)
+		public void updateGuestBookReply(GbReply gbreply, Model model, HttpServletResponse response) throws IOException {
+			int result = guestbookService.updateGuestBookReply(gbreply);
+			
+			String returnValue = null;
+			if(result > 0) 
+				returnValue = "ok";
+			else 
+				returnValue = "fail";
+			
+			PrintWriter out = response.getWriter();
+			out.append(returnValue);
+			out.flush();
+			out.close();
 		}
 	
 	// 방명록 댓글 삭제

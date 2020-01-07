@@ -221,4 +221,27 @@
 	<update id="updateReplyyn2" parameterType="int">
 		update guestbook set replyyn = 'N' where gbno = #{value}
 	</update>
+	
+	
+	<update id="updateGuestBook" parameterType="GuestBook">
+		update guestbook set gbcontent = #{gbcontent}, gbdate = sysdate where gbno = #{gbno}
+	</update>
+	
+	<update id="updateGuestBookReply" parameterType="GbReply">
+		update gbreply set replycontent = #{replycontent}, replydate = sysdate where gbno = #{gbno}
+	</update>
+	
+	
+	<!-- 탈퇴회원 가져오기 -->
+	<select id="selectQuitList" resultType="String">
+		select userid from quit where sysdate - quitdate > 30
+	</select>
+	
+	<delete id="dropQuitUser1" parameterType="String">
+		delete quit where userid = #{value}
+	</delete>
+	
+	<delete id="dropQuitUser2" parameterType="String">
+		delete users where userid = #{value}
+	</delete>
 </mapper>
