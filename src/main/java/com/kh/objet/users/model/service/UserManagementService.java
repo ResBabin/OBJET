@@ -1,10 +1,12 @@
 package com.kh.objet.users.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.kh.objet.blacklist.model.vo.BlackList;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
+import com.kh.objet.users.model.vo.LoginCount;
 import com.kh.objet.users.model.vo.UserManagement;
 
 public interface UserManagementService {
@@ -16,4 +18,6 @@ public interface UserManagementService {
 	public List<ReportUDetail> selectUserReport(String userid);
 	public List<ReportUDetail> selectUserReportTotal(String userid);
 	public List<ReportUDetail> selectReportUDetailMain();
+	public LoginCount selectTodayCount(String today);
+	public int updateLoginCount(String upcount);
 }

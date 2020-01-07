@@ -278,5 +278,18 @@
 	join users on (userid= reportedu) group by reportedu, blackyn, username, nickname
 	order by count(*) desc
 	</select>
+	
+	
+	<!-- 접속 통계 -->
+	<select id="selectTodayCount" resultType="LoginCount" parameterType="string">
+		select * from logincount where logindate like #{ value }
+	</select>
+	
+	<!-- 로그인 카운트 -->
+	<update id="updateLoginCount" parameterType="string">
+	 update logincount set 
+	 ${value} = (${value}+1)
+	 where LOGINDATE like sysdate
+	</update>
 
 </mapper> 
