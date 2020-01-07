@@ -1,5 +1,6 @@
 package com.kh.objet.users.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.users.model.dao.UserManagementDao;
+import com.kh.objet.users.model.vo.LoginCount;
 import com.kh.objet.users.model.vo.UserManagement;
 
 @Service("usermService")
@@ -54,6 +56,16 @@ public class UserManagementServiceImpl implements UserManagementService{
 	@Override
 	public List<ReportUDetail> selectReportUDetailMain() {
 		return usermDao.selectReportuDetailMain();
+	}
+
+	@Override
+	public LoginCount selectTodayCount(String today) {
+		return usermDao.selectTodayCount(today);
+	}
+
+	@Override
+	public int updateLoginCount(String upcount) {
+		return usermDao.updateLoginCount(upcount);
 	}
 
 	

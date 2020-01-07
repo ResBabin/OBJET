@@ -1,5 +1,6 @@
 package com.kh.objet.users.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.objet.blacklist.model.vo.BlackList;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
+import com.kh.objet.users.model.vo.LoginCount;
 import com.kh.objet.users.model.vo.UserManagement;
 
 @Repository("usermDao")
@@ -39,6 +41,12 @@ public class UserManagementDao {
 	}
 	public List<ReportUDetail> selectReportuDetailMain() {
 		return mybatisSession.selectList("adminMapper.selectReportUDetailMain");
+	}
+	public LoginCount selectTodayCount(String today) {
+		return mybatisSession.selectOne("adminMapper.selectTodayCount", today);
+	}
+	public int updateLoginCount(String upcount) {
+		return mybatisSession.update("adminMapper.updateLoginCount", upcount);
 	}
 	
 

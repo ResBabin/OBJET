@@ -91,7 +91,24 @@
 }
 </style>
 <script type="text/javascript">
+
+
+
 $(function() {
+	
+	$.ajax({
+		url : "logincount.do",
+		type : "post",
+		success : function(result) {
+			console.log(result);
+		},
+		error : function(request, status, errorData) {
+			console.log("error code : " + request.status
+					+ "\nMessage : " + request.responseText
+					+ "\nError : " + errorData);
+		}
+	});
+	
 $("#progress1").progress();
 $("#progress2").progress();
 $("#progress3").progress();
@@ -143,12 +160,16 @@ var userbkper = bkcount / usercount * 100;
 console.log(userbkper);
 
 
+
+
+
+
 var myChart2 = new Chart(ctx2, {
-    type: 'doughnut',
+    type: 'bar',
     data: {
-        labels: ['일반회원', '블랙리스트'],
+        labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
         datasets: [{	
-            data: [usercount, bkcount],
+            data: [usercount, bkcount, 0],
             backgroundColor: [
             	  'rgba(110, 63, 200, 1)',
                 'rgba(70, 70, 70, 1)'
@@ -158,27 +179,57 @@ var myChart2 = new Chart(ctx2, {
     options: {}
     
 });
+
+var login1 = "${ todaycount.login1 }";
+var login2 = "${ todaycount.login2 }";
+var login3 = "${ todaycount.login3 }";
+var login4 = "${ todaycount.login4 }";
+var login5 = "${ todaycount.login5 }";
+var login6 = "${ todaycount.login6 }";
+var login7 = "${ todaycount.login7 }";
+var login8 = "${ todaycount.login8 }";
+var login9 = "${ todaycount.login9 }";
+var login10 = "${ todaycount.login10 }";
+var login11 = "${ todaycount.login11 }";
+var login12 = "${ todaycount.login12 }";
+var login13 = "${ todaycount.login13 }";
+var login14 = "${ todaycount.login14 }";
+var login15 = "${ todaycount.login15 }";
+var login16 = "${ todaycount.login16 }";
+var login17 = "${ todaycount.login17 }";
+var login18 = "${ todaycount.login18 }";
+var login19 = "${ todaycount.login19 }";
+var login20 = "${ todaycount.login20 }";
+var login21 = "${ todaycount.login21 }";
+var login22 = "${ todaycount.login22 }";
+var login23 = "${ todaycount.login23 }";
+var login24 = "${ todaycount.login24 }";
+var logindate = "${ todaycount.logindate }";
+
+console.log(login1);
+
 var myChart3 = new Chart(ctx3, {
     type: 'line',
     data: {
     	labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'],
-        datasets: [{	
-        	label: '시간별 접속량',
-        	data: [100, 300, 200, 0, 200, 100, 100, 200, 50, 100, 100, 600, 200, 0, 20, 22, 100, 400, 100, 200, 10, 200, 0, 500],
+        datasets: [{
+        	label: logindate + ' 시간 별 로그인',
+        	data: [login1, login2, login3, login4, login5, login6, login7, login8, login9, login10, login11, login12, login13, login14, 
+        		login15, login16, login17, login18, login19, login20, login21, login22, login23, login24],
             backgroundColor: [
-                'rgba(100, 100, 100, 0.1)',
+                'rgba(150, 150, 150, 0.3)',
             ],
             borderColor: [
             	'rgba(0, 0, 0, 0.8)',
             ],
-            borderWidth: 01
+            borderWidth: 0
         }]
     },
     options: { scales: {
         yAxes: [{
             stacked: true
         }]
-    }}
+    }, responsive : true }
     
 });
 });
@@ -242,7 +293,14 @@ var myChart3 = new Chart(ctx3, {
 			<div class="ui violet progress" style="margin-top: 5px;margin-bottom: 0px;" id="progress1" data-percent="${ reportulist.size() * 10} ">
 				<div class="bar" align="center"></div>
 			</div>
-			
+			${ qnalist.size() } 
+			<c:set value="${ 0 }" var="qnacount"/>
+			<c:forEach items="${ qnalist }" var="qna">
+			<c:if test="${ !empty qna.qnaanswer }">
+			답변률
+			</c:if>
+			</c:forEach>
+			${ qnacount }
 			<div class="ui grey progress" style="margin-top: 10px; margin-bottom: 15px;" id="progress2" data-percent="${ objetreqlist.size() / objetmlist.size() * 100 }  "> 
 				<div class="bar" align="center"></div>
 			</div> 

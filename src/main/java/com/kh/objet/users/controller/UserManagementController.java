@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.users.model.service.UserManagementService;
+import com.kh.objet.users.model.vo.LoginCount;
 import com.kh.objet.users.model.vo.UserManagement;
 
 @Controller
@@ -30,27 +32,17 @@ public class UserManagementController {
 	
 	@Autowired
 	private UserManagementService usermService;
+	@Autowired
+	private LoginCount logincService;
 
 	public UserManagementController() {
 	}
 
-/*	@RequestMapping("userm.do")
-	public String usermPage() {
-		return "admin/userManagement";
-	}*/
-	
 	@RequestMapping("userm.do")
-	public ModelAndView userList(ModelAndView mv) {
+	public String userList(Model model) {
 		ArrayList<UserManagement> ulist = (ArrayList<UserManagement>) usermService.selectUser();
-		
-		if (ulist != null) {
-			mv.addObject("ulist", ulist);
-			mv.setViewName("admin/userManagement");
-		} else {
-			mv.addObject("message", "회원 목록 조회 실패");
-			mv.setViewName("common/error");
-		}
-		return mv;
+			model.addAttribute("ulist", ulist);
+			return "admin/userManagement";
 	}
 	@RequestMapping("userbk.do")
 	public ModelAndView Blacklist(ModelAndView mv) {
@@ -111,6 +103,8 @@ public class UserManagementController {
 		      }
 		      return mv;
 	}
+	
+	
 }
 
 
