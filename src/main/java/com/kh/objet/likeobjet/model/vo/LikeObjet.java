@@ -22,6 +22,12 @@ public class LikeObjet implements Serializable {
 		this.userid = userid;
 		this.likedate = likedate;
 	}
+	
+	public LikeObjet(int objetno, String userid) {
+		super();
+		this.objetno = objetno;
+		this.userid = userid;
+	}
 
 	public int getObjetno() {
 		return objetno;

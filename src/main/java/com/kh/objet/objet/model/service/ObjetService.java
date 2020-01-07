@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.kh.objet.likeobjet.model.vo.LikeObjet;
 import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.objet.model.vo.ReviewKey;
@@ -27,7 +28,14 @@ public interface ObjetService {
 	ArrayList<Review> selectReviewOrder(ReviewKey rk);
 	int insertReview(Review review);
 	int updateReview(ReviewUp review);
-	int deleteReview(String userid);
+	int deleteReview(Review review);
+	int updateRevGood(Review review);
+	int updateRevGoodReset(Review review);
+	int updateRevHate(Review review);
+	int updateRevHateReset(Review review);
+	int insertLikeObjet(LikeObjet likeobjet);
+	int deleteLikeObjet(LikeObjet likeobjet);
+	
 	
 	// 최민영
 	int selectArtistObjetGetListCount(String userid);

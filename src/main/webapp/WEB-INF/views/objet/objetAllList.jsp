@@ -226,14 +226,12 @@ $(function() {
 <ul class="objet_ul">
 <li class="objet_li">
 	<div class="info">
-	<c:choose>
-	<c:when test="${empty loginUser }">
-		<a href="objetOne.do?objetno=${Objet.objetno }">
-	</c:when>
-	<c:otherwise>
-		<a href="objetOne.do?objetno=${Objet.objetno }&userid=${loginUser.userid}">
-	</c:otherwise>
-	</c:choose>
+		<c:if test="${empty loginUser && loginUser.userid == null}">
+			<a href="objetOne.do?objetno=${Objet.objetno }">
+		</c:if>
+		<c:if test="${!empty loginUser && loginUser.userid != null}">
+			<a href="objetOne.do?objetno=${Objet.objetno }&userid=${loginUser.userid}">
+		</c:if>
 		  <c:choose>
            <c:when test="${fn:length(Objet.objettitle) > 12}">
             <em class="tit01"><c:out value="${fn:substring(Objet.objettitle,0,11)}"/><br>
@@ -250,7 +248,12 @@ $(function() {
 		</a>
 	</div>
 	<span class="thumbnail">
-		<a href="objetOne.do?objetno=${Objet.objetno }">
+		<c:if test="${empty loginUser && loginUser.userid == null}">
+			<a href="objetOne.do?objetno=${Objet.objetno }">
+		</c:if>
+		<c:if test="${!empty loginUser && loginUser.userid != null}">
+			<a href="objetOne.do?objetno=${Objet.objetno }&userid=${loginUser.userid}">
+		</c:if>
 			<img src="resources/images/objet/${Objet.renamemainposter }" alt="${Objet.objettitle }">
 		</a>
 	</span>

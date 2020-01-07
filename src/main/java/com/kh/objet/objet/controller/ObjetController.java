@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.objet.likeobjet.model.vo.LikeObjet;
 import com.kh.objet.objet.model.service.ObjetServiceImpl;
 import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
@@ -42,9 +43,9 @@ public class ObjetController {
 	private Paging paging;
 	
 	
-	
 	public ObjetController() {}
 	
+	//박예은
 	//오브제 검색 결과(전시/작가)
 	@RequestMapping("objetSearchList.do")
 	public String selectObjetSearchList() {
@@ -114,6 +115,42 @@ public class ObjetController {
 		out.close();
 	}
 	
+	//관심 오브제 추가
+	@RequestMapping(value="insertLikeobjet.do")
+	public void insertLikeObjet(@RequestParam(value="objetno") int objetno, 
+			@RequestParam(value="userid") String userid, HttpServletResponse response) throws IOException{
+		LikeObjet likeobjet = new LikeObjet(objetno, userid);
+		int result = objetService.insertLikeObjet(likeobjet);
+		String resultValue = "";
+		if(result > 0)
+			resultValue = "ok";
+		else
+			resultValue = "fail";
+			
+		PrintWriter out = response.getWriter();
+		out.append(resultValue);
+		out.flush();
+		out.close();
+	}
+	
+	//관심 오브제 삭제
+	@RequestMapping(value="deleteLikeobjet.do")
+	public void deleteLikeObjet(@RequestParam(value="objetno") int objetno, 
+			@RequestParam(value="userid") String userid, HttpServletResponse response) throws IOException{
+		LikeObjet likeobjet = new LikeObjet(objetno, userid);
+		int result = objetService.deleteLikeObjet(likeobjet);
+		String resultValue = "";
+		if(result > 0)
+			resultValue = "ok";
+		else
+			resultValue = "fail";
+			
+		PrintWriter out = response.getWriter();
+		out.append(resultValue);
+		out.flush();
+		out.close();
+	}
+	
 	//오브제, 작가 상세보기, 한줄평 리스트, 내 한줄평
 	@RequestMapping("objetOne.do")
 	public ModelAndView selectObjetOne(@RequestParam(value="objetno") int objetno, @RequestParam(value="userid", required=false) String userid, ModelAndView mv) {
@@ -145,15 +182,13 @@ public class ObjetController {
 	}
 	
 	//한줄평 리스트 정렬
-	@RequestMapping(value="reviewOrder.do", method=RequestMethod.POST)
+	@RequestMapping(value="reviewOrder.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public void selectReviewOrder(int no, String order, HttpServletResponse response) throws IOException {
 		ReviewKey rk = new ReviewKey(no, order);
 		ArrayList<Review> reviewListOrder = objetService.selectReviewOrder(rk);
 		logger.debug(reviewListOrder.get(0).getUserid());
 		logger.debug(reviewListOrder.get(1).getUserid());
-		logger.debug(reviewListOrder.get(2).getUserid());
-		logger.debug(reviewListOrder.get(3).getUserid());
 		//전송용 json 객체
 		JSONObject sendJson = new JSONObject();
 		//json 배열 객체
@@ -202,8 +237,12 @@ public class ObjetController {
 	
 	
 	//한줄평 등록
-	@RequestMapping(value="insertReview.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String insertReview(Review review, Model model) {
+	@RequestMapping(value="insertReview.do", method=RequestMethod.POST)
+	public String insertReview(@RequestParam(value="objetno") int objetno, 
+			@RequestParam(value="userid") String userid, 
+			@RequestParam(value="revcontent") String revcontent, 
+			@RequestParam(value="revstars") int revstars, Model model) {
+		Review review = new Review(objetno, userid, revcontent, revstars);
 		int result = objetService.insertReview(review);
 		String viewFileName = "objet/objetDetail";
 		if(result <= 0) { //신고 실패시
@@ -214,8 +253,12 @@ public class ObjetController {
 	}
 	
 	//한줄평 수정
-	@RequestMapping(value="updateReview.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String updateReview(ReviewUp review, Model model) {
+	@RequestMapping(value="updateReview.do", method=RequestMethod.POST)
+	public String updateReview(@RequestParam(value="userid") String userid, 
+			@RequestParam(value="revcontent") String revcontent, 
+			@RequestParam(value="revstars") int revstars, 
+			Model model) {
+		ReviewUp review = new ReviewUp(userid, revcontent, revstars);
 		int result = objetService.updateReview(review);
 		String viewFileName = "objet/objetDetail";
 		if(result <= 0) { //신고 실패시
@@ -227,8 +270,10 @@ public class ObjetController {
 	
 	//한줄평 삭제
 	@RequestMapping(value="deleteReview.do")
-	public String deleteReview(String userid, Model model) {
-		int result = objetService.deleteReview(userid);
+	public String deleteReview(@RequestParam(value="userid") String userid, 
+			@RequestParam(value="objetno") int objetno, Model model) {
+		Review review = new Review(userid, objetno);
+		int result = objetService.deleteReview(review);
 		String viewFileName = "objet/objetDetail";
 		if(result <= 0) {
 			model.addAttribute("message", "한줄평 삭제 실패!");
@@ -250,6 +295,70 @@ public class ObjetController {
 		}
 		
 		return viewFileName;
+	}
+	
+	//한줄평 좋아요
+	@RequestMapping(value="updateRevGood.do")
+	public void updateRevGood(Review review, HttpServletResponse response) throws IOException{
+		int result = objetService.updateRevGood(review);
+		String resultValue = null;
+		if(result > 0) 
+			resultValue = "ok";
+		else
+			resultValue = "fail";
+		
+		PrintWriter out = response.getWriter();
+		out.append(resultValue);
+		out.flush();
+		out.close();
+	}
+	
+	//한줄평 좋아요 취소
+	@RequestMapping(value="updateRevGoodReset.do")
+	public void updateRevGoodReset(Review review, HttpServletResponse response) throws IOException{
+		int result = objetService.updateRevGoodReset(review);
+		String resultValue = null;
+		if(result > 0) 
+			resultValue = "ok";
+		else
+			resultValue = "fail";
+		
+		PrintWriter out = response.getWriter();
+		out.append(resultValue);
+		out.flush();
+		out.close();
+	}
+	
+	//한줄평 싫어요
+	@RequestMapping(value="updateRevHate.do")
+	public void updateRevHate(Review review, HttpServletResponse response) throws IOException{
+		int result = objetService.updateRevHate(review);
+		String resultValue = null;
+		if(result > 0) 
+			resultValue = "ok";
+		else
+			resultValue = "fail";
+		
+		PrintWriter out = response.getWriter();
+		out.append(resultValue);
+		out.flush();
+		out.close();
+	}
+	
+	//한줄평 싫어요 취소
+	@RequestMapping(value="updateRevHateReset.do")
+	public void updateRevHateReset(Review review, HttpServletResponse response) throws IOException{
+		int result = objetService.updateRevHateReset(review);
+		String resultValue = null;
+		if(result > 0) 
+			resultValue = "ok";
+		else
+			resultValue = "fail";
+		
+		PrintWriter out = response.getWriter();
+		out.append(resultValue);
+		out.flush();
+		out.close();
 	}
 	
 	

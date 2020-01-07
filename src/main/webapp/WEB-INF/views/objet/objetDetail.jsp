@@ -56,6 +56,7 @@ html, body {
 .objet_infomation {
 	padding-bottom: 0px;
 }
+
 #banner_img {
 	z-index: -999;
 	width: 100%;
@@ -195,6 +196,11 @@ a:-webkit-any-link {
 .wrap_action_article .img_ico.ico_likeit_like {
     background-position: -60px -90px;
     margin-top: 1px;
+    width: 21px;
+}
+
+.wrap_action_article .ico_likeit_unlike.img_ico_with_text {
+    background-position: -90px -89px;
     width: 21px;
 }
 
@@ -574,7 +580,8 @@ a:-webkit-any-link {
 	height: auto;
 	margin: 0;
 	padding: 8px;
-	border: 0;
+	border: none !important;
+	outline: none !important;
 }
 
 #rev_hate {
@@ -582,6 +589,8 @@ a:-webkit-any-link {
 	height: auto;
 	margin: 0;
 	padding: 8px;
+	border: none !important;
+	outline: none !important;
 }
 
 .rev_cnt {
@@ -1018,6 +1027,12 @@ a:-webkit-any-link {
 
 /* 전시일정 스타일  */
 
+
+/* 한줄평  */
+#objet_review {
+	width: 100%;
+	height: 990px;
+}
 </style>
 <script type="text/javascript">
 	$(function() {
@@ -1046,12 +1061,77 @@ a:-webkit-any-link {
 				}
 			});
 		
+		
+		<c:if test="${!empty loginUser.userid }">
+		//헤더 아이콘 관심 오브제 추가
+		$(".ico_likeit_like").on("click", function(){
+			$(this).removeClass("ico_likeit_like");
+			$(this).addClass("ico_likeit_unlike");
+			var objetno = ${objet.objetno};
+			var userid = '${loginUser.userid}';
+			$.ajax({
+				url : "insertLikeobjet.do",
+				data : {objetno : objetno, userid : userid},
+				type : "get",
+				success: function(result){
+		             if(result == "ok"){
+		               console.log("관심 오브제 추가 성공!")
+		               window.location.reload();
+		             }
+		             else{
+		            	alert("관심 오브제 추가 실패!")
+		             }
+		          },
+		          error: function(request, status, errorData){
+						console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
+					}
+			});
+		});
+		
+		//헤더 아이콘 관심 오브제 삭제
+		$(".ico_likeit_unlike").on("click", function(){
+			$(this).removeClass("ico_likeit_unlike");
+			$(this).addClass("ico_likeit_like");
+			var objetno = ${objet.objetno};
+			var userid = '${loginUser.userid}';
+			$.ajax({
+				url : "deleteLikeobjet.do",
+				data : {objetno : objetno, userid : userid},
+				type : "get",
+				success: function(result){
+		             if(result == "ok"){
+		               console.log("관심 오브제 추가 성공!")
+		               window.location.reload();
+		             }
+		             else{
+		            	alert("관심 오브제 추가 실패!")
+		             }
+		          },
+		          error: function(request, status, errorData){
+						console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
+					}
+			});
+		});	
+		</c:if>
+		<c:if test="${empty loginUser.userid}">
+		$(".ico_likeit_like").on("click", function(){
+			alert("로그인 하셔야합니다.");
+		});
+		$(".ico_likeit_unlike").on("click", function(){
+			alert("로그인 하셔야합니다.");
+		});	
+		</c:if>
+		
+		
+		
+			
 		//헤더아이콘 한줄평 이동
 		$(".comment").on("click", function(){
 			var scrollTop = 390;
 			$(".review").click();
 			$("html, body").animate({ scrollTop: scrollTop }, 1000);
 		});
+		
 			
 		//전시 신고 모달
 		<c:if test="${!empty loginUser }">
@@ -1116,7 +1196,9 @@ a:-webkit-any-link {
 		$(".review_list").slice(0, 4).fadeIn(); // 최초 4개 선택
 		$("#more_btn").click(function(e) { // Load More를 위한 클릭 이벤트e
 		    e.preventDefault();
+			var height = $('#objet_review').height();
 		    $(".review_list:hidden").slice(0, 4).fadeIn(); // 숨김 설정된 다음 4개를 선택하여 표시
+		    $('#objet_review').css("height", $(document).height());
 		    if ($(".review_list:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
 		        $('#more_btn').fadeOut();// 더 이상 로드할 항목이 없는 경우
 		        $('.rev_insert').css("margin-top", "180px");
@@ -1127,13 +1209,13 @@ a:-webkit-any-link {
 		//한줄평 좋아요
 		$("#rev_like .icon").on("click", function() {
 			$(this).removeClass("outline");
-			$(this).addClass("blue");
+			$(this).addClass("red");
 		});
 		
 		//한줄평 싫어요
 		$("#rev_hate .icon").on("click", function() {
 			$(this).removeClass("outline");
-			$(this).addClass("gray");
+			$(this).addClass("light blue");
 		});
 
 		//평점 레이팅(리스트)
@@ -1189,6 +1271,7 @@ a:-webkit-any-link {
 		$("#update_can").on("click", function(){
 			$(".review_mylist_up").css("display", "none");
 			$(".review_mylist").css("display", "block");
+			$(".up_btn").removeClass("active");
 		});
 
 		//한줄평 신고 모달
@@ -1243,7 +1326,9 @@ a:-webkit-any-link {
 		document.getElementById("btnsub_rep").onclick = function() {
 			document.getElementById('rep_form').submit();
 			alert("신고되었습니다.");
-			location.href = "objetOne.do?objetno="+${objet.objetno };
+			<c:if test="${loginUser.userid != null}">
+				location.href = "objetOne.do?objetno="+${objet.objetno }+"&userid="+${loginUser.userid};
+			</c:if>
 			return false; 
 		};
 	};
@@ -1252,7 +1337,9 @@ a:-webkit-any-link {
 		document.getElementById("btnsub_rev_rep").onclick = function() {
 			document.getElementById('rev_rep_form').submit();
 			alert("신고되었습니다.");
-			location.href = "objetOne.do?objetno="+${objet.objetno };
+			<c:if test="${loginUser.userid != null}">
+				location.href = "objetOne.do?objetno="+${objet.objetno }+"&userid="+${loginUser.userid};
+			</c:if>
 			return false;
 		};
 	};
@@ -1374,16 +1461,20 @@ a:-webkit-any-link {
 				
 				
 				$(".review_list_main").html(values);
-				$(".review_list").slice(0, 4).fadeIn();
+				//한줄평 더보기 버튼
+				$(".review_list").slice(0, 4).fadeIn(); // 최초 4개 선택
 				$("#more_btn").show();
-				$("#more_btn").click(function(e) { 
-			  	    e.preventDefault();
-			  	    $(".review_list:hidden").slice(0, 4).fadeIn();
-			  	    if ($(".review_list:hidden").length == 0) { 
-			  	        $('#more_btn').fadeOut();
-			  	      	$('.rev_insert_no').css("margin-top", "120px");
-			  	    }
-			  	});
+				$("#more_btn").click(function(e) { // Load More를 위한 클릭 이벤트e
+				    e.preventDefault();
+					var height = $('#objet_review').height();
+				    $(".review_list:hidden").slice(0, 4).fadeIn(); // 숨김 설정된 다음 4개를 선택하여 표시
+				    $('#objet_review').css("height", $(document).height());
+				    if ($(".review_list:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
+				        $('#more_btn').fadeOut();// 더 이상 로드할 항목이 없는 경우
+				        $('.rev_insert').css("margin-top", "180px");
+				        $('.rev_insert_no').css("margin-top", "120px");
+				    }
+				});
 				console.log("ok : " + data);
 			},
 			error : function(request, error, XMLHttpRequest, textStatus, jqXHR, errorThrown) {
@@ -1392,6 +1483,161 @@ a:-webkit-any-link {
 			}
 		});// review order ajax
 	}
+	
+	//한줄평 좋아요
+	var reviewGood = false;
+	setTimeout(function(){ 
+		reviewGood = false;
+		function reviewGood(objetno, userid){
+			if(reviewGood){
+				alert("이미 좋아요를 누르셨습니다.");
+				return;
+			}
+			reviewGood = true;
+			$.ajax({
+		         url:"updateRevGood.do",
+		         type:"get",
+		         data:{objetno : objetno, userid : userid },
+		         success: function(result){
+		             if(result == "ok"){
+		               console.log("한줄평 좋아요 성공!")
+		               window.location.reload();
+		             }
+		             else{
+		            	alert("한줄평 좋아요 실패!")
+		             }
+		          },
+		          error: function(request, status, errorData){
+						console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
+					}
+		       });
+	}}, 10000);//reviewGood
+	
+	//한줄평 좋아요 취소 
+	function reviewGood(objetno, userid){
+		$.ajax({
+	         url:"updateRevGoodReset.do",
+	         type:"get",
+	         data:{objetno : objetno, userid : userid },
+	         success: function(result){
+	             if(result == "ok"){
+	               console.log("한줄평 좋아요 취소!")
+	               window.location.reload();
+	             }
+	             else{
+	            	alert("한줄평 좋아요 취소 실패!")
+	             }
+	          },
+	          error: function(request, status, errorData){
+					console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
+				}
+	       });
+	}//reviewGood
+	
+	
+	//한줄평 싫어요
+	function reviewHate(objetno, userid){
+		$.ajax({
+	         url:"updateRevHate.do",
+	         type:"get",
+	         data:{objetno : objetno, userid : userid },
+	         success: function(result){
+	             if(result == "ok"){
+	               console.log("한줄평 싫어요 성공!")
+	               window.location.reload();
+	             }
+	             else{
+	            	alert("한줄평 싫어요 실패!")
+	             }
+	          },
+	          error: function(request, status, errorData){
+					console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
+				}
+	       });
+	}//reviewHate
+	
+	//한줄평 싫어요
+	function reviewHate(objetno, userid){
+		$.ajax({
+	         url:"updateRevHateReset.do",
+	         type:"get",
+	         data:{objetno : objetno, userid : userid },
+	         success: function(result){
+	             if(result == "ok"){
+	               console.log("한줄평 싫어요 취소!")
+	               window.location.reload();
+	             }
+	             else{
+	            	alert("한줄평 싫어요 취소!")
+	             }
+	          },
+	          error: function(request, status, errorData){
+					console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
+				}
+	       });
+	}//reviewHate
+	
+	
+	//한줄평 등록
+	function rev_insert(objetno, userid){
+		var revcontent = $(".rev_ins_cont").val();
+		var revstars = $("#rev_ins_star").rating("get rating");
+		$.ajax({
+			type : "post",
+	        url : "insertReview.do",
+	        data : {"objetno" : objetno, "userid" : userid, "revcontent" : revcontent, "revstars" : revstars},
+	        success : function(message){
+				alert("한줄평이 등록되었습니다.");
+				window.location.reload();
+				$(".review").click();
+				var scrollTop = 390;
+				$("html, body").animate({ scrollTop: scrollTop }, 1000);
+	        },
+	        error : function(request, error, XMLHttpRequest, textStatus, jqXHR, errorThrown) {
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        }
+		});
+	}//rev_insert
+	
+	//한줄평 수정
+		function rev_update(userid){
+			var revcontent = $("#revcontent").val();
+			var revstars = $("#rev_up_star").rating("get rating");
+			$.ajax({
+				type : "post",
+		        url : "updateReview.do",
+		        data : {"userid" : userid, "revcontent" : revcontent, "revstars" : revstars},
+		        success : function(message){
+					alert("한줄평이 수정되었습니다.");
+				    window.location.reload();
+					$(".review").click();
+					var scrollTop = 390;
+					$("html, body").animate({ scrollTop: scrollTop }, 1000);
+		        },
+		        error : function(request, error, XMLHttpRequest, textStatus, jqXHR, errorThrown) {
+					console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		        }
+			});
+		}//rev_update
+	
+	//한줄평 삭제
+	function rev_delete(userid, objetno){
+		$.ajax({
+			type : "get",
+	        url : "deleteReview.do",
+	        data : {"userid" : userid, "objetno" : objetno},
+	        success : function(message){
+				alert("한줄평이 삭제되었습니다.");
+				$(".review").click();
+				var scrollTop = 390;
+				$("html, body").animate({ scrollTop: scrollTop }, 1000);
+	        },
+	        error : function(request, error, XMLHttpRequest, textStatus, jqXHR, errorThrown) {
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        }
+		});	
+	}//rev_delete
+	
 </script>
 </head>
 <body>
@@ -1417,12 +1663,12 @@ a:-webkit-any-link {
 <button type="button" id="facebook" class="ico_share_common btn_share_facebook ui mini circular facebook icon button" data-servicename="facebook">
      <i class="big facebook icon"></i><span class="screen_out">페이스북공유</span>
 </button>
-<button type="button" id="instagram" class="ico_share_common btn_share_instagram ui mini circular instagram icon button" data-servicename="kakaostory">
+<button type="button" id="instagram" class="ico_share_common btn_share_instagram ui mini circular instagram icon button" data-servicename="instagram">
     <i class="big instagram icon"></i><span class="screen_out">인스타그램 공유</span>
 </button>
 <button type="button" id="twitter" class="ico_share_common btn_share_twitter ui circular mini twitter icon button" data-servicename="twitter">
     <i class="big twitter icon"></i><span class="screen_out">트위터공유</span>
-</button>												
+</button>	
 </span>
 </span>							
 </div>
@@ -1639,8 +1885,8 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 <div class="extra">
 <div class="ui star rating my" data-rating="${myReview.revstars }" data-max-rating="5" >${myReview.revstars }</div>
 <div class="rev_like_btn">
-<div class="ui basic circular gray icon button" id="rev_like"><i class="thumbs up outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${myReview.revgood }</span></div>&nbsp;
-<div class="ui basic circular gray icon button" id="rev_hate"><i class="thumbs down outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${myReview.revhate }</span></div>
+<div class="ui basic circular gray icon button" id="rev_like" onclick="reviewGood(${objet.objetno}, '${loginUser.userid }')"><i class="thumbs up outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${myReview.revgood }</span></div>&nbsp;
+<div class="ui basic circular gray icon button" id="rev_hate" onclick="reviewHate(${objet.objetno}, '${loginUser.userid }')"><i class="thumbs down outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${myReview.revhate }</span></div>
 </div></div>
 </div>
 </div>
@@ -1648,13 +1894,10 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 <!-- //내 한줄평 있을시 보이는 공간 끝 -->
 <!-- 내 한줄평 있을시 수정 공간-->
 <c:if test="${!empty loginUser && loginUser.userid eq myReview.userid }">
-<form action="updateReview.do" method="post">
-<input type="hidden" name="userid" value="${loginUser.userid }">
-<input type="hidden" name="revstars" value="">
 <div class="review_mylist_up">
 <img class="ui circular image" src="resources/users_upfiles/${loginUser.userrpic }" id="writer_mypic">
 <div class="review_ins_content">
-<textarea class="ui fluid input rev_up_cont" name="revcontent" maxlength="200">
+<textarea class="ui fluid input rev_up_cont" id="revcontent" maxlength="200">
 ${myReview.revcontent }</textarea>
 <span id="counter_up">( <span style="color:#4ecdc4;font-size:0.85em;">현재</span> / 최대 100자 )</span>
 </div>
@@ -1662,11 +1905,10 @@ ${myReview.revcontent }</textarea>
 <div class="ui star rating insert" data-rating="${myReview.revstars }" data-max-rating="5" id="rev_up_star"></div>
 </div>
 <div class="update_mybtn">
-<input class="ui circular basic gray button" id="update_can" type="reset" value="취소" />&nbsp;
-<input class="ui circular basic gray button" type="submit" value="수정"/>
+<button class="ui circular basic gray button" id="update_can" type="reset" >취소</button>&nbsp;
+<button class="ui circular basic gray button" onclick="rev_update('${loginUser.userid}');" >수정</button>
 </div>
-</div> 
-</form>
+</div>
 </c:if>
 <!-- //내 한줄평 있을시 수정 공간 끝 -->
 <!-- 한줄평 삭제 버튼 클릭시 모달 -->
@@ -1679,7 +1921,7 @@ ${myReview.revcontent }</textarea>
       <i class="remove icon"></i>
       	취소
     </div>
-    <div id="btnsub_rev_del" class="ui blue ok inverted button" onClick="location.href='deleteReview.do'" style="cursor: pointer;">
+    <div id="btnsub_rev_del" class="ui blue ok inverted button" onClick="rev_delete('${loginUser.userid}', ${objet.objetno })" style="cursor: pointer;">
       <i class="checkmark icon"></i>
       	삭제
     </div>
@@ -1766,8 +2008,8 @@ ${myReview.revcontent }</textarea>
 <div class="extra">
 <div class="ui star rating" data-rating="${Review.revstars }" data-max-rating="5" >${Review.revstars }</div>
 <div class="rev_like_btn">
-<div class="ui basic circular gray icon button" id="rev_like"><i class="thumbs up outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${Review.revgood }</span></div>&nbsp;
-<div class="ui basic circular gray icon button" id="rev_hate"><i class="thumbs down outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${Review.revhate }</span></div>
+<div class="ui basic circular gray icon button" id="rev_like_${objet.objetno }"><i class="thumbs up outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${Review.revgood }</span></div>&nbsp;
+<div class="ui basic circular gray icon button" id="rev_hate_${objet.objetno }"><i class="thumbs down outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${Review.revhate }</span></div>
 </div></div>
 </div>
 </div>
@@ -1781,13 +2023,12 @@ ${myReview.revcontent }</textarea>
 </div>
 <br><br>
 <!-- 한줄평 등록  -->
-<c:if test="${myReview == null && myReview.userid ne loginUser.userid }">
-<form action="insertReview.do" method="post">
+<c:if test="${myReview == null && myReview.userid ne loginUser.userid && objet.userid ne loginUser.userid}">
 <div class="rev_insert">
 <div class="review_insert">
 <img class="ui circular image" src="resources/users_upfiles/${loginUser.userrpic }" id="writer_pic_2">
 <div class="review_ins_content">
-<textarea class="ui fluid input rev_ins_cont" maxlength="200" 
+<textarea class="ui fluid input rev_ins_cont" maxlength="200"
 placeholder="이 전시의 감상평(한줄평)을 남겨주세요. 전시와 상관없는 내용은 제재를 받을 수 있습니다."></textarea>
 <span id="counter_ins">( <span style="color:#4ecdc4;font-size:0.85em;">0</span> / 최대 100자 )</span>
 </div>
@@ -1795,13 +2036,12 @@ placeholder="이 전시의 감상평(한줄평)을 남겨주세요. 전시와 �
 <div class="ui star rating insert" data-rating="0" data-max-rating="5" id="rev_ins_star">0</div>
 </div>
 <div class="submit_btn">
-<input class="ui circular basic gray button" type="reset" value="취소" />&nbsp;
-<input class="ui circular basic gray button" type="submit" value="등록" />
+<button class="ui circular basic gray button" type="reset" >취소</button>&nbsp;
+<button class="ui circular basic gray button" onclick="rev_insert(${objet.objetno }, '${loginUser.userid}');" >등록</button>
 </div>
 </div>
-<br><br><br>
+<br><br>
 </div>
-</form>
 </c:if>
 <c:if test="${myReview != null && myReview.userid eq loginUser.userid }">
 <div class="rev_insert_no">
@@ -1809,7 +2049,7 @@ placeholder="이 전시의 감상평(한줄평)을 남겨주세요. 전시와 �
 </div>
 </c:if>
 <!-- 한줄평 등록  끝 -->
-</div><br>
+</div>
 </center>
 </section>
 </section>
