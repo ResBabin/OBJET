@@ -2,6 +2,9 @@
 
 body {
 	background-color: #fff;
+	height:100%;
+	margin: 0;
+	padding: 0; 
 }
 
 /* 작가홈 css ===========================================================================*/
@@ -11,12 +14,18 @@ body {
 	margin-right: 25%;
 	margin-top:80px; /* 상단바 높이만큼 수정 */
 	margin-bottom:100px; /* 하단바 높이만큼 수정 */
+	min-height: 100%;
+}
+
+.wrapSection {
+	padding-bottom: 0px;
 }
 
 
 .wrapProfile{
 	background-color:#fff;
 	width:100%;
+	min-height: 100%;
 }
 
 .profileTextSection{
@@ -184,7 +193,7 @@ body {
 	margin-right: 25%;
 	margin-top:65px; /* 상단바 높이만큼 수정 */
 	overflow:hidden;
-	height:auto;
+	min-height: 100%;
 }
 
 .followingList{
@@ -362,7 +371,7 @@ body {
 	margin-left: 25%;
 	margin-right: 25%;
 	overflow:hidden;
-	height:auto;
+	min-height: 100%;
 }
 
 .enrollSection{
@@ -431,7 +440,7 @@ body {
 	margin-right: 25%;
 	margin-top:140px; /* 상단바 높이만큼 수정 */
 	overflow:hidden;
-	height:auto;
+	min-height: 100%;
 }
 
 /* 회원탈퇴 페이지 */
@@ -441,7 +450,7 @@ body {
 	margin-right: 25%;
 	text-align: center;
 	overflow:hidden;
-	height:auto;
+	min-height: 100%;
 }
 
 .quitHeader{

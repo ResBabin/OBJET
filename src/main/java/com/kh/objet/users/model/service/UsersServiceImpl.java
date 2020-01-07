@@ -109,6 +109,11 @@ public class UsersServiceImpl implements UsersService{
 		return usersDao.selectUsersReportOverlap(reportUDetail);
 	}
 
+	// 탈퇴회원 30일경과후 users테이블에서 삭제
+	public void dropQuitUser(String userid) {
+		usersDao.dropQuitUser(userid);
+	}
+
 
 
 

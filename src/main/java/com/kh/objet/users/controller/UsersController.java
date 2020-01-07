@@ -2,6 +2,7 @@ package com.kh.objet.users.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,11 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import com.kh.objet.quit.model.vo.Quit;
 import com.kh.objet.quit.model.vo.Quit2;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.users.model.service.UsersServiceImpl;
-import com.kh.objet.users.model.vo.KakaoRestApi;
 import com.kh.objet.users.model.vo.UAUP;
 import com.kh.objet.users.model.vo.Users;
 
@@ -377,6 +377,7 @@ public class UsersController {
 			out.close();
 		}
 		
+	
 		
 			
 }

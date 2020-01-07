@@ -22,27 +22,57 @@
  </style>
  <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
  <script type="text/javascript">
- $(function(){
-		if(localStorage.getItem("userid") != null && localStorage.getItem("userpwd") != null){
-			$("#userid").val(localStorage.getItem("userid"));
-			$("#userpwd").val(localStorage.getItem("userpwd"));
-		}
-	});
-
-	function autoChk(){
-		if($("input:checkbox[name='autoLogin']").is(":checked") == true){
-			localStorage.setItem("userid",$("#userid").val());
-			localStorage.setItem("userpwd",$("#userpwd").val());
-		}
-		else{
-			if(localStorage.getItem("userid") != null && localStorage.getItem("userpwd") != null){
-				localStorage.removeItem("userid");
-				localStorage.removeItem("userpwd");
-			}
-		}
-		return true;
-	}
  
+		window.onload = function() {
+		    if (getCookie("id")) { // getCookie함수로 id라는 이름의 쿠키를 불러와서 있을경우
+		    	document.loginForm.userid.value = getCookie("id"); //input 이름이 id인곳에 getCookie("id")값을 넣어줌
+		        document.loginForm.idSave.checked = true; // 체크는 체크됨으로
+		    }
+		}
+		
+		function setCookie(name, value, expiredays) //쿠키 저장함수
+		{
+		    var todayDate = new Date();
+		    todayDate.setDate(todayDate.getDate() + expiredays);
+		    document.cookie = name + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+		    //쿠키이름=쿠키값; Domain=도메인값; Path=경로값; Expires=GMT형식의만료일시
+		}
+		
+		function getCookie(Name) { // 쿠키 불러오는 함수
+		    var search = Name + "=";
+		    if (document.cookie.length > 0) { // if there are any cookies
+		        offset = document.cookie.indexOf(search);
+		        if (offset != -1) { // if cookie exists
+		            offset += search.length; // set index of beginning of value
+		            end = document.cookie.indexOf(";", offset); // set index of end of cookie value
+		            if (end == -1)
+		                end = document.cookie.length;
+		            return unescape(document.cookie.substring(offset, end));
+		        }
+		    }
+		}
+		
+		function sendit() {
+		    var frm = document.loginForm;
+		    if (!frm.userid.value) { //아이디를 입력하지 않으면.
+		        alert("아이디를 입력해주세요.");
+		        frm.userid.focus();
+		        return;
+		    }
+		    if (!frm.userpwd.value) { //패스워드를 입력하지 않으면.
+		        alert("패스워드를 입력 해주세요.");
+		        frm.userpwd.focus();
+		        return;
+		    }
+		
+		    if (document.loginForm.idSave.checked == true) { // 아이디 저장을 체크 하였을때
+		        setCookie("id", document.loginForm.userid.value, 7); //쿠키이름을 id로 아이디입력필드값을 7일동안 저장
+		    } else { // 아이디 저장을 체크 하지 않았을때
+		        setCookie("id", document.loginForm.userid.value, 0); //날짜를 0으로 저장하여 쿠키삭제
+		    }
+		    document.loginForm.submit(); //유효성 검사가 통과되면 서버로 전송.
+		
+		}
  </script>
 </head>
 <body>
@@ -50,7 +80,7 @@
 <div id="loginSection">
 	<p style="font-size: 25pt; padding-top:50px; color:#373737;">오브제 시작하기</p>
 	
-	<form action="login.do" method="post" id="loginForm">
+	<form action="login.do" method="post" name="loginForm" id="loginForm">
 	<div class="field">
           <div class="ui large left icon input" style="width:300px;">
             <i class="user icon"></i><input type="text" name="userid" placeholder="ID" required>
@@ -65,23 +95,21 @@
         </div>
         <br><br><br><br>
         
-       <button class="ui black button" id="btnsub" onclick="autoChk()" style="width:300px; height:40px; background: #4c4c4c;">로그인</button>
-	</form>
-	
-	<br>
+       <button class="ui black button" id="btnsub" onclick="sendit()" style="width:300px; height:40px; background: #4c4c4c;">로그인</button>
+	<br><br>
 		<button class="ui grey button" onclick="location.href='moveEnrollPage.do'" style="width:300px;height:40px; background: #aaa;">회원가입</button>
 		<br>
 		<!-- <img src="resources/images/kakaoLogin.png" style="vertical-align: center;" onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=008a8c7a2afc70539d4c97fd7898b3dc&redirect_uri=http://localhost:12345/objet/oauth&response_type=code'"> -->
 		<br><br><br><br><br><br>
 		
 		<div class="ui checkbox">
-		  <input type="checkbox" name="autoLogin" value="1"><label>로그인 정보 저장</label>
+		  <input type="checkbox" name="idSave" value="saveOk"><label>아이디 저장</label>
 		</div>&emsp;&emsp;&emsp;
 		<span style="font-size:9pt;">
 			<span onclick="location.href='moveFindUserid.do'">아이디 찾기</span>&ensp;│&ensp;
 			<span onclick="location.href='moveFindUserpwd.do'">비밀번호 찾기</span>
 		</span>
-
+	</form>
 </div><!-- 로그인 섹션 끝! -->
 </body>
 </html>

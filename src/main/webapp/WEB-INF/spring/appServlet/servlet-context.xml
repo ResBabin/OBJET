@@ -61,10 +61,10 @@
 		</interceptor>
 		<!-- 로그인 체크용 인터셉터 등록 -->
 		 <interceptor>
-			<mapping path="/myinfo.do"/>
-			<mapping path="/mupdate.do"/>
+			<mapping path="/artistHomeMain.do"/>
+			
 			<!-- 스프링 3.2부터 exclude-mapping 앨리먼트 사용할 수 있음 -->
-			<exclude-mapping path="/board/blist.do"/>
+			<!--  <exclude-mapping path="/board/blist.do"/>-->
 			<beans:bean id="loginCheckInterceptor" class="com.kh.objet.common.interceptor.LoginCheckInterceptor"/>
 		</interceptor>
 	</interceptors>
