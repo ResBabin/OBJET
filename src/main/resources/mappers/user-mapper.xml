@@ -240,4 +240,7 @@
 	<delete id="dropQuitUser" parameterType="String">
 		delete users where userid = #{value}
 	</delete>
+	<delete id="dropQuitUser2" parameterType="String">
+		delete users where userid = #{value}
+	</delete>
 </mapper>
