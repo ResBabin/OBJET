@@ -4,7 +4,16 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Properties;
 
+
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -216,7 +225,32 @@ public class UsersController {
 			Users result1 = usersService.selectFindPwd(users);
 		
 			if(result1 != null) {
-				// 조회결과가 있다면 임시비밀번호 발급
+				// 조회결과가 있다면 임시비밀번호 메일 발급
+
+                //mail server 설정
+                String user = "hdamoa05"; //자신의 네이버 계정
+                String password = "dhqmwp123@";//자신의 네이버 패스워드
+             
+                
+                //SMTP 서버 정보 설정
+                Properties props = new Properties();
+                props.put("mail.smtp.host", "smtp.naver.com");
+                props.put("mail.smtp.port", 465);
+                props.put("mail.smtp.auth", "true");
+                props.put("mail.smtp.ssl.enable", "true");
+                props.put("mail.smtp.ssl.trust", "smtp.naver.com");
+                
+                // SMTP 서버 정보와 사용자 정보를 기반으로 Session 클래스의 인스턴스 생성
+                Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(user,password);
+                    }
+                });
+                
+                //메일 받을 주소
+                String to_email = result1.getEmail();
+                
+                // 임시비밀번호 생성
 				int index = 0;  
 		        char[] charSet = new char[] {  
 		                '0','1','2','3','4','5','6','7','8','9'    
@@ -230,7 +264,9 @@ public class UsersController {
 		        }  
 		        
 		        String tempPwd = sb.toString();
-		        
+		        logger.info(tempPwd);
+                
+                
 		        // 임시비밀번호로 값 저장
 		        users.setUserpwd(tempPwd);
 		        
@@ -238,8 +274,28 @@ public class UsersController {
 				int result2 = usersService.updateUserPwd(users);
 				
 				if(result2 > 0) {
-					Users findPwd = usersService.selectFindPwd(users);
-					model.addAttribute("findPwd", findPwd);
+					// 업데이트 성공시 email 전송
+					try {
+	                    MimeMessage msg = new MimeMessage(session);
+	                    msg.setFrom(new InternetAddress(user, "Objet"));
+	                    msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to_email));
+	                    
+	                    //메일 제목
+	                    msg.setSubject("[Objet] 오브제 임시 비밀번호  메일입니다.");
+	                    //메일 내용
+	                    //msg.setText("안녕하세요. 오브제 고객님.\n요청하신 임시 비밀번호는 다음과 같습니다.\n\n * 임시 비밀번호 : <p style='font-weight:600; color: blue;'>" + tempPwd + "</p> \n개인정보 보호를 위해 임시 비밀번호를 사용해서 로그인 하신 후 바로 비밀번호를 변경해주십시오.\n\n다른 문의 사항이 있으시면 오브제 고객센터(070-1111-2222)로 문의해주시기 바랍니다.\n\n감사합니다.");
+	                    
+	                    msg.setContent("안녕하세요. 오브제 고객님.<br>요청하신 임시 비밀번호는 다음과 같습니다.<br><br>* 임시 비밀번호 : <span style='font-weight:600; color: blue;'>" + tempPwd + "</span>"
+	                    		+ "<br><br>개인정보 보호를 위해 임시 비밀번호를 사용해서 로그인 하신 후 바로 비밀번호를 변경해주십시오.<br>다른 문의 사항이 있으시면 오브제 고객센터(070-1111-2222)로 문의해주시기 바랍니다.<br>감사합니다."
+	                    		, "text/html; charset=utf-8");
+	                    Transport.send(msg);
+	                    logger.info("Success Message Send!");
+	                    
+	                }catch (Exception e) {
+	                    e.printStackTrace();
+	                }
+					
+					model.addAttribute("email", result1.getEmail());
 					vfn = "user/findPwdSuccess";
 				}
 				

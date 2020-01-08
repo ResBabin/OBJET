@@ -26,11 +26,10 @@
 <div id="loginSection">
 	<p style="font-size: 25pt; padding-top:50px; color:#373737;">비밀번호 찾기</p>
        
-        <div><i class=" huge teal clipboard check icon"></i><p class="findResultContent1">임시 비밀번호가 발급되었습니다.</p></div>
-        
-        <p style="font-size: 9pt;">로그인 후 임시 비밀번호를 꼭 변경해주세요!</p>
-        <p class="findResultContent2">임시비밀번호 : <c:out value="${findPwd.userpwd}"/></p>
-        <br><br><br>
+        <div><i class=" huge teal clipboard check icon"></i><p class="findResultContent1">${email } 로<br>임시 비밀번호가 발급되었습니다.</p></div>
+        <br><br><br><br>
+        <p style="font-size: 9pt;">임시 비밀번호로 로그인 후 비밀번호를 꼭 변경해주세요!</p>
+        <br><br><br><br><br>
        <button class="ui black button" onclick="location.href='moveLogin.do'" style="width:300px; height:40px; background: #4c4c4c;">로그인</button>
 	
 	<br>

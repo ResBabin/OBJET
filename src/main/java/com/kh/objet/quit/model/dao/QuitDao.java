@@ -20,8 +20,8 @@ public class QuitDao {
 		return mybatisSession.selectList("userMapper.selectQuitList");
 	}
 
-	public void dropQuitUser(String userid) {
-		mybatisSession.delete("userMapper.dropQuitUser1", userid);
+	public int dropQuitUser(String userid) {
+		return mybatisSession.delete("userMapper.dropQuitUser", userid);
 	}
 	
 }

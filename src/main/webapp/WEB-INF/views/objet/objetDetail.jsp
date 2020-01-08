@@ -49,6 +49,8 @@ html, body {
 	padding: 0;
 }
 
+ a {cursor:pointer;}
+
 .all {
 	min-height: 100%;
 }
@@ -195,7 +197,6 @@ a:-webkit-any-link {
 }
 .wrap_action_article .img_ico.ico_likeit_like {
     background-position: -60px -90px;
-    margin-top: 1px;
     width: 21px;
 }
 
@@ -1062,67 +1063,6 @@ a:-webkit-any-link {
 			});
 		
 		
-		<c:if test="${!empty loginUser.userid }">
-		//헤더 아이콘 관심 오브제 추가
-		$(".ico_likeit_like").on("click", function(){
-			$(this).removeClass("ico_likeit_like");
-			$(this).addClass("ico_likeit_unlike");
-			var objetno = ${objet.objetno};
-			var userid = '${loginUser.userid}';
-			$.ajax({
-				url : "insertLikeobjet.do",
-				data : {objetno : objetno, userid : userid},
-				type : "get",
-				success: function(result){
-		             if(result == "ok"){
-		               console.log("관심 오브제 추가 성공!")
-		               window.location.reload();
-		             }
-		             else{
-		            	alert("관심 오브제 추가 실패!")
-		             }
-		          },
-		          error: function(request, status, errorData){
-						console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
-					}
-			});
-		});
-		
-		//헤더 아이콘 관심 오브제 삭제
-		$(".ico_likeit_unlike").on("click", function(){
-			$(this).removeClass("ico_likeit_unlike");
-			$(this).addClass("ico_likeit_like");
-			var objetno = ${objet.objetno};
-			var userid = '${loginUser.userid}';
-			$.ajax({
-				url : "deleteLikeobjet.do",
-				data : {objetno : objetno, userid : userid},
-				type : "get",
-				success: function(result){
-		             if(result == "ok"){
-		               console.log("관심 오브제 추가 성공!")
-		               window.location.reload();
-		             }
-		             else{
-		            	alert("관심 오브제 추가 실패!")
-		             }
-		          },
-		          error: function(request, status, errorData){
-						console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
-					}
-			});
-		});	
-		</c:if>
-		<c:if test="${empty loginUser.userid}">
-		$(".ico_likeit_like").on("click", function(){
-			alert("로그인 하셔야합니다.");
-		});
-		$(".ico_likeit_unlike").on("click", function(){
-			alert("로그인 하셔야합니다.");
-		});	
-		</c:if>
-		
-		
 		
 			
 		//헤더아이콘 한줄평 이동
@@ -1206,7 +1146,7 @@ a:-webkit-any-link {
 		    }
 		});
 
-		//한줄평 좋아요
+		/* //한줄평 좋아요
 		$("#rev_like .icon").on("click", function() {
 			$(this).removeClass("outline");
 			$(this).addClass("red");
@@ -1216,7 +1156,7 @@ a:-webkit-any-link {
 		$("#rev_hate .icon").on("click", function() {
 			$(this).removeClass("outline");
 			$(this).addClass("light blue");
-		});
+		}); */
 
 		//평점 레이팅(리스트)
 		$('.rating').rating('disable', {
@@ -1484,48 +1424,26 @@ a:-webkit-any-link {
 		});// review order ajax
 	}
 	
-	//한줄평 좋아요
+	//한줄평 좋아요/좋아요 취소
 	var reviewGood = false;
-	setTimeout(function(){ 
-		reviewGood = false;
-		function reviewGood(objetno, userid){
-			if(reviewGood){
-				alert("이미 좋아요를 누르셨습니다.");
-				return;
-			}
-			reviewGood = true;
-			$.ajax({
-		         url:"updateRevGood.do",
-		         type:"get",
-		         data:{objetno : objetno, userid : userid },
-		         success: function(result){
-		             if(result == "ok"){
-		               console.log("한줄평 좋아요 성공!")
-		               window.location.reload();
-		             }
-		             else{
-		            	alert("한줄평 좋아요 실패!")
-		             }
-		          },
-		          error: function(request, status, errorData){
-						console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
-					}
-		       });
-	}}, 10000);//reviewGood
-	
-	//한줄평 좋아요 취소 
 	function reviewGood(objetno, userid){
+		if(reviewGood){
+			alert("이미 좋아요를 누르셨습니다.");
+			return;
+		}
+		reviewGood = true;
+		
 		$.ajax({
-	         url:"updateRevGoodReset.do",
+	         url:"updateRevGood.do",
 	         type:"get",
 	         data:{objetno : objetno, userid : userid },
 	         success: function(result){
 	             if(result == "ok"){
-	               console.log("한줄평 좋아요 취소!")
+	               console.log("한줄평 좋아요 성공!")
 	               window.location.reload();
 	             }
 	             else{
-	            	alert("한줄평 좋아요 취소 실패!")
+	            	alert("한줄평 좋아요 실패!")
 	             }
 	          },
 	          error: function(request, status, errorData){
@@ -1533,7 +1451,6 @@ a:-webkit-any-link {
 				}
 	       });
 	}//reviewGood
-	
 	
 	//한줄평 싫어요
 	function reviewHate(objetno, userid){
@@ -1555,28 +1472,6 @@ a:-webkit-any-link {
 				}
 	       });
 	}//reviewHate
-	
-	//한줄평 싫어요
-	function reviewHate(objetno, userid){
-		$.ajax({
-	         url:"updateRevHateReset.do",
-	         type:"get",
-	         data:{objetno : objetno, userid : userid },
-	         success: function(result){
-	             if(result == "ok"){
-	               console.log("한줄평 싫어요 취소!")
-	               window.location.reload();
-	             }
-	             else{
-	            	alert("한줄평 싫어요 취소!")
-	             }
-	          },
-	          error: function(request, status, errorData){
-					console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
-				}
-	       });
-	}//reviewHate
-	
 	
 	//한줄평 등록
 	function rev_insert(objetno, userid){
@@ -1609,10 +1504,12 @@ a:-webkit-any-link {
 		        data : {"userid" : userid, "revcontent" : revcontent, "revstars" : revstars},
 		        success : function(message){
 					alert("한줄평이 수정되었습니다.");
-				    window.location.reload();
+				    /* window.location.reload(); */
 					$(".review").click();
 					var scrollTop = 390;
 					$("html, body").animate({ scrollTop: scrollTop }, 1000);
+					$(".review_mylist_up").css("display", "none");
+					$(".review_mylist").css("display", "block");
 		        },
 		        error : function(request, error, XMLHttpRequest, textStatus, jqXHR, errorThrown) {
 					console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -1638,6 +1535,54 @@ a:-webkit-any-link {
 		});	
 	}//rev_delete
 	
+	<c:if test="${!empty loginUser.userid}">
+	//헤더 아이콘 관심 오브제 추가
+	function likeobjet(){
+		var objetno = ${objet.objetno};
+		var userid = '${loginUser.userid}';
+		$.ajax({
+			url : "likeobjet.do",
+			data : {objetno : objetno, userid : userid},
+			type : "post",
+			success: function(result){
+				if(result == "ok"){
+					console.log("관심 오브제 삭제 성공!");
+	               $("#likeobjet").removeClass("ico_likeit_unlike");
+	               $("#likeobjet").addClass("ico_likeit_like");
+	               var num = ${fn:length(likeobjetList) } - 1;
+	               $(".likeobjetcnt").html(num);
+	             }
+	             if(result == "ok2"){
+	               console.log("관심 오브제 추가 성공!");
+	               $("#likeobjet").removeClass("ico_likeit_like");
+	               $("#likeobjet").addClass("ico_likeit_unlike");
+	               var num = ${fn:length(likeobjetList) };
+	               $(".likeobjetcnt").html(num);
+	             }
+	             if(result == "fail"){
+	            	 alert("관심 오브제 삭제 실패!");
+	             }
+	             if(result == "fail2"){
+	            	 alert("관심 오브제 추가 실패!");
+	             } 
+	            
+	          },
+	          error: function(request, status, errorData){
+					console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
+			}
+		});
+	}
+	</c:if>
+	
+	<c:if test="${empty loginUser.userid}">
+	$(".ico_likeit_like").on("click", function(){
+		alert("로그인 하셔야합니다.");
+	});
+	$(".ico_likeit_unlike").on("click", function(){
+		alert("로그인 하셔야합니다.");
+	});	
+	</c:if>
+	
 </script>
 </head>
 <body>
@@ -1652,12 +1597,20 @@ a:-webkit-any-link {
 <button class="reportArticle f_l more_action text_hide img_ico img_ico_single ico_report #report">신고</button>
 </div>
 <div id="default" class="default_action_wrap f_r" style="visibility: visible;">
-<a href="#likeit" class="default_action headerLikeBtn img_ico_wrap #likeit" onclick="return B.ArticleLike.like(this)">
-<span class="f_l text_hide img_ico img_ico_with_text ico_likeit_like #like">관심오브제</span>
-<span class="f_l text_like_count text_default text_with_img_ico ico_likeit_like #like">7</span> </a>
-<a href="#comments" class="default_action img_ico_wrap comment #comment">
+<a href="javascript:void(0);" class="default_action headerLikeBtn img_ico_wrap">
+<c:if test="${resultValue eq 'ok' }">
+<span class="f_l text_hide img_ico img_ico_with_text ico_likeit_unlike" id="likeobjet" onclick="likeobjet();">관심오브제</span>
+</c:if>
+<c:if test="${resultValue eq 'fail' }">
+<span class="f_l text_hide img_ico img_ico_with_text ico_likeit_like" id="likeobjet" onclick="likeobjet();">관심오브제</span>
+</c:if>
+<c:if test="${fn:length(likeobjetList) } == 0">
+<span class="f_l text_hide img_ico img_ico_with_text ico_likeit_unlike" id="likeobjet" onclick="likeobjet();">관심오브제</span>
+</c:if>
+<span class="f_l text_like_count text_default text_with_img_ico ico_likeit_like likeobjetcnt">${fn:length(likeobjetList) }</span> </a>
+<a href="javascript:void(0);" class="default_action img_ico_wrap comment">
 <span class="f_l text_hide img_ico img_ico_with_text ico_comment">한줄평</span></a>
-<span class="wrapButtonSocialShare f_l default_action img_ico_wrap #share">
+<span class="wrapButtonSocialShare f_l default_action img_ico_wrap">
 <span class="f_l text_hide img_ico img_ico_with_text ico_share" style="cursor: pointer;">공유</span>
 <span class="wrap_share_gnb wrap_share_common"><strong class="tit_sharegnb">오브제 전시를 SNS에 공유해보세요</strong>
 <button type="button" id="facebook" class="ico_share_common btn_share_facebook ui mini circular facebook icon button" data-servicename="facebook">
@@ -1865,14 +1818,15 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 </div><br>
 <div class="review_all_list">
 <!-- 내 한줄평 있을시 보이는 공간 -->
-<c:if test="${!empty loginUser && loginUser.userid eq myReview.userid}">
+<c:if test="${!empty loginUser && loginUser.userid eq myReview.revuserid}">
 <div class="review_mylist">
 <img class="ui circular image" src="resources/users_upfiles/${loginUser.userrpic }" id="writer_mypic">
 <div class="review_mycontent">
 <span class="rev_mywriter">${myReview.nickname }</span>
-<span class="rev_date"><fmt:formatDate value="${myReview.revdate }" pattern="MMM"/>.&nbsp;
-<fmt:formatDate value="${myReview.revdate }" pattern="dd"/>.&nbsp;
-<fmt:formatDate value="${myReview.revdate }" pattern="yyyy"/></span>
+<span class="rev_date">
+<fmt:formatDate value="${myReview.revdate }" pattern="MMM" />.&nbsp;
+<fmt:formatDate value="${myReview.revdate }" pattern="dd" />.&nbsp;
+<fmt:formatDate value="${myReview.revdate }" pattern="yyyy" /></span>
 <div class="ui icon top left pointing floating dropdown button" id="rev_mymore">
 <i class="material-icons" style="color:#959595;font-size:22px;">&#xe5d4;</i>
 <div class="menu">
@@ -1885,15 +1839,15 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 <div class="extra">
 <div class="ui star rating my" data-rating="${myReview.revstars }" data-max-rating="5" >${myReview.revstars }</div>
 <div class="rev_like_btn">
-<div class="ui basic circular gray icon button" id="rev_like" onclick="reviewGood(${objet.objetno}, '${loginUser.userid }')"><i class="thumbs up outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${myReview.revgood }</span></div>&nbsp;
-<div class="ui basic circular gray icon button" id="rev_hate" onclick="reviewHate(${objet.objetno}, '${loginUser.userid }')"><i class="thumbs down outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${myReview.revhate }</span></div>
+<div class="ui basic circular gray icon button" id="rev_like" onclick="reviewGood('${myReview.revuserid }', ${objet.objetno}, '${loginUser.userid }')"><i class="thumbs up outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${myReview.revgood }</span></div>&nbsp;
+<div class="ui basic circular gray icon button" id="rev_hate" onclick="reviewHate('${myReview.revuserid }', ${objet.objetno}, '${loginUser.userid }')"><i class="thumbs down outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${myReview.revhate }</span></div>
 </div></div>
 </div>
 </div>
 </c:if>
 <!-- //내 한줄평 있을시 보이는 공간 끝 -->
 <!-- 내 한줄평 있을시 수정 공간-->
-<c:if test="${!empty loginUser && loginUser.userid eq myReview.userid }">
+<c:if test="${!empty loginUser && loginUser.userid eq myReview.revuserid }">
 <div class="review_mylist_up">
 <img class="ui circular image" src="resources/users_upfiles/${loginUser.userrpic }" id="writer_mypic">
 <div class="review_ins_content">
@@ -2002,14 +1956,27 @@ ${myReview.revcontent }</textarea>
 <img class="ui circular image" src="resources/users_upfiles/${Review.userrpic }" id="writer_pic">
 <div class="review_content">
 <span class="rev_writer">${Review.nickname }</span>
-<span class="rev_date"><fmt:formatDate value="${Review.revdate }" pattern="MMM"/>.&nbsp;<fmt:formatDate value="${Review.revdate }" pattern="dd"/>.&nbsp;<fmt:formatDate value="${Review.revdate }" pattern="yyyy"/></span>
+<span class="rev_date">
+<fmt:formatDate value="${Review.revdate }" pattern="MMM" />.&nbsp;
+<fmt:formatDate value="${Review.revdate }" pattern="dd" />.&nbsp;
+<fmt:formatDate value="${Review.revdate }" pattern="yyyy" /></span>
 <span class="rev_report">신고</span><br>
 <span class="rev_cont">${Review.revcontent }</span><br>
 <div class="extra">
 <div class="ui star rating" data-rating="${Review.revstars }" data-max-rating="5" >${Review.revstars }</div>
 <div class="rev_like_btn">
-<div class="ui basic circular gray icon button" id="rev_like_${objet.objetno }"><i class="thumbs up outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${Review.revgood }</span></div>&nbsp;
-<div class="ui basic circular gray icon button" id="rev_hate_${objet.objetno }"><i class="thumbs down outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${Review.revhate }</span></div>
+<c:if test="${reviewStauts eq 'revgood'}">
+<div class="ui basic circular gray icon button" id="rev_like"><i class="thumbs up red icon" style="font-size:14px;"></i><span class="rev_cnt"> ${Review.revgood }</span></div>&nbsp;
+<div class="ui basic circular gray icon button" id="rev_hate"><i class="thumbs down outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${Review.revhate }</span></div>
+</c:if>
+<c:if test="${reviewStauts eq 'revhate'}">
+<div class="ui basic circular gray icon button" id="rev_like"><i class="thumbs up outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${Review.revgood }</span></div>&nbsp;
+<div class="ui basic circular gray icon button" id="rev_hate"><i class="thumbs down blue icon" style="font-size:14px;"></i><span class="rev_cnt"> ${Review.revhate }</span></div>
+</c:if>
+<c:if test="${reviewStauts eq 'revno'}">
+<div class="ui basic circular gray icon button" id="rev_like"><i class="thumbs up outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${Review.revgood }</span></div>&nbsp;
+<div class="ui basic circular gray icon button" id="rev_hate"><i class="thumbs down outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${Review.revhate }</span></div>
+</c:if>
 </div></div>
 </div>
 </div>
@@ -2023,7 +1990,7 @@ ${myReview.revcontent }</textarea>
 </div>
 <br><br>
 <!-- 한줄평 등록  -->
-<c:if test="${myReview == null && myReview.userid ne loginUser.userid && objet.userid ne loginUser.userid}">
+<c:if test="${myReview == null && myReview.revuserid ne loginUser.userid && objet.userid ne loginUser.userid}">
 <div class="rev_insert">
 <div class="review_insert">
 <img class="ui circular image" src="resources/users_upfiles/${loginUser.userrpic }" id="writer_pic_2">
@@ -2043,7 +2010,7 @@ placeholder="이 전시의 감상평(한줄평)을 남겨주세요. 전시와 �
 <br><br>
 </div>
 </c:if>
-<c:if test="${myReview != null && myReview.userid eq loginUser.userid }">
+<c:if test="${myReview != null && myReview.revuserid eq loginUser.userid }">
 <div class="rev_insert_no">
 <br>
 </div>

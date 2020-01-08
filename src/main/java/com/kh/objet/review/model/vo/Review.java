@@ -9,54 +9,52 @@ import org.springframework.stereotype.Component;
 public class Review implements Serializable{
 	private static final long serialVersionUID = 15000L;
 	
-	private String userid;
+	private String revuserid;
 	private int objetno;
 	private String revcontent;
 	private int revstars;
-	private int revgood;
-	private int revhate;
 	private Date revdate;
 	private String userrpic;
 	private String nickname;
+	private int revgood;
+	private int revhate;
 	
 	public Review() {}
 
-	public Review(String userid, int objetno, String revcontent, int revstars, int revgood, int revhate, Date revdate,
-			String userrpic, String nickname) {
+	public Review(String revuserid, int objetno, String revcontent, int revstars, Date revdate, String userrpic,
+			String nickname, int revgood, int revhate) {
 		super();
-		this.userid = userid;
+		this.revuserid = revuserid;
 		this.objetno = objetno;
 		this.revcontent = revcontent;
 		this.revstars = revstars;
-		this.revgood = revgood;
-		this.revhate = revhate;
 		this.revdate = revdate;
 		this.userrpic = userrpic;
 		this.nickname = nickname;
+		this.revgood = revgood;
+		this.revhate = revhate;
 	}
 
-	public Review(int objetno, String userid, String revcontent, int revstars) {
+	public Review(int objetno, String revuserid, String revcontent, int revstars) {
 		super();
 		this.objetno = objetno;
-		this.userid = userid;
+		this.revuserid = revuserid;
 		this.revcontent = revcontent;
 		this.revstars = revstars;
 	}
 	
-	public Review(String userid, int objetno) {
+	public Review(String revuserid, int objetno) {
 		super();
-		this.userid = userid;
+		this.revuserid = revuserid;
 		this.objetno = objetno;
 	}
 
-	
-	
-	public String getUserid() {
-		return userid;
+	public String getRevuserid() {
+		return revuserid;
 	}
 
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setRevuserid(String revuserid) {
+		this.revuserid = revuserid;
 	}
 
 	public int getObjetno() {
@@ -83,22 +81,6 @@ public class Review implements Serializable{
 		this.revstars = revstars;
 	}
 
-	public int getRevgood() {
-		return revgood;
-	}
-
-	public void setRevgood(int revgood) {
-		this.revgood = revgood;
-	}
-
-	public int getRevhate() {
-		return revhate;
-	}
-
-	public void setRevhate(int revhate) {
-		this.revhate = revhate;
-	}
-
 	public Date getRevdate() {
 		return revdate;
 	}
@@ -123,12 +105,35 @@ public class Review implements Serializable{
 		this.nickname = nickname;
 	}
 
+	public int getRevgood() {
+		return revgood;
+	}
+
+	public void setRevgood(int revgood) {
+		this.revgood = revgood;
+	}
+
+	public int getRevhate() {
+		return revhate;
+	}
+
+	public void setRevhate(int revhate) {
+		this.revhate = revhate;
+	}
+
 	@Override
 	public String toString() {
-		return "Review [userid=" + userid + ", objetno=" + objetno + ", revcontent=" + revcontent + ", revstars="
-				+ revstars + ", revgood=" + revgood + ", revhate=" + revhate + ", revdate=" + revdate + ", userrpic="
-				+ userrpic + ", nickname=" + nickname + "]";
+		return "Review [revuserid=" + revuserid + ", objetno=" + objetno + ", revcontent=" + revcontent + ", revstars="
+				+ revstars + ", revdate=" + revdate + ", userrpic=" + userrpic + ", nickname=" + nickname + ", revgood="
+				+ revgood + ", revhate=" + revhate + "]";
 	}
+
+	
+	
+
+	
+
+	
 
 	
 	
