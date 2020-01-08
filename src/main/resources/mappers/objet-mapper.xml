@@ -54,6 +54,16 @@ where quityn = 'N' and blackyn = 'N')
  where objetno = #{objetno}
  </select>
  
+ <!-- 관심 오브제 하나 -->
+ <select id="selectLikeObjetOne" resultType="int" parameterType="LikeObjet">
+ 	select count(*) from likeobjet where userid = #{userid} and objetno = #{objetno}
+ </select>
+ 
+ <!-- 관심 오브제 리스트  -->
+ <select id="selectLikeObjet" resultType="LikeObjet" parameterType="int">
+ 	select * from likeobjet where objetno = #{objetno}
+ </select>
+ 
  <!-- 관심 오브제 추가  -->
  <insert id="insertLikeObjet" parameterType="LikeObjet">
  	insert into likeobjet values(#{objetno}, #{userid}, sysdate)
@@ -72,21 +82,25 @@ where quityn = 'N' and blackyn = 'N')
  
  <!-- 한줄평 리스트  -->
  <select id="selectReview" parameterType="int" resultType="Review">
- select a.userid, a.objetno, a.revcontent, a.revstars, a.revgood, a.revhate, a.revdate, b.userrpic, c.nickname
+ select a.revuserid, a.objetno, a.revcontent, a.revstars, a.revdate, b.userrpic, c.nickname, count(d.revgood) revgood, count(d.revhate) revhate
  from review a
- join usersprofile b on a.userid = b.userid
- join users c on a.userid = c.userid
- where objetno = #{objetno}
+ join usersprofile b on a.revuserid = b.userid
+ join users c on a.revuserid = c.userid
+ join reviewstatus d on a.revuserid = d.revuserid
+ where a.objetno = #{objetno}
+ group by a.revuserid, a.objetno, a.revcontent, a.revstars, a.revdate, b.userrpic, c.nickname
  order by a.revdate desc
  </select>
  
  <!-- 한줄평 리스트 정렬  -->
  <select id="selectReviewOrder" parameterType="ReviewKey" resultType="Review">
- select a.userid, a.objetno, a.revcontent, a.revstars, a.revgood, a.revhate, a.revdate, b.userrpic, c.nickname
+ select a.revuserid, a.objetno, a.revcontent, a.revstars, a.revdate, b.userrpic, c.nickname, count(d.revgood) revgood, count(d.revhate) revhate
  from review a
- join usersprofile b on a.userid = b.userid
- join users c on a.userid = c.userid
- where objetno = #{objetno}
+ join usersprofile b on a.revuserid = b.userid
+ join users c on a.revuserid = c.userid
+ join reviewstatus d on a.revuserid = d.revuserid
+ where a.objetno = #{objetno}
+ group by a.revuserid, a.objetno, a.revcontent, a.revstars, a.revdate, b.userrpic, c.nickname
 <trim prefix="order by">
 <if test="order=='reviewdatedesc'"> a.revdate desc</if>
 <if test="order=='reviewstardesc'"> a.revstars desc</if>
@@ -95,27 +109,30 @@ where quityn = 'N' and blackyn = 'N')
  
  <!-- 내 한줄평 -->
  <select id="selectReviewOne" parameterType="ReviewKey" resultType="Review">
- select a.userid, a.objetno, a.revcontent, a.revstars, a.revgood, a.revhate, a.revdate, b.userrpic, c.nickname
+ select a.revuserid, a.objetno, a.revcontent, a.revstars, a.revdate, b.userrpic, c.nickname, count(d.revgood) revgood, count(d.revhate) revhate
  from review a
- join usersprofile b on a.userid = b.userid
- join users c on a.userid = c.userid
- where a.userid = #{userid} and objetno = #{objetno}
+ join usersprofile b on a.revuserid = b.userid
+ join users c on a.revuserid = c.userid
+ join reviewstatus d on a.revuserid = d.revuserid
+ where a.revuserid = #{userid} and a.objetno = #{objetno}
+ group by a.revuserid, a.objetno, a.revcontent, a.revstars, a.revdate, b.userrpic, c.nickname
  order by a.revdate desc
  </select>
  
 <!-- 한줄평 등록 -->
 <insert id="insertReview" parameterType="Review">
-	insert into review values ( #{userid}, #{objetno}, #{revcontent}, #{revstars}, null, null, sysdate) 
+	insert into review values (#{revuserid}, #{objetno}, #{revcontent}, #{revstars}, sysdate) 
 </insert>
 
 <!-- 한줄평 수정 -->
 <update id="updateReview" parameterType="ReviewUp">
-	update review set revcontent = #{revcontent}, revstars = #{revstars}, revdate = sysdate where userid = #{userid}
+	update review set revcontent = #{revcontent}, revstars = #{revstars}, revdate = sysdate 
+	where revuserid = #{revuserid} and objetno = #{objetno}
 </update>
 
 <!-- 한줄평 삭제 -->
 <delete id="deleteReview" parameterType="Review">
-	delete from review where userid = #{userid} and objetno = #{objetno}
+	delete from review where revuserid = #{revuserid} and objetno = #{objetno}
 </delete>
 
 <!-- 한줄평 신고 -->
@@ -124,24 +141,26 @@ where quityn = 'N' and blackyn = 'N')
  	(#{originno}, #{reportedb}, #{reporterb}, #{reportbtype}, sysdate, #{reportbreason})  
  </insert>
  
- <!-- 한줄평 좋아요 -->
- <update id="updateRevGood" parameterType="Review">
- 	update review set revgood = #{revgood} where userid = #{userid} and objetno = #{objetno}
- </update>
+ <!-- 한줄평 평가 리스트 -->
+ <select id="selectReivewStatus" parameterType="ReviewStatus" resultType="ReviewStatus">
+ 	 select *
+	 from reviewstatus
+	 where userid = #{userid} and objetno = #{objetno}
+ </select>
  
-  <!-- 한줄평 좋아요 취소 -->
- <update id="updateRevGoodReset" parameterType="Review">
- 	update review set revgood = #{revgood} where userid = #{userid} and objetno = #{objetno}
+ <!-- 한줄평 좋아요  체크 -->
+ <select id="selectRevGoodChk" parameterType="ReviewStatus" resultType="int">
+ 	select count(*) from reviewstatus where revuserid = #{revuserid} and userid = #{userid} and objetno = #{objetno}
+ </select>
+ 
+ <!-- 한줄평 좋아요 -->
+ <update id="updateRevGood" parameterType="ReviewStatus">
+ 	update reviewstatus set revgood = #{revgood} where revuserid = #{revuserid} and userid = #{userid} and objetno = #{objetno}
  </update>
  
   <!-- 한줄평 싫어요 -->
- <update id="updateRevHate" parameterType="Review">
- 	update review set revhate = #{revhate} where userid = #{userid} and objetno = #{objetno}
- </update>
- 
-  <!-- 한줄평 싫어요 취소 -->
- <update id="updateRevHateReset" parameterType="Review">
- 	update review set revhate = #{revhate} where userid = #{userid} and objetno = #{objetno}
+ <update id="updateRevHate" parameterType="ReviewStatus">
+ 	update reviewstatus set revhate = #{revhate} where revuserid = #{revuserid} and userid = #{userid} and objetno = #{objetno}
  </update>
  
  

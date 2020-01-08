@@ -13,6 +13,7 @@ import com.kh.objet.objet.model.vo.ReviewUp;
 import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
 import com.kh.objet.review.model.vo.Review;
+import com.kh.objet.review.model.vo.ReviewStatus;
 
 public interface ObjetService {
 	
@@ -30,13 +31,16 @@ public interface ObjetService {
 	int insertReview(Review review);
 	int updateReview(ReviewUp review);
 	int deleteReview(Review review);
-	int updateRevGood(Review review);
-	int updateRevGoodReset(Review review);
-	int updateRevHate(Review review);
-	int updateRevHateReset(Review review);
 	int insertLikeObjet(LikeObjet likeobjet);
 	int deleteLikeObjet(LikeObjet likeobjet);
-	
+	ArrayList<LikeObjet> selectLikeObjet(int objetno);
+	int selectLikeObjetOne(LikeObjet likeobjet);
+	ArrayList<ReviewStatus> selectReivewStatus(ReviewStatus review);
+	int selectRevGoodChk(ReviewStatus revstatus);
+	int updateRevGood(ReviewStatus revstatus);
+	int updateRevGoodReset(ReviewStatus revstatus);
+	int updateRevHate(ReviewStatus revstatus);
+	int updateRevHateReset(ReviewStatus revstatus);
 	
 	// 최민영
 	List<Objet2> selectArtistObjetList(String userid);

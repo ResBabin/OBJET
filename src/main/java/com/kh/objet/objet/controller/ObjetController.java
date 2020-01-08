@@ -32,6 +32,7 @@ import com.kh.objet.objet.model.vo.ReviewUp;
 import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
 import com.kh.objet.review.model.vo.Review;
+import com.kh.objet.review.model.vo.ReviewStatus;
 
 @Controller
 public class ObjetController {
@@ -116,70 +117,109 @@ public class ObjetController {
 		out.close();
 	}
 	
-	//관심 오브제 추가
-	@RequestMapping(value="insertLikeobjet.do")
-	public void insertLikeObjet(@RequestParam(value="objetno") int objetno, 
+	//관심 오브제 추가/삭제/카운트
+	@RequestMapping(value="likeobjet.do", method=RequestMethod.POST)
+	public ModelAndView insertLikeObjet(@RequestParam(value="objetno") int objetno, 
 			@RequestParam(value="userid") String userid, HttpServletResponse response) throws IOException{
 		LikeObjet likeobjet = new LikeObjet(objetno, userid);
-		int result = objetService.insertLikeObjet(likeobjet);
+		int count = objetService.selectLikeObjetOne(likeobjet);
+		ModelAndView mv = new ModelAndView();
 		String resultValue = "";
-		if(result > 0)
-			resultValue = "ok";
-		else
-			resultValue = "fail";
-			
+		if(count==1) {
+			int result2 = objetService.deleteLikeObjet(likeobjet);
+			mv.addObject("count", count);
+			mv.setViewName("objet/objetDetail");
+			if(result2 > 0) {
+				resultValue = "ok";
+			}else {
+				resultValue = "fail";
+			}
+		}else if(count == 0){
+			int result1 = objetService.insertLikeObjet(likeobjet);
+			mv.addObject("count", count);
+			mv.setViewName("objet/objetDetail");
+			if(result1 > 0) {
+				resultValue = "ok2";
+			}else {
+				resultValue = "fail2";
+			}
+		}
+		
 		PrintWriter out = response.getWriter();
 		out.append(resultValue);
 		out.flush();
 		out.close();
+		
+		return mv;
 	}
 	
-	//관심 오브제 삭제
-	@RequestMapping(value="deleteLikeobjet.do")
-	public void deleteLikeObjet(@RequestParam(value="objetno") int objetno, 
-			@RequestParam(value="userid") String userid, HttpServletResponse response) throws IOException{
-		LikeObjet likeobjet = new LikeObjet(objetno, userid);
-		int result = objetService.deleteLikeObjet(likeobjet);
-		String resultValue = "";
-		if(result > 0)
-			resultValue = "ok";
-		else
-			resultValue = "fail";
-			
-		PrintWriter out = response.getWriter();
-		out.append(resultValue);
-		out.flush();
-		out.close();
-	}
-	
-	//오브제, 작가 상세보기, 한줄평 리스트, 내 한줄평
+	//오브제, 작가 상세보기, 한줄평 리스트, 내 한줄평, 관심오브제 카운트,리스트
 	@RequestMapping("objetOne.do")
-	public ModelAndView selectObjetOne(@RequestParam(value="objetno") int objetno, @RequestParam(value="userid", required=false) String userid, ModelAndView mv) {
+	public ModelAndView selectObjetOne(@RequestParam(value="objetno") int objetno, 
+			@RequestParam(value="userid", required=false) String userid, ModelAndView mv, HttpServletResponse response) throws IOException {
 		Artist objet = objetService.selectObjetOne(objetno);
 		ArrayList<Review> reviewList = objetService.selectReview(objetno);
+		ArrayList<LikeObjet> likeobjetList = objetService.selectLikeObjet(objetno);
 		
+		String reviewStauts = "";
 		if(userid != null) {
 			ReviewKey rk = new ReviewKey(objetno, userid, null);
+			ReviewStatus reviewsts = new ReviewStatus(objetno, userid);
 			Review myReview = objetService.selectReviewOne(rk);
-			if(myReview != null) {
+			ArrayList<ReviewStatus> reviewStatusList = objetService.selectReivewStatus(reviewsts);
+			
+			for(int i = 0; i<reviewStatusList.size(); i++) {
+				if(reviewStatusList.get(i).getUserid().equals(userid) 
+						&& reviewStatusList.get(i).getRevgood() != 0
+						&& !(reviewStatusList.get(i).getRevuserid().equals(userid))){
+					reviewStauts = "revgood";
+				}else if(reviewStatusList.get(i).getUserid().equals(userid) 
+						&& reviewStatusList.get(i).getRevhate() != 0
+						&& !(reviewStatusList.get(i).getRevuserid().equals(userid))){
+					reviewStauts = "revhate";
+				}else {
+					reviewStauts = "revno";
+				}
+			}
+			
+			if(myReview != null && reviewStatusList != null) {
 				mv.addObject("myReview", myReview);
+				mv.addObject("reviewStatusList", reviewStatusList);
 				mv.setViewName("objet/objetDetail");
 			}else {
 				mv.addObject("myReview", myReview);
+				mv.addObject("reviewStatusList", reviewStatusList);
 				mv.setViewName("common/error");
 			}
 		}
 		
-		if(objet != null && reviewList != null) {
+		String resultValue = "";
+		for(int i = 0; i<likeobjetList.size(); i++) {
+			if(likeobjetList.get(i).getUserid().equals(userid)) {
+				resultValue = "ok";
+			}else {
+				resultValue = "fail";
+			}
+		}
+		
+		if(objet != null && reviewList != null && likeobjetList != null && resultValue != null) {
 			mv.addObject("objet", objet);
 			mv.addObject("reviewList", reviewList);
+			mv.addObject("likeobjetList", likeobjetList);
+			mv.addObject("resultValue", resultValue);
+			mv.addObject("reviewStauts", reviewStauts);
 			mv.setViewName("objet/objetDetail");
 		}else {
 			mv.addObject("objet", objet);
 			mv.addObject("reviewList", reviewList);
+			mv.addObject("likeobjetList", likeobjetList);
+			mv.addObject("resultValue", resultValue);
+			mv.addObject("reviewStauts", reviewStauts);
 			mv.setViewName("common/error");
 		}
+		
 		return mv;
+		
 	}
 	
 	//한줄평 리스트 정렬
@@ -188,8 +228,8 @@ public class ObjetController {
 	public void selectReviewOrder(int no, String order, HttpServletResponse response) throws IOException {
 		ReviewKey rk = new ReviewKey(no, order);
 		ArrayList<Review> reviewListOrder = objetService.selectReviewOrder(rk);
-		logger.debug(reviewListOrder.get(0).getUserid());
-		logger.debug(reviewListOrder.get(1).getUserid());
+		logger.debug(reviewListOrder.get(0).getRevuserid());
+		logger.debug(reviewListOrder.get(1).getRevuserid());
 		//전송용 json 객체
 		JSONObject sendJson = new JSONObject();
 		//json 배열 객체
@@ -214,12 +254,6 @@ public class ObjetController {
 		out.write(sendJson.toJSONString());
 		out.flush();
 		out.close();
-	}
-	
-	//오브제 전시감상페이지 이동
-	@RequestMapping("objetView.do")
-	public String objetVRView() {
-		return "objet/objetView";
 	}
 	
 	//오브제 신고
@@ -298,39 +332,46 @@ public class ObjetController {
 		return viewFileName;
 	}
 	
-	//한줄평 좋아요
-	@RequestMapping(value="updateRevGood.do")
-	public void updateRevGood(Review review, HttpServletResponse response) throws IOException{
-		int result = objetService.updateRevGood(review);
-		String resultValue = null;
-		if(result > 0) 
-			resultValue = "ok";
-		else
-			resultValue = "fail";
+	//한줄평 좋아요/좋아요 취소/좋아요 체크
+	@RequestMapping(value="updateRevGood.do", method=RequestMethod.GET)
+	public ModelAndView updateRevGood(@RequestParam(value="revuserid") String revuserid,
+			@RequestParam(value="objetno") int objetno, @RequestParam(value="userid") String userid, 
+			HttpServletResponse response) throws IOException{
+		ReviewStatus revstatus = new ReviewStatus(revuserid, objetno, userid);//작성자아이디, 오브제번호, 평가자아이디
+		int revscount = objetService.selectRevGoodChk(revstatus);
+		ModelAndView mv = new ModelAndView();
+		String resultValue = "";
+		if(revscount == 1) {
+			ReviewStatus revstatus2 = new ReviewStatus(revuserid, objetno, userid, 0);//작성자아이디, 오브제번호, 평가자아이디, 좋아요 갯수
+			int revgoodreset = objetService.updateRevGoodReset(revstatus2);
+			mv.addObject("revscount", revscount);
+			mv.setViewName("objet/objetDetail");
+			if(revgoodreset > 0) {
+				resultValue = "revgoodcancel";
+			}else {
+				resultValue = "fail";
+			}
+		}else if(revscount == 0){
+			ReviewStatus revstatus3 = new ReviewStatus(revuserid, objetno, userid, 1);
+			int revgood = objetService.updateRevGood(revstatus3);
+			mv.addObject("revscount", revscount);
+			mv.setViewName("objet/objetDetail");
+			if(revgood > 0) {
+				resultValue = "ok2";
+			}else {
+				resultValue = "fail2";
+			}
+		}
 		
 		PrintWriter out = response.getWriter();
 		out.append(resultValue);
 		out.flush();
 		out.close();
-	}
-	
-	//한줄평 좋아요 취소
-	@RequestMapping(value="updateRevGoodReset.do")
-	public void updateRevGoodReset(Review review, HttpServletResponse response) throws IOException{
-		int result = objetService.updateRevGoodReset(review);
-		String resultValue = null;
-		if(result > 0) 
-			resultValue = "ok";
-		else
-			resultValue = "fail";
 		
-		PrintWriter out = response.getWriter();
-		out.append(resultValue);
-		out.flush();
-		out.close();
+		return mv;
 	}
 	
-	//한줄평 싫어요
+	/*//한줄평 싫어요/싫어요 취소/싫어요 체크
 	@RequestMapping(value="updateRevHate.do")
 	public void updateRevHate(Review review, HttpServletResponse response) throws IOException{
 		int result = objetService.updateRevHate(review);
@@ -344,23 +385,7 @@ public class ObjetController {
 		out.append(resultValue);
 		out.flush();
 		out.close();
-	}
-	
-	//한줄평 싫어요 취소
-	@RequestMapping(value="updateRevHateReset.do")
-	public void updateRevHateReset(Review review, HttpServletResponse response) throws IOException{
-		int result = objetService.updateRevHateReset(review);
-		String resultValue = null;
-		if(result > 0) 
-			resultValue = "ok";
-		else
-			resultValue = "fail";
-		
-		PrintWriter out = response.getWriter();
-		out.append(resultValue);
-		out.flush();
-		out.close();
-	}
+	}*/
 	
 	
 	// 최민영 *******************************************************************************
