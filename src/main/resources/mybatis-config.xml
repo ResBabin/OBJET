@@ -26,6 +26,7 @@
 		<typeAlias type="com.kh.objet.reportboard.model.vo.ReportBoard" alias="ReportBoard" />
 		<typeAlias type="com.kh.objet.reportudetail.model.vo.ReportUDetail" alias="ReportUDetail" />
 		<typeAlias type="com.kh.objet.review.model.vo.Review" alias="Review" />
+		<typeAlias type="com.kh.objet.review.model.vo.ReviewStatus" alias="ReviewStatus" />
 		<typeAlias type="com.kh.objet.users.model.vo.Users" alias="Users" />
 		<typeAlias type="com.kh.objet.usersprofile.model.vo.UsersProfile" alias="UsersProfile" />
 		<typeAlias type="com.kh.objet.visitedobjet.model.vo.VisitedObjet" alias="VisitedObjet" />
