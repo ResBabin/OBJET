@@ -12,6 +12,7 @@ import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.users.model.vo.LoginCount;
 import com.kh.objet.users.model.vo.UserManagement;
+import com.kh.objet.users.model.vo.Users;
 
 @Repository("usermDao")
 public class UserManagementDao {
@@ -48,6 +49,14 @@ public class UserManagementDao {
 	public int updateLoginCount(String upcount) {
 		return mybatisSession.update("adminMapper.updateLoginCount", upcount);
 	}
-	
+	public int insertLoginCount() {
+		return mybatisSession.insert("adminMapper.insertLoginCount");
+	}
+	public String selectLoginDate() {
+		return mybatisSession.selectOne("adminMapper.selectLoginDate");
+	}
+	public List<Users> selectEnrollCount() {
+		return mybatisSession.selectList("adminMapper.selectEnrollCount");
+	}
 
 }

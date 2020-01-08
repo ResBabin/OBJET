@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userMapper">
+	
+	<select id="selectCheckId" parameterType="String" resultType="int">
+		select count(userid) from users where userid = #{userid}
+	</select>
+	
+	<select id="selectCheckNickname" parameterType="String" resultType="int">
+		select count(nickname) from users where nickname = #{nickname}
+	</select>
+	
+	<insert id="insertUsers" parameterType="Users">
+		insert into users values (#{userid}, #{userpwd}, #{usertype}, #{username}, #{nickname}, #{email}, #{phone}, #{gender}, sysdate, default, default)
+	</insert>
+
+	<insert id="insertUsersProfile" parameterType="String">
+		insert into usersprofile (userid) values (#{userid})
+	</insert>
+	
+	<select id="selectUsersLogin" parameterType="UAUP" resultType="UAUP">
+		select * from users A left outer join usersprofile B on A.userid = B.userid where A.userid= #{userid} and A.userpwd = #{userpwd}
+	</select>
+	
+	<select id="selectFindId" parameterType="Users" resultType="Users">
+		select * from users where username = #{username} and email = #{email}
+	</select>
+	
+	<select id="selectFindPwd" parameterType="Users" resultType="Users">
+		select * from users where userid = #{userid} and username = #{username} and email = #{email}
+	</select>
+	
+	<update id="updateUserPwd" parameterType="Users">
+		update users set userpwd = #{userpwd} where userid = #{userid}
+	</update>
+	
+	<update id="updateMyPage" parameterType="Users">
+		update users
+		<trim prefix="set" suffixOverrides=",">
+			<if test="userpwd != null">userpwd = #{userpwd},</if>
+			<if test="nickname != null">nickname = #{nickname},</if>
+			<if test="email != null">email = #{email},</if>
+			<if test="phone != null">phone = #{phone}, </if>
+		</trim>
+		where userid = #{userid}
+	</update>
+	
+	<select id="moveMyPageEdit" parameterType="Users" resultType="Users">
+		select * from users where userid = #{userid}
+	</select>
+	
+	<select id="selectCheckEmail" parameterType="String" resultType="int">
+		select count(*) from users where email = #{email}
+	</select>
+	
+	<update id="updateQuitUser" parameterType="String">
+		update users set quityn = 'Y' where userid = #{userid} 
+	</update>
+	
+	<insert id="insertQuitUser" parameterType="Quit2">
+		 insert into quit values (#{userid}, 'G', #{quitreason}, sysdate )
+	</insert>
+	
+	<select id="FollowerGetListCount" parameterType="String" resultType="int">
+		select count(*) from follower where to_user = #{userid}
+	</select>
+	
+	<select id="FollowingGetListCount" parameterType="String" resultType="int">
+		select count(*) from following where from_user = #{userid}
+	</select>
+	
+	<select id="moveArtistHome" parameterType="String" resultType="UAUP">
+		select * from users A left outer join usersprofile B on A.userid = B.userid where A.userid= #{value}
+	</select>
+	
+	<select id="moveArtistIntroEdit" parameterType="String">
+		select * from usersprofile where userid = #{userid}
+	</select>
+	
+	<update id="updateArtistIntro" parameterType="UsersProfile">
+		update usersprofile
+		<trim prefix="set" suffixOverrides=",">
+			<if test="useropic != null">useropic = #{useropic},</if>
+			<if test="userrpic != null">userrpic = #{userrpic},</if>
+			<if test="userintros != null">userintros = #{userintros},</if>
+			<if test="userintrol != null">userintrol = #{userintrol},</if>
+			<if test="usertag != null">usertag = #{usertag},</if>
+			<if test="portfolio != null">portfolio = #{portfolio},</if>
+			<if test="facebook != null">facebook = #{facebook},</if>
+			<if test="instagram != null">instagram = #{instagram},</if>
+			<if test="etcurl != null">etcurl = #{etcurl},</if>
+			<if test="artistemail != null">artistemail = #{artistemail},</if>
+		</trim>
+		where userid = #{userid}
+	</update>
+	
+	<insert id="insertUsersReport" parameterType="ReportUDetail">
+		insert into ReportUDetail values ( #{reportedu}, #{reporteru}, sysdate, #{reportureason})
+	</insert>
+	
+	<select id="selectUsersReportOverlap" parameterType="ReportUDetail" resultType="int">
+		<![CDATA[ select count(*) from (select reportedu, reporteru, reportudate, reportureason from reportudetail where reportedu = #{reportedu} and reporteru = #{reporteru}) where sysdate - reportudate < 8 ]]>
+	</select>
+	
+	<select id="moveFeedList" parameterType="String" resultType="Feed">
+		select * from feed where artistid = #{artistid} order by feeddate desc
+	</select>
+	
+	
+	<delete id="deleteFeed" parameterType="int">
+		delete feed where feedno = #{feedno}
+	</delete>
+	
+	<select id="moveFollowerPage" parameterType="String" resultType="Follow">
+		select users.userid, users.nickname, usersprofile.userintros, usersprofile.userrpic
+		from users join usersprofile on (users.userid = usersprofile.userid)
+		join follower on (users.userid = follower.from_user)
+		where follower.to_user = #{value} order by users.blackyn asc, follower.followdate desc
+	</select>
+	
+	<select id="moveFollowingPage" parameterType="String" resultType="Follow">
+		select users.userid, users.nickname, usersprofile.userintros, usersprofile.userrpic
+		from users join usersprofile on (users.userid = usersprofile.userid)
+		join following on (users.userid = following.to_user)
+		where following.from_user = #{value} order by users.blackyn asc, following.followdate desc
+	</select>
+	
+	<select id="selectFollowingList" parameterType="Following" resultType="int">
+		select count(*) from following where to_user = #{to_user} and from_user = #{from_user}
+	</select>
+	
+	<insert id="insertFollowing" parameterType="Following">
+		insert into following values (#{from_user}, #{to_user}, sysdate)
+	</insert>
+	
+	<insert id="insertFollower" parameterType="Follower">
+		insert into follower values (#{to_user}, #{from_user}, sysdate)
+	</insert>
+	
+	<delete id="deleteFollowing" parameterType="Following">
+		delete following where to_user = #{to_user} and from_user = #{from_user}
+	</delete>
+	
+	<delete id="deleteFollower" parameterType="Follower">
+		delete follower where to_user = #{to_user} and from_user = #{from_user}
+	</delete>
+	
+	<select id="getNickname" parameterType="String" resultType="String">
+		select nickname from users where userid = #{value}
+	</select>
+	
+	<insert id="insertFeed" parameterType="Feed">
+		insert into feed values (FEEDNO_SEQ.NEXTVAL, #{artistid}, #{userid}, #{feedcontent}, sysdate)
+	</insert>
+	
+	
+	
+	<!-- 방명록 -->
+	<select id="selectGuestBookListCount" parameterType="String" resultType="int">
+		select count(*) from guestbook where artistid = #{artistid}
+	</select>
+	
+	<select id="selectArtistGuestBook" parameterType="hashmap" resultType="GB">
+		select * from (select rownum rnum, g.gbno, g.artistid, g.userid, g.gbcontent, g.gbdate, g.privateyn, g.replyyn, r.replycontent, r.replydate 
+		from guestbook g left join gbreply r on (g.gbno = r.gbno) where g.artistid = #{artistid} order by g.gbno desc)
+		where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="selectMyGuestBookListCount" parameterType="hashmap" resultType="int">
+		select count(*) from guestbook where artistid = #{artistid} and userid = #{userid}
+	</select>
+	
+	<select id="selectMyGuestBook" parameterType="hashmap" resultType="GB">
+		select * from (select rownum rnum,g.gbno, g.artistid, g.userid, g.gbcontent, g.gbdate, g.privateyn, g.replyyn, r.replycontent, r.replydate 
+		from guestbook g left join gbreply r on (g.gbno = r.gbno) where g.artistid = #{artistid} and g.userid = #{userid} order by g.gbno desc)
+		where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	
+	<!-- 여기서부터 해야함 -->
+	<select id="selectGuestBookSearchListCount" parameterType="hashmap" resultType="int">
+		select count(*) from guestbook g left join users u on(g.userid = u.userid) where g.artistid = #{artistid} and ${searchtype} like '%' || #{keyword} || '%' order by g.gbno desc
+	</select>
+	
+	<select id="selectGuestBookSearch" parameterType="hashmap" resultType="GB">
+	    select * from (select rownum rnum, g.gbno, g.artistid as artistid, g.userid, u.nickname as usernickname, g.gbcontent, g.gbdate, g.privateyn, g.replyyn, r.replycontent, r.replydate 
+		from guestbook g left join gbreply r on (g.gbno = r.gbno) left join users u on(g.userid = u.userid) where g.artistid = #{artistid} and 
+		${searchtype} like '%' || #{keyword} || '%' 
+		order by g.gbno desc) where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	
+	
+	
+	<insert id="insertGuestBook" parameterType="GuestBook">
+		insert into guestbook values (GBNO_SEQ.NEXTVAL, #{artistid}, #{userid}, #{gbcontent}, sysdate, #{privateyn}, default )
+	</insert>
+
+	<update id="updateGuestBookPrivate" parameterType="hashmap">
+		update guestbook set privateyn = #{privateyn} where gbno = #{gbno}
+	</update>
+	
+	<delete id="deleteGuestBook" parameterType="int">
+		delete guestbook where gbno = #{value}
+	</delete>
+	
+	<delete id="deleteGuestBookReply" parameterType="int">
+		delete gbreply where gbno = #{value}
+	</delete>
+	
+	<insert id="insertGuestBookReply" parameterType="GbReply">
+		insert into gbreply values (#{gbno}, #{artistid}, #{replycontent}, sysdate)
+	</insert>
+	
+	<update id="updateReplyyn" parameterType="int">
+		update guestbook set replyyn = 'Y' where gbno = #{value}
+	</update>
+	
+	<update id="updateReplyyn2" parameterType="int">
+		update guestbook set replyyn = 'N' where gbno = #{value}
+	</update>
+	
+	
+	<update id="updateGuestBook" parameterType="GuestBook">
+		update guestbook set gbcontent = #{gbcontent}, gbdate = sysdate where gbno = #{gbno}
+	</update>
+	
+	<update id="updateGuestBookReply" parameterType="GbReply">
+		update gbreply set replycontent = #{replycontent}, replydate = sysdate where gbno = #{gbno}
+	</update>
+	
+	
+	<!-- 탈퇴회원 가져오기 -->
+	<select id="selectQuitList" resultType="String">
+		select userid from quit where sysdate - quitdate > 30
+	</select>
+	
+	<delete id="dropQuitUser1" parameterType="String">
+		delete quit where userid = #{value}
+	</delete>
+	
+	<delete id="dropQuitUser2" parameterType="String">
+		delete users where userid = #{value}
+	</delete>
+</mapper>
