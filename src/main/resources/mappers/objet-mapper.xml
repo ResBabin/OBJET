@@ -146,22 +146,27 @@ where quityn = 'N' and blackyn = 'N')
  
  
  <!-- 최민영 *************************** -->
- 	<select id="selectArtistObjetGetListCount" parameterType="string" resultType="int">
- 		select count(*) from objet where userid = #{userid} and objetstatus in ('STANDBY', 'OPEN', 'CLOSE')
- 	</select>
  
-	 <select id="selectArtistObjetList" parameterType="hashmap" resultType="objet">
-	 	select * from (
-	 	select rownum rnum, objetno, userid, objettitle, objetintro, originmainposter, renamemainposter, objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview
-		from (select objetno, userid, objettitle, objetintro, originmainposter, renamemainposter,objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview from (select * from objet where publicyn = 'Y')
-		where userid = #{userid} and objetstatus in ('STANDBY', 'OPEN', 'CLOSE') order by decode(objetstatus, 'OPEN',1,'STANDBY', 2, 3))) <![CDATA[ where rnum between #{startRow} and #{endRow} ]]>
-	 </select>
-	 
-	 <select id="selectArtistObjetSearch" parameterType="hashmap" resultType="objet">
+	 <select id="selectArtistObjetList" parameterType="String" resultType="Objet2">
 	 	select * from (
 	 	select objetno, userid, objettitle, objetintro, originmainposter, renamemainposter, objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview
 		from (select objetno, userid, objettitle, objetintro, originmainposter, renamemainposter,objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview from (select * from objet where publicyn = 'Y')
-		where objettitle like '%' || #{objettitle} || '%' and objetstatus in ('STANDBY', 'OPEN', 'CLOSE') order by decode(objetstatus, 'OPEN',1,'STANDBY', 2, 3))) where userid = #{userid}
+		where objetstatus in ('STANDBY', 'OPEN', 'CLOSE') order by decode(objetstatus, 'OPEN',1,'STANDBY', 2, 3), objetstartdate desc, objetenddate asc)) where userid = #{userid}
+	 </select>
+	 
+	 <select id="selectArtistObjetSearch" parameterType="hashmap" resultType="Objet2">
+	 	select * from (
+	 	select objetno, userid, objettitle, objetintro, originmainposter, renamemainposter, objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview
+		from (select objetno, userid, objettitle, objetintro, originmainposter, renamemainposter,objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview from (select * from objet where publicyn = 'Y')
+		where objettitle like '%' || #{objettitle} || '%' and objetstatus in ('STANDBY', 'OPEN', 'CLOSE') order by decode(objetstatus, 'OPEN',1,'STANDBY', 2, 3), objetstartdate desc, objetenddate asc)) where userid = #{userid}
+	 </select>
+	 
+	 <select id="selectlikecount" parameterType="int" resultType="int">
+	 	select count(*) from likeobjet where objetno = #{objetno}
+	 </select>
+	 
+	 <select id="selectreviewcount" parameterType="int" resultType="int">
+	 	select count(*) from review where objetno = #{objetno}
 	 </select>
  
 </mapper>

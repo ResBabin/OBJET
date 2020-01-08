@@ -272,19 +272,15 @@ public class GuestBookController {
 	// 방명록 삭제
 	@RequestMapping("deleteGuestBook.do")
 	public void deleteGuestBook(@RequestParam(value="gbno") int gbno, HttpServletResponse response) throws IOException {
-		int result1 = 0, result2 = 0;
+		int result = 0;
 		
 		// 원글 지우기
-		result1 = guestbookService.deleteGuestBook(gbno);
-		
-		// 댓글도 지우기
-		if(result1 > 0) 
-			result2 = guestbookService.deleteGuestBookReply(gbno);
+		result = guestbookService.deleteGuestBook(gbno);
 		
 		
 		String returnValue = null;
 		
-		if(result1 > 0) 
+		if(result > 0) 
 			returnValue = "ok";
 		else 
 			returnValue = "fail";

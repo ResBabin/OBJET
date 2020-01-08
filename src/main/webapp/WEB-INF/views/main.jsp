@@ -23,8 +23,19 @@
  <script type="text/javascript">
  // 메인페이지 접속시마다 탈퇴 30일 경과한 회원 삭제하기
  $.ajax({
-	url: "delQuitUsers.do"
-	type:"post"
+	url: "delQuitUsers.do",
+	type:"post",
+	success: function(result){
+		if(result == "ok"){
+            console.log("삭제데이터 존재")
+          }
+          else{
+        	  console.log("삭제데이터 없음")
+          }
+	},
+	error: function(request, status, errorData){
+		console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
+	}
 	 
  });
  </script>

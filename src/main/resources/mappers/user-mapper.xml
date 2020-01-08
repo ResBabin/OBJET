@@ -237,11 +237,7 @@
 		select userid from quit where sysdate - quitdate > 30
 	</select>
 	
-	<delete id="dropQuitUser1" parameterType="String">
-		delete quit where userid = #{value}
-	</delete>
-	
-	<delete id="dropQuitUser2" parameterType="String">
+	<delete id="dropQuitUser" parameterType="String">
 		delete users where userid = #{value}
 	</delete>
 </mapper>

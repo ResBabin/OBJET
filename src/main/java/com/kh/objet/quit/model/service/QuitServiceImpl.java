@@ -19,8 +19,8 @@ public class QuitServiceImpl implements QuitService{
 		return quitDao.selectQuitList();
 	}
 	// quit테이블에서 삭제
-	public void dropQuitUser(String userid) {
-		quitDao.dropQuitUser(userid);
+	public int dropQuitUser(String userid) {
+		return quitDao.dropQuitUser(userid);
 	}
 	
 }
