@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>팔로잉 보기</title>
+<title>팔로잉 목록</title>
 <c:import url="../header.jsp" />
 <!-- 시맨틱유아이 cdn -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -27,6 +27,52 @@ $(function(){
           }
       });
 }) //document Ready...
+
+//팔로우 추가
+function insertFollowing(data){
+		var from_user = '<c:out value="${loginUser.userid}"/>'
+		
+			$.ajax({
+		         url:"insertFollowing.do",
+		         type:"get",
+		         data:{from_user:from_user, to_user:data },
+		         success: function(result){
+		             if(result == "ok"){
+		               console.log("팔로우 추가 성공!")
+		               window.location.reload();
+		             }
+		             else{
+		            	alert("팔로우 추가 실패!")
+		             }
+		          },
+		          error: function(request, status, errorData){
+						console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
+					}
+		       });   
+	}
+	
+	
+// 구독취소
+function deleteFollowing(data){
+	var from_user = '<c:out value="${loginUser.userid}"/>'
+		$.ajax({
+	         url:"deleteFollowing.do",
+	         type:"get",
+	         data:{from_user:from_user, to_user:data },
+	         success: function(result){
+	             if(result == "ok"){
+	               console.log("팔로잉 취소 성공!")
+	               window.location.reload();
+	             }
+	             else{
+	            	alert("팔로잉 취소 실패!")
+	             }
+	          },
+	          error: function(request, status, errorData){
+					console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
+				}
+	       });   
+}
 
 
 </script>
@@ -55,8 +101,8 @@ $(function(){
 						<td style="width:70%; text-align: left;"><span style="font-size: 15pt;" onclick="window.open('artistHomeMain.do?userid=${list.userid}&loginUser=${loginUser.userid }')">${list.nickname }</span><br>
 																<span style="font-size: 10pt; color:#aaa;">${list.userintros }</span>
 						</td>
-						<td style="width:20%"><c:if test="${list.followyn eq'Y' }"><button class="small ui teal basic button" onclick="">구독중&ensp;<i class="check icon" style="width:7px;"></i></button></c:if>
-											 <c:if test="${list.followyn eq 'N' }"><button class="small ui teal button" onclick="" >구독하기</button></c:if>
+						<td style="width:20%"><c:if test="${list.followyn eq'Y' }"><button class="small ui teal basic button" onclick="deleteFollowing('${list.userid}')">구독중&ensp;<i class="check icon" style="width:7px;"></i></button></c:if>
+											 <c:if test="${list.followyn eq 'N' }"><button class="small ui teal button" onclick="insertFollowing('${list.userid}')" >구독하기</button></c:if>
 											 <c:if test="${list.followyn eq 'E' }">&ensp;</c:if>
 											 
 						</td>

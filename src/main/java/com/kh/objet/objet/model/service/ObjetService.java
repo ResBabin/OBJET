@@ -7,6 +7,7 @@ import java.util.List;
 import com.kh.objet.likeobjet.model.vo.LikeObjet;
 import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
+import com.kh.objet.objet.model.vo.Objet2;
 import com.kh.objet.objet.model.vo.ReviewKey;
 import com.kh.objet.objet.model.vo.ReviewUp;
 import com.kh.objet.paging.model.vo.Paging;
@@ -42,11 +43,13 @@ public interface ObjetService {
 	int updateRevHateReset(ReviewStatus revstatus);
 	
 	// 최민영
-	int selectArtistObjetGetListCount(String userid);
-	List<Objet> selectArtistObjetList(HashMap<String, Object> map);
+	List<Objet2> selectArtistObjetList(String userid);
 	int selectArtistObjetSearchGetListCount(String objettitle);
-	List<Objet> selectArtistObjetSearch(HashMap<String, Object> map);
+	List<Objet2> selectArtistObjetSearch(HashMap<String, Object> map);
+	int selectlikecount(int objetno);
+	int selectreviewcount(int objetno);
 	
+	// 박근수
 	ArrayList<Objet> moveMyObjetList(String userid, Paging paging);
 	List<Objet> selectMyObjetSearch(HashMap<String, Object> map);
 	Objet moveMyObjetDetail(int objetno);

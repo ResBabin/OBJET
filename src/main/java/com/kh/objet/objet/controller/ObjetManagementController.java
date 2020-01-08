@@ -1,6 +1,12 @@
 package com.kh.objet.objet.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,6 +26,7 @@ import com.kh.objet.reportboard.model.service.ReportBoardService;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.users.model.service.UserManagementService;
+import com.kh.objet.users.model.vo.LoginCount;
 import com.kh.objet.users.model.vo.UserManagement;
 
 
@@ -34,6 +42,7 @@ public class ObjetManagementController {
 	private QnaService qnaService;
 	@Autowired
 	private UserManagementService usermService;
+	
 	
 	public ObjetManagementController() {}
 	
@@ -73,11 +82,29 @@ public class ObjetManagementController {
 	public String adminMain(Model model) {
 		ArrayList<Objet> objetreqlist = (ArrayList<Objet>) objetmService.selectObjetRequestManage();
 		ArrayList<ReportBoard> reportblist = (ArrayList<ReportBoard>) reportbService.selectReportMain();
-		ArrayList<Qna>qnalist = (ArrayList<Qna>) qnaService.selectQnaMain();
+		ArrayList<Qna>qnalist = (ArrayList<Qna>) qnaService.selectQnaList();
 		ArrayList<ReportUDetail> reportulist= (ArrayList<ReportUDetail>) usermService.selectReportUDetailMain();
 		ArrayList<Objet> objetmlist = (ArrayList<Objet>) objetmService.selectAllObet();
 		ArrayList<UserManagement> userlist = (ArrayList<UserManagement>) usermService.selectUser();
 		ArrayList<String> objettag = new ArrayList<String>();
+		
+		Date currenttime = new Date(System.currentTimeMillis());
+		//현재 년/월/일
+		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
+		String today = sdf.format(currenttime);
+		//현재 년/월/일/시
+		SimpleDateFormat sdf2 = new SimpleDateFormat("HH");
+		String updatecount = sdf2.format(currenttime);
+		String upcount = "login"+updatecount;
+		logger.debug("현재 시간 : " + upcount);
+		
+	//	int testcount = usermService.updateLoginCount(upcount);
+		
+	//	logger.debug("카운트" + testcount);
+		
+		//String today = "20/01/07";
+		LoginCount todaycount = usermService.selectTodayCount(today);
+		
 		
 		for(int i = 0; i < objetmlist.size(); i++) {
 			String[] tag = objetmlist.get(i).getObjettag().split(","); 
@@ -86,6 +113,7 @@ public class ObjetManagementController {
 			}
 		}
 		System.out.println(objettag);
+		model.addAttribute("todaycount", todaycount);
 		model.addAttribute("objettag", objettag);
 		model.addAttribute("objetreqlist", objetreqlist);
 		model.addAttribute("objetmlist", objetmlist);
@@ -95,5 +123,28 @@ public class ObjetManagementController {
 		model.addAttribute("userlist", userlist);
 		return "admin/adminmain"; 
 	}
+	@RequestMapping(value="logincount", method=RequestMethod.POST)
+	public void updateLoginCount(HttpServletResponse response) throws IOException {
+		// 현재 년/월/일/시
+		Date currenttime = new Date(System.currentTimeMillis());
+		SimpleDateFormat sdf2 = new SimpleDateFormat("HH");
+		String updatecount = sdf2.format(currenttime);
+		String upcount = "login" + updatecount;
+		logger.debug("현재 시간 : " + upcount);
 
+		int testcount = usermService.updateLoginCount(upcount);
+
+		logger.debug("카운트" + testcount);
+
+		PrintWriter out = response.getWriter();
+
+		if (testcount > 0) {
+			out.append("success");
+		} else {
+			out.append("fail");
+		}
+		out.flush();
+		
+	}
+	
 }

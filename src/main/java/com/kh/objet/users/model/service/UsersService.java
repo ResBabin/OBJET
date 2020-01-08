@@ -37,7 +37,6 @@ public interface UsersService {
 	
 	int selectUsersReportOverlap(ReportUDetail reportUDetail);
 	
-	void dropQuitUser(String userid);
 
 	
 }

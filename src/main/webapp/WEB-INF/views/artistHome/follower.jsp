@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>팔로워 보기</title>
+<title>팔로워 목록</title>
 <c:import url="../header.jsp" />
 <!-- 시맨틱유아이 cdn -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -56,7 +56,6 @@ function insertFollowing(data){
 // 구독취소
 function deleteFollowing(data){
 	var from_user = '<c:out value="${loginUser.userid}"/>'
-	
 		$.ajax({
 	         url:"deleteFollowing.do",
 	         type:"get",

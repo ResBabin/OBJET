@@ -7,6 +7,6 @@ import com.kh.objet.quit.model.vo.Quit;
 public interface QuitService {
 	
 	List<String> selectQuitList();
-	void dropQuitUser(String userid);
+	int dropQuitUser(String userid);
 
 }

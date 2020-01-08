@@ -541,6 +541,7 @@ function editGB(gbno,replyyn){
 							</c:if>
 						</c:if>
 					</div>
+				</div>
 		</c:if>
 		<c:if test="${empty list}">
 		<c:if test="${artist.userid == loginUser.userid }">
@@ -552,9 +553,10 @@ function editGB(gbno,replyyn){
 			</div>
 		</c:if>
 		</c:if>
-				</div><br><br>
 				
+				<br><br><br><br>
 				<!-- 작가홈 주인일 때 검색창 -->
+				<c:if test="${!empty list }">
 				<c:if test="${artist.userid == loginUser.userid }">
 				<div align="center">
 					<form action="moveGuestBookSearch.do" method="get">
@@ -577,19 +579,18 @@ function editGB(gbno,replyyn){
 					</div>
 				</div>
 				</c:if>
-				
+				</c:if>
 					
-				
-				
 				<!-- 작가홈 구경온 사람일 때는 내가 쓴 글 보기 -->
-			<br>
+			<c:if test="${!empty list }">
 			<c:if test="${artist.userid != loginUser.userid }">
 				<div align="center"><button class="ui medium grey basic button" id="mygblist" onclick="location.href='moveArtistGuestBook.do?artistid=${artist.userid}&userid=${loginUser.userid }&currentPage=1'">목록보기</button>&emsp;
 									<button class="ui medium grey basic button" id="mygblist" onclick="location.href='moveMyGuestBook.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=1'">내가 쓴 글 보기</button>
 				</div>
 			</c:if>
+			</c:if>
 			</div>
-			
+		</div>	
 			
 <c:import url="../footer.jsp" />
 </body>

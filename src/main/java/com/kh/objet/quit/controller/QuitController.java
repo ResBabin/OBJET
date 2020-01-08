@@ -1,6 +1,10 @@
 package com.kh.objet.quit.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,18 +35,28 @@ public class QuitController {
 	
 	// 탈퇴회원 30일경과 후 완전 삭제
 		@RequestMapping(value="delQuitUsers.do", method=RequestMethod.POST)
-		public void delQuitUsers() {
+		public void delQuitUsers(HttpServletResponse response) throws IOException {
 			// 탈퇴회원 테이블에서 30일 경과한 회원 가져오기
 			List<String> quitUseridList = quitService.selectQuitList();
-			
+			int result = 0;
 			if(quitUseridList != null) {
 				for(String userid : quitUseridList) {
-					// quit테이블에서 삭제
-					quitService.dropQuitUser(userid);
-					// users테이블에서 삭제
-					usersService.dropQuitUser(userid);
+					// users테이블에서 삭제(관련정보 모두 삭제)
+					result = quitService.dropQuitUser(userid);
 				}
 			}
+			
+			String returnValue = null;
+			if(result > 0 ) 
+				returnValue = "ok";
+			else
+				returnValue = "fail";
+			
+			PrintWriter out = response.getWriter();
+			out.append(returnValue);
+			out.flush();
+			out.close();
+			
 		}
 		
 }

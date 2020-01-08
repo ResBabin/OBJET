@@ -26,6 +26,7 @@ import com.kh.objet.likeobjet.model.vo.LikeObjet;
 import com.kh.objet.objet.model.service.ObjetServiceImpl;
 import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
+import com.kh.objet.objet.model.vo.Objet2;
 import com.kh.objet.objet.model.vo.ReviewKey;
 import com.kh.objet.objet.model.vo.ReviewUp;
 import com.kh.objet.paging.model.vo.Paging;
@@ -390,39 +391,17 @@ public class ObjetController {
 	// 최민영 *******************************************************************************
 	// 작가홈 오브제 전체 리스트 보기
 			@RequestMapping(value= "selectArtistObjetList.do", method=RequestMethod.POST)
-			@ResponseBody
-			public void selectArtistObjetList(@RequestParam("userid") String userid, @RequestParam("currentPage") String currentPage, HttpServletResponse response) throws IOException {
+			public void selectArtistObjetList(@RequestParam("userid") String userid, HttpServletResponse response) throws IOException {
 				
-				//페이징처리 
-				int curPage = Integer.valueOf(currentPage);
-				int listCount = objetService.selectArtistObjetGetListCount(userid);
-				String objetkind = "all";
-				paging.makePage(listCount, curPage);
+				
+				List<Objet2> objetlist = objetService.selectArtistObjetList(userid);
 
-				// HashMap 객체 생성
-				HashMap<String, Object> map = new HashMap<String, Object>();
-
-				map.put("startRow", paging.getStartRow());
-				map.put("endRow", paging.getEndRow());
-				map.put("userid", userid); // 대상 아티스트 아이디
-				
-				List<Objet> objetlist = objetService.selectArtistObjetList(map);
-						
-				//가져온 객체 담기
-			/*	HashMap<String, Object> result = null;
-				if(objetlist.size() >= 0) {
-					result = new HashMap<String,Object>();
-					result.put("paging", paging);
-					result.put("objetlist", objetlist);
-					result.put("objetkind", "all"); //출력타입은 전체(all) 과 분류(sort)로 나뉘어져있음
-				} */
-				
 				//전송용 json 객체
 				JSONObject sendJson = new JSONObject();
 				//json 배열 객체
 				JSONArray jarr = new JSONArray();
 				//list를 jarr 로 옮겨 저장 (복사)
-				for(Objet objet : objetlist) {
+				for(Objet2 objet : objetlist) {
 				JSONObject job = new JSONObject();
 				
 				job.put("objetno", objet.getObjetno());
@@ -438,10 +417,10 @@ public class ObjetController {
 				job.put("objetregidate", objet.getObjetregidate().toString());
 				job.put("objetstatus", objet.getObjetstatus());
 				job.put("objetview", objet.getObjetview());
+				job.put("likecount", objetService.selectlikecount(objet.getObjetno()));
+				job.put("reviewcount", objetService.selectreviewcount(objet.getObjetno()));
 				jarr.add(job);
 				}
-				
-				
 
 				sendJson.put("objetlist", jarr);
 				
@@ -466,14 +445,14 @@ public class ObjetController {
 				map.put("userid", userid); // 대상 아티스트 아이디
 				map.put("objettitle", keyword);
 				
-				List<Objet> objetlist = objetService.selectArtistObjetSearch(map);
+				List<Objet2> objetlist = objetService.selectArtistObjetSearch(map);
 				
 				//전송용 json 객체
 				JSONObject sendJson = new JSONObject();
 				//json 배열 객체
 				JSONArray jarr = new JSONArray();
 				//list를 jarr 로 옮겨 저장 (복사)
-				for(Objet objet : objetlist) {
+				for(Objet2 objet : objetlist) {
 				JSONObject job = new JSONObject();
 				
 				job.put("objetno", objet.getObjetno());
@@ -489,10 +468,11 @@ public class ObjetController {
 				job.put("objetregidate", objet.getObjetregidate().toString());
 				job.put("objetstatus", objet.getObjetstatus());
 				job.put("objetview", objet.getObjetview());
+				job.put("likecount", objetService.selectlikecount(objet.getObjetno()));
+				job.put("reviewcount", objetService.selectreviewcount(objet.getObjetno()));
+				
 				jarr.add(job);
 				}
-				
-				
 
 				sendJson.put("objetlist", jarr);
 				

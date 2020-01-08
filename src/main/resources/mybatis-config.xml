@@ -17,6 +17,7 @@
 		<typeAlias type="com.kh.objet.likeobjet.model.vo.LikeObjet" alias="LikeObjet" />
 		<typeAlias type="com.kh.objet.notice.model.vo.Notice" alias="Notice" />
 		<typeAlias type="com.kh.objet.objet.model.vo.Objet" alias="Objet" />
+		<typeAlias type="com.kh.objet.objet.model.vo.Objet2" alias="Objet2" />
 		<typeAlias type="com.kh.objet.objet.model.vo.Artist" alias="Artist" />
 		<typeAlias type="com.kh.objet.objet.model.vo.ReviewKey" alias="ReviewKey" />
 		<typeAlias type="com.kh.objet.objet.model.vo.ReviewUp" alias="ReviewUp" />
@@ -34,6 +35,7 @@
 		<typeAlias type="com.kh.objet.calendar.model.vo.Calendar" alias="Calendar" />
 		<typeAlias type="com.kh.objet.users.model.vo.UAUP" alias="UAUP" />
 		<typeAlias type="com.kh.objet.objet.model.vo.Artist" alias="Artist" />
+		<typeAlias type="com.kh.objet.users.model.vo.LoginCount" alias="LoginCount" />
 	</typeAliases>
 	<mappers>
 <!-- 		<mapper resource="mappers/member-mapper.xml" />

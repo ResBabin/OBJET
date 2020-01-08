@@ -11,6 +11,7 @@ import com.kh.objet.likeobjet.model.vo.LikeObjet;
 import com.kh.objet.objet.model.dao.ObjetDao;
 import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
+import com.kh.objet.objet.model.vo.Objet2;
 import com.kh.objet.objet.model.vo.ReviewKey;
 import com.kh.objet.objet.model.vo.ReviewUp;
 import com.kh.objet.paging.model.vo.Paging;
@@ -149,16 +150,11 @@ public class ObjetServiceImpl implements ObjetService{
 	
 	// 최민영 *******************************************************
 	
-	// 작가홈 오브제 리스트카운트
-		@Override
-		public int selectArtistObjetGetListCount(String userid) {
-			return objetDao.selectArtistObjetGetListCount(userid);
-		}
 
 	// 작가홈 오브제 리스트 보기		
 		@Override
-		public List<Objet> selectArtistObjetList(HashMap<String, Object> map) {
-			return objetDao.selectArtistObjetList(map);
+		public List<Objet2> selectArtistObjetList(String userid) {
+			return objetDao.selectArtistObjetList(userid);
 		}
 		
 		
@@ -171,15 +167,28 @@ public class ObjetServiceImpl implements ObjetService{
 		
 	// 작가홈 오브제 검색
 		@Override
-		public List<Objet> selectArtistObjetSearch(HashMap<String, Object> map) {
+		public List<Objet2> selectArtistObjetSearch(HashMap<String, Object> map) {
 			return objetDao.selectArtistObjetSearch(map);
+		}
+	
+
+	// 관심수 가져오기
+		@Override
+		public int selectlikecount(int objetno) {
+			return objetDao.selectlikecount(objetno);
+		}
+		
+
+	// 리뷰 수 가져오기
+		@Override
+		public int selectreviewcount(int objetno) {
+			return objetDao.selectreviewcount(objetno);
 		}
 		
 		
 		
 		
-		
-	
+	// 박근수
 	// 오브제 관리-내 오브제 페이지 이동
 	@Override
 	public ArrayList<Objet> moveMyObjetList(String userid, Paging paging) {
@@ -231,6 +240,8 @@ public class ObjetServiceImpl implements ObjetService{
 	
 
 	
+
+
 
 
 
