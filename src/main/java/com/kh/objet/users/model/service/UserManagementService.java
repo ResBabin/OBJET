@@ -8,6 +8,7 @@ import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.users.model.vo.LoginCount;
 import com.kh.objet.users.model.vo.UserManagement;
+import com.kh.objet.users.model.vo.Users;
 
 public interface UserManagementService {
 	public List<UserManagement> selectUser();
@@ -20,4 +21,7 @@ public interface UserManagementService {
 	public List<ReportUDetail> selectReportUDetailMain();
 	public LoginCount selectTodayCount(String today);
 	public int updateLoginCount(String upcount);
+	public int insertLoginCount();
+	public String selectLoginDate();
+	public List<Users> selectEnrollCount();
 }

@@ -28,6 +28,7 @@ import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.users.model.service.UserManagementService;
 import com.kh.objet.users.model.vo.LoginCount;
 import com.kh.objet.users.model.vo.UserManagement;
+import com.kh.objet.users.model.vo.Users;
 
 
 @Controller
@@ -87,16 +88,52 @@ public class ObjetManagementController {
 		ArrayList<Objet> objetmlist = (ArrayList<Objet>) objetmService.selectAllObet();
 		ArrayList<UserManagement> userlist = (ArrayList<UserManagement>) usermService.selectUser();
 		ArrayList<String> objettag = new ArrayList<String>();
+		ArrayList<Users> enrollcount = (ArrayList<Users>) usermService.selectEnrollCount();
 		
 		Date currenttime = new Date(System.currentTimeMillis());
 		//현재 년/월/일
-		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
-		String today = sdf.format(currenttime);
+		SimpleDateFormat sdf = new SimpleDateFormat("yy");
+		String thisyear = sdf.format(currenttime);
 		//현재 년/월/일/시
-		SimpleDateFormat sdf2 = new SimpleDateFormat("HH");
-		String updatecount = sdf2.format(currenttime);
-		String upcount = "login"+updatecount;
-		logger.debug("현재 시간 : " + upcount);
+		SimpleDateFormat sdf2 = new SimpleDateFormat("yy/MM");
+		String  enrollmonth = "";
+		SimpleDateFormat sdf3 = new SimpleDateFormat("yy/MM/dd");
+		
+		String today = sdf3.format(currenttime);
+		
+		int count1 = 0, count2 = 0, count3 = 0, count4 = 0, count5 = 0, count6 = 0, count7 = 0, count8 = 0, count9 = 0, count10 = 0, count11 = 0, count12 = 0; 
+		
+		for (int i = 0; i < enrollcount.size(); i++) {
+			enrollmonth = sdf2.format(enrollcount.get(i).getEnrolldate());
+			if(enrollmonth.equals(thisyear+"/01")) {
+				count1++;
+			}else if(enrollmonth.equals(thisyear+"/02")) {
+				count2++;
+			}else if(enrollmonth.equals(thisyear+"/03")) {
+				count3++;
+			}else if(enrollmonth.equals(thisyear+"/04")) {
+				count4++;
+			}else if(enrollmonth.equals(thisyear+"/05")) {
+				count5++;
+			}else if(enrollmonth.equals(thisyear+"/06")) {
+				count6++;
+			}else if(enrollmonth.equals(thisyear+"/07")) {
+				count7++;
+			}else if(enrollmonth.equals(thisyear+"/08")) {
+				count8++;
+			}else if(enrollmonth.equals(thisyear+"/09")) {
+				count9++;
+			}else if(enrollmonth.equals(thisyear+"/10")) {
+				count10++;
+			}else if(enrollmonth.equals(thisyear+"/11")) {
+				count11++;
+			}else if(enrollmonth.equals(thisyear+"/12")){
+				count12++;
+			}
+				
+		}
+		logger.debug((thisyear+"/02"));
+		logger.debug(enrollmonth);
 		
 	//	int testcount = usermService.updateLoginCount(upcount);
 		
@@ -119,11 +156,24 @@ public class ObjetManagementController {
 		model.addAttribute("objetmlist", objetmlist);
 		model.addAttribute("reportblist", reportblist);
 		model.addAttribute("qnalist", qnalist);
+		model.addAttribute("enrollcount", enrollcount);
 		model.addAttribute("reportulist", reportulist);
 		model.addAttribute("userlist", userlist);
+		model.addAttribute("count1", count1);
+		model.addAttribute("count2", count2);
+		model.addAttribute("count3", count3);
+		model.addAttribute("count4", count4);
+		model.addAttribute("count5", count5);
+		model.addAttribute("count6", count6);
+		model.addAttribute("count7", count7);
+		model.addAttribute("count8", count8);
+		model.addAttribute("count9", count9);
+		model.addAttribute("count10", count10);
+		model.addAttribute("count11", count11);
+		model.addAttribute("count12", count12);
 		return "admin/adminmain"; 
 	}
-	@RequestMapping(value="logincount", method=RequestMethod.POST)
+	/*@RequestMapping(value="logincount", method=RequestMethod.POST)
 	public void updateLoginCount(HttpServletResponse response) throws IOException {
 		// 현재 년/월/일/시
 		Date currenttime = new Date(System.currentTimeMillis());
@@ -145,6 +195,15 @@ public class ObjetManagementController {
 		}
 		out.flush();
 		
+	}
+	*/
+	@RequestMapping(value="insertlogindate", method=RequestMethod.POST)
+	public void updateLoginCount(HttpServletResponse response) throws IOException {
+		Date currenttime = new Date(System.currentTimeMillis());
+		//현재 년/월/일
+		if( usermService.selectLoginDate() == null ) {
+			usermService.insertLoginCount();
+		}
 	}
 	
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -96,7 +97,31 @@
 
 $(function() {
 	
+	
+	
+	setInterval(function() {
+	var now = new Date();
+	var hh = now.getHours();
+	console.log(now.getHours(), now.getMinutes());
+	if(hh==00){
+		
 	$.ajax({
+		url : "insertlogindate.do",
+		type : "post",
+		success : function() {
+			console.log("성공");
+		},
+		error : function(request, status, errorData) {
+			console.log("error code : " + request.status
+					+ "\nMessage : " + request.responseText
+					+ "\nError : " + errorData);
+		}
+	});
+	}
+	}, (30*(60*1000)));
+	
+	
+	/* $.ajax({
 		url : "logincount.do",
 		type : "post",
 		success : function(result) {
@@ -107,7 +132,7 @@ $(function() {
 					+ "\nMessage : " + request.responseText
 					+ "\nError : " + errorData);
 		}
-	});
+	}); */
 	
 $("#progress1").progress();
 $("#progress2").progress();
@@ -163,16 +188,42 @@ console.log(userbkper);
 
 
 
+var enroll1 = ${ count1 };
+var enroll2 = ${ count2 };
+var enroll3 = ${ count3 };
+var enroll4 = ${ count4 };
+var enroll5 = ${ count5 };
+var enroll6 = ${ count6 };
+var enroll7 = ${ count7 };
+var enroll8 = ${ count8 };
+var enroll9 = ${ count9 };
+var enroll10 = ${ count10 };
+var enroll11 = ${ count11 };
+var enroll12 = ${ count12 };
+
+var thisyear = new Date();
+thisyear.getYear();
+console.log(thisyear.getFullYear());
 
 var myChart2 = new Chart(ctx2, {
     type: 'bar',
     data: {
         labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
         datasets: [{	
-            data: [usercount, bkcount, 0],
+            data: [enroll1, enroll2, enroll3, enroll4, enroll5, enroll6, enroll7, enroll8, enroll9, enroll10, enroll11, enroll12],
             backgroundColor: [
-            	  'rgba(110, 63, 200, 1)',
-                'rgba(70, 70, 70, 1)'
+            	 'rgba(150, 150, 150, 1)',
+            	 'rgba(150, 150, 150, 1)',
+            	 'rgba(150, 150, 150, 1)',
+            	 'rgba(150, 150, 150, 1)',
+            	 'rgba(150, 150, 150, 1)',
+            	 'rgba(150, 150, 150, 1)',
+            	 'rgba(150, 150, 150, 1)',
+            	 'rgba(150, 150, 150, 1)',
+            	 'rgba(150, 150, 150, 1)',
+            	 'rgba(150, 150, 150, 1)',
+            	 'rgba(150, 150, 150, 1)',
+            	 'rgba(150, 150, 150, 1)'
             ]
         }]
     },
@@ -239,6 +290,9 @@ var myChart3 = new Chart(ctx3, {
 	<div id="bodytag">
 		<div style="padding: 140px; padding-top: 20px; padding-right: 20px; display: flex;">
 			<a href="userm.do">
+<%-- <c:forEach items="${ enrollcount }" var="enroll">
+${ enroll.enrolldate } 
+</c:forEach> --%>
 				<div id="movediv" style="margin-left: 0px;">
 						<label class="ui small red label" style="margin-top: -150px; margin-right: -70px;">${ userlist.size() }</label> 
 					<h5 class="ui header" style="margin-top: 8px;">
@@ -288,22 +342,32 @@ var myChart3 = new Chart(ctx3, {
 					</h5>
 				</div>
 			</a>
-			<div style="width: 680px; margin-top: 5px; margin-left: 20px;">
-			 <label class="label">???????? ${ reportulist.size() * 10} % </label>
-			<div class="ui violet progress" style="margin-top: 5px;margin-bottom: 0px;" id="progress1" data-percent="${ reportulist.size() * 10} ">
+			<div style="width: 680px; margin-top: 0px; margin-left: 20px;">
+			<div style="margin-top: 0px;">
+			<%-- <c:set var="reqcount" value="${ objetreqlist.size() /objetmlist.size() * 100}" /> --%>
+			<fmt:formatNumber type="number" pattern="0.00" value="${ objetreqlist.size() /objetmlist.size() * 100}" var="reqcount"/>
+			 <label class="label">신청작 ??--> 전체신청작  ${ reqcount }% </label>
+			<div class="ui violet progress" style="margin-top: 0px;margin-bottom: 0px;" id="progress1" data-percent="${ reportulist.size() * 10} ">
 				<div class="bar" align="center"></div>
 			</div>
-			${ qnalist.size() } 
-			<c:set value="${ 0 }" var="qnacount"/>
-			<c:forEach items="${ qnalist }" var="qna">
-			<c:if test="${ !empty qna.qnaanswer }">
-			답변률
-			</c:if>
+			 </div>
+			<c:set value="${ 0 }" var="nocount"/>
+			<c:set value="${ 0 }" var="answercount"/>
+			<c:forEach items="${ qnalist }" var="qna" >
+			<c:if test="${ empty qna.qnaanswer }">
+			<c:set value="${ nocount + 1 }" var="nocount"/>
+ 			</c:if>
+ 			<c:if test="${ !empty qna.qnaanswer }">
+ 			<c:set value="${ answercount + 1 }" var="answercount"/>
+ 			</c:if>
 			</c:forEach>
-			${ qnacount }
-			<div class="ui grey progress" style="margin-top: 10px; margin-bottom: 15px;" id="progress2" data-percent="${ objetreqlist.size() / objetmlist.size() * 100 }  "> 
+			<div style="margin-top: 7px;">
+			<fmt:formatNumber type="number" pattern="0.00" value="${ answercount  / qnalist.size() * 100 }" var="qnacount"/>
+			<label class="label">1대1문의 답변률 :  ${ qnacount }%</label>
+			<div class="ui blue progress" style="margin-top: 0px; margin-bottom: 15px;" id="progress2" data-percent="${ answercount / qnalist.size() * 100 }"> 
 				<div class="bar" align="center"></div>
 			</div> 
+			</div>
 			</div>
 		</div>
 		<div style="display: flex; margin-top: -130px; ">
@@ -382,7 +446,7 @@ var myChart3 = new Chart(ctx3, {
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${ qnalist }" var="qna">
+						<c:forEach items="${ qnalist }" var="qna" end="4">
 							<c:url value="qnamd.do" var="qnamd">
 								<c:param name="qnano" value="${ qna.qnano }" />
 							</c:url>

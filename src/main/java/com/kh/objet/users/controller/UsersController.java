@@ -2,8 +2,11 @@ package com.kh.objet.users.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+
 
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
@@ -25,9 +28,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.kh.objet.quit.model.vo.Quit;
 import com.kh.objet.quit.model.vo.Quit2;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
+import com.kh.objet.users.model.service.UserManagementService;
 import com.kh.objet.users.model.service.UsersServiceImpl;
 import com.kh.objet.users.model.vo.UAUP;
 import com.kh.objet.users.model.vo.Users;
@@ -38,6 +41,8 @@ public class UsersController {
 	
 	@Autowired
 	private UsersServiceImpl usersService;
+	@Autowired
+	private UserManagementService usermService;
 	
 	// 패스워드 암호화 
 		@Autowired
@@ -155,6 +160,15 @@ public class UsersController {
 			String vfn = "main";
 			if(loginUser != null && loginUser.getQuityn().equals("N")) {
 				session.setAttribute("loginUser", loginUser);
+				if(loginUser.getUsertype().equals("USER")){
+					Date currenttime = new Date(System.currentTimeMillis());
+					SimpleDateFormat sdf2 = new SimpleDateFormat("HH");
+					String updatecount = sdf2.format(currenttime);
+					String upcount = "login" + updatecount;
+					usermService.updateLoginCount(upcount);
+				}else {
+					vfn = "redirect:/adminmain.do";
+				}
 			}else {
 				vfn = "user/loginAgain";
 			}

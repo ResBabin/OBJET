@@ -291,5 +291,14 @@
 	 ${value} = (${value}+1)
 	 where LOGINDATE like sysdate
 	</update>
-
+	<insert id="insertLoginCount">
+	insert into logincount values (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, to_char(sysdate, 'yy/MM/dd'))
+	</insert>
+	<select id="selectLoginDate" resultType="LoginCount">
+	select logindate from logincount where logindate = to_char(sysdate, 'yy/MM/dd')
+	</select>
+	<!-- 회원가입 카운트 -->
+	<select id="selectEnrollCount" resultType="Users">
+	select to_date(to_char(enrolldate, 'yy/MM/dd')) as "enrolldate" from users 
+	</select>
 </mapper> 

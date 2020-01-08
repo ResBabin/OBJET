@@ -11,6 +11,7 @@ import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.users.model.dao.UserManagementDao;
 import com.kh.objet.users.model.vo.LoginCount;
 import com.kh.objet.users.model.vo.UserManagement;
+import com.kh.objet.users.model.vo.Users;
 
 @Service("usermService")
 public class UserManagementServiceImpl implements UserManagementService{
@@ -66,6 +67,21 @@ public class UserManagementServiceImpl implements UserManagementService{
 	@Override
 	public int updateLoginCount(String upcount) {
 		return usermDao.updateLoginCount(upcount);
+	}
+
+	@Override
+	public int insertLoginCount() {
+		return usermDao.insertLoginCount();
+	}
+
+	@Override
+	public String selectLoginDate() {
+		return usermDao.selectLoginDate();
+	}
+
+	@Override
+	public List<Users> selectEnrollCount() {
+		return usermDao.selectEnrollCount();
 	}
 
 	
