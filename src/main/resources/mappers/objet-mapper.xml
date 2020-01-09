@@ -13,28 +13,28 @@
  
  <!-- 작가 전체 리스트   -->
 <select id="selectArtistAll" resultType="Artist">
-select distinct userid, usertype, username, nickname, quityn, blackyn, useropic, userrpic,
-userintros, userintrol, usertag, portfolio, objetstatus, originmainposter, renamemainposter, objettag
-from (select a.userid, a.usertype, a.username, a.nickname, a.quityn, a.blackyn, b.useropic, b.userrpic, b.userintros, b.userintrol, b.usertag, b.portfolio, 
-c.objetstatus, c.originmainposter, c.renamemainposter, c.objettag from users a
+select a.userid, a.nickname nickname, b.userrpic, b.userintros, b.userintrol, b.usertag, max(c.objetstatus) objetstatus, 
+max(c.renamemainposter), max(c.objettag), max(c.objetenddate) objetenddate, max(c.objetstartdate) objetstartdate
+from users a
 join usersprofile b on a.userid = b.userid
 left outer join objet c on a.userid = c.userid
-where quityn = 'N' and blackyn = 'N')
-order by objetstatus asc
+where quityn = 'N' and blackyn = 'N'
+group by a.nickname, a.userid, b.userrpic, b.userintros, b.userintrol, b.usertag 
+order by objetenddate desc
 </select>
 
 <!-- 작가 전체 리스트 정렬  -->
 <select id="selectArtistListOrder" resultType="Artist" parameterType="string">
-select distinct userid, usertype, username, nickname, quityn, blackyn, useropic, userrpic,
-userintros, userintrol, usertag, portfolio, objetstatus, originmainposter, renamemainposter, objettag
-from (select a.userid, a.usertype, a.username, a.nickname, a.quityn, a.blackyn, b.useropic, b.userrpic, b.userintros, b.userintrol, b.usertag, b.portfolio, 
-c.objetstatus, c.originmainposter, c.renamemainposter, c.objettag from users a
+select a.userid, a.nickname nickname, b.userrpic, b.userintros, b.userintrol, b.usertag, max(c.objetstatus) objetstatus, 
+max(c.renamemainposter), max(c.objettag), max(c.objetenddate) objetenddate, max(c.objetstartdate) objetstartdate
+from users a
 join usersprofile b on a.userid = b.userid
 left outer join objet c on a.userid = c.userid
-where quityn = 'N' and blackyn = 'N')
+where quityn = 'N' and blackyn = 'N'
+group by a.nickname, a.userid, b.userrpic, b.userintros, b.userintrol, b.usertag  
 <trim prefix="order by">
-<if test="_parameter=='statusdesc'"> objetstatus desc</if>
-<if test="_parameter=='nameasc'"> nickname asc</if>
+<if test="_parameter=='statusdesc'"> objetenddate desc NULLS LAST</if>
+<if test="_parameter=='nameasc'"> nickname asc NULLS LAST</if>
 </trim>
 </select>
  
@@ -81,13 +81,13 @@ where quityn = 'N' and blackyn = 'N')
  </insert>
  
  <!-- 한줄평 리스트  -->
- <select id="selectReview" parameterType="int" resultType="Review">
+ <select id="selectReview" parameterType="Review" resultType="Review">
  select a.revuserid, a.objetno, a.revcontent, a.revstars, a.revdate, b.userrpic, c.nickname, count(d.revgood) revgood, count(d.revhate) revhate
  from review a
  join usersprofile b on a.revuserid = b.userid
  join users c on a.revuserid = c.userid
  join reviewstatus d on a.revuserid = d.revuserid
- where a.objetno = #{objetno}
+ where a.objetno = #{objetno} and a.revuserid != #{revuserid}
  group by a.revuserid, a.objetno, a.revcontent, a.revstars, a.revdate, b.userrpic, c.nickname
  order by a.revdate desc
  </select>
@@ -99,7 +99,7 @@ where quityn = 'N' and blackyn = 'N')
  join usersprofile b on a.revuserid = b.userid
  join users c on a.revuserid = c.userid
  join reviewstatus d on a.revuserid = d.revuserid
- where a.objetno = #{objetno}
+ where a.objetno = #{objetno} and a.revuserid != #{userid}
  group by a.revuserid, a.objetno, a.revcontent, a.revstars, a.revdate, b.userrpic, c.nickname
 <trim prefix="order by">
 <if test="order=='reviewdatedesc'"> a.revdate desc</if>
@@ -143,25 +143,43 @@ where quityn = 'N' and blackyn = 'N')
  
  <!-- 한줄평 평가 리스트 -->
  <select id="selectReivewStatus" parameterType="ReviewStatus" resultType="ReviewStatus">
- 	 select *
-	 from reviewstatus
-	 where userid = #{userid} and objetno = #{objetno}
+ 	select a.revuserid, a.objetno, a.userid, a.revgood, a.revhate, max(b.revdate) revdate
+	from reviewstatus a
+   left join review b on a.revuserid = b.revuserid
+	where a.userid = #{userid} and b.objetno = #{objetno} and a.objetno = #{objetno}
+   group by a.revuserid, a.objetno, a.userid, a.revgood, a.revhate
+	 order by revdate desc
  </select>
  
  <!-- 한줄평 좋아요  체크 -->
  <select id="selectRevGoodChk" parameterType="ReviewStatus" resultType="int">
- 	select count(*) from reviewstatus where revuserid = #{revuserid} and userid = #{userid} and objetno = #{objetno}
+ 	select count(revgood) from reviewstatus where revuserid = #{revuserid} and userid = #{userid} and objetno = #{objetno}
+ </select>
+ 
+  <!-- 한줄평 싫어요  체크 -->
+ <select id="selectRevHateChk" parameterType="ReviewStatus" resultType="int">
+ 	select count(revhate) from reviewstatus where revuserid = #{revuserid} and userid = #{userid} and objetno = #{objetno}
  </select>
  
  <!-- 한줄평 좋아요 -->
- <update id="updateRevGood" parameterType="ReviewStatus">
- 	update reviewstatus set revgood = #{revgood} where revuserid = #{revuserid} and userid = #{userid} and objetno = #{objetno}
- </update>
+ <insert id="insertRevGood" parameterType="ReviewStatus">
+ 	insert into reviewstatus values(#{revuserid}, #{objetno}, #{userid}, #{revgood}, null) 
+ </insert>
+ 
+ <!-- 한줄평 좋아요 취소  -->
+ <delete id="deleteRevGood" parameterType="ReviewStatus">
+	delete from reviewstatus where revuserid = #{revuserid} and objetno = #{objetno} and userid = #{userid} 
+ </delete>
  
   <!-- 한줄평 싫어요 -->
- <update id="updateRevHate" parameterType="ReviewStatus">
- 	update reviewstatus set revhate = #{revhate} where revuserid = #{revuserid} and userid = #{userid} and objetno = #{objetno}
- </update>
+ <insert id="insertRevHate" parameterType="ReviewStatus">
+ 	insert into reviewstatus values(#{revuserid}, #{objetno}, #{userid}, null, #{revhate}) 
+ </insert>
+ 
+ <!-- 한줄평 싫어요 취소  -->
+ <delete id="deleteRevHate" parameterType="ReviewStatus">
+	delete from reviewstatus where revuserid = #{revuserid} and objetno = #{objetno} and userid = #{userid} 
+ </delete>
  
  
  <!-- 최민영 *************************** -->

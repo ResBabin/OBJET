@@ -39,6 +39,7 @@ public class ObjetServiceImpl implements ObjetService{
 	}
 	
 	//오브제 작가 전체리스트 정렬
+	@Override
 	public ArrayList<Artist> selectArtistListOrder(String order) {
 		return objetDao.selectArtistListOrder(order);
 	}
@@ -69,83 +70,104 @@ public class ObjetServiceImpl implements ObjetService{
 	
 	//한줄평 리스트 
 	@Override
-	public ArrayList<Review> selectReview(int objetno) {
-		return objetDao.selectReview(objetno);
+	public ArrayList<Review> selectReview(Review review) {
+		return objetDao.selectReview(review);
 	}
 	
 	//내 한줄평
+	@Override
 	public Review selectReviewOne(ReviewKey rk) {
 		return objetDao.selectReviewOne(rk);
 	}
 	
 	//한줄평 리스트 정렬
+	@Override
 	public ArrayList<Review> selectReviewOrder(ReviewKey rk) {
 		return objetDao.selectReviewOrder(rk);
 	}
 	
 	//한줄평 추가
+	@Override
 	public int insertReview(Review review) {
 		return objetDao.insertReview(review);
 	}
 	
 	//한줄평 수정
+	@Override
 	public int updateReview(ReviewUp review) {
 		return objetDao.updateReview(review);
 	}
 	
 	//한줄평 삭제
+	@Override
 	public int deleteReview(Review review) {
 		return objetDao.deleteReview(review);
 	}
 	
 	//관심오브제 추가
+	@Override
 	public int insertLikeObjet(LikeObjet likeobjet) {
 		return objetDao.insertLikeObjet(likeobjet);
 	}
 
 	//관심오브제 삭제
+	@Override
 	public int deleteLikeObjet(LikeObjet likeobjet) {
 		return objetDao.deleteLikeObjet(likeobjet);
 	}
 
 	//관심오브제 리스트
+	@Override
 	public ArrayList<LikeObjet> selectLikeObjet(int objetno) {
 		return objetDao.selectLikeObjet(objetno);
 	}
 	
 	//관심오브제 카운트
+	@Override
 	public int selectLikeObjetOne(LikeObjet likeobjet) {
 		return objetDao.selectLikeObjetOne(likeobjet);
 	}
 	
 	//한줄평 평가 리스트
+	@Override
 	public ArrayList<ReviewStatus> selectReivewStatus(ReviewStatus review) {
 		return objetDao.selectReivewStatus(review);
 	}
 	
-	//한줄평 평가 체크
+	//한줄평 좋아요 체크
+	@Override
 	public int selectRevGoodChk(ReviewStatus revstatus) {
 		return objetDao.selectRevGoodChk(revstatus);
 	}
 	
+	//한줄평 싫어요 체크
+	@Override
+	public int selectRevHateChk(ReviewStatus revstatus) {
+		return objetDao.selectRevHateChk(revstatus);
+	}
+	
+	@Override
 	//한줄평 좋아요
-	public int updateRevGood(ReviewStatus revstatus) {
-		return objetDao.updateRevGood(revstatus);
+	public int insertRevGood(ReviewStatus revstatus) {
+		return objetDao.insertRevGood(revstatus);
 	}
 
+	@Override
 	//한줄평 좋아요 취소
-	public int updateRevGoodReset(ReviewStatus revstatus) {
-		return objetDao.updateRevGoodReset(revstatus);
+	public int deleteRevGood(ReviewStatus revstatus) {
+		return objetDao.deleteRevGood(revstatus);
 	}
 
+	@Override
 	//한줄평 싫어요
-	public int updateRevHate(ReviewStatus revstatus) {
-		return objetDao.updateRevHate(revstatus);
+	public int insertRevHate(ReviewStatus revstatus) {
+		return objetDao.insertRevHate(revstatus);
 	}
 
+	@Override
 	//한줄평 싫어요 취소
-	public int updateRevHateReset(ReviewStatus revstatus) {
-		return objetDao.updateRevHateReset(revstatus);
+	public int deleteRevHate(ReviewStatus revstatus) {
+		return objetDao.deleteRevHate(revstatus);
 	}
 	
 	// 최민영 *******************************************************
@@ -232,6 +254,8 @@ public class ObjetServiceImpl implements ObjetService{
 	public int deleteObjet(int objetno) {
 		return objetDao.deleteObjet(objetno);
 	}
+
+
 
 	
 

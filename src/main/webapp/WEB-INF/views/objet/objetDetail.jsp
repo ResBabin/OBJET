@@ -13,6 +13,13 @@
 <title>Objet</title>
 <c:import url="../header.jsp" />
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+ <!-- FaceBook Share API -->
+  <meta property="fb:app_id" 		content="479513076315861" />
+  <meta property="og:url"           content="https://money2015.tistory.com/761?category=631663" />
+  <meta property="og:type"          content="website" />
+  <meta property="og:title"         content="${fn:substring(objet.objettitle,0,11)}..." />
+<%--   <meta property="og:description"   content="${fn:substring(objet.objetintro,0,20)}..." /> --%>
+  <meta property="og:image"         content="${pageContext.servletContext.contextPath }/resources/images/objet/${objet.renamemainposter }" />
 <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
 <link rel='stylesheet' href='//fonts.googleapis.com/earlyaccess/kopubbatang.css'>
 <link rel="stylesheet" type="text/css" href="resources/assets/css/KoPubDotum.css">
@@ -42,6 +49,26 @@
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <link rel="stylesheet" href='resources/css/calendar.css' /> -->
+<!-- 페이스북 공유 -->
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId            : '479513076315861',
+      autoLogAppEvents : true,
+      xfbml            : true,
+      version          : 'v5.0'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
 <style type="text/css">
 html, body {
 	height: 100%;
@@ -576,7 +603,7 @@ a:-webkit-any-link {
 	right: -960px;
 }
 
-#rev_like {
+.rev_like {
 	width: 55px;
 	height: auto;
 	margin: 0;
@@ -585,7 +612,7 @@ a:-webkit-any-link {
 	outline: none !important;
 }
 
-#rev_hate {
+.rev_hate {
 	width: 55px;
 	height: auto;
 	margin: 0;
@@ -1062,8 +1089,24 @@ a:-webkit-any-link {
 				}
 			});
 		
-		
-		
+		//헤더 아이콘 공유
+		//페이스북 공유
+		var objetno = ${objet.objetno}
+		$("#facebook").on("click", function(){
+		    FB.ui({
+		        method: 'share',
+		        https:'//www.facebook.com/sharer/sharer.share?u=https://money2015.tistory.com/761?category=631663&display=popup&app_id=479513076315861',
+		        /* https: '//www.facebook.com/dialog/share?app_id=479513076315861&display=popup&href=http://localhost:12345/objet/objetOne.do?objetno=objetno&redirect_uri=http://localhost:12345/objet/objetOne.do?objetno=objetno', */
+		    }, function(response){
+		    	// callback
+	    	    if (response && !response.error_message) {
+	    	      alert('페이스북에 오브제가 공유되었습니다.');
+	    	    } else {
+	    	      alert('공유 실패!');
+	    	    }
+		    });
+		}); 
+	
 			
 		//헤더아이콘 한줄평 이동
 		$(".comment").on("click", function(){
@@ -1145,18 +1188,6 @@ a:-webkit-any-link {
 		        $('.rev_insert_no').css("margin-top", "120px");
 		    }
 		});
-
-		/* //한줄평 좋아요
-		$("#rev_like .icon").on("click", function() {
-			$(this).removeClass("outline");
-			$(this).addClass("red");
-		});
-		
-		//한줄평 싫어요
-		$("#rev_hate .icon").on("click", function() {
-			$(this).removeClass("outline");
-			$(this).addClass("light blue");
-		}); */
 
 		//평점 레이팅(리스트)
 		$('.rating').rating('disable', {
@@ -1284,13 +1315,6 @@ a:-webkit-any-link {
 		};
 	};
 	
-	/* function submit3() {
-		document.getElementById("btnsub_rev_del").onclick = function() {
-			document.getElementById('rev_del_modal').submit();
-			return false;
-		};
-	}; */
-	
 	window.onload = function(){
 		//바탕색 랜덤
 		var color = '#'; 
@@ -1300,13 +1324,13 @@ a:-webkit-any-link {
 		document.getElementById('exhibition_vp').style.background = color; // 조립한 컬러를 프론트엔드에서 지정한 ID에 적용한다.
 	}
 	
-
 	//review order ajax
 	function reviewOrder(no, order){
+		var userid = '${loginUser.userid}';
 	  	$.ajax({
 			url : 'reviewOrder.do',
 			type : 'post',
-			data : { no : no, order : order },
+			data : { no : no, order : order, userid : userid },
 			dataType : 'json',
 			success : function(data){
 			    var objStr = JSON.stringify(data); 
@@ -1325,6 +1349,12 @@ a:-webkit-any-link {
 					}
 				    var year = jsonObj.list[i].revdate.substring(0, 4);
 				    var nickname = "${loginUser.nickname}";
+				    var userid = '${loginUser.userid}';
+				    var revgood = '${revgood}';
+				    var revhate = '${revhate}'
+				    var reviewStatus = '${reviewStauts}';
+				    var revuserid = jsonObj.list[i].revuserid;
+				    var revstatusid = '${reviewStatusList[i].revuserid}';
 				    var nicknames = decodeURIComponent(jsonObj.list[i].nickname.replace(/\+/gi, " "));
 				    if(nicknames != nickname){
 					values += '<div class="review_list">' +
@@ -1336,12 +1366,30 @@ a:-webkit-any-link {
 					'<span class="rev_cont">' + decodeURIComponent(jsonObj.list[i].revcontent.replace(/\+/gi, " ")) + '</span><br>';
 					values += '<div class="extra">' +
 					'<div class="ui star rating" data-rating="' + jsonObj.list[i].revstars + '" data-max-rating="5" ></div>' +
-					'<div class="rev_like_btn">' +
-					'<div class="ui basic circular gray icon button" id="rev_like"><i class="thumbs up outline icon" style="font-size:14px;"></i><span class="rev_cnt">'
-					+ jsonObj.list[i].revgood + '</span></div>&nbsp;' +
-					'<div class="ui basic circular gray icon button" id="rev_hate"><i class="thumbs down outline icon" style="font-size:14px;"></i><span class="rev_cnt">'
-					+ jsonObj.list[i].revhate + '</span></div>' +
-					'</div></div>' +
+					'<div class="rev_like_btn">';
+					if(revgood == 'revgood'){
+						values += '<div class="ui basic circular gray icon button rev_like" onclick="reviewGood(' + "'" + jsonObj.list[i].revuserid + "', " + ${objet.objetno} + ')"><i class="thumbs up red icon" id="rev_like_' + jsonObj.list[i].revuserid + '" style="font-size:14px;"></i><span id="revgood_cnt_' + jsonObj.list[i].revuserid + '" class="rev_cnt"> '
+						+ jsonObj.list[i].revgood + '</span></div>&nbsp;' + 
+						'<div class="ui basic circular gray icon button rev_hate" onclick="reviewHate(' + "'" + jsonObj.list[i].revuserid + "', " + ${objet.objetno} + ')"><i class="thumbs down outline icon" id="rev_hate_' + jsonObj.list[i].revuserid + '" style="font-size:14px;"></i><span id="revhate_cnt_' + jsonObj.list[i].revuserid + '" class="rev_cnt"> '
+						+ jsonObj.list[i].revhate + '</span></div>';
+					}if(reviewStatus == 'norevgood'){
+						values += '<div class="ui basic circular gray icon button rev_like" onclick="reviewGood(' + "'" + jsonObj.list[i].revuserid + "', " + ${objet.objetno} + ')"><i class="thumbs up outline icon" id="rev_like_' + jsonObj.list[i].revuserid + '" style="font-size:14px;"></i><span id="revgood_cnt_' + jsonObj.list[i].revuserid + '" class="rev_cnt"> '
+						+ jsonObj.list[i].revgood + '</span></div>&nbsp;';
+					}if(revhate == 'revhate'){
+						values += '<div class="ui basic circular gray icon button rev_like" onclick="reviewGood(' + "'" + jsonObj.list[i].revuserid + "', " + ${objet.objetno} + ')"><i class="thumbs up outline icon" id="rev_like_' + jsonObj.list[i].revuserid + '" style="font-size:14px;"></i><span id="revgood_cnt_' + jsonObj.list[i].revuserid + '" class="rev_cnt"> '
+						+ jsonObj.list[i].revgood + '</span></div>&nbsp;' + 
+						'<div class="ui basic circular gray icon button rev_hate" onclick="reviewHate(' + "'" + jsonObj.list[i].revuserid + "', " + ${objet.objetno} + ')"><i class="thumbs down blue icon" id="rev_hate_' + jsonObj.list[i].revuserid + '" style="font-size:14px;"></i><span id="revhate_cnt_' + jsonObj.list[i].revuserid + '" class="rev_cnt"> '
+						+ jsonObj.list[i].revhate + '</span></div>';
+					}if(reviewStatus == 'norevhate'){
+						values += '<div class="ui basic circular gray icon button rev_hate" onclick="reviewHate(' + "'" + jsonObj.list[i].revuserid + "', " + ${objet.objetno} + ')"><i class="thumbs down outline icon" id="rev_hate_' + jsonObj.list[i].revuserid + '" style="font-size:14px;"></i><span id="revhate_cnt_' + jsonObj.list[i].revuserid + '" class="rev_cnt"> '
+						+ jsonObj.list[i].revhate + '</span></div>';
+					}if(reviewStatus == 'norevgoodrevhate'){
+						values += '<div class="ui basic circular gray icon button rev_like" onclick="reviewGood(' + "'" + jsonObj.list[i].revuserid + "', " + ${objet.objetno} + ')"><i class="thumbs up outline icon" id="rev_like_' + jsonObj.list[i].revuserid + '" style="font-size:14px;"></i><span id="revgood_cnt_' + jsonObj.list[i].revuserid + '" class="rev_cnt"> '
+						+ jsonObj.list[i].revgood + '</span></div>&nbsp;' +
+						'<div class="ui basic circular gray icon button rev_hate" onclick="reviewHate(' + "'" + jsonObj.list[i].revuserid + "', " + ${objet.objetno} + ')"><i class="thumbs down outline icon" id="rev_hate_' + jsonObj.list[i].revuserid + '" style="font-size:14px;"></i><span id="revhate_cnt_' + jsonObj.list[i].revuserid + '" class="rev_cnt"> '
+						+ jsonObj.list[i].revhate + '</span></div>';
+					}
+					values += '</div></div>' +
 					'</div>' +
 					'</div>';
 				    }
@@ -1425,53 +1473,98 @@ a:-webkit-any-link {
 	}
 	
 	//한줄평 좋아요/좋아요 취소
-	var reviewGood = false;
-	function reviewGood(objetno, userid){
-		if(reviewGood){
+	var revgood = false;
+	function reviewGood(revuserid, objetno){
+		/* if(revgood){
 			alert("이미 좋아요를 누르셨습니다.");
 			return;
 		}
-		reviewGood = true;
-		
+		revgood = true; */
+		var userid = '${loginUser.userid}';
 		$.ajax({
-	         url:"updateRevGood.do",
+	         url:"insertRevGood.do",
 	         type:"get",
-	         data:{objetno : objetno, userid : userid },
+	         data:{revuserid : revuserid, objetno : objetno, userid : userid},
 	         success: function(result){
-	             if(result == "ok"){
-	               console.log("한줄평 좋아요 성공!")
-	               window.location.reload();
+	             if(result == "revgood"){
+	               console.log("한줄평 좋아요 성공!");
+	       			$("#rev_like_"+revuserid).removeClass("outline");
+	       			$("#rev_like_"+revuserid).addClass("red");
+	       			$("#rev_like_"+revuserid).css("font-size", "16px");
+	       			var revcnt = parseInt($("#revgood_cnt_"+revuserid).html()) + 1;
+	       			$("#revgood_cnt_"+revuserid).html(" "+revcnt);
+	             }else if(result =="revgoodcancel"){
+	            	 console.log("한줄평 좋아요 취소!");
+	            	 $("#rev_like_"+revuserid).removeClass("red");
+		       		$("#rev_like_"+revuserid).addClass("outline");
+		       		var revcnt = parseInt($("#revgood_cnt_"+revuserid).html()) - 1;
+	       			$("#revgood_cnt_"+revuserid).html(" "+revcnt);
+	             }else if(result == "fail"){
+	            	 alert("한줄평 좋아요 취소 실패!");
+	             }else if(result == "fail2"){
+	            	 alert("한줄평 좋아요 실패!");
+	             }else if(result == "revgoodhatecancel"){
+	            	 alert("중복 데이타 삭제!");
+	             }else if(result == "sameuserid"){
+	            	 alert("내 한줄평엔 좋아요를 하실 수 없습니다.");
+	             }else if(result == "revgoodrevhatecancel"){
+	            	 alert("한줄평 좋아요 성공 싫어요 삭제");
+	             }else if(result == "fail4"){
+	            	 alert("한줄평 좋아요 성공 싫어요 삭제 실패");
 	             }
-	             else{
-	            	alert("한줄평 좋아요 실패!")
-	             }
-	          },
+	         },
 	          error: function(request, status, errorData){
 					console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
-				}
-	       });
+			}
+	     });
 	}//reviewGood
 	
-	//한줄평 싫어요
-	function reviewHate(objetno, userid){
+	//한줄평 싫어요/싫어요 취소
+	var revhate = false;
+	function reviewHate(revuserid, objetno){
+		/* if(revhate){
+			alert("이미 싫어요를 누르셨습니다.");
+			return;
+		}
+		revhate = true; */
+		var userid = '${loginUser.userid}';
 		$.ajax({
-	         url:"updateRevHate.do",
+	         url:"insertRevHate.do",
 	         type:"get",
-	         data:{objetno : objetno, userid : userid },
+	         data:{revuserid : revuserid, objetno : objetno, userid : userid},
 	         success: function(result){
-	             if(result == "ok"){
-	               console.log("한줄평 싫어요 성공!")
-	               window.location.reload();
+	             if(result == "revhate"){
+	               console.log("한줄평 싫어요 성공!");
+	       			$("#rev_hate_"+revuserid).removeClass("outline");
+	       			$("#rev_hate_"+revuserid).addClass("blue");
+	       			$("#rev_hate_"+revuserid).css("font-size", "16px");
+	       			var revcnt = parseInt($("#revhate_cnt_"+revuserid).html()) + 1;
+	       			$("#revhate_cnt_"+revuserid).html(" "+revcnt);
+	             }else if(result =="revhatecancel"){
+	            	 console.log("한줄평 싫어요 취소!");
+	            	 $("#rev_hate_"+revuserid).removeClass("blue");
+		       		$("#rev_hate_"+revuserid).addClass("outline");
+		       		var revcnt = parseInt($("#revhate_cnt_"+revuserid).html()) - 1;
+	       			$("#revhate_cnt_"+revuserid).html(" "+revcnt);
+	             }else if(result == "fail"){
+	            	 alert("한줄평 싫어요 취소 실패!");
+	             }else if(result == "fail2"){
+	            	 alert("한줄평 싫어요 실패!");
+	             }else if(result == "revgoodhatecancel"){
+	            	 alert("중복 데이타 삭제!");
+	             }else if(result == "sameuserid"){
+	            	 alert("내 한줄평엔 싫어요를 하실 수 없습니다.");
+	             }else if(result == "revgoodrevhatecancel"){
+	            	 alert("한줄평 좋아요 성공 싫어요 삭제");
+	             }else if(result == "fail4"){
+	            	 alert("한줄평 좋아요 성공 싫어요 삭제 실패");
 	             }
-	             else{
-	            	alert("한줄평 싫어요 실패!")
-	             }
-	          },
+	         },
 	          error: function(request, status, errorData){
 					console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
-				}
-	       });
-	}//reviewHate
+			}
+	     });
+	}//reviewGood
 	
 	//한줄평 등록
 	function rev_insert(objetno, userid){
@@ -1574,13 +1667,19 @@ a:-webkit-any-link {
 	}
 	</c:if>
 	
-	<c:if test="${empty loginUser.userid}">
+	<c:if test="${empty loginUser}">
 	$(".ico_likeit_like").on("click", function(){
 		alert("로그인 하셔야합니다.");
 	});
 	$(".ico_likeit_unlike").on("click", function(){
 		alert("로그인 하셔야합니다.");
 	});	
+	$(".rev_like").on("click", function(){
+		alert("로그인 하셔야합니다.");
+	});	
+	$(".rev_hate").on("click", function(){
+		alert("로그인 하셔야합니다.");
+	});
 	</c:if>
 	
 </script>
@@ -1839,8 +1938,16 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 <div class="extra">
 <div class="ui star rating my" data-rating="${myReview.revstars }" data-max-rating="5" >${myReview.revstars }</div>
 <div class="rev_like_btn">
-<div class="ui basic circular gray icon button" id="rev_like" onclick="reviewGood('${myReview.revuserid }', ${objet.objetno}, '${loginUser.userid }')"><i class="thumbs up outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${myReview.revgood }</span></div>&nbsp;
-<div class="ui basic circular gray icon button" id="rev_hate" onclick="reviewHate('${myReview.revuserid }', ${objet.objetno}, '${loginUser.userid }')"><i class="thumbs down outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${myReview.revhate }</span></div>
+<div class="ui basic circular gray icon button rev_like" onclick="reviewGood('${myReview.revuserid }', ${objet.objetno})">
+<i class="thumbs up outline icon" id="rev_like_${myReview.revuserid }" style="font-size:15px;"></i><span id="revgood_cnt_${myReview.revuserid }" class="rev_cnt"> ${myReview.revgood }</span></div>&nbsp;
+<div class="ui basic circular gray icon button rev_hate"  onclick="reviewHate('${myReview.revuserid }', ${objet.objetno})">
+<i class="thumbs down outline icon" id="rev_hate_${myReview.revuserid }"style="font-size:15px;"></i><span id="revhate_cnt_${myReview.revuserid }" class="rev_cnt"> ${myReview.revhate }</span></div>
+<c:if test="${empty loginUser }">
+<div class="ui basic circular gray icon button rev_like" onclick="reviewGood('${myReview.revuserid }', ${objet.objetno})">
+<i class="thumbs up outline icon" id="rev_like_${myReview.revuserid }" style="font-size:15px;"></i><span id="revgood_cnt_${myReview.revuserid }" class="rev_cnt"> ${myReview.revgood }</span></div>&nbsp;
+<div class="ui basic circular gray icon button rev_hate"  onclick="reviewHate('${myReview.revuserid }', ${objet.objetno})">
+<i class="thumbs down outline icon" id="rev_hate_${myReview.revuserid }"style="font-size:15px;"></i><span id="revhate_cnt_${myReview.revuserid }" class="rev_cnt"> ${myReview.revhate }</span></div>
+</c:if>
 </div></div>
 </div>
 </div>
@@ -1950,10 +2057,10 @@ ${myReview.revcontent }</textarea>
 <!-- //한줄평 신고  끝 -->
 <!-- 한줄평 리스트 -->
 <div class="review_list_main">
-<c:forEach var="Review" items="${reviewList }">
+<c:forEach var="Review" items="${reviewList }" varStatus="status">
 <c:if test="${Review.nickname ne loginUser.nickname }">
 <div class="review_list">
-<img class="ui circular image" src="resources/users_upfiles/${Review.userrpic }" id="writer_pic">
+<img class="ui circular image" src="resources/users_upfiles/${Review.userrpic }" onerror="this.src='resources/images/basicprofilepic.png'" id="writer_pic">
 <div class="review_content">
 <span class="rev_writer">${Review.nickname }</span>
 <span class="rev_date">
@@ -1965,17 +2072,29 @@ ${myReview.revcontent }</textarea>
 <div class="extra">
 <div class="ui star rating" data-rating="${Review.revstars }" data-max-rating="5" >${Review.revstars }</div>
 <div class="rev_like_btn">
-<c:if test="${reviewStauts eq 'revgood'}">
-<div class="ui basic circular gray icon button" id="rev_like"><i class="thumbs up red icon" style="font-size:14px;"></i><span class="rev_cnt"> ${Review.revgood }</span></div>&nbsp;
-<div class="ui basic circular gray icon button" id="rev_hate"><i class="thumbs down outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${Review.revhate }</span></div>
+<!-- && reviewStatusList[status.index].revuserid eq Review.revuserid  -->
+<c:if test="${revgood eq 'revgood' && Review.revgood > 0 && reviewStatusList[status.index].revgood != 0}">
+<div class="ui basic circular gray icon button rev_like" onclick="reviewGood('${Review.revuserid }', ${objet.objetno})">
+<i class="thumbs up red icon" id="rev_like_${Review.revuserid }" style="font-size:15px;"></i><span id="revgood_cnt_${Review.revuserid }" class="rev_cnt"> ${Review.revgood }</span></div>&nbsp;
 </c:if>
-<c:if test="${reviewStauts eq 'revhate'}">
-<div class="ui basic circular gray icon button" id="rev_like"><i class="thumbs up outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${Review.revgood }</span></div>&nbsp;
-<div class="ui basic circular gray icon button" id="rev_hate"><i class="thumbs down blue icon" style="font-size:14px;"></i><span class="rev_cnt"> ${Review.revhate }</span></div>
+<c:if test="${Review.revgood == 0 && reviewStatusList[status.index].userid ne loginUser.userid || reviewStatusList[status.index].revgood == 0}">
+<div class="ui basic circular gray icon button rev_like" onclick="reviewGood('${Review.revuserid }', ${objet.objetno})">
+<i class="thumbs up outline icon" id="rev_like_${Review.revuserid }" style="font-size:15px;"></i><span id="revgood_cnt_${Review.revuserid }" class="rev_cnt"> ${Review.revgood }</span></div>&nbsp;
 </c:if>
-<c:if test="${reviewStauts eq 'revno'}">
-<div class="ui basic circular gray icon button" id="rev_like"><i class="thumbs up outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${Review.revgood }</span></div>&nbsp;
-<div class="ui basic circular gray icon button" id="rev_hate"><i class="thumbs down outline icon" style="font-size:14px;"></i><span class="rev_cnt"> ${Review.revhate }</span></div>
+<c:if test="${revhate eq 'revhate' && Review.revhate > 0 && reviewStatusList[status.index].revhate != 0}">
+<div class="ui basic circular gray icon button rev_hate" onclick="reviewHate('${Review.revuserid }', ${objet.objetno})">
+<i class="thumbs down blue icon" id="rev_hate_${Review.revuserid }" style="font-size:15px;"></i><span id="revhate_cnt_${Review.revuserid }" class="rev_cnt"> ${Review.revhate }</span></div>
+</c:if>
+<!--  reviewStauts eq 'norevgoodrevhate' ||  -->
+<c:if test="${Review.revhate == 0 && reviewStatusList[status.index].userid ne loginUser.userid || reviewStatusList[status.index].revhate == 0}">
+<div class="ui basic circular gray icon button rev_hate" onclick="reviewHate('${Review.revuserid }', ${objet.objetno})">
+<i class="thumbs down outline icon" id="rev_hate_${Review.revuserid }" style="font-size:15px;"></i><span id="revhate_cnt_${Review.revuserid }" class="rev_cnt"> ${Review.revhate }</span></div>
+</c:if>
+<c:if test="${Review.revgood == 0 && Review.revhate == 0}">
+<div class="ui basic circular gray icon button rev_like" onclick="reviewGood('${Review.revuserid }', ${objet.objetno})">
+<i class="thumbs up outline icon" id="rev_like_${Review.revuserid }" style="font-size:15px;"></i><span id="revgood_cnt_${Review.revuserid }" class="rev_cnt"> ${Review.revgood }</span></div>&nbsp;
+<div class="ui basic circular gray icon button rev_hate" onclick="reviewHate('${Review.revuserid }', ${objet.objetno})">
+<i class="thumbs down outline icon" id="rev_hate_${Review.revuserid }" style="font-size:15px;"></i><span id="revhate_cnt_${Review.revuserid }" class="rev_cnt"> ${Review.revhate }</span></div>
 </c:if>
 </div></div>
 </div>

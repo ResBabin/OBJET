@@ -25,7 +25,7 @@ public interface ObjetService {
 	int insertReviewReport(ReportBoard rb);
 	ArrayList<Objet> selectObjetSearchList(String keyword);
 	Artist selectObjetOne(int objetno);
-	ArrayList<Review> selectReview(int objetno);
+	ArrayList<Review> selectReview(Review review);
 	Review selectReviewOne(ReviewKey rk);
 	ArrayList<Review> selectReviewOrder(ReviewKey rk);
 	int insertReview(Review review);
@@ -37,10 +37,11 @@ public interface ObjetService {
 	int selectLikeObjetOne(LikeObjet likeobjet);
 	ArrayList<ReviewStatus> selectReivewStatus(ReviewStatus review);
 	int selectRevGoodChk(ReviewStatus revstatus);
-	int updateRevGood(ReviewStatus revstatus);
-	int updateRevGoodReset(ReviewStatus revstatus);
-	int updateRevHate(ReviewStatus revstatus);
-	int updateRevHateReset(ReviewStatus revstatus);
+	int selectRevHateChk(ReviewStatus revstatus);
+	int insertRevGood(ReviewStatus revstatus);
+	int deleteRevGood(ReviewStatus revstatus);
+	int insertRevHate(ReviewStatus revstatus);
+	int deleteRevHate(ReviewStatus revstatus);
 	
 	// 최민영
 	List<Objet2> selectArtistObjetList(String userid);
