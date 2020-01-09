@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
@@ -39,7 +42,33 @@ public class UserManagementController {
 	}
 
 	@RequestMapping("userm.do")
-	public String userList(Model model) {
+	public String userList(Model model, HttpServletRequest request) {
+		Map<String, Integer> map = new HashMap<>();
+		int currentPage = 1;
+		if(request.getParameter("page") != null) {
+			currentPage = Integer.parseInt(request.getParameter("page"));
+		}
+		
+		int limit = 10;  //한 페이지에 출력할 목록 갯수
+		int listCount = usermService.selectUser().size();  //테이블의 전체 목록 갯수 조회
+		//총 페이지 수 계산
+		int maxPage = listCount / limit;
+		if(listCount % limit > 0)
+			maxPage++;
+		
+		//currentPage 가 속한 페이지그룹의 시작페이지숫자와 끝숫자 계산
+		//예, 현재 34페이지이면 31 ~ 40 이 됨. (페이지그룹의 수를 10개로 한 경우)
+		int beginPage = (currentPage / limit) * limit + 1;
+        if(currentPage % limit == 0) {
+            beginPage -= limit;
+         }
+		int endPage = beginPage + 9;
+		if(endPage > maxPage)
+			endPage = maxPage;
+		
+		//currentPage 에 출력할 목록의 조회할 행 번호 계산
+		int startRow = (currentPage * limit) - 9;
+		int endRow = currentPage * limit;
 		ArrayList<UserManagement> ulist = (ArrayList<UserManagement>) usermService.selectUser();
 			model.addAttribute("ulist", ulist);
 			return "admin/userManagement";
@@ -104,17 +133,63 @@ public class UserManagementController {
 		      return mv;
 	}
 	
+	@RequestMapping(value="insertblack.do", method=RequestMethod.POST)
+	public void insertBlackList(String order, HttpServletResponse response, HttpServletRequest request) throws IOException {
+		Map<String, String> map = new HashMap<>();
+		String[] useridArray = request.getParameterValues("userid");
+		int result = 0, result2 = 0;
+		for(String userid : useridArray) {
+			map.put("userid", userid);
+			map.put("blackend", request.getParameter("blackend"));
+			map.put("blackreason", request.getParameter("blackreason"));
+			result = usermService.insertBlackList(map);
+			result2 = usermService.updateBlackYN(userid);
+		}
+		PrintWriter out = response.getWriter();
+		if(result > 0 && result2 > 0) {
+			out.append("success");
+		}else {
+			out.append("fail");
+		}
+		out.flush();
+	}
 	
+	@RequestMapping(value="adminquit.do", method=RequestMethod.POST)
+	public void updateQuitYN(String order, HttpServletResponse response, HttpServletRequest request) throws IOException {
+		Map<String, String> map = new HashMap<>();
+		String[] useridArray = request.getParameterValues("userid");
+		int result = 0, result2 = 0;
+		for(String userid : useridArray) {
+			map.put("userid", userid);
+			map.put("quitreason", request.getParameter("quitreason"));
+			result = usermService.updateQuitYN(map);
+			result2 = usermService.insertQuit(map);
+		}
+		PrintWriter out = response.getWriter();
+		if(result > 0 && result2 > 0) {
+			out.append("success");
+		}else {
+			out.append("fail");
+		}
+		out.flush();
+	}
+	
+	@RequestMapping(value="blackend.do", method=RequestMethod.POST)
+	public void deleteBlackList(String order, HttpServletResponse response, HttpServletRequest request) throws IOException {
+		Map<String, String> map = new HashMap<>();
+		String[] useridArray = request.getParameterValues("userid");
+		int result = 0, result2 = 0;
+		for(String userid : useridArray) {
+			map.put("userid", userid);
+			result = usermService.deleteBlackList(userid);
+			result2 = usermService.updateBlackEnd(userid);
+		}
+		PrintWriter out = response.getWriter();
+		if(result > 0 && result2 > 0) {
+			out.append("success");
+		}else {
+			out.append("fail");
+		}
+		out.flush();
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-

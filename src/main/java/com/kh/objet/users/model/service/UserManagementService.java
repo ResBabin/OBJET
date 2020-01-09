@@ -2,6 +2,7 @@ package com.kh.objet.users.model.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.kh.objet.blacklist.model.vo.BlackList;
 import com.kh.objet.objet.model.vo.Objet;
@@ -24,4 +25,10 @@ public interface UserManagementService {
 	public int insertLoginCount();
 	public String selectLoginDate();
 	public List<Users> selectEnrollCount();
+	public int insertBlackList(Map<String, String> map);
+	public int updateBlackYN(String userid);
+	public int updateQuitYN(Map<String, String> map);
+	public int insertQuit (Map<String, String> map);
+	public int deleteBlackList(String userid);
+	public int updateBlackEnd(String userid);
 }

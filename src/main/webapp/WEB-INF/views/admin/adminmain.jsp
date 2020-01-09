@@ -96,10 +96,6 @@
 
 
 $(function() {
-	
-	
-	
-	setInterval(function() {
 	var now = new Date();
 	var hh = now.getHours();
 	console.log(now.getHours(), now.getMinutes());
@@ -118,8 +114,6 @@ $(function() {
 		}
 	});
 	}
-	}, (30*(60*1000)));
-	
 	
 	/* $.ajax({
 		url : "logincount.do",
@@ -160,14 +154,14 @@ var myChart = new Chart(ctx, {
         datasets: [{	
             data: [count, count2, count3, count4, count5, count6, count7, count8],
             backgroundColor: [
-                'rgba(100, 53, 201, 1)',
-                'rgba(80, 150, 210, 1)', 
-                'rgba(80, 190, 180, 1)',
-                'rgba(150, 230, 150, 1)', 
-                'rgba(255, 230, 130, 1)',
-                'rgba(250, 170, 120, 1)',
-                'rgba(210, 70, 130, 1)' ,
-                'rgba(150, 80, 180, 1)',
+                'rgba(90, 40, 190, 1)',
+                'rgba(40, 110, 170, 1)', 
+                'rgba(50, 160, 150, 1)',
+                'rgba(120, 200, 120, 1)', 
+                'rgba(230, 210, 110, 1)',
+                'rgba(220, 130, 90, 1)',
+                'rgba(210, 60, 110, 1)' ,
+                'rgba(140, 50, 150, 1)',
                 
             ]
         }]
@@ -210,36 +204,38 @@ var myChart2 = new Chart(ctx2, {
     data: {
         labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
         datasets: [{	
+        	label: thisyear.getFullYear() + '년 월별 회원가입',
             data: [enroll1, enroll2, enroll3, enroll4, enroll5, enroll6, enroll7, enroll8, enroll9, enroll10, enroll11, enroll12],
             backgroundColor: [
-            	 'rgba(150, 150, 150, 1)',
-            	 'rgba(150, 150, 150, 1)',
-            	 'rgba(150, 150, 150, 1)',
-            	 'rgba(150, 150, 150, 1)',
-            	 'rgba(150, 150, 150, 1)',
-            	 'rgba(150, 150, 150, 1)',
-            	 'rgba(150, 150, 150, 1)',
-            	 'rgba(150, 150, 150, 1)',
-            	 'rgba(150, 150, 150, 1)',
-            	 'rgba(150, 150, 150, 1)',
-            	 'rgba(150, 150, 150, 1)',
-            	 'rgba(150, 150, 150, 1)'
-            ]
+            	 'rgba(100, 100, 100, 1)',
+            	 'rgba(100, 100, 100, 1)',
+            	 'rgba(100, 100, 100, 1)',
+            	 'rgba(100, 100, 100, 1)',
+            	 'rgba(100, 100, 100, 1)',
+            	 'rgba(100, 100, 100, 1)',
+            	 'rgba(100, 100, 100, 1)',
+            	 'rgba(100, 100, 100, 1)',
+            	 'rgba(100, 100, 100, 1)',
+            	 'rgba(100, 100, 100, 1)',
+            	 'rgba(100, 100, 100, 1)',
+            	 'rgba(100, 100, 100, 1)'
+            ],
+            borderWidth: 0
         }]
     },
     options: {}
     
 });
 
-var login1 = "${ todaycount.login1 }";
-var login2 = "${ todaycount.login2 }";
-var login3 = "${ todaycount.login3 }";
-var login4 = "${ todaycount.login4 }";
-var login5 = "${ todaycount.login5 }";
-var login6 = "${ todaycount.login6 }";
-var login7 = "${ todaycount.login7 }";
-var login8 = "${ todaycount.login8 }";
-var login9 = "${ todaycount.login9 }";
+var login1 = "${ todaycount.login01 }";
+var login2 = "${ todaycount.login02 }";
+var login3 = "${ todaycount.login03 }";
+var login4 = "${ todaycount.login04 }";
+var login5 = "${ todaycount.login05 }";
+var login6 = "${ todaycount.login06 }";
+var login7 = "${ todaycount.login07 }";
+var login8 = "${ todaycount.login08 }";
+var login9 = "${ todaycount.login09 }";
 var login10 = "${ todaycount.login10 }";
 var login11 = "${ todaycount.login11 }";
 var login12 = "${ todaycount.login12 }";
@@ -254,7 +250,7 @@ var login20 = "${ todaycount.login20 }";
 var login21 = "${ todaycount.login21 }";
 var login22 = "${ todaycount.login22 }";
 var login23 = "${ todaycount.login23 }";
-var login24 = "${ todaycount.login24 }";
+var login24 = "${ todaycount.login00 }";
 var logindate = "${ todaycount.logindate }";
 
 console.log(login1);
@@ -268,10 +264,10 @@ var myChart3 = new Chart(ctx3, {
         	data: [login1, login2, login3, login4, login5, login6, login7, login8, login9, login10, login11, login12, login13, login14, 
         		login15, login16, login17, login18, login19, login20, login21, login22, login23, login24],
             backgroundColor: [
-                'rgba(150, 150, 150, 0.3)',
+                'rgba(200, 200, 200, 0.5)',
             ],
             borderColor: [
-            	'rgba(0, 0, 0, 0.8)',
+            	'rgba(0, 0, 0, 0.5)',
             ],
             borderWidth: 0
         }]
@@ -290,12 +286,20 @@ var myChart3 = new Chart(ctx3, {
 	<div id="bodytag">
 		<div style="padding: 140px; padding-top: 20px; padding-right: 20px; display: flex;">
 			<a href="userm.do">
-<%-- <c:forEach items="${ enrollcount }" var="enroll">
-${ enroll.enrolldate } 
-</c:forEach> --%>
+			<c:set value="${ 0 }" var="enrollcount"/>
+			<c:set value="<%= new java.util.Date() %>" var="today"/>
+			<fmt:formatDate value="${ today }" pattern="yyyy-MM-dd" var="today"/>
+			<c:forEach items="${ userlist }" var="userl" >
+ 			<c:if test="${ userl.enrolldate eq today }">
+ 			<c:set value="${ enrollcount + 1 }" var="enrollcount"/>
+ 			</c:if>
+			</c:forEach>
 				<div id="movediv" style="margin-left: 0px;">
-						<label class="ui small red label" style="margin-top: -150px; margin-right: -70px;">${ userlist.size() }</label> 
-					<h5 class="ui header" style="margin-top: 8px;">
+						<label class="ui small label" style="margin-top: -150px; margin-left: -65px;">${ userlist.size() }</label>
+						<c:if test="${ enrollcount ne 0}">
+							<h5 style="margin-top: -20px; color: #db2828;"> + ${ enrollcount }</h5>
+						</c:if>
+					<h5 class="ui header" style="margin-top: 10px;">
 						<i class="icons"> <i class="user icon"></i>
 						</i>회원조회
 					</h5>
@@ -309,8 +313,8 @@ ${ enroll.enrolldate }
 				</c:if>
 				</c:forEach> 
 					
-					<label class="ui small red label" style="margin-top: -150px; margin-left: 70px;" id="bkcount">${ bkcount  }</label> 
-					<h5 class="ui header" style="margin-top: 8px;">
+					<label class="ui small label" style="margin-top: -150px; margin-left: -70px;" id="bkcount">${ bkcount  }</label>
+					<h5 class="ui header" style="margin-top: 10px;">
 						<i class="icons"> <i class="large red dont icon"
 							style="margin-left: 3px; margin-top: -5px;"></i> <i
 							class="small user icon" style="margin-top: -3px;"></i>
@@ -319,8 +323,8 @@ ${ enroll.enrolldate }
 				</div>
 			</a> <a href="objetm.do">
 				<div id="movediv">
-					<label class="ui small red label" style="margin-top: -150px; margin-right: -70px;">${ objetmlist.size() }</label>  
-					<h5 class="ui header" style="margin-top: 8px;">
+					<label class="ui small label" style="margin-top: -150px; margin-left: -70px;">${ objetmlist.size() }</label>  
+					<h5 class="ui header" style="margin-top: 10px;">
 						<i class="icons"> <i class="image icon"></i>
 						</i>전시조회
 					</h5>
@@ -328,7 +332,7 @@ ${ enroll.enrolldate }
 			</a> <a href="noticem.do">
 				<div id="movediv">
 <%-- 					<label class="ui small red label" style="margin-top: -150px; margin-right: -110px;">${ userlist.size() }</label>  --%>
-					<h5 class="ui header" style="margin-top: 29px;">
+					<h5 class="ui header" style="margin-top: 31px;">
 						<i class="icons"> <i class="bullhorn icon"></i>
 						</i>공지사항
 					</h5>
@@ -336,7 +340,7 @@ ${ enroll.enrolldate }
 			</a> <a href="faqm.do">
 				<div id="movediv" style="margin-right: 0px;">
 <%-- 					<label class="ui small red label" style="margin-top: -150px; margin-right: -110px;">${ userlist.size() }</label>  --%>
-					<h5 class="ui header" style="margin-top: 29px;">
+					<h5 class="ui header" style="margin-top: 31px;">
 						<i class="icons"> <i class="file alternate icon"></i>
 						</i>FAQ
 					</h5>
@@ -347,7 +351,7 @@ ${ enroll.enrolldate }
 			<%-- <c:set var="reqcount" value="${ objetreqlist.size() /objetmlist.size() * 100}" /> --%>
 			<fmt:formatNumber type="number" pattern="0.00" value="${ objetreqlist.size() /objetmlist.size() * 100}" var="reqcount"/>
 			 <label class="label">신청작 ??--> 전체신청작  ${ reqcount }% </label>
-			<div class="ui violet progress" style="margin-top: 0px;margin-bottom: 0px;" id="progress1" data-percent="${ reportulist.size() * 10} ">
+			<div class="ui violet progress" style="margin-top: 0px;margin-bottom: 0px;" id="progress1" data-percent="${ objetreqlist.size() /objetmlist.size() * 100}">
 				<div class="bar" align="center"></div>
 			</div>
 			 </div>
@@ -392,7 +396,7 @@ ${ enroll.enrolldate }
 						</button>
 					</a>
 				</div>
-				<h3 style="margin-top: -25px;">신청작</h3>
+				<h3 style="margin-top: -25px;">신청작<label class="ui small red label" style="margin-left: 20px;" id="reqlabel">${ objetreqlist.size() }</label> </h3>	
 				<hr noshade="noshade">
 				<table class="ui celled table selectable" style="font-size: 9pt;"
 					id="reqtable">
@@ -432,7 +436,7 @@ ${ enroll.enrolldate }
 						</button>
 					</a>
 				</div>
-				<h3 style="margin-top: -25px;">문의관리</h3>
+				<h3 style="margin-top: -25px;">문의관리<label class="ui small red label" style="margin-left: 20px;" id="reqlabel">${ nocount }</label> </h3>
 				<hr noshade="noshade">
 				<table class="ui celled table selectable" style="font-size: 9pt;"
 					id="reqtable">
@@ -474,7 +478,7 @@ ${ enroll.enrolldate }
 							<i class="icon plus"></i>
 						</button></a>
 				</div>
-				<h3 style="margin-top: -25px;">신고 게시글 관리</h3>
+				<h3 style="margin-top: -25px;">신고 게시글 관리<label class="ui small red label" style="margin-left: 20px;" id="reqlabel">${ reportblist.size() }</label> </h3>
 				<hr noshade="noshade">
 				<table class="ui celled table selectable" style="font-size: 9pt;"
 					id="usertable">
@@ -510,7 +514,7 @@ ${ enroll.enrolldate }
 							<i class="icon plus"></i>
 						</button></a>
 				</div>
-				<h3 style="margin-top: -25px;">회원 신고 관리</h3>
+				<h3 style="margin-top: -25px;">회원 신고 관리<label class="ui small red label" style="margin-left: 20px;" id="reqlabel">${ reportulist.size() }</label> </h3>
 				<hr noshade="noshade">
 				<table class="ui celled table selectable" style="font-size: 9pt;"
 					id="usertable">

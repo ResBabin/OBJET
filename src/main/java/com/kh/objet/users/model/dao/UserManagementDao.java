@@ -2,6 +2,7 @@ package com.kh.objet.users.model.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +59,25 @@ public class UserManagementDao {
 	public List<Users> selectEnrollCount() {
 		return mybatisSession.selectList("adminMapper.selectEnrollCount");
 	}
-
+	public int insertBlackList(Map<String, String> map) {
+		return mybatisSession.insert("adminMapper.insertBlackList", map); 
+	}
+	public int updateBlackYN(String userid) {
+		return mybatisSession.update("adminMapper.updateBlackYN", userid);
+	}
+	public int updateQuitYN(Map<String, String> map) {
+		return mybatisSession.update("adminMapper.updateQuitYN", map);
+	}
+	public int insertQuit (Map<String, String> map) {
+		return mybatisSession.insert("adminMapper.insertQuit", map);
+	}
+	public int deleteBlackList(String userid) {
+		return mybatisSession.delete("adminMapper.deleteBlackList", userid);
+	}
+	public int updateBlackEnd(String userid) {
+		return mybatisSession.delete("adminMapper.updateBlackEnd", userid);
+	}
+	
+	
+	
 }
