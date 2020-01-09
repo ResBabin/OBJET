@@ -130,7 +130,7 @@ display:none;
   float:left;
   /* border: 1px solid #ccc; */
   margin-right:40px;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 .artist_card * {
@@ -265,7 +265,7 @@ $(function() {
 					var length = decodeURIComponent(jsonObj.list[i].userintrol.replace(/\+/gi, " ")).length;
 					var newline = "\n";
 					var noimages = "'resources/images/noimg2.jpg'";
-					var noimg = "'resources/images/noimg.jpg'";
+					var noimg = "'resources/images/basicprofilepic.png'";
 					var tagl = decodeURIComponent(jsonObj.list[i].usertag.replace(/\+/gi, " ")).length;
 					var tags = decodeURIComponent(jsonObj.list[i].usertag.replace(/\+/gi, " ")).split(',');
 					var userintrol = decodeURIComponent(jsonObj.list[i].userintrol.replace(/\+/gi, " "));
@@ -332,7 +332,7 @@ $(function() {
 <c:set var="length" value="${fn:length(Artist.userintrol)}"/>
 <c:set var="newline" value="\n" />
 <c:set var="noimages" value="resources/images/noimg2.jpg" />
-<c:set var="noimg" value="resources/images/noimg.jpg" />
+<c:set var="noimg" value="resources/images/basicprofilepic.png" />
 <c:set var="tagl" value="${fn:length(Artist.usertag)}"/>
 <figure class="artist_card hover">
 <div class="img_blur">

@@ -158,27 +158,37 @@ public class ObjetController {
 	public ModelAndView selectObjetOne(@RequestParam(value="objetno") int objetno, 
 			@RequestParam(value="userid", required=false) String userid, ModelAndView mv, HttpServletResponse response) throws IOException {
 		Artist objet = objetService.selectObjetOne(objetno);
-		ArrayList<Review> reviewList = objetService.selectReview(objetno);
+		Review review = new Review(userid, objetno);
+		ArrayList<Review> reviewList = objetService.selectReview(review);
 		ArrayList<LikeObjet> likeobjetList = objetService.selectLikeObjet(objetno);
 		
-		String reviewStauts = "";
+		String revgood = "";
+		String revhate = "";
+		String revStatus = "";
 		if(userid != null) {
 			ReviewKey rk = new ReviewKey(objetno, userid, null);
 			ReviewStatus reviewsts = new ReviewStatus(objetno, userid);
 			Review myReview = objetService.selectReviewOne(rk);
 			ArrayList<ReviewStatus> reviewStatusList = objetService.selectReivewStatus(reviewsts);
 			
-			for(int i = 0; i<reviewStatusList.size(); i++) {
+			for(int i = 0; i < reviewStatusList.size(); i++) {
 				if(reviewStatusList.get(i).getUserid().equals(userid) 
-						&& reviewStatusList.get(i).getRevgood() != 0
-						&& !(reviewStatusList.get(i).getRevuserid().equals(userid))){
-					reviewStauts = "revgood";
-				}else if(reviewStatusList.get(i).getUserid().equals(userid) 
+						&& reviewList.get(i).getRevgood() > 0
+						&& reviewStatusList.get(i).getRevgood() != 0){
+					revgood = "revgood";
+				}if(reviewStatusList.get(i).getUserid().equals(userid) 
+						&& reviewList.get(i).getRevhate() > 0
 						&& reviewStatusList.get(i).getRevhate() != 0
-						&& !(reviewStatusList.get(i).getRevuserid().equals(userid))){
-					reviewStauts = "revhate";
-				}else {
-					reviewStauts = "revno";
+						/*|| reviewList.get(i).getRevuserid().equals(reviewStatusList.get(i).getRevuserid())*/){
+					revhate = "revhate";
+				}if(reviewList.get(i).getRevhate() == 0 && reviewList.get(i).getRevgood() == 0) {
+					revStatus = "norevgoodrevhate";
+				}if(reviewList.get(i).getRevgood() == 0 || !(reviewStatusList.get(i).getUserid().equals(userid))
+						|| reviewStatusList.get(i).getRevgood() == 0){
+					revStatus = "norevgood";
+				}if(reviewList.get(i).getRevhate() == 0 || !(reviewStatusList.get(i).getUserid().equals(userid))
+						|| reviewStatusList.get(i).getRevhate() == 0){
+					revStatus = "norevhate";
 				}
 			}
 			
@@ -194,7 +204,7 @@ public class ObjetController {
 		}
 		
 		String resultValue = "";
-		for(int i = 0; i<likeobjetList.size(); i++) {
+		for(int i = 0; i < likeobjetList.size(); i++) {
 			if(likeobjetList.get(i).getUserid().equals(userid)) {
 				resultValue = "ok";
 			}else {
@@ -207,16 +217,21 @@ public class ObjetController {
 			mv.addObject("reviewList", reviewList);
 			mv.addObject("likeobjetList", likeobjetList);
 			mv.addObject("resultValue", resultValue);
-			mv.addObject("reviewStauts", reviewStauts);
+			mv.addObject("revStatus", revStatus);
+			mv.addObject("revgood", revgood);
+			mv.addObject("revhate", revhate);
 			mv.setViewName("objet/objetDetail");
 		}else {
 			mv.addObject("objet", objet);
 			mv.addObject("reviewList", reviewList);
 			mv.addObject("likeobjetList", likeobjetList);
 			mv.addObject("resultValue", resultValue);
-			mv.addObject("reviewStauts", reviewStauts);
+			mv.addObject("revStatus", revStatus);
+			mv.addObject("revgood", revgood);
+			mv.addObject("revhate", revhate);
 			mv.setViewName("common/error");
 		}
+		
 		
 		return mv;
 		
@@ -225,8 +240,8 @@ public class ObjetController {
 	//한줄평 리스트 정렬
 	@RequestMapping(value="reviewOrder.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public void selectReviewOrder(int no, String order, HttpServletResponse response) throws IOException {
-		ReviewKey rk = new ReviewKey(no, order);
+	public void selectReviewOrder(int no, String userid, String order, HttpServletResponse response) throws IOException {
+		ReviewKey rk = new ReviewKey(no, userid, order);
 		ArrayList<Review> reviewListOrder = objetService.selectReviewOrder(rk);
 		logger.debug(reviewListOrder.get(0).getRevuserid());
 		logger.debug(reviewListOrder.get(1).getRevuserid());
@@ -237,6 +252,7 @@ public class ObjetController {
 		//list를 jarr 로 옮겨 저장 (복사)
 		for(Review review : reviewListOrder) {
 		JSONObject job = new JSONObject();
+		job.put("revuserid", review.getRevuserid());
 		job.put("revcontent", URLEncoder.encode(review.getRevcontent(), "utf-8"));
 		job.put("revstars", review.getRevstars());
 		job.put("revgood", review.getRevgood());
@@ -333,33 +349,47 @@ public class ObjetController {
 	}
 	
 	//한줄평 좋아요/좋아요 취소/좋아요 체크
-	@RequestMapping(value="updateRevGood.do", method=RequestMethod.GET)
-	public ModelAndView updateRevGood(@RequestParam(value="revuserid") String revuserid,
+	@RequestMapping(value="insertRevGood.do", method={RequestMethod.GET, RequestMethod.POST})
+	public void insertRevGood(@RequestParam(value="revuserid") String revuserid,
 			@RequestParam(value="objetno") int objetno, @RequestParam(value="userid") String userid, 
 			HttpServletResponse response) throws IOException{
 		ReviewStatus revstatus = new ReviewStatus(revuserid, objetno, userid);//작성자아이디, 오브제번호, 평가자아이디
-		int revscount = objetService.selectRevGoodChk(revstatus);
-		ModelAndView mv = new ModelAndView();
+		int revgoodcount = objetService.selectRevGoodChk(revstatus);
+		int revhatecount = objetService.selectRevHateChk(revstatus);
 		String resultValue = "";
-		if(revscount == 1) {
-			ReviewStatus revstatus2 = new ReviewStatus(revuserid, objetno, userid, 0);//작성자아이디, 오브제번호, 평가자아이디, 좋아요 갯수
-			int revgoodreset = objetService.updateRevGoodReset(revstatus2);
-			mv.addObject("revscount", revscount);
-			mv.setViewName("objet/objetDetail");
+		if(revgoodcount == 1 && revhatecount == 0 && !(revuserid.equals(userid))) {
+			int revgoodreset = objetService.deleteRevGood(revstatus);
 			if(revgoodreset > 0) {
 				resultValue = "revgoodcancel";
 			}else {
 				resultValue = "fail";
 			}
-		}else if(revscount == 0){
-			ReviewStatus revstatus3 = new ReviewStatus(revuserid, objetno, userid, 1);
-			int revgood = objetService.updateRevGood(revstatus3);
-			mv.addObject("revscount", revscount);
-			mv.setViewName("objet/objetDetail");
+		}else if(revgoodcount == 0 && revhatecount == 0 && !(revuserid.equals(userid))){
+			ReviewStatus revstatus2 = new ReviewStatus(revuserid, objetno, userid, 1);//작성자아이디, 오브제번호, 평가자아이디, 좋아요 갯수
+			int revgood = objetService.insertRevGood(revstatus2);
 			if(revgood > 0) {
-				resultValue = "ok2";
+				resultValue = "revgood";
 			}else {
 				resultValue = "fail2";
+			}
+		}else if(revgoodcount >= 1 && revhatecount >= 1) {
+			int revgoodreset = objetService.deleteRevGood(revstatus);
+			int revhatereset = objetService.deleteRevHate(revstatus);
+			if(revgoodreset > 0 && revhatereset > 0) {
+				resultValue = "revgoodhatecancel";
+			}else {
+				resultValue = "fail3";
+			}
+		}else if(revuserid.equals(userid) && revgoodcount == 0 && revhatecount == 0) {
+			resultValue = "sameuserid";
+		}else if(revgoodcount == 0 && revhatecount == 1 && !(revuserid.equals(userid))) {
+			ReviewStatus revstatus2 = new ReviewStatus(revuserid, objetno, userid, 1);//작성자아이디, 오브제번호, 평가자아이디, 좋아요 갯수
+			int revhatereset = objetService.deleteRevHate(revstatus);
+			int revgood = objetService.insertRevGood(revstatus2);
+			if(revhatereset > 0 && revgood > 0) {
+				resultValue = "revgoodrevhatecancel";
+			}else {
+				resultValue = "fail4";
 			}
 		}
 		
@@ -367,25 +397,58 @@ public class ObjetController {
 		out.append(resultValue);
 		out.flush();
 		out.close();
-		
-		return mv;
 	}
 	
-	/*//한줄평 싫어요/싫어요 취소/싫어요 체크
-	@RequestMapping(value="updateRevHate.do")
-	public void updateRevHate(Review review, HttpServletResponse response) throws IOException{
-		int result = objetService.updateRevHate(review);
-		String resultValue = null;
-		if(result > 0) 
-			resultValue = "ok";
-		else
-			resultValue = "fail";
+	//한줄평 싫어요/싫어요 취소/싫어요 체크
+	@RequestMapping(value="insertRevHate.do", method={RequestMethod.GET, RequestMethod.POST})
+	public void insertRevHate(@RequestParam(value="revuserid") String revuserid,
+			@RequestParam(value="objetno") int objetno, @RequestParam(value="userid") String userid, 
+			HttpServletResponse response) throws IOException{
+		ReviewStatus revstatus = new ReviewStatus(revuserid, objetno, userid);//작성자아이디, 오브제번호, 평가자아이디
+		int revgoodcount = objetService.selectRevGoodChk(revstatus);
+		int revhatecount = objetService.selectRevHateChk(revstatus);
+		String resultValue = "";
+		if(revgoodcount == 0 && revhatecount == 1 && !(revuserid.equals(userid))) {
+			int revhatereset = objetService.deleteRevHate(revstatus);
+			if(revhatereset > 0) {
+				resultValue = "revhatecancel";
+			}else {
+				resultValue = "fail";
+			}
+		}else if(revgoodcount == 0 && revhatecount == 0 && !(revuserid.equals(userid))){
+			ReviewStatus revstatus2 = new ReviewStatus(1, objetno, userid, revuserid);//작성자아이디, 오브제번호, 평가자아이디, 좋아요 갯수
+			int revhate = objetService.insertRevHate(revstatus2);
+			if(revhate > 0) {
+				resultValue = "revhate";
+			}else {
+				resultValue = "fail2";
+			}
+		}else if(revgoodcount >= 1 && revhatecount >= 1) {
+			int revgoodreset = objetService.deleteRevGood(revstatus);
+			int revhatereset = objetService.deleteRevHate(revstatus);
+			if(revgoodreset > 0 && revhatereset > 0) {
+				resultValue = "revgoodhatecancel";
+			}else {
+				resultValue = "fail3";
+			}
+		}else if(revuserid.equals(userid) && revgoodcount == 0 && revhatecount == 0) {
+			resultValue = "sameuserid";
+		}else if(revgoodcount == 1 && revhatecount == 0 && !(revuserid.equals(userid))) {
+			ReviewStatus revstatus2 = new ReviewStatus(1, objetno, userid, revuserid);
+			int revgoodreset = objetService.deleteRevGood(revstatus);
+			int revhate = objetService.insertRevHate(revstatus2);
+			if(revgoodreset > 0 && revhate > 0) {
+				resultValue = "revgoodrevhatecancel";
+			}else {
+				resultValue = "fail4";
+			}
+		}
 		
 		PrintWriter out = response.getWriter();
 		out.append(resultValue);
 		out.flush();
 		out.close();
-	}*/
+	}
 	
 	
 	// 최민영 *******************************************************************************

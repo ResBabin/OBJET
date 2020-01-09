@@ -69,8 +69,8 @@ public class ObjetDao {
 	}
 	
 	//한줄평 리스트
-	public ArrayList<Review> selectReview(int objetno) {
-		List<Review> list = mybatisSession.selectList("objetMapper.selectReview", objetno);
+	public ArrayList<Review> selectReview(Review review) {
+		List<Review> list = mybatisSession.selectList("objetMapper.selectReview", review);
 		return (ArrayList<Review>)list;
 	}
 
@@ -127,29 +127,34 @@ public class ObjetDao {
 		return (ArrayList<ReviewStatus>)list;
 	}
 	
-	//한줄평 평가 체크
+	//한줄평 좋아요 체크
 	public int selectRevGoodChk(ReviewStatus revstatus) {
 		return mybatisSession.selectOne("objetMapper.selectRevGoodChk",revstatus);
 	}
 	
+	//한줄평 싫어요 체크
+	public int selectRevHateChk(ReviewStatus revstatus) {
+		return mybatisSession.selectOne("objetMapper.selectRevHateChk",revstatus);
+	}
+	
 	//한줄평 좋아요
-	public int updateRevGood(ReviewStatus revstatus) {
-		return mybatisSession.update("objetMapper.updateRevGood", revstatus);
+	public int insertRevGood(ReviewStatus revstatus) {
+		return mybatisSession.insert("objetMapper.insertRevGood", revstatus);
 	}
 
 	//한줄평 좋아요 취소
-	public int updateRevGoodReset(ReviewStatus revstatus) {
-		return mybatisSession.update("objetMapper.updateRevGoodReset", revstatus);
+	public int deleteRevGood(ReviewStatus revstatus) {
+		return mybatisSession.delete("objetMapper.deleteRevGood", revstatus);
 	}
 
 	//한줄평 싫어요
-	public int updateRevHate(ReviewStatus revstatus) {
-		return mybatisSession.update("objetMapper.updateRevHate", revstatus);
+	public int insertRevHate(ReviewStatus revstatus) {
+		return mybatisSession.insert("objetMapper.insertRevHate", revstatus);
 	}
 
 	//한줄평 싫어요 취소
-	public int updateRevHateReset(ReviewStatus revstatus) {
-		return mybatisSession.update("objetMapper.updateRevHateReset", revstatus);
+	public int deleteRevHate(ReviewStatus revstatus) {
+		return mybatisSession.delete("objetMapper.deleteRevHate", revstatus);
 	}
 	
 	
@@ -226,6 +231,8 @@ public class ObjetDao {
 	public int deleteObjet(int objetno) {
 		return mybatisSession.delete("", objetno);
 	}
+
+	
 
 
 
