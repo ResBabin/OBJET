@@ -58,17 +58,18 @@ function artistObjetList(){
 				
 				start += '<tr><td colspan="2"><div class="artisthomeObjetListIntro">' + decodeURIComponent(jsonObj.objetlist[i].objetintro.replace(/\+/gi, " ")) + '</div></td></tr>';
 				
-				start += '<tr><td colspan="2">';
+			    start += '<td colspan="2"><div style="font-size: 9pt;">';
+			    
+			    start += '관심 ' + jsonObj.objetlist[i].likecount + '&emsp;댓글 ' + jsonObj.objetlist[i].reviewcount + '&emsp;<i class="small eye icon"></i> ' + jsonObj.objetlist[i].objetview + '</td></tr>';
+				
+			    start += '<tr><td colspan="2" class="artisthomeObjetTableLastTr">';
 				
 				 for(var i in tags){
 					start +='<a class="ui mini grey basic label">' + tags[i] + '</a> &nbsp;';
 				 }
 				 
-			    start += '</td></tr>';
+			    start += '</td></tr></table>';
 			    
-			    start += '<td colspan="2" class="artisthomeObjetTableLastTr"><div style="font-size: 9pt;">';
-			    
-			    start += '관심 ' + jsonObj.objetlist[i].likecount + '&emsp;댓글 ' + jsonObj.objetlist[i].reviewcount + '&emsp;<i class="small eye icon"></i> ' + jsonObj.objetlist[i].objetview + '</td></tr></table>';
 			    
 			}
 			
@@ -130,17 +131,18 @@ function objetSearch(){
 				
 				start += '<tr><td colspan="2"><div class="artisthomeObjetListIntro">' + decodeURIComponent(jsonObj.objetlist[i].objetintro.replace(/\+/gi, " ")) + '</div></td></tr>';
 				
-				start += '<tr><td colspan="2">';
+			    start += '<td colspan="2"><div style="font-size: 9pt;">';
+			    
+			    start += '관심 ' + jsonObj.objetlist[i].likecount + '&emsp;댓글 ' + jsonObj.objetlist[i].reviewcount + '&emsp;<i class="small eye icon"></i> ' + jsonObj.objetlist[i].objetview + '</td></tr>';
+				
+			    start += '<tr><td colspan="2" class="artisthomeObjetTableLastTr">';
 				
 				 for(var i in tags){
 					start +='<a class="ui mini grey basic label">' + tags[i] + '</a> &nbsp;';
 				 }
 				 
-			    start += '</td></tr>';
+			    start += '</td></tr></table>';
 			    
-			    start += '<td colspan="2" class="artisthomeObjetTableLastTr"><div style="font-size: 9pt;">';
-			    
-			    start += '관심 ' + jsonObj.objetlist[i].likecount + '&emsp;댓글 ' + jsonObj.objetlist[i].reviewcount + '&emsp;<i class="small eye icon"></i> ' + jsonObj.objetlist[i].objetview + '</td></tr></table>';
 			    
 			}
 			

@@ -16,6 +16,7 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 	
+
 	
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
@@ -48,8 +49,7 @@
 		id="multipartResolver">
 	<beans:property name="maxUploadSize" value="10000000"/>
 	</beans:bean>
-	
-	
+
 	<context:component-scan base-package="com.kh.objet" />
 	
 	<!-- 인터셉트 사용할 클래스는 수동으로 등록해야 함 -->
@@ -68,4 +68,26 @@
 			<beans:bean id="loginCheckInterceptor" class="com.kh.objet.common.interceptor.LoginCheckInterceptor"/>
 		</interceptor>
 	</interceptors>
+	
+	
+	<!-- Oauth2 login -->
+	<!-- 네이버 -->
+	<beans:bean id="naverClientID" class="java.lang.String">
+		<beans:constructor-arg value="nMWRSp4IL_b7O5H3oI75" />
+	</beans:bean>
+	<beans:bean id="naverClientSecret" class="java.lang.String">
+		<beans:constructor-arg value="6gXrl12oOD" />
+	</beans:bean>
+	<beans:bean id="naverRedirectUrl" class="java.lang.String">
+		<beans:constructor-arg value="http://127.0.0.1:12345/objet/callback.do" />
+	</beans:bean>
+
+	<beans:bean id="naverSns" class="com.kh.objet.oauth.SnsValue">
+		<beans:constructor-arg value="naver" />
+		<beans:constructor-arg ref="naverClientID" />
+		<beans:constructor-arg ref="naverClientSecret" />
+		<beans:constructor-arg ref="naverRedirectUrl" />
+	</beans:bean>
+	
+
 </beans:beans>

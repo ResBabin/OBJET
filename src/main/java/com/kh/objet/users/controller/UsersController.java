@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
-
+import javax.inject.Inject;
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
@@ -28,6 +28,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.objet.oauth.SNSLogin;
+import com.kh.objet.oauth.SnsValue;
 import com.kh.objet.quit.model.vo.Quit2;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.users.model.service.UserManagementService;
@@ -45,8 +47,12 @@ public class UsersController {
 	private UserManagementService usermService;
 	
 	// 패스워드 암호화 
-		@Autowired
-		public BCryptPasswordEncoder bcryptPasswordEncoder;
+	@Autowired
+	public BCryptPasswordEncoder bcryptPasswordEncoder;
+	
+	// 네이버
+	@Inject
+	private SnsValue naverSns;
 	
 	public UsersController() {};
 	
@@ -143,14 +149,32 @@ public class UsersController {
 			 return vfn;
 		}
 		
-	
-			
 	// 로그인 페이지 이동
 		@RequestMapping("moveLogin.do")
-		public String moveLoginPage() {
+		public String moveLoginPage(Model model) {
+			// 네이버 로그인
+			SNSLogin snsLogin = new SNSLogin(naverSns);
+			model.addAttribute("naver_url", snsLogin.getNaverAuthURL());
 			return "user/login";
 		}
-	
+		
+	// 네아로 CallBack
+		@RequestMapping(value="callback.do", method= {RequestMethod.GET, RequestMethod.POST})
+		public String snsLoginCallback(Model model, @RequestParam String code) throws Exception {
+			// 1. code를 이용해서 access_token 받기
+			// 2. access_token을 이용해서 사용자 profile 정보 가져오기
+				SNSLogin snslogin = new SNSLogin(naverSns);
+				String profile = snslogin.getUserProfile(code);
+				System.out.println("Profile : " + profile);
+				model.addAttribute("result", profile);
+				
+			// 3. DB에 해당 유저가 존재하는지 체크(naverid 컬럼 추가)
+			// 4. 존재 시 강제 로그인, 미존재시 가입 안내 페이지로 이동
+			
+			return "user/loginResult";
+		}
+		
+		
 	// 회원 로그인
 		@RequestMapping(value="login.do", method=RequestMethod.POST)
 		public String selectUsersLogin(UAUP users, HttpSession session, Model model) {
