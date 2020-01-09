@@ -417,8 +417,10 @@ public class ObjetController {
 				job.put("objetregidate", objet.getObjetregidate().toString());
 				job.put("objetstatus", objet.getObjetstatus());
 				job.put("objetview", objet.getObjetview());
-				job.put("likecount", objetService.selectlikecount(objet.getObjetno()));
-				job.put("reviewcount", objetService.selectreviewcount(objet.getObjetno()));
+				objet.setLikecount(objetService.selectlikecount(objet.getObjetno()));
+				job.put("likecount", objet.getLikecount());
+				objet.setReviewcount(objetService.selectreviewcount(objet.getObjetno()));
+				job.put("reviewcount", objet.getReviewcount());
 				jarr.add(job);
 				}
 
@@ -468,8 +470,10 @@ public class ObjetController {
 				job.put("objetregidate", objet.getObjetregidate().toString());
 				job.put("objetstatus", objet.getObjetstatus());
 				job.put("objetview", objet.getObjetview());
-				job.put("likecount", objetService.selectlikecount(objet.getObjetno()));
-				job.put("reviewcount", objetService.selectreviewcount(objet.getObjetno()));
+				objet.setLikecount(objetService.selectlikecount(objet.getObjetno()));
+				job.put("likecount", objet.getLikecount());
+				objet.setReviewcount(objetService.selectreviewcount(objet.getObjetno()));
+				job.put("reviewcount", objet.getReviewcount());
 				
 				jarr.add(job);
 				}

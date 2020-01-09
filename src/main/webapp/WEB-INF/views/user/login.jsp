@@ -98,8 +98,13 @@
        <button class="ui black button" id="btnsub" onclick="sendit()" style="width:300px; height:40px; background: #4c4c4c;">로그인</button>
 	<br><br>
 		<button class="ui grey button" onclick="location.href='moveEnrollPage.do'" style="width:300px;height:40px; background: #aaa;">회원가입</button>
-		<br>
-		<!-- <img src="resources/images/kakaoLogin.png" style="vertical-align: center;" onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=008a8c7a2afc70539d4c97fd7898b3dc&redirect_uri=http://localhost:12345/objet/oauth&response_type=code'"> -->
+	<br><br>
+	<div class="text-center">
+		<a href="${naver_url}">
+		<img width="300px" height="40px" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png" alt="Naver Login"/>
+		</a>
+	</div>
+
 		<br><br><br><br><br><br>
 		
 		<div class="ui checkbox">
