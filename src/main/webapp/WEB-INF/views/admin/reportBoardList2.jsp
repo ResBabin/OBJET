@@ -123,9 +123,10 @@ $(".delbtn").click(function() {
 		type : "post",
 		success : function(result) {
 			console.log(result);
-			$(deltr2).next().find(".detaild").remove();
+		/* 	$(deltr2).next().find(".detaild").remove();
 			$(deltr).parent().remove();
-			$(deltr2).next().find(".totalcount").remove();
+			$(deltr2).next().find(".totalcount").remove(); */
+			location.href = "reportbm.do";
 		},
 		error : function(request, status, errorData) { 
 			console.log("error code : " + request.status
@@ -199,7 +200,8 @@ $(".delbtn").click(function() {
 										<div id='datediv'>${ rblist.reportbdate }</div>
 									</div>
 								</c:if>
-							</c:forEach></td>
+							</c:forEach>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

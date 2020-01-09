@@ -102,7 +102,9 @@ public class ReportBoardController {
 	}
 	
 	@RequestMapping(value="reportdetail.do", method=RequestMethod.POST)
-	public void selectReportDetail (Review review, HttpServletResponse response) throws IOException {
+	public void selectReportDetail (Review review, HttpServletResponse response, HttpServletRequest request) throws IOException {
+		review.setRevuserid(request.getParameter("userid"));
+		review.setObjetno(Integer.parseInt(request.getParameter("objetno")));
 		Review reportdetail = reportbService.selectReportDetail(review);
 		reportdetail.getRevcontent();
 		response.setContentType("text/html; charset=utf-8");

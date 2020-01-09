@@ -2,6 +2,7 @@ package com.kh.objet.users.model.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -82,6 +83,36 @@ public class UserManagementServiceImpl implements UserManagementService{
 	@Override
 	public List<Users> selectEnrollCount() {
 		return usermDao.selectEnrollCount();
+	}
+
+	@Override
+	public int insertBlackList(Map<String, String> map) {
+		return usermDao.insertBlackList(map);
+	}
+
+	@Override
+	public int updateBlackYN(String userid) {
+		return usermDao.updateBlackYN(userid);
+	}
+
+	@Override
+	public int updateQuitYN(Map<String, String> map) {
+		return usermDao.updateQuitYN(map);
+	}
+
+	@Override
+	public int insertQuit(Map<String, String> map) {
+		return usermDao.insertQuit(map);
+	}
+
+	@Override
+	public int deleteBlackList(String userid) {
+		return usermDao.deleteBlackList(userid);
+	}
+
+	@Override
+	public int updateBlackEnd(String userid) {
+		return usermDao.updateBlackEnd(userid);
 	}
 
 	

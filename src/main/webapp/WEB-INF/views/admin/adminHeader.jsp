@@ -104,10 +104,10 @@
 		</div>
 		<div class="right menu">
 			<div class="item">안녕하세요 관리자님</div>
-			<div class="item">알림
+			<!-- <div class="item">알림
 			<i class="icon bell"></i>
 			<div class="ui circular red label" style="margin-left: -5px;">10</div>
-			</div>
+			</div> -->
 			<div class="item">
 				<a href="main.do"><button class="ui red button icons" style="font-size: 10pt;"><i class="home icon"></i>사용자</button></a>
 			</div>

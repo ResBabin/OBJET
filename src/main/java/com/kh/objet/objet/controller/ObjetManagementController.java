@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -81,6 +83,7 @@ public class ObjetManagementController {
 	
 	@RequestMapping("adminmain.do")
 	public String adminMain(Model model) {
+		Map<String, Integer> map = new HashMap<>();
 		ArrayList<Objet> objetreqlist = (ArrayList<Objet>) objetmService.selectObjetRequestManage();
 		ArrayList<ReportBoard> reportblist = (ArrayList<ReportBoard>) reportbService.selectReportMain();
 		ArrayList<Qna>qnalist = (ArrayList<Qna>) qnaService.selectQnaList();

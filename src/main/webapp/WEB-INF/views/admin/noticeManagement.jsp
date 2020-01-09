@@ -55,6 +55,18 @@
 </c:forEach>
 </tbody>
 </table>
+<div align="center">
+		<div class="ui pagination menu">
+			<a class="item"> <i class="angle double left icon"></i></a>
+			<a class="item"> <i class="angle left icon"></i> </a>
+			<a class="item"> 1 </a>
+			<div class="disabled item">...</div>
+			<a class="item active"> 10 </a> <a class="item"> 11 </a> <a
+				class="item"> 12 </a>
+			<a class="item"> <i class="angle right icon"></i></a>
+			<a class="item"> <i class="angle double right icon"></i></a>
+		</div>
+		</div>
 </div>
 </body>
 </html>
