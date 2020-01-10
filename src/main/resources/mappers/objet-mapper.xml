@@ -219,4 +219,49 @@ group by a.nickname, a.userid, b.userrpic, b.userintros, b.userintrol, b.usertag
 	 	select count(*) from review where objetno = #{objetno}
 	 </select>
  
+ <!-- 박근수 -->
+ 
+ 	<select id="moveMyObjetList" parameterType="objet" resultType="objet">
+ 		select * from objet where userid = #{userid}
+ 	</select>
+ 	
+ 	<select id="selectMyObjetSearch" parameterType="hashmap" resultType="objet">
+ 		select * from (
+ 		select objetno, userid, objettitle, objetintro, originmainposter, renamemainposter, objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview
+ 		from (select objetno, userid, objettitle, objetintro, originmainposter, renamemainposter, objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview from (select * from objet where publicyn = 'Y')
+ 		where objettitle like '%' || #{objettitle} || '%' and objetstatus in ('STANDBY', 'OPEN', 'CLOSE') order by decode(objetstatus, 'OPEN', 1, 'STANDBY', 2, 3))) where userid = #{userid}
+ 	</select>
+ 	
+ 	<select id="moveMyObjetDetail" parameterType="objet" resultType="objet">
+ 		select * from objet where objetno = #{objetno}
+ 	</select>
+ 	
+ 	<insert id="insertObjet" parameterType="objet">
+ 		insert into objet values (#{objetno}, #{userid}, #{objettitle}, #{objetintro}, #{originmainposter}, #{renamemainposter}, #{objetstartdate}, #{objetenddate}, #{objettag}, #{publicyn}, #{objetregidate}, #{objetstatus}, #{objetview})
+ 	</insert>
+ 	
+ 	<update id="updateObjet" parameterType="objet">
+ 		update objet
+ 		<trim prefix="set" suffixOverrides=",">
+			<if test="objetno != null">objetno = #{objetno},</if>
+			<if test="userid != null">userid = #{userid},</if>
+			<if test="objettitle != null">objettitle = #{objettitle},</if>
+			<if test="objetintro != null">objetintro = #{objetintro}, </if>
+			<if test="originmainposter != null">originmainposter = #{originmainposter}, </if>
+			<if test="renamemainposter != null">renamemainposter = #{renamemainposter}, </if>
+			<if test="objetstartdate != null">objetstartdate = #{objetstartdate}, </if>
+			<if test="objetenddate != null">objetenddate = #{objetenddate}, </if>
+			<if test="objettag != null">objettag = #{objettag}, </if>
+			<if test="publicyn != null">publicyn = #{publicyn}, </if>
+			<if test="objetregidate != null">objetregidate = #{objetregidate}, </if>
+			<if test="objetstatus != null">objetstatus = #{objetstatus}, </if>
+			<if test="objetview != null">objetview = #{objetview}, </if>
+		</trim>
+		where userid = #{userid}
+ 	</update>
+ 	
+ 	<delete id="deleteObjet" parameterType="objet">
+ 		delete from objet where objettitle = #{objettitle} and objetstatus = #{objetstatus} and objetstartdate = #{objetstartdate} and objetenddate = #{objetenddate} and publicyn = #{publicyn} and objetregidate = #{objetregidate}
+ 	</delete>
+ 	
 </mapper>

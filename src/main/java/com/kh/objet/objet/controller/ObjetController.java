@@ -6,8 +6,9 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
@@ -23,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
 import com.kh.objet.likeobjet.model.vo.LikeObjet;
 import com.kh.objet.objet.model.service.ObjetServiceImpl;
 import com.kh.objet.objet.model.vo.Artist;
@@ -574,17 +574,18 @@ public class ObjetController {
 
 			
 	
-	// 오브제 관리-내 오브제 페이지 이동
-		@RequestMapping("moveMyObjetList.do")
-		public String moveMyObjetList() {
-			return "objet/myObjetList";
-		}
-		
-	// 오브제 관리-내 오브제 검색
-		@RequestMapping("selectMyObjetSearch.do")
-		public void selectMyObjetSearch(@RequestParam(value="publicyn") String publicyn, @RequestParam(value="objetstatus") String objetstatus, 
+			// 박근수 *******************************************************************************
+			// 오브제 관리-내 오브제 페이지 이동
+			@RequestMapping("moveMyObjetList.do")
+			public String moveMyObjetList() {
+				return "objet/myObjetList";
+			}
+						
+			// 오브제 관리-내 오브제 검색
+			@RequestMapping("selectMyObjetSearch.do")
+			public void selectMyObjetSearch(@RequestParam(value="publicyn") String publicyn, @RequestParam(value="objetstatus") String objetstatus, 
 				@RequestParam(value="objettitle") String objettitle, HttpServletResponse response) throws IOException {
-			
+				
 			HashMap<String, Object> map =new HashMap<String, Object>();  
 			
 			map.put("publicyn", publicyn);
@@ -630,45 +631,72 @@ public class ObjetController {
 			out.println(sendJson.toJSONString());
 			out.flush();
 			out.close();
+				
+			}
 			
-		}
-	
-	//오브제 관리 - 내 오브제 상세보기
-		@RequestMapping("moveMyObjetDetail.do")
-		public ModelAndView moveMyObjetDetail(@RequestParam(value="objetno") int objetno, ModelAndView mv) {
-			return mv;
-		}
+			//오브제 관리 - 내 오브제 상세보기
+			@RequestMapping("moveMyObjetDetail.do")
+			public String moveMyObjetDetail(@RequestParam(value="objetno") int objetno, HttpServletRequest request, Model model) {
+				Map<String, String> map = new HashMap();
+				map.put("objetno", request.getParameter("objetno"));
+				map.put("userid", request.getParameter("userid"));
+				
+				Objet objet = objetService.moveMyObjetDetail(objetno);
+				model.addAttribute("objet", objet);
+				return "objet/myObjetDetail";
+			}
+				
+			//오브제 관리 - 내 오브제 수정 페이지 이동
+			@RequestMapping("moveEditObjet.do")
+			public String moveEditObjet(@RequestParam(value="objetno") int objetno) {
+				return "objet/editObjet";
+			}
 		
-	//오브제 관리 - 내 오브제 수정 페이지 이동
-		@RequestMapping("moveEditObjet.do")
-		public String moveEditObjet(@RequestParam(value="objetno") int objetno) {
-			return "objet/editObjet";
-		}
-	
-	//오브제 관리 - 내 오브제 수정
-		@RequestMapping("updateMyObjet.do")
-		public String updateMyObjet(Objet objet, Model model) {
-			return "objet/myObjetDetail";
-		}
-	
+			//오브제 관리 - 내 오브제 수정
+			@RequestMapping("updateMyObjet.do")
+			public String updateMyObjet(Objet objet, HttpServletRequest request, Model model) {
+				int result = objetService.updateMyObjet(objet);
+				
+				return "objet/editObjet";
+			}
+			
 
-	//오브제 관리 - 전시 등록 페이지 이동
-		@RequestMapping("moveCreateObjet.do")
-		public String moveCreateObjet() {
-			return "objet/createObjet";
-		}
-		
-	//오브제 관리 - 전시 등록
-		@RequestMapping("insertObjet.do")
-		public String insertObjet(Objet objet, Model model) {
-			return "objet/myObjetList";
-		}
-		
-	// 오브제 관리 - 전시삭제
-		@RequestMapping("deleteObjet.do")
-		public String deleteObjet(int objetno, Model model) {
-			return "objet/myObjetList";
-		}
+			//오브제 관리 - 전시 등록 페이지 이동
+			@RequestMapping("moveCreateObjet.do")
+			public String moveCreateObjet() {
+				return "objet/createObjet";
+			}
+				
+			//오브제 관리 - 전시 등록
+			@RequestMapping(value="insertObjet.do", method=RequestMethod.POST)
+			public String insertObjet(Objet objet, HttpServletRequest request, Model model) {
+				int result = objetService.insertObjet(objet);
+				
+				String viewFileName = "createObjet";
+				if(result < 0) {
+					model.addAttribute("message", "Insert failed...");
+					viewFileName = "common/error";
+				}
+				return viewFileName;
+			}
+				
+			// 오브제 관리 - 전시삭제
+			@RequestMapping("deleteObjet.do")
+			public void deleteObjet(Objet objet, @RequestParam(value="objetno") int objetno, HttpServletResponse response) throws IOException {
+				int result = objetService.deleteObjet(objetno);
+				
+				String returnValue = null;
+				if(result > 0) {
+					returnValue = "OK";
+				}else {
+					returnValue = "Retry Plz";
+				}
+				
+				PrintWriter out = response.getWriter();
+				out.append(returnValue);
+				out.flush();
+				out.close();
+			}
 		
 
 
