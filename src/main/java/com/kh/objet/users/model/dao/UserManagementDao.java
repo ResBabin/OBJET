@@ -77,7 +77,11 @@ public class UserManagementDao {
 	public int updateBlackEnd(String userid) {
 		return mybatisSession.delete("adminMapper.updateBlackEnd", userid);
 	}
-	
-	
+	public List<UserManagement> selectUserOrder(Map<String, String> map) {
+		return mybatisSession.selectList("adminMapper.selectUserOrder", map);
+	}
+	public int updateBlackDate(Map<String, String> map) {
+		return mybatisSession.update("adminMapper.updateBlackDate", map);
+	}
 	
 }

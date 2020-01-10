@@ -16,9 +16,6 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 
-
-
-
 <style type="text/css">
 #um {
 	padding: 150px;
@@ -32,7 +29,7 @@
 	width: 500px;
 	height: 480px;
 	left: 35%;
-	top: 40%; 
+	top: 30%; 
 	border-radius: 5px;
 	padding: 30px;
 	box-shadow: 1px 1px 2px #999;
@@ -45,7 +42,7 @@
 	width: 500px;
 	height: 415px;
 	left: 35%;
-	top: 70%; 
+	top: 40%; 
 	border-radius: 5px;
 	padding: 30px;
 	box-shadow: 1px 1px 2px #999;
@@ -79,8 +76,10 @@ textarea {
 </style>
 
 <script type="text/javascript">
-
+var thclicked = "normal";
 	$(function() {
+		
+		
 		$("#checkall").click(function() {
 			var check = $("#checkall").prop("checked");
 			if (check) {
@@ -106,6 +105,9 @@ textarea {
 			$("#quitdiv").css("display", "none");
 		});
 
+		
+
+		
 		$("#blackok").click(function() {
 					if ($("input[name=userid]:checked").length > 0) {
 						if($("input[name=blackreason]:checked").length > 0){
@@ -194,13 +196,208 @@ textarea {
 				alert("사용자를 선택해주세요.");
 			}
 		});
+		var adminclick = 0, allclick = 0, userclick = 0, blackclick = 0, quitclick = 0;
+		$("#adminbtn").click(function() {
+				$(".sorted").attr("class", "");
+				$("#userid").attr("class", "sorted ascending");
+				thorder("ADMIN", "ida");
+				adminclick += 1;
+				allclick = 0, userclick = 0, blackclick = 0, quitclick = 0;
+		});
+		$("#userbtn").click(function() {
+				$(".sorted").attr("class", "");
+				$("#userid").attr("class", "sorted ascending");
+				thorder("USER", "ida");
+				userclick += 1;
+				adminclick = 0, allclick = 0, blackclick = 0, quitclick = 0;
+		});
+		$("#quitbtn").click(function() {
+				$(".sorted").attr("class", "");
+				$("#userid").attr("class", "sorted ascending");
+				thorder("quityn", "ida");
+				quitclick += 1;
+				adminclick = 0, allclick = 0, userclick = 0, blackclick = 0;
+		});
+		$("#blackbtn").click(function() {
+				$(".sorted").attr("class", "");
+				$("#userid").attr("class", "sorted ascending");
+				thorder("blackyn", "ida");
+				blackclick += 1;
+				adminclick = 0, allclick = 0, userclick = 0, quitclick = 0;
+		});
+		$("#allbtn").click(function() {
+				$(".sorted").attr("class", "");
+				$("#userid").attr("class", "sorted ascending");
+				thorder("all", "ida");
+				console.log("전체회원 조회");
+				allclick += 1;
+				adminclick = 0, userclick = 0, blackclick = 0, quitclick = 0;
+		});
+		var clickid = 0, clicknick = 0, clickname = 0, clickstart = 0, clickend = 0;
+	
+			$("#userid").click(function() {
+				if(adminclick > 0){
+				if(clickid%2 == 0){
+					$(".sorted").attr("class", "");
+					$("#userid").attr("class", "sorted descending");
+					thorder("ADMIN", "idd");
+					clickid += 1;
+					clicknick = 0, clickname = 0, clickstart = 0, clickend = 0;
+				} else if(clickid%2 != 0){
+					$(".sorted").attr("class", "");
+					$("#userid").attr("class", "sorted ascending");
+					thorder("ADMIN", "ida");
+					clickid += 1;
+					clicknick = 0, clickname = 0, clickstart = 0, clickend = 0;
+				} 
+				}else if (userclick > 0){
+					if(clickid%2 == 0){
+						$(".sorted").attr("class", "");
+						$("#userid").attr("class", "sorted descending");
+						thorder("USER", "idd");
+						clickid += 1;
+						clicknick = 0, clickname = 0, clickstart = 0, clickend = 0;
+					} else if(clickid%2 != 0){
+						$(".sorted").attr("class", "");
+						$("#userid").attr("class", "sorted ascending");
+						thorder("USER", "ida");
+						clickid += 1;
+						clicknick = 0, clickname = 0, clickstart = 0, clickend = 0;
+					} 
+				}else if (allclick > 0){
+					if(clickid%2 == 0){
+						$(".sorted").attr("class", "");
+						$("#userid").attr("class", "sorted descending");
+						thorder("all", "idd");
+						clickid += 1;
+						clicknick = 0, clickname = 0, clickstart = 0, clickend = 0;
+					} else if(clickid%2 != 0){
+						$(".sorted").attr("class", "");
+						$("#userid").attr("class", "sorted ascending");
+						thorder("all", "ida");
+						clickid += 1;
+						clicknick = 0, clickname = 0, clickstart = 0, clickend = 0;
+					} 
+				}else if(blackclick > 0){
+					if(clickid%2 == 0){
+						$(".sorted").attr("class", "");
+						$("#userid").attr("class", "sorted descending");
+						thorder("blackyn", "idd");
+						clickid += 1;
+						clicknick = 0, clickname = 0, clickstart = 0, clickend = 0;
+					} else if(clickid%2 != 0){
+						$(".sorted").attr("class", "");
+						$("#userid").attr("class", "sorted ascending");
+						thorder("blackyn", "ida");
+						clickid += 1;
+						clicknick = 0, clickname = 0, clickstart = 0, clickend = 0;
+					} 
+				}
+			});
+			$("#nick").click(function() {
+				if(clicknick%2 == 0){
+					$(".sorted").attr("class", "");
+					$("#nick").attr("class", "sorted ascending");
+					thorder("USER", "nicka");
+					clicknick += 1;
+					clickid = 0, clickname = 0, clickstart = 0, clickend = 0;
+				} else {
+					$(".sorted").attr("class", "");
+					$("#nick").attr("class", "sorted descending");
+					thorder("USER", "nickd");
+					clicknick += 1;
+					clickid = 0, clickname = 0, clickstart = 0, clickend = 0;
+				}
+			});
+			$("#name").click(function() {
+				if(clickname%2 == 0){
+					$(".sorted").attr("class", "");
+					$("#name").attr("class", "sorted ascending");
+					thorder("USER", "namea");
+					clickname += 1;
+					clicknick = 0, clickid = 0, clickstart = 0, clickend = 0;
+				} else {
+					$(".sorted").attr("class", "");
+					$("#name").attr("class", "sorted descending");
+					thorder("USER", "named");
+					clickname += 1;
+					clicknick = 0, clickid = 0, clickstart = 0, clickend = 0;
+				}
+			});
+			$("#enroll").click(function() {
+				if(clickstart%2 == 0){
+					$(".sorted").attr("class", "");
+					$("#enroll").attr("class", "sorted ascending");
+					thorder("USER", "enrolla");
+					clickstart += 1;
+					clicknick = 0, clickname = 0, clickid = 0, clickend = 0;
+				} else {
+					$(".sorted").attr("class", "");
+					$("#enroll").attr("class", "sorted descending");
+					thorder("USER", "enrolld");
+					clickstart += 1;
+					clicknick = 0, clickname = 0, clickid = 0, clickend = 0;
+				}
+			});
+			
+		
+		function thorder(usertype, order) {
+			$.ajax({
+						url : "userorder.do",
+						data : {
+							usertype : usertype,
+							order : order
+						},
+						type : "post",
+						dataType : "json",
+						success : function(result) {
+					var blackuser = '<i class="small icons" style="bottom: 3px;"> <i class="big red dont icon" style="margin-right: 0px;"></i> <i class="black user icon"></i></i>';
+					var normaluser ='<i class="small icons" style="bottom: 3px;"> <i class="big circle outline icon" style="margin-right: 0px;"></i><i class="user icon"></i></i>';
+							var objStr = JSON.stringify(result);
+							var jsonObj = JSON.parse(objStr);
+							//출력용 문자열 준비 
+							var bk = 0;
+							//출력할 문자열 만들기
+							for ( var i in jsonObj.list) {
+								 if (jsonObj.list[i].blackyn == 'Y'){
+										bkuser = '<i class="big red dont icon" style="margin-right: 0px;"></i> <i class="black user icon"></i></i>';
+									}else {
+										bkuser = '<i class="big circle outline icon" style="margin-right: 0px;"></i><i class="user icon"></i></i>';
+									}
+								bk += '<tr><td><div class="ui fitted checkbox"><input type="checkbox" name="userid" value="'+jsonObj.list[i].userid+'"> <label></label></div></td><td id="userid"><i class="small icons" style="bottom: 3px;">'
+										+ bkuser
+										+ '&nbsp; <a href="${ usermd }">'
+										+ jsonObj.list[i].userid
+										+ "</a></td><td id='nick'><a href='${ usermd }'>"
+										+ decodeURIComponent(jsonObj.list[i].nickname
+												.replace(/\+/gi, " "))
+										+ "</a></td><td id='name'><a href='${ usermd }'>"
+										+ decodeURIComponent(jsonObj.list[i].username
+												.replace(/\+/gi, " "))
+										+ "</a></td><td id='enroll'>"
+										+ jsonObj.list[i].enrolldate
+										+ "</td><td id='quit'>"
+										+ jsonObj.list[i].quityn
+										+ "</td><td id='report'>"
+										+ jsonObj.list[i].reportcount + "</td></tr>";
+							}
+							$("#usertable").html(bk);
+						},
+						error : function(request, status, errorData) {
+							console.log("error code : " + request.status
+									+ "\nMessage : " + request.responseText
+									+ "\nError : " + errorData);
+						}
+					});
+		}
+
+
 	});
 </script>
 <c:import url="adminHeader.jsp"/>
 </head>
 <body>
 	<div id="um">
-	
 	<div id="popdiv">
 		<label id="bllabel">블랙리스트 기간 및 사유를 선택해 주세요.</label>
 		<br><br><hr><br>
@@ -275,9 +472,11 @@ textarea {
 		<br>
 		<div>
 			<div class="ui small basic buttons">
-				<div class="ui button">블랙리스트</div>
-				<div class="ui button">일반회원</div>
-				<div class="ui button">관리자</div>
+				<div class="ui button" id="allbtn">전체회원</div>
+				<div class="ui button" id="adminbtn">관리자</div>
+				<div class="ui button" id="userbtn">일반회원</div>
+				<div class="ui button" id="blackbtn">블랙리스트</div>
+				<div class="ui button" id="quitbtn">탈퇴회원</div>
 			</div>
 		</div>
 		<table class="ui sortable celled table selectable">
@@ -288,15 +487,15 @@ textarea {
 							<input type="checkbox" id="checkall"> <label></label>
 						</div>
 					</th>
-					<th class="sorted ascending">회원ID</th>
-					<th class="">닉네임</th>
-					<th class="">이름</th>
-					<th class="">가입일</th>
-					<th class="" width="50">탈퇴여부</th>
-					<th class="">신고횟수</th>
+					<th class="" id="userid">회원ID<input type="hidden"  value="0" name="userid"></th>
+					<th class="" id="nick">닉네임</th>
+					<th class="" id="name">이름</th>
+					<th class="" id="enroll">가입일</th> 
+					<th class="" width="50" id="quit">탈퇴여부</th>
+					<th class="" id="report">신고횟수</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="usertable">
 				<c:forEach items="${ ulist }" var="userm">
 				<c:url var="usermd" value="usermd.do">
 					<c:param name="userid" value="${ userm.userid }" />

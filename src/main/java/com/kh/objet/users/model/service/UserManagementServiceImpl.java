@@ -115,6 +115,16 @@ public class UserManagementServiceImpl implements UserManagementService{
 		return usermDao.updateBlackEnd(userid);
 	}
 
+	@Override
+	public List<UserManagement> selectUserOrder(Map<String, String> map) {
+		return usermDao.selectUserOrder(map);
+	}
+
+	@Override
+	public int updateBlackDate(Map<String, String> map) {
+		return usermDao.updateBlackDate(map);
+	}
+
 	
 
 }

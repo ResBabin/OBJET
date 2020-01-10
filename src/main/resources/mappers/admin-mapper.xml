@@ -5,18 +5,54 @@
 <mapper namespace="adminMapper">
 	<!-- =========회원============ -->
 	<!-- 회원 조회 -->
-	<select id="selectUsers" resultType="Userm">
+	<!-- <select id="selectUsers" resultType="Userm">
 		select userid, nickname,
 		username, blackyn, enrolldate, quityn, count(reportedu) as
 		"reportcount" from users
-		left join reportudetail on (userid =
-		reportedu)
+		left join reportudetail on (userid = reportedu)
 		where userid not like '%admin%'
 		group by userid, nickname,
 		username,
 		blackyn, enrolldate, quityn
 		order by userid
+	</select> -->
+	  <select id="selectUsers" resultType="Userm" parameterType="map">
+		select * from ( select *
+		from ( select distinct userid, nickname, username, blackyn, enrolldate, quityn, reportedu, usertype, count(reportedu) as "reportcount"
+		from users left join reportudetail on (userid = reportedu)
+		group by userid, nickname, username, blackyn, enrolldate, quityn, reportedu, usertype
+		order by userid asc)
+		where usertype like '%USER%' )
+		<![CDATA[where rownum >= 1 and rownum <= 10]]>
+	  </select>
+	
+	<!-- 회원 타입별 조회 및 정렬 조회 -->
+	<select id="selectUserOrder" parameterType="map" resultType="Userm">
+	select distinct userid, nickname, username, blackyn, enrolldate, quityn, reportedu, usertype, count(reportedu) as "reportcount"   from ( select *
+		from ( select  *
+		from users left join reportudetail on (userid = reportedu)
+		)
+		<if test="all != null">)</if>
+		<if test="usertype != null">where usertype like '%'||#{ usertype }||'%' )</if>
+		<if test="blackyn != null">where blackyn = 'Y' )</if>
+		<if test="quityn != null">where quityn = 'Y' )</if>
+		group by userid, nickname, username, blackyn, enrolldate, quityn, reportedu, usertype
+		<trim prefix="order by">
+		<if test="order.equals('ida')"> userid asc</if>
+		<if test="order.equals('idd')"> userid desc</if>
+		<if test="order.equals('nicka')"> nickname asc</if>
+		<if test="order.equals('nickd')"> nickname desc</if>
+		<if test="order.equals('namea')"> username asc</if>
+		<if test="order.equals('named')"> username desc</if>
+		<if test="order.equals('enrolla')"> enrolldate asc</if>
+		<if test="order.equals('enrolld')"> enrolldate desc</if>
+		<if test="order.equals('repa')"> reportcount asc</if>
+		<if test="order.equals('erpd')"> reportcount desc</if>
+		</trim>
 	</select>
+	
+
+
 
 	<!-- 블랙리스트 조회 -->
 	<select id="selectBlacklist" resultType="Userm">
@@ -89,11 +125,23 @@
 		, #{ blackreason }
 		)
 	</insert>
+	
 	<update id="updateBlackYN" parameterType="string">
 		update users set blackyn = 'Y'
 		where userid = #{ value }
 	</update>
-	
+	<!--  이미 있는 블랙리스트 기간 연장하기 -->
+	<update id="updateBlackDate" parameterType="map">
+		update blacklist set blackend = 
+		<if test="blackend.equals('oneweek')">sysdate+7</if>
+		<if test="blackend.equals('twoweek')">sysdate+14</if>
+		<if test="blackend.equals('threeweek')">sysdate+21</if>
+		<if test="blackend.equals('onemonth')">sysdate+30</if>
+		<if test="blackend.equals('twomonth')">sysdate+60</if>
+		<if test="blackend.equals('threemonth')">sysdate+90</if>,
+		blackreason = #{ blackreason }
+		where userid = #{ userid }
+	</update>
 	<!-- 강제탈퇴 -->
 	<update id="updateQuitYN" parameterType="map">
 		update users set quityn = 'Y'
@@ -109,7 +157,6 @@
 	<delete id="deleteBlackList" parameterType="string">
 		delete blacklist where userid = #{ value }
 	</delete>
-	
 	<update id="updateBlackEnd" parameterType="string">
 		update users set blackyn = 'N'
 		where userid = #{ userid }
