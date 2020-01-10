@@ -44,12 +44,7 @@ color: white;
 #closebtn:active {
 	background: #555;
 }
-
-
-
-
 </style>
-
 <script type="text/javascript">
 $(function() {
 	$(".detailbtn").click(function(){

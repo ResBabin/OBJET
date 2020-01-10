@@ -20,10 +20,10 @@ public class QnaDao {
 		return mybatisSession.insert("csMapper.insertQnaWrite",qna);
 	}
       ////////////////////////////////////////관리자/////////////////////////////////////////////////
-	public List<Qna> selectQnaList(){
+	public List<Qna> selectQnaListAdmin(){
 		return mybatisSession.selectList("adminMapper.selectQnaList");
 	}
-	public Qna selectQnaDetail(int qnano) {
+	public Qna selectQnaDetailAdmin(int qnano) {
 		return mybatisSession.selectOne("adminMapper.selectQnaDetail", qnano);
 	}
 	public List<Qna> selectQnaMain() {

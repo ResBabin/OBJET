@@ -86,7 +86,7 @@ public class ObjetManagementController {
 		Map<String, Integer> map = new HashMap<>();
 		ArrayList<Objet> objetreqlist = (ArrayList<Objet>) objetmService.selectObjetRequestManage();
 		ArrayList<ReportBoard> reportblist = (ArrayList<ReportBoard>) reportbService.selectReportMain();
-		ArrayList<Qna>qnalist = (ArrayList<Qna>) qnaService.selectQnaList();
+		ArrayList<Qna>qnalist = (ArrayList<Qna>) qnaService.selectQnaListAdmin();
 		ArrayList<ReportUDetail> reportulist= (ArrayList<ReportUDetail>) usermService.selectReportUDetailMain();
 		ArrayList<Objet> objetmlist = (ArrayList<Objet>) objetmService.selectAllObet();
 		ArrayList<UserManagement> userlist = (ArrayList<UserManagement>) usermService.selectUser();

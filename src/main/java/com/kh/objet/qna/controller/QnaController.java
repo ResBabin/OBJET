@@ -97,19 +97,19 @@ public class QnaController {
 			return "user/myQnaList";
 		}	
   
-  
+  // 관리자 Qna 컨트롤러
  		@RequestMapping("qnam.do")
-		public ModelAndView selectQnaList(ModelAndView mv){
-			ArrayList<Qna> qnalist = (ArrayList<Qna>) qnaService.selectQnaList();
+		public ModelAndView selectQnaListAdmin(ModelAndView mv){
+			ArrayList<Qna> qnalist = (ArrayList<Qna>) qnaService.selectQnaListAdmin();
 			mv.addObject("qnalist", qnalist);
 			mv.setViewName("admin/QnaManagement");
 			return mv;
 		} 
 		
 		@RequestMapping("qnamd.do")
-		public ModelAndView selectQnaDetail(ModelAndView mv, @RequestParam("qnano") int qnano) {
-			Qna qnamd = qnaService.selectQnaDetail(qnano);
-			ArrayList<Qna> qnalist = (ArrayList<Qna>) qnaService.selectQnaList();
+		public ModelAndView selectQnaDetailAdmin(ModelAndView mv, @RequestParam("qnano") int qnano) {
+			Qna qnamd = qnaService.selectQnaDetailAdmin(qnano);
+			ArrayList<Qna> qnalist = (ArrayList<Qna>) qnaService.selectQnaListAdmin();
 			if (qnamd != null) {
 				mv.addObject("qnamd", qnamd);
 				mv.addObject("qnalist", qnalist);			

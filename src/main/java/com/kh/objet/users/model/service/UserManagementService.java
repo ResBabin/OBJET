@@ -31,4 +31,6 @@ public interface UserManagementService {
 	public int insertQuit (Map<String, String> map);
 	public int deleteBlackList(String userid);
 	public int updateBlackEnd(String userid);
+	public List<UserManagement> selectUserOrder(Map<String, String> map);
+	public int updateBlackDate(Map<String, String> map);
 }

@@ -137,16 +137,20 @@ public class UserManagementController {
 	public void insertBlackList(String order, HttpServletResponse response, HttpServletRequest request) throws IOException {
 		Map<String, String> map = new HashMap<>();
 		String[] useridArray = request.getParameterValues("userid");
-		int result = 0, result2 = 0;
+		int result = 0, result2 = 0, result3 = 0;
 		for(String userid : useridArray) {
 			map.put("userid", userid);
 			map.put("blackend", request.getParameter("blackend"));
 			map.put("blackreason", request.getParameter("blackreason"));
-			result = usermService.insertBlackList(map);
 			result2 = usermService.updateBlackYN(userid);
+			if(usermService.selectBlacklist().toString().contains(userid)) {
+				result3 = usermService.updateBlackDate(map);
+			}else {
+				result = usermService.insertBlackList(map);
+			}
 		}
 		PrintWriter out = response.getWriter();
-		if(result > 0 && result2 > 0) {
+		if(result > 0 && result2 > 0 || result2 > 0 && result3 > 0) {
 			out.append("success");
 		}else {
 			out.append("fail");
@@ -191,5 +195,49 @@ public class UserManagementController {
 			out.append("fail");
 		}
 		out.flush();
+		out.close();
+	}
+	@RequestMapping(value="userorder.do", method=RequestMethod.POST)
+	public void selectUserOrder(HttpServletResponse response, HttpServletRequest request) throws IOException {
+		Map<String, String> map = new HashMap<>();
+		String order = request.getParameter("order");
+		String usertype = request.getParameter("usertype");
+		if(usertype.equals("all")) {
+			map.put("all", usertype);
+		}else if (usertype.equals("blackyn")) {
+			map.put("blackyn", usertype);
+		}else if (usertype.equals("quityn")) {
+			map.put("quityn", usertype);
+		}else {
+			map.put("usertype", usertype);
+		}
+		map.put("order", order);
+		ArrayList<UserManagement> userorderlist = (ArrayList<UserManagement>) usermService.selectUserOrder(map);
+		//전송용 json 객체
+				JSONObject sendJson = new JSONObject();
+				//json 배열 객체
+				JSONArray jarr = new JSONArray();
+				//list를 jarr 로 옮겨 저장 (복사)
+				for( UserManagement userorder : userorderlist) {
+					
+				JSONObject job = new JSONObject();
+				job.put("userid", userorder.getUserid());
+				job.put("username", URLEncoder.encode(userorder.getUsername(), "utf-8"));
+				job.put("nickname", URLEncoder.encode(userorder.getNickname(), "utf-8"));
+				job.put("enrolldate", userorder.getEnrolldate().toString());
+				job.put("quityn", userorder.getQuityn().toString());
+				job.put("reportcount", userorder.getReportcount());
+				job.put("blackyn", userorder.getBlackyn());
+				jarr.add(job);
+				}
+				
+				sendJson.put("list", jarr);
+				logger.debug(jarr.toJSONString());
+				response.setContentType("application/jsonl charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.println(sendJson.toJSONString());
+				out.flush();
+				out.close();
+				
 	}
 }

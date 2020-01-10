@@ -22,13 +22,13 @@ public class QnaServiceImpl implements QnaService{
 	////////////////////////////////관리자/////////////////////////////////////
 
 	@Override
-	public List<Qna> selectQnaList() {
-		return qnaDao.selectQnaList();
+	public List<Qna> selectQnaListAdmin() {
+		return qnaDao.selectQnaListAdmin();
 	}
 
 	@Override
-	public Qna selectQnaDetail(int qnano) {
-		return qnaDao.selectQnaDetail(qnano);
+	public Qna selectQnaDetailAdmin(int qnano) {
+		return qnaDao.selectQnaDetailAdmin(qnano);
 	}
 
 	@Override
