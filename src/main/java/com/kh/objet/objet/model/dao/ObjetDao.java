@@ -200,8 +200,7 @@ public class ObjetDao {
 	
 	
 	
-	// 박근수
-
+	//박근수
 	// 오브제 관리-내 오브제 페이지 이동
 	public ArrayList<Objet> moveMyObjetList(String userid, Paging paging) {
 		int offset = 0;
@@ -218,29 +217,29 @@ public class ObjetDao {
 		return mybatisSession.selectList("objetMapper.selectMyObjetSearch", map);
 	}
 
-	//오브제 관리 - 내 오브제 상세보기
+	//오브제 관리 - 내 오브제 상세보기 이동
 	public Objet moveMyObjetDetail(int objetno) {
-		return mybatisSession.selectOne("", objetno);
+		return mybatisSession.selectOne("objetMapper.moveMyObjetDetail", objetno);
 	}
 
 	//오브제 관리 - 내 오브제 수정 페이지 이동
 	public Objet moveEditObjet(int objetno) {
-		return mybatisSession.selectOne("", objetno);
+		return mybatisSession.selectOne("objetMapper.moveEditObjet", objetno);
 	}
 
 	//오브제 관리 - 내 오브제 수정
 	public int updateMyObjet(Objet objet) {
-		return mybatisSession.update("", objet);
+		return mybatisSession.update("objetMapper.updateMyObjet", objet);
 	}
 
 	//오브제 관리 - 전시 등록
 	public int insertObjet(Objet objet) {
-		return mybatisSession.insert("", objet);
+		return mybatisSession.insert("objetMapper.insertObjet", objet);
 	}
 
 	// 오브제 관리 - 전시삭제
 	public int deleteObjet(int objetno) {
-		return mybatisSession.delete("", objetno);
+		return mybatisSession.delete("objetMapper.deleteObjet", objetno);
 	}
 
 
