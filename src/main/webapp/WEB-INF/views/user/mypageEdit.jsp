@@ -62,7 +62,7 @@
 	 	
 		// 닉네임 중복체크
 	 		 $("#checkNickname").click(function(){
-	 			var nickname1 = '<c:out value="${sessionScope.loginUser2.nickname}"/>';
+	 			var nickname1 = '<c:out value="${sessionScope.loginUser.nickname}"/>';
 		 		var nickname2 = $("#nickname").val();
 	 		if(nickname1 != nickname2) {
 	 			 $.ajax({
@@ -100,7 +100,7 @@
 		
 	 		// 이메일 중복체크
 	 		 $("#checkEmail").click(function(){
-	 			var email1 = '<c:out value="${sessionScope.loginUser2.email}"/>';
+	 			var email1 = '<c:out value="${sessionScope.loginUser.email}"/>';
 		 		var email2 = $("#email").val();
 	 		if(email1 != email2) {
 	 			 $.ajax({
@@ -144,6 +144,16 @@
  		         return false
  		      }
  		   });
+ 		
+ 		// 수정하기 버튼 눌렀을 때
+ 		 $("#btnsub2").click(function(){
+ 		      if(nnTF=="T"){
+ 		    	 return true;
+ 		      }else{
+ 		         alert("입력한 내용을 다시 확인해주세요.");
+ 		         return false
+ 		      }
+ 		   });
 	 	
  }); // document Ready...
  
@@ -155,9 +165,14 @@
 <div class="wrapEnrollPage">
 
 	<p style="font-size: 20pt; padding-top:50px; color:#373737; text-align:center;">내 정보 수정</p>
+	
+	
 	<form action="updateMyPage.do" method="post">
+	
 	<input type="hidden" name="userid" id="userid" value="${loginUser2.userid}">
 	<!-- 내정보수정 섹션 시작! -->
+	<!-- 일반회원 -->
+	<c:if test="${loginUser2.naverid == 0 || loginUser2.naverid == '' }">
 	<div class="enrollSection">
 	
 		<table class="enrollTable">
@@ -218,12 +233,69 @@
 		</table>
 		
 	</div>
+	</c:if>
+	
+	
+		<!-- 네이버회원 -->
+	<c:if test="${loginUser2.naverid != 0 && loginUser2.naverid != '' }">
+	<div class="enrollSection" style="height:450px;">
+	
+		<table class="enrollTable" >
+			<tr>
+				<th>아이디</th>
+				<td style="font-size: 12pt; color:#aaa;"> ${loginUser2.userid}
+				</td>
+			</tr>
+				
+			<tr>
+				<th>이름</th>
+				<td style="font-size: 12pt; color:#aaa;">${loginUser2.username}
+				</td>
+			</tr>
+			
+			<tr>
+				<th>닉네임</th>
+				<td><div class="ui input" style="width:350px;"><input type="text" id="nickname" name="nickname" value="${loginUser2.nickname}" placeholder="한글 최대 8자, 영문  최대 24자" required></div>&emsp;
+									<input type="button" class="ui teal button" value="중복확인" id="checkNickname"/>
+									<div class="enrolldiv" id="divNickname"></div>
+				</td>
+			</tr>
+			
+			<tr>
+				<th>이메일</th>
+				<td style="font-size: 12pt; color:#aaa;">${loginUser2.email}
+				</td>
+			</tr>
+			
+			<tr>
+				<th>휴대폰</th>
+				<td><div class="ui input" style="width:350px;"><input type="text" id="phone" name="phone" value="${loginUser2.phone}" placeholder="숫자만 입력" required></div>
+				</td>
+			</tr>
+			
+			<tr>
+				<th>성별</th>
+				<td style="font-size: 12pt; color:#aaa;"><c:if test="${loginUser2.gender eq 'F'}">여성</c:if>
+														<c:if test="${loginUser2.gender eq 'M'}">남성</c:if>
+				</td>
+			</tr>
+		</table>
+		
+	</div>
+	</c:if>
 	
 	<!-- 회원정보입력섹션 끝! -->
 	<p style="text-decoration: underline; color:#aaa;padding-top:15px; font-size: 10pt;" onclick="location.href='moveQuitPage.do'">탈퇴하기</p>
 		<br>
 		<div align="center">
+		<c:if test="${loginUser2.naverid == 0 || loginUser2.naverid == '' }">
 			<input type="submit" class="ui green button" value="수정하기" id="btnsub"> &nbsp;
+		</c:if>
+		
+		<c:if test="${loginUser2.naverid != 0 && loginUser2.naverid != '' }">
+			<input type="submit" class="ui green button" value="수정하기" id="btnsub2"> &nbsp;
+		</c:if>
+			
 			<input type="reset" class="ui button" value="다시작성"> &nbsp;
 		</div>
 	</form>	

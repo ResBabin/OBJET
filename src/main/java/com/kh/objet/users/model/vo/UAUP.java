@@ -30,13 +30,14 @@ public class UAUP implements Serializable{
 	private String instagram;
 	private String etcurl;
 	private String artistemail;
+	private int naverid;
 
 	public UAUP() {}
 
-	public UAUP(String userid, String userpwd, String usertype, String username, String nickname,
-			String email, String phone, String gender, Date enrolldate, String quityn, String blackyn, String useropic,
+	public UAUP(String userid, String userpwd, String usertype, String username, String nickname, String email,
+			String phone, String gender, Date enrolldate, String quityn, String blackyn, String useropic,
 			String userrpic, String userintros, String userintrol, String usertag, String portfolio, String facebook,
-			String instagram, String etcurl, String artistemail) {
+			String instagram, String etcurl, String artistemail, int naverid) {
 		super();
 		this.userid = userid;
 		this.userpwd = userpwd;
@@ -59,6 +60,7 @@ public class UAUP implements Serializable{
 		this.instagram = instagram;
 		this.etcurl = etcurl;
 		this.artistemail = artistemail;
+		this.naverid = naverid;
 	}
 
 	public String getUserid() {
@@ -229,6 +231,14 @@ public class UAUP implements Serializable{
 		this.artistemail = artistemail;
 	}
 
+	public int getNaverid() {
+		return naverid;
+	}
+
+	public void setNaverid(int naverid) {
+		this.naverid = naverid;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -240,9 +250,8 @@ public class UAUP implements Serializable{
 				+ ", enrolldate=" + enrolldate + ", quityn=" + quityn + ", blackyn=" + blackyn + ", useropic="
 				+ useropic + ", userrpic=" + userrpic + ", userintros=" + userintros + ", userintrol=" + userintrol
 				+ ", usertag=" + usertag + ", portfolio=" + portfolio + ", facebook=" + facebook + ", instagram="
-				+ instagram + ", etcurl=" + etcurl + ", artistemail=" + artistemail + "]";
+				+ instagram + ", etcurl=" + etcurl + ", artistemail=" + artistemail + ", naverid=" + naverid + "]";
 	}
-
 
 	
 

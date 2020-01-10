@@ -279,7 +279,7 @@ function deleteFollowing(){
 			<p class="profileText" style="font-size: 10pt; color:#aaa;">${usersProfile.userintros}</p>
 			<br><br>
 		</span>
-		<c:if test="${usersProfile.blackyn == 'N'}">
+		<c:if test="${usersProfile.blackyn == 'N' && usersProfile.quityn == 'N'}">
 			<table>
 				<tr><td style="width:100px; font-size: 10pt; color: #aaa;">구독자</td>
 					<td style="width:100px; font-size: 10pt; color: #aaa;">관심작가</td>
@@ -305,7 +305,7 @@ function deleteFollowing(){
 			</c:if>
 			<br><br><br><br><br><br><br><br>
 			
-			<c:if test="${usersProfile.userid != loginUser.userid and usersProfile.blackyn == 'N' }">
+			<c:if test="${usersProfile.userid != loginUser.userid && usersProfile.blackyn == 'N' && usersProfile.quityn == 'N'}">
 					<c:if test="${followyn eq 'Y' }">
 						<button class="mini ui basic teal button" onclick="deleteFollowing()">구독중&ensp;<i class="check icon" style="width:7px;"></i></button>
 					</c:if>
@@ -340,7 +340,7 @@ function deleteFollowing(){
 	</div> <!-- 상단 프로필 부분 끝! -->
 
 	<!-- 작가홈 메뉴바 -->	
-	<c:if test="${usersProfile.blackyn == 'N'}">
+	<c:if test="${usersProfile.blackyn == 'N' && usersProfile.quityn == 'N'}">
 		<div class="artisthomeMenu">
 			<div id="artistMenu" class="two item ui tabular menu" style="width:100%;">
 				<a id="item" class="item active" data-tab="first">작가소개</a>
@@ -349,7 +349,7 @@ function deleteFollowing(){
 		</div>
 	</c:if>
 	<!-- 작가소개 영역 ************************************************************************************************** -->
-	<c:if test="${usersProfile.blackyn == 'N'}">
+	<c:if test="${usersProfile.blackyn == 'N' && usersProfile.quityn == 'N'}">
 		<div class="ui tab active" data-tab="first">
 		 	<div class="innerTab">
 		 	<p class="artistIntroCategory">소개</p>

@@ -93,6 +93,21 @@ public class UsersDao {
 		return mybatisSession.selectOne("userMapper.selectUsersReportOverlap",reportUDetail);
 	}
 
+	// 네이버 로그인 조회
+	public UAUP selectNaverLogin(UAUP users) {
+		return mybatisSession.selectOne("userMapper.selectNaverLogin", users);
+	}
+
+	// 네이버 메일로 이미 가입했는지 확인
+	public int selectNaverMail(String email) {
+		return mybatisSession.selectOne("userMapper.selectNaverMail", email);
+	}
+
+	// 네이버회원 내정보수정페이지 이동
+	public UAUP selectNaverUsersLogin(UAUP users) {
+		return mybatisSession.selectOne("userMapper.selectNaverUsersLogin", users);
+	}
+
 
 
 

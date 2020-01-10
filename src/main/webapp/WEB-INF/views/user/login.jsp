@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Objet 시작하기</title>
+<!-- 네이버 -->
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <!-- 시맨틱유아이 cdn -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
@@ -78,7 +80,7 @@
 <body>
 <!-- 로그인 섹션 시작! -->
 <div id="loginSection">
-	<p style="font-size: 25pt; padding-top:50px; color:#373737;">오브제 시작하기</p>
+	<p style="font-size: 25pt; padding-top:40px; margin-bottom:20px; color:#373737;">오브제 시작하기</p>
 	
 	<form action="login.do" method="post" name="loginForm" id="loginForm">
 	<div class="field">
@@ -98,12 +100,25 @@
        <button class="ui black button" id="btnsub" onclick="sendit()" style="width:300px; height:40px; background: #4c4c4c;">로그인</button>
 	<br><br>
 		<button class="ui grey button" onclick="location.href='moveEnrollPage.do'" style="width:300px;height:40px; background: #aaa;">회원가입</button>
-	<br><br>
-	<div class="text-center">
-		<a href="${naver_url}">
-		<img width="300px" height="40px" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png" alt="Naver Login"/>
-		</a>
-	</div>
+	<br><br><br>
+	<!-- 네이버아이디로로그인 버튼 노출 영역 -->
+	네이버 아이디로 시작하기&emsp;&emsp;<span id="naverIdLogin" style="vertical-align: middle;"></span>
+	<!-- 네이버아디디로로그인 초기화 Script -->
+	<script type="text/javascript">
+		var naverLogin = new naver.LoginWithNaverId(
+			{
+				clientId: "nMWRSp4IL_b7O5H3oI75",
+				callbackUrl: "http://127.0.0.1:12345/objet/NaverLoginCallback.jsp",
+				isPopup: false, /* 팝업을 통한 연동처리 여부 */
+				loginButton: {color: "green", type: 2, height: 40} /* 로그인 버튼의 타입을 지정 */
+			}
+		);
+		
+		/* 설정정보를 초기화하고 연동을 준비 */
+		naverLogin.init();
+		
+	</script> 
+	<!-- // 네이버아이디로로그인 초기화 Script -->
 
 		<br><br><br><br><br><br>
 		

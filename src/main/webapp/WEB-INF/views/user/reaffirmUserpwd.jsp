@@ -24,6 +24,8 @@
 <body>
 <!-- 로그인 섹션 시작! -->
 <div id="loginSection">
+<!-- 일반회원 -->
+	<c:if test="${loginUser.naverid == 0 || loginUser.naverid == '' }">
 		<p style="font-size: 25pt; padding-top:50px; color:#373737;">비밀번호 재확인</p><br>
 		<p style="color:#aaa; font-size: 9pt;margin-top: -35px;">회원님의 정보를 안전하게 보호하기 위해 비밀번호를 재확인 합니다.<br><br></p>
 	
@@ -44,6 +46,36 @@
         
        <button class="ui blue button" type="submit" style="width:300px; height:40px; background: #4c4c4c;">확인</button>
 	</form>
+	</c:if>
+	
+<!-- 네이버 회원 -->
+	<c:if test="${loginUser.naverid != 0 && loginUser.naverid != '' }">
+		<p style="font-size: 25pt; padding-top:50px; color:#373737;">회원정보 재확인</p><br>
+		<p style="color:#aaa; font-size: 9pt;margin-top: -35px;">회원님의 정보를 안전하게 보호하기 위해 재확인 합니다.<br>네이버 계정의 이름과 이메일을 입력해주세요.<br><br></p>
+	
+	<form action="reaffirmEmail.do" method="post">
+	<div class="field">
+		<div class="ui large left icon input" style="width:300px;">
+            <i class="lock icon"></i><input type="text" name="userid" value="${loginUser.userid }" readonly="readonly">
+          </div>
+        <br><br>
+          <div class="ui large left icon input" style="width:300px;">
+            <i class="user icon"></i><input type="text" name="username" placeholder="NAME">
+          </div>
+        </div>
+        <br>
+        
+        <div class="field">
+          <div class="ui large left icon input" style="width:300px;">
+            <i class="envelope icon"></i><input type="email" name="email" id="email" placeholder="NAVER EMAIL" required>
+          </div>
+        </div>
+        <br><br><br><br>
+        
+       <button class="ui blue button" type="submit" style="width:300px; height:40px; background: #4c4c4c;">확인</button>
+	</form>
+	</c:if>
+	
 	<br><br><br>
 	<!-- 비밀번호 재확인 실패 시 문구 표출 -->
 	<c:if test="${message != null }">

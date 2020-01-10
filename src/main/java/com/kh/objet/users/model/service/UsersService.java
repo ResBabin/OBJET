@@ -37,6 +37,10 @@ public interface UsersService {
 	
 	int selectUsersReportOverlap(ReportUDetail reportUDetail);
 	
-
+	UAUP selectNaverLogin(UAUP users);
+	
+	int selectNaverMail(String email);
+	
+	UAUP selectNaverUsersLogin(UAUP users);
 	
 }
