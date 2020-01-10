@@ -27,9 +27,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.kh.objet.oauth.SNSLogin;
-import com.kh.objet.oauth.SnsValue;
 import com.kh.objet.quit.model.vo.Quit2;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.users.model.service.UserManagementService;
@@ -49,10 +46,6 @@ public class UsersController {
 	// 패스워드 암호화 
 	@Autowired
 	public BCryptPasswordEncoder bcryptPasswordEncoder;
-	
-	// 네이버
-	@Inject
-	private SnsValue naverSns;
 	
 	public UsersController() {};
 	
@@ -152,52 +145,81 @@ public class UsersController {
 	// 로그인 페이지 이동
 		@RequestMapping("moveLogin.do")
 		public String moveLoginPage(Model model) {
-			// 네이버 로그인
-			SNSLogin snsLogin = new SNSLogin(naverSns);
-			model.addAttribute("naver_url", snsLogin.getNaverAuthURL());
 			return "user/login";
 		}
 		
-	// 네아로 CallBack
-		@RequestMapping(value="callback.do", method= {RequestMethod.GET, RequestMethod.POST})
-		public String snsLoginCallback(Model model, @RequestParam String code) throws Exception {
-			// 1. code를 이용해서 access_token 받기
-			// 2. access_token을 이용해서 사용자 profile 정보 가져오기
-				SNSLogin snslogin = new SNSLogin(naverSns);
-				String profile = snslogin.getUserProfile(code);
-				System.out.println("Profile : " + profile);
-				model.addAttribute("result", profile);
-				
-			// 3. DB에 해당 유저가 존재하는지 체크(naverid 컬럼 추가)
-			// 4. 존재 시 강제 로그인, 미존재시 가입 안내 페이지로 이동
-			
-			return "user/loginResult";
-		}
 		
 		
 	// 회원 로그인
-		@RequestMapping(value="login.do", method=RequestMethod.POST)
+		@RequestMapping(value="login.do", method= {RequestMethod.POST, RequestMethod.GET})
 		public String selectUsersLogin(UAUP users, HttpSession session, Model model) {
 			
 			UAUP loginUser = usersService.selectUsersLogin(users);
 			
 			String vfn = "main";
-			if(loginUser != null && loginUser.getQuityn().equals("N")) {
-				session.setAttribute("loginUser", loginUser);
-				if(loginUser.getUsertype().equals("USER")){
-					Date currenttime = new Date(System.currentTimeMillis());
-					SimpleDateFormat sdf2 = new SimpleDateFormat("HH");
-					String updatecount = sdf2.format(currenttime);
-					String upcount = "login" + updatecount;
-					usermService.updateLoginCount(upcount);
+			if(loginUser != null) {
+				if(loginUser.getQuityn().equals("N")) {
+					session.setAttribute("loginUser", loginUser);
+					if(loginUser.getUsertype().equals("USER")){
+						Date currenttime = new Date(System.currentTimeMillis());
+						SimpleDateFormat sdf2 = new SimpleDateFormat("HH");
+						String updatecount = sdf2.format(currenttime);
+						String upcount = "login" + updatecount;
+						usermService.updateLoginCount(upcount);
+					}else {
+						vfn = "redirect:/adminmain.do";
+					}
 				}else {
-					vfn = "redirect:/adminmain.do";
+					vfn = "user/loginAgain";
+					model.addAttribute("message", "탈퇴한 계정입니다. 탈퇴일로부터 30일 내에는 동일한 이메일로 재가입이 불가능합니다.");
 				}
 			}else {
 				vfn = "user/loginAgain";
 			}
 			return vfn;
 	}
+		
+		
+	// 네이버 로그인(자동 가입 시키기)
+		@RequestMapping(value="naverlogin.do", method= {RequestMethod.POST, RequestMethod.GET})
+		public String naverlogin(@RequestParam(value="username") String username,@RequestParam(value="email") String email,@RequestParam(value="gender") String gender, @RequestParam(value="naverid") int naverid, HttpSession session, Model model) {
+			String vfn = null;
+			System.out.println("username >>> " + username + ",  email >>> " + email + ",  gender >>> " + gender + ",  naverid >>> " + naverid);
+			
+			// 0. 네이버 아이디 고유번호로 가입되어 있는지 조회
+			UAUP user = new UAUP();
+			user.setNaverid(naverid);
+			user = usersService.selectNaverLogin(user);
+			
+			if(user != null) {
+				if(user.getQuityn().equals("N")) {
+				// 1. 가입되어 있고 탈퇴하지 않았으면 아이디와 비밀번호 가져와서 로그인 처리(세션부여) 해주고 메인으로 보내기
+					session.setAttribute("loginUser", user);
+					vfn = "redirect:/main.do";
+				}else {
+					model.addAttribute("message", "탈퇴한 계정입니다. 탈퇴일로부터 30일 내에는 동일한 이메일로 재가입이 불가능합니다.");
+					vfn = "user/loginAgain";
+				}
+
+			}else {
+				// 2. 가입 되어 있지 않으면, 해당 네이버 계정으로 연동은 안되어있지만 이미 가입된 오브제 계정이 있는지 확인 
+				int result = usersService.selectNaverMail(email);
+				
+				if(result > 0) {
+					// 2-1. 동일한 네이버 아이디로 가입된 계정이 있다면 오브제 계정으로 안내
+					vfn = "user/loginAgain";
+					model.addAttribute("message", "해당 네이버 아이디로 가입된 오브제 계정이 존재합니다. 오브제 계정으로 로그인해주세요.");
+				}else {
+					// 2-2. 가입된 계정이 없다면 네이버에서 넘어온 값들 가지고 회원가입 추가정보 입력페이지로 이동
+					vfn = "user/enrollPageNaver";
+					model.addAttribute("naverid", naverid);
+					model.addAttribute("username", username);
+					model.addAttribute("email", email);
+					model.addAttribute("gender", gender);
+				} 
+			}
+			return vfn;
+		}
 			
 		
 	// 회원 로그아웃
@@ -349,14 +371,14 @@ public class UsersController {
 			return vfn;
 		}
 		
-	// 비밀번호 재확인 페이지 이동
+	// 비밀번호 재확인 페이지 이동(오브제회원&네이버회원)
 		@RequestMapping("moveReaffirmUserpwd.do")
 		public String moveReaffirmUserpwd() {
 			return "user/reaffirmUserpwd";
 		}
 		
 			
-	// 비밀번호 재확인
+	// 내정보 수정시 비밀번호 재확인(오브제회원)
 	@RequestMapping("reaffirmUserpwd.do")
 	public String reaffirmUserpwd(UAUP users, Model model) {
 		UAUP loginUser2 = usersService.selectUsersLogin(users);
@@ -366,11 +388,27 @@ public class UsersController {
 			model.addAttribute("loginUser2", loginUser2);
 		}else {
 			vfn = "user/reaffirmUserpwd";
-			model.addAttribute("message", "비밀번호가 일치하지 않습니다. 다시 입력해주세요");
+			model.addAttribute("message", "입력 정보가 일치하지 않습니다. 다시 입력해주세요");
 		}
 		return vfn;
 			
 	}
+	
+	// 내정보 수정시 비밀번호 재확인(네이버회원)
+		@RequestMapping("reaffirmEmail.do")
+		public String ReaffirmEmail(UAUP users, Model model) {
+			UAUP loginUser2 = usersService.selectNaverUsersLogin(users);
+			String vfn = null;
+			if(loginUser2 != null) {
+				vfn = "user/mypageEdit";
+				model.addAttribute("loginUser2", loginUser2);
+			}else {
+				vfn = "user/reaffirmUserpwd";
+				model.addAttribute("message", "비밀번호가 일치하지 않습니다. 다시 입력해주세요");
+			}
+			return vfn;
+				
+		}
 		
 	// 내정보 수정
 		@RequestMapping(value="updateMyPage.do", method=RequestMethod.POST)

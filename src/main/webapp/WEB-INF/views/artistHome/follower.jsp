@@ -90,6 +90,7 @@ function deleteFollowing(data){
 		<div class="followingList">
 				<table class="eachFollwing">
 				<c:forEach var="list" items="${followerList }">
+				
 					<tr class="listTr" style="display: none;">
 						<td style="width:10%"><c:if test="${list.userrpic == null }">
 												<div class="profileImage3" onclick="window.open('artistHomeMain.do?userid=${list.userid}&loginUser=${loginUser.userid }')" style="background-image:url('resources/images/basicprofilepic.png') "></div>
@@ -107,6 +108,7 @@ function deleteFollowing(data){
 											 
 						</td>
 					<tr>
+				
 				</c:forEach>	
 				</table>
 				

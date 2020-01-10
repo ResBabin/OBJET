@@ -21,6 +21,14 @@
  <link rel="stylesheet" href="resources/css/swiper.min.css">
  <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
  <script type="text/javascript">
+ 
+ // 내정보수정 완료 시 완료 메시지 표출용 코드 여기서부터 ---
+ var message = '${message}';
+ if(message != null && message != ""){
+	 alert(message);
+ }// 여기까지 ----
+ 
+ 
  // 메인페이지 접속시마다 탈퇴 30일 경과한 회원 삭제하기
  $.ajax({
 	url: "delQuitUsers.do",
@@ -651,12 +659,7 @@ box-shadow: 0px 0px 13px 5px gray;
      <!-- Swiper JS -->
    <script type="text/javascript" src="resources/js/swiper.min.js"></script>
      <script type="text/javascript">
-     // 내정보수정 완료 시 완료 메시지 표출용 코드 여기서부터 ---
-     var message = '${message}';
-     if(message != null && message != ""){
-    	 alert(message);
-     }// 여기까지 ----
-     
+
        var interleaveOffset = 0.5;
 
        var swiperOptions = {

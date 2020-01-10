@@ -70,24 +70,6 @@
 	</interceptors>
 	
 	
-	<!-- Oauth2 login -->
-	<!-- 네이버 -->
-	<beans:bean id="naverClientID" class="java.lang.String">
-		<beans:constructor-arg value="nMWRSp4IL_b7O5H3oI75" />
-	</beans:bean>
-	<beans:bean id="naverClientSecret" class="java.lang.String">
-		<beans:constructor-arg value="6gXrl12oOD" />
-	</beans:bean>
-	<beans:bean id="naverRedirectUrl" class="java.lang.String">
-		<beans:constructor-arg value="http://127.0.0.1:12345/objet/callback.do" />
-	</beans:bean>
-
-	<beans:bean id="naverSns" class="com.kh.objet.oauth.SnsValue">
-		<beans:constructor-arg value="naver" />
-		<beans:constructor-arg ref="naverClientID" />
-		<beans:constructor-arg ref="naverClientSecret" />
-		<beans:constructor-arg ref="naverRedirectUrl" />
-	</beans:bean>
 	
 
 </beans:beans>

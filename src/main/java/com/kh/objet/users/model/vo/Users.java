@@ -20,11 +20,12 @@ public class Users implements Serializable{
 	private Date enrolldate;
 	private String quityn;
 	private String blackyn;
+	private int naverid;
 
 	public Users() {}
 
 	public Users(String userid, String userpwd, String usertype, String username, String nickname, String email,
-			String phone, String gender, Date enrolldate, String quityn, String blackyn) {
+			String phone, String gender, Date enrolldate, String quityn, String blackyn, int naverid) {
 		super();
 		this.userid = userid;
 		this.userpwd = userpwd;
@@ -37,6 +38,7 @@ public class Users implements Serializable{
 		this.enrolldate = enrolldate;
 		this.quityn = quityn;
 		this.blackyn = blackyn;
+		this.naverid = naverid;
 	}
 
 	public String getUserid() {
@@ -127,6 +129,14 @@ public class Users implements Serializable{
 		this.blackyn = blackyn;
 	}
 
+	public int getNaverid() {
+		return naverid;
+	}
+
+	public void setNaverid(int naverid) {
+		this.naverid = naverid;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -135,9 +145,10 @@ public class Users implements Serializable{
 	public String toString() {
 		return "Users [userid=" + userid + ", userpwd=" + userpwd + ", usertype=" + usertype + ", username=" + username
 				+ ", nickname=" + nickname + ", email=" + email + ", phone=" + phone + ", gender=" + gender
-				+ ", enrolldate=" + enrolldate + ", quityn=" + quityn + ", blackyn=" + blackyn + "]";
+				+ ", enrolldate=" + enrolldate + ", quityn=" + quityn + ", blackyn=" + blackyn + ", naverid=" + naverid
+				+ "]";
 	}
-	
+
 	
 
 }

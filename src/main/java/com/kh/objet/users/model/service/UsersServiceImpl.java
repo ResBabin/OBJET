@@ -70,12 +70,15 @@ public class UsersServiceImpl implements UsersService{
 	public int updateUserPwd(Users users) {
 		return usersDao.updateUserPwd(users);
 	}
+
 	
 	// 내정보 수정 페이지 이동
 	@Override
 	public Users moveMyPageEdit(String userid) {
 		return usersDao.moveMyPageEdit(userid);
 	}
+	
+
 
 	// 내정보 수정
 	@Override
@@ -108,6 +111,25 @@ public class UsersServiceImpl implements UsersService{
 	public int selectUsersReportOverlap(ReportUDetail reportUDetail) {
 		return usersDao.selectUsersReportOverlap(reportUDetail);
 	}
+
+	
+	// 네이버 로그인 조회
+	@Override
+	public UAUP selectNaverLogin(UAUP users) {
+		return usersDao.selectNaverLogin(users);
+	}
+	// 네이버 메일로 이미 가입했는지 확인
+	@Override
+	public int selectNaverMail(String email) {
+		return usersDao.selectNaverMail(email);
+	}
+	
+	// 네이버회원 내정보수정페이지 이동
+	public UAUP selectNaverUsersLogin(UAUP users) {
+		return usersDao.selectNaverUsersLogin(users);
+	}
+
+
 
 
 }

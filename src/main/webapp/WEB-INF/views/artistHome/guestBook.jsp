@@ -321,7 +321,7 @@ function editGB(gbno,replyyn){
 	
 	</div> <!-- 상단 프로필 부분 끝! -->
 <!-- 본인 작가홈이 아닐 때 방명록 작성 칸 보이기 시작 -->
-			<c:if test="${artist.userid != loginUser.userid }">
+			<c:if test="${artist.userid != loginUser.userid && loginUser.blackyn == 'N'}">
 				<div class="gblist">
 					<form name="gbform">
 					<input type="hidden" name="userid" value="${loginUser.userid }">
@@ -548,8 +548,12 @@ function editGB(gbno,replyyn){
 			<div align="center" style="padding-top: 240px;"><div class="ui olive message"><p><i class="edit outline icon"></i>&nbsp;작성된 방명록이 없습니다.</p></div>
 			</div>
 		</c:if>
-		<c:if test="${artist.userid != loginUser.userid }">
+		<c:if test="${artist.userid != loginUser.userid && loginUser.blackyn == 'N'}">
 			<div align="center" style="padding-top: 30px;"><div class="ui olive message"><p>작성된 방명록이 없습니다. 한번 남겨보시는 건 어떠세요? <i class="smile outline icon"></i></p></div>
+			</div>
+		</c:if>
+		<c:if test="${artist.userid != loginUser.userid && loginUser.blackyn == 'Y'}">
+			<div align="center" style="padding-top: 240px;"><div class="ui red message"><p>일시정지 계정의 경우 방명록 남기기가 불가능합니다.</p></div>
 			</div>
 		</c:if>
 		</c:if>

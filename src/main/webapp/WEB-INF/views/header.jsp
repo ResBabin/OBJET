@@ -450,7 +450,10 @@ width: 190px;
         </nav>
         <div class= "logout">
         <div class="small ui buttons">
-  <button class="ui black basic button" onclick="location.href='moveReaffirmUserpwd.do'">내 정보 수정</button>
+        <button class="ui black basic button" onclick="location.href='moveReaffirmUserpwd.do'">내 정보 수정</button>
+
+        
+  
   <button class="ui black basic button" onclick="location.href='logout.do'">로그아웃</button>
 </div>
 </div>
