@@ -78,6 +78,24 @@ public class ReportBoard implements Serializable{
 	public ReportBoard() {
 	}
 
+	
+
+	public ReportBoard(int originno, String reportedb, String reporterb, String reportbtype, String reportbreason) {
+		super();
+		this.originno = originno;
+		this.reportedb = reportedb;
+		this.reporterb = reporterb;
+		this.reportbtype = reportbtype;
+		this.reportbreason = reportbreason;
+	}
+
+	public ReportBoard(int originno, String reportedb, String reporterb) {
+		super();
+		this.originno = originno;
+		this.reportedb = reportedb;
+		this.reporterb = reporterb;
+	}
+
 	public ReportBoard(int originno, String reportedb, String reporterb, String reportbtype, Date reportbdate,
 			String reportbreason, int objetno, String userid, String objettitle, String objetintro,
 			String originmainposter, String renamemainposter, Date objetstartdate, Date objetenddate, String objettag,

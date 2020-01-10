@@ -34,6 +34,12 @@ public class ObjetDao {
 		List<Objet> list = mybatisSession.selectList("objetMapper.selectObjetAll");
 		return (ArrayList<Objet>)list;
 	}
+
+	//오브제 완전 전시 전체 리스트
+	public ArrayList<Objet> selectAllObjetAllList() {
+		List<Objet> list = mybatisSession.selectList("objetMapper.selectAllObjetAll");
+		return (ArrayList<Objet>)list;
+	}
 	
 	//오브제 작가 전체 리스트
 	public ArrayList<Artist> selectArtistAllList(){
@@ -66,6 +72,11 @@ public class ObjetDao {
 	//한줄평 신고
 	public int insertReviewReport(ReportBoard rb) {
 		return mybatisSession.insert("objetMapper.insertReviewReport", rb);
+	}
+	
+	//한줄평 신고 체크
+	public int selectReviewReport(ReportBoard rbb) {
+		return mybatisSession.selectOne("objetMapper.selectReviewReport", rbb);
 	}
 	
 	//한줄평 리스트
@@ -231,6 +242,8 @@ public class ObjetDao {
 	public int deleteObjet(int objetno) {
 		return mybatisSession.delete("", objetno);
 	}
+
+
 
 	
 

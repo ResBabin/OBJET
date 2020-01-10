@@ -11,22 +11,30 @@
  order by objetstartdate desc
  </select>
  
+ <!-- 오브제 완전 전체 리스트   -->
+<select id="selectAllObjetAll" resultType="Objet">
+ select objetno, userid, objettitle, objetintro, originmainposter, renamemainposter, objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview 
+ from objet
+ where publicyn = 'Y'
+ order by objetstartdate desc
+ </select>
+ 
  <!-- 작가 전체 리스트   -->
 <select id="selectArtistAll" resultType="Artist">
 select a.userid, a.nickname nickname, b.userrpic, b.userintros, b.userintrol, b.usertag, max(c.objetstatus) objetstatus, 
-max(c.renamemainposter), max(c.objettag), max(c.objetenddate) objetenddate, max(c.objetstartdate) objetstartdate
+max(c.renamemainposter) renamemainposter, max(c.objettag) objettag, max(c.objetenddate) objetenddate, max(c.objetstartdate) objetstartdate
 from users a
 join usersprofile b on a.userid = b.userid
 left outer join objet c on a.userid = c.userid
 where quityn = 'N' and blackyn = 'N'
 group by a.nickname, a.userid, b.userrpic, b.userintros, b.userintrol, b.usertag 
-order by objetenddate desc
+order by objetenddate desc NULLS LAST
 </select>
 
 <!-- 작가 전체 리스트 정렬  -->
 <select id="selectArtistListOrder" resultType="Artist" parameterType="string">
 select a.userid, a.nickname nickname, b.userrpic, b.userintros, b.userintrol, b.usertag, max(c.objetstatus) objetstatus, 
-max(c.renamemainposter), max(c.objettag), max(c.objetenddate) objetenddate, max(c.objetstartdate) objetstartdate
+max(c.renamemainposter) renamemainposter, max(c.objettag) objettag, max(c.objetenddate) objetenddate, max(c.objetstartdate) objetstartdate
 from users a
 join usersprofile b on a.userid = b.userid
 left outer join objet c on a.userid = c.userid
@@ -141,14 +149,19 @@ group by a.nickname, a.userid, b.userrpic, b.userintros, b.userintrol, b.usertag
  	(#{originno}, #{reportedb}, #{reporterb}, #{reportbtype}, sysdate, #{reportbreason})  
  </insert>
  
+ <!-- 한줄평 신고 체크  -->
+ <select id="selectReviewReport" parameterType="ReportBoard" resultType="int">
+ 	select count(*) from reportboard
+ 	where originno = #{originno} and reportedb = #{reportedb} and reporterb = #{reporterb}
+ </select>
+ 
  <!-- 한줄평 평가 리스트 -->
  <select id="selectReivewStatus" parameterType="ReviewStatus" resultType="ReviewStatus">
- 	select a.revuserid, a.objetno, a.userid, a.revgood, a.revhate, max(b.revdate) revdate
-	from reviewstatus a
-   left join review b on a.revuserid = b.revuserid
-	where a.userid = #{userid} and b.objetno = #{objetno} and a.objetno = #{objetno}
-   group by a.revuserid, a.objetno, a.userid, a.revgood, a.revhate
-	 order by revdate desc
+	select a.revuserid, a.objetno, a.revcontent, b.userid, b.revgood, b.revhate, a.revdate
+	from review a
+    join reviewstatus b on a.revuserid = b.revuserid
+	where userid = #{userid} and b.objetno = #{objetno} and a.objetno = #{objetno}
+	order by revdate desc
  </select>
  
  <!-- 한줄평 좋아요  체크 -->

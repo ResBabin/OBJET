@@ -85,16 +85,18 @@
       <i id="close-btn" class="material-icons">&#xe5cd;</i>
       <form action='objetSearchList.do' id='search-form' method='get' target='_top' 
       class="ui wide fluid transparent icon input">
-        <input id='search-text' name="q" type="text" placeholder="검색어를 입력해주세요." />
+        <input id='search-text' name="keyword" type="text" placeholder="검색어를 입력해주세요." />
         <i class="material-icons" id="search-btn2" onClick="submit();">&#xe8b6;</i>
       </form>
       <!-- 오브제 추천 태그 -->
       <div class="search_suggest" align="center">
          <p><span>오브제</span> 추천 태그</p>
          <div class="search_tag">
+         <c:forEach>
          <div class="ui circular basic blue button">사진</div> &nbsp;
          <div class="ui circular basic blue button">디자인</div> &nbsp;
          <div class="ui circular basic blue button">기타</div> <br>
+         </c:forEach>
          </div>
          <ul class="search_art_list">
             <li class="search_art_list_1">

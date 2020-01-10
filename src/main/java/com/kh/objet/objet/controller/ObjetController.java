@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.objet.likeobjet.model.vo.LikeObjet;
 import com.kh.objet.objet.model.service.ObjetServiceImpl;
 import com.kh.objet.objet.model.vo.Artist;
@@ -48,6 +50,7 @@ public class ObjetController {
 	public ObjetController() {}
 	
 	//박예은
+	
 	//오브제 검색 결과(전시/작가)
 	@RequestMapping("objetSearchList.do")
 	public String selectObjetSearchList() {
@@ -172,22 +175,17 @@ public class ObjetController {
 			ArrayList<ReviewStatus> reviewStatusList = objetService.selectReivewStatus(reviewsts);
 			
 			for(int i = 0; i < reviewStatusList.size(); i++) {
-				if(reviewStatusList.get(i).getUserid().equals(userid) 
-						&& reviewList.get(i).getRevgood() > 0
-						&& reviewStatusList.get(i).getRevgood() != 0){
+				if(reviewList.get(i).getRevgood() > 0
+					&& reviewStatusList.get(i).getRevgood() == 1){
 					revgood = "revgood";
-				}if(reviewStatusList.get(i).getUserid().equals(userid) 
-						&& reviewList.get(i).getRevhate() > 0
-						&& reviewStatusList.get(i).getRevhate() != 0
-						/*|| reviewList.get(i).getRevuserid().equals(reviewStatusList.get(i).getRevuserid())*/){
+				}if(reviewList.get(i).getRevhate() > 0
+					&& reviewStatusList.get(i).getRevhate() == 1){
 					revhate = "revhate";
 				}if(reviewList.get(i).getRevhate() == 0 && reviewList.get(i).getRevgood() == 0) {
 					revStatus = "norevgoodrevhate";
-				}if(reviewList.get(i).getRevgood() == 0 || !(reviewStatusList.get(i).getUserid().equals(userid))
-						|| reviewStatusList.get(i).getRevgood() == 0){
+				}if(reviewList.get(i).getRevgood() == 0 || reviewStatusList.get(i).getRevgood() == 0){
 					revStatus = "norevgood";
-				}if(reviewList.get(i).getRevhate() == 0 || !(reviewStatusList.get(i).getUserid().equals(userid))
-						|| reviewStatusList.get(i).getRevhate() == 0){
+				}if(reviewList.get(i).getRevhate() == 0 || reviewStatusList.get(i).getRevhate() == 0){
 					revStatus = "norevhate";
 				}
 			}
@@ -274,13 +272,15 @@ public class ObjetController {
 	
 	//오브제 신고
 	@RequestMapping(value="objetReport.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String insertObjetReport(ReportBoard rb, Model model) {
+	public String insertObjetReport(ReportBoard rb, Model model, HttpServletResponse response)throws IOException {
 		int result = objetService.insertObjetReport(rb);
-		
+
 		String viewFileName = "objet/objetDetail";
 		if(result <= 0) { //신고 실패시
 			model.addAttribute("message", "오브제 신고 실패!");
 			viewFileName = "common/error";
+		}else {
+			response.sendRedirect("objetOne.do");
 		}
 		
 		return viewFileName;
@@ -333,19 +333,36 @@ public class ObjetController {
 		
 		return viewFileName;
 	}
-
+	
 	//한줄평 신고
 	@RequestMapping(value="reviewReport.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String insertReviewReport(ReportBoard rb, Model model) {
-		int result = objetService.insertReviewReport(rb);
+	@ResponseBody
+	public void insertReviewReport(@RequestParam(value="originno") int originno, @RequestParam(value="reportedb") String reportedb,
+			@RequestParam(value="reporterb") String reporterb, @RequestParam(value="reportbtype") String reportbtype, 
+			@RequestParam(value="reportbreason") String reportbreason, HttpServletResponse response) throws IOException{
 		
-		String viewFileName = "objet/objetDetail";
-		if(result <= 0) { //신고 실패시
-			model.addAttribute("message", "한줄평 신고 실패!");
-			viewFileName = "common/error";
+		ReportBoard rbb = new ReportBoard(originno, reportedb, reporterb);
+		int result2 = objetService.selectReviewReport(rbb);
+
+		String resultValue = "";
+		if(result2 == 0) {
+			ReportBoard rb = new ReportBoard(originno, reportedb, reporterb, reportbtype, reportbreason);
+			int result = objetService.insertReviewReport(rb);
+			if(result > 0) { 
+				resultValue = "ok";
+			}else {
+				resultValue = "fail";
+			}
+		}else if(result2 == 1) {
+			resultValue = "fail";
 		}
 		
-		return viewFileName;
+		
+		
+		PrintWriter out = response.getWriter();
+		out.append(resultValue);
+		out.flush();
+		out.close();
 	}
 	
 	//한줄평 좋아요/좋아요 취소/좋아요 체크
