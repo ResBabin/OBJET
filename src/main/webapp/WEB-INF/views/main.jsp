@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,11 +18,15 @@
 <link rel="stylesheet" type="text/css" href="resources/assets/css/KoPubDotum.css">
 <link rel="stylesheet" href="//fonts.googleapis.com/earlyaccess/nanummyeongjo.css">
 <link rel="stylesheet" type="text/css" href="resources/css/main.css" />
+<link rel = "stylesheet" type="text/css" href="/objet/resources/css/search.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
  <link rel="stylesheet" href="resources/css/swiper.min.css">
  <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
+ <!-- jquery UI -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
  <script type="text/javascript">
  
  // 내정보수정 완료 시 완료 메시지 표출용 코드 여기서부터 ---
@@ -46,6 +53,66 @@
 	}
 	 
  });
+ 
+ /* 검색 아이콘  */
+ $(function() {
+     var placeholder = $("#search-text");
+     
+     $('#close-btn').click(function() {
+         $('#search-overlay').fadeOut();
+         $('#search-btn').show();
+         $("#search-btn2").css("color", "#d6d6d6");
+         $(".main").css("display", "table");
+         $(".objet_main").css("display", "block");
+         $(".search_keyword").css("display", "none");
+         $(".search_keyword").hide();
+         if(placeholder.val() != ""){
+           placeholder.val("");
+           $("#search-btn2").css("color", "#d6d6d6");
+        }
+       });
+     
+     $('#search-btn').click(function() {
+       $(this).hide();
+       $('#search-overlay').fadeIn();
+       $("#search-text").focus();
+       $(".search_suggest").show();
+       $(".main").css("display", "none");
+       $(".objet_main").css("display", "none");
+     });
+     
+     $("#search-text").on("keyup", function(){
+        if(placeholder.val() != "" || placeholder.val() != null){  //not null
+         $(".search_suggest").hide();
+         $(".search_keyword").fadeIn();
+         $(".search_keyword").css("display", "flex");
+        }if(placeholder.val() == "" || placeholder.val() == null){ //null
+         $("#search-btn2").show();
+         $(".search_suggest").fadeIn();
+         $(".search_keyword").css("display", "none");
+         $(".search_keyword").hide();
+        }
+     });
+     
+     $("#search-text").focus(function(){
+        $("#search-btn2").css("color", "black");
+     });
+     $("#search-text").focusout(function(){
+        if(placeholder.val() == ""){
+           $("#search-btn2").css("color", "#d6d6d6");
+        }
+     });
+     
+     
+     
+   });
+
+    function submit() {
+     document.getElementById("search-btn2").onclick = function() {
+         document.getElementById('search-form').submit();
+         return false;
+      };
+   };
  </script>
  <style>
 .objet_main {
@@ -608,7 +675,94 @@ box-shadow: 0px 0px 13px 5px gray;
 </style>
 </head>
 <body>
-<c:import url="search.jsp" /><br>
+<%-- <c:import url="search.jsp" /> --%>
+<section class="search">
+ <!-- 검색 아이콘  -->
+<i id="search-btn" class="material-icons">&#xe8b6;</i>
+<!-- 검색창 시작 -->
+<div id="search-overlay" class="block">
+  <div class="centered">
+    <div id='search-box'>
+      <i id="close-btn" class="material-icons">&#xe5cd;</i>
+      <form action='objetSearchList.do' id='search-form' method='get' target='_top' 
+      class="ui wide fluid transparent icon input">
+        <input id='search-text' name="keyword" type="text" placeholder="검색어를 입력해주세요." />
+        <i class="material-icons" id="search-btn2" onClick="submit();">&#xe8b6;</i>
+      </form>
+      <!-- 오브제 추천 태그 -->
+      <div class="search_suggest" align="center">
+         <p><span>오브제</span> 추천 태그</p>
+         <div class="search_tag">
+         <c:set var="ran"><%= java.lang.Math.round(java.lang.Math.random() * 7) + 1 %></c:set>
+         <c:set var="objetTag" value="${fn:split('건축,공예,서예,디자인,사진,회화,조각,기타', ',')}" />
+         <c:set var="doneLoop" value="false" />
+         <c:forEach var="item" items="${objetTag }" begin="${ran }" end="${ran }" varStatus="status">
+         <c:if test="${not doneLoop }">
+         <div class="ui circular basic blue button">${item}</div> &nbsp;
+         <c:if test="${status.index == 2 }">
+         <c:set var="doneLoop" value="true" />
+         </c:if>
+         </c:if>
+         </c:forEach>
+         <br><br><br><br>
+         </div>
+         <p><span>오브제의 </span> 추천 작가들</p>
+         <ul class="search_art_list">
+         
+         <c:forEach var="Artist" items="${searchMainList }" begin="0" end="4">
+         <c:set var="noimg" value="resources/images/basicprofilepic.png" />
+            <li class="search_art_list_1">
+            <a href="artistHomeMain.do?userid=${Artist.userid }&loginUser=${loginUser.userid}">
+            <img id="search_art_list_img" class="ui small circular image" src="resources/users_upfiles/${Artist.userrpic }" onerror="this.src='${noimg }'"><br>
+            <strong>${Artist.nickname }</strong>
+            <p>${Artist.userintros }</p>
+            </a>
+            </li>
+         </c:forEach>
+         </ul>
+     </div>
+     <!-- 오브제 검색 키워드 -->
+     <div class="search_keyword">
+        <div class="objet_keyword"><!-- 오브제 전시 키워드 -->
+           <h3 class="keyword_title"><a>전시 검색
+           <i id="arrow" class="material-icons">&#xe5cc;</i></a></h3>
+           <div class="wrap_objet_list">
+              <ul class="objet_list">
+              <c:forEach var="suggest" items="${objetList }">
+                 <li class="objet_list_item">${suggest.objettitle }</li>
+              </c:forEach>
+              </ul>
+           </div>
+        </div>
+        <div class="artist_keyword"><!-- 오브제 작가 키워드 -->
+           <h3 class="keyword_title"><a>작가 검색
+           <i id="arrow" class="material-icons">&#xe5cc;</i></a></h3>
+           <div class="wrap_artist_list">
+              <div class="artist_list">
+                 <div class="artist_list_item"><a href="">
+                 <img id="artist_list_img" class="ui mini circular image" src="resources/images/objet/나의 오랜 연인에게1.jpg">
+                 <span>오브제</span></a></div>
+              </div>
+           </div>
+        </div>
+     </div>
+    </div>
+  </div>
+</div>
+</section>
+<<script type="text/javascript">
+$(function(){
+	$("#search-text").on("keyup", function(){
+		 var keyword = $("#search-text").val();
+		 if()
+		 $('.objet_list_item').slice(0, 5).fadeIn();
+		 /* $('.objet_list').transition('fade up').transition('fade up'); */
+		 $('objet_list_item:contains(' + keyword + ')').css({'color' : '#2185d0', 'font-weight' : 'bold', 'font-family' : '"Nanum Gothic"', 'font-size' : '20px'});
+	});
+});
+</script>
+<!-- 검색창 끝 -->
+<br>
 <section class="objet_main">
 <section class="objet_info_top">
 <span class="objet_info">모든 것이 작품이 되는 공간, 오브제</span><br>

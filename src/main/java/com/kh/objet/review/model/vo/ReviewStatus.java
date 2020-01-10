@@ -1,24 +1,31 @@
 package com.kh.objet.review.model.vo;
 
+import java.sql.Date;
+
 public class ReviewStatus implements java.io.Serializable{
 
 	private static final long serialVersionUID = 15001L;
 	
 	private String revuserid;
 	private int objetno;
+	private String revcontent;
 	private String userid;
 	private int revgood;
 	private int revhate;
+	private java.sql.Date revdate;
 	
 	public ReviewStatus() {}
 
-	public ReviewStatus(String revuserid, int objetno, String userid, int revgood, int revhate) {
+	public ReviewStatus(String revuserid, int objetno, String revcontent, String userid, int revgood, int revhate,
+			Date revdate) {
 		super();
 		this.revuserid = revuserid;
 		this.objetno = objetno;
+		this.revcontent = revcontent;
 		this.userid = userid;
 		this.revgood = revgood;
 		this.revhate = revhate;
+		this.revdate = revdate;
 	}
 
 	public ReviewStatus(int objetno, String userid) {
@@ -91,12 +98,29 @@ public class ReviewStatus implements java.io.Serializable{
 	public void setRevhate(int revhate) {
 		this.revhate = revhate;
 	}
+	
+	public String getRevcontent() {
+		return revcontent;
+	}
+
+	public void setRevcontent(String revcontent) {
+		this.revcontent = revcontent;
+	}
+
+	public java.sql.Date getRevdate() {
+		return revdate;
+	}
+
+	public void setRevdate(java.sql.Date revdate) {
+		this.revdate = revdate;
+	}
 
 	@Override
 	public String toString() {
-		return "ReviewStatus [revuserid=" + revuserid + ", objetno=" + objetno + ", userid=" + userid + ", revgood="
-				+ revgood + ", revhate=" + revhate + "]";
+		return "ReviewStatus [revuserid=" + revuserid + ", objetno=" + objetno + ", revcontent=" + revcontent
+				+ ", userid=" + userid + ", revgood=" + revgood + ", revhate=" + revhate + ", revdate=" + revdate + "]";
 	}
+
 	
 	
 

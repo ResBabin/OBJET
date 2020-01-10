@@ -42,6 +42,8 @@ public interface ObjetService {
 	int deleteRevGood(ReviewStatus revstatus);
 	int insertRevHate(ReviewStatus revstatus);
 	int deleteRevHate(ReviewStatus revstatus);
+	int selectReviewReport(ReportBoard rbb);
+	ArrayList<Objet> selectAllObjetAllList();
 	
 	// 최민영
 	List<Objet2> selectArtistObjetList(String userid);
@@ -58,5 +60,7 @@ public interface ObjetService {
 	int updateMyObjet(Objet objet);
 	int insertObjet(Objet objet);
 	int deleteObjet(int objetno);
+	
+	
 	
 }

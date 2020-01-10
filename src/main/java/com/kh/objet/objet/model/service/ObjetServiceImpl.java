@@ -31,6 +31,12 @@ public class ObjetServiceImpl implements ObjetService{
 	public ArrayList<Objet> selectObjetAllList() {
 		return objetDao.selectObjetAllList();
 	}
+	
+	//오브제 완전 전체 리스트
+	@Override
+	public ArrayList<Objet> selectAllObjetAllList() {
+		return objetDao.selectAllObjetAllList();
+	}
 
 	//오브제 작가 전체 리스트
 	@Override
@@ -66,6 +72,12 @@ public class ObjetServiceImpl implements ObjetService{
 	@Override
 	public int insertReviewReport(ReportBoard rb) {
 		return objetDao.insertReviewReport(rb);
+	}
+	
+	//한줄평 신고 체크
+	@Override
+	public int selectReviewReport(ReportBoard rbb) {
+		return objetDao.selectReviewReport(rbb);
 	}
 	
 	//한줄평 리스트 
@@ -170,6 +182,8 @@ public class ObjetServiceImpl implements ObjetService{
 		return objetDao.deleteRevHate(revstatus);
 	}
 	
+	
+	
 	// 최민영 *******************************************************
 	
 
@@ -254,6 +268,10 @@ public class ObjetServiceImpl implements ObjetService{
 	public int deleteObjet(int objetno) {
 		return objetDao.deleteObjet(objetno);
 	}
+	
+	
+
+	
 
 
 
