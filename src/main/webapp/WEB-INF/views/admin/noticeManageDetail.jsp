@@ -15,9 +15,8 @@
 <c:import url="adminHeader.jsp" />
 <style type="text/css">
 #um {
-	padding: 350px;
-	padding-top: 50px;
-	padding-bottom: 150px;
+	padding-top: 15px;
+	padding-bottom: 15px;
 	font-family: 'Nanum Gothic'; 
 }
 
@@ -25,13 +24,13 @@ table {
 	border-collapse: collapse;
 	border: none;
 	line-height: 30px;
-	width: 700px;
-}
+	width: 1100px;
+} 
 
 th, td {
 	border: solid 1px #ba9;
 	opacity: 0.9;
-	padding: 8px;
+	padding: 7px;
 	color: #420;
 }
 
@@ -67,16 +66,16 @@ font-weight: bold;
 }
 </style>
 </head>
-<body>
+<body> 
 	<div id="um" align="center" >
-		<div style="padding: 50px;" align="center">
+ 		<div style="padding: 50px;" align="center">
 			<table id="nod">
 				<tbody align="center">
 				<tr><th colspan="4" id="not">공지사항</th></tr>
 					<tr>
-						<th width="150" align="center" id="aaa">분류
+						<th width="120" align="center" id="aaa">분류
 						<td width="200">${ noticemd.noticetype }</td>
-						<th width="150">번호
+						<th width="120">번호
 						<td width="200">${ noticemd.noticeno }</td>
 					</tr>
 					<tr>
@@ -86,13 +85,17 @@ font-weight: bold;
 						<td>${ noticemd.noticedate }</td>
 					</tr>
 					<tr>
+						<th align="center">첨부파일
+						<td colspan="3" style="text-align: left; padding-left: 20px;">첨부파일 부분</td>
+					</tr>
+					<tr>
 						<th align="center">제목
 						<td colspan="3" style="text-align: left; padding-left: 20px;">${ noticemd.noticetitle }</td>
 					</tr>
 					<tr>
-						<th height="500" align="center" id="bbb">내용
-						<td colspan="3" valign="top"
-							style="padding: 20px; text-align: left;">${ noticemd.noticecontent }</td>
+						<th height="300" align="center" id="bbb">내용
+						<td colspan="3" valign="top" 
+						 	style="padding: 20px; text-align: left;">${ noticemd.noticecontent }</td>
 					</tr>
 				</tbody>
 			</table>
@@ -107,33 +110,32 @@ font-weight: bold;
 			<table>
 				<c:if test="${ noticemd.noticeno eq 1 }">
 					<tr>
-						<th width="150">이전 글</th>
-						<td>이전 글이 없습니다.</td>
+						<th width="192">이전 글</th>
+						<td>&nbsp;&nbsp;&nbsp;이전 글이 없습니다.</td>
 					</tr>
 				</c:if>
 				<c:if test="${ noticemd.noticeno ne 1 }">
 					<tr>
-						<th width="150">이전 글</th>
-						<td><a href="${ noticemdp }">${ noticemd.noticeno - 1} :
-								${ noticelist.get(noticemd.noticeno - 1).noticetitle } </a></td>
+						<th width="192">이전 글</th>
+						<td>&nbsp;&nbsp;&nbsp;<a href="${ noticemdp }">${ noticemd.noticeno - 1} : ${ noticelist.get(noticemd.noticeno - 1).noticetitle } </a></td>
 					</tr>
 				</c:if>
 				<c:if test="${ noticemd.noticeno eq noticelist.size() }">
 					<tr>
-						<th width="150">다음 글</th>
-						<td>다음 글이 없습니다.</td>
+						<th>다음 글</th>
+						<td>&nbsp;&nbsp;&nbsp;다음 글이 없습니다.</td>
 					</tr>
 				</c:if>
 				<c:if test="${ noticemd.noticeno ne noticelist.size() }">
 					<tr>
-						<th width="150">다음 글</th>
-						<td><a href="${ noticemdn }">${ noticemd.noticeno + 1} :
+						<th>다음 글</th>
+						<td>&nbsp;&nbsp;&nbsp;<a href="${ noticemdn }">${ noticemd.noticeno + 1} :
 								${ noticelist.get(noticemd.noticeno - 1).noticetitle } </a></td> 
 					</tr>
 				</c:if>
 			</table>
 			<c:url var="tonoticem" value="noticem.do"/>
-			<div align="right" style="margin-top: 20px; margin-right: 5px;">
+			<div align="center" style="margin-top: 20px; margin-right: -925px;">
 				<button class="ui button icons" id="btn2">삭제</button>
 				&nbsp;
 				<button class="ui button icons" id="btn2">수정</button>

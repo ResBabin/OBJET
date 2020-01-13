@@ -38,6 +38,7 @@ public class UserManagement implements java.io.Serializable{
 	private String instagram;
 	private String etcurl;
 	private String artistemail;
+	private int rnum;
 	
 	public UserManagement() {}
 
@@ -45,7 +46,7 @@ public class UserManagement implements java.io.Serializable{
 			String email, String phone, String gender, Date enrolldate, String quityn, String blackyn, String reportedu,
 			String reporteru, Date reportudate, String reportureason, int reportcount, Date blackstart, Date blackend,
 			String useropic, String userrpic, String userintros, String userintrol, String usertag, String portfolio,
-			String facebook, String instagram, String etcurl, String artistemail) {
+			String facebook, String instagram, String etcurl, String artistemail, int rnum) {
 		super();
 		this.userid = userid;
 		this.userpwd = userpwd;
@@ -75,6 +76,7 @@ public class UserManagement implements java.io.Serializable{
 		this.instagram = instagram;
 		this.etcurl = etcurl;
 		this.artistemail = artistemail;
+		this.rnum = rnum;
 	}
 
 	public String getUserid() {
@@ -301,6 +303,14 @@ public class UserManagement implements java.io.Serializable{
 		this.artistemail = artistemail;
 	}
 
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
+
 	@Override
 	public String toString() {
 		return "UserManagement [userid=" + userid + ", userpwd=" + userpwd + ", usertype=" + usertype + ", username="
@@ -310,9 +320,9 @@ public class UserManagement implements java.io.Serializable{
 				+ reportureason + ", reportcount=" + reportcount + ", blackstart=" + blackstart + ", blackend="
 				+ blackend + ", useropic=" + useropic + ", userrpic=" + userrpic + ", userintros=" + userintros
 				+ ", userintrol=" + userintrol + ", usertag=" + usertag + ", portfolio=" + portfolio + ", facebook="
-				+ facebook + ", instagram=" + instagram + ", etcurl=" + etcurl + ", artistemail=" + artistemail + "]";
+				+ facebook + ", instagram=" + instagram + ", etcurl=" + etcurl + ", artistemail=" + artistemail
+				+ ", rnum=" + rnum + "]";
 	}
-	
 	
 	
 }

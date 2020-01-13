@@ -16,7 +16,7 @@
 	href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <style type="text/css">
 #um {
-	padding: 150px;
+	padding: 70px;
 	padding-right: 300px;
 	padding-left: 300px;
 }
@@ -89,8 +89,8 @@ tr {
 				</c:if>
 				<c:if test="${ usermd.blackyn eq 'N' and !empty usermd.userrpic }">
 					<img
-						src="${ pageContext.request.contextPath }/resources/images/${ usermd.userrpic }"
-						width="200" height="200">
+						src="${ pageContext.request.contextPath }/resources/users_upfiles/${ usermd.userrpic }"
+						width="200">
 					<br>
 				</c:if>
 				<c:if test="${ usermd.blackyn eq 'Y' and empty usermd.userrpic }">
@@ -102,8 +102,8 @@ tr {
 				</c:if>
 				<c:if test="${ usermd.blackyn eq 'Y' and !empty usermd.userrpic }">
 					<img
-						src="${ pageContext.request.contextPath }/resources/images/${ usermd.userrpic }"
-						width="200" height="200">
+						src="${ pageContext.request.contextPath }/resources/users_upfiles/${ usermd.userrpic }"
+						width="200">
 					<br>
 					<div class="ui big left ribbon black label"
 						style="margin-right: 1000px; opacity: 0.9;">BLACK LIST</div>
@@ -198,7 +198,7 @@ tr {
 							<i class="grey quote left top aligned icon"></i>
 							<div class="content"
 								style="line-height: 20pt; padding-left: 20px;">
-								<a class="header">${ userob.objettitle }</a>
+								<a class="header" href="objetmd.do?objetno=${ userob.objetno }">${ userob.objettitle }</a>
 								<div class="description">${ userob.objetstartdate }~${ userob.objetenddate }</div>
 								<div class="description">
 									<c:forTokens items="${ userob.objettag }" var="objettag"
@@ -264,7 +264,6 @@ tr {
 			</button>
 		</div>
 	</div>
-	<c:import url="../footer.jsp" />
 </body>
 
 </html>

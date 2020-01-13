@@ -1,11 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>°øÁö»çÇ× ÀÚ¼¼È÷ º¸±â</title>
+<title>ê³µì§€ì‚¬í•­ ìžì„¸ížˆ ë³´ê¸°</title>
 <c:import url="../header.jsp" />
 </head>
 <style>
@@ -36,37 +38,29 @@ height:40px;
         <div class="noitcedetail">
         <div class="notice-header">
             <div class="title-wrap">
-                <p class="category-info"><a href="/notice">ºÐ·ù[ÀÏ¹Ý]</a></p>
-                <h2 class="notice-title">´ç½Å¸¸ÀÇ Àü½ÃÈ¸¸¦ ¿­¾îº¸¼¼¿ä</h2>
+                <p class="category-info"><a href="/notice">ë¶„ë¥˜[ì¼ë°˜]</a></p>
+                <h2 class="notice-title">${notice.noticetitle}<h2>
             </div>
             <div class="info-wrap">
                 <ul class="notice-info">
                 
-                    <li class="author"><i class="fa fa-user-circle"></i> admin01</li>
-                    <li class="date"><i class="fa fa-clock-o"></i>2019-09-12</li>
-                     
+                    <li class="author"><i class="fa fa-user-circle"></i> ${notice.adminid}</li>
+                    <li class="date"><i class="fa fa-clock-o"></i> <fmt:formatDate value="${notice.noticedate}" type="date"/></li>
+                    
                 </ul>
             </div>
         </div>
  
         <div class="article">
-          <p>³ª¸¸ ¼ÒÀåÇÒ ¼ö ÀÖ°í ¸ðµÎ¿¡°Ô Àü½ÃÇÒ ¼ö ÀÖ´Â<br>
-
-´Ü ÇÏ³ªÀÇ Àü½ÃÈ¸¸¦ ¸¸µç ´Ù¸é ¾î¶² Àü½Ã¸¦ ÇÏ°í ½ÍÀ»±î¿ä?<br>
-
-Æò»ý °£Á÷ÇÏ°íÇÂ Ãß¾ïÀÇ ±Û, ÀüÇÏÁö ¸øÇÑ »ç¶ûÀÇ ±Û, <br>
-
-Ã¹ ÀÛÇ°À» ½ÃÀÛÇÒ ¹«·ÆÀÇ ¼­Åõ¸£°í Åõ¹ÚÇÏÁö¸¸ <br>
-
-±×·¡¼­ ¼ÒÁßÇÑ ³» ÀÛÇ°. <br>
-
-±×·± ÀÛÇ°µéÀ» ¿«¾î ³ª¿¡°Ô °Ç³×°í ½Í¾î Áý´Ï´Ù. <br>
-
-¿ÀÁ÷ ³ª¸¸À» À§ÇÑ Àü½ÃÈ¸ÀÏ Å×´Ï±î¿ä</p>
+          <p>${notice.noticecontent}</p>
 <div class="article_bottom"></div>
         </div>
         </div>
         <!-- //notice view -->
+        
+        
+        <a href="updateNotice.do?noticeno=${notice.noticeno }"><button>ìˆ˜ì •</button></a>
+        <a href="deleteNotice.do?noticeno=${notice.noticeno }"><button>ì‚­ì œ</button></a>
 
 
 <c:import url="../footer.jsp" />

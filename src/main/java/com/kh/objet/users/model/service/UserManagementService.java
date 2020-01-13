@@ -12,7 +12,7 @@ import com.kh.objet.users.model.vo.UserManagement;
 import com.kh.objet.users.model.vo.Users;
 
 public interface UserManagementService {
-	public List<UserManagement> selectUser();
+	public List<UserManagement> selectUser(Map<String, Integer> map);
 	public List<UserManagement> selectBlacklist();
 	public List<UserManagement> selectBlacklistOrder(String order);
 	public UserManagement selectUserDetail(String userid);
@@ -33,4 +33,8 @@ public interface UserManagementService {
 	public int updateBlackEnd(String userid);
 	public List<UserManagement> selectUserOrder(Map<String, String> map);
 	public int updateBlackDate(Map<String, String> map);
+	public int selectUserListCount();
+	public List<String> selectUserEnrollDate();
+	public int selectBlacklistCount();
+	public int updateRequestStatus(Map<String, String> map);
 }

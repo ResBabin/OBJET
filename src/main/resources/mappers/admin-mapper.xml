@@ -16,44 +16,68 @@
 		blackyn, enrolldate, quityn
 		order by userid
 	</select> -->
-	  <select id="selectUsers" resultType="Userm" parameterType="map">
+	 <!--  <select id="selectUsers" resultType="Userm" parameterType="map">
 		select * from ( select *
 		from ( select distinct userid, nickname, username, blackyn, enrolldate, quityn, reportedu, usertype, count(reportedu) as "reportcount"
 		from users left join reportudetail on (userid = reportedu)
 		group by userid, nickname, username, blackyn, enrolldate, quityn, reportedu, usertype
 		order by userid asc)
 		where usertype like '%USER%' )
-		<![CDATA[where rownum >= 1 and rownum <= 10]]>
+		<if test="startRow != null">
+		<![CDATA[where rownum >= #{startRow} and rownum <= #{endRow}]]>
+		</if>
+	  </select>
+	 -->
+	  <select id="selectUsers" resultType="Userm" parameterType="map">
+	select nickname ,username ,userid, enrolldate, blackyn,  quityn, usertype, "reportcount"
+	from (select nickname ,username ,userid, enrolldate, blackyn, quityn, usertype,
+	count(reportedu) as "reportcount", row_number() over(order by userid asc) rnum from users left join reportudetail on (userid = reportedu)
+	where usertype = 'USER' group by nickname, username, userid, enrolldate, quityn, usertype, blackyn)
+	where rnum between #{startRow} and #{endRow}
 	  </select>
 	
 	<!-- 회원 타입별 조회 및 정렬 조회 -->
 	<select id="selectUserOrder" parameterType="map" resultType="Userm">
-	select distinct userid, nickname, username, blackyn, enrolldate, quityn, reportedu, usertype, count(reportedu) as "reportcount"   from ( select *
-		from ( select  *
-		from users left join reportudetail on (userid = reportedu)
-		)
-		<if test="all != null">)</if>
-		<if test="usertype != null">where usertype like '%'||#{ usertype }||'%' )</if>
-		<if test="blackyn != null">where blackyn = 'Y' )</if>
-		<if test="quityn != null">where quityn = 'Y' )</if>
-		group by userid, nickname, username, blackyn, enrolldate, quityn, reportedu, usertype
-		<trim prefix="order by">
-		<if test="order.equals('ida')"> userid asc</if>
-		<if test="order.equals('idd')"> userid desc</if>
-		<if test="order.equals('nicka')"> nickname asc</if>
-		<if test="order.equals('nickd')"> nickname desc</if>
-		<if test="order.equals('namea')"> username asc</if>
-		<if test="order.equals('named')"> username desc</if>
-		<if test="order.equals('enrolla')"> enrolldate asc</if>
-		<if test="order.equals('enrolld')"> enrolldate desc</if>
-		<if test="order.equals('repa')"> reportcount asc</if>
-		<if test="order.equals('erpd')"> reportcount desc</if>
-		</trim>
+		select nickname ,username ,userid, enrolldate, blackyn, quityn, usertype, "reportcount" from 
+		(select nickname ,username ,userid, enrolldate, blackyn, quityn, usertype, count(reportedu) as "reportcount" 
+		, row_number() over(
+		<if test="order.equals('ida')">order by userid asc</if>
+		<if test="order.equals('idd')">order by userid desc</if>
+		<if test="order.equals('nicka')">order by nickname asc</if>
+		<if test="order.equals('nickd')">order by nickname desc</if>
+		<if test="order.equals('namea')">order by username asc</if>
+		<if test="order.equals('named')">order by username desc</if>
+		<if test="order.equals('enrolla')">order by enrolldate asc</if>
+		<if test="order.equals('enrolld')">order by enrolldate desc</if>
+		<if test="order.equals('reporta')">order by count(reportedu) asc, userid asc </if>
+		<if test="order.equals('reportd')">order by count(reportedu) desc, userid asc </if>
+		<if test="order.equals('quita')">order by quityn asc, userid asc </if>
+		<if test="order.equals('quitd')">order by quityn desc, userid asc </if>
+		) rnum from users 
+		left join reportudetail on (userid = reportedu) 
+		<if test="all != null"></if>
+		<if test="usertype != null">where usertype like '%'||#{ usertype }||'%' </if>
+		<if test="blackyn != null">where blackyn = 'Y'</if>
+		<if test="quityn != null">where quityn = 'Y'</if>
+		group by nickname, username, userid, enrolldate, quityn, usertype, blackyn) 
+		where rnum between #{startRow} and  #{endRow}
+	</select>
+	<select id="selectUserOrderCount" parameterType="map" resultType="Userm">
+		select count(*) from users 
+		<if test="all != null"></if>
+		<if test="usertype != null">where usertype like '%'||#{ usertype }||'%' </if>
+		<if test="blackyn != null">where blackyn = 'Y'</if>
+		<if test="quityn != null">where quityn = 'Y'</if>
 	</select>
 	
+	<select id="selectUserListCount" resultType="int">
+		select count(*) from users where usertype like 'USER'
+	</select>
 
-
-
+	<select id="selectUserEnrollDate" resultType="Users">
+		select  enrolldate from users
+	</select>
+	
 	<!-- 블랙리스트 조회 -->
 	<select id="selectBlacklist" resultType="Userm">
 		select * from blacklist
@@ -61,6 +85,11 @@
 		order by userid desc
 
 	</select>
+	
+	<select id="selectBlacklistCount" resultType="_int">
+		select count(*) from blacklist
+	</select>
+	
 	<!-- 블랙리스트 정렬 조회 -->
 	<select id="selectBlacklistOrder" resultType="Userm"
 		parameterType="string">
@@ -78,7 +107,9 @@
 			<if test="_parameter.equals('enda')"> blackend asc</if>
 			<if test="_parameter.equals('endd')"> blackend desc</if>
 		</trim>
-	</select>
+	</select> 
+	
+		
 	
 	<!-- 회원 상세 조회 -->
 	<select id="selectUserDetail" resultType="Userm"
@@ -164,16 +195,49 @@
 	
 	<!-- =========전시============ -->
 	<!-- 전시 전체 목록 조회 -->
-	<select id="selectAllObjet" resultType="Objet">
+	<select id="selectAllObjet" resultType="Objet" parameterType="map">
+		  select *
+		from (select rownum rnum, objetno, objettitle, userid, objetstartdate, objetenddate, objettag, publicyn, objetstatus, objetregidate
+		from (select * from objet)
+		order by objetno desc)
+   		where rnum between #{startRow} and  #{endRow} 
+	</select>
+	
+	<!-- 전시 상태별 조회 -->
+	<select id="selectStatusOrder" resultType="Objet" parameterType="map">
 		select *
+		from (select rownum rnum, objetno, objettitle, userid, objetstartdate, objetenddate, objettag, publicyn, objetstatus, objetregidate
+		from (select * from objet)
+		<if test="order.equals('ida')">order by userid asc</if>
+		<if test="order.equals('idd')">order by userid desc</if>
+		<if test="order.equals('titlea')">order by objettitle asc</if>
+		<if test="order.equals('titled')">order by objettitle desc</if>
+		<if test="order.equals('noa')">order by objetno asc</if>
+		<if test="order.equals('nod')">order by objetno desc</if>
+		<if test="order.equals('regia')">order by objetregidate asc</if>
+		<if test="order.equals('regid')">order by objetregidate desc</if>
+		<if test="order.equals('starta')">order by objetstartdate asc, userid asc </if>
+		<if test="order.equals('startd')">order by objetstartdate desc, userid asc </if>
+		)
+   		where rnum between #{startRow} and  #{endRow} 
+   		<if test="objetstatus != null">and objetstatus = #{ objetstatus }</if>
+   		<if test="publicyn != null">and publicyn = #{ publicyn }</if>
+   		<if test="objettag != null">and objettag like '%'||#{ objettag }||'%'</if>
+   		<if test="objettitle != null">and objettitle like '%'||#{ objettitle }||'%'</if>
+   		<if test="userid != null">and userid like '%'||#{ userid }||'%'</if>
+	</select>
+	
+	<select id="selectObjetListCount" resultType="int">
+		select count(*)
 		from objet
 	</select>
-
+	
 	<!-- 전시 상세 조회 -->
-	<select id="selectObjetOne" resultType="Objet"
+	<select id="selectObjetOne" resultType="Objetm"
 		parameterType="_int">
 		select * 
 		from objet
+		join users using (userid)
 		where objetno = #{value}
 	</select>
 
@@ -183,11 +247,15 @@
 	</select>
 	
 	<!-- 전시 승인 / 반려  -->
-	<update id="updateRequestStatus" parameterType="Objet">
-		update objet set publicyn = 'Y', objetstatus = 'WAIT'
-		where objetno = ${ value } 
+	<update id="updateRequestStatus" parameterType="map">
+		update objet set objetstatus = 'WAIT', publicyn = #{ publicyn }
+		where objetno = ${ objetno } 
 	</update>
-
+	
+	<update id="updateObjetStop" parameterType="int">
+		update objet set objetstatus = 'CLOSE'
+		where objetno = ${ value }
+	</update>
 
 	<!-- =========공지============ -->
 	<!-- 공지 목록 조회 -->
@@ -383,7 +451,7 @@
 	<insert id="insertLoginCount">
 	insert into logincount values (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, to_char(sysdate, 'yy/MM/dd'))
 	</insert>
-	<select id="selectLoginDate" resultType="LoginCount">
+	<select id="selectLoginDate" resultType="string">
 	select logindate from logincount where logindate = to_char(sysdate, 'yy/MM/dd')
 	</select>
 	<!-- 회원가입 카운트 -->

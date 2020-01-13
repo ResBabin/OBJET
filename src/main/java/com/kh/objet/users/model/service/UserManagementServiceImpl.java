@@ -21,8 +21,8 @@ public class UserManagementServiceImpl implements UserManagementService{
 	private UserManagementDao usermDao;
 	
 	@Override
-	public List<UserManagement> selectUser() {
-		return usermDao.selectUser();
+	public List<UserManagement> selectUser(Map<String, Integer> map) {
+		return usermDao.selectUser(map);
 	}
 	
 	@Override
@@ -125,6 +125,25 @@ public class UserManagementServiceImpl implements UserManagementService{
 		return usermDao.updateBlackDate(map);
 	}
 
-	
+	@Override
+	public int selectUserListCount() {
+		return usermDao.selectUserListCount();
+	}
+
+	@Override
+	public List<String> selectUserEnrollDate() {
+		return usermDao.selectUserEnrollDate();
+	}
+
+	@Override
+	public int selectBlacklistCount() {
+		return usermDao.selectBlacklistCount();
+	}
+
+	@Override
+	public int updateRequestStatus(Map<String, String> map) {
+		return usermDao.updateRequestStatus(map);
+	}
+
 
 }

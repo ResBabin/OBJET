@@ -1,5 +1,6 @@
 package com.kh.objet.qna.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,33 +10,76 @@ import com.kh.objet.qna.model.dao.QnaDao;
 import com.kh.objet.qna.model.vo.Qna;
 
 @Service("qnaService")
-public class QnaServiceImpl implements QnaService{
+public class QnaServiceImpl implements QnaService {
 
 	@Autowired
 	private QnaDao qnaDao;
-	
-	/////////////////////////이유진/////////////////////////////////////
+/////////////////////////이유진/////////////////////////////////////
+
 	@Override
-	public int insertWriteQna(Qna qna) {
-		return qnaDao.insertWriteQna(qna);
+	public List<Qna> selectQnaList(HashMap<String, Object> map) {
+		return qnaDao.selectQnaList(map);
 	}
-	////////////////////////////////관리자/////////////////////////////////////
+
+	public int listCount2() {
+		return qnaDao.listCount2();
+	}
+
+	@Override
+	public Qna selectQnaDetail(int qnano) {
+		return qnaDao.selectQnaDetail(qnano);
+	}
+
+	@Override
+	public int qnaSearchListCount(HashMap<String, Object> mapp) {
+
+		return qnaDao.qnaSearchListCount(mapp);
+	}
+
+	@Override
+	public List<Qna> selectQnaSearchList(HashMap<String, Object> map) {
+
+		return qnaDao.selectQnaSearchList(map);
+	}
+
+	@Override
+	public int insertQna(Qna qna) {
+
+		return qnaDao.insertQna(qna);
+	}
 
 	@Override
 	public List<Qna> selectQnaListAdmin() {
-		return qnaDao.selectQnaListAdmin();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public Qna selectQnaDetailAdmin(int qnano) {
-		return qnaDao.selectQnaDetailAdmin(qnano);
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int insertWriteQna(Qna qna) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
 	public List<Qna> selectQnaMain() {
-		return qnaDao.selectQnaMain();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	
-	
+	public int updateQna(Qna qna) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int deleteQna(int qnano) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

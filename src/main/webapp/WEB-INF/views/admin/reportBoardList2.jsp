@@ -142,7 +142,7 @@ $(".delbtn").click(function() {
 
 </head>
 <body>
-	<div style="padding: 200px;">
+	<div style="padding: 200px; padding-top: 100px;">
 		<table class="ui sortable celled table" id="reportd">
 			<thead align="center">
 				<tr>
