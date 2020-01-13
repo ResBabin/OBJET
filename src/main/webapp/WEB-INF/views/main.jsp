@@ -829,13 +829,13 @@ $(function(){
 			 $(".txt_nodata ").show();
 			 $(".objet_list_item").hide();
 			 $(".artist_list_item").hide();
-		 }else if(uValue != -1 && otValue != -1){
+		 }/* else if(uValue != -1 && otValue != -1){
 			 $(".txt_nodata ").show();
 			 $(".artist_list_item").hide();
 		 }else if(iValue != -1){
 			 $(".txt_nodata ").show();
 			 $(".objet_list_item").hide();
-		 }
+		 } */
 		 /* $('.objet_list').transition('fade up').transition('fade up'); */
 		 
 	});
