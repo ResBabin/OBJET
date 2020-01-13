@@ -5,9 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 <title>Objet 시작하기</title>
 <!-- 네이버 -->
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+<!-- 카카오 -->
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <!-- 시맨틱유아이 cdn -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
@@ -101,6 +105,7 @@
 	<br><br>
 		<button class="ui grey button" onclick="location.href='moveEnrollPage.do'" style="width:300px;height:40px; background: #aaa;">회원가입</button>
 	<br><br><br>
+
 	<!-- 네이버아이디로로그인 버튼 노출 영역 -->
 	네이버 아이디로 시작하기&emsp;&emsp;<span id="naverIdLogin" style="vertical-align: middle;"></span>
 	<!-- 네이버아디디로로그인 초기화 Script -->
@@ -119,7 +124,6 @@
 		
 	</script> 
 	<!-- // 네이버아이디로로그인 초기화 Script -->
-
 		<br><br><br><br><br><br>
 		
 		<div class="ui checkbox">

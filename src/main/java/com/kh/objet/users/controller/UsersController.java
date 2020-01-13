@@ -184,7 +184,7 @@ public class UsersController {
 		@RequestMapping(value="naverlogin.do", method= {RequestMethod.POST, RequestMethod.GET})
 		public String naverlogin(@RequestParam(value="username") String username,@RequestParam(value="email") String email,@RequestParam(value="gender") String gender, @RequestParam(value="naverid") int naverid, HttpSession session, Model model) {
 			String vfn = null;
-			System.out.println("username >>> " + username + ",  email >>> " + email + ",  gender >>> " + gender + ",  naverid >>> " + naverid);
+			//System.out.println("username >>> " + username + ",  email >>> " + email + ",  gender >>> " + gender + ",  naverid >>> " + naverid);
 			
 			// 0. 네이버 아이디 고유번호로 가입되어 있는지 조회
 			UAUP user = new UAUP();
