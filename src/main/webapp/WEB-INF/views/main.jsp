@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
@@ -103,16 +102,28 @@
         }
      });
      
+   //폼 엔터키 전송
+     $('#search-form').keydown(function(e) {
+ 	    if (e.keyCode == 13) {
+ 	    	search();
+ 	    }
+ 	});
      
      
    });
 
-    function submit() {
-     document.getElementById("search-btn2").onclick = function() {
-         document.getElementById('search-form').submit();
-         return false;
-      };
+	//폼 전송
+    function search() {
+    	var form = document.forms["search-form"];
+    	var keyword = $("#search-text").val();
+    	form.action =  "search.do?keyword="+keyword;
+        form.submit();
    };
+   
+   function keyword(){
+	   var keyword = $("#search-text").val();
+	   location.href = "search.do?keyword="+keyword;
+   }
  </script>
  <style>
 .objet_main {
@@ -208,13 +219,14 @@
 }
 
 .text {
-   font-family: 'Nanum Myeongjo'; nth-of-type (2) font-weight : 700;
-   font-size: 26pt;
+   font-family: 'Nanum Myeongjo'; 
+   font-weight : 400;
+   font-size: 28pt;
    color: #fff;
    text-align: left;
    position: absolute;
-   top: 25%;
-   left: 24.5%;
+   top: 26.5%;
+   left: 21%;
    transform: translate(-50%, -50%);
    line-height: 46px;
 }
@@ -389,8 +401,9 @@
    vertical-align: middle;
 }
 
-.text2 {nth-of-type (2) font-weight:400;
-   font-size: 25px;
+.text2 {
+   font-weight:400;
+   font-size: 24px;
    color: #fff;
    text-align: center;
    position: absolute;
@@ -547,11 +560,12 @@
 /* 카드 */
 .container1 {
    float: left;
-   margin-bottom: 80px;
-   margin-left: 40px;
+   margin-bottom: 50px;
+   margin-left: 50px;
    margin-right: 0px;
    position: relative;
    left:1%;
+   top:2%;
 }
 
 .container {
@@ -592,21 +606,30 @@
 }
 
 .cardsection {
-box-shadow: 0px 0px 13px 5px gray; 
-   background: rgba(0, 0, 0, 0.05);
+	box-shadow: 0px 0px 20px 3px lightgray; 
+   background: rgba(0, 0, 0, 0.02);
    height: 470px;
    width: 100%;
 }
 
 .writername {
-   margin-top: 20px;
-   color: black;
-   font-size: 15px;
+   margin-top: 14px;
+   font-weight: bolder;
+  color: #333333;
+  font-size:20px;
+  text-align:center;
+  font-weight: bolder;
+  letter-spacing: 1px;
+  font-family:'Nanum Gothic';
 }
 
 .writercoment {
-   color: black;
-   font-size: 14x;
+  font-size: 12px;
+  color: #666666;
+  text-align:center;
+  font-weight: normal;
+  letter-spacing: 1.5px; 
+  font-family:'Nanum Gothic';
 }
 
 .theback {
@@ -618,16 +641,29 @@ box-shadow: 0px 0px 13px 5px gray;
    background: #fafafa;
    color: #555;
    text-align: center;
-   font-family: 'zilla slab', sans-serif;
+   font-family: 'Nanum Gothic', sans-serif;
    border-radius: 10px;
    text-align: left;
    transform: rotateY(180deg);
 }
 
+.cardContent p {
+   margin-top: 25px;
+  color: #333333;
+  font-size:16px;
+  text-align:center;
+  font-weight: normal;
+  letter-spacing: 1px;
+  font-family:'Nanum Gothic';
+}
 
-.cardContent {
-   font-size: 12px;
-   padding: 8px;
+.cardContent span {
+  font-size: 12px;
+  color: #666666;
+  text-align:center;
+  font-weight: lighter;
+  letter-spacing: 1.5px; 
+  font-family:'Nanum Gothic';
 }
 
 .tagboxes {
@@ -636,15 +672,17 @@ box-shadow: 0px 0px 13px 5px gray;
 
 .tagbox1 {
    color: rgba(0, 0, 0, 0.8);
-   margin-left: 17px;
    padding: 3px;
    margin-top: 70px;
+   margin-left: 15px;
    height: 30px;
    width: 25%;
-   border: 1.8px solid rgba(0, 0, 0, 0.1);
+   border: 1px solid lightgray;
    border-radius: 30px;
-   float: left;
+   vertical-align:middle;
+   align:center;
    font-size: 12px;
+   float: left;
 }
 
 .tagbox2 {
@@ -675,7 +713,6 @@ box-shadow: 0px 0px 13px 5px gray;
 </style>
 </head>
 <body>
-<%-- <c:import url="search.jsp" /> --%>
 <section class="search">
  <!-- 검색 아이콘  -->
 <i id="search-btn" class="material-icons">&#xe8b6;</i>
@@ -684,19 +721,19 @@ box-shadow: 0px 0px 13px 5px gray;
   <div class="centered">
     <div id='search-box'>
       <i id="close-btn" class="material-icons">&#xe5cd;</i>
-      <form action='objetSearchList.do' id='search-form' method='get' target='_top' 
-      class="ui wide fluid transparent icon input">
+      <form id='search-form' target='_top' class="ui wide fluid transparent icon input">
         <input id='search-text' name="keyword" type="text" placeholder="검색어를 입력해주세요." />
-        <i class="material-icons" id="search-btn2" onClick="submit();">&#xe8b6;</i>
+        <i class="material-icons" id="search-btn2" onclick="search();">&#xe8b6;</i>
       </form>
+      <br><br>
       <!-- 오브제 추천 태그 -->
       <div class="search_suggest" align="center">
          <p><span>오브제</span> 추천 태그</p>
          <div class="search_tag">
-         <c:set var="ran"><%= java.lang.Math.round(java.lang.Math.random() * 7) + 1 %></c:set>
+         <c:set var="ran"><%= java.lang.Math.round(java.lang.Math.random() * 7) %></c:set>
          <c:set var="objetTag" value="${fn:split('건축,공예,서예,디자인,사진,회화,조각,기타', ',')}" />
          <c:set var="doneLoop" value="false" />
-         <c:forEach var="item" items="${objetTag }" begin="${ran }" end="${ran }" varStatus="status">
+         <c:forEach var="item" items="${objetTag }" begin="0" end="${ran }" varStatus="status">
          <c:if test="${not doneLoop }">
          <div class="ui circular basic blue button">${item}</div> &nbsp;
          <c:if test="${status.index == 2 }">
@@ -704,11 +741,10 @@ box-shadow: 0px 0px 13px 5px gray;
          </c:if>
          </c:if>
          </c:forEach>
-         <br><br><br><br>
+         <br><br>
          </div>
-         <p><span>오브제의 </span> 추천 작가들</p>
+         <!-- <p><span>오브제의 </span> 추천 작가들</p> -->
          <ul class="search_art_list">
-         
          <c:forEach var="Artist" items="${searchMainList }" begin="0" end="4">
          <c:set var="noimg" value="resources/images/basicprofilepic.png" />
             <li class="search_art_list_1">
@@ -724,25 +760,40 @@ box-shadow: 0px 0px 13px 5px gray;
      <!-- 오브제 검색 키워드 -->
      <div class="search_keyword">
         <div class="objet_keyword"><!-- 오브제 전시 키워드 -->
-           <h3 class="keyword_title"><a>전시 검색
+           <h3 class="keyword_title"><a href="#" onclick="keyword();return false;">전시 검색
            <i id="arrow" class="material-icons">&#xe5cc;</i></a></h3>
            <div class="wrap_objet_list">
               <ul class="objet_list">
               <c:forEach var="suggest" items="${objetList }">
-                 <li class="objet_list_item">${suggest.objettitle }</li>
+                 <c:if test="${empty loginUser}">
+					<a href="objetOne.do?objetno=${suggest.objetno }">
+				</c:if>
+				<c:if test="${!empty loginUser}">
+					<a href="objetOne.do?objetno=${suggest.objetno }&userid=${loginUser.userid}">
+				</c:if>
+					<li class="objet_list_item">${suggest.objettitle }</li></a>
               </c:forEach>
+              <span class='txt_nodata'>검색 결과가 없습니다.</span>
               </ul>
            </div>
         </div>
         <div class="artist_keyword"><!-- 오브제 작가 키워드 -->
-           <h3 class="keyword_title"><a>작가 검색
+           <h3 class="keyword_title"><a href="#" onclick="keyword();return false;">작가 검색
            <i id="arrow" class="material-icons">&#xe5cc;</i></a></h3>
            <div class="wrap_artist_list">
-              <div class="artist_list">
-                 <div class="artist_list_item"><a href="">
-                 <img id="artist_list_img" class="ui mini circular image" src="resources/images/objet/나의 오랜 연인에게1.jpg">
-                 <span>오브제</span></a></div>
-              </div>
+              <ul class="artist_list">
+              	 <c:forEach var="Artist" items="${objetMainList }">
+                 <li class="artist_list_item">
+				 <input type="hidden" class="usertag" name="usertag" value="${Artist.usertag }" />
+				 <input type="hidden" class="objettitle" name="objettitle" value="${Artist.objettitle }" />
+                 <input type="hidden" class="objetintro" name="objetintro" value="${Artist.objetintro }" />
+                 <a href="artistHomeMain.do?userid=${Artist.userid }&loginUser=${loginUser.userid}">
+                 <img id="artist_list_img" class="ui mini circular image" src="resources/users_upfiles/${Artist.userrpic }">
+                 <span>${Artist.nickname }</span></a>
+                 </li>
+                 </c:forEach>
+                 <span class='txt_nodata'>검색 결과가 없습니다.</span>
+              </ul>
            </div>
         </div>
      </div>
@@ -750,14 +801,43 @@ box-shadow: 0px 0px 13px 5px gray;
   </div>
 </div>
 </section>
-<<script type="text/javascript">
+<script type="text/javascript">
+
 $(function(){
 	$("#search-text").on("keyup", function(){
 		 var keyword = $("#search-text").val();
-		 if()
-		 $('.objet_list_item').slice(0, 5).fadeIn();
+		 var listValue = $(".objet_list_item").html();
+		 var usertag = $(".usertag").val();
+		 var objettitle = $(".objettitle").val();
+		 var objetintro = $(".objetintro").val();
+		 var iValue = listValue.indexOf(keyword);
+		 var uValue = usertag.indexOf(keyword);
+		 var otValue = objettitle.indexOf(keyword);
+		 var oiValue = objetintro.indexOf(keyword);
+		 if(iValue == -1) {
+			 $(".objet_list_item:contains('"+keyword+"')").slice(0, 5).fadeIn();
+			 $(".objet_list_item:contains('"+keyword+"')").each(function () {
+		        	var regex = new RegExp(keyword,'gi');
+		        $(this).html($(this).text().replace(regex, "<span>"+keyword+"</span>") );
+	    	});
+			 
+			 $(".txt_nodata ").hide();
+		 }if(uValue == -1 && otValue == -1){
+			 $(".artist_list_item").slice(0, 3).fadeIn(); 
+			 $(".txt_nodata ").hide();
+		 }else if(iValue != -1 && uValue != -1 && otValue != -1 ){
+			 $(".txt_nodata ").show();
+			 $(".objet_list_item").hide();
+			 $(".artist_list_item").hide();
+		 }else if(uValue != -1 && otValue != -1){
+			 $(".txt_nodata ").show();
+			 $(".artist_list_item").hide();
+		 }else if(iValue != -1){
+			 $(".txt_nodata ").show();
+			 $(".objet_list_item").hide();
+		 }
 		 /* $('.objet_list').transition('fade up').transition('fade up'); */
-		 $('objet_list_item:contains(' + keyword + ')').css({'color' : '#2185d0', 'font-weight' : 'bold', 'font-family' : '"Nanum Gothic"', 'font-size' : '20px'});
+		 
 	});
 });
 </script>
@@ -773,38 +853,29 @@ $(function(){
 <div class="objet_banner">
 <div class="swiper-container swiper1">
   <div class="swiper-wrapper wrapper1">
+  <c:forEach var="objet" items="${ objetAllList}">
     <div class="swiper-slide slide1">
-      <a href="${pageContext.servletContext.contextPath }/objetOne.do?objetno=${objet.objetno}">
-      <div class="slide-inner inner1" style="background-image:url(resources/images/objet/exhibi7.jpg)"></div>
-      <div class="info"><span class="text">나는 코코 카피탄, <br> 오늘을 살아가는 너에게<br> 
-      <span class="date">2019.08.02 - 2019.12.12<span></span><br></span></div></a>
+       <c:if test="${empty loginUser}">
+			<a href="objetOne.do?objetno=${objet.objetno }">
+		</c:if>
+		<c:if test="${!empty loginUser}">
+			<a href="objetOne.do?objetno=${objet.objetno }&userid=${loginUser.userid}">
+	   </c:if>
+      <div class="slide-inner inner1" style="background-image:url(resources/images/objet/${objet.renamemainposter })"></div>
+      <%-- <div class="info"><span class="text">
+      	<c:choose>
+           <c:when test="${fn:length(objet.objettitle) > 12}">
+            <c:out value="${fn:substring(objet.objettitle,0,11)}"/><br>
+            <c:out value="${fn:substring(objet.objettitle,11,23)}"/><br>
+            <c:out value="${fn:substring(objet.objettitle,23,length)}"/>
+           </c:when>
+           <c:otherwise>
+            <c:out value="${objet.objettitle}"/><br>
+           </c:otherwise> 
+			</c:choose>
+      <span class="date"><fmt:formatDate value="${objet.objetstartdate }" />&nbsp;-&nbsp;<fmt:formatDate value="${objet.objetenddate }" /><span></span><br></span></div> --%></a>
     </div>
-    <div class="swiper-slide slide1">
-      
-    <a href="${pageContext.servletContext.contextPath }/objetOne.do?objetno=${objet.objetno}">
-      <div class="slide-inner inner1" style="background-image:url(resources/images/objet/display2.jpg)"></div>
-      <div class="info"><span class="text">나는 코코 카피탄, <br> 오늘을 살아가는 너에게<br> 
-      <span class="date">2019.08.02 - 2019.12.12<span></span><br></span></div></a>
-
-    </div>
-    <div class="swiper-slide slide1">
-    <a href="${pageContext.servletContext.contextPath }/objetOne.do?objetno=${objet.objetno}">
-      <div class="slide-inner inner1" style="background-image:url(resources/images/objet/exhibi4.jpg)"></div>
-      <div class="info"><span class="text">나는 코코 카피탄, <br> 오늘을 살아가는 너에게<br> 
-      <span class="date">2019.08.02 - 2019.12.12<span></span><br></span></div></a>
-    </div>
-    <div class="swiper-slide slide1" >
-    <a href="${pageContext.servletContext.contextPath }/objetOne.do?objetno=${objet.objetno}">
-      <div class="slide-inner inner1" style="background-image:url(resources/images/objet/exhibi3.jpg)"></div>
-      <div class="info"><span class="text">나는 코코 카피탄, <br> 오늘을 살아가는 너에게<br> 
-      <span class="date">2019.08.02 - 2019.12.12<span></span><br></span></div></a>
-    </div>
-    <div class="swiper-slide slide1">
-    <a href="${pageContext.servletContext.contextPath }/objetOne.do?objetno=${objet.objetno}">
-      <div class="slide-inner inner1" style="background-image:url(resources/images/objet/exhibi13.jpg)"></div>
-      <div class="info"><span class="text">나는 코코 카피탄, <br> 오늘을 살아가는 너에게<br> 
-      <span class="date">2019.08.02 - 2019.12.12<span></span><br></span></div></a>
-    </div>
+   </c:forEach>
   </div>
   <div class="swiper-pagination swiper-pagination1"></div>
   <div class="swiper-button-next swiper-button-next1"></div>
@@ -873,56 +944,15 @@ $(function(){
    <div class="objet_pic_main">
    <div class="swiper-container swiper2">
      <div class="swiper-wrapper wrapper2">
-    <div class="swiper-slide slide2">
-      <a href="${pageContext.servletContext.contextPath }/objetOne.do?objetno=${objet.objetno}">
-      <div class="slide-inner inner2" style="background-image:url(resources/images/objet/exhibi1.jpg)"></div>
-      <div class="info2"><span class="text2">나는 코코 카피탄, <br> 오늘을 살아가는 너에게<br> 
-      <span class="artist2">by 코코 카피탄<span></span><br></span></div></a>
-    </div>
-    <div class="swiper-slide slide2">
-    <a href="${pageContext.servletContext.contextPath }/objetOne.do?objetno=${objet.objetno}">
-      <div class="slide-inner inner2" style="background-image:url(resources/images/objet/exhibi5.jpg)"></div>
-      <div class="info2"><span class="text2">To. 나의 오랜연인<br>
-      <span class="artist2">by 이지은<span></span><br></span></div></a>
-    </div>
-    <div class="swiper-slide slide2">
-    <a href="${pageContext.servletContext.contextPath }/objetOne.do?objetno=${objet.objetno}">
-      <div class="slide-inner inner2" style="background-image:url(resources/images/objet/display2.jpg)"></div>
-      <div class="info2"><span class="text2">나는 코코 카피탄, <br> 오늘을 살아가는 너에게<br> 
-      <span class="artist2">by 코코 카피탄<span></span><br></span></div></a>
-    </div>
-    <div class="swiper-slide slide2" >
-    <a href="${pageContext.servletContext.contextPath }/objetOne.do?objetno=${objet.objetno}">
-      <div class="slide-inner inner2" style="background-image:url(resources/images/objet/exhibi12.jpg)"></div>
-      <br>
-      <div class="info2"><span class="text2">To. 나의 오랜연인<br></span>
-      <span class="artist2">by 이지은<span></span><br></span></div></a>
-    </div>
-    <div class="swiper-slide slide2">
-      <div class="slide-inner inner2" style="background-image:url(resources/images/objet/objetmainposter.jpg)"></div>
-      <div class="info2"><span class="text2">나는 코코 카피탄, <br> 오늘을 살아가는 너에게<br> </span>
-      <span class="artist2">by 코코 카피탄<span></span><br></span></div>
-    </div>
-    <div class="swiper-slide slide2" >
-      <div class="slide-inner inner2" style="background-image:url(resources/images/objet/나의오랜연인에게커버.jpg)"></div>
-      <div class="info2"><span class="text2">나의 오랜 연인에게<br> 
-      <span class="artist2">by 이지은<span></span><br></span></div>
-    </div>
-    <div class="swiper-slide slide2">
-      <div class="slide-inner inner2" style="background-image:url(resources/images/objet/objetmainposter.jpg)"></div>
-      <div class="info2"><span class="text2">나는 코코 카피탄, <br> 오늘을 살아가는 너에게<br> 
-      <span class="artist2">by 코코 카피탄<span></span><br></span></div>
-    </div>
-    <div class="swiper-slide slide2" >
-      <div class="slide-inner inner2" style="background-image:url(resources/images/objet/나의오랜연인에게커버.jpg)"></div>
-      <div class="info2"><span class="text2">나의 오랜 연인에게<br> 
-      <span class="artist2">by 이지은<span></span><br></span></div>
-    </div>
-    <div class="swiper-slide slide2">
-      <div class="slide-inner inner2" style="background-image:url(resources/images/objet/objetmainposter.jpg)"></div>
-      <div class="info2"><span class="text2">나는 코코 카피탄, <br> 오늘을 살아가는 너에게<br> 
-      <span class="artist2">by 코코 카피탄<span></span><br></span></div>
-    </div>
+     <c:forEach var="objet2" items="${objetMainList }">
+     	<c:if test="${objet2.objetstatus eq 'OPEN' }">
+	    <div class="swiper-slide slide2">
+	      <div class="slide-inner inner2" style="background-image:url(resources/images/objet/${objet2.objetrfile1 })"></div>
+	      <div class="info2"><span class="text2">${objet2.objettitle}<br>
+	      <span class="artist2">by ${objet2.nickname }</span><br></span></div>
+	    </div>
+	    </c:if>
+	 </c:forEach>
   </div>
  <!--  <div class="swiper-pagination swiper-pagination2"></div>
   <div class="swiper-button-next swiper-button-next2"></div>
@@ -960,159 +990,55 @@ $(function(){
 <i class="material-icons" style="font-size:16px;vertical-align: middle;top:5px;">&#xe315;</i></span></a><br>
 <section class="cardsection">
   <!-- 작가 카드 -->
+ <c:forEach var="artistcard" items="${ objetMainList}" end="4" varStatus="status"> 
+ <c:set var="objetTag" value="${fn:split('건축,공예,서예,디자인,사진,회화,조각,기타', ',')}" />
+ <c:set var="ran"><%= java.lang.Math.round(java.lang.Math.random() * 7) %></c:set>
   <div class="container1">
      <div class="container">
-
       <div class="thecard">
-         <div class="thefront"><br>
-         
-         <img id="cardimg" src="resources/images/main/artist1.jpg" width=35% height=25%>
-            <div class ="writername">김쓰앵</div><br>
-            <div class ="writercoment">전적으로 믿으셔야 합니다.</div>
-   <div class="tagboxes">
-   <div class="tagbox1">사진</div>
-   <div class="tagbox2">조각</div>
-   <div class="tagbox3">●●●</div> 
-   </div>
+         <div class="thefront"><br><br><br>
+         <img id="cardimg" src="resources/users_upfiles/${artistcard.userrpic }" width=35% height=25%>
+            <div class ="writername">${artistcard.nickname }</div><br>
+            <div class ="writercoment">${artistcard.userintros }</div>
+			   <div class="tagboxes">
+			   <c:set var="doneLoop" value="false" />
+			   <c:forEach var="item" items="${ objetTag}" end="${ran }" varStatus="status"> 
+			   <c:if test="${not doneLoop }">
+			   	<div class="tagbox1">${item }</div>
+			   	<c:if test="${status.index == 2 }">
+			   	<c:set var="doneLoop" value="true" />
+		         </c:if>
+		         </c:if>
+			   	 </c:forEach>
+			   </div>
          </div>
-          <div class="theback">
+         
+          <div class="theback" style="align:center;">
             <div class="cardContent">
-            
-               <div>전시제목</div>
-               <div>작가 전시에 대한 제목 or 설명글 짧게</div>
-            <center>   <img src="resources/images/objet/display5.jpg" width=80%></center>
-           
+           	 <center>
+           	 	<c:if test="${artistcard.objettitle ne null && artistcard.objettitle2 ne null}">
+               <p>${artistcard.objettitle }</p>
+               <span>${artistcard.objettitle2 }</span>
+               </c:if>
+               <c:if test="${artistcard.objettitle eq null && artistcard.objettitle2 eq null }">
+               <p>현재 공개중인 전시가 없습니다.</p>
+               </c:if>
+               </center>
+               <br>
+               <c:set var="noimages" value="resources/images/noimg2.jpg" />
+               <center> 
+            	<img src="resources/images/objet/${artistcard.objetrfile2 }" 
+            	onerror="this.src='${noimages }'" width="75%">
+            </center>  
             </div>
-            
-         </div>   
+         </div> 
+         
       </div>
       </div>      
-
    </div>
-
-   <div class="container1">
-     <div class="container">
-
-      <div class="thecard">
-         <div class="thefront"><br>
-         
-         <img id="cardimg" src="resources/images/main/artist2.jpg" width=35% height=25%>
-            <div class ="writername">닉네임</div><br>
-            <div class ="writercoment">작가소개가 들어갑니다.</div>
-   <div class="tagboxes">
-   <div class="tagbox1">디자인</div>
-   <div class="tagbox2">회화</div>
-   <div class="tagbox3">조소</div> 
-   </div>
-         </div>
-          <div class="theback">
-            <div class="cardContent">
-            
-               <div>전시제목</div>
-               <div>작가 전시에 대한 제목 or 설명글 짧게</div>
-             <center> <img src="resources/images/objet/display5.jpg" width=80%></center>
-             
-            </div>
-            
-         </div>   
-      </div>
-      </div>      
-
-   </div>
-
-   <div class="container1">
-     <div class="container">
-
-      <div class="thecard">
-         <div class="thefront"><br>
-         
-         <img id="cardimg" src="resources/images/main/artist4.jpg" width=35% height=25%>
-            <div class ="writername">닉네임</div><br>
-            <div class ="writercoment">작가소개가 들어갑니다.</div>
-   <div class="tagboxes">
-   <div class="tagbox1">디자인</div>
-   <div class="tagbox2">회화</div>
-   <div class="tagbox3">조소</div> 
-   </div>
-         </div>
-         <div class="theback">
-            <div class="cardContent">
-            
-               <div>전시제목</div>
-               <div>작가 전시에 대한 제목 or 설명글 짧게</div>
-             <center>  <img src="resources/images/objet/display1.jpg" width=80%></center>
-              
-            </div>
-            
-         </div>   
-      </div>
-      </div>      
-
-   </div>
-
-   <div class="container1">
-     <div class="container">
-
-      <div class="thecard">
-         <div class="thefront"><br>
-         
-         <img id="cardimg" src="resources/images/main/artist5.jpg" width=35% height=25%>
-            <div class ="writername">닉네임</div><br>
-            <div class ="writercoment">작가소개가 들어갑니다.</div>
-   <div class="tagboxes">
-   <div class="tagbox1">디자인</div>
-   <div class="tagbox2">회화</div>
-   <div class="tagbox3">조소</div> 
-   </div>
-         </div>
-         <div class="theback">
-            <div class="cardContent">
-            
-               <div>전시제목</div>
-               <div>작가 전시에 대한 제목 or 설명글 짧게</div>
-             <center> <img src="resources/images/objet/display8.jpg" width=80%></center>
-             
-            </div>
-            
-         </div>   
-      </div>
-      </div>      
-
-   </div>
-
-   <div class="container1">
-     <div class="container">
-
-      <div class="thecard">
-         <div class="thefront"><br>
-         
-         <img id="cardimg" src="resources/images/objet/artist3.jpg" width=35% height=25%>
-            <div class ="writername">닉네임</div><br>
-            <div class ="writercoment">작가소개가 들어갑니다.</div>
-   <div class="tagboxes">
-   <div class="tagbox1">디자인</div>
-   <div class="tagbox2">회화</div>
-   <div class="tagbox3">조소</div> 
-   </div>
-         </div>
-         <div class="theback">
-            <div class="cardContent">
-            
-               <div>전시제목</div>
-               <div>작가 전시에 대한 제목 or 설명글 짧게</div>
-               <center><img src="resources/images/objet/display5.jpg" width=80%></center>
-              
-            </div>
-            
-         </div>   
-      </div>
-      </div>      
-
-   </div>
-
+   </c:forEach>
 </section>
 </section>
-
 <c:import url="footer.jsp" />
 </body>
 </html>

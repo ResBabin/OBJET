@@ -184,14 +184,17 @@ $(function() {
   	});
 
 	//더보기 버튼
-	$(".objet_list").slice(0, 4).show(); // 최초 4개 선택
-	$("#more_load").click(function(e) { // Load More를 위한 클릭 이벤트e
-	    e.preventDefault();
-	    $(".objet_list:hidden").slice(0, 4).show(); // 숨김 설정된 다음 4개를 선택하여 표시
-	    if ($(".objet_list:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
-	        $('#more_load').css('display', 'none');// 더 이상 로드할 항목이 없는 경우
-	    }
-	});
+	$(".objet_list").slice(0, 4).fadeIn(); // 최초 4개 선택
+	if($(".objet_list:hidden").length != 0){
+		$("#more_load").show();
+		$("#more_load").click(function(e) { // Load More를 위한 클릭 이벤트e
+		    e.preventDefault();
+		    $(".objet_list:hidden").slice(0, 4).fadeIn(); // 숨김 설정된 다음 4개를 선택하여 표시
+		    if ($(".objet_list:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
+		        $('#more_load').fadeOut();// 더 이상 로드할 항목이 없는 경우
+		    }
+		});
+	}
 
 
 });
@@ -264,7 +267,7 @@ $(function() {
 </div>
 <br><br>
 <center>
-<div class="ui basic large gray animated button" id="more_load" style="vertical-align:middle;" align="center">
+<div class="ui basic large gray animated button" id="more_load" style="display:none;vertical-align:middle;" align="center">
  <div class="visible content">더보기</div>
  <div class="hidden content">
    <i class="ui chevron down icon" style="font-size:16px;vertical-align:middle;text-align:center"></i>

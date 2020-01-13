@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -122,10 +124,10 @@ min-height:100%;
 	width:55%;
 }
 .object-keyword {
-	float: right;
 	width:17%;
-	margin-top:-1100px;
-	margin-right:370px;
+	top:28%;
+	left:75%;
+	position: absolute;
 }
 .wrap-keywords {
     /* box-shadow: 0 1px 0 0 #eee; */
@@ -205,6 +207,22 @@ min-height:100%;
     left:-10px;
     top:3px;
 }
+.objet-result-list {
+	margin-top: 5px;
+    padding: 0;
+}
+
+.objet-result-list-detail {
+	display: none;
+}
+.objet-result-list-detail:after {
+	content: "";
+	display: block;
+	border-bottom: 1px solid #eee;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
 .objet-result-list ul, li{
 	list-style: none;
 	margin: 0;
@@ -230,19 +248,19 @@ min-height:100%;
 	color: #2185d0;
 }
 #objet-status{
-	background-color:#e74c3c;
 	font-size:12px;
 	width:55px;
 	height:auto;
-	padding: 6px;
-	margin:0;
+	padding: 5px;
+	margin-top:-1px;
 	text-align:center;
+	font-family: 'Nanum Gothic';
 }
 .objet-date {
-	font-size: 14px;
+	font-size: 10pt;
 	font-weight: normal;
 	font-family: 'Nanum Gothic';
-	color: #333333;
+	color: #AAAAAA;
 	margin-top:7px;
 	margin-bottom:7px;
 }
@@ -253,51 +271,55 @@ min-height:100%;
 	margin-top:12px;
 }
 .objet-info {
-	font-size: 16px;
-	font-weight: normal;
+	font-size: 10.5pt;
+	font-weight: lighter;
 	font-family:'Nanum Gothic';
-	color: #666666;
+	color: #AAAAAA;
 	line-height: 21px;
 	padding-top:15px;
 	margin-top:20px;
 	margin-bottom:5px;
 }
 .objet-info b{
-	font-size: 16px;
+	font-size: 10.5pt;
 	font-weight: bolder;
 	font-family:'Nanum Gothic';
 	color: #2185d0;
 }
 #objet-tag{
-	font-size: 13px;
+	font-size: 9.5pt;
 	font-weight: normal;
 	font-family:'Nanum Gothic';
-	color: #666666;
+	color: #AAAAAA;
 	margin-top:10px;
+	width:74px;
+	height: 33px;
 }
 .reply {
-	font-size: 15px;
+	font-size: 9pt;
 	font-weight: lighter;
-	font-family:"Cormorant SemiBold", 'Nanum Gothic';
-	color: #959595;
+	font-family:'Nanum Gothic';
+	color: #AAAAAA;
 	margin-top:6px;
 }
 
 .artist-result {
-	width:65%;
+	width:70%;
 }
+
 .artist-result-list-detail{
-	font-family:"Cormorant SemiBold", 'Nanum Gothic';
+	font-family:'Nanum Gothic';
 	float: left;
     position: relative;
     width: 500px;
     height: 200px;
-    margin: 20px 0 20px 0;
+    margin:20px 30px 20px 0px;
     padding: 25px 20px;
     background-color: #fff;
     box-sizing: border-box;
     box-shadow: 0 1px 0 0 #eee;
     border: 1px solid #eee;
+    display: none;
 }
 .artist-thumb {
 	overflow: hidden;
@@ -311,10 +333,10 @@ min-height:100%;
 }
 .artist-sub {
 	font-size: 20px;
-    line-height: 22px;
+    line-height: 23px;
     display: block;
     padding-top: 1px;
-    font-weight: lighter;
+    font-weight: normal;
     text-overflow: ellipsis;
     overflow: hidden;
     max-width: 320px;
@@ -327,12 +349,12 @@ min-height:100%;
 	display: block;
     overflow: hidden;
     padding: 12px 0 0;
-    color: #909090;
+    color: #AAAAAA;
     text-overflow: ellipsis;
     max-height: 42px;
-    font-size: 15px;
+    font-size: 10pt;
     line-height: 1.5;
-    font-weight: bolder;
+    font-weight: lighter;
 }
 .artist-info b{
 	color: #2185d0;
@@ -340,19 +362,19 @@ min-height:100%;
 }
 .follow-info {
 	padding: 10px 0 0;
-	color: #959595;
-	font-size: 12px;
+	color: #AAAAAA;
+	font-size: 9pt;
 	font-family:'Nanum Gothic';
 	line-height: 1.5;
-    font-weight: bolder;
+    font-weight: normal;
 }
 .follow-info span{
 	padding: 10px 0 0;
-    font-size: 12px;
-    color: #959595;
+    font-size: 9.5pt;
+    color: #AAAAAA;
     font-family:'Nanum Gothic';
     line-height: 1.5;
-    font-weight: bolder;
+    font-weight: normal;
 }
 .artist-keywords {
 	font-size: 14px;
@@ -375,7 +397,6 @@ min-height:100%;
 </style>
 <script type="text/javascript">
 $(function() {
-	
 	$("body").on('mousewheel',function(e){ 
         var wheel = e.originalEvent.wheelDelta; 
         if(wheel>0){ 
@@ -410,6 +431,63 @@ $(function() {
   		$(".search-option .i .off").removeClass("off");
   		$(".search-option .i").addClass("off");
   	});
+  	
+  	//폼 엔터키 전송
+  	 $('#searchList-form').keydown(function(e) {
+  	    if (e.keyCode == 13) {
+  	    	search();
+  	    }
+  	 });
+  	$('#search-form-main').keydown(function(e) {
+  	    if (e.keyCode == 13) {
+  	    	search2();
+  	    }
+  	 });
+  	
+	//오브제 더보기 버튼
+	$(".objet-result-list-detail").slice(0, 4).fadeIn(); // 최초 4개 선택
+	if($(".objet-result-list-detail:hidden").length != 0){
+		$("#more_load").show();
+		$("#more_load").click(function(e) { // Load More를 위한 클릭 이벤트e
+		    e.preventDefault();
+		    $(".objet-result-list-detail:hidden").slice(0, 4).fadeIn(); // 숨김 설정된 다음 4개를 선택하여 표시
+		    if ($(".objet-result-list-detail:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
+		        $('#more_load').fadeOut();// 더 이상 로드할 항목이 없는 경우
+		    }
+		});
+	}
+	
+	//아티스트 더보기 버튼
+	$(".artist-result-list-detail").slice(0, 2).fadeIn(); 
+	if($(".artist-result-list-detail:hidden").length != 0){
+		$("#more_load2").show();
+		$("#more_load2").click(function(e) { 
+		    e.preventDefault();
+		    $(".artist-result-list-detail:hidden").slice(0, 2).fadeIn(); 
+		    $("#more_load2").css("margin-bottom", "10px");
+		    if ($(".artist-result-list-detail:hidden").length == 0) { 
+		        $('#more_load2').fadeOut();
+		    }
+		});
+	}
+	
+	//검색어 키워드 하이라이트
+	 var keyword = $("#searchList-text").val();
+	 var objettitle = $(".objet-title").val();
+	 var objetintro = $(".objet-info").val();
+	 var otValue = objettitle.indexOf(keyword);
+	 var oiValue = objetintro.indexOf(keyword);
+	 if(otValue == -1 && oiValue == -1) {
+		 $(".objet-title:contains('"+keyword+"')").each(function () {
+	        	var regex = new RegExp(keyword,'gi');
+	        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+	   	});
+		 $(".objet-info:contains('"+keyword+"')").each(function () {
+	        	var regex = new RegExp(keyword,'gi');
+	        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+	   	});
+	 }
+  	
 });
 
 $.fn.setCursorPosition = function( pos ){
@@ -427,12 +505,23 @@ $.fn.setCursorPosition = function( pos ){
     return this;
 };
 
-function submit() {
-	  document.getElementById("searchList-btn").onclick = function() {
-	      document.getElementById('searchList-form').submit();
-	      return false;
-		};
+//폼 전송
+function search() {
+	var form = document.forms["searchList-form"];
+	var keyword = $("#searchList-text").val();
+	form.action =  "search.do?keyword="+keyword;
+    form.submit();
 };
+function search2() {
+	var form = document.forms["search-form-main"];
+	var keyword = $("#search-text-main").val();
+	form.action =  "search.do?keyword="+keyword;
+    form.submit();
+};
+
+function nologin(){
+	alert("전시 상세는 로그인하셔야 보실 수 있습니다.")
+}
 
 window.onload = function(){
 	$("#searchList-text").hide();
@@ -446,19 +535,18 @@ window.onload = function(){
 <body>
 <section class="all">
 <div id="search-box-top"> 
-<form action='objetSearchList.do' id='searchList-form' method='get' target='_top' class="ui icon input">
-	  <input id='searchList-text' name="q" type="text" placeholder="검색어를 입력해주세요." 
-	  autocomplete="off" value="오브제" />
+<form id='searchList-form' target='_top' class="ui icon input">
+	  <input id='searchList-text' name="keyword" type="text" placeholder="검색어를 입력해주세요." 
+	  autocomplete="off" value="${keyword }"/>
 	  <!-- <input name="userid" type="hidden" value=""> -->
-	  <span id="searchList-btn" class="material-icons" onClick="submit();">&#xe8b6;</span>
+	  <span id="searchList-btn" class="material-icons" onClick="search();">&#xe8b6;</span>
 </form>
 </div>
 <!-- 검색 키워드 -->
 <div id="search-box-main"> 
-<form action='objetSearchList.do' id='search-form-main' method='get' accept-charset="utf-8"
- class="ui massive icon input">
-	  <input id='search-text-main' name="q" type="text" placeholder="검색어를 입력해주세요." 
-	  maxlength="20" onfocus="this.value = this.value;" autocomplete="off" value="오브제" />
+<form id='search-form-main' accept-charset="utf-8" class="ui massive icon input">
+	  <input id='search-text-main' name="keyword" type="text" placeholder="검색어를 입력해주세요." 
+	  maxlength="20" onfocus="this.value = this.value;" autocomplete="off" value="${keyword }" />
 	  <!-- <input type="hidden" value="article" name="type" id="hdn_search_type"> -->
 </form>
 </div>
@@ -471,11 +559,11 @@ window.onload = function(){
  	<div class="ui bottom attached tab active" id="search-objet" >
  		<div class="object-result">
  			<div class="result-option" style="display:flex;margin-top: 15px;justify-content:space-between;">
-            <span class="result-title">전시 검색 결과 <span class="title-cnt">130건 </span></span>
+            <span class="result-title">전시 검색 결과 <span class="title-cnt">${fn:length(searchobjetList)}건 </span></span>
             <div class="search-option-cate">
             <span class="search-option">
-                <a href="#" class="option on" data-type="accu">&nbsp;정확도</a>&nbsp;&nbsp;
-                <a href="#" class="option" data-type="recency">&nbsp;최신순</a>&nbsp;&nbsp;
+                <a href="" class="option on" data-type="accu">&nbsp;정확도</a>&nbsp;&nbsp;
+                <a href="" class="option" data-type="recency">&nbsp;최신순</a>&nbsp;&nbsp;
 			</span>&nbsp;&nbsp;
 			<div class="ui compact selection dropdown" id="dateoption">
 			  <div class="text">전체 기간</div>
@@ -485,71 +573,70 @@ window.onload = function(){
 			    <div class="item" data-value="2018" >2018</div>
 				<div class="item" data-value="2017" >2017</div>
 				<div class="item" data-value="2016" >2016</div>
-				<div class="item" data-value="2015" >2015</div>
-				<div class="item" data-value="2014" >2014</div>
-				<div class="item" data-value="2013" >2013</div>
 			  </div>
 			</div>
 			</div>
 			</div><br>
 			<div class="objet-result-list">
 			<ul class="objet-result-list-common">
+			<c:forEach var="objetSearch" items="${searchobjetList }">
 				<li class="objet-result-list-detail">
-					<a href="" target="_blank">
+					<c:if test="${!empty loginUser }">
+					<a href="objetOne.do?objetno=${objetSearch.objetno}&userid=${loginUser.userid}" target="_blank">
+					</c:if>
+					<c:if test="${empty loginUser }">
+					<a href="#" onclick="nologin();return false;" target="_blank">
+					</c:if>
 						<div class="objet-content">
-							<strong class="objet-title">너는, 나의, <b>오브제</b></strong>&nbsp;
-							<div class="ui circular teal button" id="objet-status">전시중</div><br>
-							<!-- <p class="objet-date">2019.12.03(화)~2019.12.15(토)</p> -->
-							<img id="objet-img" class="ui fluid image" src="resources/images/objet/나의오랜연인에게커버.jpg" alt="이미지정보"> 
+							<strong class="objet-title">${objetSearch.objettitle }</strong>&nbsp;
+							<c:if test="${objetSearch.objetstatus eq 'OPEN' }">
+							<div class="ui circular button" id="objet-status" style="background:#df0000;color:#fff;">전시중</div>
+							<div class="ui tiny blue button" onclick="" style="float:right;">전시관람</div><br>
+							</c:if>
+							<c:if test="${objetSearch.objetstatus eq 'STANDBY' }">
+							<div class="ui circular button" id="objet-status" style="background:lightpink;color:#fff;width:65px;">전시예정</div>
+							<div class="ui tiny blue button" style="float:right;" disabled>전시예정</div><br>
+							</c:if>
+							<c:if test="${objetSearch.objetstatus eq 'CLOSE' }">
+							<div class="ui circular button" id="objet-status" style="background:#AAA;color:#fff;width:65px;">전시종료</div>
+							<div class="ui tiny grey button" style="float:right;" disabled>전시종료</div><br>
+							</c:if>
+							<p class="objet-date">
+							<fmt:formatDate value="${objetSearch.objetstartdate }" />&nbsp;-&nbsp;<fmt:formatDate value="${objetSearch.objetenddate }" />
+							</p>
+							<c:set var="noimages" value="resources/images/noimg2.jpg" />
+							<img id="objet-img" class="ui fluid image" src="resources/images/objet/${objetSearch.renamemainposter }" 
+							alt="${objetSearch.objettitle }" onerror="this.src='${noimages }'"> 
 								<span class="objet-info">
-									<b>오브제</b> '처음 같은 설레임보다 서로를 따뜻하게 바라봐주는 지금 이대로의 모습이 소중해'
-									한 해를 마무리하는 12월, 따뜻한 연말의 감성을 자극할 미디엄 발라드 곡으로 돌아온 다비치!
-									'나의 오랜 연인에게'는 오랜 시간 옆 자리를 지켜준 누군가를 향한 감사의 메세지를 따뜻한 가삿말로...
+									<c:set var="length" value="${fn:length(objetSearch.objetintro)}"/>
+									<c:if test="${length > 150 }">
+									${fn:substring(objetSearch.objetintro,0,150)}...
+									</c:if>
+									<c:if test="${length < 150 }">
+									${fn:substring(objetSearch.objetintro,0,150)}
+									</c:if>
 								</span>
 						</div>
-						<div class="objet-tag">
-							<a id="objet-tag" class="ui mini circular basic gray button" href="" target="_blank">디자인</a>&nbsp;
-							<a id="objet-tag" class="ui mini circular basic gray button" href="" target="_blank">사진</a>&nbsp;
-							<a id="objet-tag" class="ui mini circular basic gray button" href="" target="_blank">기타</a>
-						</div>
 						<div class="reply"> 
-							<span class="reply">관심</span> <b class="num_txt">21</b> <span>·</span> 
-							<span class="reply">댓글</span> <b class="num_txt">18</b> <span>·</span> 
-							<span class="reply">Dec 03.2019 - Dec 15.2019</span> <span>·</span> 
-							<span class="reply">작가</span> <span class="reply">이지은</span>
-						</div>
-					</a>
-					</li><br><hr style="border: 1px solid #eee;"><br>
-					<li class="objet-result-list-detail">
-					<a href="" target="_blank">
-						<div class="objet-content">
-							<strong class="objet-title">너는, 나의, <b>오브제</b></strong>&nbsp;
-							<div class="ui circular teal button" id="objet-status">전시중</div><br>
-							<!-- <p class="objet-date">2019.12.03(화)~2019.12.15(토)</p> -->
-							<img id="objet-img" class="ui fluid image" src="resources/images/objet/나의오랜연인에게커버.jpg" alt="이미지정보"> 
-								<span class="objet-info">
-									<b>오브제</b> '처음 같은 설레임보다 서로를 따뜻하게 바라봐주는 지금 이대로의 모습이 소중해'
-									한 해를 마무리하는 12월, 따뜻한 연말의 감성을 자극할 미디엄 발라드 곡으로 돌아온 다비치!
-									'나의 오랜 연인에게'는 오랜 시간 옆 자리를 지켜준 누군가를 향한 감사의 메세지를 따뜻한 가삿말로...
-								</span>
+							<span class="reply">관심</span> <b class="num_txt">${likeobjetcnt }</b> <span>·</span> 
+							<span class="reply">댓글</span> <b class="num_txt">${reviewcnt }</b> <span>·</span> 
+							<%-- <span class="reply">
+							<fmt:formatDate value="${objetSearch.objetstartdate }" />&nbsp;-&nbsp;<fmt:formatDate value="${objetSearch.objetenddate }" />
+							</span> <span>·</span>  --%>
+							<span class="reply">작가</span> <span class="reply">${objetSearch.nickname }</span>
 						</div>
 						<div class="objet-tag">
-							<a id="objet-tag" class="ui mini circular basic gray button" href="" target="_blank">디자인</a>&nbsp;
-							<a id="objet-tag" class="ui mini circular basic gray button" href="" target="_blank">사진</a>&nbsp;
-							<a id="objet-tag" class="ui mini circular basic gray button" href="" target="_blank">기타</a>
-						</div>
-						<div class="reply"> 
-							<span class="reply">관심</span> <b class="num_txt">21</b> <span>·</span> 
-							<span class="reply">댓글</span> <b class="num_txt">18</b> <span>·</span> 
-							<span class="reply">Dec 03.2019 - Dec 15.2019</span> <span>·</span> 
-							<span class="reply">작가</span> <span class="reply">이지은</span>
+							<c:forTokens var="tags" items="${objetSearch.objettag }" delims=",">
+							<a id="objet-tag" class="ui mini circular basic gray button" href="search.do?keyword=${tags }" target="_blank">${tags }</a>&nbsp;
+							</c:forTokens>
 						</div>
 					</a>
-					</li><br><hr style="border: 1px solid #eee;"><br>
+					</li>
+					</c:forEach>
 					</ul>
 				</div><br>
 				<center>
-				<div class="ui basic gray animated button" style="vertical-align:middle;" align="center" tabindex="0"  onclick="javascript:moreContent('more_list', 10);">
+				<div class="ui basic gray animated button" id="more_load" style="vertical-align:middle; display:none;" align="center" tabindex="0">
 				  <div class="visible content">더보기</div>
 				  <div class="hidden content">
 				    <i class="ui chevron down icon" style="font-size:16px;vertical-align:middle;text-align:center"></i>
@@ -558,16 +645,15 @@ window.onload = function(){
 				</center>
 			</div><br><br><br>
 			<div class="object-keyword">
-        <div class="wrap-keywords">
+        	<div class="wrap-keywords">
             <strong>추천 태그</strong>
             <div class="keyword-list" style="width: auto;margin: 0;padding: 10px 0 0;">
+            <c:set var="ran"><%= java.lang.Math.round(java.lang.Math.random() * 6) %></c:set>
+         	<c:set var="objetTag" value="${fn:split('건축,공예,서예,디자인,사진,회화,조각,기타', ',')}" />
                 <div class="tab-keywords" style="position: relative;float: none; width: auto;display: inline-block;">
-                    <a id="a" class="ui circular small basic gray button" href="/keyword/건축" target="_blank">건축</a>
-                    <a id="a" class="ui circular small basic gray button" href="/keyword/공예" target="_blank">공예</a>
-                    <a id="a" class="ui circular small basic gray button" href="/keyword/디자인" target="_blank">디자인</a>
-                    <a id="a" class="ui circular small basic gray button" href="/keyword/사진" target="_blank">사진</a>
-                    <a id="a" class="ui circular small basic gray button" href="/keyword/서예" target="_blank">서예</a>
-                    <a id="a" class="ui circular small basic gray button" href="/keyword/회화" target="_blank">회화</a>
+                <c:forEach var="item" items="${objetTag }" begin="${ran }" end="6">
+                    <a id="a" class="ui circular small basic gray button" href="search.do?keyword=${item }" target="_blank">${item }</a>
+                </c:forEach>
                 </div>
             </div>
         </div>
@@ -576,136 +662,57 @@ window.onload = function(){
     <div class="ui bottom attached tab" id="search-artist">
 		<div class="artist-result">
 			<div class="result-option" style="margin-top: 15px;">
-				<span class="result-title">작가 검색 결과 <span class="title-cnt">8건</span></span>
+				<span class="result-title">작가 검색 결과 <span class="title-cnt">${fn:length(searchartistList)}건</span></span>
 			</div>
 			<div class="artist-result-list">
 				<ul class="artist-result-list-common"><li>
+				<c:forEach var="artistSearch" items="${searchartistList }" varStatus="status">
 					<div class="artist-result-list-detail">
 						<div class="artist-result-info">
 							<a href="" class="artist-thumb"> 
-							<img class="ui circular image" src="resources/images/objet/나의 오랜 연인에게2.jpg">
-							<div class="ui circular teal button" id="objet-status" style="margin:10px 0px 0px 23px;">전시중</div></a> 
+							<img class="ui circular image" style="border: 1px solid #eee;" src="resources/users_upfiles/${artistSearch.userrpic }">
+							<c:if test="${objetstatus[status.index].objetstatus eq 'OPEN' }">
+							<div class="ui circular button" id="objet-status" style="margin:10px 0px 0px 21px;background:#df0000;color:#fff;">전시중</div>
+							</c:if>
+							<c:if test="${objetstatus[status.index].objetstatus eq 'STANDBY' }">
+							<div class="ui circular button" id="objet-status" style="margin:10px 0px 0px 14px;background:lightpink;color:#fff;width:65px;">전시예정</div>
+							</c:if>
+							<c:if test="${objetstatus[status.index].objetstatus eq 'CLOSE' }">
+							<div class="ui circular button" id="objet-status" style="margin:10px 0px 0px 14px;background:#AAA;color:#fff;width:65px;">전시종료</div>
+							</c:if>
+							</a> 
 							<a href="" class="artist-follow">
-							<strong class="artist-sub">이지은</strong>
-							<span class="artist-info"><b>오브제</b>를 창조하는 사람입니다.</span>
+							<strong class="artist-sub">${artistSearch.nickname }</strong>
+							<span class="artist-info">
+							<c:set var="length" value="${fn:length(artistSearch.userintrol)}"/>
+							<c:if test="${length > 30 }">
+							${fn:substring(artistSearch.userintrol,0,28)}...
+							</c:if>
+							<c:if test="${length < 30 }">
+							${fn:substring(artistSearch.userintrol,0,28)}
+							</c:if>
+							</span>
 							</a>
 							<div class="follow-info">
-								<span>글 수 </span>28 <span>·</span><span> 구독자 수 </span>203
+								<span>전시 수 </span>${objetcnt } <span>·</span><span> 구독자 수 </span>${followercnt }
 							</div>
 						</div>
 						<div class="artist-keywords">
-		                    <a id="a" class="ui circular small basic gray button" href="/keyword/디자인" target="_blank">디자인</a>
-		                    <a id="a" class="ui circular small basic gray button" href="/keyword/사진" target="_blank">사진</a>
-		                    <a id="a" class="ui circular small basic gray button" href="/keyword/회화" target="_blank">회화</a>
+		                    <c:forTokens var="tags" items="${artistSearch.usertag }" delims=",">
+							<a id="a" style="cursor: pointer;" class="ui mini circular basic gray button" href="search.do?keyword=${tags }" target="_blank">${tags }</a>&nbsp;
+							</c:forTokens>
 						</div>
 					</div>
-					<div class="artist-result-list-detail" style="margin:20px 0 20px 25px;">
-						<div class="artist-result-info">
-							<a href="" class="artist-thumb"> 
-							<img class="ui circular image" src="resources/images/objet/나의 오랜 연인에게3.jpg">
-							<div class="ui circular teal button" id="objet-status" style="margin:10px 0px 0px 23px;">전시중</div></a> 
-							<a href="" class="artist-follow"> 
-							<strong class="artist-sub">이지은</strong>
-							<span class="artist-info"><b>오브제</b>를 창조하는 사람입니다.</span>
-							</a>
-							<div class="follow-info">
-								<span>글 수 </span>28 <span>·</span><span> 구독자 수 </span>203
-							</div>
-						</div>
-						<div class="artist-keywords">
-		                    <a id="a" class="ui circular small basic gray button" href="/keyword/디자인" target="_blank">디자인</a>
-		                    <a id="a" class="ui circular small basic gray button" href="/keyword/사진" target="_blank">사진</a>
-		                    <a id="a" class="ui circular small basic gray button" href="/keyword/회화" target="_blank">회화</a>
-						</div>
-					</div>
-					<div class="artist-result-list-detail" style="clear:left;">
-						<div class="artist-result-info">
-							<a href="" class="artist-thumb"> 
-							<img class="ui circular image" src="resources/images/objet/나의 오랜 연인에게2.jpg">
-							<div class="ui circular teal button" id="objet-status" style="margin:10px 0px 0px 23px;">전시중</div></a> 
-							<a href="" class="artist-follow">
-							<strong class="artist-sub">이지은</strong>
-							<span class="artist-info"><b>오브제</b>를 창조하는 사람입니다.</span>
-							</a>
-							<div class="follow-info">
-								<span>글 수 </span>28 <span>·</span><span> 구독자 수 </span>203
-							</div>
-						</div>
-						<div class="artist-keywords">
-		                    <a id="a" class="ui circular small basic gray button" href="/keyword/디자인" target="_blank">디자인</a>
-		                    <a id="a" class="ui circular small basic gray button" href="/keyword/사진" target="_blank">사진</a>
-		                    <a id="a" class="ui circular small basic gray button" href="/keyword/회화" target="_blank">회화</a>
-						</div>
-					</div>
-					<div class="artist-result-list-detail" style="margin:20px 0 20px 25px;">
-						<div class="artist-result-info">
-							<a href="" class="artist-thumb"> 
-							<img class="ui circular image" src="resources/images/objet/나의 오랜 연인에게3.jpg">
-							<div class="ui circular teal button" id="objet-status" 
-							style="margin:10px 0px 0px 19px;background-color:#2185d0;width:60px;">전시예정</div></a> 
-							<a href="" class="artist-follow"> 
-							<strong class="artist-sub">이지은</strong>
-							<span class="artist-info"><b>오브제</b>를 창조하는 사람입니다.</span>
-							</a>
-							<div class="follow-info">
-								<span>글 수 </span>28 <span>·</span><span> 구독자 수 </span>203
-							</div>
-						</div>
-						<div class="artist-keywords">
-		                    <a id="a" class="ui circular small basic gray button" href="/keyword/디자인" target="_blank">디자인</a>
-		                    <a id="a" class="ui circular small basic gray button" href="/keyword/사진" target="_blank">사진</a>
-		                    <a id="a" class="ui circular small basic gray button" href="/keyword/회화" target="_blank">회화</a>
-						</div>
-					</div>
-					<div class="artist-result-list-detail" style="clear:left;">
-						<div class="artist-result-info">
-							<a href="" class="artist-thumb"> 
-							<img class="ui circular image" src="resources/images/objet/나의 오랜 연인에게2.jpg">
-							<div class="ui circular teal button" id="objet-status" 
-							style="margin:10px 0px 0px 19px;background-color:#2185d0;width:60px;">전시예정</div></a> 
-							<a href="" class="artist-follow">
-							<strong class="artist-sub">이지은</strong>
-							<span class="artist-info"><b>오브제</b>를 창조하는 사람입니다.</span>
-							</a>
-							<div class="follow-info">
-								<span>글 수 </span>28 <span>·</span><span> 구독자 수 </span>203
-							</div>
-						</div>
-						<div class="artist-keywords">
-		                    <a id="a" class="ui circular small basic gray button" href="/keyword/디자인" target="_blank">디자인</a>
-		                    <a id="a" class="ui circular small basic gray button" href="/keyword/사진" target="_blank">사진</a>
-		                    <a id="a" class="ui circular small basic gray button" href="/keyword/회화" target="_blank">회화</a>
-						</div>
-					</div>
-					<div class="artist-result-list-detail" style="margin:20px 0 20px 25px;">
-						<div class="artist-result-info">
-							<a href="" class="artist-thumb"> 
-							<img class="ui circular image" src="resources/images/objet/나의 오랜 연인에게3.jpg">
-							<div class="ui circular teal button" id="objet-status" 
-							style="margin:10px 0px 0px 19px;background-color:gray;width:60px;">전시종료</div></a> 
-							<a href="" class="artist-follow"> 
-							<strong class="artist-sub">이지은</strong>
-							<span class="artist-info"><b>오브제</b>를 창조하는 사람입니다.</span>
-							</a>
-							<div class="follow-info">
-								<span>글 수 </span>28 <span>·</span><span> 구독자 수 </span>203
-							</div>
-						</div>
-						<div class="artist-keywords">
-		                    <a id="a" class="ui circular small basic gray button" href="/keyword/디자인" target="_blank">디자인</a>
-		                    <a id="a" class="ui circular small basic gray button" href="/keyword/사진" target="_blank">사진</a>
-		                    <a id="a" class="ui circular small basic gray button" href="/keyword/회화" target="_blank">회화</a>
-						</div>
-					</div>
+					</c:forEach>
 				</li></ul>
-			</div><br>
+			</div><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 			<center>
-			<div class="ui basic gray animated button" style="vertical-align:middle;" align="center" tabindex="0"  onclick="javascript:moreContent('more_list', 10);">
+			<div class="ui basic gray animated button" id="more_load2" style="display:none;" align="center" >
 			  <div class="visible content">더보기</div>
 			  <div class="hidden content">
 			    <i class="ui chevron down icon" style="font-size:16px;vertical-align:middle;text-align:center"></i>
 			  </div>
-			</div></center><br><br><br>
+			</div></center><br><br><br><br><br>
 		</div>
     </div>
  	</div> 

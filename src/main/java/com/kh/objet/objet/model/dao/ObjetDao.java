@@ -29,12 +29,30 @@ public class ObjetDao {
 	public ObjetDao() {}
 	
 	//박예은
+	
+	//오브제 검색(전시/작가)
+	public ArrayList<Artist> selectObjetAllSearch(String keyword) {
+		List<Artist> list = mybatisSession.selectList("objetMapper.selectObjetAllSearch", keyword);
+		return (ArrayList<Artist>)list;
+	}
+
+	//오브제 검색(전시/작가)
+	public ArrayList<Artist> selectArtistAllSearch(String keyword) {
+		List<Artist> list = mybatisSession.selectList("objetMapper.selectArtistAllSearch", keyword);
+		return (ArrayList<Artist>)list;
+	}
+	
 	//오브제 전시 전체 리스트
 	public ArrayList<Objet> selectObjetAllList(){
 		List<Objet> list = mybatisSession.selectList("objetMapper.selectObjetAll");
 		return (ArrayList<Objet>)list;
 	}
 
+	public ArrayList<Artist> selectObjetMainList() {
+		List<Artist> list = mybatisSession.selectList("objetMapper.selectObjetMain");
+		return (ArrayList<Artist>)list;
+	}
+	
 	//오브제 완전 전시 전체 리스트
 	public ArrayList<Objet> selectAllObjetAllList() {
 		List<Objet> list = mybatisSession.selectList("objetMapper.selectAllObjetAll");
@@ -168,6 +186,21 @@ public class ObjetDao {
 		return mybatisSession.delete("objetMapper.deleteRevHate", revstatus);
 	}
 	
+	public int selectLikeObjetCnt(int objetno) {
+		return mybatisSession.selectOne("objetMapper.selectLikeObjetCnt", objetno);
+	}
+
+	public int selectReviewCnt(int objetno) {
+		return mybatisSession.selectOne("objetMapper.selectReviewCnt", objetno);
+	}
+	
+	public List<Objet> selectArtistObjetStatus(String userid) {
+		return mybatisSession.selectList("objetMapper.selectArtistObjetStatus", userid);
+	}
+	
+	public int selectFollowingCnt(String userid) {
+		return mybatisSession.selectOne("objetMapper.selectFollowingCnt", userid);
+	}
 	
 	// 최민영
 	// 작가홈 오브제 리스트 보기
@@ -197,7 +230,13 @@ public class ObjetDao {
 		return mybatisSession.selectOne("objetMapper.selectreviewcount", objetno);
 	}
 
-	
+	public int selectObjetCnt(String userid) {
+		return mybatisSession.selectOne("objetMapper.selectObjetCnt", userid);
+	}
+
+	public int selectFollowerCnt(String userid) {
+		return mybatisSession.selectOne("objetMapper.selectFollowerCnt", userid);
+	}
 	
 	
 	//박근수
@@ -241,6 +280,17 @@ public class ObjetDao {
 	public int deleteObjet(int objetno) {
 		return mybatisSession.delete("objetMapper.deleteObjet", objetno);
 	}
+
+	
+
+	
+
+	
+
+	
+
+	
+	
 
 
 

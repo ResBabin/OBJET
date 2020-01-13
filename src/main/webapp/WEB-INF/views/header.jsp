@@ -47,6 +47,7 @@ header {
   font-size: 35px;
   color: black;
   transition: top 0.2s ease-in-out;
+  
 } 
 
  li > a:hover{
@@ -85,13 +86,13 @@ letter-spacing: 2px;
  /* 사이드바 중 메뉴영역 박스 시작
     -홈, 전시, 작가, 고객센터 써있는 부분*/
   .sidebar2{
-  
+  border-right:1px solid lightgray;
   margin-top: -35px;
  letter-spacing: 4px;
   position:fixed;
   list-style:none;
   height: 35%;
-  width:220px;
+  width:219.5px;
   background-color:#fff;
   color: black;
   }
@@ -226,10 +227,11 @@ font-size: 17px;
 }
 
 #accordian1 {
+border-right:1px solid lightgrey;
     margin-bottom: 5px;
     margin-top:-35px;
    background: #fff;
-   width: 220px;
+   width: 219px;
    color: black;
 }
 
@@ -298,10 +300,9 @@ width: 190px;
   } 
   /* 사이드 바 안에 로그아웃 내 정보 수정 */
   .logout{
-  
   font-size: 16px;
-  margin-left: 10px;
-  margin-top: 50px;
+  margin-left: 7.5px;
+  margin-top: 10px;
   } 
   /* 더보기 */
   .more{
@@ -448,11 +449,10 @@ width: 190px;
         </li>
         </ul>
         </nav>
+        <br><br><br>
         <div class= "logout">
         <div class="small ui buttons">
         <button class="ui black basic button" onclick="location.href='moveReaffirmUserpwd.do'">내 정보 수정</button>
-
-        
   
   <button class="ui black basic button" onclick="location.href='logout.do'">로그아웃</button>
 </div>

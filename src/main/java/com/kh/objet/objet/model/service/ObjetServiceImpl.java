@@ -26,10 +26,28 @@ public class ObjetServiceImpl implements ObjetService{
 	private ObjetDao objetDao;
 	
 	//박예은
+	
+	//오브제 검색(전시/작가)
+	@Override
+	public ArrayList<Artist> selectObjetAllSearch(String keyword) {
+		return objetDao.selectObjetAllSearch(keyword);
+	}
+	
+	//오브제 검색(전시/작가)
+	@Override
+	public ArrayList<Artist> selectArtistAllSearch(String keyword) {
+		return objetDao.selectArtistAllSearch(keyword);
+	}
+		
 	//오브제 전시 전체 리스트
 	@Override
 	public ArrayList<Objet> selectObjetAllList() {
 		return objetDao.selectObjetAllList();
+	}
+	
+	@Override
+	public ArrayList<Artist> selectObjetMainList() {
+		return objetDao.selectObjetMainList();
 	}
 	
 	//오브제 완전 전체 리스트
@@ -182,7 +200,35 @@ public class ObjetServiceImpl implements ObjetService{
 		return objetDao.deleteRevHate(revstatus);
 	}
 	
+	@Override
+	public int selectLikeObjetCnt(int objetno) {
+		return objetDao.selectLikeObjetCnt(objetno);
+	}
+
+	@Override
+	public int selectReviewCnt(int objetno) {
+		return objetDao.selectReviewCnt(objetno);
+	}
 	
+	@Override
+	public int selectObjetCnt(String userid) {
+		return objetDao.selectObjetCnt(userid);
+	}
+	
+	@Override
+	public int selectFollowerCnt(String userid) {
+		return objetDao.selectFollowerCnt(userid);
+	}
+	
+	@Override
+	public List<Objet> selectArtistObjetStatus(String userid) {
+		return objetDao.selectArtistObjetStatus(userid);
+	}
+	
+	@Override
+	public int selectFollowingCnt(String userid) {
+		return objetDao.selectFollowingCnt(userid);
+	}
 	
 	// 최민영 *******************************************************
 	
@@ -268,6 +314,16 @@ public class ObjetServiceImpl implements ObjetService{
 	public int deleteObjet(int objetno) {
 		return objetDao.deleteObjet(objetno);
 	}
+	
+	
+
+	
+
+	
+	
+	
+
+	
 	
 	
 

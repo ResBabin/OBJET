@@ -101,8 +101,8 @@ html, body {
 }
 .profile_pic {
   border-radius: 50%;
-  max-width: 110px;
-  border: 1px solid lightgray;
+  max-width: 120px;
+  border: 1px solid #eee;
 }
 .objet_profile {
   margin-left:85.5%;
@@ -165,7 +165,7 @@ html, body {
   font-family: 'Nanum Gothic';
   line-height: 30px;
   text-align: left;
-  margin-right:35px;
+  margin-right:83px;
 }
 .item img{
 	width:350px;
@@ -323,7 +323,7 @@ html, body {
 	float: right;
 	position: relative;
 	margin-left: 90%;
-	margin-top:-70px;
+	margin-top:-80px;
 }
 </style>
 <script type="text/javascript">
@@ -345,14 +345,14 @@ $(function(){
 </div>
 <!-- 전시감상 모달 -->
 <div class="ui mini modal" id="vr_guideline_modal">
-<p style="font-size: 32px;padding-top:30px;color:black;text-align:center;font-weight: bold;font-family:'Nanum Gothic';">COCO CAPITAN</p>
-<p style="font-size: 14px;text-align: center;font-family:'Nanum Gothic';font-weight: bolder;">2019. 08. 02 - 2020. 01. 20</p>	
+<p style="font-size: 32px;padding-top:30px;color:black;text-align:center;font-weight: bold;font-family:'Nanum Gothic';">${objet.nickname }</p>
+<p style="font-size: 14px;text-align: center;font-family:'Nanum Gothic';font-weight: bolder;"><fmt:formatDate value="${objetSearch.objetstartdate }" />&nbsp;-&nbsp;<fmt:formatDate value="${objetSearch.objetenddate }" /></p>	
 <br><br>
 <div class="actions" style="align:center;">
-    <div id="objet_btn" class="ui fluid black button" onClick="location.href ='objetOne.do'" style="cursor: pointer;">
+    <div id="objet_btn" class="ui fluid black button" onClick="location.href =''" style="cursor: pointer;">
             전시감상하기
     </div><br>
-    <div id="objet_guide" class="ui fluid gray button" onClick="location.href ='objetReport.do'" style="cursor: pointer;">
+    <div id="objet_guide" class="ui fluid gray button" onClick="location.href =''" style="cursor: pointer;">
              전시감상 안내
     </div>
   </div>
@@ -360,52 +360,42 @@ $(function(){
 <!-- //전시감상 모달 -->
 <div class="btns" style="display:flex;justify-content:space-between;">
 <div class="objet_vr_tag">
-	<a href="" id="tag" class="ui basic gray circular button">#디자인</a>
-    <a href="" id="tag" class="ui basic gray circular button">#사진</a>
-    <a href="" id="tag" class="ui basic gray circular button">#기타</a>
+	<c:forTokens var="tags" items="${objet.objettag }" delims=",">
+	<a id="objet-tag" class="ui basic circular gray button" href="search.do?keyword=${tags }" target="_blank">#${tags }</a>&nbsp;
+	</c:forTokens>
 </div>
 <div class="objet_rev_btn">
-	<a href="objetOne.do" id="objet_rev" class="ui basic large gray circular icon button">
-	<i class="far fa-comment-dots "></i>&nbsp;감상평</a>
+	<a href="objetOne.do?objetno=${objet.objetno }&userid=${loginUser.userid}" id="objet_rev" class="ui basic large gray circular icon button">
+	<i class="far fa-comment-dots "></i>&nbsp;한줄평</a>
 </div>
 </div>
 <br><br><br><br>
 <div class="objet_artist_info">
 <div class="objet_artist_info_top">
 <div class="objet_txt">
-	<span class="obj_name">코코 카피탄</span><br><span class="obj_info1">예술가</span><br>
-	<span class="obj_info2">예술을 합니다.</span><br><br>
+	<span class="obj_name">${objet.nickname}</span><br><span class="obj_info1">${objet.userintros}</span><br>
+	<span class="obj_info2">${objet.userintrol}</span><br><br>
 	<span class="obj_txt">구독자</span><span class="obj_txt">관심작가</span><br>
-	<span class="obj_cnt">1,107</span><span class="obj_cnt">91</span>
+	<span class="obj_cnt">${followercnt }</span><span class="obj_cnt">${followingcnt }</span>
 </div>
 <div class="objet_profile">
-<img src="resources/images/objet/나의 오랜 연인에게2.jpg" class="profile_pic">
+<img src="resources/users_upfiles/${objet.userrpic }" class="profile_pic">
 </div>
 <a class="ui teal circular basic button" id="follow_btn" >구독하기</a>
-</div><br><br>
+</div><br><br><br><br><br>
 <div class="artist_objet_more">
 <h3 class="objet_title">MORE OBJET</h3>
-<a href="objetAllList.do"><span class="more_btn">more 
+<a href="artistHomeMain.do?userid=${objet.userid }&loginUser=${loginUser.userid}"><span class="more_btn">more 
 <i class="material-icons" style="font-size:16px;vertical-align: middle;top:5px;">&#xe315;</i></span></a>
 <div class="objet_pic">
    <div class="objet_pic_main">
    <div class="swiper-container swiper2">
      <div class="swiper-wrapper wrapper2">
     <div class="swiper-slide slide2">
-      <a href="${pageContext.servletContext.contextPath }/objetOne.do">
+      <a href="${pageContext.servletContext.contextPath }/objetOne.do?objetno=${objet.objetno }&userid=${objet.userid }">
       <div class="slide-inner inner2" style="background-image:url(resources/images/objet/exhibi1.jpg)"></div>
       <div class="info2"><span class="text2">나는 코코 카피탄, <br> 오늘을 살아가는 너에게<br> 
       <span class="artist2">by 코코 카피탄<span></span><br></span></div></a>
-    </div>
-    <div class="swiper-slide slide2">
-      <div class="slide-inner inner2" style="background-image:url(resources/images/objet/exhibi5.jpg)"></div>
-      <div class="info2"><span class="text2">To. 나의 오랜연인<br>
-      <span class="artist2">by 이지은<span></span><br></span></div>
-    </div>
-    <div class="swiper-slide slide2">
-      <div class="slide-inner inner2" style="background-image:url(resources/images/objet/display2.jpg)"></div>
-      <div class="info2"><span class="text2">나는 코코 카피탄, <br> 오늘을 살아가는 너에게<br> 
-      <span class="artist2">by 코코 카피탄<span></span><br></span></div>
     </div>
   </div>
 </div>
@@ -423,8 +413,8 @@ $(function(){
 </div>
 </div>
 </div>
-<div class="vp_top">
-<a href="#"><img src="resources/images/objet/top.png" style="width:60%; height:auto;"></a></div>
+<!-- <div class="vp_top" style="cursor:pointer;" onclick="location.href='#'">
+<a href="#"><img src="resources/images/objet/top.png" style="cursor:pointer; width:60%; height:auto;"></a></div> -->
 </section>
 <c:import url="../footer.jsp" />
 </body>
