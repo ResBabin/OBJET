@@ -11,6 +11,7 @@ public class Objet implements Serializable{
 	
 	private int objetno;
 	private String userid;
+	private String nickname;
 	private String objettitle;
 	private String objetintro;
 	private String originmainposter;
@@ -56,6 +57,67 @@ public class Objet implements Serializable{
 	private String objetrfile8;
 	
 	public Objet() {}
+
+	public Objet(int objetno, String userid, String nickname, String objettitle, String objetintro,
+			String originmainposter, String renamemainposter, Date objetstartdate, Date objetenddate, String objettag,
+			String publicyn, Date objetregidate, String objetstatus, int objetview, String objettitle1,
+			String objetintro1, String objetofile1, String objetrfile1, String objettitle2, String objetintro2,
+			String objetofile2, String objetrfile2, String objettitle3, String objetintro3, String objetofile3,
+			String objetrfile3, String objettitle4, String objetintro4, String objetofile4, String objetrfile4,
+			String objettitle5, String objetintro5, String objetofile5, String objetrfile5, String objettitle6,
+			String objetintro6, String objetofile6, String objetrfile6, String objettitle7, String objetintro7,
+			String objetofile7, String objetrfile7, String objettitle8, String objetintro8, String objetofile8,
+			String objetrfile8) {
+		super();
+		this.objetno = objetno;
+		this.userid = userid;
+		this.setNickname(nickname);
+		this.objettitle = objettitle;
+		this.objetintro = objetintro;
+		this.originmainposter = originmainposter;
+		this.renamemainposter = renamemainposter;
+		this.objetstartdate = objetstartdate;
+		this.objetenddate = objetenddate;
+		this.objettag = objettag;
+		this.publicyn = publicyn;
+		this.objetregidate = objetregidate;
+		this.objetstatus = objetstatus;
+		this.objetview = objetview;
+		this.objettitle1 = objettitle1;
+		this.objetintro1 = objetintro1;
+		this.objetofile1 = objetofile1;
+		this.objetrfile1 = objetrfile1;
+		this.objettitle2 = objettitle2;
+		this.objetintro2 = objetintro2;
+		this.objetofile2 = objetofile2;
+		this.objetrfile2 = objetrfile2;
+		this.objettitle3 = objettitle3;
+		this.objetintro3 = objetintro3;
+		this.objetofile3 = objetofile3;
+		this.objetrfile3 = objetrfile3;
+		this.objettitle4 = objettitle4;
+		this.objetintro4 = objetintro4;
+		this.objetofile4 = objetofile4;
+		this.objetrfile4 = objetrfile4;
+		this.objettitle5 = objettitle5;
+		this.objetintro5 = objetintro5;
+		this.objetofile5 = objetofile5;
+		this.objetrfile5 = objetrfile5;
+		this.objettitle6 = objettitle6;
+		this.objetintro6 = objetintro6;
+		this.objetofile6 = objetofile6;
+		this.objetrfile6 = objetrfile6;
+		this.objettitle7 = objettitle7;
+		this.objetintro7 = objetintro7;
+		this.objetofile7 = objetofile7;
+		this.objetrfile7 = objetrfile7;
+		this.objettitle8 = objettitle8;
+		this.objetintro8 = objetintro8;
+		this.objetofile8 = objetofile8;
+		this.objetrfile8 = objetrfile8;
+	}
+
+
 
 	public Objet(int objetno, String userid, String objettitle, String objetintro, String originmainposter,
 			String renamemainposter, Date objetstartdate, Date objetenddate, String objettag, String publicyn,
@@ -473,26 +535,61 @@ public class Objet implements Serializable{
 	public void setObjetrfile8(String objetrfile8) {
 		this.objetrfile8 = objetrfile8;
 	}
+	
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 
 	@Override
 	public String toString() {
-		return "Objet [objetno=" + objetno + ", userid=" + userid + ", objettitle=" + objettitle + ", objetintro="
-				+ objetintro + ", originmainposter=" + originmainposter + ", renamemainposter=" + renamemainposter
-				+ ", objetstartdate=" + objetstartdate + ", objetenddate=" + objetenddate + ", objettag=" + objettag
-				+ ", publicyn=" + publicyn + ", objetregidate=" + objetregidate + ", objetstatus=" + objetstatus
-				+ ", objetview=" + objetview + ", objettitle1=" + objettitle1 + ", objetintro1=" + objetintro1
-				+ ", objetofile1=" + objetofile1 + ", objetrfile1=" + objetrfile1 + ", objettitle2=" + objettitle2
-				+ ", objetintro2=" + objetintro2 + ", objetofile2=" + objetofile2 + ", objetrfile2=" + objetrfile2
-				+ ", objettitle3=" + objettitle3 + ", objetintro3=" + objetintro3 + ", objetofile3=" + objetofile3
-				+ ", objetrfile3=" + objetrfile3 + ", objettitle4=" + objettitle4 + ", objetintro4=" + objetintro4
-				+ ", objetofile4=" + objetofile4 + ", objetrfile4=" + objetrfile4 + ", objettitle5=" + objettitle5
-				+ ", objetintro5=" + objetintro5 + ", objetofile5=" + objetofile5 + ", objetrfile5=" + objetrfile5
-				+ ", objettitle6=" + objettitle6 + ", objetintro6=" + objetintro6 + ", objetofile6=" + objetofile6
-				+ ", objetrfile6=" + objetrfile6 + ", objettitle7=" + objettitle7 + ", objetintro7=" + objetintro7
-				+ ", objetofile7=" + objetofile7 + ", objetrfile7=" + objetrfile7 + ", objettitle8=" + objettitle8
-				+ ", objetintro8=" + objetintro8 + ", objetofile8=" + objetofile8 + ", objetrfile8=" + objetrfile8
-				+ "]";
+		return "Objet [objetno=" + objetno + ", userid=" + userid + ", nickname=" + nickname + ", objettitle="
+				+ objettitle + ", objetintro=" + objetintro + ", originmainposter=" + originmainposter
+				+ ", renamemainposter=" + renamemainposter + ", objetstartdate=" + objetstartdate + ", objetenddate="
+				+ objetenddate + ", objettag=" + objettag + ", publicyn=" + publicyn + ", objetregidate="
+				+ objetregidate + ", objetstatus=" + objetstatus + ", objetview=" + objetview + ", objettitle1="
+				+ objettitle1 + ", objetintro1=" + objetintro1 + ", objetofile1=" + objetofile1 + ", objetrfile1="
+				+ objetrfile1 + ", objettitle2=" + objettitle2 + ", objetintro2=" + objetintro2 + ", objetofile2="
+				+ objetofile2 + ", objetrfile2=" + objetrfile2 + ", objettitle3=" + objettitle3 + ", objetintro3="
+				+ objetintro3 + ", objetofile3=" + objetofile3 + ", objetrfile3=" + objetrfile3 + ", objettitle4="
+				+ objettitle4 + ", objetintro4=" + objetintro4 + ", objetofile4=" + objetofile4 + ", objetrfile4="
+				+ objetrfile4 + ", objettitle5=" + objettitle5 + ", objetintro5=" + objetintro5 + ", objetofile5="
+				+ objetofile5 + ", objetrfile5=" + objetrfile5 + ", objettitle6=" + objettitle6 + ", objetintro6="
+				+ objetintro6 + ", objetofile6=" + objetofile6 + ", objetrfile6=" + objetrfile6 + ", objettitle7="
+				+ objettitle7 + ", objetintro7=" + objetintro7 + ", objetofile7=" + objetofile7 + ", objetrfile7="
+				+ objetrfile7 + ", objettitle8=" + objettitle8 + ", objetintro8=" + objetintro8 + ", objetofile8="
+				+ objetofile8 + ", objetrfile8=" + objetrfile8 + ", getObjetno()=" + getObjetno() + ", getUserid()="
+				+ getUserid() + ", getObjettitle()=" + getObjettitle() + ", getObjetintro()=" + getObjetintro()
+				+ ", getOriginmainposter()=" + getOriginmainposter() + ", getRenamemainposter()="
+				+ getRenamemainposter() + ", getObjetstartdate()=" + getObjetstartdate() + ", getObjetenddate()="
+				+ getObjetenddate() + ", getObjettag()=" + getObjettag() + ", getPublicyn()=" + getPublicyn()
+				+ ", getObjetregidate()=" + getObjetregidate() + ", getObjetstatus()=" + getObjetstatus()
+				+ ", getObjetview()=" + getObjetview() + ", getObjettitle1()=" + getObjettitle1()
+				+ ", getObjetintro1()=" + getObjetintro1() + ", getObjetofile1()=" + getObjetofile1()
+				+ ", getObjetrfile1()=" + getObjetrfile1() + ", getObjettitle2()=" + getObjettitle2()
+				+ ", getObjetintro2()=" + getObjetintro2() + ", getObjetofile2()=" + getObjetofile2()
+				+ ", getObjetrfile2()=" + getObjetrfile2() + ", getObjettitle3()=" + getObjettitle3()
+				+ ", getObjetintro3()=" + getObjetintro3() + ", getObjetofile3()=" + getObjetofile3()
+				+ ", getObjetrfile3()=" + getObjetrfile3() + ", getObjettitle4()=" + getObjettitle4()
+				+ ", getObjetintro4()=" + getObjetintro4() + ", getObjetofile4()=" + getObjetofile4()
+				+ ", getObjetrfile4()=" + getObjetrfile4() + ", getObjettitle5()=" + getObjettitle5()
+				+ ", getObjetintro5()=" + getObjetintro5() + ", getObjetofile5()=" + getObjetofile5()
+				+ ", getObjetrfile5()=" + getObjetrfile5() + ", getObjettitle6()=" + getObjettitle6()
+				+ ", getObjetintro6()=" + getObjetintro6() + ", getObjetofile6()=" + getObjetofile6()
+				+ ", getObjetrfile6()=" + getObjetrfile6() + ", getObjettitle7()=" + getObjettitle7()
+				+ ", getObjetintro7()=" + getObjetintro7() + ", getObjetofile7()=" + getObjetofile7()
+				+ ", getObjetrfile7()=" + getObjetrfile7() + ", getObjettitle8()=" + getObjettitle8()
+				+ ", getObjetintro8()=" + getObjetintro8() + ", getObjetofile8()=" + getObjetofile8()
+				+ ", getObjetrfile8()=" + getObjetrfile8() + ", getNickname()=" + getNickname() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
+
+	
+
+	
 	
 	
 

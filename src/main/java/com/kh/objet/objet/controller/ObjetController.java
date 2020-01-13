@@ -50,12 +50,46 @@ public class ObjetController {
 	public ObjetController() {}
 	
 	//박예은
-	
 	//오브제 검색 결과(전시/작가)
-	@RequestMapping("objetSearchList.do")
-	public String selectObjetSearchList() {
+	@RequestMapping(value="search.do")
+	public String selectObjetAllSearch(@RequestParam(value="keyword") String keyword, Model model, HttpServletResponse response) throws IOException {
+		
+		ArrayList<Artist> searchobjetList = objetService.selectObjetAllSearch(keyword);
+		ArrayList<Artist> searchartistList = objetService.selectArtistAllSearch(keyword);
+		
+		if(searchobjetList != null) {
+			for(int i = 0; i < searchobjetList.size(); i++) {
+				int likeobjetcnt = objetService.selectLikeObjetCnt(searchobjetList.get(i).getObjetno());
+				int reviewcnt = objetService.selectReviewCnt(searchobjetList.get(i).getObjetno());
+				if(likeobjetcnt >= 0 && reviewcnt >= 0) {
+					model.addAttribute("likeobjetcnt", likeobjetcnt);
+					model.addAttribute("reviewcnt", reviewcnt);
+				}
+			}
+		}
+		
+		if(searchartistList != null) {
+			for(int i = 0; i < searchartistList.size(); i++) {
+				int objetcnt = objetService.selectObjetCnt(searchartistList.get(i).getUserid());
+				int followercnt = objetService.selectFollowerCnt(searchartistList.get(i).getUserid());
+				List<Objet> objetstatus = objetService.selectArtistObjetStatus(searchartistList.get(i).getUserid());
+				if(objetcnt >= 0 && followercnt >= 0 && objetstatus != null) {
+					model.addAttribute("objetcnt", objetcnt);
+					model.addAttribute("followercnt", followercnt);
+					model.addAttribute("objetstatus", objetstatus);
+				}
+			}
+		}
+		
+		if(searchobjetList != null && searchartistList != null) {
+			model.addAttribute("keyword", keyword);
+			model.addAttribute("searchobjetList", searchobjetList);
+			model.addAttribute("searchartistList", searchartistList);
+		}
+		
 		return "objet/searchList";
 	}
+	
 	
 	//오브제 전시 전체 리스트
 	@RequestMapping("objetAllList.do")
@@ -235,6 +269,23 @@ public class ObjetController {
 		
 	}
 	
+	//오브제 전시 감상 뷰
+	@RequestMapping(value="objetView.do")
+	public String selectObjetView(@RequestParam(value="objetno") int objetno, 
+			@RequestParam(value="userid", required=false) String userid, Model model) {
+		
+		Artist objet = objetService.selectObjetOne(objetno);
+		int followercnt = objetService.selectFollowerCnt(userid);
+		int followingcnt = objetService.selectFollowingCnt(userid);
+		if(objet != null && followercnt >= 0 && followingcnt >= 0) {
+			model.addAttribute("objet", objet);
+			model.addAttribute("followercnt", followercnt);
+			model.addAttribute("followingcnt", followingcnt);
+		}
+		
+		return "objet/objetView";
+	}
+	
 	//한줄평 리스트 정렬
 	@RequestMapping(value="reviewOrder.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
@@ -274,7 +325,7 @@ public class ObjetController {
 	@RequestMapping(value="objetReport.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String insertObjetReport(ReportBoard rb, Model model, HttpServletResponse response)throws IOException {
 		int result = objetService.insertObjetReport(rb);
-
+		
 		String viewFileName = "objet/objetDetail";
 		if(result <= 0) { //신고 실패시
 			model.addAttribute("message", "오브제 신고 실패!");

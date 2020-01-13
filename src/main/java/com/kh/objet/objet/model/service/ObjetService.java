@@ -44,6 +44,15 @@ public interface ObjetService {
 	int deleteRevHate(ReviewStatus revstatus);
 	int selectReviewReport(ReportBoard rbb);
 	ArrayList<Objet> selectAllObjetAllList();
+	ArrayList<Artist> selectObjetMainList();
+	ArrayList<Artist> selectObjetAllSearch(String keyword);
+	ArrayList<Artist> selectArtistAllSearch(String keyword);
+	int selectLikeObjetCnt(int objetno);
+	int selectReviewCnt(int objetno);
+	int selectObjetCnt(String userid);
+	int selectFollowerCnt(String userid);
+	List<Objet> selectArtistObjetStatus(String userid);
+	int selectFollowingCnt(String userid);
 	
 	// 최민영
 	List<Objet2> selectArtistObjetList(String userid);
@@ -60,6 +69,11 @@ public interface ObjetService {
 	int updateMyObjet(Objet objet);
 	int insertObjet(Objet objet);
 	int deleteObjet(int objetno);
+	
+	
+
+	
+	
 	
 	
 	

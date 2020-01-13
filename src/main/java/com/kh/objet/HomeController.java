@@ -55,14 +55,20 @@ public class HomeController {
 		ArrayList<Artist> searchMainList = objetService.selectArtistAllList();
 		Collections.shuffle(searchMainList);
 		ArrayList<Objet> objetList = objetService.selectAllObjetAllList();
-		
-		if(searchMainList != null && objetList != null) {
+		ArrayList<Objet> objetAllList = objetService.selectObjetAllList();
+		ArrayList<Artist> objetMainList = objetService.selectObjetMainList();
+		Collections.shuffle(objetMainList);
+		if(searchMainList != null && objetList != null && objetAllList != null && objetMainList != null) {
 			mv.addObject("searchMainList", searchMainList);
 			mv.addObject("objetList", objetList);
+			mv.addObject("objetAllList", objetAllList);
+			mv.addObject("objetMainList", objetMainList);
 			mv.setViewName("main");
 		}else {
 			mv.addObject("searchMainList", searchMainList);
 			mv.addObject("objetList", objetList);
+			mv.addObject("objetAllList", objetAllList);
+			mv.addObject("objetMainList", objetMainList);
 			mv.setViewName("common/error");
 		}
 		return mv;

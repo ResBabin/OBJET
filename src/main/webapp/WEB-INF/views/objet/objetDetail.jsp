@@ -1820,7 +1820,7 @@ a:-webkit-any-link {
 <img src="resources/images/objet/${objet.renamemainposter }" id="banner_img">
 <div class="banner_img_text"><!-- <span class="banner_date">2019. 08. 02 - 2019. 12. 12 </span> -->
 <div class="ui black icon button banner_img_btn" 
-style="font-size: 18px;" onclick="location.href='objetView.do'">전시 감상하러 가기
+style="font-size: 18px;" onclick="location.href='objetView.do?objetno=${objet.objetno}&userid=${objet.userid }'">전시 감상하러 가기
 &nbsp;<i class="ui large white arrow right icon" style="font-size:18px;"></i>
 </div></div>
 <div class="ui fluid four item inverted menu" id="objet_info_menu">

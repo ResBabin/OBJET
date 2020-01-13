@@ -3,6 +3,8 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -27,6 +29,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.kh.objet.objet.model.service.ObjetServiceImpl;
+import com.kh.objet.objet.model.vo.Artist;
+import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.quit.model.vo.Quit2;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.users.model.service.UserManagementService;
@@ -42,10 +49,14 @@ public class UsersController {
 	private UsersServiceImpl usersService;
 	@Autowired
 	private UserManagementService usermService;
+	@Autowired
+	private ObjetServiceImpl objetService;
+	
 	
 	// 패스워드 암호화 
 	@Autowired
 	public BCryptPasswordEncoder bcryptPasswordEncoder;
+	
 	
 	public UsersController() {};
 	
@@ -150,7 +161,7 @@ public class UsersController {
 		
 		
 		
-	// 회원 로그인
+	/*// 회원 로그인
 		@RequestMapping(value="login.do", method= {RequestMethod.POST, RequestMethod.GET})
 		public String selectUsersLogin(UAUP users, HttpSession session, Model model) {
 			
@@ -177,7 +188,57 @@ public class UsersController {
 				vfn = "user/loginAgain";
 			}
 			return vfn;
-	}
+	}*/
+		
+		
+	// 회원 로그인
+	@RequestMapping(value="login.do", method= {RequestMethod.POST, RequestMethod.GET})
+	public String selectUsersLogin(UAUP users, HttpSession session, Model model) {
+			ArrayList<Artist> searchMainList = objetService.selectArtistAllList();
+			Collections.shuffle(searchMainList);
+			ArrayList<Objet> objetList = objetService.selectAllObjetAllList();
+			ArrayList<Objet> objetAllList = objetService.selectObjetAllList();
+			ArrayList<Artist> objetMainList = objetService.selectObjetMainList();
+			Collections.shuffle(objetMainList);
+			
+			UAUP loginUser = usersService.selectUsersLogin(users);
+			
+			String vfn = "main";
+			if(loginUser != null) {
+				if(loginUser.getQuityn().equals("N")) {
+					session.setAttribute("loginUser", loginUser);
+					if(loginUser.getUsertype().equals("USER")){
+						Date currenttime = new Date(System.currentTimeMillis());
+						SimpleDateFormat sdf2 = new SimpleDateFormat("HH");
+						String updatecount = sdf2.format(currenttime);
+						String upcount = "login" + updatecount;
+						usermService.updateLoginCount(upcount);
+					}else {
+						vfn = "redirect:/adminmain.do";
+					}
+				}else {
+					vfn = "user/loginAgain";
+					model.addAttribute("message", "탈퇴한 계정입니다. 탈퇴일로부터 30일 내에는 동일한 이메일로 재가입이 불가능합니다.");
+				}
+			}else {
+				vfn = "user/loginAgain";
+			}
+			
+			if(searchMainList != null && objetList != null && objetAllList != null && objetMainList != null) {
+				model.addAttribute("searchMainList", searchMainList);
+				model.addAttribute("objetList", objetList);
+				model.addAttribute("objetAllList", objetAllList);
+				model.addAttribute("objetMainList", objetMainList);
+			}else {
+				model.addAttribute("searchMainList", searchMainList);
+				model.addAttribute("objetList", objetList);
+				model.addAttribute("objetAllList", objetAllList);
+				model.addAttribute("objetMainList", objetMainList);
+				vfn = "common/error";
+			}
+			
+			return vfn;
+		}	
 		
 		
 	// 네이버 로그인(자동 가입 시키기)

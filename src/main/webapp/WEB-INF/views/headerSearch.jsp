@@ -85,13 +85,22 @@ $(function() {
            $(".search-box-top").fadeOut();
         } 
       });
+	
+	//폼 엔터키 전송
+ 	 $('#searchList-form').keydown(function(e) {
+ 	    if (e.keyCode == 13) {
+ 	    	search();
+ 	    }
+ 	 });
+	
 });
 
-function submit() {
-	document.getElementById("searchList-btn").onclick = function() {
-		document.getElementById('searchList-form').submit();
-		return false;
-	};
+//폼 전송
+function search() {
+	var form = document.forms["searchList-form"];
+	var keyword = $("#searchList-text").val();
+	form.action =  "search.do?keyword="+keyword;
+    form.submit();
 };
 
 window.onload = function() {
@@ -106,10 +115,9 @@ window.onload = function() {
 <!-- 검색 아이콘  -->
 <section class="headerSearch">
 <div class="search-box-top"> 
-<form action='objetSearchList.do' id='searchList-form' method='get' target='_top' class="ui icon input">
-  <input id='searchList-text' name="q" type="text" placeholder="검색어를 입력해주세요." 
-  autocomplete="off" value="" />
-  <span id="searchList-btn" class="material-icons" onClick="submit();">&#xe8b6;</span>
+<form id='searchList-form' target='_top' class="ui icon input">
+  <input id='searchList-text' name="keyword" type="text" placeholder="검색어를 입력해주세요." autocomplete="off" value="" />
+  <span id="searchList-btn" class="material-icons" onClick="search();">&#xe8b6;</span>
 </form>
 </div>
 </section>

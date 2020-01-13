@@ -118,7 +118,7 @@ html, body { height: 100%; margin: 0; padding: 0; }
   margin-top: 10px;
 }
 .artist_card {
-display:none; 
+	display:none; 
   position: relative;
   overflow: hidden;
   margin: 10px;
@@ -128,17 +128,11 @@ display:none;
   text-align: center;
   background-color: #ffffff;
   float:left;
-  /* border: 1px solid #ccc; */
   margin-right:40px;
   margin-bottom: 50px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
-.artist_card * {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-transition: all 0.25s ease;
-  transition: all 0.25s ease;
-}
+
 .img_blur {
 	-webkit-filter: blur(1px);
   filter: blur(1px);
@@ -294,17 +288,19 @@ $(function() {
 						'</figure>';
 				}
 				
+				$(function() {
 				$(".artist_pic_main").html(values);
 				$(".artist_card").slice(0, 4).fadeIn();
-				$("#more_load").show();
+			 	$("#more_load").show(); 
 				$("#more_load").click(function(e) { 
 			  	    e.preventDefault();
-			  	    $(".artist_card:hidden").slice(0, 4).fadeIn(); 
+			  	    $(".artist_card").slice(0, 4).fadeIn(); 
 			  	  	$("#more_load").css("margin-bottom", "30px");
 			  	    if ($(".artist_card:hidden").length == 0) { 
 			  	        $('#more_load').fadeOut();
 			  	    }
 			  	});
+				});
 				console.log("ok : " + order);
 			},
 			error : function(jqXHR, textStatus, errorThrown){
