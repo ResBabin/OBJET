@@ -19,7 +19,9 @@
  <link rel= "stylesheet" type="text/css" href="resources/css/mychoe.css">
  
 <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
+
 <script type="text/javascript">
+
 
 function artistObjetList(){
 	var userid = '<c:out value="${usersProfile.userid}"/>';
@@ -37,13 +39,14 @@ function artistObjetList(){
 				var tagl = decodeURIComponent(jsonObj.objetlist[i].objettag.replace(/\+/gi, " ")).length;
 				var tags = decodeURIComponent(jsonObj.objetlist[i].objettag.replace(/\+/gi, " ")).split(",");
 				var objettitle = decodeURIComponent(jsonObj.objetlist[i].objettitle.replace(/\+/gi, " "));
+				var loginUserId = '${loginUser.userid}';
 				var tag = "";
 				start += '<table class="artisthomeObjetTable" style="display: none;"><tr style="height:23px;"><td style="width:85%;padding-top:30px;">';
 				start += '<div style="float: left;font-size: 15pt; font-weight:600; color:#202020;">'+ objettitle +'&ensp;</div>';
 				
 				if(jsonObj.objetlist[i].objetstatus=='OPEN'){
 					start += '<div class="objetStatusLabel" style="background:#df0000;">전시중</div></td>' + '<td rowspan="2" style="width:15%; text-align: center;padding-top:30px;">'
-					+ '<button class="ui tiny blue button" onclick="">전시관람</button></td></tr>';
+					+ '<button class="ui tiny blue button" onclick="objetOne.do?objetno=' + jsonObj.objetlist[i].objetno + '&userid=' + loginUserId + '">전시관람</button></td></tr>';
 				}else if(jsonObj.objetlist[i].objetstatus=='STANDBY'){
 					start += '<div class="objetStatusLabel" style="background:lightpink;">전시예정</div></td>' + '<td rowspan="2" style="width:15%; text-align: center;padding-top:30px;">'
 						+ '<button class="ui tiny blue button" disabled>전시예정</button></td></tr>';
@@ -276,6 +279,8 @@ function deleteFollowing(){
 		<div class="profileTextSection">
 		<span>
 			<p class="profileText" style="font-size: 25px; color:#373737;">${usersProfile.nickname}</p>
+
+		
 			<p class="profileText" style="font-size: 10pt; color:#aaa;">${usersProfile.userintros}</p>
 			<br><br>
 		</span>
