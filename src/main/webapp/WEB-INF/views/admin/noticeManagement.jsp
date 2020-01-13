@@ -42,7 +42,7 @@
 </c:url>
 <tr>
 <td>
-<c:if test="${ !empty noticem.noticeofile1 and !empty noticem.noticeofile2 and !empty noticem.noticeofile3 }">
+<c:if test="${ !empty noticem.noticeofile }">
 	<i class="paperclip grey icon"></i> 
 </c:if>
 </td>

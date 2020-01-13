@@ -20,8 +20,8 @@ public class UserManagementDao {
 	@Autowired
 	private SqlSessionTemplate mybatisSession;
 	public UserManagementDao() {}
-	public List<UserManagement> selectUser() {
-		return mybatisSession.selectList("adminMapper.selectUsers");
+	public List<UserManagement> selectUser(Map<String, Integer> map) {
+		return mybatisSession.selectList("adminMapper.selectUsers", map);
 	}
 	public List<UserManagement> selectBlacklist() {
 		return mybatisSession.selectList("adminMapper.selectBlacklist");
@@ -83,5 +83,16 @@ public class UserManagementDao {
 	public int updateBlackDate(Map<String, String> map) {
 		return mybatisSession.update("adminMapper.updateBlackDate", map);
 	}
-	
+	public int selectUserListCount() {
+		return mybatisSession.selectOne("adminMapper.selectUserListCount");
+	}
+	public List<String> selectUserEnrollDate() {
+		return mybatisSession.selectList("adminMapper.selectUserEnrollDate");
+	}
+	public int selectBlacklistCount() {
+		return mybatisSession.selectOne("adminMapper.selectBlacklistCount");
+	}
+	public int updateRequestStatus(Map<String, String> map) {
+		return mybatisSession.update("adminMapper.updateRequestStatus", map);
+	}
 }

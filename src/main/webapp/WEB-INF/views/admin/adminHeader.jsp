@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,12 +49,18 @@
 }
 #sub{
  	width: 150px;
+ 	padding-top: 5px;
+ 	padding-bottom: 10px;
  	background: black;
 	font-size: 11pt;
 }
 #heada1, #heada2, #heada3, #heada4, #heada5, #heada6, #heada7, #heada8, #heada9 {
 	text-align: center;
 }
+#logout:hover {
+	color: red;
+}
+
 </style>
 <script type="text/javascript">
 	$(function() {
@@ -62,7 +69,8 @@
 
 		$('#homecon').show();
 		$("#menucon").click(function() {
-			$('.ui.sidebar').sidebar('toggle');
+			$('.ui.sidebar').sidebar('setting', 'transition', 'overlay').sidebar('setting', 'dimPage', false)
+			  .sidebar('toggle');
 		});
 		$('#headdi1, #headdi2, #headdi3, #headdi4').dropdown({});
 		$('#heada1, #heada2, #heada3, #heada4, #heada5, #heada6, #heada7, #heada8, #heada9').attr('style', 'color: white !important');
@@ -91,7 +99,7 @@
 		<div class="ui dropdown item" id="headdi3" align="center" style="padding-left: 35px;">
 			신고 관리 <i class="dropdown icon"></i>
 			<div class="menu" id="sub">
-				<a class="item" href="reportu.do" id="heada5">회원 신고</a> <a class="item" href="reportbm.do" id="heada6">게시글 신고</a> 
+				<!-- <a class="item" href="reportu.do" id="heada5">회원 신고</a>  --><a class="item" href="reportbm.do" id="heada6">게시글 신고</a> 
 			</div>
 		</div>
 		<div class="ui dropdown item" id="headdi4" align="center" style="padding-left: 35px;">
@@ -103,7 +111,21 @@
 			</div>
 		</div>
 		<div class="right menu">
-			<div class="item">안녕하세요 관리자님</div>
+			<div class="item">
+				<c:if test="${ sessionScope.loginUser.usertype eq 'ADMIN' }">
+				안녕하세요 	&nbsp;&nbsp;
+				관리자
+				</c:if>
+				<c:if test="${ sessionScope.loginUser.usertype eq 'SADMIN' }">
+				안녕하세요 	&nbsp;&nbsp;
+				부관리자
+				</c:if>
+				<c:if test="${ !empty sessionScope.loginUser}">
+				 ${ sessionScope.loginUser.username }님&nbsp;&nbsp;&nbsp;&nbsp;
+				 <a href="logout.do" id="logout"> 로그아웃 </a>
+				</c:if>
+		
+			</div>
 			<!-- <div class="item">알림
 			<i class="icon bell"></i>
 			<div class="ui circular red label" style="margin-left: -5px;">10</div>
@@ -115,7 +137,23 @@
 	</div>
 
 	<div class="ui inverted sidebar left vertical menu"
-		style="width: 160px; background: black;">
+		style="background: black; letter-spacing: 2pt;">
+		<div  class="item" align="center" style="font-size: 12pt; height: 150px;">
+		
+		
+	
+		<a href="adminmain.do">
+			<img src="${ pageContext.request.contextPath }/resources/images/objet_logo_white.png" style="width: 120px; margin-top: 15px;">
+			</a><br>
+			<c:if test="${ sessionScope.loginUser.usertype eq 'ADMIN' }">
+		관리자
+		</c:if>
+		<c:if test="${ sessionScope.loginUser.usertype eq 'SADMIN' }">
+		부관리자
+		</c:if>
+				${ sessionScope.loginUser.username }
+			
+		</div>
 		<div class="ui accordion">
 			<div class="title">
 				<a class="item"> <i class="user circle icon"></i> 회원 관리
@@ -141,7 +179,7 @@
 				</a>
 			</div>
 			<div class="content" id="cont">
-				<a class="item" href="reportu.do"> 회원 신고</a> <a class="item" href="reportbm.do"> 게시글 신고</a>
+				<!-- <a class="item" href="reportu.do"> 회원 신고</a>  --><a class="item" href="reportbm.do"> 게시글 신고</a>
 			</div> 
 		</div>
 		<div class="ui accordion">

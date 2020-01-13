@@ -110,7 +110,7 @@ font-weight: bold;
 				<c:param name="qnano" value="${ qnamd.qnano +1 }" />
 			</c:url>
 			<br>
-			<table>
+			<%-- <table>
 				<c:if test="${ qnamd.qnano eq 1 }">
 					<tr>
 						<th width="150">이전 글</th>
@@ -137,7 +137,7 @@ font-weight: bold;
 								${ qnalist.get(qnamd.qnano - 1).qnatitle } </a></td> 
 					</tr>
 				</c:if>
-			</table>
+			</table> --%>
 			<c:url var="toqnam" value="qnam.do"/>
 			<div align="right" style="margin-top: 20px; margin-right: 5px;">
 				<button class="ui button icons" id="btn2">삭제</button>

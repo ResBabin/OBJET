@@ -16,6 +16,8 @@
 <style type="text/css">
 #um {
 	padding: 150px;
+	padding-top: 70px;
+	padding-bottom: 70px;
 }
 </style>
 <c:import url="adminHeader.jsp" />
@@ -24,7 +26,7 @@
 <div id="um">
 		<br>
 		<div align="right">
-			<div class="ui small button">상세 검색</div>
+			<div class="ui basic button">검색</div>
 			<!-- 		<div class="ui small basic buttons">
 				<div class="ui button">전체</div>
 				<div class="ui button">회원ID</div>

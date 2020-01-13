@@ -57,7 +57,7 @@
 	</logger>
 	
 	<!-- interceptor 패키지 logger 등록함 -->
-	<logger name="com.kh.objet.common.interceptor.LoggerInterceptor>
+	<logger name="com.kh.objet.common.interceptor.LoggerInterceptor">
 		<level value="debug" />
 	</logger>
 	

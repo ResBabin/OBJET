@@ -27,6 +27,7 @@ import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.users.model.service.UserManagementService;
 import com.kh.objet.users.model.vo.LoginCount;
 import com.kh.objet.users.model.vo.UserManagement;
+import com.kh.objet.users.model.vo.Users;
 
 @Controller
 public class UserManagementController {
@@ -50,7 +51,7 @@ public class UserManagementController {
 		}
 		
 		int limit = 10;  //한 페이지에 출력할 목록 갯수
-		int listCount = usermService.selectUser().size();  //테이블의 전체 목록 갯수 조회
+		int listCount = usermService.selectUserListCount();  //테이블의 전체 목록 갯수 조회
 		//총 페이지 수 계산
 		int maxPage = listCount / limit;
 		if(listCount % limit > 0)
@@ -69,8 +70,20 @@ public class UserManagementController {
 		//currentPage 에 출력할 목록의 조회할 행 번호 계산
 		int startRow = (currentPage * limit) - 9;
 		int endRow = currentPage * limit;
-		ArrayList<UserManagement> ulist = (ArrayList<UserManagement>) usermService.selectUser();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+	/*	ArrayList<UserManagement> ulist = new ArrayList<UserManagement>();
+		for(int i = startRow-1; i < endRow; i++) {
+			ulist.add(usermService.selectUser().get(i));
+		}*/
+		ArrayList<UserManagement> ulist = (ArrayList<UserManagement>) usermService.selectUser(map);
+		logger.debug(Integer.toString(ulist.get(9).getReportcount()));
 			model.addAttribute("ulist", ulist);
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("listCount", listCount);
+			model.addAttribute("maxPage", maxPage);
+			model.addAttribute("beginPage", beginPage);
+			model.addAttribute("endPage", endPage);
 			return "admin/userManagement";
 	}
 	@RequestMapping("userbk.do")
@@ -200,6 +213,32 @@ public class UserManagementController {
 	@RequestMapping(value="userorder.do", method=RequestMethod.POST)
 	public void selectUserOrder(HttpServletResponse response, HttpServletRequest request) throws IOException {
 		Map<String, String> map = new HashMap<>();
+		int currentPage = 1;
+		if(request.getParameter("page") != null) {
+			currentPage = Integer.parseInt(request.getParameter("page"));
+		}
+		int limit = 10;  //한 페이지에 출력할 목록 갯수
+		int listCount = usermService.selectUserListCount();  //테이블의 전체 목록 갯수 조회
+		//총 페이지 수 계산
+		int maxPage = listCount / limit;
+		if(listCount % limit > 0)
+			maxPage++;
+		
+		//currentPage 가 속한 페이지그룹의 시작페이지숫자와 끝숫자 계산
+		//예, 현재 34페이지이면 31 ~ 40 이 됨. (페이지그룹의 수를 10개로 한 경우)
+		int beginPage = (currentPage / limit) * limit + 1;
+        if(currentPage % limit == 0) {
+            beginPage -= limit;
+         }
+		int endPage = beginPage + 9;
+		if(endPage > maxPage)
+			endPage = maxPage;
+		
+		//currentPage 에 출력할 목록의 조회할 행 번호 계산
+		int startRow = (currentPage * limit) - 9;
+		int endRow = currentPage * limit;
+		map.put("startRow", Integer.toString(startRow));
+		map.put("endRow", Integer.toString(endRow));
 		String order = request.getParameter("order");
 		String usertype = request.getParameter("usertype");
 		if(usertype.equals("all")) {
@@ -212,32 +251,48 @@ public class UserManagementController {
 			map.put("usertype", usertype);
 		}
 		map.put("order", order);
+		logger.debug(order);
+		logger.debug(usertype);
+		
 		ArrayList<UserManagement> userorderlist = (ArrayList<UserManagement>) usermService.selectUserOrder(map);
+		logger.debug(userorderlist.toString());
 		//전송용 json 객체
 				JSONObject sendJson = new JSONObject();
 				//json 배열 객체
 				JSONArray jarr = new JSONArray();
 				//list를 jarr 로 옮겨 저장 (복사)
-				for( UserManagement userorder : userorderlist) {
-					
-				JSONObject job = new JSONObject();
-				job.put("userid", userorder.getUserid());
-				job.put("username", URLEncoder.encode(userorder.getUsername(), "utf-8"));
-				job.put("nickname", URLEncoder.encode(userorder.getNickname(), "utf-8"));
-				job.put("enrolldate", userorder.getEnrolldate().toString());
-				job.put("quityn", userorder.getQuityn().toString());
-				job.put("reportcount", userorder.getReportcount());
-				job.put("blackyn", userorder.getBlackyn());
-				jarr.add(job);
-				}
-				
+					for (UserManagement userorder : userorderlist) {
+						JSONObject job = new JSONObject();
+						job.put("userid", userorder.getUserid());
+						job.put("username", URLEncoder.encode(userorder.getUsername(), "utf-8"));
+						job.put("nickname", URLEncoder.encode(userorder.getNickname(), "utf-8"));
+						job.put("enrolldate", userorder.getEnrolldate().toString());
+						job.put("quityn", userorder.getQuityn().toString());
+						job.put("reportcount", userorder.getReportcount());
+						job.put("blackyn", userorder.getBlackyn());
+						job.put("reportc", userorder.getReportcount());
+						jarr.add(job);
+					}
 				sendJson.put("list", jarr);
-				logger.debug(jarr.toJSONString());
+			//	logger.debug(jarr.toJSONString());
 				response.setContentType("application/jsonl charset=utf-8");
 				PrintWriter out = response.getWriter();
 				out.println(sendJson.toJSONString());
 				out.flush();
 				out.close();
 				
+	}
+	@RequestMapping("userInfo.do")
+	public String userInfo(@RequestParam("userid") String userid, Model model) {
+		UserManagement userinfo = usermService.selectUserDetail(userid);
+		String view = "";
+		if(userinfo != null) {
+			model.addAttribute("userinfo", userinfo);
+			view = "admin/UserInfoPopup";
+		}else {
+			model.addAttribute("message", "회원정보 조회 실패");
+			view ="common/error";
+		}
+		return view;
 	}
 }

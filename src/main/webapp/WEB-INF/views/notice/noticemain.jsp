@@ -1,10 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
-     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <c:import url="../header.jsp" />
 </head>
@@ -43,6 +45,12 @@ background-color:;
 .notice-list .info .pipe {display:inline-block; margin:0 10px; color:black}
 .notice-list .info .date {color:black}
 
+.paging{text-align: center;margin-top: 30px;}
+
+.page{border: 1px solid black; background: black;
+   	   color: white; padding: 3px 10px 3px 10px; border-radius: 6px;font-weight: bold;}
+.pre_page, .next_page{border: 1px solid rgb(244, 244, 244); background: rgb(244, 244, 244);
+   	   color: #3e3e3e; padding: 3px 10px 3px 10px; border-radius: 6px;font-weight: bold;    display: inline-block;}
         
 * {padding: 0; margin: 0;}
 /* body {background: #1a237e;} */
@@ -94,104 +102,85 @@ margin-left: 30px;
         
 </style>
 <body>
-<c:import url="../search.jsp" />
-<h1 align="center">공지사항 전체 목록 보기 : </h1>
+<%-- <c:import url="../search.jsp" /> --%>
+<!-- 관리자한테만 보여질 글쓰기 버튼 -->
+<a href="insertNotice.do" ><button>글쓰기</button></a>
+<!-- 검색창 -->
+<div class="search">
+<form action="selectNoticeSearchList.do" method="post">
+<select class="searchmenu" name="searchmenu" style="border-radius:5px; width:100px; height:40px">
+     <option value="noticetitle">제목</option>
+     </select>
+
+
+<input placeholder="내용입력" name="search" style="border-radius:5px; width:200px; height:40px;">
+<input type="submit" value="검색" name="submit" style="border-radius:5px; width:100px; height:40px;">
+
+</form>
+</div>
+<!-- //검색창 -->
+
+
+<h1 align="center">공지사항 </h1>
+
+<c:forEach var="notice" items="${requestScope.list }"> 
+<c:url var="ndt" value="noticeDetail.do">
+	<c:param name="noticeno" value="${notice.noticeno}" />
+										<%-- <c:param name="page" value="${ requestScope.currentPage }" /> --%>
+									</c:url>	
+									
 <div class="box-wrap">
     <div class="box">
        <div class="notice-list">
-            <a href="#" class="notice-item">
-                <h1 class="title">공지사항 제목</h1>
-                <p class="writer">admin01 </p>
+            <a href="${ ndt } " class="notice-item">
+                <h1 class="title">${notice.noticetitle}</h1>
+                <div class="writer">${notice.adminid}</div>
             </a>
-            <p class="info"> 분류[일반]
+            <p class="info"> 분류[${notice.noticetype}]
                 <span class="pipe">|</span>
-                <span class="date">12월14일</span>
+                <span class="date"><fmt:formatDate value="${notice.noticedate}" type="date"/></span>
             </p>
         </div>
-            <a href="#"></a>
         </div>
+               
     </div>
+    </c:forEach>
+  
+<div class="paging">
+<!-- 맨 처음 페이지 -->
+<c:if test="${requestScope.currentPage le 1 }"><p class="pre_page"><<</p></c:if>
+<c:if test="${requestScope.currentPage gt 1 }"><a href="selectNoticeList.do"><p class="pre_page"><<</p></a></c:if>
+<!-- 이전 페이지 -->
+<%-- <c:if test="${(currentPage - 10) lt startPage and (currentPage - 10) gt 1 }">
+<a class="pre_page" href="selectNoticeList.do?page=${requestScope.startPage - 10 }"><p class="pre_page"><</p></a>
+</c:if> --%>
+<%-- <c:if test="${(currentPage - 10) ge startPage or (currentPage - 10) le 1 }">
+<p class="pre_page"><</p>
+</c:if>  --%>
+<!-- 현재 페이지가 포함된 그룹의 페이지 숫자 출력 -->
 
-<div class="box-wrap">
-    <div class="box">
-       <div class="notice-list">
-            <a href="#" class="notice-item">
-                <h1 class="title">공지사항 제목</h1>
-                <p class="writer">admin01 </p>
-            </a>
-            <p class="info"> 분류[일반]
-                <span class="pipe">|</span>
-                <span class="date">12월14일</span>
-            </p>
-        </div>
-            <a href="#"></a>
-        </div>
-    </div>
+<c:forEach var="p" begin="${requestScope.startPage }" end="${requestScope.endPage }" step="1">
+	<c:if test="${p eq requestScope.currentPage }">		
+		<font><b class="page">${ p }</b></font>
+	</c:if>
+	<c:if test="${p ne requestScope.currentPage }"><a href="selectNoticeList.do?page=${ p }"><p class="pre_page" style="margin:0px 2px 0px 2px">${ p }</p></a></c:if>
+</c:forEach>
+<!-- 다음 페이지 -->
+<%-- <c:if test="${(currentPage + 10) gt endPage and (currentPage + 10) lt maxPage }">
+	<a class="next_page" href="selectNoticeList.do?page=${requestScope.endPage + 10 }"><p class="next_page">></p></a>
+</c:if> --%>
+<%-- <c:if test="${(currentPage + 10) le endPage or (currentPage + 10) ge maxPage }">
+<p class="next_page">></p>
+</c:if> --%>
+<!-- 맨 마지막페이지 -->
+<c:if test="${currentPage ge maxPage }"><p class="next_page">>></p></c:if>
+<c:if test="${currentPage lt maxPage }"><a class="next_page" href="selectNoticeList.do?page=${ requestScope.maxPage }">>></a></c:if>  
 
-<div class="box-wrap">
-    <div class="box">
-       <div class="notice-list">
-            <a href="#" class="notice-item">
-                <h1 class="title">공지사항 제목</h1>
-                <p class="writer">admin01 </p>
-            </a>
-            <p class="info"> 분류[일반]
-                <span class="pipe">|</span>
-                <span class="date">12월14일</span>
-            </p>
-        </div>
-            <a href="#"></a>
-        </div>
-    </div>
+</div>
+<!-- //페이징 -->
+    
+    
 
-       <div class="box-wrap">
-    <div class="box">
-       <div class="notice-list">
-            <a href="#" class="notice-item">
-                <h1 class="title">공지사항 제목</h1>
-                <p class="writer">admin01 </p>
-            </a>
-            <p class="info"> 분류[일반]
-                <span class="pipe">|</span>
-                <span class="date">12월14일</span>
-            </p>
-        </div>
-            <a href="#"></a>
-        </div>
-    </div>
-        
-       <div class="box-wrap">
-    <div class="box">
-       <div class="notice-list">
-            <a href="#" class="notice-item">
-                <h1 class="title">공지사항 제목</h1>
-                <p class="writer">admin01 </p>
-            </a>
-            <p class="info"> 분류[일반]
-                <span class="pipe">|</span>
-                <span class="date">12월14일</span>
-            </p>
-        </div>
-            <a href="#"></a>
-        </div>
-    </div>
-       
-       
-      <div class="box-wrap">
-    <div class="box">
-       <div class="notice-list">
-            <a href="#" class="notice-item">
-                <h1 class="title">공지사항 제목</h1>
-                <p class="writer">admin01 </p>
-            </a>
-            <p class="info"> 분류[일반]
-                <span class="pipe">|</span>
-                <span class="date">12월14일</span>
-            </p>
-        </div>
-            <a href="#"></a>
-        </div>
-    </div>
 <c:import url="../footer.jsp" />
 </body>
 </html>

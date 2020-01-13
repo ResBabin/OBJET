@@ -1,22 +1,25 @@
 package com.kh.objet.objet.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.objet.objet.model.vo.Objet;
+import com.kh.objet.objet.model.vo.ObjetManagement;
 
 @Repository("objetmDao")
 public class ObjetManagementDao {
 	@Autowired
 	private SqlSessionTemplate mybatisSession;
 	public ObjetManagementDao() {}
-	public List<Objet> selectAllObjet() {
-		return mybatisSession.selectList("adminMapper.selectAllObjet");
+	public List<Objet> selectAllObjet(Map<String, Integer> map) { 
+		return mybatisSession.selectList("adminMapper.selectAllObjet", map);
 	}
-	public Objet selectObjetOne(int objetno) {
+	public ObjetManagement selectObjetOne(int objetno) {
 		return mybatisSession.selectOne("adminMapper.selectObjetOne", objetno);
 	}
 	public List<Objet> selectObjetRequestManage() {
@@ -24,6 +27,21 @@ public class ObjetManagementDao {
 	}
 	public List<Objet> selectObjetReqMain() {
 		return mybatisSession.selectList("adminMapper.selectObjetReqMain");
+	}
+	public int updateRequestStatus(Map<String, String> map) {
+		return mybatisSession.update("adminMapper.updateRequestStatus", map);
+	}
+	public int updateObjetStop(int objetno) {
+		return mybatisSession.update("adminMapper.updateObjetStop", objetno);
+	}
+	public List<Objet> selectStatusOrder(Map<String, String> map) {
+		return mybatisSession.selectList("adminMapper.selectStatusOrder", map);
+	}
+	public List<Objet> selectObjetSearch(Objet objetsearch) {
+		return mybatisSession.selectList("adminMapper.selectObjetSearch", objetsearch);
+	}
+	public int selectObjetListCount() {
+		return mybatisSession.selectOne("adminMapper.selectObjetListCount");
 	}
 
 }

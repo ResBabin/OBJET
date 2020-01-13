@@ -20,51 +20,78 @@
 </head>
 <body>
 	<!-- 문의수정 페이지 시작 -->
+	
+	
+	
+	
 	<div class="wrapMyObjetList">
 	
 		<p style="font-size: 20pt; padding-top:50px; color:#373737; text-align:center;">1:1 문의하기</p>
 		
 		<!-- 문의내역 테이블 -->
-		<form action="" method="post">
-		<input type="hidden" name="userid" value="">
-		<table class="myQnaDetailTable">
-			<tr>
-				<th style="width:15%;">제목</th>
-				<td style="width:75%;">
-					<select class="ui dropdown" name="qnatype" required>
-					  <option value="전시">전시</option>
-					  <option value="회원">회원</option>
-					  <option value="기타">기타</option>
-					</select>&ensp;
-					<div class="ui input">
-	  				<input type="text" name="qnatitle" required style="width:500px;">
-					</div>
-				</td>
+		  <form action="insertQna.do" method="post" enctype="multipart/form-data">
+  
+			<table class = "noticeform">
+				<tr>
+					<th>작성자</th>
+					<td><input type="text" size="30" name="userid" required="required" value="${sessionScope.loginUser.userid}"></td>
+
+
+				</tr>
+		
 				
-			</tr>
-			
-			<tr>
-				<th>첨부파일</th><td><input type="file" name="qnaofile">
+				<tr>
+					<th>제목</th>
+					<td><input type="text" size="30" name="qnatitle" required="required"></td>
+
+
+				</tr>
+
+				<tr>
+					<th>종류</th>
+					<td><select name="qnatype" required="required">
+							<option value="일반">일반</option>
+							<option value="전시">전시</option>
+							<option value="회원">회원</option>
+						</select></td>
+				</tr>
+
+	<!-- 	<tr>
+					<th>첨부파일</th>
+					<td colspan="3"><input multiple="multiple" type="file" name="upfile">
+				</tr> -->
+
+				<tr>
+					<td colspan="4">
+							<textarea id="editor2" name="qnacontent" required></textarea>
 							</td>
-				
-			</tr>
-			
-			<tr>
-				<th>내용</th>
-				<td style="vertical-align: top; height:450px;padding:0px;margin:0px;">
-					<div class="ui form"><div class="field">
-					<textarea rows="50" name="qnacontent" id="qnacontent" style="font-size: 9pt;width:100%;height:450px;" required></textarea></div></div>
-				</td>
-			</tr>
-		</table>
+				</tr>
+			</table>
+	
+			<script type="text/javascript" src="${pageContext.request.contextPath }/resources/editor/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+ CKEDITOR.replace('editor2',{height: 500,
+                	 filebrowserImageUploadUrl :'${pageContext.request.contextPath }/noticeFile.do'
+                		
+                	
+ });
+
+
+</script> 
+             
+			  
+			<button type="submit" class="insert">완료</button>
+             </form>    
+              
 		<br><br>
 		<!-- 수정삭제버튼 -->
 			<div align="center">
-				<input type="submit" class="ui green button" value="문의하기"></a> &nbsp;
+				<input type="submit" class="ui green button" value="문의하기"> &nbsp;
 				<input type="button" class="ui button" value="문의취소" onclick="location.href='javascript:history.go(-1)'"> &nbsp;
 			</div>
+		
 		<br><br>
-	</form>
+
 		
 		
 		<br>

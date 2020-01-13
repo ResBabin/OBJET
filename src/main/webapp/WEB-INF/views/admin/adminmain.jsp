@@ -99,7 +99,7 @@ $(function() {
 	var now = new Date();
 	var hh = now.getHours();
 	console.log(now.getHours(), now.getMinutes());
-	if(hh==00){
+//	if(hh==00){
 		
 	$.ajax({
 		url : "insertlogindate.do",
@@ -113,7 +113,7 @@ $(function() {
 					+ "\nError : " + errorData);
 		}
 	});
-	}
+//	}
 	
 	/* $.ajax({
 		url : "logincount.do",
@@ -250,7 +250,7 @@ var login20 = "${ todaycount.login20 }";
 var login21 = "${ todaycount.login21 }";
 var login22 = "${ todaycount.login22 }";
 var login23 = "${ todaycount.login23 }";
-var login24 = "${ todaycount.login00 }";
+var login0 = "${ todaycount.login00 }";
 var logindate = "${ todaycount.logindate }";
 
 console.log(login1);
@@ -258,11 +258,11 @@ console.log(login1);
 var myChart3 = new Chart(ctx3, {
     type: 'line',
     data: {
-    	labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'],
+    	labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
         datasets: [{
         	label: logindate + ' 시간 별 로그인',
-        	data: [login1, login2, login3, login4, login5, login6, login7, login8, login9, login10, login11, login12, login13, login14, 
-        		login15, login16, login17, login18, login19, login20, login21, login22, login23, login24],
+        	data: [login0, login1, login2, login3, login4, login5, login6, login7, login8, login9, login10, login11, login12, login13, login14, 
+        		login15, login16, login17, login18, login19, login20, login21, login22, login23],
             backgroundColor: [
                 'rgba(200, 200, 200, 0.5)',
             ],
@@ -296,8 +296,9 @@ var myChart3 = new Chart(ctx3, {
 			</c:forEach>
 				<div id="movediv" style="margin-left: 0px;">
 						<label class="ui small label" style="margin-top: -150px; margin-left: -65px;">${ userlist.size() }</label>
-						<c:if test="${ enrollcount ne 0}">
-							<h5 style="margin-top: -20px; color: #db2828;"> + ${ enrollcount }</h5>
+						<c:if test="${ enrollcount > 0}">
+							<h5 style="margin-top: -22px; color: #6435c9;">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;New ${ enrollcount }</h5>
 						</c:if>
 					<h5 class="ui header" style="margin-top: 10px;">
 						<i class="icons"> <i class="user icon"></i>
@@ -306,13 +307,6 @@ var myChart3 = new Chart(ctx3, {
 				</div>
 			</a> <a href="userbk.do">
 				<div id="movediv">
-				<c:set var="bkcount" value="${ 0 }"/>
-			 	<c:forEach items="${ userlist }" var="userl"> 
-				<c:if test="${ userl.blackyn eq 'Y' }">
-				<c:set var="bkcount" value="${ bkcount + 1 }"/>
-				</c:if>
-				</c:forEach> 
-					
 					<label class="ui small label" style="margin-top: -150px; margin-left: -70px;" id="bkcount">${ bkcount  }</label>
 					<h5 class="ui header" style="margin-top: 10px;">
 						<i class="icons"> <i class="large red dont icon"
@@ -323,7 +317,7 @@ var myChart3 = new Chart(ctx3, {
 				</div>
 			</a> <a href="objetm.do">
 				<div id="movediv">
-					<label class="ui small label" style="margin-top: -150px; margin-left: -70px;">${ objetmlist.size() }</label>  
+					<label class="ui small label" style="margin-top: -150px; margin-left: -70px;">${ objetmlist }</label>  
 					<h5 class="ui header" style="margin-top: 10px;">
 						<i class="icons"> <i class="image icon"></i>
 						</i>전시조회
@@ -349,9 +343,9 @@ var myChart3 = new Chart(ctx3, {
 			<div style="width: 680px; margin-top: 0px; margin-left: 20px;">
 			<div style="margin-top: 0px;">
 			<%-- <c:set var="reqcount" value="${ objetreqlist.size() /objetmlist.size() * 100}" /> --%>
-			<fmt:formatNumber type="number" pattern="0.00" value="${ objetreqlist.size() /objetmlist.size() * 100}" var="reqcount"/>
+			<fmt:formatNumber type="number" pattern="0.0" value="${ objetreqlist.size() /objetmlist * 100}" var="reqcount"/>
 			 <label class="label">신청작 ??--> 전체신청작  ${ reqcount }% </label>
-			<div class="ui violet progress" style="margin-top: 0px;margin-bottom: 0px;" id="progress1" data-percent="${ objetreqlist.size() /objetmlist.size() * 100}">
+			<div class="ui violet progress" style="margin-top: 0px;margin-bottom: 0px;" id="progress1" data-percent="${ objetreqlist.size() /objetmlist * 100}">
 				<div class="bar" align="center"></div>
 			</div>
 			 </div>
@@ -366,7 +360,7 @@ var myChart3 = new Chart(ctx3, {
  			</c:if>
 			</c:forEach>
 			<div style="margin-top: 7px;">
-			<fmt:formatNumber type="number" pattern="0.00" value="${ answercount  / qnalist.size() * 100 }" var="qnacount"/>
+			<fmt:formatNumber type="number" pattern="0.0" value="${ answercount  / qnalist.size() * 100 }" var="qnacount"/>
 			<label class="label">1대1문의 답변률 :  ${ qnacount }%</label>
 			<div class="ui blue progress" style="margin-top: 0px; margin-bottom: 15px;" id="progress2" data-percent="${ answercount / qnalist.size() * 100 }"> 
 				<div class="bar" align="center"></div>
@@ -396,7 +390,7 @@ var myChart3 = new Chart(ctx3, {
 						</button>
 					</a>
 				</div>
-				<h3 style="margin-top: -25px;">신청작<label class="ui small red label" style="margin-left: 20px;" id="reqlabel">${ objetreqlist.size() }</label> </h3>	
+				<h3 style="margin-top: -25px;">신청작<label class="ui small red label" style="margin-left: 20px;" id="reqlabel">New ${ objetreqlist.size() }</label> </h3>	
 				<hr noshade="noshade">
 				<table class="ui celled table selectable" style="font-size: 9pt;"
 					id="reqtable">
@@ -436,7 +430,7 @@ var myChart3 = new Chart(ctx3, {
 						</button>
 					</a>
 				</div>
-				<h3 style="margin-top: -25px;">문의관리<label class="ui small red label" style="margin-left: 20px;" id="reqlabel">${ nocount }</label> </h3>
+				<h3 style="margin-top: -25px;">문의관리<label class="ui small red label" style="margin-left: 20px;" id="reqlabel">New ${ nocount }</label> </h3>
 				<hr noshade="noshade">
 				<table class="ui celled table selectable" style="font-size: 9pt;"
 					id="reqtable">
@@ -478,7 +472,7 @@ var myChart3 = new Chart(ctx3, {
 							<i class="icon plus"></i>
 						</button></a>
 				</div>
-				<h3 style="margin-top: -25px;">신고 게시글 관리<label class="ui small red label" style="margin-left: 20px;" id="reqlabel">${ reportblist.size() }</label> </h3>
+				<h3 style="margin-top: -25px;">신고 게시글 관리<label class="ui small red label" style="margin-left: 20px;" id="reqlabel">New ${ reportblist.size() }</label> </h3>
 				<hr noshade="noshade">
 				<table class="ui celled table selectable" style="font-size: 9pt;"
 					id="usertable">

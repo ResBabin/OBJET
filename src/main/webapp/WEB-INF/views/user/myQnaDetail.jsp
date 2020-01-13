@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,8 +29,8 @@
 		<!-- 문의내역 테이블 -->
 		<table class="myQnaDetailTable">
 			<tr>
-				<th style="width:15%;">제목</th><td style="width:50%;"><span style="font-weight: 600; color:green; font-size: 10pt;">[회원]</span>&ensp;로그인이 안됩니다</td>
-				<th style="width:15%;">작성일</th><td style="text-align: center;">2019-12-03</td>
+				<th style="width:15%;">제목</th><td style="width:50%;"><span style="font-weight: 600; color:green; font-size: 10pt;">[회원]</span>&ensp;${qna.qnatitle}</td>
+				<th style="width:15%;">작성일</th><td style="text-align: center;"><fmt:formatDate value="${qna.questiondate}" type="date"/></td>
 			</tr>
 			
 			<tr>
@@ -37,7 +39,7 @@
 			
 			<tr>
 				<th style="height: 300px;">내용</th>
-				<td colspan="3" style="vertical-align: top;">회원가입 했는데 로그인이 안되서 아이디/비밀번호 찾기 하고 다시 로그인 했는데 계속 로그인이 안되네요.</td>
+				<td colspan="3" style="vertical-align: top;">${qna.qnacontent}</td>
 			</tr>
 		</table>
 		
@@ -49,16 +51,20 @@
 		<br><br>
 		
 		<!-- 관리자 답변 테이블 -->
+		
+	
 		<table class="myQnaAnswerTable">
 			<tr style="height:15px;">
-				<th style="text-align: left;color:navy;">관리자 답변 &emsp;<span style="font-size: 9pt; color:#aaa;">2019-12-03</span></th>
+				<th style="text-align: left;color:navy;">관리자 답변 &emsp;<span style="font-size: 9pt; color:#aaa;"><fmt:formatDate value="${qna.answerdate}" type="date"/></span></th>
 			</tr>
 			
 			<tr>
-				<td>사용에 불편을 드려 죄송합니다. 확인결과 일시적인 서버 오류로 인해 회원님의 로그인에 불편을 드린것 같습니다</td>
+				<td>${qna.qnaanswer}</td>
 			</tr>
 		</table>
+		
 		<!-- 답변이 없을 경우  -->
+		
 		<table class="myQnaAnswerTable">
 			<tr style="height:15px;">
 				<th style="text-align: left;color:navy;">현재 작성된 답변이 없습니다. 조금만 기다려주세요 :)</th>
