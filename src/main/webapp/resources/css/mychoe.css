@@ -710,6 +710,8 @@ body {
 	margin-right: 25%;
 	overflow:hidden;
 	height:auto;
+	margin-bottom:200px; /* 하단바 높이만큼 수정 */
+	min-height: 100%;
 }
 
 .feedTable{

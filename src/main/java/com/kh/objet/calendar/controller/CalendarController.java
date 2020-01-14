@@ -61,4 +61,6 @@ public class CalendarController {
 	public String deleteCalendar(Calendar calendar, Model model) {
 		return "objet/calendar";
 	}
+	
+	
 }
