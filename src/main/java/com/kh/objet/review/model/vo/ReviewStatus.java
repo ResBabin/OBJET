@@ -59,6 +59,15 @@ public class ReviewStatus implements java.io.Serializable{
 		this.revuserid = revuserid;
 	}
 
+	public ReviewStatus(String revuserid, int objetno, String userid, int revgood, int revhate) {
+		super();
+		this.revuserid = revuserid;
+		this.objetno = objetno;
+		this.userid = userid;
+		this.revgood = revgood;
+		this.revhate = revhate;
+	}
+
 	public String getRevuserid() {
 		return revuserid;
 	}

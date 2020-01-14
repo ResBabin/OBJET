@@ -73,6 +73,9 @@ $(function() {
 		$("#searchList-text").show();
 		$("#searchList-text").focus();
 		$("#searchList-btn").css("color", "#959595");
+		if($("#searchList-btn").css("color") == 'rgb(149, 149, 149)'){
+			search();
+		}
 	});
 	
 	$("body").on('mousewheel',function(e){ 
@@ -117,7 +120,7 @@ window.onload = function() {
 <div class="search-box-top"> 
 <form id='searchList-form' target='_top' class="ui icon input">
   <input id='searchList-text' name="keyword" type="text" placeholder="검색어를 입력해주세요." autocomplete="off" value="" />
-  <span id="searchList-btn" class="material-icons" onClick="search();">&#xe8b6;</span>
+  <span id="searchList-btn" class="material-icons">&#xe8b6;</span>
 </form>
 </div>
 </section>

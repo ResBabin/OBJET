@@ -1290,7 +1290,6 @@ a:-webkit-any-link {
 
 		//캘린더
 		
-		
 	});
 	
 	//전시 신고
@@ -1308,16 +1307,6 @@ a:-webkit-any-link {
 			return false; 
 		};
 	};
-	
-	
-	
-	window.onload = function(){
-		//바탕색 랜덤
-		var color = '#'; 
-		var letters = ['e4eef5', '93c5e6', '46a3e0', '8eccf5', '6475A0', 'acc7bf', '5e5f67', 'c37070', 'eae160', 'bf7aa3', 'd7d967', 'bc8fcf', 'edd48e', 'e68b4e', 'cc6039']; 
-		color += letters[Math.floor(Math.random() * letters.length)]; // 컬러는 상기 변수들을 조립하는데 랜덤으로 조립한다. 
-		document.getElementById('exhibition_vp').style.background = color; // 조립한 컬러를 프론트엔드에서 지정한 ID에 적용한다.
-	}
 	
 	//review order ajax
 	function reviewOrder(no, order){
@@ -1345,11 +1334,7 @@ a:-webkit-any-link {
 				    var year = jsonObj.list[i].revdate.substring(0, 4);
 				    var nickname = "${loginUser.nickname}";
 				    var userid = '${loginUser.userid}';
-				    var revgood = '${revgood}';
-				    var revhate = '${revhate}'
-				    var reviewStatus = '${reviewStauts}';
 				    var revuserid = jsonObj.list[i].revuserid;
-				    var revstatusid = '${reviewStatusList[i].revuserid}';
 				    var nicknames = decodeURIComponent(jsonObj.list[i].nickname.replace(/\+/gi, " "));
 				    if(nicknames != nickname){
 					values += '<div class="review_list">' +
@@ -1362,28 +1347,10 @@ a:-webkit-any-link {
 					values += '<div class="extra">' +
 					'<div class="ui star rating" data-rating="' + jsonObj.list[i].revstars + '" data-max-rating="5" ></div>' +
 					'<div class="rev_like_btn">';
-					if(revgood == 'revgood'){
-						values += '<div class="ui basic circular gray icon button rev_like" onclick="reviewGood(' + "'" + jsonObj.list[i].revuserid + "', " + ${objet.objetno} + ')"><i class="thumbs up green outline icon" id="rev_like_' + jsonObj.list[i].revuserid + '" style="font-size:14px;"></i><span id="revgood_cnt_' + jsonObj.list[i].revuserid + '" class="rev_cnt"> '
-						+ jsonObj.list[i].revgood + '</span></div>&nbsp;' + 
-						'<div class="ui basic circular gray icon button rev_hate" onclick="reviewHate(' + "'" + jsonObj.list[i].revuserid + "', " + ${objet.objetno} + ')"><i class="thumbs down outline icon" id="rev_hate_' + jsonObj.list[i].revuserid + '" style="font-size:14px;"></i><span id="revhate_cnt_' + jsonObj.list[i].revuserid + '" class="rev_cnt"> '
-						+ jsonObj.list[i].revhate + '</span></div>';
-					}if(reviewStatus == 'norevgood'){
-						values += '<div class="ui basic circular gray icon button rev_like" onclick="reviewGood(' + "'" + jsonObj.list[i].revuserid + "', " + ${objet.objetno} + ')"><i class="thumbs up outline icon" id="rev_like_' + jsonObj.list[i].revuserid + '" style="font-size:14px;"></i><span id="revgood_cnt_' + jsonObj.list[i].revuserid + '" class="rev_cnt"> '
-						+ jsonObj.list[i].revgood + '</span></div>&nbsp;';
-					}if(revhate == 'revhate'){
-						values += '<div class="ui basic circular gray icon button rev_like" onclick="reviewGood(' + "'" + jsonObj.list[i].revuserid + "', " + ${objet.objetno} + ')"><i class="thumbs up outline icon" id="rev_like_' + jsonObj.list[i].revuserid + '" style="font-size:14px;"></i><span id="revgood_cnt_' + jsonObj.list[i].revuserid + '" class="rev_cnt"> '
-						+ jsonObj.list[i].revgood + '</span></div>&nbsp;' + 
-						'<div class="ui basic circular gray icon button rev_hate" onclick="reviewHate(' + "'" + jsonObj.list[i].revuserid + "', " + ${objet.objetno} + ')"><i class="thumbs down black outline icon" id="rev_hate_' + jsonObj.list[i].revuserid + '" style="font-size:14px;"></i><span id="revhate_cnt_' + jsonObj.list[i].revuserid + '" class="rev_cnt"> '
-						+ jsonObj.list[i].revhate + '</span></div>';
-					}if(reviewStatus == 'norevhate'){
-						values += '<div class="ui basic circular gray icon button rev_hate" onclick="reviewHate(' + "'" + jsonObj.list[i].revuserid + "', " + ${objet.objetno} + ')"><i class="thumbs down outline icon" id="rev_hate_' + jsonObj.list[i].revuserid + '" style="font-size:14px;"></i><span id="revhate_cnt_' + jsonObj.list[i].revuserid + '" class="rev_cnt"> '
-						+ jsonObj.list[i].revhate + '</span></div>';
-					}if(reviewStatus == 'norevgoodrevhate'){
-						values += '<div class="ui basic circular gray icon button rev_like" onclick="reviewGood(' + "'" + jsonObj.list[i].revuserid + "', " + ${objet.objetno} + ')"><i class="thumbs up outline icon" id="rev_like_' + jsonObj.list[i].revuserid + '" style="font-size:14px;"></i><span id="revgood_cnt_' + jsonObj.list[i].revuserid + '" class="rev_cnt"> '
-						+ jsonObj.list[i].revgood + '</span></div>&nbsp;' +
-						'<div class="ui basic circular gray icon button rev_hate" onclick="reviewHate(' + "'" + jsonObj.list[i].revuserid + "', " + ${objet.objetno} + ')"><i class="thumbs down outline icon" id="rev_hate_' + jsonObj.list[i].revuserid + '" style="font-size:14px;"></i><span id="revhate_cnt_' + jsonObj.list[i].revuserid + '" class="rev_cnt"> '
-						+ jsonObj.list[i].revhate + '</span></div>';
-					}
+					values += '<div class="ui basic circular gray icon button rev_like" onclick="reviewGood(' + "'" + jsonObj.list[i].revuserid + "', " + ${objet.objetno} + ')"><i class="thumbs up outline icon" id="rev_like_' + jsonObj.list[i].revuserid + '" style="font-size:14px;"></i><span id="revgood_cnt_' + jsonObj.list[i].revuserid + '" class="rev_cnt"> '
+					+ jsonObj.list[i].revgood + '</span></div>&nbsp;' +
+					'<div class="ui basic circular gray icon button rev_hate" onclick="reviewHate(' + "'" + jsonObj.list[i].revuserid + "', " + ${objet.objetno} + ')"><i class="thumbs down outline icon" id="rev_hate_' + jsonObj.list[i].revuserid + '" style="font-size:14px;"></i><span id="revhate_cnt_' + jsonObj.list[i].revuserid + '" class="rev_cnt"> '
+					+ jsonObj.list[i].revhate + '</span></div>';
 					values += '</div></div>' +
 					'</div>' +
 					'</div>';
@@ -1440,8 +1407,35 @@ a:-webkit-any-link {
 						}
 					});
 					
+			 		var reviewList = new Array(); 
+					<c:forEach items="${reviewList}" var="rev">
+						reviewList.push("${rev.revuserid}");
+					</c:forEach>
+					var reviewstsList = new Array(); 
+					<c:forEach items="${reviewStatusChk}" var="revs">
+						reviewstsList.push("${revs.revuserid}");
+					</c:forEach>
+					var revgood = new Array(); 
+					<c:forEach items="${reviewStatusChk}" var="revs">
+						revgood.push("${revs.revgood}");
+					</c:forEach>
+					var revhate = new Array(); 
+					<c:forEach items="${reviewStatusChk}" var="revs">
+						revhate.push("${revs.revhate}");
+					</c:forEach>
+					for(var i in reviewstsList){
+					var revuserid = reviewstsList[i];
+					console.log(revuserid);
+						if(revgood[i] == 1){
+							$("#rev_like_"+revuserid).addClass("green");
+							$("#rev_like_"+revuserid).css("font-size", "16px");
+						}
+						if(revhate[i] == 1){
+							$("#rev_hate_"+revuserid).addClass("black");
+							$("#rev_hate_"+revuserid).css("font-size", "16px");
+						}
+					}
 				});
-				
 				
 				$(".review_list_main").html(values);
 				//한줄평 더보기 버튼
@@ -1579,16 +1573,16 @@ a:-webkit-any-link {
 	}//rev_insert
 	
 	//한줄평 수정
-		function rev_update(userid){
+		function rev_update(userid, objetno){
 			var revcontent = $("#revcontent").val();
 			var revstars = $("#rev_up_star").rating("get rating");
 			$.ajax({
 				type : "post",
 		        url : "updateReview.do",
-		        data : {"userid" : userid, "revcontent" : revcontent, "revstars" : revstars},
+		        data : {"userid" : userid, "objetno" : objetno, "revcontent" : revcontent, "revstars" : revstars},
 		        success : function(message){
 					alert("한줄평이 수정되었습니다.");
-				    /* window.location.reload(); */
+				    window.location.reload(); 
 					$(".review").click();
 					var scrollTop = 390;
 					$("html, body").animate({ scrollTop: scrollTop }, 1000);
@@ -1609,6 +1603,9 @@ a:-webkit-any-link {
 	        data : {"userid" : userid, "objetno" : objetno},
 	        success : function(message){
 				alert("한줄평이 삭제되었습니다.");
+				/* $(".review_mylist").css("display", "none");
+				$(".rev_insert").css("display", "block"); */
+				window.location.reload(); 
 				$(".review").click();
 				var scrollTop = 390;
 				$("html, body").animate({ scrollTop: scrollTop }, 1000);
@@ -1696,9 +1693,45 @@ a:-webkit-any-link {
 		        }
 		    });
 		};
-	
 	}
 	
+	window.onload = function(){
+		var reviewList = new Array(); 
+		<c:forEach items="${reviewList}" var="rev">
+			reviewList.push("${rev.revuserid}");
+		</c:forEach>
+		var reviewstsList = new Array(); 
+		<c:forEach items="${reviewStatusChk}" var="revs">
+			reviewstsList.push("${revs.revuserid}");
+		</c:forEach>
+		var revgood = new Array(); 
+		<c:forEach items="${reviewStatusChk}" var="revs">
+			revgood.push("${revs.revgood}");
+		</c:forEach>
+		var revhate = new Array(); 
+		<c:forEach items="${reviewStatusChk}" var="revs">
+			revhate.push("${revs.revhate}");
+		</c:forEach>
+		for(var i in reviewstsList){
+			console.log(reviewstsList[i]);
+			var revuserid = reviewstsList[i];
+				if(revgood[i] == 1){
+					$("#rev_like_"+revuserid).addClass("green");
+		   			$("#rev_like_"+revuserid).css("font-size", "16px");
+				}
+				if(revhate[i] == 1){
+					$("#rev_hate_"+revuserid).addClass("black");
+					$("#rev_hate_"+revuserid).css("font-size", "16px");
+				}
+		}
+		
+		//바탕색 랜덤
+		var color = '#'; 
+		var letters = ['e4eef5', '93c5e6', '46a3e0', '8eccf5', '6475A0', 'acc7bf', '5e5f67', 'c37070', 'eae160', 'bf7aa3', 'd7d967', 'bc8fcf', 'edd48e', 'e68b4e', 'cc6039']; 
+		color += letters[Math.floor(Math.random() * letters.length)]; // 컬러는 상기 변수들을 조립하는데 랜덤으로 조립한다. 
+		document.getElementById('exhibition_vp').style.background = color; // 조립한 컬러를 프론트엔드에서 지정한 ID에 적용한다.
+		
+	}
 </script>
 </head>
 <body>
@@ -1934,7 +1967,7 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 </div><br>
 <div class="review_all_list">
 <!-- 내 한줄평 있을시 보이는 공간 -->
-<c:if test="${!empty loginUser && loginUser.userid eq myReview.revuserid}">
+<c:if test="${loginUser.userid eq myReview.revuserid}">
 <div class="review_mylist">
 <img class="ui circular image" src="resources/users_upfiles/${loginUser.userrpic }" id="writer_mypic">
 <div class="review_mycontent">
@@ -1956,14 +1989,14 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 <div class="ui star rating my" data-rating="${myReview.revstars }" data-max-rating="5" >${myReview.revstars }</div>
 <div class="rev_like_btn">
 <div class="ui basic circular gray icon button rev_like" onclick="reviewGood('${myReview.revuserid }', ${objet.objetno})">
-<i class="thumbs up outline icon" id="rev_like_${myReview.revuserid }" style="font-size:15px;"></i><span id="revgood_cnt_${myReview.revuserid }" class="rev_cnt"> ${myReview.revgood }</span></div>&nbsp;
+<i class="thumbs up outline icon" id="rev_like_${myReview.revuserid }" style="font-size:15px;"></i><span id="revgood_cnt_${myReview.revuserid }" class="rev_cnt"> ${myReviewStatus.revgood }</span></div>&nbsp;
 <div class="ui basic circular gray icon button rev_hate"  onclick="reviewHate('${myReview.revuserid }', ${objet.objetno})">
-<i class="thumbs down outline icon" id="rev_hate_${myReview.revuserid }"style="font-size:15px;"></i><span id="revhate_cnt_${myReview.revuserid }" class="rev_cnt"> ${myReview.revhate }</span></div>
+<i class="thumbs down outline icon" id="rev_hate_${myReview.revuserid }"style="font-size:15px;"></i><span id="revhate_cnt_${myReview.revuserid }" class="rev_cnt"> ${myReviewStatus.revhate }</span></div>
 <c:if test="${empty loginUser }">
 <div class="ui basic circular gray icon button rev_like" onclick="reviewGood('${myReview.revuserid }', ${objet.objetno})">
-<i class="thumbs up outline icon" id="rev_like_${myReview.revuserid }" style="font-size:15px;"></i><span id="revgood_cnt_${myReview.revuserid }" class="rev_cnt"> ${myReview.revgood }</span></div>&nbsp;
+<i class="thumbs up outline icon" id="rev_like_${myReview.revuserid }" style="font-size:15px;"></i><span id="revgood_cnt_${myReview.revuserid }" class="rev_cnt"> ${myReviewStatus.revgood }</span></div>&nbsp;
 <div class="ui basic circular gray icon button rev_hate"  onclick="reviewHate('${myReview.revuserid }', ${objet.objetno})">
-<i class="thumbs down outline icon" id="rev_hate_${myReview.revuserid }"style="font-size:15px;"></i><span id="revhate_cnt_${myReview.revuserid }" class="rev_cnt"> ${myReview.revhate }</span></div>
+<i class="thumbs down outline icon" id="rev_hate_${myReview.revuserid }"style="font-size:15px;"></i><span id="revhate_cnt_${myReview.revuserid }" class="rev_cnt"> ${myReviewStatus.revhate }</span></div>
 </c:if>
 </div></div>
 </div>
@@ -1984,7 +2017,7 @@ ${myReview.revcontent }</textarea>
 </div>
 <div class="update_mybtn">
 <button class="ui circular basic gray button" id="update_can" type="reset" >취소</button>&nbsp;
-<button class="ui circular basic gray button" onclick="rev_update('${loginUser.userid}');" >수정</button>
+<button class="ui circular basic gray button" onclick="rev_update('${loginUser.userid}', ${objet.objetno });" >수정</button>
 </div>
 </div>
 </c:if>
@@ -2088,57 +2121,10 @@ ${myReview.revcontent }</textarea>
 <div class="extra">
 <div class="ui star rating" data-rating="${Review.revstars }" data-max-rating="5" >${Review.revstars }</div>
 <div class="rev_like_btn">
-<!-- && reviewStatusList[status.index].revuserid eq Review.revuserid  -->
-<!-- 컨트롤러 값이 'revgood'이고, 한줄평평가리스트의 revgood가 1인지 -->
-<c:if test="${revgood eq 'revgood'}">
-<div class="ui basic circular gray icon button rev_like" onclick="reviewGood('${Review.revuserid }', ${objet.objetno})">
-<i class="thumbs up green outline icon" id="rev_like_${Review.revuserid }" style="font-size:15px;"></i><span id="revgood_cnt_${Review.revuserid }" class="rev_cnt"> ${Review.revgood }</span></div>&nbsp;
-</c:if><!-- 좋아요 갯수 0이고, 한줄평평가리스트의 userid와 로그인한 userid 다른지, 한줄평평가리스트의 좋아요 갯수가 0인지 -->
-<c:if test="${Review.revgood == 0 || reviewStatusList[status.index].userid ne loginUser.userid || reviewStatusList[status.index].revgood == 0}">
-<div class="ui basic circular gray icon button rev_like" onclick="reviewGood('${Review.revuserid }', ${objet.objetno})">
-<i class="thumbs up outline icon" id="rev_like_${Review.revuserid }" style="font-size:15px;"></i><span id="revgood_cnt_${Review.revuserid }" class="rev_cnt"> ${Review.revgood }</span></div>&nbsp;
-</c:if><!-- 컨트롤러 값이 'revhate'이고, 한줄평평가리스트의 revhate가 1인지 -->
-<c:if test="${revhate eq 'revhate'}">
-<div class="ui basic circular gray icon button rev_hate" onclick="reviewHate('${Review.revuserid }', ${objet.objetno})">
-<i class="thumbs down black outline icon" id="rev_hate_${Review.revuserid }" style="font-size:15px;"></i><span id="revhate_cnt_${Review.revuserid }" class="rev_cnt"> ${Review.revhate }</span></div>
-</c:if>
-<!-- 싫어요 갯수 0이고, 한줄평평가리스트의 userid와 로그인한 userid 다른지, 한줄평평가리스트의 싫어요 갯수가 0인지 -->
-<c:if test="${Review.revhate == 0 || reviewStatusList[status.index].userid ne loginUser.userid || reviewStatusList[status.index].revhate == 0}">
-<div class="ui basic circular gray icon button rev_hate" onclick="reviewHate('${Review.revuserid }', ${objet.objetno})">
-<i class="thumbs down outline icon" id="rev_hate_${Review.revuserid }" style="font-size:15px;"></i><span id="revhate_cnt_${Review.revuserid }" class="rev_cnt"> ${Review.revhate }</span></div>
-</c:if>
-<c:if test="${Review.revgood == 0 && Review.revhate == 0}"> <!-- 좋아요 싫어요 둘 다 갯수 0일 때 -->
 <div class="ui basic circular gray icon button rev_like" onclick="reviewGood('${Review.revuserid }', ${objet.objetno})">
 <i class="thumbs up outline icon" id="rev_like_${Review.revuserid }" style="font-size:15px;"></i><span id="revgood_cnt_${Review.revuserid }" class="rev_cnt"> ${Review.revgood }</span></div>&nbsp;
 <div class="ui basic circular gray icon button rev_hate" onclick="reviewHate('${Review.revuserid }', ${objet.objetno})">
 <i class="thumbs down outline icon" id="rev_hate_${Review.revuserid }" style="font-size:15px;"></i><span id="revhate_cnt_${Review.revuserid }" class="rev_cnt"> ${Review.revhate }</span></div>
-</c:if>
-<%-- <c:if test="${revgood eq 'revgood'}">
-<div class="ui basic circular gray icon button rev_like" onclick="reviewGood('${Review.revuserid }', ${objet.objetno})">
-<i class="thumbs up green outline icon" id="rev_like_${Review.revuserid }" style="font-size:15px;"></i><span id="revgood_cnt_${Review.revuserid }" class="rev_cnt"> ${Review.revgood }</span></div>&nbsp;
-<div class="ui basic circular gray icon button rev_hate" onclick="reviewHate('${Review.revuserid }', ${objet.objetno})">
-<i class="thumbs down outline icon" id="rev_hate_${Review.revuserid }" style="font-size:15px;"></i><span id="revhate_cnt_${Review.revuserid }" class="rev_cnt"> ${Review.revhate }</span></div>
-</c:if>
-<c:if test="${reviewStatus eq 'norevgood'}">
-<div class="ui basic circular gray icon button rev_like" onclick="reviewGood('${Review.revuserid }', ${objet.objetno})">
-<i class="thumbs up outline icon" id="rev_like_${Review.revuserid }" style="font-size:15px;"></i><span id="revgood_cnt_${Review.revuserid }" class="rev_cnt"> ${Review.revgood }</span></div>&nbsp;
-</c:if>
-<c:if test="${revhate eq 'revhate'}">
-<div class="ui basic circular gray icon button rev_like" onclick="reviewGood('${Review.revuserid }', ${objet.objetno})">
-<i class="thumbs up green outline icon" id="rev_like_${Review.revuserid }" style="font-size:15px;"></i><span id="revgood_cnt_${Review.revuserid }" class="rev_cnt"> ${Review.revgood }</span></div>&nbsp;
-<div class="ui basic circular gray icon button rev_hate" onclick="reviewHate('${Review.revuserid }', ${objet.objetno})">
-<i class="thumbs down black outline icon" id="rev_hate_${Review.revuserid }" style="font-size:15px;"></i><span id="revhate_cnt_${Review.revuserid }" class="rev_cnt"> ${Review.revhate }</span></div>
-</c:if>
-<c:if test="${reviewStatus eq 'norevhate'}">
-<div class="ui basic circular gray icon button rev_hate" onclick="reviewHate('${Review.revuserid }', ${objet.objetno})">
-<i class="thumbs down outline icon" id="rev_hate_${Review.revuserid }" style="font-size:15px;"></i><span id="revhate_cnt_${Review.revuserid }" class="rev_cnt"> ${Review.revhate }</span></div>
-</c:if>
-<c:if test="${reviewStatus eq 'norevgoodrevhate' && Review.revgood == 0 && Review.revhate == 0}"> 
-<div class="ui basic circular gray icon button rev_like" onclick="reviewGood('${Review.revuserid }', ${objet.objetno})">
-<i class="thumbs up outline icon" id="rev_like_${Review.revuserid }" style="font-size:15px;"></i><span id="revgood_cnt_${Review.revuserid }" class="rev_cnt"> ${Review.revgood }</span></div>&nbsp;
-<div class="ui basic circular gray icon button rev_hate" onclick="reviewHate('${Review.revuserid }', ${objet.objetno})">
-<i class="thumbs down outline icon" id="rev_hate_${Review.revuserid }" style="font-size:15px;"></i><span id="revhate_cnt_${Review.revuserid }" class="rev_cnt"> ${Review.revhate }</span></div>
-</c:if> --%>
 </div></div>
 </div>
 </div>

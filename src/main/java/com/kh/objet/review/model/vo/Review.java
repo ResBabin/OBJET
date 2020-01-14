@@ -35,10 +35,11 @@ public class Review implements Serializable{
 		this.revhate = revhate;
 	}
 
-	public Review(int objetno, String revuserid, String revcontent, int revstars) {
+	
+	public Review(String revuserid, int objetno, String revcontent, int revstars) {
 		super();
-		this.objetno = objetno;
 		this.revuserid = revuserid;
+		this.objetno = objetno;
 		this.revcontent = revcontent;
 		this.revstars = revstars;
 	}

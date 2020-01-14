@@ -20,8 +20,8 @@
 		<typeAlias type="com.kh.objet.objet.model.vo.Objet2" alias="Objet2" />
 		<typeAlias type="com.kh.objet.objet.model.vo.ObjetManagement" alias="Objetm" />
 		<typeAlias type="com.kh.objet.objet.model.vo.Artist" alias="Artist" />
+		<typeAlias type="com.kh.objet.objet.model.vo.Search" alias="Search" />
 		<typeAlias type="com.kh.objet.objet.model.vo.ReviewKey" alias="ReviewKey" />
-		<typeAlias type="com.kh.objet.objet.model.vo.ReviewUp" alias="ReviewUp" />
 		<typeAlias type="com.kh.objet.qna.model.vo.Qna" alias="Qna" />
 		<typeAlias type="com.kh.objet.quit.model.vo.Quit" alias="Quit" />
 		<typeAlias type="com.kh.objet.quit.model.vo.Quit2" alias="Quit2" />

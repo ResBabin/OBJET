@@ -30,7 +30,6 @@ import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.objet.model.vo.Objet2;
 import com.kh.objet.objet.model.vo.ReviewKey;
-import com.kh.objet.objet.model.vo.ReviewUp;
 import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
 import com.kh.objet.review.model.vo.Review;
@@ -56,26 +55,32 @@ public class ObjetController {
 		
 		ArrayList<Artist> searchobjetList = objetService.selectObjetAllSearch(keyword);
 		ArrayList<Artist> searchartistList = objetService.selectArtistAllSearch(keyword);
+		ArrayList<Integer> likeobjetcntList = new ArrayList<Integer>();
+		ArrayList<Integer> reviewcntList = new ArrayList<Integer>();
 		
 		if(searchobjetList != null) {
 			for(int i = 0; i < searchobjetList.size(); i++) {
-				int likeobjetcnt = objetService.selectLikeObjetCnt(searchobjetList.get(i).getObjetno());
-				int reviewcnt = objetService.selectReviewCnt(searchobjetList.get(i).getObjetno());
-				if(likeobjetcnt >= 0 && reviewcnt >= 0) {
-					model.addAttribute("likeobjetcnt", likeobjetcnt);
-					model.addAttribute("reviewcnt", reviewcnt);
+				likeobjetcntList.add(objetService.selectLikeObjetCnt(searchobjetList.get(i).getObjetno()));
+				reviewcntList.add(objetService.selectReviewCnt(searchobjetList.get(i).getObjetno()));
+				if(likeobjetcntList != null && likeobjetcntList != null) {
+					model.addAttribute("likeobjetcntList", likeobjetcntList);
+					model.addAttribute("reviewcntList", reviewcntList);
 				}
 			}
 		}
 		
+		ArrayList<Integer> objetcntList = new ArrayList<Integer>();
+		ArrayList<Integer> followercntList = new ArrayList<Integer>();
 		if(searchartistList != null) {
 			for(int i = 0; i < searchartistList.size(); i++) {
-				int objetcnt = objetService.selectObjetCnt(searchartistList.get(i).getUserid());
-				int followercnt = objetService.selectFollowerCnt(searchartistList.get(i).getUserid());
+				objetcntList.add(objetService.selectObjetCnt(searchartistList.get(i).getUserid()));
+				followercntList.add(objetService.selectFollowerCnt(searchartistList.get(i).getUserid()));
+				if(objetcntList != null && followercntList != null) {
+					model.addAttribute("objetcntList", objetcntList);
+					model.addAttribute("followercntList", followercntList);
+				}
 				List<Objet> objetstatus = objetService.selectArtistObjetStatus(searchartistList.get(i).getUserid());
-				if(objetcnt >= 0 && followercnt >= 0 && objetstatus != null) {
-					model.addAttribute("objetcnt", objetcnt);
-					model.addAttribute("followercnt", followercnt);
+				if(objetstatus != null) {
 					model.addAttribute("objetstatus", objetstatus);
 				}
 			}
@@ -90,6 +95,11 @@ public class ObjetController {
 		return "objet/searchList";
 	}
 	
+	//오브제 전시 검색 정렬
+	@RequestMapping("searchOrder.do")
+	public void selectObjetSearchOrder() {
+		
+	}
 	
 	//오브제 전시 전체 리스트
 	@RequestMapping("objetAllList.do")
@@ -199,38 +209,21 @@ public class ObjetController {
 		ArrayList<Review> reviewList = objetService.selectReview(review);
 		ArrayList<LikeObjet> likeobjetList = objetService.selectLikeObjet(objetno);
 		
-		String revgood = "";
-		String revhate = "";
-		String revStatus = "";
 		if(userid != null) {
 			ReviewKey rk = new ReviewKey(objetno, userid, null);
-			ReviewStatus reviewsts = new ReviewStatus(objetno, userid);
 			Review myReview = objetService.selectReviewOne(rk);
-			ArrayList<ReviewStatus> reviewStatusList = objetService.selectReivewStatus(reviewsts);
+			Review myReviewStatus = objetService.selectReviewStatusOne(rk);
+			List<ReviewStatus> reviewStatusChk = objetService.selectReviewStatusChk(rk);
 			
-			for(int i = 0; i < reviewStatusList.size(); i++) {
-				if(reviewList.get(i).getRevgood() > 0
-					&& reviewStatusList.get(i).getRevgood() == 1){
-					revgood = "revgood";
-				}if(reviewList.get(i).getRevhate() > 0
-					&& reviewStatusList.get(i).getRevhate() == 1){
-					revhate = "revhate";
-				}if(reviewList.get(i).getRevhate() == 0 && reviewList.get(i).getRevgood() == 0) {
-					revStatus = "norevgoodrevhate";
-				}if(reviewList.get(i).getRevgood() == 0 || reviewStatusList.get(i).getRevgood() == 0){
-					revStatus = "norevgood";
-				}if(reviewList.get(i).getRevhate() == 0 || reviewStatusList.get(i).getRevhate() == 0){
-					revStatus = "norevhate";
-				}
-			}
-			
-			if(myReview != null && reviewStatusList != null) {
+			if(myReview != null && myReviewStatus != null && reviewStatusChk != null) {
 				mv.addObject("myReview", myReview);
-				mv.addObject("reviewStatusList", reviewStatusList);
+				mv.addObject("myReviewStatus", myReviewStatus);
+				mv.addObject("reviewStatusChk", reviewStatusChk);
 				mv.setViewName("objet/objetDetail");
 			}else {
 				mv.addObject("myReview", myReview);
-				mv.addObject("reviewStatusList", reviewStatusList);
+				mv.addObject("myReviewStatus", myReviewStatus);
+				mv.addObject("reviewStatusChk", reviewStatusChk);
 				mv.setViewName("common/error");
 			}
 		}
@@ -249,24 +242,16 @@ public class ObjetController {
 			mv.addObject("reviewList", reviewList);
 			mv.addObject("likeobjetList", likeobjetList);
 			mv.addObject("resultValue", resultValue);
-			mv.addObject("revStatus", revStatus);
-			mv.addObject("revgood", revgood);
-			mv.addObject("revhate", revhate);
 			mv.setViewName("objet/objetDetail");
 		}else {
 			mv.addObject("objet", objet);
 			mv.addObject("reviewList", reviewList);
 			mv.addObject("likeobjetList", likeobjetList);
 			mv.addObject("resultValue", resultValue);
-			mv.addObject("revStatus", revStatus);
-			mv.addObject("revgood", revgood);
-			mv.addObject("revhate", revhate);
 			mv.setViewName("common/error");
 		}
 		
-		
 		return mv;
-		
 	}
 	
 	//오브제 전시 감상 뷰
@@ -344,10 +329,10 @@ public class ObjetController {
 			@RequestParam(value="userid") String userid, 
 			@RequestParam(value="revcontent") String revcontent, 
 			@RequestParam(value="revstars") int revstars, Model model) {
-		Review review = new Review(objetno, userid, revcontent, revstars);
+		Review review = new Review(userid, objetno, revcontent, revstars);
 		int result = objetService.insertReview(review);
 		String viewFileName = "objet/objetDetail";
-		if(result <= 0) { //신고 실패시
+		if(result <= 0) { 
 			model.addAttribute("message", "한줄평 등록 실패!");
 			viewFileName = "common/error";
 		}
@@ -355,15 +340,16 @@ public class ObjetController {
 	}
 	
 	//한줄평 수정
-	@RequestMapping(value="updateReview.do", method=RequestMethod.POST)
+	@RequestMapping(value="updateReview.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String updateReview(@RequestParam(value="userid") String userid, 
+			@RequestParam(value="objetno") int objetno,
 			@RequestParam(value="revcontent") String revcontent, 
 			@RequestParam(value="revstars") int revstars, 
 			Model model) {
-		ReviewUp review = new ReviewUp(userid, revcontent, revstars);
+		Review review = new Review(userid, objetno, revcontent, revstars);
 		int result = objetService.updateReview(review);
 		String viewFileName = "objet/objetDetail";
-		if(result <= 0) { //신고 실패시
+		if(result <= 0) { 
 			model.addAttribute("message", "한줄평 수정 실패!");
 			viewFileName = "common/error";
 		}
@@ -407,8 +393,6 @@ public class ObjetController {
 		}else if(result2 == 1) {
 			resultValue = "fail";
 		}
-		
-		
 		
 		PrintWriter out = response.getWriter();
 		out.append(resultValue);

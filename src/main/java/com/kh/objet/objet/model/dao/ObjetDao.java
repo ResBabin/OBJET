@@ -14,7 +14,6 @@ import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.objet.model.vo.Objet2;
 import com.kh.objet.objet.model.vo.ReviewKey;
-import com.kh.objet.objet.model.vo.ReviewUp;
 import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
 import com.kh.objet.review.model.vo.Review;
@@ -108,6 +107,10 @@ public class ObjetDao {
 		return mybatisSession.selectOne("objetMapper.selectReviewOne", rk);
 	}
 	
+	public Review selectReviewStatusOne(ReviewKey rk) {
+		return mybatisSession.selectOne("objetMapper.selectReviewStatusOne", rk);
+	}
+	
 	//한줄평 리스트 정렬
 	public ArrayList<Review> selectReviewOrder(ReviewKey rk) {
 		List<Review> list = mybatisSession.selectList("objetMapper.selectReviewOrder", rk);
@@ -120,7 +123,7 @@ public class ObjetDao {
 	}
 	
 	//한줄평 수정
-	public int updateReview(ReviewUp review) {
+	public int updateReview(Review review) {
 		return mybatisSession.update("objetMapper.updateReview", review);
 	}
 	
@@ -148,12 +151,6 @@ public class ObjetDao {
 	//관심오브제 카운트
 	public int selectLikeObjetOne(LikeObjet likeobjet) {
 		return mybatisSession.selectOne("objetMapper.selectLikeObjetOne", likeobjet);
-	}
-	
-	//한줄평 평가 리스트
-	public ArrayList<ReviewStatus> selectReivewStatus(ReviewStatus review) {
-		List<ReviewStatus> list = mybatisSession.selectList("objetMapper.selectReivewStatus", review);
-		return (ArrayList<ReviewStatus>)list;
 	}
 	
 	//한줄평 좋아요 체크
@@ -201,6 +198,11 @@ public class ObjetDao {
 	public int selectFollowingCnt(String userid) {
 		return mybatisSession.selectOne("objetMapper.selectFollowingCnt", userid);
 	}
+	
+	public List<ReviewStatus> selectReviewStatusChk(ReviewKey rk) {
+		return mybatisSession.selectList("objetMapper.selectReviewStatusChk", rk);
+	}
+	
 	
 	// 최민영
 	// 작가홈 오브제 리스트 보기
@@ -280,6 +282,10 @@ public class ObjetDao {
 	public int deleteObjet(int objetno) {
 		return mybatisSession.delete("objetMapper.deleteObjet", objetno);
 	}
+
+	
+
+	
 
 	
 

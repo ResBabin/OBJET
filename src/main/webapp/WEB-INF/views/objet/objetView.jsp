@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +11,7 @@
 <link rel="icon" href="resources/images/favicon-32x32.png">
 <title>Objet</title>
 <c:import url="../header.jsp" />
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
 <link rel='stylesheet' href='//fonts.googleapis.com/earlyaccess/kopubbatang.css'>
@@ -22,7 +25,8 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.3/dist/semantic.min.css">
 <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.3/dist/semantic.min.js"></script>
-<script src="https://kit.fontawesome.com/7759bae683.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/7759bae683.js" crossorigin="anonymous"></script> 
+<script src="resources/js/three.min.js"></script>
 <style type="text/css">
 html, body {
 	height: 100%;
@@ -101,7 +105,10 @@ html, body {
 }
 .profile_pic {
   border-radius: 50%;
+  width: 120px;
+  height:120px;
   max-width: 120px;
+  max-height:120px;
   border: 1px solid #eee;
 }
 .objet_profile {
@@ -345,8 +352,8 @@ $(function(){
 </div>
 <!-- 전시감상 모달 -->
 <div class="ui mini modal" id="vr_guideline_modal">
-<p style="font-size: 32px;padding-top:30px;color:black;text-align:center;font-weight: bold;font-family:'Nanum Gothic';">${objet.nickname }</p>
-<p style="font-size: 14px;text-align: center;font-family:'Nanum Gothic';font-weight: bolder;"><fmt:formatDate value="${objetSearch.objetstartdate }" />&nbsp;-&nbsp;<fmt:formatDate value="${objetSearch.objetenddate }" /></p>	
+<p style="font-size: 32px;padding-top:30px;color:black;text-align:center;font-weight: bold;font-family:'Nanum Gothic';">${objet.nickname }의 전시</p>
+<p style="font-size: 14px;text-align: center;font-family:'Nanum Gothic';font-weight: bolder;"><fmt:formatDate value="${objet.objetstartdate }" />&nbsp;-&nbsp;<fmt:formatDate value="${objet.objetenddate }" /></p>	
 <br><br>
 <div class="actions" style="align:center;">
     <div id="objet_btn" class="ui fluid black button" onClick="location.href =''" style="cursor: pointer;">
@@ -374,7 +381,13 @@ $(function(){
 <div class="objet_artist_info_top">
 <div class="objet_txt">
 	<span class="obj_name">${objet.nickname}</span><br><span class="obj_info1">${objet.userintros}</span><br>
-	<span class="obj_info2">${objet.userintrol}</span><br><br>
+	<c:if test="${fn:length(objet.userintrol) } < 40">
+	<span class="obj_info2">${objet.userintrol}</span>
+	</c:if>
+	<c:if test="${fn:length(objet.userintrol) } > 40">
+	<span class="obj_info2">${fn:substring(objet.userintrol,0,40)}...</span>
+	</c:if>
+	<br><br>
 	<span class="obj_txt">구독자</span><span class="obj_txt">관심작가</span><br>
 	<span class="obj_cnt">${followercnt }</span><span class="obj_cnt">${followingcnt }</span>
 </div>
@@ -415,6 +428,7 @@ $(function(){
 </div>
 <!-- <div class="vp_top" style="cursor:pointer;" onclick="location.href='#'">
 <a href="#"><img src="resources/images/objet/top.png" style="cursor:pointer; width:60%; height:auto;"></a></div> -->
+</div>
 </section>
 <c:import url="../footer.jsp" />
 </body>

@@ -23,9 +23,6 @@
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
  <link rel="stylesheet" href="resources/css/swiper.min.css">
  <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
- <!-- jquery UI -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
  <script type="text/javascript">
  
  // 내정보수정 완료 시 완료 메시지 표출용 코드 여기서부터 ---
@@ -748,6 +745,7 @@
          <c:forEach var="Artist" items="${searchMainList }" begin="0" end="4">
          <c:set var="noimg" value="resources/images/basicprofilepic.png" />
             <li class="search_art_list_1">
+            <input type="hidden" class="nickname" name="nickname" value=${Artist.nickname }>
             <a href="artistHomeMain.do?userid=${Artist.userid }&loginUser=${loginUser.userid}">
             <img id="search_art_list_img" class="ui small circular image" src="resources/users_upfiles/${Artist.userrpic }" onerror="this.src='${noimg }'"><br>
             <strong>${Artist.nickname }</strong>
@@ -773,7 +771,7 @@
 				</c:if>
 					<li class="objet_list_item">${suggest.objettitle }</li></a>
               </c:forEach>
-              <span class='txt_nodata'>검색 결과가 없습니다.</span>
+              <span class='txt_nodata_objet'>검색 결과가 없습니다.</span>
               </ul>
            </div>
         </div>
@@ -784,15 +782,12 @@
               <ul class="artist_list">
               	 <c:forEach var="Artist" items="${objetMainList }">
                  <li class="artist_list_item">
-				 <input type="hidden" class="usertag" name="usertag" value="${Artist.usertag }" />
-				 <input type="hidden" class="objettitle" name="objettitle" value="${Artist.objettitle }" />
-                 <input type="hidden" class="objetintro" name="objetintro" value="${Artist.objetintro }" />
-                 <a href="artistHomeMain.do?userid=${Artist.userid }&loginUser=${loginUser.userid}">
+                 <a href="artistHomeMain.do?userid=${Artist.userid }&loginUser=${loginUser.userid}" target="_blank">
                  <img id="artist_list_img" class="ui mini circular image" src="resources/users_upfiles/${Artist.userrpic }">
-                 <span>${Artist.nickname }</span></a>
+                 </a><a class="artist_txt">${Artist.nickname }</a>
                  </li>
                  </c:forEach>
-                 <span class='txt_nodata'>검색 결과가 없습니다.</span>
+                 <span class='txt_nodata_artist'>검색 결과가 없습니다.</span>
               </ul>
            </div>
         </div>
@@ -802,42 +797,51 @@
 </div>
 </section>
 <script type="text/javascript">
-
 $(function(){
 	$("#search-text").on("keyup", function(){
 		 var keyword = $("#search-text").val();
 		 var listValue = $(".objet_list_item").html();
 		 var usertag = $(".usertag").val();
-		 var objettitle = $(".objettitle").val();
-		 var objetintro = $(".objetintro").val();
+		 var nickname = $(".nickname").val();
 		 var iValue = listValue.indexOf(keyword);
-		 var uValue = usertag.indexOf(keyword);
-		 var otValue = objettitle.indexOf(keyword);
-		 var oiValue = objetintro.indexOf(keyword);
-		 if(iValue == -1) {
+		 var nValue = nickname.indexOf(keyword);
+		 if(iValue != -1 || nValue != -1) {
 			 $(".objet_list_item:contains('"+keyword+"')").slice(0, 5).fadeIn();
 			 $(".objet_list_item:contains('"+keyword+"')").each(function () {
 		        	var regex = new RegExp(keyword,'gi');
 		        $(this).html($(this).text().replace(regex, "<span>"+keyword+"</span>") );
 	    	});
-			 
-			 $(".txt_nodata ").hide();
-		 }if(uValue == -1 && otValue == -1){
-			 $(".artist_list_item").slice(0, 3).fadeIn(); 
-			 $(".txt_nodata ").hide();
-		 }else if(iValue != -1 && uValue != -1 && otValue != -1 ){
-			 $(".txt_nodata ").show();
+			 $(".artist_list_item").slice(0, 3).fadeIn();
+			 /* $(".artist_txt:contains('"+keyword+"')").each(function () {
+		        	var regex = new RegExp(keyword,'gi');
+		        $(this).html($(this).text().replace(regex, "<span>"+keyword+"</span>") );
+	    	}); */
+			 $(".txt_nodata_objet ").hide();
+			 $(".txt_nodata_artist ").hide();
+		 }if(iValue != -1 && nValue == -1){
+			 $(".objet_list_item:contains('"+keyword+"')").slice(0, 5).fadeIn();
+			 $(".objet_list_item:contains('"+keyword+"')").each(function () {
+		        	var regex = new RegExp(keyword,'gi');
+		        $(this).html($(this).text().replace(regex, "<span>"+keyword+"</span>") );
+	    	});
+			 $(".txt_nodata_objet ").hide();
+			 $(".txt_nodata_artist ").show();
+			 $(".artist_list_item").hide();
+		 }if(iValue == -1 && nValue != -1 ){
+			 $(".txt_nodata_objet ").show();
+			 $(".objet_list_item").hide();
+			 $(".artist_list_item").slice(0, 3).fadeIn();
+			 /* $(".artist_txt:contains('"+keyword+"')").each(function () {
+		        	var regex = new RegExp(keyword,'gi');
+		        $(this).html($(this).html().replace(regex, "<span>"+keyword+"</span>") );
+	    	}); */
+			 $(".txt_nodata_artist ").hide();
+		 }if(iValue == -1 && nValue == -1){
+			 $(".txt_nodata_objet ").show();
+			 $(".txt_nodata_artist ").show();
 			 $(".objet_list_item").hide();
 			 $(".artist_list_item").hide();
-		 }/* else if(uValue != -1 && otValue != -1){
-			 $(".txt_nodata ").show();
-			 $(".artist_list_item").hide();
-		 }else if(iValue != -1){
-			 $(".txt_nodata ").show();
-			 $(".objet_list_item").hide();
-		 } */
-		 /* $('.objet_list').transition('fade up').transition('fade up'); */
-		 
+		 }
 	});
 });
 </script>
