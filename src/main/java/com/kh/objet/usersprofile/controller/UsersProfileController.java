@@ -123,6 +123,7 @@ public class UsersProfileController {
 			
 			try {
 				if(file != null && file.getOriginalFilename() != "") {
+					
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 					String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
 					file.transferTo(new File(savePath + "\\" + renameFileName));
@@ -150,6 +151,12 @@ public class UsersProfileController {
 			}
 			
 			return vfn;
+		}
+		
+		
+		@RequestMapping("moveVRView.do")
+		public String moveVRView() {
+			return "objet/objetVRView";
 		}
 
 }

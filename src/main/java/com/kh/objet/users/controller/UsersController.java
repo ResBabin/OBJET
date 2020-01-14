@@ -1,4 +1,4 @@
- package com.kh.objet.users.controller;
+package com.kh.objet.users.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -290,7 +290,7 @@ public class UsersController {
 			if(session != null) {
 				session.invalidate();
 			}
-			return "main";
+			return "redirect:main.do";
 		}
 	
 	// 아이디 찾기 이동
@@ -569,6 +569,36 @@ public class UsersController {
 		}
 		
 	
+		
+		
+		
+		
+		
+	// footer 이동 컨트롤러 ===============================
+		
+		// 청소년보호정책
+		@RequestMapping("safeguard")
+		public String safeguard() {
+			return "common/safeguard";
+		}
+		
+		// 운영정책
+		@RequestMapping("oppolicy.do")
+		public String oppolicy() {
+			return "common/oppolicy";
+		}
+		
+		// 이용약관
+		@RequestMapping("terms.do")
+		public String terms() {
+			return "common/terms";
+		}
+		
+		// 개인정보처리방침
+		@RequestMapping("privacy.do")
+		public String privacy() {
+			return "common/privacy";
+		}
 		
 			
 }
