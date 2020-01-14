@@ -229,9 +229,8 @@ public class ObjetManagementController {
 	*/
 	@RequestMapping(value="insertlogindate", method=RequestMethod.POST)
 	public void insertLoginDate(HttpServletResponse response) throws IOException {
-		Date currenttime = new Date(System.currentTimeMillis());
 		//현재 년/월/일
-		if( usermService.selectLoginDate() == null ) {
+		if( usermService.selectLoginDate() == null ) { 
 			usermService.insertLoginCount();
 		}
 	}
@@ -243,7 +242,7 @@ public class ObjetManagementController {
 		int result = objetmService.updateRequestStatus(map);
 		String view = "";
 		if(result > 0) {
-			 view = "redirect:objetm.do";
+			 view = "redirect:objetreq.do";
 		}else {
 			model.addAttribute("message", "전시 승인/반려 오류");		
 			view = "common/error";
@@ -348,17 +347,22 @@ public class ObjetManagementController {
 	@RequestMapping("objetAllSearch.do")
 	public String objetAllSearch(Model model, @RequestParam("userid") String userid, @RequestParam("objettitle") String objettitle, @RequestParam("page") int page) {
 		Objet objetsearch = new Objet();
-		objetsearch.setUserid(userid);
-		objetsearch.setObjettitle(objettitle);
 		Map<String, String> map = new HashMap<>();
+		if(userid != "") {
+			map.put("userid", userid);
+		}
+		if(objettitle != "") {
+			map.put("objettitle", objettitle);
+		}
+		map.put("order", "nod");
 		int currentPage = 1;
 		if(page != 0) {
 			currentPage = page;
 		}
 		int limit = 10;  //한 페이지에 출력할 목록 갯수
-		int listCount = usermService.selectUserListCount();  //테이블의 전체 목록 갯수 조회
+		int listCount = objetmService.selectStatusOrderList(map);  //테이블의 전체 목록 갯수 조회
 		//총 페이지 수 계산
-		int maxPage = listCount / limit;
+		int maxPage = listCount / limit; 
 		if(listCount % limit > 0)
 			maxPage++;
 		
@@ -377,13 +381,19 @@ public class ObjetManagementController {
 		int endRow = currentPage * limit;
 		map.put("startRow", Integer.toString(startRow));
 		map.put("endRow", Integer.toString(endRow));
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("listCount", listCount);
+		model.addAttribute("maxPage", maxPage);
+		model.addAttribute("beginPage", beginPage);
+		model.addAttribute("endPage", endPage);
 		if(userid != "") {
-			map.put("userid", userid);
+			model.addAttribute("userid", userid);
 		}
 		if(objettitle != "") {
-			map.put("objettitle", objettitle);
+			model.addAttribute("objettitle", objettitle);
 		}
-		map.put("order", "nod");
+		model.addAttribute("endPage", endPage);
+		
 		ArrayList<Objet> searchlist = (ArrayList<Objet>) objetmService.selectStatusOrder(map);
 		model.addAttribute("objetmlist", searchlist);
 		return "admin/objetManagement";

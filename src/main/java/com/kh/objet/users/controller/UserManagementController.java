@@ -77,7 +77,6 @@ public class UserManagementController {
 			ulist.add(usermService.selectUser().get(i));
 		}*/
 		ArrayList<UserManagement> ulist = (ArrayList<UserManagement>) usermService.selectUser(map);
-		logger.debug(Integer.toString(ulist.get(9).getReportcount()));
 			model.addAttribute("ulist", ulist);
 			model.addAttribute("currentPage", currentPage);
 			model.addAttribute("listCount", listCount);

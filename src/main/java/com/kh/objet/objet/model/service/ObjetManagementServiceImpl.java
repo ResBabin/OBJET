@@ -60,4 +60,9 @@ public class ObjetManagementServiceImpl implements ObjetManagementService{
 		return objetmDao.selectObjetListCount();
 	}
 
+	@Override
+	public int selectStatusOrderList(Map<String, String> map) {
+		return objetmDao.selectStatusOrderList(map); 
+	}
+
 }

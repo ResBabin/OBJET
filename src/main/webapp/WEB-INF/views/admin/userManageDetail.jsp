@@ -88,9 +88,7 @@ tr {
 					<i class="massive user circle icon"></i>
 				</c:if>
 				<c:if test="${ usermd.blackyn eq 'N' and !empty usermd.userrpic }">
-					<img
-						src="${ pageContext.request.contextPath }/resources/users_upfiles/${ usermd.userrpic }"
-						width="200">
+					<img	src="${ pageContext.request.contextPath }/resources/users_upfiles/${ usermd.userrpic }" style="width: 300px; height: 300px; border-radius: 150px; object-fit: cover;">
 					<br>
 				</c:if>
 				<c:if test="${ usermd.blackyn eq 'Y' and empty usermd.userrpic }">

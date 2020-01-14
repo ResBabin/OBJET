@@ -57,7 +57,7 @@
 #heada1, #heada2, #heada3, #heada4, #heada5, #heada6, #heada7, #heada8, #heada9 {
 	text-align: center;
 }
-#logout:hover {
+#logout:hover, #login:hover{
 	color: red;
 }
 
@@ -123,6 +123,9 @@
 				<c:if test="${ !empty sessionScope.loginUser}">
 				 ${ sessionScope.loginUser.username }님&nbsp;&nbsp;&nbsp;&nbsp;
 				 <a href="logout.do" id="logout"> 로그아웃 </a>
+				 </c:if>
+				<c:if test="${ empty sessionScope.loginUser}">
+				 <a href="moveLogin.do" id="login"> 로그인 </a>
 				</c:if>
 		
 			</div>
