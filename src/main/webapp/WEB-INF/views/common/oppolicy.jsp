@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>서비스 운영정책</title>
 <c:import url="../header.jsp" />
-<c:import url="../headerSearch.jsp" />
 <!-- 시맨틱유아이 cdn -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>

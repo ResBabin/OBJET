@@ -307,6 +307,7 @@ function winOpen2(){
 
 <!-- 회원가입 페이지 끝 -->
 <br><br><br><br>
+
 </body>
 <c:import url="../footer.jsp" />
 </html>

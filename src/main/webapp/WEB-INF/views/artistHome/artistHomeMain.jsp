@@ -297,6 +297,7 @@ function deleteFollowing(){
 		<span>
 			<p class="profileText" style="font-size: 25px; color:#373737;">${usersProfile.nickname}</p>
 			<p class="profileText" style="font-size: 10pt; color:#aaa;">${usersProfile.userintros}</p>
+			<a href='moveVRView.do'>이동</a>
 			<br><br>
 		</span>
 		<c:if test="${usersProfile.blackyn == 'N' && usersProfile.quityn == 'N'}">

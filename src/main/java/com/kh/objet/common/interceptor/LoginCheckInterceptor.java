@@ -6,7 +6,10 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import com.kh.objet.users.model.vo.UAUP;
 
 public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 
@@ -15,12 +18,19 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		HttpSession session = request.getSession(false);
-		if(session != null) {
-			logger.debug("로그인 상태로 접근 : " + request.getRequestURI() + " 요청");
+		
+		if(request.getSession().getAttribute("loginUser") == null) {
+			response.sendRedirect("moveLogin.do");
+			return false;
 		}else {
-			logger.debug("비로그인 상태로 접근 : " + request.getRequestURI() + " 요청");
+			return true;
 		}
-		return super.preHandle(request, response, handler);	// 항상 true를 리턴
 	}
+	
+	
+	@Override
+	 public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+	   ModelAndView modelAndView) throws Exception {
+	  super.postHandle(request, response, handler, modelAndView);
+	 }
 }
