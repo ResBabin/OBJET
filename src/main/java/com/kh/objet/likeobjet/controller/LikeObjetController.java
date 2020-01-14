@@ -32,14 +32,14 @@ public class LikeObjetController {
 	// 최민영 *****************************************
 	// 오브제 관리 - 관심오브제 페이지 이동
 		@RequestMapping("moveMyLikeObjetList.do")
-		public String moveMyLikeObjetList(@RequestParam(value="userid") String userid, Paging paging) {
+		public String moveMyLikeObjetList(@RequestParam(value="userid", required=false) String userid, Paging paging) {
 			return "objet/myLikeObjetList";
 		}
 	
 
 	// 오브제 관리 - 관심오브제 삭제
 		@RequestMapping("deleteMyLikeObjetList.do")
-		public String deleteMyLikeObjetList(@RequestParam(value="objetno") int objetno, HttpServletResponse response) throws IOException {
+		public String deleteMyLikeObjetList(@RequestParam(value="objetno", required=false) int objetno, HttpServletResponse response) throws IOException {
 			int result = likeObjetService.deleteMyLikeObjetList(objetno);
 			
 			String returnValue = null;
