@@ -1,6 +1,7 @@
 package com.kh.objet.likeobjet.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -39,16 +40,15 @@ public class LikeObjetDao {
 		return mybatisSession.delete("", objetno);
 	}
 
-	// 오브제관리 - 관심오브제 검색용 리스트카운트
-	public int myLikeObjetSearchGetListCount(String objettitle, String userid, String objetstatus) {
-		// vo따로 만들어야 할듯
-		return 0;
-	}
 
 	// 오브제 관리 - 관심오브제 검색
-	public ArrayList<LikeObjet> selectMyLikeObjetSearch(String objettitle, String userid, String objetstatus, Paging paging) {
-		// vo따로 만들어야 할듯
-		return null;
+	public List<LikeObjet> selectMyLikeObjetSearch(HashMap<String, Object> map) {
+		return mybatisSession.selectList("objetMapper.selectMyLikeObjetSearch", map);
 	}
+	
+	public int listCount() {
+		return mybatisSession.selectOne("objetMapper.listCount");
+	}
+	
 
 }
