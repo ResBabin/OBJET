@@ -150,7 +150,7 @@ margin-bottom: 30px;
 	});
 </script>
 <body>
-<c:import url="../search.jsp" />
+<c:import url="../headerSearch.jsp" />
 <div class="group">
     <h1>FAQ</h1> 
  <div class="faq_more"><h4><a href="selectFaqList.do">´õº¸±â</a></h4></div>

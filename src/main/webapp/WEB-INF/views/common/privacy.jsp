@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>개인정보 처리방침</title>
 <c:import url="../header.jsp" />
-<c:import url="../headerSearch.jsp" />
 <!-- 시맨틱유아이 cdn -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

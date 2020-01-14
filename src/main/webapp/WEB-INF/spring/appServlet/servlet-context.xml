@@ -59,12 +59,31 @@
 			<mapping path="/**" />
 			<beans:bean id="loggerInterceptor" class="com.kh.objet.common.interceptor.LoggerInterceptor"/>
 		</interceptor>
+		
+		
 		<!-- 로그인 체크용 인터셉터 등록 -->
 		 <interceptor>
-			<mapping path="/artistHomeMain.do"/>
-			
+			<mapping path="/moveArtistIntroEdit.do"/>
+			<mapping path="/moveFollowerPage.do"/>
+			<mapping path="/moveFollowingPage.do"/>
+			<mapping path="/moveArtistGuestBook.do"/>
+			<mapping path="/moveReaffirmUserpwd.do"/>
+			<mapping path="/reaffirmUserpwd.do"/>
+			<mapping path="/reaffirmEmail.do"/>
+			<mapping path="/updateMyPage.do"/>
+			<mapping path="/moveQuitPage.do"/>
+			<mapping path="/updateQuitUser.do"/>
+			<mapping path="/moveProfileReport.do"/>
+			<mapping path="/insertUsersReport.do"/>
+			<mapping path="/moveMyObjetList.do"/>
+			<mapping path="/moveCreateObjet.do"/>
+			<mapping path="/moveMyLikeObjetList.do"/>
+			<mapping path="/moveMyVisitedObjetList.do"/>
+			<mapping path="/moveFeedList.do"/>
+
 			<!-- 스프링 3.2부터 exclude-mapping 앨리먼트 사용할 수 있음 -->
-			<!--  <exclude-mapping path="/board/blist.do"/>-->
+			<!-- <exclude-mapping path="/moveLogin.do"/> -->
+			
 			<beans:bean id="loginCheckInterceptor" class="com.kh.objet.common.interceptor.LoginCheckInterceptor"/>
 		</interceptor>
 	</interceptors>
