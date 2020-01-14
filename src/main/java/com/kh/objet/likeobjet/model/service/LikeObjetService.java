@@ -1,6 +1,8 @@
 package com.kh.objet.likeobjet.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import com.kh.objet.likeobjet.model.vo.LikeObjet;
 import com.kh.objet.paging.model.vo.Paging;
@@ -11,7 +13,7 @@ public interface LikeObjetService {
 	int myLikeObjetGetListCount(String userid);
 	ArrayList<LikeObjet>  moveMyLikeObjetList(String userid, Paging paging);
 	int deleteMyLikeObjetList(int objetno);
-	int myLikeObjetSearchGetListCount(String objettitle, String userid, String objetstatus);
-	ArrayList<LikeObjet> selectMyLikeObjetSearch(String objettitle, String userid, String objetstatus, Paging paging);
+	List<LikeObjet> selectMyLikeObjetSearch(HashMap<String, Object> map);
+	int listCount();
 
 }

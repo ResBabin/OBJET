@@ -253,7 +253,7 @@ public class ObjetDao {
 	}
 
 	//오브제 관리-내 오브제 검색
-	public List<Objet> selectMyObjetSearch(HashMap<String, Object> map) {
+	public List<Objet2> selectMyObjetSearch(HashMap<String, Object> map) {
 		//검색용 vo 새로 만들어야 할듯
 		return mybatisSession.selectList("objetMapper.selectMyObjetSearch", map);
 	}

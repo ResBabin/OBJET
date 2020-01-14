@@ -64,7 +64,7 @@ public interface ObjetService {
 	
 	// 박근수
 	ArrayList<Objet> moveMyObjetList(String userid, Paging paging);
-	List<Objet> selectMyObjetSearch(HashMap<String, Object> map);
+	List<Objet2> selectMyObjetSearch(HashMap<String, Object> map);
 	Objet moveMyObjetDetail(int objetno);
 	Objet moveEditObjet(int objetno);
 	int updateMyObjet(Objet objet);

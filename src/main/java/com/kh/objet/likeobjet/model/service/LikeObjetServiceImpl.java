@@ -1,6 +1,8 @@
 package com.kh.objet.likeobjet.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,16 +36,15 @@ public class LikeObjetServiceImpl implements LikeObjetService{
 		return likeObjetDao.deleteMyLikeObjetList(objetno);
 	}
 	
-	// 오브제관리 - 관심오브제 검색용 리스트카운트
-	@Override
-	public int myLikeObjetSearchGetListCount(String objettitle, String userid, String objetstatus) {
-		return likeObjetDao.myLikeObjetSearchGetListCount(objettitle, userid, objetstatus);
-	}
 	
 	// 오브제 관리 - 관심오브제 검색
 	@Override
-	public ArrayList<LikeObjet> selectMyLikeObjetSearch(String objettitle, String userid, String objetstatus, Paging paging) {
-		return likeObjetDao.selectMyLikeObjetSearch(objettitle, userid, objetstatus, paging);
+	public List<LikeObjet> selectMyLikeObjetSearch(HashMap<String, Object> map) {
+		return likeObjetDao.selectMyLikeObjetSearch(map);
+	}
+
+	public int listCount() {
+		return likeObjetDao.listCount();
 	}
 
 
