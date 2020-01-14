@@ -859,12 +859,7 @@ $(function(){
   <div class="swiper-wrapper wrapper1">
   <c:forEach var="objet" items="${ objetAllList}">
     <div class="swiper-slide slide1">
-       <c:if test="${empty loginUser}">
-			<a href="objetOne.do?objetno=${objet.objetno }">
-		</c:if>
-		<c:if test="${!empty loginUser}">
-			<a href="objetOne.do?objetno=${objet.objetno }&userid=${loginUser.userid}">
-	   </c:if>
+		<a href="objetOne.do?objetno=${objet.objetno }&userid=${loginUser.userid}">
       <div class="slide-inner inner1" style="background-image:url(resources/images/objet/${objet.renamemainposter })"></div>
       <%-- <div class="info"><span class="text">
       	<c:choose>
@@ -1001,7 +996,7 @@ $(function(){
      <div class="container">
       <div class="thecard">
          <div class="thefront"><br><br><br>
-         <img id="cardimg" src="resources/users_upfiles/${artistcard.userrpic }" width=35% height=25%>
+         <a href="artistHomeMain.do?userid=${artistcard.userid }&loginUser=${loginUser.userid}"><img id="cardimg" src="resources/users_upfiles/${artistcard.userrpic }" width=35% height=25%></a>
             <div class ="writername">${artistcard.nickname }</div><br>
             <div class ="writercoment">${artistcard.userintros }</div>
 			   <div class="tagboxes">
