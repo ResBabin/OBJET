@@ -9,7 +9,6 @@ import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.objet.model.vo.Objet2;
 import com.kh.objet.objet.model.vo.ReviewKey;
-import com.kh.objet.objet.model.vo.ReviewUp;
 import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
 import com.kh.objet.review.model.vo.Review;
@@ -27,15 +26,15 @@ public interface ObjetService {
 	Artist selectObjetOne(int objetno);
 	ArrayList<Review> selectReview(Review review);
 	Review selectReviewOne(ReviewKey rk);
+	Review selectReviewStatusOne(ReviewKey rk);
 	ArrayList<Review> selectReviewOrder(ReviewKey rk);
 	int insertReview(Review review);
-	int updateReview(ReviewUp review);
+	int updateReview(Review review);
 	int deleteReview(Review review);
 	int insertLikeObjet(LikeObjet likeobjet);
 	int deleteLikeObjet(LikeObjet likeobjet);
 	ArrayList<LikeObjet> selectLikeObjet(int objetno);
 	int selectLikeObjetOne(LikeObjet likeobjet);
-	ArrayList<ReviewStatus> selectReivewStatus(ReviewStatus review);
 	int selectRevGoodChk(ReviewStatus revstatus);
 	int selectRevHateChk(ReviewStatus revstatus);
 	int insertRevGood(ReviewStatus revstatus);
@@ -53,6 +52,8 @@ public interface ObjetService {
 	int selectFollowerCnt(String userid);
 	List<Objet> selectArtistObjetStatus(String userid);
 	int selectFollowingCnt(String userid);
+	List<ReviewStatus> selectReviewStatusChk(ReviewKey rk);
+	
 	
 	// 최민영
 	List<Objet2> selectArtistObjetList(String userid);
@@ -69,6 +70,8 @@ public interface ObjetService {
 	int updateMyObjet(Objet objet);
 	int insertObjet(Objet objet);
 	int deleteObjet(int objetno);
+	
+	
 	
 	
 

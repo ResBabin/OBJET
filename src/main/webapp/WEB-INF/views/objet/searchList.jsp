@@ -117,9 +117,6 @@ min-height:100%;
 	margin-left:200px;
 	margin-right:200px;
 }
-#search-objet {
-	
-}
 .object-result {
 	width:55%;
 }
@@ -305,6 +302,12 @@ min-height:100%;
 
 .artist-result {
 	width:70%;
+	height: 100%;
+}
+
+.artist-result-list {
+	padding: 0;
+	height: 100%;
 }
 
 .artist-result-list-detail{
@@ -394,6 +397,23 @@ min-height:100%;
 	margin:0;
 	text-align:center;
 }
+.empty_result {
+    color: #666;
+    font-size: 18px;
+    font-family: "Nanum Gothic", sans-serif;
+    margin-top: 110px;
+    width: 410px;
+} 
+.empty_result .txt_keyword {
+    color: #2185d0;
+    font-weight: bolder;
+}
+.empty_result .empty_desc {
+    color: #AAAAAA;
+    font-size: 13px;
+    margin-top: 10px;
+    list-style: none;
+}
 </style>
 <script type="text/javascript">
 $(function() {
@@ -408,14 +428,10 @@ $(function() {
         } 
       });
 	
-  $("#searchList-btn").on("click", function(){
-	  $("#searchList-text").show();
-	  $("#searchList-text").focus();
-	  $("#searchList-btn").css("color", "#959595");
-  });
-  
   //tab menu
   $("#search-menu #item").on("click", function(){
+	  $(".objet-result-list-detail").slice(0, 4).transition('fade up', '1300ms');
+	  $(".artist-result-list-detail").slice(0, 4).transition('fade up', '1300ms');
 	  var tab = $(this).attr("data-tab");
 	  $("#search-menu #item").removeClass("active");
 	  $(".tab").removeClass("active");
@@ -445,31 +461,51 @@ $(function() {
   	 });
   	
 	//오브제 더보기 버튼
-	$(".objet-result-list-detail").slice(0, 4).fadeIn(); // 최초 4개 선택
+	$(".objet-result-list-detail").slice(0, 4).transition('fade up', '1300ms'); // 최초 4개 선택
 	if($(".objet-result-list-detail:hidden").length != 0){
 		$("#more_load").show();
 		$("#more_load").click(function(e) { // Load More를 위한 클릭 이벤트e
 		    e.preventDefault();
-		    $(".objet-result-list-detail:hidden").slice(0, 4).fadeIn(); // 숨김 설정된 다음 4개를 선택하여 표시
+		    $(".objet-result-list-detail:hidden").slice(0, 4).transition('fade up', '1300ms'); // 숨김 설정된 다음 4개를 선택하여 표시
 		    if ($(".objet-result-list-detail:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
 		        $('#more_load').fadeOut();// 더 이상 로드할 항목이 없는 경우
 		    }
 		});
+	}if($(".objet-result-list-detail").length <= 2){
+		$("#more_load").hide();
 	}
 	
 	//아티스트 더보기 버튼
-	$(".artist-result-list-detail").slice(0, 2).fadeIn(); 
+	$(".artist-result-list-detail").slice(0, 4).transition('fade up', '1300ms');
 	if($(".artist-result-list-detail:hidden").length != 0){
 		$("#more_load2").show();
 		$("#more_load2").click(function(e) { 
 		    e.preventDefault();
-		    $(".artist-result-list-detail:hidden").slice(0, 2).fadeIn(); 
+		    $(".artist-result-list-detail:hidden").slice(0, 4).transition('fade up', '1300ms');
 		    $("#more_load2").css("margin-bottom", "10px");
 		    if ($(".artist-result-list-detail:hidden").length == 0) { 
 		        $('#more_load2').fadeOut();
+		        $(".artist-result").css("margin-bottom", "500px");
 		    }
 		});
+	}if($(".artist-result-list-detail").length <= 4){
+		$("#more_load2").hide();
 	}
+	
+	
+	//무한스크롤
+	/* var page = 1;
+	if ($("body").height() < $(window).height()) {
+        alert("출력할 데이터가 없습니다.");
+    }
+	$(window).scroll(function() {
+	    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+	      console.log(++page);
+	      $("#enters").append("<h1>Page " + page + );
+	      
+	    }
+	}); */
+	
 	
 	//검색어 키워드 하이라이트
 	 var keyword = $("#searchList-text").val();
@@ -507,10 +543,16 @@ $.fn.setCursorPosition = function( pos ){
 
 //폼 전송
 function search() {
+  $("#searchList-text").show();
+  $("#searchList-text").focus();
+  $("#searchList-btn").css("color", "#959595");
+  var color = $("#searchList-btn").css("color");
 	var form = document.forms["searchList-form"];
 	var keyword = $("#searchList-text").val();
+	if(color == 'rgb(149, 149, 149)'){
 	form.action =  "search.do?keyword="+keyword;
     form.submit();
+	}
 };
 function search2() {
 	var form = document.forms["search-form-main"];
@@ -538,7 +580,6 @@ window.onload = function(){
 <form id='searchList-form' target='_top' class="ui icon input">
 	  <input id='searchList-text' name="keyword" type="text" placeholder="검색어를 입력해주세요." 
 	  autocomplete="off" value="${keyword }"/>
-	  <!-- <input name="userid" type="hidden" value=""> -->
 	  <span id="searchList-btn" class="material-icons" onClick="search();">&#xe8b6;</span>
 </form>
 </div>
@@ -547,7 +588,6 @@ window.onload = function(){
 <form id='search-form-main' accept-charset="utf-8" class="ui massive icon input">
 	  <input id='search-text-main' name="keyword" type="text" placeholder="검색어를 입력해주세요." 
 	  maxlength="20" onfocus="this.value = this.value;" autocomplete="off" value="${keyword }" />
-	  <!-- <input type="hidden" value="article" name="type" id="hdn_search_type"> -->
 </form>
 </div>
 <!-- 검색결과 리스트 -->
@@ -557,6 +597,7 @@ window.onload = function(){
 </div>
 <div class="search-cont">
  	<div class="ui bottom attached tab active" id="search-objet" >
+ 		<c:if test="${!empty searchobjetList}">
  		<div class="object-result">
  			<div class="result-option" style="display:flex;margin-top: 15px;justify-content:space-between;">
             <span class="result-title">전시 검색 결과 <span class="title-cnt">${fn:length(searchobjetList)}건 </span></span>
@@ -579,7 +620,7 @@ window.onload = function(){
 			</div><br>
 			<div class="objet-result-list">
 			<ul class="objet-result-list-common">
-			<c:forEach var="objetSearch" items="${searchobjetList }">
+			<c:forEach var="objetSearch" items="${searchobjetList }" varStatus="status">
 				<li class="objet-result-list-detail">
 					<c:if test="${!empty loginUser }">
 					<a href="objetOne.do?objetno=${objetSearch.objetno}&userid=${loginUser.userid}" target="_blank">
@@ -618,8 +659,8 @@ window.onload = function(){
 								</span>
 						</div>
 						<div class="reply"> 
-							<span class="reply">관심</span> <b class="num_txt">${likeobjetcnt }</b> <span>·</span> 
-							<span class="reply">댓글</span> <b class="num_txt">${reviewcnt }</b> <span>·</span> 
+							<span class="reply">관심</span> <b class="num_txt">${likeobjetcntList[status.index] }</b> <span>·</span> 
+							<span class="reply">댓글</span> <b class="num_txt">${reviewcntList[status.index] }</b> <span>·</span> 
 							<%-- <span class="reply">
 							<fmt:formatDate value="${objetSearch.objetstartdate }" />&nbsp;-&nbsp;<fmt:formatDate value="${objetSearch.objetenddate }" />
 							</span> <span>·</span>  --%>
@@ -658,8 +699,20 @@ window.onload = function(){
             </div>
         </div>
     </div>
+    </c:if>
+    <c:if test="${empty searchobjetList}">
+    <div class="empty_result">
+        <span class="txt_keyword">${keyword }</span>에 대한 검색 결과가 없습니다.
+        <ul class="empty_desc">
+            <li>검색어의 단어 수를 줄이거나, 보다 일반적인 검색어로 다시 검색해 보세요.</li>
+            <li>두 단어 이상을 검색하신 경우, 정확하게 띄어쓰기를 한 후 검색해 보세요.</li>
+            <li>키워드에 있는 특수문자를 뺀 후에 검색해 보세요.</li>
+        </ul>
+	</div>
+    </c:if>
     </div>
     <div class="ui bottom attached tab" id="search-artist">
+    <c:if test="${!empty searchartistList}">
 		<div class="artist-result">
 			<div class="result-option" style="margin-top: 15px;">
 				<span class="result-title">작가 검색 결과 <span class="title-cnt">${fn:length(searchartistList)}건</span></span>
@@ -669,7 +722,7 @@ window.onload = function(){
 				<c:forEach var="artistSearch" items="${searchartistList }" varStatus="status">
 					<div class="artist-result-list-detail">
 						<div class="artist-result-info">
-							<a href="" class="artist-thumb"> 
+							<a href="artistHomeMain.do?userid=${artistSearch.userid }&loginUser=${loginUser.userid}" class="artist-thumb" target="_blank"> 
 							<img class="ui circular image" style="border: 1px solid #eee;" src="resources/users_upfiles/${artistSearch.userrpic }">
 							<c:if test="${objetstatus[status.index].objetstatus eq 'OPEN' }">
 							<div class="ui circular button" id="objet-status" style="margin:10px 0px 0px 21px;background:#df0000;color:#fff;">전시중</div>
@@ -681,7 +734,7 @@ window.onload = function(){
 							<div class="ui circular button" id="objet-status" style="margin:10px 0px 0px 14px;background:#AAA;color:#fff;width:65px;">전시종료</div>
 							</c:if>
 							</a> 
-							<a href="" class="artist-follow">
+							<a href="artistHomeMain.do?userid=${artistSearch.userid }&loginUser=${loginUser.userid}" class="artist-follow" target="_blank">
 							<strong class="artist-sub">${artistSearch.nickname }</strong>
 							<span class="artist-info">
 							<c:set var="length" value="${fn:length(artistSearch.userintrol)}"/>
@@ -694,7 +747,7 @@ window.onload = function(){
 							</span>
 							</a>
 							<div class="follow-info">
-								<span>전시 수 </span>${objetcnt } <span>·</span><span> 구독자 수 </span>${followercnt }
+								<span>전시 수 </span>${objetcntList[status.index] } <span>·</span><span> 구독자 수 </span>${followercntList[status.index]}
 							</div>
 						</div>
 						<div class="artist-keywords">
@@ -705,15 +758,28 @@ window.onload = function(){
 					</div>
 					</c:forEach>
 				</li></ul>
-			</div><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+			</div><br>
 			<center>
-			<div class="ui basic gray animated button" id="more_load2" style="display:none;" align="center" >
+			<div class="ui basic gray animated button" id="more_load2" style="display:none;" >
 			  <div class="visible content">더보기</div>
 			  <div class="hidden content">
-			    <i class="ui chevron down icon" style="font-size:16px;vertical-align:middle;text-align:center"></i>
+			    <i class="ui chevron down icon" style="font-size:16px;text-align:center"></i>
 			  </div>
-			</div></center><br><br><br><br><br>
-		</div>
+			</div>
+			</center>
+		</div><br><br><br>
+		<div id="more_load3"></div>
+		</c:if>
+		<c:if test="${empty searchartistList}">
+    	<div class="empty_result">
+        <span class="txt_keyword">${keyword }</span>에 대한 검색 결과가 없습니다.
+        <ul class="empty_desc">
+            <li>검색어의 단어 수를 줄이거나, 보다 일반적인 검색어로 다시 검색해 보세요.</li>
+            <li>두 단어 이상을 검색하신 경우, 정확하게 띄어쓰기를 한 후 검색해 보세요.</li>
+            <li>키워드에 있는 특수문자를 뺀 후에 검색해 보세요.</li>
+        </ul>
+	</div>
+    </c:if>
     </div>
  	</div> 
  	</section>

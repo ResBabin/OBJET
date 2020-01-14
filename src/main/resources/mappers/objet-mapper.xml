@@ -131,12 +131,12 @@ group by a.nickname, a.userid, b.userrpic, b.userintros, b.userintrol, b.usertag
  
   <!-- 검색 구독자수 카운트 -->
  <select id="selectFollowerCnt" resultType="int" parameterType="String">
- 	select count(*) from follower where from_user = #{from_user}
+ 	select count(*) from follower where To_user = #{To_user}
  </select>
  
    <!-- 관심작가수 카운트 -->
  <select id="selectFollowingCnt" resultType="int" parameterType="String">
- 	select count(*) from following where To_user = #{To_user}
+ 	select count(*) from following where From_user = #{From_user}
  </select>
  
  <!-- 한줄평 리스트  -->
@@ -168,14 +168,24 @@ group by a.nickname, a.userid, b.userrpic, b.userintros, b.userintrol, b.usertag
  
  <!-- 내 한줄평 -->
  <select id="selectReviewOne" parameterType="ReviewKey" resultType="Review">
- select a.revuserid, a.objetno, a.revcontent, a.revstars, a.revdate, b.userrpic, c.nickname, count(d.revgood) revgood, count(d.revhate) revhate
+ select a.revuserid, a.objetno, a.revcontent, a.revstars, a.revdate, b.userrpic, c.nickname
  from review a
  join usersprofile b on a.revuserid = b.userid
  join users c on a.revuserid = c.userid
- join reviewstatus d on a.revuserid = d.revuserid
- where a.revuserid = #{userid} and a.objetno = #{objetno}
- group by a.revuserid, a.objetno, a.revcontent, a.revstars, a.revdate, b.userrpic, c.nickname
- order by a.revdate desc
+where a.revuserid = #{userid} and a.objetno = #{objetno}
+ </select>
+ 
+ <!-- 내 한줄평 좋아요, 싫어요  -->
+ <select id="selectReviewStatusOne" parameterType="ReviewKey" resultType="Review">
+ select distinct sum(nvl(revgood, 0)) revgood, sum(nvl(revhate, 0)) revhate
+ from reviewstatus
+ where revuserid = #{userid} and objetno = #{objetno}
+ </select>
+ <!-- 한줄평 내 평가 체크  -->
+ <select id="selectReviewStatusChk" parameterType="ReviewKey" resultType="ReviewStatus">
+ select * from reviewstatus
+ where userid = #{userid} and objetno = #{objetno}
+  order by revuserid asc
  </select>
  
 <!-- 한줄평 등록 -->
@@ -184,7 +194,7 @@ group by a.nickname, a.userid, b.userrpic, b.userintros, b.userintrol, b.usertag
 </insert>
 
 <!-- 한줄평 수정 -->
-<update id="updateReview" parameterType="ReviewUp">
+<update id="updateReview" parameterType="Review">
 	update review set revcontent = #{revcontent}, revstars = #{revstars}, revdate = sysdate 
 	where revuserid = #{revuserid} and objetno = #{objetno}
 </update>
@@ -204,15 +214,6 @@ group by a.nickname, a.userid, b.userrpic, b.userintros, b.userintrol, b.usertag
  <select id="selectReviewReport" parameterType="ReportBoard" resultType="int">
  	select count(*) from reportboard
  	where originno = #{originno} and reportedb = #{reportedb} and reporterb = #{reporterb}
- </select>
- 
- <!-- 한줄평 평가 리스트 -->
- <select id="selectReivewStatus" parameterType="ReviewStatus" resultType="ReviewStatus">
-	select a.revuserid, a.objetno, a.revcontent, b.userid, b.revgood, b.revhate, a.revdate
-	from review a
-    join reviewstatus b on a.revuserid = b.revuserid
-	where userid = #{userid} and b.objetno = #{objetno} and a.objetno = #{objetno}
-	order by revdate desc
  </select>
  
  <!-- 한줄평 좋아요  체크 -->

@@ -13,7 +13,6 @@ import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.objet.model.vo.Objet2;
 import com.kh.objet.objet.model.vo.ReviewKey;
-import com.kh.objet.objet.model.vo.ReviewUp;
 import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
 import com.kh.objet.review.model.vo.Review;
@@ -110,6 +109,11 @@ public class ObjetServiceImpl implements ObjetService{
 		return objetDao.selectReviewOne(rk);
 	}
 	
+	@Override
+	public Review selectReviewStatusOne(ReviewKey rk) {
+		return objetDao.selectReviewStatusOne(rk);
+	}
+	
 	//한줄평 리스트 정렬
 	@Override
 	public ArrayList<Review> selectReviewOrder(ReviewKey rk) {
@@ -124,7 +128,7 @@ public class ObjetServiceImpl implements ObjetService{
 	
 	//한줄평 수정
 	@Override
-	public int updateReview(ReviewUp review) {
+	public int updateReview(Review review) {
 		return objetDao.updateReview(review);
 	}
 	
@@ -156,12 +160,6 @@ public class ObjetServiceImpl implements ObjetService{
 	@Override
 	public int selectLikeObjetOne(LikeObjet likeobjet) {
 		return objetDao.selectLikeObjetOne(likeobjet);
-	}
-	
-	//한줄평 평가 리스트
-	@Override
-	public ArrayList<ReviewStatus> selectReivewStatus(ReviewStatus review) {
-		return objetDao.selectReivewStatus(review);
 	}
 	
 	//한줄평 좋아요 체크
@@ -228,6 +226,11 @@ public class ObjetServiceImpl implements ObjetService{
 	@Override
 	public int selectFollowingCnt(String userid) {
 		return objetDao.selectFollowingCnt(userid);
+	}
+	
+	@Override
+	public List<ReviewStatus> selectReviewStatusChk(ReviewKey rk) {
+		return objetDao.selectReviewStatusChk(rk);
 	}
 	
 	// 최민영 *******************************************************
@@ -314,6 +317,8 @@ public class ObjetServiceImpl implements ObjetService{
 	public int deleteObjet(int objetno) {
 		return objetDao.deleteObjet(objetno);
 	}
+
+	
 	
 	
 
