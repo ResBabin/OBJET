@@ -63,7 +63,7 @@ $(function() {
 	  });
 	
 	$("#objetintro").click(function() {
-		$("#detailintro").toggle(200);
+		$("#detailintro").slideToggle(500);
 	});
 	
 	$("#approve").click(function() {
@@ -125,37 +125,38 @@ function UserInfoPopup() {
 </h3><br>
 <c:set var="imgurl" value="${ pageContext.request.contextPath }/resources/images/objet/" />
 <div style="display: flex; overflow: auto; height: 450px;" id="objetimages">
-  <div class="ui fluid image info" data-title="메인 포스터"><a class="ui left huge red corner label"><i class="info circle icon"></i></a></div>
+  <div class="ui fluid image info" data-title="메인 포스터"><a class="ui left big inverted black corner label"><i class="info circle icon"></i></a></div>
   <img src="${ imgurl }${objet.renamemainposter }" id="objetimg" draggable="false">
-  <div class="ui fluid image info" data-title="${ objet.objettitle1}" data-content="${ objet.objetintro1 }"><a class="ui left huge red corner label"><i class="info circle icon"></i></a></div>
+  <div class="ui fluid image info" data-title="${ objet.objettitle1}" data-content="${ objet.objetintro1 }"><a class="ui left big black corner label"><i class="info circle icon"></i></a></div>
   <img src="${ imgurl }${objet.objetrfile1 }" id="objetimg" draggable="false">
-  <div class="ui fluid image info" data-title="${ objet.objettitle2}" data-content="${ objet.objetintro2 }"><a class="ui left huge red corner label"><i class="info circle icon" ></i></a></div>
+  <div class="ui fluid image info" data-title="${ objet.objettitle2}" data-content="${ objet.objetintro2 }"><a class="ui left big black corner label"><i class="info circle icon" ></i></a></div>
 <img src="${ imgurl }${ objet.objetrfile2 }" id="objetimg" draggable="false">
-<div class="ui fluid image info" data-title="${ objet.objettitle3}" data-content="${ objet.objetintro3 }"><a class="ui left huge red corner label"><i class="info circle icon"></i></a></div>
+<div class="ui fluid image info" data-title="${ objet.objettitle3}" data-content="${ objet.objetintro3 }"><a class="ui left big black corner label"><i class="info circle icon"></i></a></div>
 <img src="${ imgurl }${ objet.objetrfile3 }" id="objetimg" draggable="false">
-<div class="ui fluid image info" data-title="${ objet.objettitle4}" data-content="${ objet.objetintro4 }"><a class="ui left huge red corner label"><i class="info circle icon"></i></a></div>
+<div class="ui fluid image info" data-title="${ objet.objettitle4}" data-content="${ objet.objetintro4 }"><a class="ui left big black corner label"><i class="info circle icon"></i></a></div>
 <img src="${ imgurl }${ objet.objetrfile4 }" id="objetimg" draggable="false">
-<div class="ui fluid image info" data-title="${ objet.objettitle5}" data-content="${ objet.objetintro5 }"><a class="ui left huge red corner label"><i class="info circle icon"></i></a></div>
+<div class="ui fluid image info" data-title="${ objet.objettitle5}" data-content="${ objet.objetintro5 }"><a class="ui left big black corner label"><i class="info circle icon"></i></a></div>
 <img src="${ imgurl }${ objet.objetrfile5 }" id="objetimg" draggable="false">
-<div class="ui fluid image info" data-title="${ objet.objettitle6}" data-content="${ objet.objetintro6 }"><a class="ui left huge red corner label"><i class="info circle icon"></i></a></div>
+<div class="ui fluid image info" data-title="${ objet.objettitle6}" data-content="${ objet.objetintro6 }"><a class="ui left big black corner label"><i class="info circle icon"></i></a></div>
 <img src="${ imgurl }${ objet.objetrfile6 }" id="objetimg" draggable="false">
-<div class="ui fluid image info" data-title="${ objet.objettitle7}" data-content=" ${ objet.objetintro7 }"><a class="ui left huge red corner label"><i class="info circle icon"></i></a></div>
+<div class="ui fluid image info" data-title="${ objet.objettitle7}" data-content=" ${ objet.objetintro7 }"><a class="ui left big black corner label"><i class="info circle icon"></i></a></div>
 <img src="${ imgurl }${ objet.objetrfile7 }" id="objetimg" draggable="false">
-<div class="ui fluid image info" data-title="${ objet.objettitle8}"  data-content="${ objet.objetintro8 }"><a class="ui left huge red corner label"><i class="info circle icon"></i></a></div>
+<div class="ui fluid image info" data-title="${ objet.objettitle8}"  data-content="${ objet.objetintro8 }"><a class="ui left big black corner label"><i class="info circle icon"></i></a></div>
 <img src="${ imgurl }${ objet.objetrfile8 }" id="objetimg" draggable="false">
 </div>
 <br>
 <div style="display: flex;">
 <div align="left" style="width: 200px;">
-<a href="objetm.do"><button class="ui big button"><i class="ui list icon"></i>목록</button></a>
+<a href="objetm.do"><button class="ui basic large black button"><i class="ui list icon"></i>목록</button></a>
 </div>
 <div  align="right" style="width: 100%;">
 <c:if test="${ objet.publicyn eq 'W' }">
-<button type="button" class="ui big violet button" id="approve" onclick="return false">승 &nbsp; &nbsp;  인</button>&nbsp;&nbsp;&nbsp;
-<button type="button" class="ui big secondary button" id="return">반 &nbsp; &nbsp;  려</button>
+<button type="button" class="ui large violet button" id="approve" onclick="return false">승 &nbsp; &nbsp;  인</button>&nbsp;&nbsp;&nbsp;
+<button type="button" class="ui large secondary button" id="return">반 &nbsp; &nbsp;  려</button>
 </c:if>
 <c:if test="${ objet.publicyn eq 'Y' }">
-<button type="button" class="ui big red button" id="stop" onclick="">강제 중지</button>
+<button type="button" class="ui large black button" id="stop" onclick=""
+style="">강제 중지</button>
 </c:if>
 </div>
 <form action="updateReqStatus.do" method="post" id="req">

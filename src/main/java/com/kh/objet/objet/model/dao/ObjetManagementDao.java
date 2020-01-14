@@ -43,5 +43,8 @@ public class ObjetManagementDao {
 	public int selectObjetListCount() {
 		return mybatisSession.selectOne("adminMapper.selectObjetListCount");
 	}
+	public int selectStatusOrderList(Map<String, String> map) {
+		return mybatisSession.selectOne("adminMapper.selectStatusOrderList", map);
+	}
 
 }

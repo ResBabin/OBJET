@@ -282,7 +282,7 @@ public class ObjetServiceImpl implements ObjetService{
 
 	//오브제 관리-내 오브제 검색
 	@Override
-	public List<Objet> selectMyObjetSearch(HashMap<String, Object> map) {
+	public List<Objet2> selectMyObjetSearch(HashMap<String, Object> map) {
 		return objetDao.selectMyObjetSearch(map);
 	}
 	

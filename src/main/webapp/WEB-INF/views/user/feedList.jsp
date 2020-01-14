@@ -69,12 +69,11 @@
 				</c:forEach>
 				</table>
 			</form>
-	</div>
-	<br><br>
+			<br><br><br>
 		<div align="center"><button class="ui medium grey basic button" id="moreFeedList">더 보기</button></div>
+	</div>
+	
 		
-
-<br><br><br><br><br>
 <c:import url="../footer.jsp" />
 </body>
 </html>

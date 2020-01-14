@@ -1,11 +1,14 @@
 package com.kh.objet.visitedobjet.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.objet.paging.model.vo.Paging;
+import com.kh.objet.qna.model.vo.Qna;
 import com.kh.objet.visitedobjet.model.dao.VisitedObjetDao;
 import com.kh.objet.visitedobjet.model.vo.VisitedObjet;
 
@@ -36,17 +39,21 @@ public class VisitedObjetServiceImpl implements VisitedObjetService {
 		return visitedObjetDao.deleteMyVisitedObjetList(objetno);
 	}
 	
-	// 오브제관리 - 다녀온 오브제 검색용 리스트 카운트
-	@Override
-	public int myVisitedObjetSearchGetListCount(String objettitle, String userid, String objetstatus) {
-		return visitedObjetDao.myVisitedObjetSearchGetListCount(objettitle, userid, objetstatus);
-	}
-	
 	
 	//오브제 관리 - 다녀온 오브제 검색
 	@Override
-	public ArrayList<VisitedObjet> selectMyVisitedObjetSearch(String objettitle, String userid, String objetstatus, Paging paging) {
-		return visitedObjetDao.selectMyVisitedObjetSearch(objettitle, userid, objetstatus, paging);
+	public List<VisitedObjet> selectMyVisitedObjetSearch(HashMap<String, Object> map) {
+		return visitedObjetDao.selectMyVisitedObjetSearch(map);
+	}
+
+	@Override
+	public int listCount() {
+		return visitedObjetDao.listCount();
+	}
+
+	@Override
+	public List<VisitedObjet> selectVisitedObjetList(HashMap<String, Object> map) {
+		return visitedObjetDao.selectVistiedObjetList(map);
 	}
 
 

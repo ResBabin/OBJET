@@ -49,7 +49,7 @@ $(function(){
 			success : function(result){
 				if(result == "ok"){
 					alert("등록이 완료되었습니다.");
-					window.location.reload();
+					location.reload();
 				}else{
 					alert("등록에 실패하였습니다.");
 					location.reload();

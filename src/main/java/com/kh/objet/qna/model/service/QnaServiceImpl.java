@@ -50,8 +50,7 @@ public class QnaServiceImpl implements QnaService {
 
 	@Override
 	public List<Qna> selectQnaListAdmin() {
-		// TODO Auto-generated method stub
-		return null;
+		return qnaDao.selectQnaListAdmin();
 	}
 
 	@Override

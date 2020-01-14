@@ -1,5 +1,6 @@
 package com.kh.objet.objet.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.objet.likeobjet.model.vo.LikeObjet;
@@ -627,7 +630,7 @@ public class ObjetController {
 			map.put("objetstatus", objetstatus);
 			map.put("objettitle", objettitle);
 			
-			List<Objet> objetList = objetService.selectMyObjetSearch(map);
+			List<Objet2> objetList = objetService.selectMyObjetSearch(map);
 			
 			//전송용 JSON 객체
 			JSONObject sendJson = new JSONObject();
@@ -636,7 +639,7 @@ public class ObjetController {
 			JSONArray jarr = new JSONArray();
 			
 			//list를 jarr 로 옮겨 저장 (복사)
-			for(Objet objet : objetList) {
+			for(Objet2 objet : objetList) {
 			JSONObject job = new JSONObject();
 			
 			job.put("objetno", objet.getObjetno());
@@ -668,7 +671,7 @@ public class ObjetController {
 			out.close();
 				
 			}
-			
+						
 			//오브제 관리 - 내 오브제 상세보기
 			@RequestMapping("moveMyObjetDetail.do")
 			public String moveMyObjetDetail(@RequestParam(value="objetno") int objetno, HttpServletRequest request, Model model) {
@@ -704,7 +707,30 @@ public class ObjetController {
 				
 			//오브제 관리 - 전시 등록
 			@RequestMapping(value="insertObjet.do", method=RequestMethod.POST)
-			public String insertObjet(Objet objet, HttpServletRequest request, Model model) {
+			public String insertObjet(Objet objet, HttpServletRequest request, Model model,
+					MultipartHttpServletRequest mtfRequest) {
+				String src = mtfRequest.getParameter("src");
+				System.out.println("src value : " + src);
+				MultipartFile mf = mtfRequest.getFile("file");
+				
+				String path = "../resources/objet_upfiles";
+				
+				String originFileName = mf.getOriginalFilename();
+				long fileSize = mf.getSize();
+				
+				System.out.println("originFileName : " + originFileName);
+				System.out.println("fileSize : " + fileSize);
+				
+				String safeFile = path + System.currentTimeMillis() + originFileName;
+				
+				try {
+					mf.transferTo(new File(safeFile));
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
 				int result = objetService.insertObjet(objet);
 				
 				String viewFileName = "createObjet";

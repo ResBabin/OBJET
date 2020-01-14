@@ -1,6 +1,8 @@
 package com.kh.objet.visitedobjet.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.visitedobjet.model.vo.VisitedObjet;
@@ -12,6 +14,7 @@ public interface VisitedObjetService {
 	int myVisitedObjetGetListCount(String userid);
 	ArrayList<VisitedObjet> moveMyVisitedObjetList(String userid, Paging paging);
 	int deleteMyVisitedObjetList(int objetno);
-	int myVisitedObjetSearchGetListCount(String objettitle, String userid, String objetstatus);
-	ArrayList<VisitedObjet> selectMyVisitedObjetSearch(String objettitle, String userid, String objetstatus, Paging paging);
+	List<VisitedObjet> selectMyVisitedObjetSearch(HashMap<String, Object> map);
+	int listCount();
+	List<VisitedObjet> selectVisitedObjetList(HashMap<String, Object> map);
 }

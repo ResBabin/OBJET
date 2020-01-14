@@ -22,7 +22,6 @@
 
 <script type="text/javascript">
 
-
 function artistObjetList(){
 	var userid = '<c:out value="${usersProfile.userid}"/>';
 	$.ajax({
@@ -34,32 +33,35 @@ function artistObjetList(){
 			var objStr = JSON.stringify(result);
 			var jsonObj = JSON.parse(objStr);
 			var start = '';
-
+			var end = '';
+			
 			for ( var i in jsonObj.objetlist) {
 				var tagl = decodeURIComponent(jsonObj.objetlist[i].objettag.replace(/\+/gi, " ")).length;
 				var tags = decodeURIComponent(jsonObj.objetlist[i].objettag.replace(/\+/gi, " ")).split(",");
 				var objettitle = decodeURIComponent(jsonObj.objetlist[i].objettitle.replace(/\+/gi, " "));
-				var loginUserId = '${loginUser.userid}';
+				var objetno = jsonObj.objetlist[i].objetno;
+				var userid = '${loginUser.userid}';
 				var tag = "";
-				start += '<table class="artisthomeObjetTable" style="display: none;"><tr style="height:23px;"><td style="width:85%;padding-top:30px;">';
-				start += '<div style="float: left;font-size: 15pt; font-weight:600; color:#202020;">'+ objettitle +'&ensp;</div>';
+			
+				start += '<table class="artisthomeObjetTable"><tr style="height:23px;"><td style="width:85%;padding-top:30px;">';
+				start += '<a style="float: left;font-size: 15pt; font-weight:600; color:#202020;" href="objetOne.do?objetno=' + objetno + '&userid=' + userid + '">'+ objettitle +'&ensp;</a>';
 				
 				if(jsonObj.objetlist[i].objetstatus=='OPEN'){
 					start += '<div class="objetStatusLabel" style="background:#df0000;">전시중</div></td>' + '<td rowspan="2" style="width:15%; text-align: center;padding-top:30px;">'
-					+ '<button class="ui tiny blue button" onclick="objetOne.do?objetno=' + jsonObj.objetlist[i].objetno + '&userid=' + loginUserId + '">전시관람</button></td></tr>';
+					+ '<a class="ui tiny blue button" href="objetOne.do?objetno=' + objetno + '&userid=' + userid + '">전시관람</a></td></tr>';
 				}else if(jsonObj.objetlist[i].objetstatus=='STANDBY'){
 					start += '<div class="objetStatusLabel" style="background:lightpink;">전시예정</div></td>' + '<td rowspan="2" style="width:15%; text-align: center;padding-top:30px;">'
-						+ '<button class="ui tiny blue button" disabled>전시예정</button></td></tr>';
+						+ '<a class="ui tiny blue button" disabled>전시예정</a></td></tr>';
 				}else if(jsonObj.objetlist[i].objetstatus=='CLOSE'){
 					start += '<div class="objetStatusLabel" style="background:#aaa;">전시종료</div></td>' + '<td rowspan="2" style="width:15%; text-align: center;padding-top:30px;">'
-					+ '<button class="ui tiny grey button">전시종료</button></td></tr>';
+					+ '<a class="ui tiny grey button">전시종료</a></td></tr>';
 				}
 				
 				start += '<tr style="height: 10px;"><td style="width:85%; font-size: 9pt;">' + jsonObj.objetlist[i].objetstartdate + ' ~ ' +  jsonObj.objetlist[i].objetenddate + '</td></tr>';
 				
 				start += '<tr><td colspan="2"><div class="artisthomeObjetListImg" style="background-image:url(\'resources/images/objet/' + jsonObj.objetlist[i].renamemainposter + '\') "></div></td></tr>';
 				
-				start += '<tr><td colspan="2"><div class="artisthomeObjetListIntro">' + decodeURIComponent(jsonObj.objetlist[i].objetintro.replace(/\+/gi, " ")) + '</div></td></tr>';
+				start += '<tr><td colspan="2"><div class="artisthomeObjetListIntro" href="objetOne.do?objetno=' + objetno + '&userid=' + userid + '">' + decodeURIComponent(jsonObj.objetlist[i].objetintro.replace(/\+/gi, " ")) + '</div></td></tr>';
 				
 			    start += '<td colspan="2"><div style="font-size: 9pt;">';
 			    
@@ -68,20 +70,29 @@ function artistObjetList(){
 			    start += '<tr><td colspan="2" class="artisthomeObjetTableLastTr">';
 				
 				 for(var i in tags){
-					start +='<a class="ui mini grey basic label">' + tags[i] + '</a> &nbsp;';
+					start +='<a class="ui mini grey basic label" href="search.do?keyword=' + tags[i] + '">' + tags[i] + '</a> &nbsp;';
 				 }
 				 
 			    start += '</td></tr></table>';
 			    
 			    
 			}
-			
 			$(".artisthomeObjetSection").html(start);
 			
-			var end = '<button class="ui grey basic button" style="width:200px;" id="moreObjetList">더 보기</button><br><br><br><br><br><br>';
+			
+			if(start != '' && start != null){
+		    	end = '<button class="ui grey basic button" style="width:200px;" id="moreObjetList">더 보기</button><br><br><br><br><br><br>';
+		    }else{
+		    	end = '<br><br><br><br><p>진행한 오브제가 없습니다<p><br><br><br><br><br><br><br>';
+		    }
+			
+			
+			
 			$("#objetListBottom").html(end);
 			
+			
 			$(".artisthomeObjetTable").slice(0, 3).fadeIn();
+			
 		    $("#moreObjetList").click(function(e) { 
 		          e.preventDefault();
 		          $(".artisthomeObjetTable:hidden").slice(0, 3).fadeIn(); 
@@ -89,6 +100,7 @@ function artistObjetList(){
 		              $('#moreObjetList').fadeOut();
 		          }
 		      });
+			
 		},
 		error : function(jqXHR, textStatus, errorThrown){
 			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
@@ -113,19 +125,21 @@ function objetSearch(){
 				var tagl = decodeURIComponent(jsonObj.objetlist[i].objettag.replace(/\+/gi, " ")).length;
 				var tags = decodeURIComponent(jsonObj.objetlist[i].objettag.replace(/\+/gi, " ")).split(",");
 				var objettitle = decodeURIComponent(jsonObj.objetlist[i].objettitle.replace(/\+/gi, " "));
+				var objetno = jsonObj.objetlist[i].objetno;
+				var userid = '${loginUser.userid}';
 				var tag = "";
 				start += '<table class="artisthomeObjetTable" style="display: none;"><tr style="height:23px;"><td style="width:85%;padding-top:30px;">';
-				start += '<div style="float: left;font-size: 15pt; font-weight:600; color:#202020;">'+ objettitle +'&ensp;</div>';
+				start += '<a style="float: left;font-size: 15pt; font-weight:600; color:#202020;" href="objetOne.do?objetno=' + objetno + '&userid=' + userid + '">'+ objettitle +'&ensp;</a>';
 				
 				if(jsonObj.objetlist[i].objetstatus=='OPEN'){
 					start += '<div class="objetStatusLabel" style="background:#df0000;">전시중</div></td>' + '<td rowspan="2" style="width:15%; text-align: center;padding-top:30px;">'
-					+ '<button class="ui tiny blue button" onclick="">전시관람</button></td></tr>';
+					+ '<a class="ui tiny blue button" href="objetOne.do?objetno=' + objetno + '&userid=' + userid + '">전시관람</a></td></tr>';
 				}else if(jsonObj.objetlist[i].objetstatus=='STANDBY'){
 					start += '<div class="objetStatusLabel" style="background:lightpink;">전시예정</div></td>' + '<td rowspan="2" style="width:15%; text-align: center;padding-top:30px;">'
-						+ '<button class="ui tiny blue button" disabled>전시예정</button></td></tr>';
+						+ '<a class="ui tiny blue button" disabled>전시예정</a></td></tr>';
 				}else if(jsonObj.objetlist[i].objetstatus=='CLOSE'){
 					start += '<div class="objetStatusLabel" style="background:#aaa;">전시종료</div></td>' + '<td rowspan="2" style="width:15%; text-align: center;padding-top:30px;">'
-					+ '<button class="ui tiny grey button">전시종료</button></td></tr>';
+					+ '<a class="ui tiny grey button">전시종료</a></td></tr>';
 				}
 				
 				start += '<tr style="height: 10px;"><td style="width:85%; font-size: 9pt;">' + jsonObj.objetlist[i].objetstartdate + ' ~ ' +  jsonObj.objetlist[i].objetenddate + '</td></tr>';
@@ -141,17 +155,20 @@ function objetSearch(){
 			    start += '<tr><td colspan="2" class="artisthomeObjetTableLastTr">';
 				
 				 for(var i in tags){
-					start +='<a class="ui mini grey basic label">' + tags[i] + '</a> &nbsp;';
+					start +='<a class="ui mini grey basic label" href="search.do?keyword=' + tags[i] + '">' + tags[i] + '</a> &nbsp;';
 				 }
 				 
 			    start += '</td></tr></table>';
-			    
-			    
 			}
 			
 			$(".artisthomeObjetSection").html(start);
 			
-			var end = '<button class="ui grey basic button" style="width:200px;" id="moreObjetList">더 보기</button><br><br><br><br><br><br>';
+			if(start != '' && start != null){
+		    	end = '<button class="ui grey basic button" style="width:200px;" id="moreObjetList">더 보기</button><br><br><br><br><br><br>';
+		    }else{
+		    	end = '<br><br><br><br><p>검색 결과가 없습니다.<p><br><br><br><br><br><br><br>';
+		    }
+			
 			$("#objetListBottom").html(end);
 			
 			$(".artisthomeObjetTable").slice(0, 3).fadeIn();
@@ -279,8 +296,6 @@ function deleteFollowing(){
 		<div class="profileTextSection">
 		<span>
 			<p class="profileText" style="font-size: 25px; color:#373737;">${usersProfile.nickname}</p>
-
-		
 			<p class="profileText" style="font-size: 10pt; color:#aaa;">${usersProfile.userintros}</p>
 			<br><br>
 		</span>

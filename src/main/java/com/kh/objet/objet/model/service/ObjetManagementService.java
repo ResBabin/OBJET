@@ -17,4 +17,5 @@ public interface ObjetManagementService {
 	public List<Objet> selectStatusOrder(Map<String, String> map);
 	public List<Objet> selectObjetSearch(Objet objetsearch);
 	public int selectObjetListCount();
+	public int selectStatusOrderList(Map<String, String> map);
 }

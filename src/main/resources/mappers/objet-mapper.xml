@@ -316,4 +316,11 @@ where a.revuserid = #{userid} and a.objetno = #{objetno}
  		delete from objet where objettitle = #{objettitle} and objetstatus = #{objetstatus} and objetstartdate = #{objetstartdate} and objetenddate = #{objetenddate} and publicyn = #{publicyn} and objetregidate = #{objetregidate}
  	</delete>
  	
+ 	<select id="selectVistiedObjetList" resultType="visitedobjet" parameterType="Hashmap">
+ 		select * from visitedobjet
+ 	</select>
+ 	
+ 	<select id="listCount" resultType="_int">
+ 		select count(*) from visitedobjet
+ 	</select>
 </mapper>
