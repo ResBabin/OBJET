@@ -248,17 +248,14 @@
 		
 		$("input[name=userid]").hide();
 		
-		$("#searchall").click(function() {
-		$("input[name=objettitle]").hide();
-		$("input[name=userid]").show();
-		
-		});
 		$("#searchid").click(function() {
 		$("input[name=objettitle]").hide();
+		$("input[name=objettitle]").val("");
 		$("input[name=userid]").show();
 		});
 		$("#searchtitle").click(function() {
 		$("input[name=userid]").hide();
+		$("input[name=userid]").val("");
 		$("input[name=objettitle]").show();
 		});
 	});
@@ -309,7 +306,7 @@
 					<div class="item" id="publicn">반려</div>
 					<div class="item" id="publicw">대기</div>
 				</div>
-			</div>
+			</div> 
 				<div class="ui pointing dropdown link item">
 				<span class="text">태그</span> <i class="dropdown icon"></i>
 				<div class="menu">
@@ -351,6 +348,17 @@
 				</tr>
 			</thead>
 			<tbody id="objettable">
+			<c:if test="${ empty objetmlist }">
+				<tr align="center" style="font-size: 13pt;"><td colspan="10" >
+				<c:if test="${ !empty objettitle }">
+				제목 &nbsp;"${ objettitle }"&nbsp; 에 해당하는 검색 결과가 없습니다.
+				</c:if>
+				<c:if test="${ !empty userid }">
+				아이디 &nbsp;"${ userid }"&nbsp; 에 해당하는 검색 결과가 없습니다.
+				</c:if>
+				</td></tr>
+			</c:if>
+			
 				<c:forEach items="${ objetmlist }" var="objetm">
 				<c:url value="objetmd.do" var="objetmd">
 					<c:param name="objetno" value="${ objetm.objetno }"/>

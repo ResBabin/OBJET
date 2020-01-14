@@ -56,5 +56,9 @@ public class QnaDao {
 	   public int updateQna(Qna qna) {
 	      return mybatisSession.update("csMapper.updateQna", qna);
 	   }
+
+	public List<Qna> selectQnaListAdmin() {
+		return mybatisSession.selectList("adminMapper.selectQnaList");
+	}
 	
 }

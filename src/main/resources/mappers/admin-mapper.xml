@@ -226,6 +226,25 @@
    		<if test="objettitle != null">and objettitle like '%'||#{ objettitle }||'%'</if>
    		<if test="userid != null">and userid like '%'||#{ userid }||'%'</if>
 	</select>
+	<select id="selectStatusOrderList" resultType="int" parameterType="map">
+		select count(*)  from objet 
+   		where 
+   		<if test="objetstatus != null">objetstatus = #{ objetstatus }</if>
+   		<if test="publicyn != null">publicyn = #{ publicyn }</if>
+   		<if test="objettag != null">objettag like '%'||#{ objettag }||'%'</if>
+   		<if test="objettitle != null">objettitle like '%'||#{ objettitle }||'%'</if>
+   		<if test="userid != null">userid like '%'||#{ userid }||'%'</if>
+   		<if test="order.equals('ida')">order by userid asc</if>
+		<if test="order.equals('idd')">order by userid desc</if>
+		<if test="order.equals('titlea')">order by objettitle asc</if>
+		<if test="order.equals('titled')">order by objettitle desc</if>
+		<if test="order.equals('noa')">order by objetno asc</if>
+		<if test="order.equals('nod')">order by objetno desc</if>
+		<if test="order.equals('regia')">order by objetregidate asc</if>
+		<if test="order.equals('regid')">order by objetregidate desc</if>
+		<if test="order.equals('starta')">order by objetstartdate asc, userid asc </if>
+		<if test="order.equals('startd')">order by objetstartdate desc, userid asc </if>
+	</select>
 	
 	<select id="selectObjetListCount" resultType="int">
 		select count(*)
@@ -452,7 +471,7 @@
 	insert into logincount values (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, to_char(sysdate, 'yy/MM/dd'))
 	</insert>
 	<select id="selectLoginDate" resultType="string">
-	select logindate from logincount where logindate = to_char(sysdate, 'yy/MM/dd')
+	select logindate from logincount where logindate like to_char(sysdate, 'yy/MM/dd')
 	</select>
 	<!-- 회원가입 카운트 -->
 	<select id="selectEnrollCount" resultType="Users">
