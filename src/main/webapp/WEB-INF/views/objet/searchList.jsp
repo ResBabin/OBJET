@@ -461,7 +461,7 @@ $(function() {
   	 });
   	
 	//오브제 더보기 버튼
-	$(".objet-result-list-detail").slice(0, 4).transition('fade up', '1300ms'); // 최초 4개 선택
+	$(".objet-result-list-detail").slice(0, 4).fadeIn(); // 최초 4개 선택
 	if($(".objet-result-list-detail:hidden").length != 0){
 		$("#more_load").show();
 		$("#more_load").click(function(e) { // Load More를 위한 클릭 이벤트e
@@ -476,7 +476,7 @@ $(function() {
 	}
 	
 	//아티스트 더보기 버튼
-	$(".artist-result-list-detail").slice(0, 4).transition('fade up', '1300ms');
+	$(".artist-result-list-detail").slice(0, 4).fadeIn();
 	if($(".artist-result-list-detail:hidden").length != 0){
 		$("#more_load2").show();
 		$("#more_load2").click(function(e) { 
