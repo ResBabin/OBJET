@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kh.objet.likeobjet.model.service.LikeObjetServiceImpl;
 import com.kh.objet.likeobjet.model.vo.LikeObjet;
 import com.kh.objet.paging.model.vo.Paging;
+import com.kh.objet.visitedobjet.model.vo.VisitedObjet;
 
 @Controller
 public class LikeObjetController {
@@ -60,7 +63,8 @@ public class LikeObjetController {
 	// 오브제 관리 - 관심오브제 검색
 		@RequestMapping("selectMyLikeObjetSearch.do")
 		public String selectMyLikeObjetSearch(@RequestParam(name="page", required=false) String page, @RequestParam(value="objettitle") String objettitle, 
-				@RequestParam(value="userid") String userid, @RequestParam(value="objetstatus") String objetstatus, Model model)  {
+				@RequestParam(value="userid") String userid, @RequestParam(value="objetstatus") String objetstatus, @RequestParam(value="keyword") String keyword, 
+				HttpServletResponse response, Model model) throws IOException  {
 			logger.info("page : " + page);
 		    int currentPage = 1;
 		    if(page !=null) {
@@ -68,7 +72,7 @@ public class LikeObjetController {
 		     }
 		    //페이징
 	            int limit = 10;
-	            int listCount = likeObjetService.listCount(); // 총 목록 갯수
+	            int listCount = likeObjetService.listCountK(); // 총 목록 갯수
 	            
 	            logger.info("listCount : " + listCount + ", currentPage : " + currentPage);
 	       
@@ -108,11 +112,57 @@ public class LikeObjetController {
 	               model.addAttribute("limit",limit);
 	               model.addAttribute("page", page);
 	               
-	               model.addAttribute("user/myQnaList");
+	               model.addAttribute("objet/myLikeObjetList.jsp");
 	            } else {
 	               model.addAttribute("message", currentPage + "페이지 목록 조회 실패");
 	               model.addAttribute("common/error");
 	            }
+	            
+	            if(list != null && list.size() > 0) {
+	                model.addAttribute("list",list);    //전체리스트
+	                model.addAttribute("listCount",listCount);  //리스트 전체 갯수
+	                model.addAttribute("maxPage",maxPage);
+	                model.addAttribute("currentPage",currentPage);
+	                model.addAttribute("startPage",startPage);
+	                model.addAttribute("endPage",endPage);
+	                model.addAttribute("limit",limit);
+	                model.addAttribute("page", page);
+	                
+	                model.addAttribute("user/myQnaList");
+	             } else {
+	                model.addAttribute("message", currentPage + "페이지 목록 조회 실패");
+	                model.addAttribute("common/error");
+	             }
+	             
+
+	     		map.put("userid", userid); // 대상 아티스트 아이디
+	     		map.put("objettitle", keyword);
+	     		
+	     		
+	     		//전송용 json 객체
+	     		JSONObject sendJson = new JSONObject();
+	     		//json 배열 객체
+	     		JSONArray jarr = new JSONArray();
+	     		//list를 jarr 로 옮겨 저장 (복사)
+	     		for(LikeObjet LKobjet : list) {
+	     		JSONObject job = new JSONObject();
+	     		
+	     		job.put("objetno", LKobjet.getObjetno());
+	     		job.put("userid", LKobjet.getUserid());
+	     		job.put("likedate", LKobjet.getLikedate().toString());
+	     		
+	     		jarr.add(job);
+	     		}
+
+	     		sendJson.put("objetlist", jarr);
+	     		
+	     		logger.debug(jarr.toJSONString());
+	     		
+	     		response.setContentType("application/jsonl charset=utf-8");
+	     		PrintWriter out = response.getWriter();
+	     		out.println(sendJson.toJSONString());
+	     		out.flush();
+	     		out.close();
 			
 			return "objet/myLikeObjetList";
 		}

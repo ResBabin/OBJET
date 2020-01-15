@@ -8,6 +8,7 @@ import com.kh.objet.likeobjet.model.vo.LikeObjet;
 import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.objet.model.vo.Objet2;
+import com.kh.objet.objet.model.vo.Objet3;
 import com.kh.objet.objet.model.vo.ReviewKey;
 import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
@@ -65,10 +66,10 @@ public interface ObjetService {
 	// 박근수
 	ArrayList<Objet> moveMyObjetList(String userid, Paging paging);
 	List<Objet2> selectMyObjetSearch(HashMap<String, Object> map);
-	Objet moveMyObjetDetail(int objetno);
+	Objet moveMyObjetDetail(String objettitle);
 	Objet moveEditObjet(int objetno);
 	int updateMyObjet(Objet objet);
-	int insertObjet(Objet objet);
+	int insertObjet(Objet3 objet3);
 	int deleteObjet(int objetno);
 	
 	

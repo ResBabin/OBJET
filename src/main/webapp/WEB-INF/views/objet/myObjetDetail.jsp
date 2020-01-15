@@ -16,10 +16,26 @@
 
 <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
+function delete(){
+	var result = '${result}';
+	
+	if(result === 'registerOK'){
+		$('#registerOK').removeClass('hidden');
+		$('#registerOK').fadeOut(2000);
+	}
+	if(result === 'removeOK'){
+		$('#removeOK').removeClass('hidden');
+		$('#removeOk').fadeOut(2000);
+	}
+}
 </script>
 
 </head>
 <body>
+
+//오브제 등록시 "등록되었습니다" 문구 또는 삭제 시 "삭제되었습니다" 문구 보이게 하는 구문
+<div id="registerOK" class="alert alert-info hidden" role="alert">오브제가 등록되었습니다.</div>
+<div id="removeOk" class="alert alert-info hidden" role="alert">오브제가 삭제되었습니다.</div>
 
 <!-- 오브제 등록 페이지 시작 -->
 	<div class="wrapCreateObjet">
@@ -30,25 +46,25 @@
 		<div align="center">
 			<table class="createObjetTable">
 				<tr style="height:60px;">
-					<th>전시상태</th>
+					<th>${request.objet.objetstatus }전시상태</th>
 					<td><p class="detailText">예정</p>
 					</td>
 				</tr>
 				
 				<tr style="height:60px;">
-					<th>승인여부</th>
+					<th>${objet.publicyn }승인여부</th>
 					<td><p class="detailText">승인(반려시 사유 노출)</p>
 					</td>
 				</tr>
 				
 				<tr>
-					<th>오브제명</th>
+					<th>${objet.objettitle }오브제명</th>
 					<td><p class="detailText">애니매이션의 확장</p>
 					</td>
 				</tr>
 				
 				<tr>
-					<th style="vertical-align: top;padding-top: 10px;">오브제 소개</th>
+					<th style="vertical-align: top;padding-top: 10px;">${objet.objetintro }오브제 소개</th>
 					<td><div class="detailTextBox">
 						각기 상이하지만, 동시대 뉴 미디어 기술을 바탕으로 새로운 형식의 예술 장르를 탐구하고자하는 진취적 시도라는 점에서 함께 묶어낼 수 있다. 
 						우리가 함께 살고있는 디지털 환경 속에애니메이션이라는 장르가 유연하게 녹아들 수 있도록 그 개념을 확장하고, 현대미술 분야서 애니메이션의 예술적인 어쩌구다.</div>
@@ -56,18 +72,18 @@
 				</tr>
 				
 				<tr>
-					<th style="vertical-align: top;padding-top: 10px;">오브제 포스터</th>
+					<th style="vertical-align: top;padding-top: 10px;">${objet.objetrenamemainposter }오브제 포스터</th>
 					<td><img class="objetposter" id="objetposter" src="resources/objet_upfiles/animation.jpg">
 					</td>
 				</tr>
 				
 				<tr>
-					<th>오브제 기간</th>
+					<th>${objet.objetstartdate }${objet.objetenddate }오브제 기간</th>
 					<td><p class="detailText">2019.12.02  -  2019.12.24</p></td>
 				</tr>
 				
 				<tr>
-					<th>관련태그</th>
+					<th>${objet.objettag }관련태그</th>
 					<td>
 						<a class="ui small grey basic label">디자인</a>
 						<a class="ui small grey basic label">건축</a>
@@ -96,10 +112,10 @@
 			            
 			            <td style="width:75%;">
 			            	<a class="ui teal circular label">작품명</a><br>
-			            		<div class="myobjettitle">마당을 나온 암탉</div>
+			            		<div class="myobjettitle">${objet.objettitle }마당을 나온 암탉</div>
 			            	<br>
 			            	<a class="ui teal circular label">작품소개</a><br>
-			            		<div class="myobjetintro">제가 고등학교때였나요 이게 개봉했던 거 같은데 
+			            		<div class="myobjetintro">${objet.objetintro }제가 고등학교때였나요 이게 개봉했던 거 같은데 
 														친구가 그렇게 보러가자고 했거든여 제가 고등학교때였나요 이게 개봉했던 거 같은데 
 														친구가 그렇게 보러가자고 했거든여 제가 고등학교때였나요 이게 개봉했던 거 같은데 
 														친구가 그렇게 보러가자고 했거든여 제가 고등학교때였나요 이게 개봉했던 거 같은데 
@@ -118,7 +134,7 @@
 			<!-- 신청버튼 -->
 				<div align="center">
 					<input type="button" class="ui green button" value="전시수정" onclick="location.href='moveEditObjet.do'"> &nbsp;
-					<input type="button" class="ui button" value="전시삭제" onclick="">
+					<input type="button" class="ui button" value="전시삭제" onclick="delete();">
 				</div>
 				<br><br>
 				<div style="color:#bb0004; font-size:9pt;line-height: 13pt;">

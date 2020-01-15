@@ -175,7 +175,59 @@ public class Objet implements Serializable{
 		this.objetofile8 = objetofile8;
 		this.objetrfile8 = objetrfile8;
 	}
-
+	
+	public Objet(int objetno, String userid, String objettitle, String objetintro, String originmainposter, String renamemainposter, Date objetstartdate, Date objetenddate,
+			String objettag, String objettitle1, String objetintro1,
+			String objetofile1, String objetrfile1, String objettitle2, String objetintro2, String objetofile2,
+			String objetrfile2, String objettitle3, String objetintro3, String objetofile3, String objetrfile3,
+			String objettitle4, String objetintro4, String objetofile4, String objetrfile4, String objettitle5,
+			String objetintro5, String objetofile5, String objetrfile5, String objettitle6, String objetintro6,
+			String objetofile6, String objetrfile6, String objettitle7, String objetintro7, String objetofile7,
+			String objetrfile7, String objettitle8, String objetintro8, String objetofile8, String objetrfile8) {
+		super();
+		this.objetno = objetno;
+		this.userid = userid;
+		this.objettitle = objettitle;
+		this.objetintro = objetintro;
+		this.originmainposter = originmainposter;
+		this.renamemainposter = renamemainposter;
+		this.objetstartdate = objetstartdate;
+		this.objetenddate = objetenddate;
+		this.objettag = objettag;
+		this.objettitle1 = objettitle1;
+		this.objetintro1 = objetintro1;
+		this.objetofile1 = objetofile1;
+		this.objetrfile1 = objetrfile1;
+		this.objettitle2 = objettitle2;
+		this.objetintro2 = objetintro2;
+		this.objetofile2 = objetofile2;
+		this.objetrfile2 = objetrfile2;
+		this.objettitle3 = objettitle3;
+		this.objetintro3 = objetintro3;
+		this.objetofile3 = objetofile3;
+		this.objetrfile3 = objetrfile3;
+		this.objettitle4 = objettitle4;
+		this.objetintro4 = objetintro4;
+		this.objetofile4 = objetofile4;
+		this.objetrfile4 = objetrfile4;
+		this.objettitle5 = objettitle5;
+		this.objetintro5 = objetintro5;
+		this.objetofile5 = objetofile5;
+		this.objetrfile5 = objetrfile5;
+		this.objettitle6 = objettitle6;
+		this.objetintro6 = objetintro6;
+		this.objetofile6 = objetofile6;
+		this.objetrfile6 = objetrfile6;
+		this.objettitle7 = objettitle7;
+		this.objetintro7 = objetintro7;
+		this.objetofile7 = objetofile7;
+		this.objetrfile7 = objetrfile7;
+		this.objettitle8 = objettitle8;
+		this.objetintro8 = objetintro8;
+		this.objetofile8 = objetofile8;
+		this.objetrfile8 = objetrfile8;
+	}
+	
 	public int getObjetno() {
 		return objetno;
 	}

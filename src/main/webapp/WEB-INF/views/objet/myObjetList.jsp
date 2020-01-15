@@ -49,19 +49,19 @@ $(function(){
 	<div align="center">
 		<div class="objetSearchBox" style="height: 180px;">
 		<form action="" method="post">
-			<a class="ui large teal label">승인여부</a>&ensp;
+			<a class="ui large teal label">${request.objet.publicyn }승인여부</a>&ensp;
 				<input type="radio" name="publicyn" value="ALL" checked="checked"><label>&ensp;전체</label>&emsp;&emsp;
 				<input type="radio" name="publicyn" value="Y"><label>&ensp;승인</label>&emsp;&emsp;
 				<input type="radio" name="publicyn" value="N"><label>&ensp;반려</label>&emsp;&emsp;
 		<br><br>
-			<a class="ui large teal label">전시상태</a>&ensp;
+			<a class="ui large teal label">${objet.objetstatus }전시상태</a>&ensp;
 				<input type="radio" name="objetstatus" value="ALL" checked="checked"><label>&ensp;전체</label>&emsp;&emsp;
 				<input type="radio" name="objetstatus" value="OPEN"><label>&ensp;전시중</label>&emsp;&emsp;
 				<input type="radio" name="objetstatus" value="STANDBY"><label>&ensp;예정</label>&emsp;&emsp;
 				<input type="radio" name="objetstatus" value="CLOSE"><label>&ensp;종료</label>&emsp;&emsp;
 				<input type="radio" name="objetstatus" value="WAIT"><label>&ensp;승인대기</label>
 		<br><br>
-			<a class="ui large teal label">오브제명</a>&ensp;
+			<a class="ui large teal label">${objet.objettitle }오브제명</a>&ensp;
 				<div class="ui input"><input type="text" name="objettitle" style="width:300px; height:35px;"></div>&ensp;
 				<div class="ui buttons"><button class="ui small grey button" type="submit">검색</button></div>
 		</form>
@@ -79,19 +79,19 @@ $(function(){
 		<table class="searchListTable">
 			<tr style="height: 30px;">
 				<th width="2%"><input type="checkbox" class="chk" id="allCheck"/></th>
-				<th width="45%">오브제명</th>
-				<th width="8%">전시상태</th>
+				<th width="45%">${objet.objettitle }오브제명</th>
+				<th width="8%">${objet.objetstatus }전시상태</th>
 				<th width="17%">전시기간</th>
-				<th width="8%">승인여부</th>
-				<th width="10%">등록일</th>
+				<th width="8%">${objet.publicyn }승인여부</th>
+				<th width="10%">${objet.objetregidate }등록일</th>
 			</tr>
 			<tr>
 				<td><input type="checkbox" class="chk" name="RowCheck" value=""></td>
-				<td><p style="font-size:10pt;"onclick="location.href='moveMyObjetDetail.do'">애니매이션의 확장</p></td>
-				<td>진행중</td>
-				<td>19.12.02 - 19.12.24</td>
-				<td>승인</td>
-				<td>19.11.16</td>
+				<td><p style="font-size:10pt;"onclick="location.href='moveMyObjetDetail.do?objettitle=${objet.objettitle}'">애니매이션의 확장</p></td>
+				<td>${objet.objetstatus }진행중</td>
+				<td>${objet.objetstartdate }19.12.02 - ${objet.objetenddate }19.12.24</td>
+				<td>${objet.publicyn }승인</td>
+				<td>${objet.objetregidate }19.11.16</td>
 			</tr>
 		</table>
 	</div>

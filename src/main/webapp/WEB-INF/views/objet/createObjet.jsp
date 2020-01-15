@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>오브제 등록</title>
 <c:import url="../header.jsp" />
 <!-- 시맨틱유아이 cdn -->
@@ -181,39 +181,39 @@ function count_ck(obj){
 		<p style="font-size: 20pt; padding-top:50px; color:#373737; text-align:center;">오브제 등록</p>
 		
 		<!-- 등록 테이블 시작 -->
-		<form action="" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="userid" value="">
+		<form action="insertObjet.do" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="userid" value="${loginUser.userid }">
 		<div align="center">
 			<table class="createObjetTable">
 				<tr>
-					<th>오브제명</th>
+					<th>${objet3.objettitle }오브제명</th>
 					<td><div class="ui input"><input type="text" name="objettitle" id="objettitle" placeholder="전시회 제목을 입력해주세요." required style="width:300px; height:30px;"></div>
 						<span style="color:#aaa; font-size:9pt;" id="counter1">( <span style="color:#4ecdc4;font-size:9pt;">0</span> / 최대 30자 )</span>
 					</td>
 				</tr>
 				
 				<tr>
-					<th style="vertical-align: top;padding-top: 10px;">오브제 소개</th>
+					<th style="vertical-align: top;padding-top: 10px;">${objet3.objetintro }오브제 소개</th>
 					<td><div class="ui form"><div class="field"><textarea name="objetintro" id="objetintro" style="font-size: 9pt;width:600px;" placeholder="내용을 입력해주세요."></textarea></div></div>
 						<span style="color:#aaa; font-size:9pt;" id="counter2">( <span style="color:#4ecdc4;font-size:9pt;">0</span> / 최대 500자 )</span>
 					</td>
 				</tr>
 				
 				<tr>
-					<th style="vertical-align: top;padding-top: 10px;">오브제 포스터</th>
+					<th style="vertical-align: top;padding-top: 10px;">${objet3.originmainposter }오브제 포스터</th>
 					<td><img class="objetposter" id="objetposter" src="resources/images/objet/originposter.jpg">
-						<input type="file" name="originmainposter" id="originmainposter" accept=".jpg,.jpeg,.png" onChange="preview(this, $('#objetposter'));" style="display:none;">
+						<input type="file" name="file" id="originmainposter" accept=".jpg,.jpeg,.png" onChange="preview(this, $('#objetposter'));" style="display:none;">
 						<div style="color:#00c73c; font-size:9pt;">권장 크기 : 1400 x 450px jpg,jpeg,png 형식의 정지 이미지만 등록됩니다.</div>
 					</td>
 				</tr>
 				
 				<tr>
 					<th>오브제 기간</th>
-					<td><input type="date" id="objetstartdate" min="sysdate" required> ~ <input type="date" id="objetenddate"></td>
+					<td><input type="date" id="objetstartdate" min="sysdate" value="${objet3.objetstartdate }" required> ~ <input type="date" id="objetenddate" value="${objet3.objetenddate }"></td>
 				</tr>
 				
 				<tr>
-					<th style="vertical-align: top;padding-top: 10px;">관련태그<br><span style="color:#aaa; font-size: 9pt; font-weight: normal;">(최대 3개 선택)</span></th>
+					<th style="vertical-align: top;padding-top: 10px;">${objet3.objettag }관련태그<br><span style="color:#aaa; font-size: 9pt; font-weight: normal;">(최대 3개 선택)</span></th>
 					<td>
 						<table class="objetTagTable">
 							<tr>
