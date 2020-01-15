@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,12 +31,14 @@
 		<p style="font-size: 20pt; padding-top:50px; color:#373737; text-align:center;">1:1 문의하기</p>
 		
 		<!-- 문의내역 테이블 -->
-		  <form action="insertQna.do" method="post" enctype="multipart/form-data">
+		  <form action="updateQna.do" method="post" enctype="multipart/form-data">
+  <input type="hidden" name="qnano" value="${requestScope.qna.qnano}">
   
-			<table class = "noticeform">
+
+			<table class = "qnaform">
 				<tr>
 					<th>작성자</th>
-					<td><input type="text" size="30" name="userid" required="required" value="${sessionScope.loginUser.userid}"></td>
+					<td><input type="text" size="30" name="userid" required="required" value="${qna.userid}"></td>
 
 
 				</tr>
@@ -42,14 +46,14 @@
 				
 				<tr>
 					<th>제목</th>
-					<td><input type="text" size="30" name="qnatitle" required="required"></td>
+					<td><input type="text" size="30" name="qnatitle" required="required" value="${qna.qnatitle}"></td>
 
 
 				</tr>
 
 				<tr>
 					<th>종류</th>
-					<td><select name="qnatype" required="required">
+					<td><select name="qnatype"  required="required" >
 							<option value="일반">일반</option>
 							<option value="전시">전시</option>
 							<option value="회원">회원</option>
@@ -63,7 +67,7 @@
 
 				<tr>
 					<td colspan="4">
-							<textarea id="editor2" name="qnacontent" required></textarea>
+							<textarea id="editor2" name="qnacontent" required="required" >${qna.qnacontent}</textarea>
 							</td>
 				</tr>
 			</table>
@@ -71,24 +75,27 @@
 			<script type="text/javascript" src="${pageContext.request.contextPath }/resources/editor/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
  CKEDITOR.replace('editor2',{height: 500,
-                	 filebrowserImageUploadUrl :'${pageContext.request.contextPath }/noticeFile.do'
+                	 filebrowserImageUploadUrl :'${pageContext.request.contextPath }/updateQnaFile.do'
                 		
                 	
  });
 
 
 </script> 
-             
+             <div align="center">
+				<input type="submit" class="ui green button" value="문의하기"> &nbsp;
+				<input type="button" class="ui button" value="문의취소" onclick="location.href='javascript:history.go(-1)'"> &nbsp;
+			</div>
 			  
-			<button type="submit" class="insert">완료</button>
+			<!-- <button type="submit" class="insert">완료</button> -->
              </form>    
               
 		<br><br>
 		<!-- 수정삭제버튼 -->
-			<div align="center">
+			<!-- <div align="center">
 				<input type="submit" class="ui green button" value="문의하기"> &nbsp;
 				<input type="button" class="ui button" value="문의취소" onclick="location.href='javascript:history.go(-1)'"> &nbsp;
-			</div>
+			</div> -->
 		
 		<br><br>
 

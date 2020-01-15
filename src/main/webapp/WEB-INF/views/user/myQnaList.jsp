@@ -81,7 +81,7 @@ $(function(){
 		<!-- 검색창 -->
 		
 <div class="search">
-<form action="selectQnaSearchList.do" method="post">
+<form action="selectQnaSearchList.do?userid=${loginUser.userid}" method="post">  
 <select class="searchmenu" name="searchmenu" style="border-radius:5px; width:100px; height:40px">
      <option value="qnatitle">제목</option>
      </select>
@@ -130,13 +130,13 @@ $(function(){
 		<table class="searchListTable">
 			
 		<c:forEach var="qna" items="${requestScope.list}">
- 
+	<%-- 	<c:if test="${qna.userid eq sessionScope.loginUser.userid} ">    --%> 
 		<c:url var="ndt" value="selectQnaDetail.do">
 		<c:param name="qnano" value="${qna.qnano}" />
 		
 		</c:url>
 			
-			<%-- <c:if test="${qna.userid eq sessionScope.loginUser.userid} ">    --%>
+		
 				
 				<tr style="height: 30px;">
 					<th width="2%"><input type="checkbox" class="chk" id="allCheck"/></th>
@@ -150,7 +150,7 @@ $(function(){
 					<td><fmt:formatDate value="${qna.questiondate}" type="date"/></td>
 					<td>${qna.qnaanswertype}</td>
 				</tr>
-		<%--  </c:if>  --%>
+		<%--   </c:if>   --%>
 				 </c:forEach> 
 			
 			</table>

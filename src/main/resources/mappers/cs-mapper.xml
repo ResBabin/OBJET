@@ -115,40 +115,38 @@ where noticeno = #{noticeno}
 
 
 <!--  QnaSearch-->
-<!-- <select resultType="Qna" id="selectQnaSearchList" parameterType="Hashmap">
+ <select resultType="Qna" id="selectQnaSearchList" parameterType="Hashmap">
 
 <![CDATA[
-             select * 
+  select * 
       from (select rownum rnum, qnano, userid, adminid,qnatype, qnatitle, qnacontent, questiondate, qnaanswer, answerdate,qnaanswertype
               from (select *
                     from qna
                     order by questiondate desc))
-              where ${searchmenu}  like '%' ||#{search}|| '%'   
-               
+              where ${searchmenu}  like '%' ||#{search}|| '%'  and userid = #{ userid }  
+         
 ]]>        
-</select> -->
-
+</select>
+<!-- 
 <select resultType="Qna" id="selectQnaSearchList" parameterType="Hashmap">
 
-<![CDATA[
+
              select * 
       from (select rownum rnum, qnano, userid, adminid,qnatype, qnatitle, qnacontent, questiondate, qnaanswer, answerdate,qnaanswertype
               from (select *
                     from qna
-                    order by questiondate desc))
-             <if test="searchmenu == 'All'"> qnatitle  like '%' ||#{search}|| '%'</if>
+                 order by questiondate desc))
+          <![CDATA[   <if test="searchmenu == 'All'"> qnatitle  like '%' ||#{search}|| '%'</if>
               select qnaanswertype from qna,
 <if test="searchmenu == 'Y'"> qnatitle  like '%' ||#{search}|| '%'</if>
 select qnaanswertype from qna
 where qnaanswertype ='Y'
 <if test="searchmenu == 'N'"> qnatitle  like '%' ||#{search}|| '%'</if>select qnaanswertype from qna
 where qnaanswertype ='N'
-
-
-               
+       
 ]]>        
 </select>
-
+ -->
 
 
 
@@ -157,12 +155,12 @@ where qnaanswertype ='N'
    <select id="selectQnaList" resultType="Qna" parameterType="Hashmap">
 
 <![CDATA[
-      select * 
+                        select * 
       from (select rownum rnum, qnano, userid, adminid,qnatype, qnatitle,qnacontent, questiondate, qnaanswer, answerdate, qnaanswertype
               from (select *
                     from qna
                     order by questiondate desc))
-                    where rnum >= #{startRow} and rnum <= #{endRow}
+                    where rnum >= #{startRow} and rnum <= #{endRow} and userid = #{ userid }
    
    ]]>
 </select>

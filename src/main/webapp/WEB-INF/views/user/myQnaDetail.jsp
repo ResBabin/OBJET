@@ -45,7 +45,7 @@
 		
 		<!-- 수정삭제버튼 -->
 		<div align="right">
-			<button class="ui mini black button" onclick="location.href='moveMyQnaEdit.do'">수정</button>
+			<button class="ui mini black button" onclick="location.href='moveMyQnaEdit.do?qnano=${qna.qnano}'">수정</button>
 			<button class="ui mini grey button">삭제</button>
 		</div>
 		<br><br>
