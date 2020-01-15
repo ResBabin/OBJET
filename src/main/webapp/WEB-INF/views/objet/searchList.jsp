@@ -71,6 +71,7 @@ min-height:100%;
 #search-form-main {
 	border-width: 0;
 	align:left;
+	width: 1000px;
 }
 
 #search-text-main[type="text"] {
@@ -86,6 +87,7 @@ min-height:100%;
     font-align:left;
     margin:0;
     padding:0;
+    width: 900px;
 }
 
 #search-text-main::placeholder {
@@ -314,8 +316,8 @@ min-height:100%;
 	font-family:'Nanum Gothic';
 	float: left;
     position: relative;
-    width: 500px;
-    height: 200px;
+    width: 495px;
+    height: 190px;
     margin:20px 30px 20px 0px;
     padding: 25px 20px;
     background-color: #fff;
@@ -347,6 +349,12 @@ min-height:100%;
     color:#333;
     font-family:'Nanum Gothic';
 }
+.artist-sub b {
+	font-size: 20px;
+    font-weight: bold;
+   color: #2185d0;
+    font-family:'Nanum Gothic';
+}
 .artist-info {
 	font-family:'Nanum Gothic';
 	display: block;
@@ -361,6 +369,8 @@ min-height:100%;
 }
 .artist-info b{
 	color: #2185d0;
+	font-family:'Nanum Gothic';
+	font-size: 10pt;
 	font-weight: bold;
 }
 .follow-info {
@@ -430,8 +440,8 @@ $(function() {
 	
   //tab menu
   $("#search-menu #item").on("click", function(){
-	  $(".objet-result-list-detail").slice(0, 4).transition('fade up', '1300ms');
-	  $(".artist-result-list-detail").slice(0, 4).transition('fade up', '1300ms');
+	  $(".objet-result-list-detail").slice(0, 4).transition('fly up', '1100ms');
+	  $(".artist-result-list-detail").slice(0, 4).transition('fly up', '1100ms');
 	  var tab = $(this).attr("data-tab");
 	  $("#search-menu #item").removeClass("active");
 	  $(".tab").removeClass("active");
@@ -509,20 +519,39 @@ $(function() {
 	
 	//검색어 키워드 하이라이트
 	 var keyword = $("#searchList-text").val();
-	 var objettitle = $(".objet-title").val();
-	 var objetintro = $(".objet-info").val();
-	 var otValue = objettitle.indexOf(keyword);
-	 var oiValue = objetintro.indexOf(keyword);
-	 if(otValue == -1 && oiValue == -1) {
-		 $(".objet-title:contains('"+keyword+"')").each(function () {
-	        	var regex = new RegExp(keyword,'gi');
-	        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
-	   	});
-		 $(".objet-info:contains('"+keyword+"')").each(function () {
-	        	var regex = new RegExp(keyword,'gi');
-	        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
-	   	});
-	 }
+	if($(".objet-title").val() != null || $(".objet-info").val() != null){
+		 var objettitle = $(".objet-title").val();
+		 var objetintro = $(".objet-info").val();
+		 var otValue = objettitle.indexOf(keyword);
+		 var oiValue = objetintro.indexOf(keyword);
+		 if(otValue === -1 && oiValue === -1) {
+			 $(".objet-title:contains('"+keyword+"')").each(function () {
+		        	var regex = new RegExp(keyword,'gi');
+		        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+		   	});
+			 $(".objet-info:contains('"+keyword+"')").each(function () {
+		        	var regex = new RegExp(keyword,'gi');
+		        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+		   	});
+		 }
+	}
+	if($(".artist-sub").val() != null || $(".artist-info").val() != null){
+		var nickname = $(".artist-sub").val();
+		 var artistinfo = $(".artist-info").val();
+		 var nValue = nickname.indexOf(keyword);
+		 var iValue = artistinfo.indexOf(keyword);
+		 if(nValue === -1 && iValue === -1){
+			 $(".artist-sub:contains('"+keyword+"')").each(function () {
+		        	var regex = new RegExp(keyword,'gi');
+		        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+		   	});
+			 $(".artist-info:contains('"+keyword+"')").each(function () {
+		        	var regex = new RegExp(keyword,'gi');
+		        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+		   	});
+		 }
+	}
+	 
   	
 });
 
@@ -561,10 +590,6 @@ function search2() {
     form.submit();
 };
 
-function nologin(){
-	alert("전시 상세는 로그인하셔야 보실 수 있습니다.")
-}
-
 window.onload = function(){
 	$("#searchList-text").hide();
 	$("#searchList-btn").show();
@@ -586,7 +611,7 @@ window.onload = function(){
 <!-- 검색 키워드 -->
 <div id="search-box-main"> 
 <form id='search-form-main' accept-charset="utf-8" class="ui massive icon input">
-	  <input id='search-text-main' name="keyword" type="text" placeholder="검색어를 입력해주세요." 
+	  <input class="ui wide fluid transparent icon input" id='search-text-main' name="keyword" type="text" placeholder="검색어를 입력해주세요." 
 	  maxlength="20" onfocus="this.value = this.value;" autocomplete="off" value="${keyword }" />
 </form>
 </div>
@@ -622,12 +647,7 @@ window.onload = function(){
 			<ul class="objet-result-list-common">
 			<c:forEach var="objetSearch" items="${searchobjetList }" varStatus="status">
 				<li class="objet-result-list-detail">
-					<c:if test="${!empty loginUser }">
 					<a href="objetOne.do?objetno=${objetSearch.objetno}&userid=${loginUser.userid}" target="_blank">
-					</c:if>
-					<c:if test="${empty loginUser }">
-					<a href="#" onclick="nologin();return false;" target="_blank">
-					</c:if>
 						<div class="objet-content">
 							<strong class="objet-title">${objetSearch.objettitle }</strong>&nbsp;
 							<c:if test="${objetSearch.objetstatus eq 'OPEN' }">
@@ -735,7 +755,7 @@ window.onload = function(){
 							</c:if>
 							</a> 
 							<a href="artistHomeMain.do?userid=${artistSearch.userid }&loginUser=${loginUser.userid}" class="artist-follow" target="_blank">
-							<strong class="artist-sub">${artistSearch.nickname }</strong>
+							<span class="artist-sub">${artistSearch.nickname }</span>
 							<span class="artist-info">
 							<c:set var="length" value="${fn:length(artistSearch.userintrol)}"/>
 							<c:if test="${length > 30 }">

@@ -14,6 +14,7 @@ import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
 import com.kh.objet.review.model.vo.Review;
 import com.kh.objet.review.model.vo.ReviewStatus;
+import com.kh.objet.visitedobjet.model.vo.VisitedObjet;
 
 public interface ObjetService {
 	
@@ -54,6 +55,8 @@ public interface ObjetService {
 	List<Objet> selectArtistObjetStatus(String userid);
 	int selectFollowingCnt(String userid);
 	List<ReviewStatus> selectReviewStatusChk(ReviewKey rk);
+	int insertVisitedObjet(VisitedObjet vs);
+	int selectVisitedObjet(VisitedObjet vs);
 	
 	
 	// 최민영
@@ -71,6 +74,8 @@ public interface ObjetService {
 	int updateMyObjet(Objet objet);
 	int insertObjet(Objet3 objet3);
 	int deleteObjet(int objetno);
+	
+	
 	
 	
 	

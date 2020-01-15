@@ -33,7 +33,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.3/dist/semantic.min.css">
 <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.3/dist/semantic.min.js"></script>
  <!-- fullcalendar -->
-<link rel="stylesheet" href="resources/FullCalendar/vendor/css/fullcalendar.min.css" />
+<!-- <link rel="stylesheet" href="resources/FullCalendar/vendor/css/fullcalendar.min.css" />
 <link rel="stylesheet" href='resources/FullCalendar/vendor/css/select2.min.css' />
 <link rel="stylesheet" href='resources/FullCalendar/vendor/css/bootstrap-datetimepicker.min.css' />
 <script src="resources/FullCalendar/vendor/js/moment.min.js"></script>
@@ -44,11 +44,11 @@
 <script src="resources/js/main.js"></script>
 <script src="resources/js/addEvent.js"></script>
 <script src="resources/js/editEvent.js"></script>
-<script src="resources/js/etcSetting.js"></script> 
-<!-- <script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<link rel="stylesheet" href='resources/css/calendar.css' /> -->
+<script src="resources/js/etcSetting.js"></script>  -->
+<link rel="stylesheet" type="text/css" href="resources/vendor/animate/animate.css">
+<link rel="stylesheet" type="text/css" href="resources/vendor/select2/select2.min.css">
+<link rel="stylesheet" type="text/css" href="resources/css/util.css">
+<link rel="stylesheet" type="text/css" href="resources/css/countdown.css">
 <!-- 페이스북 공유 -->
 <script>
   window.fbAsyncInit = function() {
@@ -110,9 +110,10 @@ html, body {
 	left: 27%;
 	transform: translate(-50%, -50%);
 	height: auto;
-	width: 250px;
+	width: 200px;
 	text-align: center;
 	font-family: 'Nanum Gothic', sans-serif;
+	background-color:#234ddd;
 }
 
 .banner_date {
@@ -813,16 +814,17 @@ a:-webkit-any-link {
 	float: right;
 	position: relative;
 	top: -65px;
-	right: 200px;
+	right: 190px;
 }
 
 .update_mybtn {
 	float: right;
 	position: relative;
 	top: -70px;
-	right: -55px;
+	right: -70px;
 	font-size: 14px;
 	font-weight: bolder;
+	font-family:'Nanum Gothic';
 }
 
 .rev_up_cont {
@@ -842,7 +844,7 @@ a:-webkit-any-link {
 
 #counter_up {
 	position: relative;
-	right: -955px;
+	right: -950px;
 	top: -32px;
 	padding: 0 .5em 0 .5em;
 	font-size: 0.85em;
@@ -1054,7 +1056,14 @@ a:-webkit-any-link {
 }
 
 /* 전시일정 스타일  */
-
+/* d-day */
+.title{
+	font-family: 'Nanum Gothic';
+	font-weight: bolder;
+	font-size: 40px;
+	text-align: center;
+	gray: black;
+}
 
 /* 한줄평  */
 #objet_review {
@@ -1159,14 +1168,30 @@ a:-webkit-any-link {
 		});
 			
 		//tab menu
-		$("#objet_info_menu #item").on("click", function() {
-			var tab = $(this).attr("data-tab");
-			$("#objet_info_menu #item").removeClass("active");
-			$(this).addClass("active");
-			$(".tab").removeClass("active");
-			$("#" + tab).addClass("active");
-		});
-
+		<c:if test="${!empty loginUser }">
+			$("#objet_info_menu #item").on("click", function() {
+				var tab = $(this).attr("data-tab");
+				$("#objet_info_menu #item").removeClass("active");
+				$(this).addClass("active");
+				$(".tab").removeClass("active");
+				$("#" + tab).addClass("active");
+			});
+		</c:if>
+		<c:if test="${empty loginUser }">
+			$("#objet_info_menu #item").on("click", function() {
+				if($(this).attr('class') != 'item review'){
+					var tab = $(this).attr("data-tab");
+					$("#objet_info_menu #item").removeClass("active");
+					$(this).addClass("active");
+					$(".tab").removeClass("active");
+					$("#" + tab).addClass("active");
+				}else{
+					$(".review").on("click", function() {
+						alert("한줄평은 로그인하셔야 작성하실 수 있습니다.");
+					});
+				}
+			});
+		</c:if>
 		//한줄평 최신순 평점순
 		$(".search-option .option").on("click", function() {
 			$(".search-option .option").removeClass("on");
@@ -1206,11 +1231,11 @@ a:-webkit-any-link {
 		//한줄평 등록 글자수 카운팅
 		$('.rev_ins_cont').keyup(function(e) {
 			var content = $(this).val();
-			$("#counter_ins").html("( <span style='color:#4ecdc4;'>" + content.length + "</span> / 최대 100자 )"); // 글자수 실시간 카운팅
-			if (content.length > 100) {
-				alert("최대 100자까지만 입력 가능합니다.");
-				$(this).val(content.substring(0, 100));
-				$("#counter_ins").html("( <span style='color:red;'>100 </span>/ 최대 100자)");
+			$("#counter_ins").html("( <span style='color:#4ecdc4;'>" + content.length + "</span> / 최대 90자 )"); // 글자수 실시간 카운팅
+			if (content.length > 90) {
+				alert("최대 90자까지만 입력 가능합니다.");
+				$(this).val(content.substring(0, 90));
+				$("#counter_ins").html("( <span style='color:red;'>90 </span>/ 최대 90자)");
 			}
 		});
 		$('rev_ins_cont').keyup();
@@ -1218,11 +1243,11 @@ a:-webkit-any-link {
 		//한줄평 수정 글자수 카운팅
 		$(".rev_up_cont").keyup(function(e) {
 			var content = $(this).val();
-			$("#counter_up").html("( <span style='color:#4ecdc4;font-size:9pt;'>" + content.length + "</span> / 최대 100자 )"); // 글자수 실시간 카운팅
-			if (content.length > 100) {
-				alert("최대 100자까지만 입력 가능합니다.");
-				$(this).val(content.substring(0, 100));
-				$("#counter_up").html("( <span style='color:red;font-size:9pt;'>100 </span>/ 최대 100자)");
+			$("#counter_up").html("( <span style='color:#4ecdc4;font-size:9pt;'>" + content.length + "</span> / 최대 90자 )"); // 글자수 실시간 카운팅
+			if (content.length > 90) {
+				alert("최대 90자까지만 입력 가능합니다.");
+				$(this).val(content.substring(0, 90));
+				$("#counter_up").html("( <span style='color:red;font-size:9pt;'>90 </span>/ 최대 90자)");
 			}
 		});
 		$('rev_up_cont').keyup();
@@ -1290,6 +1315,17 @@ a:-webkit-any-link {
 
 		//캘린더
 		
+		//로그인 안했을 때 관심오브제 클릭시
+ 		<c:if test="${empty loginUser}">
+ 		$(".ico_likeit_like").on("click", function(){
+ 			alert("로그인 하셔야 관심합니다.");
+ 		});
+ 		//로그인 안했을 때 전시감상 클릭시
+ 		$(".banner_img_btn").on("click", function(){
+ 			alert("전시 감상은 로그인 후 이용하실 수 있습니다.");
+ 		});
+ 		</c:if>
+ 		
 	});
 	
 	//전시 신고
@@ -1303,7 +1339,7 @@ a:-webkit-any-link {
 		document.getElementById("btnsub_rep").onclick = function() {
 			document.getElementById('rep_form').submit();
 			alert("해당 오브제가 신고되었습니다.");
-				location.href = "objetOne.do?objetno="+${objet.objetno }+"&userid="+${loginUser.userid};
+				window.location.reload();
 			return false; 
 		};
 	};
@@ -1655,21 +1691,6 @@ a:-webkit-any-link {
 	}
 	</c:if>
 	
-	<c:if test="${empty loginUser}">
-	$(".ico_likeit_like").on("click", function(){
-		alert("로그인 하셔야합니다.");
-	});
-	$(".ico_likeit_unlike").on("click", function(){
-		alert("로그인 하셔야합니다.");
-	});	
-	$(".rev_like").on("click", function(){
-		alert("로그인 하셔야합니다.");
-	});	
-	$(".rev_hate").on("click", function(){
-		alert("로그인 하셔야합니다.");
-	});
-	</c:if>
-	
 	//한줄평 신고
 	function revReport(reportedb){
 		//한줄평 신고 모달
@@ -1694,6 +1715,28 @@ a:-webkit-any-link {
 		    });
 		};
 	}
+	
+	function objetVR(objetno, userid){
+		//다녀온 오브제 추가
+		$.ajax({
+	        url: 'insertVisitedObjet.do',
+	        type: 'get',
+	        data: {objetno : objetno, userid : userid} ,
+	        success: function (result) {
+	            if(result == "ok"){
+	                console.log("다녀온 오브제 추가");
+	                window.location.href="objetView.do?objetno="+objetno+"&userid="+userid;
+	            }if(result == "fail"){
+	            	console.log("다녀온 오브제 추가 실패!");
+	            	window.location.reload;
+	            }if(result == "move"){
+	            	console.log("다녀온 오브제 이미 있음!");
+	            	window.location.href="objetView.do?objetno="+objetno+"&userid="+userid;
+	            }
+	        }
+	    });
+	}
+	
 	
 	window.onload = function(){
 		var reviewList = new Array(); 
@@ -1730,7 +1773,6 @@ a:-webkit-any-link {
 		var letters = ['e4eef5', '93c5e6', '46a3e0', '8eccf5', '6475A0', 'acc7bf', '5e5f67', 'c37070', 'eae160', 'bf7aa3', 'd7d967', 'bc8fcf', 'edd48e', 'e68b4e', 'cc6039']; 
 		color += letters[Math.floor(Math.random() * letters.length)]; // 컬러는 상기 변수들을 조립하는데 랜덤으로 조립한다. 
 		document.getElementById('exhibition_vp').style.background = color; // 조립한 컬러를 프론트엔드에서 지정한 ID에 적용한다.
-		
 	}
 </script>
 
@@ -1755,8 +1797,8 @@ a:-webkit-any-link {
 <c:if test="${resultValue eq 'fail' }">
 <span class="f_l text_hide img_ico img_ico_with_text ico_likeit_like" id="likeobjet" onclick="likeobjet();">관심오브제</span>
 </c:if>
-<c:if test="${fn:length(likeobjetList) } == 0">
-<span class="f_l text_hide img_ico img_ico_with_text ico_likeit_unlike" id="likeobjet" onclick="likeobjet();">관심오브제</span>
+<c:if test="${fn:length(likeobjetList) == 0}">
+<span class="f_l text_hide img_ico img_ico_with_text ico_likeit_like" id="likeobjet" onclick="likeobjet();">관심오브제</span>
 </c:if>
 <span class="f_l text_like_count text_default text_with_img_ico ico_likeit_like likeobjetcnt">${fn:length(likeobjetList) }</span> </a>
 <a href="javascript:void(0);" class="default_action img_ico_wrap comment">
@@ -1854,8 +1896,7 @@ a:-webkit-any-link {
 <!-- 미로그인시 신고 버튼 클릭시에 -->
 <img src="resources/images/objet/${objet.renamemainposter }" id="banner_img">
 <div class="banner_img_text"><!-- <span class="banner_date">2019. 08. 02 - 2019. 12. 12 </span> -->
-<div class="ui black icon button banner_img_btn" 
-style="font-size: 18px;" onclick="location.href='objetView.do?objetno=${objet.objetno}&userid=${objet.userid }'">전시 감상하러 가기
+<div class="ui basic black icon button banner_img_btn" style="font-size:20px;font-weight:bolder;" onclick="objetVR(${objet.objetno}, '${loginUser.userid }');">전시 감상하기
 &nbsp;<i class="ui large white arrow right icon" style="font-size:18px;"></i>
 </div>
 
@@ -1958,9 +1999,101 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 <center>
 <!-- CALENDAR  -->
 <div class="ui bottom attached tab" id="objet_calendar">
-<span class="det_title">CALENDAR</span><br>
+<span class="det_title">CALENDAR</span>
+<!-- D-day -->
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+ <span class="title" id="title">전시종료까지 남은 시간</span>
+	<div class="wsize1 bor1 bg1 p-t-45 p-b-40 p-l-15 p-r-15 respon1">
+		<div class="wsize2 flex-w flex-c hsize1 cd100">
+			<div class="flex-col-c-m size2 how-countdown">
+				<span class="l1-txt1 p-b-9 days"><fmt:formatDate value="${objet.objetenddate }" pattern="DD" /></span>
+				<span class="s1-txt1">Days</span>
+			</div>
+			<div class="flex-col-c-m size2 how-countdown">
+				<span class="l1-txt1 p-b-9 hours"><fmt:formatDate value="${objet.objetenddate }" pattern="HH" /></span>
+				<span class="s1-txt1">Hours</span>
+			</div>
+			<div class="flex-col-c-m size2 how-countdown">
+				<span class="l1-txt1 p-b-9 minutes"><fmt:formatDate value="${objet.objetenddate }" pattern="mm" /></span>
+				<span class="s1-txt1">Minutes</span>
+			</div>
+			<div class="flex-col-c-m size2 how-countdown">
+				<span class="l1-txt1 p-b-9 seconds"><fmt:formatDate value="${objet.objetenddate }" pattern="ss" /></span>
+				<span class="s1-txt1">Seconds</span>
+			</div>
+		</div>
+	</div>
+	<script src="resources/vendor/countdowntime/moment.min.js"></script>
+	<script src="resources/vendor/countdowntime/moment-timezone.min.js"></script>
+	<script src="resources/vendor/countdowntime/moment-timezone-with-data.min.js"></script>
+	<script src="resources/vendor/countdowntime/countdowntime.js"></script>
+	<script>
+		var day = <fmt:formatDate value="${objet.objetenddate }" pattern="dd" />;
+		var hour = <fmt:formatDate value="${objet.objetenddate }" pattern="HH" />;
+		var month = <fmt:formatDate value="${objet.objetenddate }" pattern="MM" />;
+		var year = <fmt:formatDate value="${objet.objetenddate }" pattern="yyyy" />;
+		var minutes = <fmt:formatDate value="${objet.objetenddate }" pattern="mm" />;
+		var seconds = <fmt:formatDate value="${objet.objetenddate }" pattern="ss" />;
+		$('.cd100').countdown100({
+			/*Set Endtime here*/
+			/*Endtime must be > current time*/
+			endtimeYear: year,
+			endtimeMonth: month,
+			endtimeDate: day,
+			endtimeHours: hour,
+			endtimeMinutes: minutes,
+			endtimeSeconds: seconds,
+			timeZone: "GMT" 
+		});
+	</script>
+	<script src="resources/vendor/tilt/tilt.jquery.min.js"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+	<script src="resources/js/countdown.js"></script>
+</div> <!-- Calendar -->
+<!-- <script>
+var objetenddate = '${objet.objetenddate}';
+CountDownTimer(objetenddate, 'newcountdown');
 
-</div>
+function CountDownTimer(dt, id)
+{
+    var end = new Date(dt);
+
+    var _second = 1000;
+    var _minute = _second * 60;
+    var _hour = _minute * 60;
+    var _day = _hour * 24;
+    var timer;
+
+    function showRemaining() {
+        var now = new Date();
+        var distance = end - now;
+        if (distance < 0) {
+
+            clearInterval(timer);
+            $(".title").html("전시가 종료되었습니다. 다음 전시를 기다려주세요!");
+            doetElementById(title).innerHTML.title = '';
+
+            return;
+        }
+        var days = Math.floor(distance / _day);
+        var hours = Math.floor((distance % _day) / _hour);
+        var newHours = days*24 + hours; 
+        var minutes = Math.floor((distance % _hour) / _minute);
+        var seconds = Math.floor((distance % _minute) / _second);
+
+        document.getElementById(id).innerHTML = days + '일 ';
+        document.getElementById(id).innerHTML += hours + '시간 ';
+        document.getElementById(id).innerHTML += minutes + '분 ';
+        document.getElementById(id).innerHTML += seconds + '초';
+    }
+
+    timer = setInterval(showRemaining, 1000);
+}
+</script> -->
 <!-- REVIEW  -->
 <div class="ui bottom attached tab " id="objet_review">
    <span class="det_title">REVIEW</span><br>
@@ -1993,15 +2126,17 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 <div class="extra">
 <div class="ui star rating my" data-rating="${myReview.revstars }" data-max-rating="5" >${myReview.revstars }</div>
 <div class="rev_like_btn">
+<c:if test="${myReviewStatus.revgood ne null && myReviewStatus.revhate ne null}">
 <div class="ui basic circular gray icon button rev_like" onclick="reviewGood('${myReview.revuserid }', ${objet.objetno})">
 <i class="thumbs up outline icon" id="rev_like_${myReview.revuserid }" style="font-size:15px;"></i><span id="revgood_cnt_${myReview.revuserid }" class="rev_cnt"> ${myReviewStatus.revgood }</span></div>&nbsp;
 <div class="ui basic circular gray icon button rev_hate"  onclick="reviewHate('${myReview.revuserid }', ${objet.objetno})">
 <i class="thumbs down outline icon" id="rev_hate_${myReview.revuserid }"style="font-size:15px;"></i><span id="revhate_cnt_${myReview.revuserid }" class="rev_cnt"> ${myReviewStatus.revhate }</span></div>
-<c:if test="${empty loginUser }">
+</c:if>
+<c:if test="${myReviewStatus.revgood eq null && myReviewStatus.revhate eq null}">
 <div class="ui basic circular gray icon button rev_like" onclick="reviewGood('${myReview.revuserid }', ${objet.objetno})">
-<i class="thumbs up outline icon" id="rev_like_${myReview.revuserid }" style="font-size:15px;"></i><span id="revgood_cnt_${myReview.revuserid }" class="rev_cnt"> ${myReviewStatus.revgood }</span></div>&nbsp;
+<i class="thumbs up outline icon" id="rev_like_${myReview.revuserid }" style="font-size:15px;"></i><span id="revgood_cnt_${myReview.revuserid }" class="rev_cnt"> 0</span></div>&nbsp;
 <div class="ui basic circular gray icon button rev_hate"  onclick="reviewHate('${myReview.revuserid }', ${objet.objetno})">
-<i class="thumbs down outline icon" id="rev_hate_${myReview.revuserid }"style="font-size:15px;"></i><span id="revhate_cnt_${myReview.revuserid }" class="rev_cnt"> ${myReviewStatus.revhate }</span></div>
+<i class="thumbs down outline icon" id="rev_hate_${myReview.revuserid }"style="font-size:15px;"></i><span id="revhate_cnt_${myReview.revuserid }" class="rev_cnt"> 0</span></div>
 </c:if>
 </div></div>
 </div>
@@ -2015,14 +2150,14 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 <div class="review_ins_content">
 <textarea class="ui fluid input rev_up_cont" id="revcontent" maxlength="200">
 ${myReview.revcontent }</textarea>
-<span id="counter_up">( <span style="color:#4ecdc4;font-size:0.85em;">현재</span> / 최대 100자 )</span>
+<span id="counter_up">( <span style="color:#4ecdc4;font-size:0.85em;">현재</span> / 최대 90자 )</span>
 </div>
 <div class="extra" id="rev_myrating">
 <div class="ui star rating insert" data-rating="${myReview.revstars }" data-max-rating="5" id="rev_up_star"></div>
 </div>
 <div class="update_mybtn">
-<button class="ui circular basic gray button" id="update_can" type="reset" >취소</button>&nbsp;
-<button class="ui circular basic gray button" onclick="rev_update('${loginUser.userid}', ${objet.objetno });" >수정</button>
+<button class="ui mini circular basic button" id="update_can" type="reset" style="font-size: 13px;font-weight: normal;font-family:'Nanum Gothic';">취소</button>&nbsp;
+<button class="ui mini circular basic button" style="font-size: 13px;font-weight: normal;font-family:'Nanum Gothic';" onclick="rev_update('${loginUser.userid}', ${objet.objetno });" >수정</button>
 </div>
 </div>
 </c:if>

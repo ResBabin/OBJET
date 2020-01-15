@@ -67,12 +67,18 @@ group by a.nickname, a.userid, b.userrpic, b.userintros, b.userintrol, b.usertag
 	 or objetintro like '%' || #{objetintro} || '%'
 </select>
 <select id="selectArtistAllSearch" parameterType="String" resultType="Artist">
-	select *
+	<!-- select *
 	from users 
 	join usersprofile using(userid)
-	where nickname like '%' || #{nickname} || '%'
-	or userintrol like '%' || #{userintrol} || '%'
-	and quityn = 'N' and blackyn = 'N'
+	where quityn = 'N' and blackyn = 'N'
+	and nickname like '%' || #{nickname} || '%'
+	or userintrol like '%' || #{userintrol} || '%' -->
+	select a.userid, a.usertype, a.username, a.nickname, a.quityn, a.blackyn, b.usertag, b.userrpic, b.userintros, b.userintrol
+	from users a
+	join usersprofile b on a.userid = b.userid
+	where b.userintrol like '%' || #{userintrol} || '%'
+    and a.nickname like '%' || #{nickname} || '%'
+    and a.quityn = 'N' and a.blackyn = 'N'
 </select>
 
 <!-- 오브제 상태 -->
@@ -86,6 +92,14 @@ group by a.nickname, a.userid, b.userrpic, b.userintros, b.userintrol, b.usertag
  join usersprofile b on a.userid = b.userid
  join users c on a.userid = c.userid
  where objetno = #{objetno}
+ </select>
+ 
+ <!-- 다녀온 오브제 추가  -->
+ <insert id="insertVisitedObjet" parameterType="VisitedObjet">
+ 	insert into visitedobjet values(#{objetno}, #{userid}, sysdate)
+ </insert>
+ <select id="selectVisitedObjet" parameterType="VisitedObjet" resultType="int">
+ 	select count(*) from visitedobjet where objetno = #{objetno} and userid = #{userid}
  </select>
  
  <!-- 관심 오브제 카운트 -->
