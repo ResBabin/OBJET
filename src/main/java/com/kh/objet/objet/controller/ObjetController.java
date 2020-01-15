@@ -7,7 +7,6 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +31,7 @@ import com.kh.objet.objet.model.service.ObjetServiceImpl;
 import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.objet.model.vo.Objet2;
+import com.kh.objet.objet.model.vo.Objet3;
 import com.kh.objet.objet.model.vo.ReviewKey;
 import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
@@ -613,150 +613,161 @@ public class ObjetController {
 			
 	
 			// 박근수 *******************************************************************************
-						// 오브제 관리-내 오브제 페이지 이동
-						@RequestMapping("moveMyObjetList.do")
-						public String moveMyObjetList() {
-							return "objet/myObjetList";
-						}
-									
-						// 오브제 관리-내 오브제 검색
-						@RequestMapping("selectMyObjetSearch.do")
-						public void selectMyObjetSearch(@RequestParam(value="publicyn") String publicyn, @RequestParam(value="objetstatus") String objetstatus, 
-							@RequestParam(value="objettitle") String objettitle, HttpServletResponse response) throws IOException {
-							
-						HashMap<String, Object> map =new HashMap<String, Object>();  
+			// 오브제 관리-내 오브제 페이지 이동
+			@RequestMapping("moveMyObjetList.do")
+			public String moveMyObjetList() {
+				return "objet/myObjetList";
+			}
 						
-						map.put("publicyn", publicyn);
-						map.put("objetstatus", objetstatus);
-						map.put("objettitle", objettitle);
-						
-						List<Objet2> objetList = objetService.selectMyObjetSearch(map);
-						
-						//전송용 JSON 객체
-						JSONObject sendJson = new JSONObject();
-						
-						//JSON 배열 객체
-						JSONArray jarr = new JSONArray();
-						
-						//list를 jarr 로 옮겨 저장 (복사)
-						for(Objet2 objet : objetList) {
-						JSONObject job = new JSONObject();
-						
-						job.put("objetno", objet.getObjetno());
-						job.put("userid", objet.getUserid());
-						job.put("objettitle", URLEncoder.encode(objet.getObjettitle(), "utf-8"));
-						job.put("objetintro", URLEncoder.encode(objet.getObjetintro(), "utf-8"));
-						job.put("originmainposter", URLEncoder.encode(objet.getOriginmainposter(), "utf-8"));
-						job.put("renamemainposter", objet.getRenamemainposter());
-						job.put("objetstartdate", objet.getObjetstartdate().toString());
-						job.put("objetenddate", objet.getObjetenddate().toString());
-						job.put("objettag", URLEncoder.encode(objet.getObjettag(), "utf-8"));
-						job.put("publicyn", objet.getPublicyn());
-						job.put("objetregidate", objet.getObjetregidate().toString());
-						job.put("objetstatus", objet.getObjetstatus());
-						job.put("objetview", objet.getObjetview());
-						jarr.add(job);
-						}
-						
-						sendJson.put("objetList", jarr);
-						
-						
-						logger.debug(jarr.toJSONString());
-						
-						
-						response.setContentType("application/jsonl charset=utf-8");
-						PrintWriter out = response.getWriter();
-						out.println(sendJson.toJSONString());
-						out.flush();
-						out.close();
-							
-						}
-						
-						//오브제 관리 - 내 오브제 상세보기
-						@RequestMapping("moveMyObjetDetail.do")
-						public String moveMyObjetDetail(@RequestParam(value="objetno") int objetno, HttpServletRequest request, Model model) {
-							Map<String, String> map = new HashMap();
-							map.put("objetno", request.getParameter("objetno"));
-							map.put("userid", request.getParameter("userid"));
-							
-							Objet objet = objetService.moveMyObjetDetail(objetno);
-							model.addAttribute("objet", objet);
-							return "objet/myObjetDetail";
-						}
-							
-						//오브제 관리 - 내 오브제 수정 페이지 이동
-						@RequestMapping("moveEditObjet.do")
-						public String moveEditObjet(@RequestParam(value="objetno") int objetno) {
-							return "objet/editObjet";
-						}
-					
-						//오브제 관리 - 내 오브제 수정
-						@RequestMapping("updateMyObjet.do")
-						public String updateMyObjet(Objet objet, HttpServletRequest request, Model model) {
-							int result = objetService.updateMyObjet(objet);
-							
-							return "objet/editObjet";
-						}
-						
+			// 오브제 관리-내 오브제 검색
+			@RequestMapping("selectMyObjetSearch.do")
+			public void selectMyObjetSearch(@RequestParam(value="publicyn") String publicyn, @RequestParam(value="objetstatus") String objetstatus, 
+				@RequestParam(value="objettitle") String objettitle, HttpServletResponse response) throws IOException {
+				
+			HashMap<String, Object> map =new HashMap<String, Object>();  
+			
+			map.put("publicyn", publicyn);
+			map.put("objetstatus", objetstatus);
+			map.put("objettitle", objettitle);
+			
+			List<Objet2> objetList = objetService.selectMyObjetSearch(map);
+			
+			//전송용 JSON 객체
+			JSONObject sendJson = new JSONObject();
+			
+			//JSON 배열 객체
+			JSONArray jarr = new JSONArray();
+			
+			//list를 jarr 로 옮겨 저장 (복사)
+			for(Objet2 objet : objetList) {
+			JSONObject job = new JSONObject();
+			
+			job.put("objetno", objet.getObjetno());
+			job.put("userid", objet.getUserid());
+			job.put("objettitle", URLEncoder.encode(objet.getObjettitle(), "utf-8"));
+			job.put("objetintro", URLEncoder.encode(objet.getObjetintro(), "utf-8"));
+			job.put("originmainposter", URLEncoder.encode(objet.getOriginmainposter(), "utf-8"));
+			job.put("renamemainposter", objet.getRenamemainposter());
+			job.put("objetstartdate", objet.getObjetstartdate().toString());
+			job.put("objetenddate", objet.getObjetenddate().toString());
+			job.put("objettag", URLEncoder.encode(objet.getObjettag(), "utf-8"));
+			job.put("publicyn", objet.getPublicyn());
+			job.put("objetregidate", objet.getObjetregidate().toString());
+			job.put("objetstatus", objet.getObjetstatus());
+			job.put("objetview", objet.getObjetview());
+			jarr.add(job);
+			}
+			
+			sendJson.put("objetList", jarr);
+			
+			
+			logger.debug(jarr.toJSONString());
+			
+			
+			response.setContentType("application/jsonl charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println(sendJson.toJSONString());
+			out.flush();
+			out.close();
+				
+			}
+			
+			//오브제 관리 - 내 오브제 상세보기
+			@RequestMapping("moveMyObjetDetail.do")
+			public String moveMyObjetDetail(@RequestParam(value="objettitle", required=false) String objettitle, HttpServletRequest request, Model model) {
+				Objet objet = objetService.moveMyObjetDetail(objettitle);
+				
+				if(objet != null) {
+					model.addAttribute("objet", objet);
+					model.addAttribute("objet/myObjetDetail");
+				}else {
+					model.addAttribute("message", "공지사항 상세 조회 실패");
+		            model.addAttribute("common/errorPage");
+				}
+				return "objet/myObjetDetail";
+			}
+				
+			//오브제 관리 - 내 오브제 수정 페이지 이동
+			@RequestMapping("moveEditObjet.do")
+			public String moveEditObjet(@RequestParam(value="objetno") int objetno) {
+				return "objet/editObjet";
+			}
 
-						//오브제 관리 - 전시 등록 페이지 이동
-						@RequestMapping("moveCreateObjet.do")
-						public String moveCreateObjet() {
-							return "objet/createObjet";
-						}
-							
-						//오브제 관리 - 전시 등록
-						@RequestMapping(value="insertObjet.do", method=RequestMethod.POST)
-						public String insertObjet(Objet objet, HttpServletRequest request, Model model,
-								MultipartHttpServletRequest mtfRequest) {
-							String src = mtfRequest.getParameter("src");
-							System.out.println("src value : " + src);
-							MultipartFile mf = mtfRequest.getFile("file");
-							
-							String path = "../resources/objet_upfiles";
-							
-							String originFileName = mf.getOriginalFilename();
-							long fileSize = mf.getSize();
-							
-							System.out.println("originFileName : " + originFileName);
-							System.out.println("fileSize : " + fileSize);
-							
-							String safeFile = path + System.currentTimeMillis() + originFileName;
-							
-							try {
-								mf.transferTo(new File(safeFile));
-							} catch (IllegalStateException e) {
-								e.printStackTrace();
-							} catch (IOException e) {
-								e.printStackTrace();
-							}
-							
-							int result = objetService.insertObjet(objet);
-							
-							String viewFileName = "createObjet";
-							if(result < 0) {
-								model.addAttribute("message", "Insert failed...");
-								viewFileName = "common/error";
-							}
-							return viewFileName;
-						}
-							
-						// 오브제 관리 - 전시삭제
-						@RequestMapping("deleteObjet.do")
-						public void deleteObjet(Objet objet, @RequestParam(value="objetno") int objetno, HttpServletResponse response) throws IOException {
-							int result = objetService.deleteObjet(objetno);
-							
-							String returnValue = null;
-							if(result > 0) {
-								returnValue = "OK";
-							}else {
-								returnValue = "Retry Plz";
-							}
-							
-							PrintWriter out = response.getWriter();
-							out.append(returnValue);
-							out.flush();
-							out.close();
-						}
+			//오브제 관리 - 내 오브제 수정
+			@RequestMapping("updateMyObjet.do")
+			public ModelAndView updateMyObjet(@RequestParam(value="objettitle") String objettitle, @RequestParam(value="objetintro") String objetintro, 
+					@RequestParam(value="originmainposter") String originmainposter, HttpServletRequest request, ModelAndView mv, Objet objet) {
+				objet.setObjettitle(objettitle);
+				objet.setObjetintro(objetintro);
+				objet.setOriginmainposter(originmainposter);
+				
+				int result = objetService.updateMyObjet(objet);
+				System.out.println("내 오브제 수정 : " + objet.toString());
+				mv.addObject("objet", objet);
+				mv.setViewName("redirect:moveMyObjetList.do");
+				return mv;
+			}
+			
+
+			//오브제 관리 - 전시 등록 페이지 이동
+			@RequestMapping("moveCreateObjet.do")
+			public String moveCreateObjet() {
+				return "objet/createObjet";
+			}
+				
+			//오브제 관리 - 전시 등록
+			@RequestMapping(value="insertObjet.do", method=RequestMethod.POST)
+			public String insertObjet(Objet3 objet3, Model model, MultipartHttpServletRequest mtfRequest) throws IOException{
+				List<MultipartFile> fileList = mtfRequest.getFiles("file");
+				String src = mtfRequest.getParameter("src");
+				System.out.println("src value : " + src);
+				String path = "../resources/objet_upfiles";
+				
+				for (MultipartFile mf : fileList) {
+					String originFileName = mf.getOriginalFilename();	//원본 파일명
+					long fileSize = mf.getSize();	//파일 사이즈
+					
+					System.out.println("originFileName : " + originFileName);
+					System.out.println("fileSize : " + fileSize);
+					
+					String safeFile = path + System.currentTimeMillis() + originFileName;
+					try {
+						mf.transferTo(new File(safeFile));
+					} catch (IllegalStateException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
+				}
+				
+				int result = objetService.insertObjet(objet3);
+				
+				String viewFileName = "createObjet";
+				if(result < 0) {
+					model.addAttribute("message", "Insert failed...");
+					viewFileName = "common/error";
+				}
+				return viewFileName;
+			}
+				
+			// 오브제 관리 - 전시삭제
+			@RequestMapping("deleteObjet.do")
+			public void deleteObjet(@RequestParam(value="objetno") int objetno, HttpServletResponse response
+					, Objet objet) throws IOException {
+				int result = objetService.deleteObjet(objetno);
+				
+				String returnValue = null;
+				if(result > 0) {
+					returnValue = "OK";
+				}else {
+					returnValue = "Retry Plz";
+				}
+				
+				PrintWriter out = response.getWriter();
+				out.append(returnValue);
+				out.flush();
+				out.close();
+			}
 
 }

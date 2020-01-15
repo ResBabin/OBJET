@@ -14,6 +14,6 @@ public interface LikeObjetService {
 	ArrayList<LikeObjet>  moveMyLikeObjetList(String userid, Paging paging);
 	int deleteMyLikeObjetList(int objetno);
 	List<LikeObjet> selectMyLikeObjetSearch(HashMap<String, Object> map);
-	int listCount();
+	int listCountK();
 
 }

@@ -13,6 +13,7 @@ import com.kh.objet.likeobjet.model.vo.LikeObjet;
 import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.objet.model.vo.Objet2;
+import com.kh.objet.objet.model.vo.Objet3;
 import com.kh.objet.objet.model.vo.ReviewKey;
 import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
@@ -254,13 +255,12 @@ public class ObjetDao {
 
 	//오브제 관리-내 오브제 검색
 	public List<Objet2> selectMyObjetSearch(HashMap<String, Object> map) {
-		//검색용 vo 새로 만들어야 할듯
 		return mybatisSession.selectList("objetMapper.selectMyObjetSearch", map);
 	}
 
 	//오브제 관리 - 내 오브제 상세보기 이동
-	public Objet moveMyObjetDetail(int objetno) {
-		return mybatisSession.selectOne("objetMapper.moveMyObjetDetail", objetno);
+	public Objet moveMyObjetDetail(String objettitle) {
+		return mybatisSession.selectOne("objetMapper.moveMyObjetDetail", objettitle);
 	}
 
 	//오브제 관리 - 내 오브제 수정 페이지 이동
@@ -274,8 +274,8 @@ public class ObjetDao {
 	}
 
 	//오브제 관리 - 전시 등록
-	public int insertObjet(Objet objet) {
-		return mybatisSession.insert("objetMapper.insertObjet", objet);
+	public int insertObjet(Objet3 objet3) {
+		return mybatisSession.insert("objetMapper.insertObjet", objet3);
 	}
 
 	// 오브제 관리 - 전시삭제

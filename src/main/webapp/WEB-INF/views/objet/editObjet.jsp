@@ -186,21 +186,21 @@ function count_ck(obj){
 		<div align="center">
 			<table class="createObjetTable">
 				<tr>
-					<th>오브제명</th>
+					<th>${request.objet.objettitle }오브제명</th>
 					<td><div class="ui input"><input type="text" name="objettitle" id="objettitle" value="애니매이션의 확장" required style="width:300px; height:30px;"></div>
 						<span style="color:#aaa; font-size:9pt;" id="counter1">( <span style="color:#4ecdc4;font-size:9pt;">0</span> / 최대 30자 )</span>
 					</td>
 				</tr>
 				
 				<tr>
-					<th style="vertical-align: top;padding-top: 10px;">오브제 소개</th>
+					<th style="vertical-align: top;padding-top: 10px;">${objet.objetintro }오브제 소개</th>
 					<td><div class="ui form"><div class="field"><textarea name="objetintro" id="objetintro" style="font-size: 9pt;width:600px;">샘플데이터</textarea></div></div>
 						<span style="color:#aaa; font-size:9pt;" id="counter2">( <span style="color:#4ecdc4;font-size:9pt;">0</span> / 최대 500자 )</span>
 					</td>
 				</tr>
 				
 				<tr>
-					<th style="vertical-align: top;padding-top: 10px;">오브제 포스터</th>
+					<th style="vertical-align: top;padding-top: 10px;">${objet.renamemainposter }오브제 포스터</th>
 					<td><img class="objetposter" id="objetposter" src="resources/objet_upfiles/animation.jpg">
 						<input type="file" name="upmainposter" id="upmainposter" accept=".jpg,.jpeg,.png" onChange="preview(this, $('#objetposter'));" style="display:none;">
 						<input type="hidden" name="originmainposter" id="originmainposter" value="">
@@ -210,12 +210,12 @@ function count_ck(obj){
 				</tr>
 				
 				<tr>
-					<th>오브제 기간</th>
+					<th>${objet.objetstartdate objet.objetenddate }오브제 기간</th>
 					<td><input type="date" id="objetstartdate" min="sysdate" required> ~ <input type="date" id="objetenddate"></td>
 				</tr>
 				
 				<tr>
-					<th style="vertical-align: top;padding-top: 10px;">관련태그<br><span style="color:#aaa; font-size: 9pt; font-weight: normal;">(최대 3개 선택)</span></th>
+					<th style="vertical-align: top;padding-top: 10px;">${objet.objettag }관련태그<br><span style="color:#aaa; font-size: 9pt; font-weight: normal;">(최대 3개 선택)</span></th>
 					<td>
 						<table class="objetTagTable">
 							<tr>
@@ -256,11 +256,11 @@ function count_ck(obj){
 			            </td>
 			            
 			            <td style="width:75%;">
-			            	<a class="ui teal circular label">작품명</a><br>
+			            	<a class="ui teal circular label">${objet.objettitle }작품명</a><br>
 			            	<div class="ui input" style="margin-top:10px;"><input type="text" name="objettitle<%=i %>" id="objettitle<%=i %>" value="" required style="width:300px; height:30px;"></div>
 							<span style="color:#aaa; font-size:9pt;">(최대 30자)</span>
 			            	<br><br>
-			            	<a class="ui teal circular label">작품소개</a><br>
+			            	<a class="ui teal circular label">${objet.objetintro }작품소개</a><br>
 			            	<div class="ui form" style="margin-top:10px;"><div class="field">
 			            	<textarea name="objetintro<%=i%>" id="objetintro<%=i%>" style="font-size: 9pt;width:500px; height:50px;" value="" required></textarea></div></div>
 							<span style="color:#aaa; font-size:9pt;">( 최대 500자 )</span>

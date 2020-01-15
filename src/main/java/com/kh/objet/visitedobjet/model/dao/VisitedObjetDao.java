@@ -47,7 +47,6 @@ public class VisitedObjetDao {
 
 
 	// 오브제 관리 - 다녀온 오브제 검색
-	// 새로 vo 만들어야 할듯
 	public List<VisitedObjet> selectMyVisitedObjetSearch(HashMap<String, Object> map) {
 		return mybatisSession.selectList("objetMapper.selectMyVisitedObjetSearch", map);
 	}

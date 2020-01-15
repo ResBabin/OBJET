@@ -289,10 +289,14 @@ where a.revuserid = #{userid} and a.objetno = #{objetno}
  	</select>
  	
  	<insert id="insertObjet" parameterType="objet">
- 		insert into objet values (#{objetno}, #{userid}, #{objettitle}, #{objetintro}, #{originmainposter}, #{renamemainposter}, #{objetstartdate}, #{objetenddate}, #{objettag}, #{publicyn}, #{objetregidate}, #{objetstatus}, #{objetview})
+ 		insert into objet values (#{objetno}, #{userid}, #{objettitle}, #{objetintro}, #{originmainposter}, #{renamemainposter}, #{objetstartdate}, #{objetenddate}, #{objettag}, #{publicyn},
+ 		#{objetregidate}, #{objetstatus}, #{objetview}, #{objettitle1}, #{objetintro1}, #{objetofile1}, #{objetrfile1}, #{objettitle2}, #{objetintro2}, #{objetofile2}, 
+ 		#{objetrfile2}, #{objettitle3}, #{objetintro3}, #{objetofile3}, #{objetrfile3}, #{objettitle4}, #{objetintro4}, #{objetofile4}, #{objetrfile4}, #{objettitle5},
+ 		#{objetintro5}, #{objetofile5}, #{objetrfile5}, #{objettitle6}, #{objetintro6}, #{objetofile6}, #{objetrfile6}, #{objettitle7}, #{objetintro7}, #{objetofile7}, 
+ 		#{objetrfile7}, #{objettitle8}, #{objetintro8}, #{objetofile8}, #{objetrfile8})
  	</insert>
  	
- 	<update id="updateObjet" parameterType="objet">
+ 	<update id="updateObjet" parameterType="Objet">
  		update objet
  		<trim prefix="set" suffixOverrides=",">
 			<if test="objetno != null">objetno = #{objetno},</if>
@@ -312,7 +316,7 @@ where a.revuserid = #{userid} and a.objetno = #{objetno}
 		where userid = #{userid}
  	</update>
  	
- 	<delete id="deleteObjet" parameterType="objet">
+ 	<delete id="deleteObjet" parameterType="Objet">
  		delete from objet where objettitle = #{objettitle} and objetstatus = #{objetstatus} and objetstartdate = #{objetstartdate} and objetenddate = #{objetenddate} and publicyn = #{publicyn} and objetregidate = #{objetregidate}
  	</delete>
  	
@@ -320,7 +324,37 @@ where a.revuserid = #{userid} and a.objetno = #{objetno}
  		select * from visitedobjet
  	</select>
  	
+ 	<delete id="deleteMyVisitedObjetList" parameterType="visitedobjet">
+ 		delete from visitedobjet where objetno = #{objetno}
+ 	</delete>
+ 	
+ 	<select id="selectMyVisitedObjetSearch" parameterType="hashmap" resultType="visitedobjet">
+ 		select * from vistiedobjet
+ 		join objet using(objetitle)
+ 		where objettitle like '%' || #{objettitle} || '%'
+ 		or userid like '%' || #{userid} || '%'
+ 	</select>
+ 	
  	<select id="listCount" resultType="_int">
  		select count(*) from visitedobjet
+ 	</select>
+ 	
+ 	<select id="selectLikeObjetList" resultType="likeobjet" parameterType="Hashmap">
+ 		select * from likeobjet
+ 	</select>
+ 	
+ 	<delete id="deleteMyLikeObjetList" parameterType="likeobjet">
+ 		delete from likeobjet where objetno = #{objetno}
+ 	</delete>
+ 	
+ 	<select id="selectMyLikeObjetSearch" parameterType="hashmap" resultType="likeobjet">
+ 		select * from likeobjet
+ 		join objet using(objettitle)
+ 		where objettitle like '%' || #{objettitle} || '%'
+ 		or userid like '%' || #{userid} || '%'
+ 	</select>
+ 	
+ 	<select id="listCountK" resultType="_int">
+ 		select count(*) from likeobjet
  	</select>
 </mapper>

@@ -31,13 +31,13 @@ public class LikeObjetDao {
 		int limit = 0;
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		List<LikeObjet> list = mybatisSession.selectList("", userid, rowBounds);
+		List<LikeObjet> list = mybatisSession.selectList("objetMapper.selectLikeObjetList", userid, rowBounds);
 		return (ArrayList<LikeObjet>)list;
 	}
 
 	// 오브제 관리 - 관심오브제 삭제
 	public int deleteMyLikeObjetList(int objetno) {
-		return mybatisSession.delete("", objetno);
+		return mybatisSession.delete("objetMapper.deleteMyLikeObjetList", objetno);
 	}
 
 
@@ -46,8 +46,8 @@ public class LikeObjetDao {
 		return mybatisSession.selectList("objetMapper.selectMyLikeObjetSearch", map);
 	}
 	
-	public int listCount() {
-		return mybatisSession.selectOne("objetMapper.listCount");
+	public int listCountK() {
+		return mybatisSession.selectOne("objetMapper.listCountK");
 	}
 	
 

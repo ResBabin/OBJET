@@ -12,6 +12,7 @@ import com.kh.objet.objet.model.dao.ObjetDao;
 import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.objet.model.vo.Objet2;
+import com.kh.objet.objet.model.vo.Objet3;
 import com.kh.objet.objet.model.vo.ReviewKey;
 import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
@@ -288,8 +289,8 @@ public class ObjetServiceImpl implements ObjetService{
 	
 	//오브제 관리 - 내 오브제 상세보기
 	@Override
-	public Objet moveMyObjetDetail(int objetno) {
-		return objetDao.moveMyObjetDetail(objetno);
+	public Objet moveMyObjetDetail(String objettitle) {
+		return objetDao.moveMyObjetDetail(objettitle);
 	}
 
 	
@@ -308,8 +309,8 @@ public class ObjetServiceImpl implements ObjetService{
 
 	//오브제 관리 - 전시 등록
 	@Override
-	public int insertObjet(Objet objet) {
-		return objetDao.insertObjet(objet);
+	public int insertObjet(Objet3 objet3) {
+		return objetDao.insertObjet(objet3);
 	}
 
 	// 오브제 관리 - 전시 삭제

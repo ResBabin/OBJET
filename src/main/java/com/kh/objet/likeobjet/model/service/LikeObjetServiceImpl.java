@@ -43,8 +43,8 @@ public class LikeObjetServiceImpl implements LikeObjetService{
 		return likeObjetDao.selectMyLikeObjetSearch(map);
 	}
 
-	public int listCount() {
-		return likeObjetDao.listCount();
+	public int listCountK() {
+		return likeObjetDao.listCountK();
 	}
 
 
