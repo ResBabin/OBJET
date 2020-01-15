@@ -154,14 +154,14 @@ html, body {
   line-height: 34px;
 }
 .obj_txt {
-	color: #5e5e5e;
+  color: #5e5e5e;
   font-size:16px;
   font-weight: bolder;
   letter-spacing: 0.3px; 
   font-family: 'Nanum Gothic';
   line-height: 26px;
   text-align: left;
-  margin-right:45px;
+  margin-right:55px;
   
 }
 .obj_cnt {
@@ -392,9 +392,10 @@ $(function(){
 	<span class="obj_cnt">${followercnt }</span><span class="obj_cnt">${followingcnt }</span>
 </div>
 <div class="objet_profile">
-<img src="resources/users_upfiles/${objet.userrpic }" class="profile_pic">
+<a href="artistHomeMain.do?userid=${objet.userid }&loginUser=${loginUser.userid}">
+<img src="resources/users_upfiles/${objet.userrpic }" class="profile_pic"></a>
 </div>
-<a class="ui teal circular basic button" id="follow_btn" >구독하기</a>
+<a href="artistHomeMain.do?userid=${objet.userid }&loginUser=${loginUser.userid}" class="ui teal circular basic button" id="follow_btn" >작가홈가기</a>
 </div><br><br><br><br><br>
 <div class="artist_objet_more">
 <h3 class="objet_title">MORE OBJET</h3>

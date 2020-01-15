@@ -18,6 +18,7 @@ import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
 import com.kh.objet.review.model.vo.Review;
 import com.kh.objet.review.model.vo.ReviewStatus;
+import com.kh.objet.visitedobjet.model.vo.VisitedObjet;
 
 @Repository("objetDao")
 public class ObjetDao {
@@ -203,6 +204,17 @@ public class ObjetDao {
 		return mybatisSession.selectList("objetMapper.selectReviewStatusChk", rk);
 	}
 	
+	//다녀온 오브제 추가
+	public int insertVisitedObjet(VisitedObjet vs) {
+		return mybatisSession.insert("objetMapper.insertVisitedObjet", vs);
+	}
+	
+	public int selectVisitedObjet(VisitedObjet vs) {
+		return mybatisSession.selectOne("objetMapper.selectVisitedObjet", vs);
+	}
+
+	
+	
 	
 	// 최민영
 	// 작가홈 오브제 리스트 보기
@@ -282,6 +294,9 @@ public class ObjetDao {
 	public int deleteObjet(int objetno) {
 		return mybatisSession.delete("objetMapper.deleteObjet", objetno);
 	}
+
+	
+	
 
 	
 

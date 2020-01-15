@@ -17,6 +17,7 @@ import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
 import com.kh.objet.review.model.vo.Review;
 import com.kh.objet.review.model.vo.ReviewStatus;
+import com.kh.objet.visitedobjet.model.vo.VisitedObjet;
 
 @Service("objetService")
 public class ObjetServiceImpl implements ObjetService{
@@ -233,6 +234,19 @@ public class ObjetServiceImpl implements ObjetService{
 		return objetDao.selectReviewStatusChk(rk);
 	}
 	
+	//다녀온 오브제 추가
+	@Override
+	public int insertVisitedObjet(VisitedObjet vs) {
+		return objetDao.insertVisitedObjet(vs);
+	}
+	
+	@Override
+	public int selectVisitedObjet(VisitedObjet vs) {
+		return objetDao.selectVisitedObjet(vs);
+	}
+	
+	
+	
 	// 최민영 *******************************************************
 	
 
@@ -317,6 +331,7 @@ public class ObjetServiceImpl implements ObjetService{
 	public int deleteObjet(int objetno) {
 		return objetDao.deleteObjet(objetno);
 	}
+	
 
 	
 	

@@ -37,6 +37,7 @@ import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
 import com.kh.objet.review.model.vo.Review;
 import com.kh.objet.review.model.vo.ReviewStatus;
+import com.kh.objet.visitedobjet.model.vo.VisitedObjet;
 
 @Controller
 public class ObjetController {
@@ -255,6 +256,30 @@ public class ObjetController {
 		}
 		
 		return mv;
+	}
+	
+	//다녀온 오브제 추가
+	@RequestMapping("insertVisitedObjet.do")
+	public void insertVisitedObjet(@RequestParam(value="objetno") int objetno, 
+			@RequestParam(value="userid") String userid, HttpServletResponse response) throws IOException {
+		VisitedObjet vs = new VisitedObjet(objetno, userid, null);
+		int selectvs = objetService.selectVisitedObjet(vs);
+		String resultValue = "";
+		if(selectvs == 0) {
+			int result = objetService.insertVisitedObjet(vs);
+			if(result > 0) {
+				resultValue = "ok";
+			}else {
+				resultValue = "fail";
+			}
+		}else {
+			resultValue = "move";
+		}
+		
+		PrintWriter out = response.getWriter();
+		out.append(resultValue);
+		out.flush();
+		out.close();
 	}
 	
 	//오브제 전시 감상 뷰
