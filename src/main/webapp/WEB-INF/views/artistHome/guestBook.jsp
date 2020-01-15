@@ -503,7 +503,10 @@ function editGB(gbno,replyyn){
 							 </c:if>
 							 
 							<c:forEach var="num" begin="${ paging.startPage }" end="${ paging.endPage }">
-								<a href="moveArtistGuestBook.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=${num}">&emsp;${num}</a>
+								<a href="moveArtistGuestBook.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=${num}">&emsp;
+								<c:if test="${ paging.currentPage == num }"><span class="ui teal circle label">${num}</span></c:if>
+								<c:if test="${ paging.currentPage != num }"><span class="ui grey circle label">${num}</span></c:if>
+								</a>
 							</c:forEach>
 							
 							<c:if test="${ paging.endPage != paging.maxPage }">
@@ -518,7 +521,10 @@ function editGB(gbno,replyyn){
 							</c:if>
 						
 							<c:forEach var="num" begin="${ paging.startPage }" end="${ paging.endPage }">
-								<a href="moveMyGuestBook.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=${num}">&emsp;${num}</a>
+								<a href="moveMyGuestBook.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=${num}">&emsp;
+								<c:if test="${ paging.currentPage == num }"><span class="ui teal circle label">${num}</span></c:if>
+								<c:if test="${ paging.currentPage != num }"><span class="ui grey circle label">${num}</span></c:if>
+								</a>
 							</c:forEach>
 							
 							<c:if test="${ paging.endPage != paging.maxPage }">
@@ -533,7 +539,10 @@ function editGB(gbno,replyyn){
 							</c:if>
 						
 							<c:forEach var="num" begin="${ paging.startPage }" end="${ paging.endPage }">
-								<a href="moveGuestBookSearch.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=${num}&searchtype=${searchtype}&keyword=${keyword}">&emsp;${num}</a>
+								<a href="moveGuestBookSearch.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=${num}&searchtype=${searchtype}&keyword=${keyword}">&emsp;
+								<c:if test="${ paging.currentPage == num }"><span class="ui teal circle label">${num}</span></c:if>
+								<c:if test="${ paging.currentPage != num }"><span class="ui grey circle label">${num}</span></c:if>
+								</a>
 							</c:forEach>
 							
 							<c:if test="${ paging.endPage != paging.maxPage }">
@@ -594,6 +603,10 @@ function editGB(gbno,replyyn){
 			</c:if>
 			</c:if>
 			</div>
+			<div align="right">
+				<a href="#"><img src="resources/images/objet/top.png" style="width:8%; height:auto; padding-right: 50px; padding-bottom: 50px;"></a>
+			</div>
+
 		</div>	
 			
 <c:import url="../footer.jsp" />

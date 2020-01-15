@@ -236,6 +236,7 @@ function insertFollowing(){
 		var from_user = '<c:out value="${loginUser.userid}"/>'
 		var to_user = '<c:out value="${param.userid}"/>'
 		
+		if(from_user != null && from_user != ""){
 			$.ajax({
 		         url:"insertFollowing.do",
 		         type:"get",
@@ -253,10 +254,15 @@ function insertFollowing(){
 						console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
 					}
 		       });   
+		}else{
+			if(confirm("로그인/회원가입 하시고 해당 작가의 소식을 받아보세요!") == true){
+				window.location.href='moveLogin.do';
+			}
+		}
 	}
 	
 	
-// 구독취소
+// 구독하기독하기독취소
 function deleteFollowing(){
 	var from_user = '<c:out value="${loginUser.userid}"/>'
 	var to_user = '<c:out value="${param.userid}"/>'
@@ -312,7 +318,8 @@ function deleteFollowing(){
 		<p style="color:red;">존재하지 않거나 탈퇴한 회원입니다.</p>
 		</c:if>
 		<c:if test="${usersProfile.blackyn == 'Y' and usersProfile.quityn == 'N'}">
-		<p style="color:red;">오브제 가이드라인을 위반하여 일시 정지된 계정입니다.</p>
+		<p style="color:red;">오브제 가이드라인을 위반하여 일시 정지된 계정입니다.<br><br>
+		<a href="insertQna.do" style="color:#aaa; text-decoration: underline;">고객센터 문의하기</a></p>
 		</c:if>
 		</div>
 		
@@ -432,9 +439,13 @@ function deleteFollowing(){
 			<c:if test="${usersProfile.userid != loginUser.userid }">
 			<div align="center"><button class="ui medium grey basic button" id="editArtistIntro" onclick="">전시일정 보기</button></div>
 			</c:if>
-			<br>
+			<br><br>
 			</div>
+				<div align="center">
+					<a href="#"><img src="resources/images/objet/top.png" style="width:10%; height:auto;"></a>
+				</div>
 		</div>
+		
 	</c:if>	
 		
 	<!-- 오브제 영역 ************************************************************************************************** -->	
@@ -452,6 +463,10 @@ function deleteFollowing(){
 				<div align="center">
 				오브제명&ensp;<div class="ui input"><input type="text" name="keyword" id="keyword"></div>
 					&ensp;<div class="ui buttons"><button class="ui button" type="submit" onclick="objetSearch();">검색</button></div>
+				</div>
+				<br><br><br><br><br><br>
+				<div align="center">
+					<a href="#"><img src="resources/images/objet/top.png" style="width:10%; height:auto;"></a>
 				</div>
 				
 			</div>

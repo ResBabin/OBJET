@@ -32,7 +32,7 @@ $(function(){
 //팔로우 추가
 function insertFollowing(data){
 		var from_user = '<c:out value="${loginUser.userid}"/>'
-		
+		if(from_user != null && from_user != ""){
 			$.ajax({
 		         url:"insertFollowing.do",
 		         type:"get",
@@ -49,7 +49,12 @@ function insertFollowing(data){
 		          error: function(request, status, errorData){
 						console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
 					}
-		       });   
+		       }); 
+		}else{
+			if(confirm("로그인/회원가입 하시고 해당 작가의 소식을 받아보세요!") == true){
+				window.location.href='moveLogin.do';
+			}
+		}
 	}
 	
 	
