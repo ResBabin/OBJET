@@ -1733,6 +1733,8 @@ a:-webkit-any-link {
 		
 	}
 </script>
+
+
 </head>
 <body>
 <section class="all">
@@ -1855,7 +1857,10 @@ a:-webkit-any-link {
 <div class="ui black icon button banner_img_btn" 
 style="font-size: 18px;" onclick="location.href='objetView.do?objetno=${objet.objetno}&userid=${objet.userid }'">전시 감상하러 가기
 &nbsp;<i class="ui large white arrow right icon" style="font-size:18px;"></i>
-</div></div>
+</div>
+
+
+</div>
 <div class="ui fluid four item inverted menu" id="objet_info_menu">
   <a class="active item" id="item" data-tab="objet_info">
     전시소개

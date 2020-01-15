@@ -29,6 +29,12 @@
  <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
  <script type="text/javascript">
  
+ // 탈퇴계정, 로그인 실패 메시지 표출용 코드 여기서부터 ---
+ var message = "${message}";
+ if(message != null && message != ""){
+	 alert(message);
+ }// 여기까지 ----
+ 
 		window.onload = function() {
 		    if (getCookie("id")) { // getCookie함수로 id라는 이름의 쿠키를 불러와서 있을경우
 		    	document.loginForm.userid.value = getCookie("id"); //input 이름이 id인곳에 getCookie("id")값을 넣어줌
@@ -84,7 +90,14 @@
 <body>
 <!-- 로그인 섹션 시작! -->
 <div id="loginSection">
-	<p style="font-size: 25pt; padding-top:40px; margin-bottom:20px; color:#373737;">오브제 시작하기</p>
+<c:if test="${empty loginFail or loginFail ==''}">
+<p style="font-size: 25pt; padding-top:40px; margin-bottom:20px; color:#373737;">오브제 시작하기</p>
+</c:if>
+<c:if test="${!empty loginFail }">
+<p style="font-size: 25pt; padding-top:20px; color:#373737;">로그인 실패!</p>
+<p style="color:#aaa; font-size: 9pt;margin-top: -35px;">아이디와 비밀번호를 확인해주세요:)<br><br></p>
+</c:if>
+	
 	
 	<form action="login.do" method="post" name="loginForm" id="loginForm">
 	<div class="field">

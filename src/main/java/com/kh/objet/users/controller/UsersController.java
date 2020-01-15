@@ -217,11 +217,14 @@ public class UsersController {
 						vfn = "redirect:/adminmain.do";
 					}
 				}else {
-					vfn = "user/loginAgain";
+					vfn = "user/login";
+					model.addAttribute("loginFail", "로그인 실패!");
 					model.addAttribute("message", "탈퇴한 계정입니다. 탈퇴일로부터 30일 내에는 동일한 이메일로 재가입이 불가능합니다.");
 				}
 			}else {
-				vfn = "user/loginAgain";
+				vfn = "user/login";
+				model.addAttribute("loginFail", "로그인 실패!");
+				model.addAttribute("message", "가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
 			}
 			
 			if(searchMainList != null && objetList != null && objetAllList != null && objetMainList != null) {
@@ -259,7 +262,7 @@ public class UsersController {
 					vfn = "redirect:/main.do";
 				}else {
 					model.addAttribute("message", "탈퇴한 계정입니다. 탈퇴일로부터 30일 내에는 동일한 이메일로 재가입이 불가능합니다.");
-					vfn = "user/loginAgain";
+					vfn = "user/login";
 				}
 
 			}else {
