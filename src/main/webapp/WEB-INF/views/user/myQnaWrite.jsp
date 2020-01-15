@@ -79,16 +79,15 @@
 
 </script> 
              
-			  
-			<button type="submit" class="insert">완료</button>
+			 	<div align="center">
+				<input type="submit" class="ui green button" value="문의하기" > &nbsp;
+				<input type="button" class="ui button" value="문의취소" onclick="location.href='javascript:history.go(-1)'"> &nbsp;
+			</div>
              </form>    
               
 		<br><br>
 		<!-- 수정삭제버튼 -->
-			<div align="center">
-				<input type="submit" class="ui green button" value="문의하기"> &nbsp;
-				<input type="button" class="ui button" value="문의취소" onclick="location.href='javascript:history.go(-1)'"> &nbsp;
-			</div>
+		
 		
 		<br><br>
 

@@ -118,20 +118,21 @@ color:#666666;
 
 #main-menu > li > a {
 /*홈 전시 작가  */
-margin-top: -60px;
+
+ margin-top: -10px; 
   margin-left: 10px;
   font-size: 17px;
   color: black;
   text-align: center;
   text-decoration: none;
   display: block;
-  padding: 40px 19px; 
+  padding: 10px 19px; 
  
 }
 
 /* 고객센터 하위메뉴 */
 #sub-menu {
- margin-top: -23px;
+ margin-top: 5px;
  letter-spacing: 4px;
   width: 220px;
   font-size: 15px;
@@ -427,7 +428,7 @@ width: 190px;
       </li>
       
       <li><div class="fd"><p onclick="location.href='moveFeedList.do?artistid=${loginUser.userid}'" style="cursor: pointer;">피드알림</p></div></li>
-      <li><div class="qna"><p onclick="location.href='moveMyQnaList.do'" style="cursor: pointer;">문의내역</p></div></li>
+      <li><div class="qna"><p onclick="location.href='selectQnaList.do?userid=${loginUser.userid}'" style="cursor: pointer;">문의내역</p></div></li>
    </ul>
 </div>
 

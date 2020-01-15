@@ -51,7 +51,9 @@ public class QnaController {
 	
 	// 문의내역 페이지 이동
 	   @RequestMapping("selectQnaList.do")
-	   public String selectQnaList(@RequestParam(name="page",required=false)String page, Model model){
+	   public String selectQnaList(@RequestParam(name="page",required=false)String page, 
+			   @RequestParam(name="userid",required=false)String userid,
+			   Model model){
 	      logger.info("page : " + page);
 	      int currentPage = 1;
 	      if(page !=null) {
@@ -83,6 +85,7 @@ public class QnaController {
 	            HashMap<String, Object> map = new HashMap<String, Object>();
 	            map.put("startRow", startRow);
 	            map.put("endRow", endRow);
+	            map.put("userid",userid);
 	            
 	            List<Qna> list = qnaService.selectQnaList(map);
 	                              
@@ -98,6 +101,7 @@ public class QnaController {
 	               model.addAttribute("endPage",endPage);
 	               model.addAttribute("limit",limit);
 	               model.addAttribute("page", page);
+	               model.addAttribute("userid",userid);
 	               
 	               /*model.addAttribute("user/myQnaList");*/
 	            } else {
@@ -116,6 +120,7 @@ public class QnaController {
 	   @RequestMapping("selectQnaSearchList.do")
 	   public String selectQnaSearchList(Model model,Qna qna,
 	         @RequestParam(name = "page", required = false) String page,
+	         @RequestParam(name = "userid", required = false) String userid,
 	         @RequestParam(name = "search", required = false) String search,
 	         @RequestParam(name="searchmenu", required=false)String searchmenu){
 
@@ -131,6 +136,7 @@ public class QnaController {
 	      //페이징
 	      int limit = 10; // 한 페이지에 출력할 목록 갯수
 	      HashMap<String, Object> mapp = new HashMap<String, Object>();
+	      mapp.put("userid", userid);
 	      mapp.put("search", search);
 	      mapp.put("searchmenu", searchmenu);
 
@@ -159,6 +165,7 @@ public class QnaController {
 	            HashMap<String, Object> map = new HashMap<String, Object>();
 	            map.put("startRow", startRow);
 	            map.put("endRow", endRow);
+	            map.put("userid", userid);
 	            map.put("search", search);
 	            map.put("searchmenu", searchmenu);
 	            map.put("listcount", listCount);
@@ -292,7 +299,7 @@ public class QnaController {
 	          @RequestParam(name = "qnacontent") String qnacontent, Qna qna) {
 
 	         qna.setQnano(qnano);
-	         qna.setQnatitle(qnatitle); // 공지사항제목
+	         qna.setQnatitle(qnatitle); 
 	         qna.setQnacontent(qnacontent);
 
 	         int result = qnaService.updateQna(qna);
