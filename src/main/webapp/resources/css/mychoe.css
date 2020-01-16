@@ -13,7 +13,7 @@ body {
 	margin-left: 25%;
 	margin-right: 25%;
 	margin-top:80px; /* 상단바 높이만큼 수정 */
-	margin-bottom:100px; /* 하단바 높이만큼 수정 */
+	margin-bottom:200px; /* 하단바 높이만큼 수정 */
 	min-height: 100%;
 }
 
@@ -32,7 +32,7 @@ body {
 	background-color: #fff;
 	float: left;
 	align:left;
-	width:70%;
+	width:60%;
 	height: 185px;
 	padding-top: 15px;
 }
@@ -46,7 +46,7 @@ body {
 	float: left;
 	align:right;
 	text-align: right;
-	width:30%;
+	width:40%;
 	height: 185px;
 }
 
@@ -372,6 +372,7 @@ body {
 	margin-right: 25%;
 	overflow:hidden;
 	min-height: 100%;
+	margin-bottom: 200px;
 }
 
 .enrollSection{
@@ -403,8 +404,6 @@ body {
 	width:85%;
 	font-size: 10pt;
 }
-
-
 
 
 .enrolldiv{
@@ -777,4 +776,85 @@ body {
 	font-size: 10pt;
 	height:60px;
 	vertical-align: top;
+}
+
+
+
+/* 후원 css ===========================================================================*/
+.supportWrap{
+	background-color: #fff;
+	margin-left: 10%;
+	margin-right: 10%;
+	margin-top:80px; /* 상단바 높이만큼 수정 */
+	margin-bottom:150px; /* 하단바 높이만큼 수정 */
+	min-height: 100%;
+}
+
+.supportBanner{
+	background: lightblue;
+	width:100%;
+	height:250px;
+	padding: 30px 30px;
+}
+
+.supportheader{
+	font-size: 25pt;
+	font-family: 'Nanum Myeongjo'; nth-of-type (1) font-weight : 500;
+	line-height: 30pt; 
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+
+.supportintro{
+	font-size: 13pt; 
+	font-family: 'Nanum Myeongjo'; nth-of-type (1) font-weight : 300;
+	line-height: 25pt; 
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+
+#checkBeforeSupport{
+	align: center;
+	margin-top: -10px;
+	padding-left: 35px;
+	padding-top: 15px;
+	width: 500px;
+	height: 230px;
+	background-color: #f2f2f2;
+	border: 1px solid #e2e2e2;
+	text-align: left;
+	font-size: 12pt;
+	line-height: 17pt;
+	color: #aaa;
+}
+
+.applySection{
+	align:center;
+	background: #fdfdfd;
+	width: 100%;
+	height: 100%;
+	margin-top: 40px;
+}
+
+
+.applyTable{
+	width: 75%;
+	height: 90%;
+	margin-left: 12%;
+	margin-right: 12%;
+	padding-top: 20px;
+}
+
+.applyTable tr{
+	line-height: 30px;
+}
+
+.applyTable th{
+	 width:15%;
+	 text-align: left;
+}
+
+.applyTable td{
+	width:85%;
+	font-size: 10pt;
 }

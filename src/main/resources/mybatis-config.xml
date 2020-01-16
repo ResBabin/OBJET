@@ -37,17 +37,18 @@
 		<typeAlias type="com.kh.objet.users.model.vo.UAUP" alias="UAUP" />
 		<typeAlias type="com.kh.objet.objet.model.vo.Artist" alias="Artist" />
 		<typeAlias type="com.kh.objet.users.model.vo.LoginCount" alias="LoginCount" />
+		<typeAlias type="com.kh.objet.support.model.vo.ApplySupport" alias="ApplySupport" />
+		<typeAlias type="com.kh.objet.support.model.vo.MySupport" alias="MySupport" />
+		<typeAlias type="com.kh.objet.support.model.vo.RequestSpt" alias="RequestSpt" />
 	</typeAliases>
 	<mappers>
-<!-- 		<mapper resource="mappers/member-mapper.xml" />
-		<mapper resource="mappers/board-mapper.xml" />
-		<mapper resource="mappers/notice-mapper.xml" />
-		<mapper resource="mappers/test-mapper.xml" /> -->
+
 	 	<mapper resource="mappers/user-mapper.xml" /> 
 	 	<mapper resource="mappers/objet-mapper.xml" /> 
 	 	<mapper resource="mappers/admin-mapper.xml" /> 
 	 	<mapper resource="mappers/calendar-mapper.xml"/>
 		<mapper resource="mappers/objet-mapper.xml"/>
 	 	<mapper resource="mappers/cs-mapper.xml"/>
+	 	<mapper resource="mappers/support-mapper.xml"/>
 	</mappers>
 </configuration>
