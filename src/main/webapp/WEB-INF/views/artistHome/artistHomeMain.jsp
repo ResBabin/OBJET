@@ -304,7 +304,6 @@ function deleteFollowing(){
 		<span>
 			<p class="profileText" style="font-size: 25px; color:#373737;">${usersProfile.nickname}</p>
 			<p class="profileText" style="font-size: 10pt; color:#aaa;">${usersProfile.userintros}</p>
-			<a href='moveVRView.do'>이동</a>
 			<br><br>
 		</span>
 		<c:if test="${usersProfile.blackyn == 'N' && usersProfile.quityn == 'N'}">
@@ -336,16 +335,18 @@ function deleteFollowing(){
 			
 			<c:if test="${usersProfile.userid != loginUser.userid && usersProfile.blackyn == 'N' && usersProfile.quityn == 'N'}">
 					<c:if test="${followyn eq 'Y' }">
-						<button class="mini ui basic teal button" onclick="deleteFollowing()">구독중&ensp;<i class="check icon" style="width:7px;"></i></button>
+						<button class="mini ui basic teal button" onclick="deleteFollowing()">구독중&ensp;<i class="check icon" style="width:5px;"></i></button>
 					</c:if>
 					<c:if test="${followyn eq 'N' }">
 						<button class="mini ui teal button" onclick="insertFollowing()">구독하기</button>
 					</c:if>
 					<button class="mini ui teal button" onclick="location.href='moveArtistGuestBook.do?artistid=${usersProfile.userid}&userid=${loginUser.userid }&currentPage=1'">방명록 작성</button>
+					<button class="mini ui yellow button" onclick="location.href='moveSupportManagement.do?artistid=${usersProfile.userid}&sptid=${loginUser.userid}'"><i class="won sign icon"></i>작가후원</button>
 			</c:if>
 			
 			<c:if test="${usersProfile.blackyn == 'N' && usersProfile.userid == loginUser.userid}">
 				<button class="mini ui teal button" onclick="location.href='moveArtistGuestBook.do?artistid=${usersProfile.userid}&userid=${loginUser.userid }&currentPage=1'">방명록 관리</button>
+				<button class="mini ui yellow button" onclick="location.href='moveSupportManagement.do?artistid=${usersProfile.userid}&sptid=${loginUser.userid}'"><i class="won sign icon"></i>후원관리</button>
 			</c:if>
 			<c:if test="${usersProfile.quityn == 'N'}">
 			<i class="grey ellipsis vertical icon" id="profileMenu"></i>

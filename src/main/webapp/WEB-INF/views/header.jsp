@@ -420,10 +420,17 @@ width: 190px;
       <li>
          <span class="accordian1">오브제관리</span>
          <ul>
-            <li><a href="moveMyObjetList.do">내 오브제</a></li>
-            <li><a href="moveCreateObjet.do">오브제 등록</a></li>
-            <li><a href="moveMyLikeObjetList.do">관심오브제</a></li>
-            <li><a href="moveMyVisitedObjetList.do">다녀온오브제</a></li>
+            <li ><a href="moveMyObjetList.do" style="color:#aaa">내 오브제</a></li>
+            <li><a href="moveCreateObjet.do" style="color:#aaa">오브제 등록</a></li>
+            <li><a href="moveMyLikeObjetList.do" style="color:#aaa">관심오브제</a></li>
+            <li><a href="moveMyVisitedObjetList.do" style="color:#aaa">다녀온오브제</a></li>
+         </ul>
+      </li>
+      <li>
+         <span class="accordian1">후원관리</span>
+         <ul>
+            <li><a href="" style="color:#aaa">후원내역</a></li>
+            <li><a href="" style="color:#aaa">정산현황</a></li>
          </ul>
       </li>
       
@@ -444,8 +451,8 @@ width: 190px;
     
     <li><a href="moveCs.do">고객센터</a>
       <ul id="sub-menu">
-        <li><a href="moveFaqMain.do" aria-label="subemnu">FAQ</a></li>
-        <li><a href="moveNotice.do" aria-label="subemnu">공지사항</a></li>
+        <li><a href="moveFaqMain.do" aria-label="subemnu" style="color:#aaa">FAQ</a></li>
+        <li><a href="moveNotice.do" aria-label="subemnu" style="color:#aaa">공지사항</a></li>
         </ul>
         </li>
         </ul>

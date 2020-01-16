@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="supportMapper">
+
+	<select id="selectSupport" parameterType="String" resultType="ApplySupport">
+		select * from applysupport where artistid = #{value}	
+	</select>
+	
+	<insert id="insertSupport" parameterType="MySupport">
+		insert into mysupport values (SPTNO_SEQ.NEXTVAL, #{sptid}, #{artistid}, #{sptamount}, #{sptcomment}, SYSDATE)
+	</insert>
+	
+	<insert id="insertApply" parameterType="ApplySupport">
+		insert into applysupport values (#{artistid}, #{sptheader}, #{sptintro}, #{sptbank}, #{sptaccount}, #{thanksmsg}, sysdate, sysdate)
+	</insert>
+	
+	<select id="moveModifySupport" parameterType="ApplySupport" resultType="ApplySupport">
+		select * from applysupport where artistid = #{value}
+	</select>
+	
+	<update id="updateApplySupport" parameterType="ApplySupport">
+		update applysupport set sptheader = #{sptheader}, sptintro = #{sptintro}, sptbank = #{sptbank}, sptaccount = #{sptaccount}, thanksmsg = #{thanksmsg}, sptmodifydate = sysdate where artistid=#{artistid}
+	</update>
+
+
+</mapper>
