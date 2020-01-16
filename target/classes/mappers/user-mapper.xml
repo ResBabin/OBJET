@@ -13,7 +13,9 @@
 	</select>
 	
 	<insert id="insertUsers" parameterType="Users">
-		insert into users values (#{userid}, #{userpwd}, #{usertype}, #{username}, #{nickname}, #{email}, #{phone}, #{gender}, sysdate, default, default)
+		insert into users values (#{userid}, #{userpwd}, #{usertype}, #{username}, #{nickname}, #{email}, #{phone}, #{gender}, sysdate, default, default
+		<if test="naverid != 0">, #{naverid}</if>
+		)
 	</insert>
 
 	<insert id="insertUsersProfile" parameterType="String">
@@ -64,11 +66,11 @@
 	</insert>
 	
 	<select id="FollowerGetListCount" parameterType="String" resultType="int">
-		select count(*) from follower where to_user = #{userid}
+		select count(*) from follower f left join users u on (f.from_user = u.userid)  where to_user = #{value} and u.quityn = 'N'
 	</select>
 	
 	<select id="FollowingGetListCount" parameterType="String" resultType="int">
-		select count(*) from following where from_user = #{userid}
+		select count(*) from following f left join users u on (f.to_user = u.userid) where from_user = #{userid} and u.quityn = 'N'
 	</select>
 	
 	<select id="moveArtistHome" parameterType="String" resultType="UAUP">
@@ -114,17 +116,17 @@
 	</delete>
 	
 	<select id="moveFollowerPage" parameterType="String" resultType="Follow">
-		select users.userid, users.nickname, usersprofile.userintros, usersprofile.userrpic
+		    select users.userid, users.nickname, usersprofile.userintros, usersprofile.userrpic
 		from users join usersprofile on (users.userid = usersprofile.userid)
 		join follower on (users.userid = follower.from_user)
-		where follower.to_user = #{value} order by users.blackyn asc, follower.followdate desc
+		where follower.to_user = #{value} and users.quityn = 'N' order by users.blackyn asc, follower.followdate desc
 	</select>
 	
 	<select id="moveFollowingPage" parameterType="String" resultType="Follow">
 		select users.userid, users.nickname, usersprofile.userintros, usersprofile.userrpic
 		from users join usersprofile on (users.userid = usersprofile.userid)
 		join following on (users.userid = following.to_user)
-		where following.from_user = #{value} order by users.blackyn asc, following.followdate desc
+		where following.from_user = #{value} and users.quityn = 'N' order by users.blackyn asc, following.followdate desc
 	</select>
 	
 	<select id="selectFollowingList" parameterType="Following" resultType="int">
@@ -237,11 +239,22 @@
 		select userid from quit where sysdate - quitdate > 30
 	</select>
 	
-	<delete id="dropQuitUser1" parameterType="String">
-		delete quit where userid = #{value}
-	</delete>
-	
-	<delete id="dropQuitUser2" parameterType="String">
+	<delete id="dropQuitUser" parameterType="String">
 		delete users where userid = #{value}
 	</delete>
+
+	<!-- 네아로 가입여부 확인-->
+	<select id="selectNaverLogin" parameterType="UAUP" resultType="UAUP">
+		select * from users A left outer join usersprofile B on A.userid = B.userid where A.naverid= #{naverid}
+	</select>
+	
+	<!-- 네아로  가입하려는 메일 중복체크-->
+	<select id="selectNaverMail" parameterType="String" resultType="int">
+		select count(*) from users where email = #{email} and naverid = 0
+	</select>
+	
+	<!-- 네이버회원 내정보수정 이메일 재확인 -->
+	<select id="selectNaverUsersLogin" parameterType="UAUP" resultType="UAUP">
+		select * from users A left outer join usersprofile B on A.userid = B.userid where A.userid= #{userid} and A.username = #{username} and A.email = #{email}
+	</select>
 </mapper>

@@ -145,6 +145,11 @@ public class UserManagementServiceImpl implements UserManagementService{
 		return usermDao.updateRequestStatus(map);
 	}
 
+	@Override
+	public int selectStatusOrderList(Map<String, String> map) {
+		return 0;
+	}
+
 
 
 }

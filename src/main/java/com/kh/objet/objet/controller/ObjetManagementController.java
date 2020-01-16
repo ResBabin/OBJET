@@ -107,6 +107,12 @@ public class ObjetManagementController {
 		return "admin/objetRequestManage";
 	}
 	
+	@RequestMapping("warning.do")
+	public String waringPage() {
+		return "admin/warning";
+	}
+	
+	
 	@RequestMapping("adminmain.do")
 	public String adminMain(Model model) {
 		ArrayList<Objet> objetreqlist = (ArrayList<Objet>) objetmService.selectObjetRequestManage();
@@ -265,32 +271,6 @@ public class ObjetManagementController {
 	@RequestMapping(value="objetStatusOrder.do", method=RequestMethod.POST)
 	public void selectStatusOrder(HttpServletResponse response, HttpServletRequest request) throws IOException {
 		Map<String, String> map = new HashMap<>();
-		int currentPage = 1;
-		if(request.getParameter("page") != null) {
-			currentPage = Integer.parseInt(request.getParameter("page"));
-		}
-		int limit = 10;  //한 페이지에 출력할 목록 갯수
-		int listCount = usermService.selectUserListCount();  //테이블의 전체 목록 갯수 조회
-		//총 페이지 수 계산
-		int maxPage = listCount / limit;
-		if(listCount % limit > 0)
-			maxPage++;
-		
-		//currentPage 가 속한 페이지그룹의 시작페이지숫자와 끝숫자 계산
-		//예, 현재 34페이지이면 31 ~ 40 이 됨. (페이지그룹의 수를 10개로 한 경우)
-		int beginPage = (currentPage / limit) * limit + 1;
-        if(currentPage % limit == 0) {
-            beginPage -= limit;
-         }
-		int endPage = beginPage + 9;
-		if(endPage > maxPage)
-			endPage = maxPage;
-		
-		//currentPage 에 출력할 목록의 조회할 행 번호 계산
-		int startRow = (currentPage * limit) - 9;
-		int endRow = currentPage * limit;
-		map.put("startRow", Integer.toString(startRow));
-		map.put("endRow", Integer.toString(endRow));
 		String order = request.getParameter("order");
 		String objetstatus = request.getParameter("objetstatus");
 		String publicyn = request.getParameter("publicyn");
@@ -314,6 +294,33 @@ public class ObjetManagementController {
 		if(objettitle != "") {
 			map.put("objettitle", objettitle);
 		}
+		int currentPage = 1;
+		if(request.getParameter("page") != null) {
+			currentPage = Integer.parseInt(request.getParameter("page"));
+		}
+		int limit = 10;  //한 페이지에 출력할 목록 갯수
+		int listCount = objetmService.selectStatusOrderList(map);  //테이블의 전체 목록 갯수 조회
+		//총 페이지 수 계산
+		int maxPage = listCount / limit;
+		if(listCount % limit > 0)
+			maxPage++;
+		
+		//currentPage 가 속한 페이지그룹의 시작페이지숫자와 끝숫자 계산
+		//예, 현재 34페이지이면 31 ~ 40 이 됨. (페이지그룹의 수를 10개로 한 경우)
+		int beginPage = (currentPage / limit) * limit + 1;
+        if(currentPage % limit == 0) {
+            beginPage -= limit;
+         }
+		int endPage = beginPage + 9;
+		if(endPage > maxPage)
+			endPage = maxPage;
+		
+		//currentPage 에 출력할 목록의 조회할 행 번호 계산
+		int startRow = (currentPage * limit) - 9;
+		int endRow = currentPage * limit;
+		map.put("startRow", Integer.toString(startRow));
+		map.put("endRow", Integer.toString(endRow));
+		
 		
 		ArrayList<Objet> statusOrderList = (ArrayList<Objet>) objetmService.selectStatusOrder(map);
 		
@@ -332,19 +339,118 @@ public class ObjetManagementController {
 				job.put("objetno", objetso.getObjetno());
 				job.put("status", objetso.getObjetstatus());
 				job.put("publicyn", objetso.getPublicyn());
-				job.put("regidate", objetso.getObjetregidate().toString());
+				
+				job.put("currentPage", currentPage);
+				job.put("listCount", listCount);
+				job.put("maxPage", maxPage);
+				job.put("beginPage", beginPage);
+				job.put("endPage", endPage);
+				
 				jarr.add(job);
 			}
+			
 		sendJson.put("list", jarr);
 	//	logger.debug(jarr.toJSONString());
 		response.setContentType("application/jsonl charset=utf-8");
 		PrintWriter out = response.getWriter();
+		
 		out.println(sendJson.toJSONString());
 		out.flush();
 		out.close();
 	}
 	
-	@RequestMapping("objetAllSearch.do")
+/*	@RequestMapping(value="objetStatusOrder.do", method=RequestMethod.POST)
+	public void selectStatusOrder(HttpServletResponse response, HttpServletRequest request) throws IOException {
+		Map<String, String> map = new HashMap<>();
+		String order = request.getParameter("order");
+		String objetstatus = request.getParameter("objetstatus");
+		String publicyn = request.getParameter("publicyn");
+		String objettag = request.getParameter("objettag");
+		String objettitle = request.getParameter("objettitle");
+		String userid = request.getParameter("userid");
+		
+		if(!objetstatus.equals("")) {
+			map.put("objetstatus", objetstatus);
+		}
+		if(!publicyn.equals("")) {
+			map.put("publicyn", publicyn);
+		}
+		if(!objettag.equals("")) {
+			map.put("objettag", objettag);
+		}
+		map.put("order", order);
+		if(userid != "") {
+			map.put("userid", userid);
+		}
+		if(objettitle != "") {
+			map.put("objettitle", objettitle);
+		}
+		int currentPage = 1;
+		if(request.getParameter("page") != null) {
+			currentPage = Integer.parseInt(request.getParameter("page"));
+		}
+		int limit = 10;  //한 페이지에 출력할 목록 갯수
+		int listCount = objetmService.selectStatusOrderList(map);  //테이블의 전체 목록 갯수 조회
+		//총 페이지 수 계산
+		int maxPage = listCount / limit;
+		if(listCount % limit > 0)
+			maxPage++;
+		
+		//currentPage 가 속한 페이지그룹의 시작페이지숫자와 끝숫자 계산
+		//예, 현재 34페이지이면 31 ~ 40 이 됨. (페이지그룹의 수를 10개로 한 경우)
+		int beginPage = (currentPage / limit) * limit + 1;
+		if(currentPage % limit == 0) {
+			beginPage -= limit;
+		}
+		int endPage = beginPage + 9;
+		if(endPage > maxPage)
+			endPage = maxPage;
+		
+		//currentPage 에 출력할 목록의 조회할 행 번호 계산
+		int startRow = (currentPage * limit) - 9;
+		int endRow = currentPage * limit;
+		map.put("startRow", Integer.toString(startRow));
+		map.put("endRow", Integer.toString(endRow));
+		
+		
+		ArrayList<Objet> statusOrderList = (ArrayList<Objet>) objetmService.selectStatusOrder(map);
+		
+		//전송용 json 객체
+		JSONObject sendJson = new JSONObject();
+		//json 배열 객체
+		JSONArray jarr = new JSONArray();
+		//list를 jarr 로 옮겨 저장 (복사)
+		for (Objet objetso : statusOrderList) {
+			JSONObject job = new JSONObject();
+			job.put("userid", objetso.getUserid());
+			job.put("objettitle", URLEncoder.encode(objetso.getObjettitle(), "utf-8"));
+			job.put("objettag", URLEncoder.encode(objetso.getObjettag(), "utf-8"));
+			job.put("startdate", objetso.getObjetstartdate().toString());
+			job.put("enddate", objetso.getObjetenddate().toString());
+			job.put("objetno", objetso.getObjetno());
+			job.put("status", objetso.getObjetstatus());
+			job.put("publicyn", objetso.getPublicyn());
+			
+			job.put("currentPage", currentPage);
+			job.put("listCount", listCount);
+			job.put("maxPage", maxPage);
+			job.put("beginPage", beginPage);
+			job.put("endPage", endPage);
+			
+			jarr.add(job);
+		}
+		
+		sendJson.put("list", jarr);
+		//	logger.debug(jarr.toJSONString());
+		response.setContentType("application/jsonl charset=utf-8");
+		PrintWriter out = response.getWriter();
+		
+		out.println(sendJson.toJSONString());
+		out.flush();
+		out.close();
+	}
+	
+*/	@RequestMapping("objetAllSearch.do")
 	public String objetAllSearch(Model model, @RequestParam("userid") String userid, @RequestParam("objettitle") String objettitle, @RequestParam("page") int page) {
 		Objet objetsearch = new Objet();
 		Map<String, String> map = new HashMap<>();

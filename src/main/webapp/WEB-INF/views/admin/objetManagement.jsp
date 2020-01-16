@@ -46,71 +46,71 @@
 		
 		$("#publicall").click(function() {
 			publicyn = "";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
 		});
 		$("#publicy").click(function() {
 			publicyn = "Y";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
 		});
 		$("#publicn").click(function() {
 			publicyn = "N";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
 		});
 		$("#publicw").click(function() {
 			publicyn = "W";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
 		});
 		$("#statusall").click(function() {
 			status = "";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
 		});
 		$("#statuswait").click(function() {
 			status = "WAIT";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
 		});
 		$("#statusopen").click(function() {
 			status = "OPEN";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
 		});
 		$("#statusclose").click(function() {
 			status = "CLOSE";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
 		});
 		$("#tagarc").click(function() {
 			tag = "건축";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
 		});
 		$("#tagseo").click(function() {
 			tag = "서예";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
 		});
 		$("#tagst").click(function() {
 			tag = "조각";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
 		});
 		$("#tagpic").click(function() {
 			tag = "사진";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
 		});
 		$("#tagde").click(function() {
 			tag = "디자인";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
 		});
 		$("#tagho").click(function() {
 			tag = "회화";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
 		});
 		$("#tagetc").click(function() {
 			tag = "기타";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
 		});
 		$("#taggong").click(function() {
 			tag = "공예";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
 		});
 		$("#tagall").click(function() {
 			tag = "";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
 		});
 		
 		
@@ -121,13 +121,13 @@
 			if(clickid%2 == 0){
 				$(".sorted").attr("class", "");
 				$("#userid").attr("class", "sorted descending");
-				thorder(publicyn, status, tag, "idd", objettitle, userid);
+				thorder(publicyn, status, tag, "idd", objettitle, userid, 1);
 				clickid += 1;
 				clickno = 0, clicktitle = 0, clickdate = 0, clickregi = 0;
 			} else if(clickid%2 != 0){
 				$(".sorted").attr("class", "");
 				$("#userid").attr("class", "sorted ascending");
-				thorder(publicyn, status, tag, "ida", objettitle, userid);
+				thorder(publicyn, status, tag, "ida", objettitle, userid, 1);
 				clickid += 1;
 				clickno = 0, clicktitle = 0, clickdate = 0, clickregi = 0;
 			}
@@ -136,13 +136,13 @@
 			if(clicktitle%2 == 0){
 				$(".sorted").attr("class", "");
 				$("#title").attr("class", "sorted descending");
-				thorder(publicyn, status, tag, "titled", objettitle, userid);
+				thorder(publicyn, status, tag, "titled", objettitle, userid, 1);
 				clicktitle += 1;
 				clickno = 0, clickid = 0, clickdate = 0, clickregi = 0;
 			} else if(clicktitle%2 != 0){
 				$(".sorted").attr("class", "");
 				$("#title").attr("class", "sorted ascending");
-				thorder(publicyn, status, tag, "titlea", objettitle, userid);
+				thorder(publicyn, status, tag, "titlea", objettitle, userid, 1);
 				clicktitle += 1;
 				clickno = 0, clickid = 0, clickdate = 0, clickregi = 0;
 			}
@@ -157,7 +157,7 @@
 			} else if(clickno%2 != 0){
 				$(".sorted").attr("class", "");
 				$("#objetno").attr("class", "sorted ascending");
-				thorder(publicyn, status, tag, "noa", objettitle, userid);
+				thorder(publicyn, status, tag, "noa", objettitle, userid, 1);
 				clickno += 1;
 				clickid = 0, clicktitle = 0, clickdate = 0, clickregi = 0;
 			}
@@ -166,13 +166,13 @@
 			if(clickdate%2 == 0){
 				$(".sorted").attr("class", "");
 				$("#date").attr("class", "sorted descending");
-				thorder(publicyn, status, tag, "startd", objettitle, userid);
+				thorder(publicyn, status, tag, "startd", objettitle, userid, 1);
 				clickdate += 1;
 				clickno = 0, clicktitle = 0, clickid = 0, clickregi = 0;
 			} else if(clickdate%2 != 0){
 				$(".sorted").attr("class", "");
 				$("#date").attr("class", "sorted ascending");
-				thorder(publicyn, status, tag, "starta", objettitle, userid);
+				thorder(publicyn, status, tag, "starta", objettitle, userid, 1);
 				clickdate += 1;
 				clickno = 0, clicktitle = 0, clickid = 0, clickregi = 0;
 			}
@@ -187,13 +187,13 @@
 			} else if(clickregi%2 != 0){
 				$(".sorted").attr("class", "");
 				$("#regi").attr("class", "sorted ascending");
-				thorder(publicyn, status, tag, "regid", objettitle, userid);
+				thorder(publicyn, status, tag, "regid", objettitle, userid, 1);
 				clickregi += 1;
 				clickno = 0, clicktitle = 0, clickdate = 0, clickid = 0;
 			}
 		});
 	
-		function thorder(publicyn, objetstatus, objettag, order, objettitle, userid) {
+		function thorder(publicyn, objetstatus, objettag, order, objettitle, userid, page) {
 			$.ajax({
 						url : "objetStatusOrder.do",
 						data : {
@@ -202,7 +202,8 @@
 							objettag : objettag,
 							order : order,
 							objettitle : objettitle,
-							userid : userid
+							userid : userid,
+							page  : page
 						},
 						type : "post",
 						dataType : "json",
@@ -216,9 +217,17 @@
 							var labeled ="";
 							var labeled2 ="";
 							var labeled3 ="";
+							var currentPage = result.list[0].currentPage;
+							console.log("currentPage  " + result.list[0].currentPage);
+							var beginPage = result.list[0].beginPage;
+							console.log("endPage  " + result.list[0].endPage);
+							var endPage = result.list[0].endPage;
+							console.log("maxPage  " + result.list[0].maxPage);
+							var maxPage = result.list[0].maxPage;
 							for ( var i in jsonObj.list) {
 								tagged = '<div class="ui tiny label taglabel">' +decodeURIComponent(jsonObj.list[i].objettag.replace(/\+/gi, " ")).split(",").join('</div>&nbsp;&nbsp; <div class="ui tiny label taglabel">')+'</div>';
-								console.log(tagged);
+										
+										
 								
 								bk += '<tr><td><div class="ui fitted checkbox"><input type="checkbox" name="objetno" value="'+jsonObj.list[i].objetno+'"> <label></label></div></td><td style="text-align: right;" id="objetno">'
 										+ jsonObj.list[i].objetno
@@ -409,7 +418,7 @@
 			</button>
 		</div>
 		<div align="center">
-		<div class="ui pagination menu">
+		<div class="ui pagination menu"  id="pagingdiv">
 		<c:if test="${ currentPage eq 1 }">
 		<a href="/objet/objetm.do?page=1" class="disabled item"><i class="angle double left icon"></i></a>
 		</c:if>
