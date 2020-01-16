@@ -13,8 +13,19 @@ public class LikeObjet implements Serializable {
 	private int objetno;
 	private String userid;
 	private Date likedate;
+	private String objettitle;
+	private Date objetstartdate;
+	private Date objetenddate;
+	private String color;
 	
 	public LikeObjet() {}
+
+	public LikeObjet(String objettitle, Date objetstartdate, Date objetenddate, String color) {
+		super();
+		this.objettitle = objettitle;
+		this.objetstartdate = objetstartdate;
+		this.objetenddate = objetenddate;
+	}
 
 	public LikeObjet(int objetno, String userid, Date likedate) {
 		super();
@@ -53,14 +64,49 @@ public class LikeObjet implements Serializable {
 		this.likedate = likedate;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public String getObjettitle() {
+		return objettitle;
+	}
+
+	public void setObjettitle(String objettitle) {
+		this.objettitle = objettitle;
+	}
+
+	public Date getObjetstartdate() {
+		return objetstartdate;
+	}
+
+
+	public void setObjetstartdate(Date objetstartdate) {
+		this.objetstartdate = objetstartdate;
+	}
+
+
+	public Date getObjetenddate() {
+		return objetenddate;
+	}
+
+
+	public void setObjetenddate(Date objetenddate) {
+		this.objetenddate = objetenddate;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 	@Override
 	public String toString() {
-		return "LikeObjet [objetno=" + objetno + ", userid=" + userid + ", likedate=" + likedate + "]";
+		return "LikeObjet [objetno=" + objetno + ", userid=" + userid + ", likedate=" + likedate + ", objettitle="
+				+ objettitle + ", objetstartdate=" + objetstartdate + ", objetenddate=" + objetenddate + "]";
 	}
+	
+
+	
 	
 	
 

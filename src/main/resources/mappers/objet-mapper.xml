@@ -25,9 +25,7 @@ left outer join objet c on a.userid = c.userid
  
  <!-- 오브제 완전 전체 리스트   -->
 <select id="selectAllObjetAll" resultType="Objet">
- select objetno, userid, objettitle, objetintro, originmainposter, renamemainposter, objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview 
- from objet
- where publicyn = 'Y'
+ select * from objet where publicyn = 'Y'
  </select>
  
  <!-- 작가 전체 리스트   -->
@@ -63,22 +61,16 @@ group by a.nickname, a.userid, b.userrpic, b.userintros, b.userintrol, b.usertag
 	 from objet
 	 join users using(userid)
 	 where publicyn = 'Y' 
-	 and objettitle like '%' || #{objettitle} || '%' 
-	 or objetintro like '%' || #{objetintro} || '%'
+	 and upper(objettitle) like '%' || upper(#{objettitle}) || '%' 
+	 or upper(objetintro) like '%' || upper(#{objetintro}) || '%'
 </select>
 <select id="selectArtistAllSearch" parameterType="String" resultType="Artist">
-	<!-- select *
-	from users 
-	join usersprofile using(userid)
-	where quityn = 'N' and blackyn = 'N'
-	and nickname like '%' || #{nickname} || '%'
-	or userintrol like '%' || #{userintrol} || '%' -->
-	select a.userid, a.usertype, a.username, a.nickname, a.quityn, a.blackyn, b.usertag, b.userrpic, b.userintros, b.userintrol
-	from users a
-	join usersprofile b on a.userid = b.userid
-	where b.userintrol like '%' || #{userintrol} || '%'
-    and a.nickname like '%' || #{nickname} || '%'
-    and a.quityn = 'N' and a.blackyn = 'N'
+   select * 
+   from (select * from users
+   join usersprofile using(userid)
+   where userintrol like '%' || #{userintrol} || '%'
+   or nickname like '%' || #{nickname} || '%')
+   where quityn = 'N' and blackyn = 'N'
 </select>
 
 <!-- 오브제 상태 -->
@@ -160,7 +152,8 @@ group by a.nickname, a.userid, b.userrpic, b.userintros, b.userintrol, b.usertag
  join usersprofile b on a.revuserid = b.userid
  join users c on a.revuserid = c.userid
  join reviewstatus d on a.revuserid = d.revuserid
- where a.objetno = #{objetno} and a.revuserid != #{revuserid}
+ where a.objetno = #{objetno} and d.objetno = #{objetno}
+ and a.revuserid != #{revuserid} and d.revuserid != #{revuserid}
  group by a.revuserid, a.objetno, a.revcontent, a.revstars, a.revdate, b.userrpic, c.nickname
  order by a.revdate desc
  </select>
@@ -172,7 +165,8 @@ group by a.nickname, a.userid, b.userrpic, b.userintros, b.userintrol, b.usertag
  join usersprofile b on a.revuserid = b.userid
  join users c on a.revuserid = c.userid
  join reviewstatus d on a.revuserid = d.revuserid
- where a.objetno = #{objetno} and a.revuserid != #{userid}
+ where a.objetno = #{objetno} and d.objetno = #{objetno}
+ and a.revuserid != #{userid} and d.revuserid != #{userid}
  group by a.revuserid, a.objetno, a.revcontent, a.revstars, a.revdate, b.userrpic, c.nickname
 <trim prefix="order by">
 <if test="order=='reviewdatedesc'"> a.revdate desc</if>
@@ -260,6 +254,28 @@ where a.revuserid = #{userid} and a.objetno = #{objetno}
 	delete from reviewstatus where revuserid = #{revuserid} and objetno = #{objetno} and userid = #{userid} 
  </delete>
  
+  <!-- 전시일정  -->
+ <select id="selectObjetCalendar" parameterType="int" resultType="Objet">
+  select objettitle, objetstartdate, objetenddate
+  from objet
+  where objetno = #{objetno}
+ </select>
+ 
+ <!-- 관심오브제 캘린더 -->
+ <select id="selectLikeObjetCalendar" parameterType="String" resultType="LikeObjet">
+  select b.objettitle, b.objetstartdate, b.objetenddate
+  from likeobjet a
+  join objet b on a.objetno = b.objetno
+  where a.userid = #{userid}
+ </select>
+ 
+  <!-- 다녀온 오브제 캘린더 -->
+ <select id="selectVisitedObjetCalendar" parameterType="String" resultType="VisitedObjet">
+  select a.visitdate, b.objettitle
+  from visitedobjet a
+  join objet b on a.objetno = b.objetno
+  where a.userid = #{userid}
+ </select>
  
  <!-- 최민영 *************************** -->
  

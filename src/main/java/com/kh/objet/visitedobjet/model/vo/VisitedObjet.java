@@ -12,6 +12,7 @@ public class VisitedObjet implements Serializable {
 	private int objetno;
 	private String userid;
 	private Date visitdate;
+	private String objettitle;
 	
 	public VisitedObjet() {}
 
@@ -20,6 +21,20 @@ public class VisitedObjet implements Serializable {
 		this.objetno = objetno;
 		this.userid = userid;
 		this.visitdate = visitdate;
+	}
+
+	public VisitedObjet(Date visitdate, String objettitle) {
+		super();
+		this.visitdate = visitdate;
+		this.objettitle = objettitle;
+	}
+
+	public String getObjettitle() {
+		return objettitle;
+	}
+
+	public void setObjettitle(String objettitle) {
+		this.objettitle = objettitle;
 	}
 
 	public int getObjetno() {
@@ -52,8 +67,10 @@ public class VisitedObjet implements Serializable {
 
 	@Override
 	public String toString() {
-		return "VisitedObjet [objetno=" + objetno + ", userid=" + userid + ", visitdate=" + visitdate + "]";
+		return "VisitedObjet [objetno=" + objetno + ", userid=" + userid + ", visitdate=" + visitdate + ", objettitle="
+				+ objettitle + "]";
 	}
+
 	
 	
 

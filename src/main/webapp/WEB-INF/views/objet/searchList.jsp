@@ -788,7 +788,6 @@ window.onload = function(){
 			</div>
 			</center>
 		</div><br><br><br>
-		<div id="more_load3"></div>
 		</c:if>
 		<c:if test="${empty searchartistList}">
     	<div class="empty_result">

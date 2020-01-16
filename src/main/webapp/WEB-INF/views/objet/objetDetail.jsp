@@ -20,7 +20,9 @@
   <meta property="og:title"         content="${fn:substring(objet.objettitle,0,11)}..." />
 <%--   <meta property="og:description"   content="${fn:substring(objet.objetintro,0,20)}..." /> --%>
   <meta property="og:image"         content="${pageContext.servletContext.contextPath }/resources/images/objet/${objet.renamemainposter }" />
+
 <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
+
 <link rel='stylesheet' href='//fonts.googleapis.com/earlyaccess/kopubbatang.css'>
 <link rel="stylesheet" type="text/css" href="resources/assets/css/KoPubDotum.css">
 <link rel="stylesheet" href="//fonts.googleapis.com/earlyaccess/nanummyeongjo.css">
@@ -32,23 +34,22 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.3/dist/semantic.min.css">
 <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.3/dist/semantic.min.js"></script>
- <!-- fullcalendar -->
-<!-- <link rel="stylesheet" href="resources/FullCalendar/vendor/css/fullcalendar.min.css" />
-<link rel="stylesheet" href='resources/FullCalendar/vendor/css/select2.min.css' />
-<link rel="stylesheet" href='resources/FullCalendar/vendor/css/bootstrap-datetimepicker.min.css' />
-<script src="resources/FullCalendar/vendor/js/moment.min.js"></script>
-<script src="resources/FullCalendar/vendor/js/fullcalendar.min.js"></script>
-<script src="resources/FullCalendar/vendor/js/ko.js"></script>
-<script src="resources/FullCalendar/vendor/js/select2.min.js"></script>
-<script src="resources/FullCalendar/vendor/js/bootstrap-datetimepicker.min.js"></script>
-<script src="resources/js/main.js"></script>
-<script src="resources/js/addEvent.js"></script>
-<script src="resources/js/editEvent.js"></script>
-<script src="resources/js/etcSetting.js"></script>  -->
+
+ <!-- countdown -->
 <link rel="stylesheet" type="text/css" href="resources/vendor/animate/animate.css">
 <link rel="stylesheet" type="text/css" href="resources/vendor/select2/select2.min.css">
 <link rel="stylesheet" type="text/css" href="resources/css/util.css">
 <link rel="stylesheet" type="text/css" href="resources/css/countdown.css">
+
+<!-- Full Calendar --><!-- BootStrap 4 -->
+<link href='resources/FullCalendar/core/main.css' rel='stylesheet' />
+<script src='resources/FullCalendar/core/main.js'></script>
+<script src='resources/FullCalendar/core/locales/ko.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+<link href='resources/FullCalendar/daygrid/main.css' rel='stylesheet' />
+<script src='resources/FullCalendar/interaction/main.js'></script>
+<script src='resources/FullCalendar/daygrid/main.js'></script>
+
 <!-- 페이스북 공유 -->
 <script>
   window.fbAsyncInit = function() {
@@ -107,7 +108,7 @@ html, body {
 .banner_img_btn {
 	position: absolute;
 	top: 32%;
-	left: 27%;
+	left: 25.5%;
 	transform: translate(-50%, -50%);
 	height: auto;
 	width: 200px;
@@ -267,6 +268,10 @@ a:-webkit-any-link {
     display: inline;
 }
 #facebook, #instagram, #twitter {
+	width:28px;
+	height: 28px;
+}
+#url {
 	width:28px;
 	height: 28px;
 }
@@ -497,6 +502,7 @@ a:-webkit-any-link {
 }
 
 #more_btn {
+	display:none;
 	width: 80%;
 	height: 30px;
 	margin-top: 220px;
@@ -506,6 +512,13 @@ a:-webkit-any-link {
 	color: #9e9e9e;
 	font-family: 'Nanum Gothic';
 	cursor: pointer;
+}
+
+#more_btn:before {
+	content: "";
+	display: block;
+	border-top: 1px solid #e0e0e0;
+	margin: 30px auto;
 }
 
 #more_btn:after {
@@ -525,7 +538,6 @@ a:-webkit-any-link {
 	margin: 20px 40px 10px 40px;
 	position: relative;
 	top: 190px;
-	border-bottom: 1px solid #e0e0e0;
 	align: center;
 }
 
@@ -605,19 +617,19 @@ a:-webkit-any-link {
 }
 
 .rev_like {
-	width: 55px;
+	width: 57px;
 	height: auto;
 	margin: 0;
-	padding: 8px;
+	padding: 10px;
 	border: none !important;
 	outline: none !important;
 }
 
 .rev_hate {
-	width: 55px;
+	width: 57px;
 	height: auto;
 	margin: 0;
-	padding: 8px;
+	padding: 10px;
 	border: none !important;
 	outline: none !important;
 }
@@ -878,8 +890,8 @@ a:-webkit-any-link {
 #exhibition_img {
 	width:35%;
 	height: auto;
-	margin-top: 12%;
 	align: center;
+	padding-bottom:30px;
 }
 
 .exhibition_info_txt {
@@ -1018,19 +1030,24 @@ a:-webkit-any-link {
 }
 /* 작가소개 스타일 */
 .artist_cont {
-	width: 75%;
-	height: 750px;
+	width: 80%;
+	height: 800px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	position: relative;
-	top: 60px;
+	top: 40px;
 	align: center;
-	left: 12%;
+	left: 10%;
 }
 
 .artist_cont1 {
 	margin: 0 150px 0 0;
+	max-width: 60%;
+}
+
+.artist_cont2 {
+	max-width: 30%;
 }
 
 #artist_tit {
@@ -1047,23 +1064,43 @@ a:-webkit-any-link {
 	font-weight: bolder;
 	font-size: 14px;
 	text-align: left;
+	
 }
 
 #artist_pic {
-	width: 100%;
+	max-width: 100%;
 	height: auto;
 	margin: 0 -200px 0 0;
 }
 
 /* 전시일정 스타일  */
 /* d-day */
+i.icon.clock::before{
+	margin-top:10px!important;;
+}
+.clock .icon{
+	margin-top:9px !important;;
+}
 .title{
 	font-family: 'Nanum Gothic';
 	font-weight: bolder;
 	font-size: 40px;
 	text-align: center;
 	gray: black;
+	padding-top:20px;
 }
+
+/* Calendar */
+.calendar_cont{
+	width:100%;
+	height: 700px;
+}
+
+#calendar {
+    max-width: 67%;
+    margin: 40px auto;
+    padding-top:185px;
+  }
 
 /* 한줄평  */
 #objet_review {
@@ -1169,15 +1206,18 @@ a:-webkit-any-link {
 			
 		//tab menu
 		<c:if test="${!empty loginUser }">
+			var scrollTop = 390;
 			$("#objet_info_menu #item").on("click", function() {
 				var tab = $(this).attr("data-tab");
 				$("#objet_info_menu #item").removeClass("active");
 				$(this).addClass("active");
 				$(".tab").removeClass("active");
 				$("#" + tab).addClass("active");
+				$("html, body").animate({ scrollTop: scrollTop }, 1000);
 			});
 		</c:if>
 		<c:if test="${empty loginUser }">
+			var scrollTop = 390;
 			$("#objet_info_menu #item").on("click", function() {
 				if($(this).attr('class') != 'item review'){
 					var tab = $(this).attr("data-tab");
@@ -1185,6 +1225,7 @@ a:-webkit-any-link {
 					$(this).addClass("active");
 					$(".tab").removeClass("active");
 					$("#" + tab).addClass("active");
+					$("html, body").animate({ scrollTop: scrollTop }, 1000);
 				}else{
 					$(".review").on("click", function() {
 						alert("한줄평은 로그인하셔야 작성하실 수 있습니다.");
@@ -1192,6 +1233,7 @@ a:-webkit-any-link {
 				}
 			});
 		</c:if>
+		
 		//한줄평 최신순 평점순
 		$(".search-option .option").on("click", function() {
 			$(".search-option .option").removeClass("on");
@@ -1202,6 +1244,8 @@ a:-webkit-any-link {
 		
 		//한줄평 더보기 버튼
 		$(".review_list").slice(0, 4).fadeIn(); // 최초 4개 선택
+		if($(".review_list:hidden").length != 0) {
+			$("#more_btn").fadeIn();
 		$("#more_btn").click(function(e) { // Load More를 위한 클릭 이벤트e
 		    e.preventDefault();
 			var height = $('#objet_review').height();
@@ -1213,6 +1257,9 @@ a:-webkit-any-link {
 		        $('.rev_insert_no').css("margin-top", "120px");
 		    }
 		});
+		}else{
+			 $('.rev_insert').css("margin-top", "180px");
+		}
 
 		//평점 레이팅(리스트)
 		$('.rating').rating('disable', {
@@ -1313,8 +1360,6 @@ a:-webkit-any-link {
 			}
 		});
 
-		//캘린더
-		
 		//로그인 안했을 때 관심오브제 클릭시
  		<c:if test="${empty loginUser}">
  		$(".ico_likeit_like").on("click", function(){
@@ -1463,11 +1508,11 @@ a:-webkit-any-link {
 					var revuserid = reviewstsList[i];
 					console.log(revuserid);
 						if(revgood[i] == 1){
-							$("#rev_like_"+revuserid).addClass("green");
+							$("#rev_like_"+revuserid).addClass("blue");
 							$("#rev_like_"+revuserid).css("font-size", "16px");
 						}
 						if(revhate[i] == 1){
-							$("#rev_hate_"+revuserid).addClass("black");
+							$("#rev_hate_"+revuserid).addClass("red");
 							$("#rev_hate_"+revuserid).css("font-size", "16px");
 						}
 					}
@@ -1476,6 +1521,7 @@ a:-webkit-any-link {
 				$(".review_list_main").html(values);
 				//한줄평 더보기 버튼
 				$(".review_list").slice(0, 4).fadeIn(); // 최초 4개 선택
+				if ($(".review_list:hidden").length != 0) {
 				$("#more_btn").show();
 				$("#more_btn").click(function(e) { // Load More를 위한 클릭 이벤트e
 				    e.preventDefault();
@@ -1488,6 +1534,7 @@ a:-webkit-any-link {
 				        $('.rev_insert_no').css("margin-top", "120px");
 				    }
 				});
+				}
 				console.log("ok : " + data);
 			},
 			error : function(request, error, XMLHttpRequest, textStatus, jqXHR, errorThrown) {
@@ -1513,13 +1560,13 @@ a:-webkit-any-link {
 	         success: function(result){
 	             if(result == "revgood"){
 	               console.log("한줄평 좋아요 성공!");
-	       			$("#rev_like_"+revuserid).addClass("green");
+	       			$("#rev_like_"+revuserid).addClass("blue");
 	       			$("#rev_like_"+revuserid).css("font-size", "16px");
 	       			var revcnt = parseInt($("#revgood_cnt_"+revuserid).html()) + 1;
 	       			$("#revgood_cnt_"+revuserid).html(" "+revcnt);
 	             }else if(result =="revgoodcancel"){
 	            	 console.log("한줄평 좋아요 취소!");
-	            	 $("#rev_like_"+revuserid).removeClass("green");
+	            	 $("#rev_like_"+revuserid).removeClass("blue");
 		       		var revcnt = parseInt($("#revgood_cnt_"+revuserid).html()) - 1;
 	       			$("#revgood_cnt_"+revuserid).html(" "+revcnt);
 	             }else if(result == "fail"){
@@ -1558,13 +1605,13 @@ a:-webkit-any-link {
 	         success: function(result){
 	             if(result == "revhate"){
 	               console.log("한줄평 싫어요 성공!");
-	       			$("#rev_hate_"+revuserid).addClass("black");
+	       			$("#rev_hate_"+revuserid).addClass("red");
 	       			$("#rev_hate_"+revuserid).css("font-size", "16px");
 	       			var revcnt = parseInt($("#revhate_cnt_"+revuserid).html()) + 1;
 	       			$("#revhate_cnt_"+revuserid).html(" "+revcnt);
 	             }else if(result =="revhatecancel"){
 	            	 console.log("한줄평 싫어요 취소!");
-	            	 $("#rev_hate_"+revuserid).removeClass("black");
+	            	 $("#rev_hate_"+revuserid).removeClass("red");
 		       		var revcnt = parseInt($("#revhate_cnt_"+revuserid).html()) - 1;
 	       			$("#revhate_cnt_"+revuserid).html(" "+revcnt);
 	             }else if(result == "fail"){
@@ -1759,24 +1806,67 @@ a:-webkit-any-link {
 			console.log(reviewstsList[i]);
 			var revuserid = reviewstsList[i];
 				if(revgood[i] == 1){
-					$("#rev_like_"+revuserid).addClass("green");
+					$("#rev_like_"+revuserid).addClass("blue");
 		   			$("#rev_like_"+revuserid).css("font-size", "16px");
 				}
 				if(revhate[i] == 1){
-					$("#rev_hate_"+revuserid).addClass("black");
+					$("#rev_hate_"+revuserid).addClass("red");
 					$("#rev_hate_"+revuserid).css("font-size", "16px");
 				}
 		}
 		
 		//바탕색 랜덤
 		var color = '#'; 
-		var letters = ['e4eef5', '93c5e6', '46a3e0', '8eccf5', '6475A0', 'acc7bf', '5e5f67', 'c37070', 'eae160', 'bf7aa3', 'd7d967', 'bc8fcf', 'edd48e', 'e68b4e', 'cc6039']; 
+		var letters = ['ed432d', 'ffe857', 'ff925c', 'd7d967', 'e8741c', '82edb2', 'e68b4e', 'ed7409', 'b20eed', '00fabb', 'bacbd6', '93c5e6', '46a3e0', 'e88ec8', '6475A0'];
 		color += letters[Math.floor(Math.random() * letters.length)]; // 컬러는 상기 변수들을 조립하는데 랜덤으로 조립한다. 
 		document.getElementById('exhibition_vp').style.background = color; // 조립한 컬러를 프론트엔드에서 지정한 ID에 적용한다.
 	}
+	
+	
+//전시일정
+ var today = moment().day();
+   document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      plugins: [ 'interaction', 'dayGrid' ],
+      locale: 'ko',
+      editable: false,
+      firstDay: today,
+      eventLimit: true, 
+      weekNumbers: false,
+      events: function(info, successCallback) {
+      	var objetno = '${objet.objetno}';
+		var letters = ['#2C3E50', '#ed432d', '#ffe857', '#ff925c', '#d7d967', '#e8741c', '#82edb2', '#e68b4e', '#ed7409', '#ebb0ff', '#b20eed', '#00fabb', '#bacbd6', '#93c5e6', '#46a3e0', '#e88ec8', '#6475A0'];
+    	  $.ajax({
+      		url : "objetOnePlan.do",
+      		type : "post",
+      		data: {objetno:objetno},
+      		dataType : "json",
+      		success : function(plan){
+      			var objStr = JSON.stringify(plan);
+      			var jsonObj = JSON.parse(objStr);
+				var events = [];
+      			for(var i in jsonObj.plan){
+					events.push({
+						title: decodeURIComponent(jsonObj.plan[i].title).replace(/\+/gi, " "),
+						start: jsonObj.plan[i].start,
+						end: jsonObj.plan[i].end,
+						color: letters[i]
+					});
+		      	}		 
+      			console.log(events);
+      			successCallback(events);	
+      		},
+      		error : function(jqXHR, textStatus, errorThrown){
+      			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+      		}
+          });
+      } 
+    });
+    calendar.render();
+  });
+	
 </script>
-
-
 </head>
 <body>
 <section class="all">
@@ -1809,12 +1899,26 @@ a:-webkit-any-link {
 <button type="button" id="facebook" class="ico_share_common btn_share_facebook ui mini circular facebook icon button" data-servicename="facebook">
      <i class="big facebook icon"></i><span class="screen_out">페이스북공유</span>
 </button>
-<button type="button" id="instagram" class="ico_share_common btn_share_instagram ui mini circular instagram icon button" data-servicename="instagram">
-    <i class="big instagram icon"></i><span class="screen_out">인스타그램 공유</span>
-</button>
 <button type="button" id="twitter" class="ico_share_common btn_share_twitter ui circular mini twitter icon button" data-servicename="twitter">
     <i class="big twitter icon"></i><span class="screen_out">트위터공유</span>
-</button>	
+</button>
+<button type="button" id="instagram" class="ico_share_common btn_share_instagram ui mini circular icon button" style="background:#d6249f;
+background:radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);"instagram">
+    <i class="big instagram icon"></i><span class="screen_out">인스타그램 공유</span>
+</button> 
+<a href="javascript:;" onclick="copyLink('window.location.href');" id="url" class="ico_share_common btn_share_url ui mini circular share icon button">
+    <i class="large share icon"></i><span class="screen_out">링크 공유</span>
+</a>
+<script>
+var copyLink = function(link) {
+    if( is_ie() ) {
+        window.clipboardData.setData("Text", str);
+        alert("오브제 링크가 복사되었습니다.");
+        return;
+    }
+    prompt("ctrl+c를 눌러 복사하세요.", link);
+};
+</script>	
 </span>
 </span>							
 </div>
@@ -1896,12 +2000,9 @@ a:-webkit-any-link {
 <!-- 미로그인시 신고 버튼 클릭시에 -->
 <img src="resources/images/objet/${objet.renamemainposter }" id="banner_img">
 <div class="banner_img_text"><!-- <span class="banner_date">2019. 08. 02 - 2019. 12. 12 </span> -->
-<div class="ui basic black icon button banner_img_btn" style="font-size:20px;font-weight:bolder;" onclick="objetVR(${objet.objetno}, '${loginUser.userid }');">전시 감상하기
-&nbsp;<i class="ui large white arrow right icon" style="font-size:18px;"></i>
-</div>
-
-
-</div>
+<div class="ui icon black button banner_img_btn" style="font-size:18px;font-weight:bolder;" onclick="objetVR(${objet.objetno}, '${loginUser.userid }');">
+전시 감상하기&nbsp;&nbsp;&nbsp;<i class="ui large white arrow right icon" style="font-size:18px;"></i>
+</div></div>
 <div class="ui fluid four item inverted menu" id="objet_info_menu">
   <a class="active item" id="item" data-tab="objet_info">
     전시소개
@@ -1920,10 +2021,56 @@ a:-webkit-any-link {
 <div class="objet_cont">
 <!-- EXHIBITION  -->
 <div class="ui bottom attached tab active" id="objet_info">
-<span class="det_title">EXHIBITION</span><br>
+<span class="det_title">EXHIBITION</span>
+<!-- D-day -->
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+ <span class="title" id="title">
+ <i class="clock icon"></i> 전시종료까지 남은 시간</span>
+	<div class="wsize1 bor1 p-t-30 p-l-15 p-r-15 respon1">
+		<div class="wsize2 flex-w flex-c hsize1 cd100 p-t-5">
+			<div class="flex-col-c-m size2 how-countdown">
+				<span class="l1-txt1 p-b-9 days"><fmt:formatDate value="${objet.objetenddate }" pattern="DD" /></span>
+				<span class="s1-txt1">Days</span>
+			</div>
+			<div class="flex-col-c-m size2 how-countdown">
+				<span class="l1-txt1 p-b-9 hours"><fmt:formatDate value="${objet.objetenddate }" pattern="HH" /></span>
+				<span class="s1-txt1">Hours</span>
+			</div>
+			<div class="flex-col-c-m size2 how-countdown">
+				<span class="l1-txt1 p-b-9 minutes"><fmt:formatDate value="${objet.objetenddate }" pattern="mm" /></span>
+				<span class="s1-txt1">Minutes</span>
+			</div>
+			<div class="flex-col-c-m size2 how-countdown">
+				<span class="l1-txt1 p-b-9 seconds"><fmt:formatDate value="${objet.objetenddate }" pattern="ss" /></span>
+				<span class="s1-txt1">Seconds</span>
+			</div>
+		</div>
+	</div>
+	<!-- <script src="resources/vendor/countdowntime/moment.min.js"></script> -->
+	<script src="resources/vendor/countdowntime/moment-timezone.min.js"></script>
+	<script src="resources/vendor/countdowntime/moment-timezone-with-data.min.js"></script>
+	<script src="resources/vendor/countdowntime/countdowntime.js"></script>
+	<script>
+		var day = <fmt:formatDate value="${objet.objetenddate }" pattern="dd" />;
+		var hour = <fmt:formatDate value="${objet.objetenddate }" pattern="HH" />;
+		var month = <fmt:formatDate value="${objet.objetenddate }" pattern="MM" />;
+		var year = <fmt:formatDate value="${objet.objetenddate }" pattern="yyyy" />;
+		var minutes = <fmt:formatDate value="${objet.objetenddate }" pattern="mm" />;
+		var seconds = <fmt:formatDate value="${objet.objetenddate }" pattern="ss" />;
+		$('.cd100').countdown100({
+			endtimeYear: year,
+			endtimeMonth: month,
+			endtimeDate: day,
+			endtimeHours: hour,
+			endtimeMinutes: minutes,
+			endtimeSeconds: seconds,
+			timeZone: "GMT" 
+		});
+	</script>
+	<script src="resources/js/countdown.js"></script>
 <div class="objet_section">
 <div class="exhibition_main">
-<p><img src="resources/images/objet/${objet.objetrfile1 }" alt="${objet.objettitle1 }" id="exhibition_img"></p><br>
+<img src="resources/images/objet/${objet.objetrfile1 }" alt="${objet.objettitle1 }" id="exhibition_img"><br>
 </div>
 <div class="exhibition_info_txt">
 <i style="font-family:'Nanum Myeongjo';"><img src="resources/images/objet/quotation.PNG" style="width:25px;height: auto;"> 
@@ -2000,59 +2147,9 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 <!-- CALENDAR  -->
 <div class="ui bottom attached tab" id="objet_calendar">
 <span class="det_title">CALENDAR</span>
-<!-- D-day -->
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
- <span class="title" id="title">전시종료까지 남은 시간</span>
-	<div class="wsize1 bor1 bg1 p-t-45 p-b-40 p-l-15 p-r-15 respon1">
-		<div class="wsize2 flex-w flex-c hsize1 cd100">
-			<div class="flex-col-c-m size2 how-countdown">
-				<span class="l1-txt1 p-b-9 days"><fmt:formatDate value="${objet.objetenddate }" pattern="DD" /></span>
-				<span class="s1-txt1">Days</span>
-			</div>
-			<div class="flex-col-c-m size2 how-countdown">
-				<span class="l1-txt1 p-b-9 hours"><fmt:formatDate value="${objet.objetenddate }" pattern="HH" /></span>
-				<span class="s1-txt1">Hours</span>
-			</div>
-			<div class="flex-col-c-m size2 how-countdown">
-				<span class="l1-txt1 p-b-9 minutes"><fmt:formatDate value="${objet.objetenddate }" pattern="mm" /></span>
-				<span class="s1-txt1">Minutes</span>
-			</div>
-			<div class="flex-col-c-m size2 how-countdown">
-				<span class="l1-txt1 p-b-9 seconds"><fmt:formatDate value="${objet.objetenddate }" pattern="ss" /></span>
-				<span class="s1-txt1">Seconds</span>
-			</div>
-		</div>
-	</div>
-	<script src="resources/vendor/countdowntime/moment.min.js"></script>
-	<script src="resources/vendor/countdowntime/moment-timezone.min.js"></script>
-	<script src="resources/vendor/countdowntime/moment-timezone-with-data.min.js"></script>
-	<script src="resources/vendor/countdowntime/countdowntime.js"></script>
-	<script>
-		var day = <fmt:formatDate value="${objet.objetenddate }" pattern="dd" />;
-		var hour = <fmt:formatDate value="${objet.objetenddate }" pattern="HH" />;
-		var month = <fmt:formatDate value="${objet.objetenddate }" pattern="MM" />;
-		var year = <fmt:formatDate value="${objet.objetenddate }" pattern="yyyy" />;
-		var minutes = <fmt:formatDate value="${objet.objetenddate }" pattern="mm" />;
-		var seconds = <fmt:formatDate value="${objet.objetenddate }" pattern="ss" />;
-		$('.cd100').countdown100({
-			/*Set Endtime here*/
-			/*Endtime must be > current time*/
-			endtimeYear: year,
-			endtimeMonth: month,
-			endtimeDate: day,
-			endtimeHours: hour,
-			endtimeMinutes: minutes,
-			endtimeSeconds: seconds,
-			timeZone: "GMT" 
-		});
-	</script>
-	<script src="resources/vendor/tilt/tilt.jquery.min.js"></script>
-	<script >
-		$('.js-tilt').tilt({
-			scale: 1.1
-		})
-	</script>
-	<script src="resources/js/countdown.js"></script>
+<div class="calendar_cont">
+<div id='calendar' style="height:100%;"></div>
+</div>
 </div> <!-- Calendar -->
 <!-- <script>
 var objetenddate = '${objet.objetenddate}';
@@ -2098,10 +2195,12 @@ function CountDownTimer(dt, id)
 <div class="ui bottom attached tab " id="objet_review">
    <span class="det_title">REVIEW</span><br>
    <div class="search-option-cate">
+   <c:if test="${fn:length(reviewList) != 0 }">
   <span class="search-option">
       <a href="javascript:void(0);" onclick="reviewOrder(${objet.objetno}, 'reviewdatedesc');" class="option on" >&nbsp;최신순</a>&nbsp;&nbsp;
       <a href="javascript:void(0);" onclick="reviewOrder(${objet.objetno}, 'reviewstardesc');" class="option" >&nbsp;평점순</a>&nbsp;&nbsp;
 </span>
+</c:if>
 </div><br>
 <div class="review_all_list">
 <!-- 내 한줄평 있을시 보이는 공간 -->
@@ -2246,6 +2345,7 @@ ${myReview.revcontent }</textarea>
 <!-- //한줄평 신고  끝 -->
 <!-- 한줄평 리스트 -->
 <div class="review_list_main">
+<c:if test="${fn:length(reviewList) > 0 }">
 <c:forEach var="Review" items="${reviewList }" varStatus="status">
 <c:if test="${Review.nickname ne loginUser.nickname }">
 <div class="review_list">
@@ -2270,13 +2370,21 @@ ${myReview.revcontent }</textarea>
 </div>
 </c:if>
 </c:forEach>
+</c:if>
+<c:if test="${fn:length(reviewList) == 0 && myReview == null}">
+<br><br><br><br>
+<div class="ui basic pointing below teal icon label" style="font-weight:normal;font-family:'Nanum Gothic';font-size:18px;color:#aaa;text-align:center;">
+<i class="quote left icon"></i>&nbsp;&nbsp;이 전시의 <b style="font-size:18.5px;">한줄평</b>이 아직 없습니다. 
+<b style="font-size:18.5px;">한줄평</b>을 달아주세요!&nbsp;&nbsp;<i class="quote right icon"></i></div>
+</c:if>
 </div>
+<br>
 <!-- //한줄평 리스트 끝  -->
 </div> <!-- //한줄평 끝 -->
 <div id="more_btn">
 <span>다음 리뷰 보기</span>
 </div>
-<br><br>
+<br>
 <!-- 한줄평 등록  -->
 <c:if test="${myReview == null && myReview.revuserid ne loginUser.userid && objet.userid ne loginUser.userid}">
 <div class="rev_insert">
@@ -2284,7 +2392,7 @@ ${myReview.revcontent }</textarea>
 <img class="ui circular image" src="resources/users_upfiles/${loginUser.userrpic }" id="writer_pic_2">
 <div class="review_ins_content">
 <textarea class="ui fluid input rev_ins_cont" maxlength="200"
-placeholder="이 전시의 감상평(한줄평)을 남겨주세요. 전시와 상관없는 내용은 제재를 받을 수 있습니다."></textarea>
+placeholder="이 전시의 감상평(한줄평)을 남겨주세요.  전시와 상관없는 내용은 제재를 받을 수 있습니다."></textarea>
 <span id="counter_ins">( <span style="color:#4ecdc4;font-size:0.85em;">0</span> / 최대 100자 )</span>
 </div>
 <div class="extra" id="rev_rating">

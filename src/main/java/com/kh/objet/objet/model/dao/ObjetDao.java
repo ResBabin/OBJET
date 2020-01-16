@@ -214,7 +214,20 @@ public class ObjetDao {
 		return mybatisSession.selectOne("objetMapper.selectVisitedObjet", vs);
 	}
 
+	//관심오브제 캘린더
+	public List<LikeObjet> selectLikeObjetCalendar(String userid) {
+		return mybatisSession.selectList("objetMapper.selectLikeObjetCalendar", userid);
+	}
 	
+	//다녀온 오브제 캘린더
+	public List<VisitedObjet> selectVisitedObjetCalendar(String userid) {
+		return mybatisSession.selectList("objetMapper.selectVisitedObjetCalendar", userid);
+	}
+	
+	//전시일정
+	public List<Objet> selectObjetCalendar(int objetno) {
+		return mybatisSession.selectList("objetMapper.selectObjetCalendar", objetno);
+	}
 	
 	
 	// 최민영
@@ -294,6 +307,12 @@ public class ObjetDao {
 	public int deleteObjet(int objetno) {
 		return mybatisSession.delete("objetMapper.deleteObjet", objetno);
 	}
+
+	
+
+
+
+	
 
 	
 	

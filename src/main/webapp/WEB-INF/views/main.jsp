@@ -393,7 +393,6 @@
 }
 
 .info2 {
-
    display: inline-block;
    vertical-align: middle;
 }
@@ -740,12 +739,10 @@
          </c:forEach>
          <br><br>
          </div>
-         <!-- <p><span>오브제의 </span> 추천 작가들</p> -->
          <ul class="search_art_list">
          <c:forEach var="Artist" items="${searchMainList }" begin="0" end="4">
          <c:set var="noimg" value="resources/images/basicprofilepic.png" />
             <li class="search_art_list_1">
-            <input type="hidden" class="nickname" name="nickname" value=${Artist.nickname }>
             <a href="artistHomeMain.do?userid=${Artist.userid }&loginUser=${loginUser.userid}">
             <img id="search_art_list_img" class="ui small circular image" src="resources/users_upfiles/${Artist.userrpic }" onerror="this.src='${noimg }'"><br>
             <strong>${Artist.nickname }</strong>
@@ -781,10 +778,11 @@
            <div class="wrap_artist_list">
               <ul class="artist_list">
               	 <c:forEach var="Artist" items="${objetMainList }">
+              	 <input type="hidden" class="nickname" name="nickname" value=${Artist.nickname }>
                  <li class="artist_list_item">
                  <a href="artistHomeMain.do?userid=${Artist.userid }&loginUser=${loginUser.userid}" target="_blank">
-                 <img id="artist_list_img" class="ui mini circular image" src="resources/users_upfiles/${Artist.userrpic }">
-                 </a><a class="artist_txt">${Artist.nickname }</a>
+                 <img id="artist_list_img" class="ui mini circular image" src="resources/users_upfiles/${Artist.userrpic }"></a>
+                 <a href="artistHomeMain.do?userid=${Artist.userid }&loginUser=${loginUser.userid}" class="artist_txt">${Artist.nickname }</a>
                  </li>
                  </c:forEach>
                  <span class='txt_nodata_artist'>검색 결과가 없습니다.</span>
@@ -801,24 +799,23 @@ $(function(){
 	$("#search-text").on("keyup", function(){
 		 var keyword = $("#search-text").val();
 		 var listValue = $(".objet_list_item").html();
-		 var usertag = $(".usertag").val();
-		 var nickname = $(".nickname").val();
+		 var nickname = $(".artist_txt").val();
 		 var iValue = listValue.indexOf(keyword);
 		 var nValue = nickname.indexOf(keyword);
-		 if(iValue != -1 || nValue != -1) {
+		 if(iValue !== -1 && nValue !==  -1) {
 			 $(".objet_list_item:contains('"+keyword+"')").slice(0, 5).fadeIn();
 			 $(".objet_list_item:contains('"+keyword+"')").each(function () {
 		        	var regex = new RegExp(keyword,'gi');
 		        $(this).html($(this).text().replace(regex, "<span>"+keyword+"</span>") );
 	    	});
-			 $(".artist_list_item").slice(0, 3).fadeIn();
-			 /* $(".artist_txt:contains('"+keyword+"')").each(function () {
+			 $(".artist_list_item:contains('"+keyword+"')").slice(0, 5).fadeIn();
+			 $(".artist_txt:contains('"+keyword+"')").each(function () {
 		        	var regex = new RegExp(keyword,'gi');
 		        $(this).html($(this).text().replace(regex, "<span>"+keyword+"</span>") );
-	    	}); */
+	    	});
 			 $(".txt_nodata_objet ").hide();
 			 $(".txt_nodata_artist ").hide();
-		 }if(iValue != -1 && nValue == -1){
+		 }if(iValue !== -1 || nValue === -1){
 			 $(".objet_list_item:contains('"+keyword+"')").slice(0, 5).fadeIn();
 			 $(".objet_list_item:contains('"+keyword+"')").each(function () {
 		        	var regex = new RegExp(keyword,'gi');
@@ -827,16 +824,16 @@ $(function(){
 			 $(".txt_nodata_objet ").hide();
 			 $(".txt_nodata_artist ").show();
 			 $(".artist_list_item").hide();
-		 }if(iValue == -1 && nValue != -1 ){
+		 }if(iValue === -1 || nValue !== -1 ){
 			 $(".txt_nodata_objet ").show();
 			 $(".objet_list_item").hide();
-			 $(".artist_list_item").slice(0, 3).fadeIn();
-			 /* $(".artist_txt:contains('"+keyword+"')").each(function () {
+			 $(".artist_list_item:contains('"+keyword+"')").slice(0, 5).fadeIn();
+			 $(".artist_txt:contains('"+keyword+"')").each(function () {
 		        	var regex = new RegExp(keyword,'gi');
 		        $(this).html($(this).html().replace(regex, "<span>"+keyword+"</span>") );
-	    	}); */
+	    	}); 
 			 $(".txt_nodata_artist ").hide();
-		 }if(iValue == -1 && nValue == -1){
+		 }if(iValue === -1 && nValue === -1){
 			 $(".txt_nodata_objet ").show();
 			 $(".txt_nodata_artist ").show();
 			 $(".objet_list_item").hide();

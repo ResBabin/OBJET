@@ -2,6 +2,7 @@ package com.kh.objet.visitedobjet.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,8 +18,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.objet.likeobjet.model.vo.LikeObjet;
+import com.kh.objet.objet.model.service.ObjetServiceImpl;
 import com.kh.objet.visitedobjet.model.service.VisitedObjetServiceImpl;
 import com.kh.objet.visitedobjet.model.vo.VisitedObjet;
 
@@ -29,6 +33,9 @@ public class VisitedObjetController {
 	
 	@Autowired
 	private VisitedObjetServiceImpl visitedObjetService;
+	
+	@Autowired
+	private ObjetServiceImpl objetService;
 	
 	public VisitedObjetController() {}
 	
@@ -203,6 +210,29 @@ public class VisitedObjetController {
     		
          return "objet/myVistiedObjetList";
 		
+	}
+	
+	//다녀온 오브제 캘린더
+	@RequestMapping(value="visitedObjetPlan.do", method=RequestMethod.POST)
+	@ResponseBody
+	public void selectLikeObjetCalendar(@RequestParam(value="userid") String userid, HttpServletResponse response) throws IOException {
+		List<VisitedObjet> visitedObjetPlanList = objetService.selectVisitedObjetCalendar(userid);
+		JSONObject sendJson = new JSONObject();
+		JSONArray jarr = new JSONArray();
+		for(VisitedObjet visitedobjet : visitedObjetPlanList) {
+		JSONObject job = new JSONObject();
+		job.put("title", URLEncoder.encode(visitedobjet.getObjettitle(), "utf-8"));
+		job.put("start", visitedobjet.getVisitdate().toString());
+		jarr.add(job);
+		}
+		
+		sendJson.put("plan", jarr);
+		logger.debug(jarr.toJSONString());
+		response.setContentType("application/json; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.println(sendJson.toJSONString());
+		out.flush();
+		out.close();
 	}
 
 }

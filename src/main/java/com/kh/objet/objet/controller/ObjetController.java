@@ -204,6 +204,31 @@ public class ObjetController {
 		return mv;
 	}
 	
+	//전시일정
+	@RequestMapping(value="objetOnePlan.do", method=RequestMethod.POST)
+	@ResponseBody
+	public void selectObjetCalendar(@RequestParam(value="objetno") int objetno, HttpServletResponse response) throws IOException {
+		List<Objet> objetPlanList = objetService.selectObjetCalendar(objetno);
+		JSONObject sendJson = new JSONObject();
+		JSONArray jarr = new JSONArray();
+		for(Objet objet : objetPlanList) {
+		JSONObject job = new JSONObject();
+		job.put("title", URLEncoder.encode(objet.getObjettitle(), "utf-8"));
+		job.put("start", objet.getObjetstartdate().toString());
+		job.put("end", objet.getObjetenddate().toString());
+		jarr.add(job);
+		}
+		
+		sendJson.put("plan", jarr);
+		logger.debug(jarr.toJSONString());
+		response.setContentType("application/json; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.println(sendJson.toJSONString());
+		out.flush();
+		out.close();
+	}
+	
+	
 	//오브제, 작가 상세보기, 한줄평 리스트, 내 한줄평, 관심오브제 카운트,리스트
 	@RequestMapping("objetOne.do")
 	public ModelAndView selectObjetOne(@RequestParam(value="objetno") int objetno, 
