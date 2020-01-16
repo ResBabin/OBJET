@@ -11,10 +11,22 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+
+<!-- Full Calendar --><!-- BootStrap 4 -->
+<link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'>
+<link href='resources/FullCalendar/core/main.css' rel='stylesheet' />
+<link href='resources/FullCalendar/bootstrap/main.css' rel='stylesheet' />
+<script src='resources/FullCalendar/core/main.js'></script>
+<script src='resources/FullCalendar/interaction/main.js'></script>
+<script src='resources/FullCalendar/bootstrap/main.js'></script>
+<script src='resources/FullCalendar/daygrid/main.js'></script>
+<script src='resources/FullCalendar/js/theme-chooser.js'></script>
+<script src='resources/FullCalendar/core/locales/ko.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+
 <!-- 제작용 css -->
  <link rel= "stylesheet" type="text/css" href="resources/css/mychoe.css">
  
-<script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 	$(function(){
 		// 체크박스 전체선택 및 전체해제
@@ -25,7 +37,14 @@
 				$(".chk").prop("checked", false);
 			}
 		});
-	
+		
+		//캘린더 모달
+		$("#like_objet_cal").on("click", function() {
+			$("#cal_modal").modal("show");
+		});	
+		
+		$('.dropdown-menu').dropdown();
+		
 	<%-- 	// 한개 체크박스 선택 해제시 전체선텍 체크박스도 해제
 	 $(".chk").click(function(){
 		if($("input[name='RowCheck']:checked").length == <%= list.size() %>){
@@ -36,7 +55,120 @@
 	});
 	--%>
 		}); // document.ready...
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar;
+
+    initThemeChooser({
+      init: function(themeSystem) {
+    	 var today = moment().day();
+        calendar = new FullCalendar.Calendar(calendarEl, {
+          plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'timeGrid', 'list' ],
+          locale: 'ko',
+          themeSystem: themeSystem,
+          header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+          },
+          firstDay: today,
+          weekNumbers: false,
+          navLinks: true, // can click day/week names to navigate views
+          editable: false,
+          eventLimit: true, // allow "more" link when too many events
+          events: function(info, successCallback) {
+        	var userid = '${loginUser.userid}';
+    		var letters = ['#ed432d', '#ffe857', '#ff925c', '#d7d967', '#e8741c', '#82edb2', '#e68b4e', '#ed7409', '#ebb0ff', '#b20eed', '#00fabb', '#bacbd6', '#93c5e6', '#46a3e0', '#e88ec8', '#6475A0'];
+        	  $.ajax({
+          		url : "likeObjetPlan.do",
+          		type : "post",
+          		data: {userid:userid},
+          		dataType : "json",
+          		success : function(plan){
+          			var objStr = JSON.stringify(plan);
+          			var jsonObj = JSON.parse(objStr);
+    				var events = [];
+          			for(var i in jsonObj.plan){
+   						events.push({
+   							title: decodeURIComponent(jsonObj.plan[i].title).replace(/\+/gi, " "),
+							start: jsonObj.plan[i].start,
+							end: jsonObj.plan[i].end,
+							color: letters[i]
+   						});
+   						/* events.push({
+   							title: decodeURIComponent(jsonObj.plan[i].title).replace(/\+/gi, " "),
+   							end: jsonObj.plan[i].end,
+							color: letters[i]
+   						}); */
+    		      	}		 
+          			console.log(events);
+          			successCallback(events);	
+          		},
+          		error : function(jqXHR, textStatus, errorThrown){
+          			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+          		}
+              });
+          } 
+        });
+          calendar.render();
+      },
+
+      change: function(themeSystem) {
+        calendar.setOption('themeSystem', themeSystem);
+      }
+    });
+  });
+ 
 </script>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nanum Gothic', sans-serif;
+  }
+  #cal_modal {
+  	position: fixed;
+  	align:center;
+  	height: 92%;
+  	width:60%;
+  }
+  
+  #top,
+  #calendar.fc-unthemed {
+    font-family: 'Nanum Gothic', sans-serif;
+  }
+
+  #top {
+    background: #eee;
+    border-bottom: 1px solid #ddd;
+    padding: 0 15px;
+    line-height: 30px;
+    font-size: 14px;
+    color: #000;
+    height: 70px;
+  }
+
+  #top .selector {
+    display: inline-block;
+    padding-top:17px;
+  }
+
+  #top select {
+    font: inherit; 
+  }
+
+  .left { float: left }
+  .right { float: right }
+  .clear { clear: both }
+
+  #calendar {
+    max-width: 80%;
+    margin: 40px auto;
+    padding: 0 10px;
+  }
+
+</style>
 </head>
 <body>
 
@@ -59,8 +191,7 @@
 					<input type="radio" name="objetstatus" value="OPEN"><label>&ensp;전시중</label>&emsp;&emsp;
 					<input type="radio" name="objetstatus" value="STANDBY"><label>&ensp;예정</label>&emsp;&emsp;
 					<input type="radio" name="objetstatus" value="CLOSE"><label>&ensp;종료</label>&emsp;&emsp;
-					<div class="ui buttons"><button class="ui small grey button" type="submit">검색</button></div>
-				
+					<div class="ui buttons"><button class="ui small grey button" type="submit" style="float:right;">검색</button></div>&nbsp;&nbsp;&nbsp;
 			</form>
 			</div>
 		</div>
@@ -68,18 +199,17 @@
 		<br>
 		<!-- 검색 결과 리스트 시작! -->
 		<div class="objetListSection2">
-		<div align="left" style="font-size: 10pt;">총<span style="font-weight: 700;">13</span>건</div>
+		<div align="left" style="font-size: 10pt;">총<span style="font-weight: 700;">13</span>건
+		<button class="ui basic teal icon button" id="like_objet_cal" style="float:right;margin-top:-7px;"><i class="calendar alternate outline icon"></i> 캘린더</button></div>
 		<br>
 			<div class="eachObjet">
 				<table class="eachObjetTable">
 					<tr>
 						<td><div class="ui checkbox"><input type="checkbox" name="objetno" value="${likeobjet.objetno }"><label></label></div></td>
 					</tr>
-					
 					<tr>
 						<td><div class="eachObjetImg" style="background-image:url('resources/objet_upfiles/animation.jpg') "></div></td>
 					</tr>
-						
 					<tr style="height:25px;">
 						<td><center><div class="objetStatusLabel2" style="background:#df0000;">${objet.objetstatus }전시중</div><center></td>
 					</tr>
@@ -89,7 +219,6 @@
 					<tr style="height:25px;">
 						<td><div style="font-size: 10pt;color:#aaa;">${objet.userid }@와사비맛아몬드</div></td>
 					</tr>
-					
 				</table>
 			</div>
 			
@@ -183,6 +312,53 @@
 		
 	</div>
 	<!-- 관심 오브제 페이지 끝! -->
+
+<!-- 관심오브제 일정 캘린더  -->
+<div class="ui modal" id="cal_modal">
+ <div id='top'>
+    <div class='left'>
+      <div id='theme-system-selector' class='selector'>
+      &nbsp;
+        <select class="dropdown-menu btn-sm">
+          <option class="dropdown-item" value='bootstrap' selected>테마 선택</option>
+          <option class="dropdown-item" value='standard' >기본테마</option>
+        </select>
+      </div>
+      <div data-theme-system="bootstrap" class='selector' style='display:none'>
+      &nbsp;
+        <select class="dropdown-menu btn-sm">
+          <option class="dropdown-item" value=''>Default</option>
+          <option class="dropdown-item" value='cerulean'>Cerulean</option>
+          <option class="dropdown-item" value='cosmo'>Cosmo</option>
+          <option class="dropdown-item" value='cyborg'>Cyborg</option>
+          <option class="dropdown-item" value='darkly'>Darkly</option>
+          <option class="dropdown-item" value='flatly'>Flatly</option>
+          <option class="dropdown-item" value='journal'>Journal</option>
+          <option class="dropdown-item" value='litera'>Litera</option>
+          <option class="dropdown-item" value='lumen'>Lumen</option>
+          <option class="dropdown-item" value='lux'>Lux</option>
+          <option class="dropdown-item" value='materia'>Materia</option>
+          <option class="dropdown-item" value='minty'>Minty</option>
+          <option class="dropdown-item" value='pulse'>Pulse</option>
+          <option class="dropdown-item" value='sandstone'>Sandstone</option>
+          <option class="dropdown-item" value='simplex'>Simplex</option>
+          <option class="dropdown-item" value='sketchy'>Sketchy</option>
+          <option class="dropdown-item" value='slate'>Slate</option>
+          <option class="dropdown-item" value='solar'>Solar</option>
+          <option class="dropdown-item" value='spacelab'>Spacelab</option>
+          <option class="dropdown-item" value='superhero'>Superhero</option>
+          <option class="dropdown-item" value='united'>United</option>
+          <option class="dropdown-item" value='yeti'>Yeti</option>
+        </select>
+      </div>
+      <span id='loading'  style='display:none;'>테마 로딩중...</span>
+    </div>
+    <div class='clear'></div>
+  </div>
+
+  <div id='calendar'></div>
+  </div>
+<!-- //관심 오브제 일정 캘린더 -->
 
 <br><br><br><br><br>
 </body>

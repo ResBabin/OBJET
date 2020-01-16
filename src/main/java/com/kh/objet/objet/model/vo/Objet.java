@@ -228,6 +228,20 @@ public class Objet implements Serializable{
 		this.objetrfile8 = objetrfile8;
 	}
 	
+	//전시일정
+	public Objet(int objetno, String userid) {
+		super();
+		this.objetno = objetno;
+		this.userid = userid;
+	}
+	
+	public Objet(String objettitle, Date objetstartdate, Date objetenddate) {
+		super();
+		this.objettitle = objettitle;
+		this.objetstartdate = objetstartdate;
+		this.objetenddate = objetenddate;
+	}
+	
 	public int getObjetno() {
 		return objetno;
 	}

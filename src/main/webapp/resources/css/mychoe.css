@@ -662,8 +662,10 @@ body {
 	height: 210px;
 	margin-left:20px;
 	margin-right: 20px;
-	margin-bottom: 50px;
+	margin-bottom: 70px;
 	float: left;
+	position: relative;
+	left:1.5%;
 }
 
 .eachObjetTable{
@@ -673,7 +675,6 @@ body {
 	border-spacing: 0;
 	color: #4d4d4d;
 }
-
 
 .eachObjetImg{
 	width:100%;

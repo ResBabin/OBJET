@@ -57,7 +57,9 @@ public interface ObjetService {
 	List<ReviewStatus> selectReviewStatusChk(ReviewKey rk);
 	int insertVisitedObjet(VisitedObjet vs);
 	int selectVisitedObjet(VisitedObjet vs);
-	
+	List<LikeObjet> selectLikeObjetCalendar(String userid);
+	List<VisitedObjet> selectVisitedObjetCalendar(String userid);
+	List<Objet> selectObjetCalendar(int objetno);
 	
 	// 최민영
 	List<Objet2> selectArtistObjetList(String userid);
@@ -74,6 +76,9 @@ public interface ObjetService {
 	int updateMyObjet(Objet objet);
 	int insertObjet(Objet3 objet3);
 	int deleteObjet(int objetno);
+
+
+	
 	
 	
 	

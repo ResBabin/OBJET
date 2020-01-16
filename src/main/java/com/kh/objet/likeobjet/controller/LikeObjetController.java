@@ -2,10 +2,12 @@ package com.kh.objet.likeobjet.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -15,17 +17,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.objet.likeobjet.model.service.LikeObjetServiceImpl;
 import com.kh.objet.likeobjet.model.vo.LikeObjet;
+import com.kh.objet.objet.model.service.ObjetServiceImpl;
 import com.kh.objet.paging.model.vo.Paging;
-import com.kh.objet.visitedobjet.model.vo.VisitedObjet;
 
 @Controller
 public class LikeObjetController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LikeObjetController.class);
+	
+	@Autowired
+	private ObjetServiceImpl objetService;
 	
 	@Autowired
 	public LikeObjetServiceImpl likeObjetService;
@@ -167,5 +174,29 @@ public class LikeObjetController {
 			return "objet/myLikeObjetList";
 		}
 	
+	
+		//관심오브제 캘린더
+		@RequestMapping(value="likeObjetPlan.do", method=RequestMethod.POST)
+		@ResponseBody
+		public void selectLikeObjetCalendar(@RequestParam(value="userid") String userid, HttpServletResponse response) throws IOException {
+			List<LikeObjet> likeObjetPlanList = objetService.selectLikeObjetCalendar(userid);
+			JSONObject sendJson = new JSONObject();
+			JSONArray jarr = new JSONArray();
+			for(LikeObjet likeobjet : likeObjetPlanList) {
+			JSONObject job = new JSONObject();
+			job.put("title", URLEncoder.encode(likeobjet.getObjettitle(), "utf-8"));
+			job.put("start", likeobjet.getObjetstartdate().toString());
+			job.put("end", likeobjet.getObjetenddate().toString());
+			jarr.add(job);
+			}
+			
+			sendJson.put("plan", jarr);
+			logger.debug(jarr.toJSONString());
+			response.setContentType("application/json; charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println(sendJson.toJSONString());
+			out.flush();
+			out.close();
+		}
 
 }

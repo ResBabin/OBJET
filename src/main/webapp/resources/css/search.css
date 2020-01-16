@@ -298,15 +298,16 @@ body{
    align:center;
    line-height:40px;
 }
+.artist_txt :hover{
+	text-decoration: none;
+	color:black;
+}
 .artist_txt span {
 	font-weight: bold;
    font-family: 'Nanum Gothic';
    font-size:16px;
    color: #2185d0;
-   margin-left:2px;
-   padding:10px;
    align:center;
-   line-height:40px;
 }
 /* .artist_list_item span {
 	font-weight: bold;
@@ -321,8 +322,8 @@ body{
 
 #artist_list_img {
    float: left;
-   width:38px;
-   height:38px;
+   width:40px;
+   height:40px;
 }
 
 /**/
