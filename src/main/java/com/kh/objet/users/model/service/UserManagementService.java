@@ -37,5 +37,6 @@ public interface UserManagementService {
 	public List<String> selectUserEnrollDate();
 	public int selectBlacklistCount();
 	public int updateRequestStatus(Map<String, String> map);
+	public int selectStatusOrderList(Map<String, String> map);
 
 }

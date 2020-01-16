@@ -86,6 +86,22 @@
 			
 			<beans:bean id="loginCheckInterceptor" class="com.kh.objet.common.interceptor.LoginCheckInterceptor"/>
 		</interceptor>
+		
+		 <interceptor>
+			<mapping path="/adminmain.do"/>
+			<mapping path="/userm.do"/>
+			<mapping path="/usermd.do"/>
+			<mapping path="/objetm.do"/>
+			<mapping path="/objetmd.do"/>
+			<mapping path="/userbk.do"/>
+			<mapping path="/objetreq.do"/>
+			<mapping path="/reportbm.do"/>
+			<mapping path="/noticem.do"/>
+			<mapping path="/faqm.do"/>
+			<mapping path="/qnam.do"/>
+			
+			<beans:bean id="adminCheckInterceptor" class="com.kh.objet.common.interceptor.AdminCheckInterceptor"/>
+		</interceptor>
 	</interceptors>
 	
 	

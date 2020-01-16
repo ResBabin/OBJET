@@ -22,7 +22,7 @@
 }
 
 #objetimg {
-	height: 430px;
+	height: 350px;
 	width: auto;
 }
 
@@ -53,6 +53,7 @@ body ::-webkit-scrollbar {
 padding: 20px;
  color: #317; 
  display: none;
+ 	font-family: 'Nanum Gothic';
 }
 </style>
 
@@ -107,7 +108,7 @@ function UserInfoPopup() {
 <h2 align="left" id="titlediv"><i class="ui hashtag icon"></i>${ objet.objetno } - ${ objet.objettitle } 
 &nbsp;&nbsp;&nbsp;&nbsp;
 <button class="ui inverted basic violet button" id="objetintro">전시소개</button>
-<a class="ui large image label" style="padding: 14px; padding-right: 17px;" onclick="UserInfoPopup()"> 
+<a class="ui large image label" style="padding: 12px; padding-right: 17px;" onclick="UserInfoPopup()"> 
 &nbsp;&nbsp;<i class="ui user icon"></i>${ objet.userid }
   <div class="detail">${ objet.nickname }</div> 
 </a></h2>
@@ -124,25 +125,43 @@ function UserInfoPopup() {
 </c:forTokens>
 </h3><br>
 <c:set var="imgurl" value="${ pageContext.request.contextPath }/resources/images/objet/" />
-<div style="display: flex; overflow: auto; height: 450px;" id="objetimages">
-  <div class="ui fluid image info" data-title="메인 포스터"><a class="ui left big inverted black corner label"><i class="info circle icon"></i></a></div>
+<div style="display: flex; overflow: auto; height: 368px;" id="objetimages">
+	<c:if test="${!empty objet.renamemainposter }">
+  <div class="ui fluid image info" data-title="메인 포스터"><a class="ui left big inverted black corner label"><i class="info icon"></i></a></div>
   <img src="${ imgurl }${objet.renamemainposter }" id="objetimg" draggable="false">
-  <div class="ui fluid image info" data-title="${ objet.objettitle1}" data-content="${ objet.objetintro1 }"><a class="ui left big black corner label"><i class="info circle icon"></i></a></div>
+	</c:if>
+	<c:if test="${!empty objet.objetrfile1 }">
+  <div class="ui fluid image info" data-title="${ objet.objettitle1}" data-content="${ objet.objetintro1 }"><a class="ui left big black corner label"><i class="info icon"></i></a></div>
   <img src="${ imgurl }${objet.objetrfile1 }" id="objetimg" draggable="false">
-  <div class="ui fluid image info" data-title="${ objet.objettitle2}" data-content="${ objet.objetintro2 }"><a class="ui left big black corner label"><i class="info circle icon" ></i></a></div>
+  </c:if>
+  <c:if test="${!empty objet.objetrfile2 }">
+  <div class="ui fluid image info" data-title="${ objet.objettitle2}" data-content="${ objet.objetintro2 }"><a class="ui left big black corner label"><i class="info  icon" ></i></a></div>
 <img src="${ imgurl }${ objet.objetrfile2 }" id="objetimg" draggable="false">
-<div class="ui fluid image info" data-title="${ objet.objettitle3}" data-content="${ objet.objetintro3 }"><a class="ui left big black corner label"><i class="info circle icon"></i></a></div>
+</c:if>
+<c:if test="${!empty objet.objetrfile3 }">
+<div class="ui fluid image info" data-title="${ objet.objettitle3}" data-content="${ objet.objetintro3 }"><a class="ui left big black corner label"><i class="info  icon"></i></a></div>
 <img src="${ imgurl }${ objet.objetrfile3 }" id="objetimg" draggable="false">
-<div class="ui fluid image info" data-title="${ objet.objettitle4}" data-content="${ objet.objetintro4 }"><a class="ui left big black corner label"><i class="info circle icon"></i></a></div>
+</c:if>
+<c:if test="${!empty objet.objetrfile4 }">
+<div class="ui fluid image info" data-title="${ objet.objettitle4}" data-content="${ objet.objetintro4 }"><a class="ui left big black corner label"><i class="info  icon"></i></a></div>
 <img src="${ imgurl }${ objet.objetrfile4 }" id="objetimg" draggable="false">
-<div class="ui fluid image info" data-title="${ objet.objettitle5}" data-content="${ objet.objetintro5 }"><a class="ui left big black corner label"><i class="info circle icon"></i></a></div>
+</c:if>
+<c:if test="${!empty objet.objetrfile5 }">
+<div class="ui fluid image info" data-title="${ objet.objettitle5}" data-content="${ objet.objetintro5 }"><a class="ui left big black corner label"><i class="info  icon"></i></a></div>
 <img src="${ imgurl }${ objet.objetrfile5 }" id="objetimg" draggable="false">
-<div class="ui fluid image info" data-title="${ objet.objettitle6}" data-content="${ objet.objetintro6 }"><a class="ui left big black corner label"><i class="info circle icon"></i></a></div>
+</c:if>
+<c:if test="${!empty objet.objetrfile6 }">
+<div class="ui fluid image info" data-title="${ objet.objettitle6}" data-content="${ objet.objetintro6 }"><a class="ui left big black corner label"><i class="info  icon"></i></a></div>
 <img src="${ imgurl }${ objet.objetrfile6 }" id="objetimg" draggable="false">
-<div class="ui fluid image info" data-title="${ objet.objettitle7}" data-content=" ${ objet.objetintro7 }"><a class="ui left big black corner label"><i class="info circle icon"></i></a></div>
+</c:if>
+<c:if test="${!empty objet.objetrfile7 }">
+<div class="ui fluid image info" data-title="${ objet.objettitle7}" data-content=" ${ objet.objetintro7 }"><a class="ui left big black corner label"><i class="info  icon"></i></a></div>
 <img src="${ imgurl }${ objet.objetrfile7 }" id="objetimg" draggable="false">
-<div class="ui fluid image info" data-title="${ objet.objettitle8}"  data-content="${ objet.objetintro8 }"><a class="ui left big black corner label"><i class="info circle icon"></i></a></div>
+</c:if>
+<c:if test="${!empty objet.objetrfile8 }">
+<div class="ui fluid image info" data-title="${ objet.objettitle8}"  data-content="${ objet.objetintro8 }"><a class="ui left big black corner label"><i class="info  icon"></i></a></div>
 <img src="${ imgurl }${ objet.objetrfile8 }" id="objetimg" draggable="false">
+</c:if>
 </div>
 <br>
 <div style="display: flex;">
