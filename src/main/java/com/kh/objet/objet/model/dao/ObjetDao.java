@@ -3,6 +3,7 @@ package com.kh.objet.objet.model.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -229,6 +230,16 @@ public class ObjetDao {
 		return mybatisSession.selectList("objetMapper.selectObjetCalendar", objetno);
 	}
 	
+	// 검색 결과 정렬
+	public List<Artist> selectObjetSearchOrder(Map<String, String> map) {
+		return mybatisSession.selectList("objetMapper.selectObjetSearchOrder", map);
+	}
+	
+	// 검색 결과 정렬
+	public List<Artist> selectArtistSearchOrder(Map<String, String> map) {
+		return mybatisSession.selectList("objetMapper.selectArtistSearchOrder", map);
+	}
+	
 	
 	// 최민영
 	// 작가홈 오브제 리스트 보기
@@ -307,6 +318,7 @@ public class ObjetDao {
 	public int deleteObjet(int objetno) {
 		return mybatisSession.delete("objetMapper.deleteObjet", objetno);
 	}
+
 
 	
 

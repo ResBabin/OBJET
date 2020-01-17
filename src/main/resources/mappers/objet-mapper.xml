@@ -73,6 +73,37 @@ group by a.nickname, a.userid, b.userrpic, b.userintros, b.userintrol, b.usertag
    where quityn = 'N' and blackyn = 'N'
 </select>
 
+<!-- 오브제 검색 결과 오브제 정렬 -->
+<select id="selectObjetSearchOrder" resultType="Artist" parameterType="map">
+	 select *
+	 from (select * from objet
+	 join users using(userid)
+	 where publicyn = 'Y' 
+	 <if test="keyword != null"> and upper(objettitle) like '%' || upper(#{objettitle}) || '%' </if>
+	 <if test="keyword != null"> or upper(objetintro) like '%' || upper(#{objetintro}) || '%')</if>
+	 <trim prefix="where">
+	 <if test="order.equals('standby')"> objetstatus = 'STANDBY'</if>
+	 <if test="order.equals('open')"> objetstatus = 'OPEN'</if>
+	 <if test="order.equals('close')"> objetstatus = 'CLOSE'</if>
+	 </trim>
+</select>
+<!-- 오브제 검색 결과 아티스트 정렬 -->
+<select id="selectArtistSearchOrder" resultType="Artist" parameterType="map">
+    select a.userid userid, a.nickname nickname, b.userrpic userrpic, b.userintros userintros, b.userintrol userintrol, b.usertag usertag, max(c.objetstatus) objetstatus, 
+    max(c.objetenddate) objetenddate, max(c.objetstartdate) objetstartdate
+	from users a
+	join usersprofile b on a.userid = b.userid
+	left outer join objet c on a.userid = c.userid
+	where quityn = 'N' and blackyn = 'N'
+   <if test="keyword != null"> and userintrol like '%' || #{userintrol} || '%'</if>
+   <if test="keyword != null"> or nickname like '%' || #{nickname} || '%')</if>
+   group by a.nickname, a.userid, b.userrpic, b.userintros, b.userintrol, b.usertag
+   <trim prefix="order by">
+	<if test="order.equals('statusdesc')"> objetenddate desc NULLS LAST</if>
+	<if test="order.equals('nameasc')"> nickname asc NULLS LAST</if>
+	</trim>
+</select>
+
 <!-- 오브제 상태 -->
 <select id="selectArtistObjetStatus" parameterType="String" resultType="Objet">
 	select objetstatus from objet where userid = #{userid}

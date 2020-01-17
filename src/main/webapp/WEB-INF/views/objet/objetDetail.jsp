@@ -21,8 +21,10 @@
 <%--   <meta property="og:description"   content="${fn:substring(objet.objetintro,0,20)}..." /> --%>
   <meta property="og:image"         content="${pageContext.servletContext.contextPath }/resources/images/objet/${objet.renamemainposter }" />
 
-<script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
+<!-- 카카오톡 링크 api -->
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
+<script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
 <link rel='stylesheet' href='//fonts.googleapis.com/earlyaccess/kopubbatang.css'>
 <link rel="stylesheet" type="text/css" href="resources/assets/css/KoPubDotum.css">
 <link rel="stylesheet" href="//fonts.googleapis.com/earlyaccess/nanummyeongjo.css">
@@ -207,7 +209,7 @@ button {
 .img_ico_wrap {
     margin-left: 18px;
     float: left;
-    padding: 5px 0 5px 5px;
+    padding: 5px 5px 5px 5px;
     height: 20px;
     box-sizing: content-box;
 }
@@ -235,13 +237,11 @@ a:-webkit-any-link {
 }
 
 .wrap_action_article .text_with_img_ico {
-    margin-left: 3px;
-    margin-top: -1px;
-}
-.wrap_action_article .text_with_img_ico {
     padding-top: 1px;
     min-width: 6px;
     min-height: 1px;
+    margin-left: 4px;
+    margin-top: -1px;
 }
 .wrap_action_article .ico_comment {
     background-position: -30px -120px;
@@ -252,29 +252,18 @@ a:-webkit-any-link {
     height: 20px;
 }
 
-.wrap_action_article .text_with_img_ico {
-    margin-left: 3px;
-    margin-top: -1px;
-}
-.wrap_action_article .text_with_img_ico {
-    padding-top: 1px;
-    margin-left: 4px;
-    min-width: 6px;
-    min-height: 1px;
-}
-
 .wrapButtonSocialShare {
     position: relative;
     display: inline;
 }
-#facebook, #instagram, #twitter {
-	width:28px;
-	height: 28px;
+#facebook, #instagram, #twitter, #url{
+	width:24px;
+	height: 24px;
 }
-#url {
-	width:28px;
-	height: 28px;
-}
+ #kakaotalk{
+ 	width:35px;
+	height: 35px;
+ }
 .wrap_action_article .ico_share {
     background-position: -90px -121px;
     margin-right: 0;
@@ -319,36 +308,34 @@ a:-webkit-any-link {
 .wrap_share_gnb .ico_share_common {
     position: relative;
     /* z-index: 5; */
-    margin: 12px 0 18px;
+    margin: 10px 1px 18px 1px;
 }
 
-.wrap_share_common .btn_share_facebook {
-    background-position: -2px -2px;
-}
 .wrap_share_common button {
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     font-family: 'Nanum Gothic', sans-serif !important;
     font-size: 14px;
     line-height: 1.5;
 }
-.wrap_share_common .btn_share_facebook {
+/* .wrap_share_common .btn_share_facebook {
     background-position: -2px -2px;
 }
 .wrap_share_common .btn_share_kakaotalk {
     background-position: -37px -2px;
 }
-.wrap_share_common .btn_share_kakaostory {
-    background-position: -72px -2px;
+.btn_share_kakaotalk:hover {
+    background-position: -37px -37px;
 }
 .wrap_share_common .btn_share_twitter {
     background-position: -107px -2px;
-}
-
-/* .ico_share_common {
-    background: url(//t1.daumcdn.net/brunch/static/img/help/pc/ico_share_rtn_20180103.png) no-repeat;
-    background-size: 300px 210px;
 } */
+
+/*  #kakaotalk {
+    background: url(resources/images/kakaolink_btn_small.png) no-repeat;
+    background-size: 43px 43px;
+    border-radius: 50%;
+}  */  
 
 .screen_out {
     overflow: hidden;
@@ -380,57 +367,7 @@ a:-webkit-any-link {
     margin-left: 25px;
     transform: rotate(-90deg);
 }
-/* .header_icons {
-	float: right;
-	position: absolute;
-	right: 63px; 
-    padding-top: 0px;
-    transform: translate(0, 0);
-    
-}
-.left .wrap .icons {
-	float:right;
-}
-#heart {
-	position: absolute;
-	width: 10%;
-	height: auto;
-	background-image: url("resources/images/objet/heart.png");
-}
-
-.like_cnt {
-	position: absolute;
-	color: #fff;
-	font-size: 14px;
-}
-
-#chat {
-	position: absolute;
-	width: 10%;
-	height: auto;
-	background-image: url("resources/images/objet/chat.png");
-}
-
-#share {
-	position: absolute;
-	width: 10%;
-	height: auto;
-	background-image: url("resources/images/objet/share.png");
-}
-
-#more {
-	position: absolute;
-}
-
-.report {
-	position: absolute;
-	width: 10%;
-	height: auto;
-	background-image: url("resources/images/objet/report.png");
-}
-#more_after {
-	position: absolute;
-} *//* // 배너 아이콘 스타일 */
+/* // 배너 아이콘 스타일 */
 
 #objet_info_menu {
 	margin-top: 0px;
@@ -1093,11 +1030,13 @@ i.icon.clock::before{
 /* Calendar */
 .calendar_cont{
 	width:100%;
-	height: 700px;
+	height: 730px;
 }
-
+.fc-view table {
+	 height: 90%!important;
+}
 #calendar {
-    max-width: 67%;
+    max-width: 65%;
     margin: 40px auto;
     padding-top:185px;
   }
@@ -1824,8 +1763,8 @@ i.icon.clock::before{
 	
 	
 //전시일정
- var today = moment().day();
    document.addEventListener('DOMContentLoaded', function() {
+	var today = moment().day();
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
       plugins: [ 'interaction', 'dayGrid' ],
@@ -1865,7 +1804,7 @@ i.icon.clock::before{
     });
     calendar.render();
   });
-	
+   
 </script>
 </head>
 <body>
@@ -1890,35 +1829,93 @@ i.icon.clock::before{
 <c:if test="${fn:length(likeobjetList) == 0}">
 <span class="f_l text_hide img_ico img_ico_with_text ico_likeit_like" id="likeobjet" onclick="likeobjet();">관심오브제</span>
 </c:if>
-<span class="f_l text_like_count text_default text_with_img_ico ico_likeit_like likeobjetcnt">${fn:length(likeobjetList) }</span> </a>
+<span class="f_l text_like_count text_default text_with_img_ico ico_likeit_like likeobjetcnt" style="padding-left:0px;">${fn:length(likeobjetList) }</span> </a>
 <a href="javascript:void(0);" class="default_action img_ico_wrap comment">
 <span class="f_l text_hide img_ico img_ico_with_text ico_comment">한줄평</span></a>
+<span class="f_l text_comment_count text_default text_with_img_ico" style="padding-top:6px;margin-left:2px;">${fn:length(reviewList) }</span>
 <span class="wrapButtonSocialShare f_l default_action img_ico_wrap">
 <span class="f_l text_hide img_ico img_ico_with_text ico_share" style="cursor: pointer;">공유</span>
 <span class="wrap_share_gnb wrap_share_common"><strong class="tit_sharegnb">오브제 전시를 SNS에 공유해보세요</strong>
-<button type="button" id="facebook" class="ico_share_common btn_share_facebook ui mini circular facebook icon button" data-servicename="facebook">
+<button type="button" id="facebook" onclick="popupFacebook();" class="ico_share_common btn_share_facebook ui mini circular facebook icon button" data-servicename="facebook">
      <i class="big facebook icon"></i><span class="screen_out">페이스북공유</span>
 </button>
-<button type="button" id="twitter" class="ico_share_common btn_share_twitter ui circular mini twitter icon button" data-servicename="twitter">
+<button type="button" id="twitter" onclick="popupTwitter();" style="margin-left:5px;" class="ico_share_common btn_share_twitter ui circular mini twitter icon button" data-servicename="twitter">
     <i class="big twitter icon"></i><span class="screen_out">트위터공유</span>
 </button>
-<button type="button" id="instagram" class="ico_share_common btn_share_instagram ui mini circular icon button" style="background:#d6249f;
+<!-- <button type="button" id="instagram" class="ico_share_common btn_share_instagram ui mini circular icon button" style="background:#d6249f;
 background:radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);"instagram">
     <i class="big instagram icon"></i><span class="screen_out">인스타그램 공유</span>
-</button> 
-<a href="javascript:;" onclick="copyLink('window.location.href');" id="url" class="ico_share_common btn_share_url ui mini circular share icon button">
+</button>  -->
+<button type="button" style="width:42px!important;height:42px!important;padding-left:-2px;padding-right:-2px;padding-top:5px;" id="kakaotalk" class="ico_share_common btn_share_kakaotalk ui circular image" data-servicename="kakaotalk">
+    <img class="ui circular image" src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"/><span class="screen_out">카카오톡공유</span>
+</button>
+<button data-clipboard-text="copy" style="margin-top:-10px;" id="url" class="ico_share_common btn_share_url ui mini circular share icon button">
     <i class="large share icon"></i><span class="screen_out">링크 공유</span>
-</a>
-<script>
-var copyLink = function(link) {
-    if( is_ie() ) {
-        window.clipboardData.setData("Text", str);
-        alert("오브제 링크가 복사되었습니다.");
-        return;
-    }
-    prompt("ctrl+c를 눌러 복사하세요.", link);
-};
-</script>	
+</button>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type='text/javascript'>
+    //카카오톡 공유
+    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    var likeCount = '${fn:length(likeobjetList) }';
+    var commentCount = '${fn:length(reviewList) }';
+    
+    Kakao.init('e90783885e5b9d3922b6fc6273000918');
+    // // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+    Kakao.Link.createDefaultButton({
+      container: '#kakaotalk',
+      objectType: 'feed',
+      content: {
+        title: '${objet.objettitle}',
+        description: '${fn:substring(objet.objettitle,0,11)}...',
+        imageUrl: '${pageContext.servletContext.contextPath }/resources/images/objet/${objet.renamemainposter }',
+        link: {
+          webUrl: 'window.location.href'
+        }
+      },
+      social: {
+        likeCount: likeCount,
+        commentCount: commentCount,
+      },
+      buttons: [
+        {
+          title: '웹으로 보기',
+          link: {
+            webUrl: 'window.location.href'
+          }
+        }
+      ]
+    });
+    
+    //페이스북 공유
+    popupFacebook = function(){
+    	window.open("https://www.facebook.com/sharer/sharer.php"
+		+"?u="+encodeURIComponent(window.location.href)
+		// , "_blank"
+		, 'width=500,height=400,resizable=no,scrollbars=no'
+	);};
+    
+    //트위터 공유
+    popupTwitter = function(){
+		window.open("https://twitter.com/intent/tweet"
+		+"?via=objet"
+		+"&text="+encodeURIComponent('${objet.objettitle}\n' ) // Title in this html document
+		+"&url="+encodeURIComponent(window.location.href)
+		, 'width=500,height=400,resizable=no,scrollbars=no'
+	);};
+    
+  //링크 공유
+	$(function (){
+		$('#url').attr('data-clipboard-text', document.location.href);
+	 var clipboard = new ClipboardJS( '.btn_share_url' );
+	 
+	 clipboard.on( 'success', function() {
+	   alert( '오브제 링크 복사가 완료되었습니다.' );
+	  });
+	 clipboard.on( 'error', function() {
+	   alert( 'ctrl + c 를 누르면 복사가 완료됩니다.' );
+	  });
+	});
+</script>
 </span>
 </span>							
 </div>
@@ -2147,8 +2144,9 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 <!-- CALENDAR  -->
 <div class="ui bottom attached tab" id="objet_calendar">
 <span class="det_title">CALENDAR</span>
+<br>
 <div class="calendar_cont">
-<div id='calendar' style="height:100%;"></div>
+<div id='calendar'></div>
 </div>
 </div> <!-- Calendar -->
 <!-- <script>

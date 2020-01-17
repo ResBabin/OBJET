@@ -590,6 +590,129 @@ function search2() {
     form.submit();
 };
 
+
+//오브제 검색결과 정렬
+function objetOrder(order){
+	var keyword = '${keyword }';
+  	$.ajax({
+		url : "objetSearchOrder.do",
+		type : "post",
+		data : { order : order, keyword : keyword },
+		dataType : "json",
+		success : function(result){
+			var objStr = JSON.stringify(result);
+			var jsonObj = JSON.parse(objStr);
+			var values = "";
+			for (var i in jsonObj.list) {
+				var length = decodeURIComponent(jsonObj.list[i].userintrol.replace(/\+/gi, " ")).length;
+				var tagl = decodeURIComponent(jsonObj.list[i].usertag.replace(/\+/gi, " ")).length;
+				var tags = decodeURIComponent(jsonObj.list[i].usertag.replace(/\+/gi, " ")).split(',');
+				var userintrol = decodeURIComponent(jsonObj.list[i].userintrol.replace(/\+/gi, " "));
+				values += ;
+			}
+			
+			$(function() {
+			
+			});
+			
+			console.log("ok : " + order);
+		},
+		error : function(jqXHR, textStatus, errorThrown){
+			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+		}
+	});
+}
+
+function dateorder(date){
+	var keyword = '${keyword}';
+	$.ajax({
+		url : "objetSearchDateOrder.do",
+		type : "post",
+		data : { date : date, keyword : keyword },
+		dataType : "json",
+		success : function(result){
+			var objStr = JSON.stringify(result);
+			var jsonObj = JSON.parse(objStr);
+			var values = "";
+			for (var i in jsonObj.list) {
+				var length = decodeURIComponent(jsonObj.list[i].userintrol.replace(/\+/gi, " ")).length;
+				var tagl = decodeURIComponent(jsonObj.list[i].usertag.replace(/\+/gi, " ")).length;
+				var tags = decodeURIComponent(jsonObj.list[i].usertag.replace(/\+/gi, " ")).split(',');
+				var userintrol = decodeURIComponent(jsonObj.list[i].userintrol.replace(/\+/gi, " "));
+				values += ;
+			}
+			
+			$(function() {
+			
+			});
+			
+			console.log("ok : " + order);
+		},
+		error : function(jqXHR, textStatus, errorThrown){
+			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+		}
+	});
+}
+	
+	
+//아티스트 검색결과 정렬
+function artistOrder(order){
+	var keyword = '${keyword }';
+  	$.ajax({
+		url : "artistSearchOrder.do",
+		type : "post",
+		data : { order : order, keyword : keyword },
+		dataType : "json",
+		success : function(result){
+			var objStr = JSON.stringify(result);
+			var jsonObj = JSON.parse(objStr);
+			var values = "";
+			for (var i in jsonObj.list) {
+				var length = decodeURIComponent(jsonObj.list[i].userintrol.replace(/\+/gi, " ")).length;
+				var newline = "\n";
+				var noimages = "'resources/images/noimg2.jpg'";
+				var noimg = "'resources/images/basicprofilepic.png'";
+				var tagl = decodeURIComponent(jsonObj.list[i].usertag.replace(/\+/gi, " ")).length;
+				var tags = decodeURIComponent(jsonObj.list[i].usertag.replace(/\+/gi, " ")).split(',');
+				var userintrol = decodeURIComponent(jsonObj.list[i].userintrol.replace(/\+/gi, " "));
+				values += '<figure class="artist_card hover">'+
+					'<div class="img_blur">'+
+					'<img src="resources/images/objet/' + jsonObj.list[i].renamemainposter + '" onerror="this.src=' + noimages + '"' + ' class="profile_back"></div>' +
+					  '<a href=""><figcaption>' +
+					   '<img src="resources/users_upfiles/' + jsonObj.list[i].userrpic + '" onerror="this.src=' + noimg + '"' + ' class="profile_pic">' +
+					    '<h2>' + decodeURIComponent(jsonObj.list[i].nickname.replace(/\+/gi, " ")) +
+					    '<span>' + decodeURIComponent(jsonObj.list[i].userintros.replace(/\+/gi, " ")) + '</span></h2>';
+				         if(length < 60){
+				        	values += '<p>' + userintrol.replace(/\\n/gi, "<br/>") + '</p>' ;
+				        }else{
+				        	values += '<p>' + userintrol.substring(0,30) + '...</p>' ;
+				        } 
+				values += '<center>';
+				     for(var i in tags){
+				    	values +='<a href="" id="tag" class="ui basic small gray circular button">' + tags[i] + '</a>' ;
+				    } 
+				    
+					if(tagl > 4){
+				     values += '<a href="" id="tag" class="ui basic small gray circular button">...</a>'; 
+					}
+					values +=  '</center>' +
+					  '</figcaption></a>' +
+					'</figure>';
+			}
+			
+			$(function() {
+				
+			});
+			
+			console.log("ok : " + order);
+		},
+		error : function(jqXHR, textStatus, errorThrown){
+			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+		}
+	});
+}
+
+
 window.onload = function(){
 	$("#searchList-text").hide();
 	$("#searchList-btn").show();
@@ -628,17 +751,18 @@ window.onload = function(){
             <span class="result-title">전시 검색 결과 <span class="title-cnt">${fn:length(searchobjetList)}건 </span></span>
             <div class="search-option-cate">
             <span class="search-option">
-                <a href="" class="option on" data-type="accu">&nbsp;정확도</a>&nbsp;&nbsp;
-                <a href="" class="option" data-type="recency">&nbsp;최신순</a>&nbsp;&nbsp;
+                <a href="javascript:void(0);" onclick="objetOrder('standby');" class="option on">&nbsp;전시예정</a>&nbsp;&nbsp;
+                <a href="javascript:void(0);" onclick="objetOrder('open');" class="option">&nbsp;전시중</a>&nbsp;&nbsp;
+                <a href="javascript:void(0);" onclick="objetOrder('close');" class="option">&nbsp;전시종료</a>&nbsp;&nbsp;
 			</span>&nbsp;&nbsp;
 			<div class="ui compact selection dropdown" id="dateoption">
 			  <div class="text">전체 기간</div>
 			  <i class="dropdown icon"></i>
 			  <div class="menu">
-			    <div class="item" data-value="2019">2019</div>
-			    <div class="item" data-value="2018" >2018</div>
-				<div class="item" data-value="2017" >2017</div>
-				<div class="item" data-value="2016" >2016</div>
+			  	<div class="item" id="dateall" onclick="dateorder('dateall');">전체기간</div>
+			  	<div class="item" id="2020" onclick="dateorder('2020');">2020</div>
+			    <div class="item" id="2019" onclick="dateorder('2019');">2019</div>
+			    <div class="item" id="2018" onclick="dateorder('2018');">2018</div>
 			  </div>
 			</div>
 			</div>
@@ -736,6 +860,10 @@ window.onload = function(){
 		<div class="artist-result">
 			<div class="result-option" style="margin-top: 15px;">
 				<span class="result-title">작가 검색 결과 <span class="title-cnt">${fn:length(searchartistList)}건</span></span>
+				<span class="search-option" style="margin-top: 15px;margin-right:7%;float:right;">
+				    <a href="javascript:void(0);" onclick="artistOrder('statusdesc');" class="option on">&nbsp;전시중인순</a>&nbsp;&nbsp;
+				    <a href="javascript:void(0);" onclick="artistOrder('nameasc');" class="option">&nbsp;가나다순</a>&nbsp;&nbsp;
+				</span>&nbsp;&nbsp;
 			</div>
 			<div class="artist-result-list">
 				<ul class="artist-result-list-common"><li>
@@ -752,6 +880,9 @@ window.onload = function(){
 							</c:if>
 							<c:if test="${objetstatus[status.index].objetstatus eq 'CLOSE' }">
 							<div class="ui circular button" id="objet-status" style="margin:10px 0px 0px 14px;background:#AAA;color:#fff;width:65px;">전시종료</div>
+							</c:if>
+							<c:if test="${objetstatus[status.index].objetstatus eq '' }">
+							<div class="ui circular button" id="objet-status" style="margin:10px 0px 0px 14px;background:#3bbfbb;color:#fff;width:70px;">전시준비중</div>
 							</c:if>
 							</a> 
 							<a href="artistHomeMain.do?userid=${artistSearch.userid }&loginUser=${loginUser.userid}" class="artist-follow" target="_blank">
