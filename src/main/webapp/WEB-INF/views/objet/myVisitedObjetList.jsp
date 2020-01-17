@@ -185,16 +185,16 @@
 		<div align="center">
 			<div class="objetSearchBox" style="height: 130px;">
 			<form action="" method="post">
-				<a class="ui large teal label">${objet.objettitle }오브제명</a>&ensp;
+				<a class="ui large grey label">${objet.objettitle }오브제명</a>&ensp;
 					<div class="ui input"><input type="text" name="objettitle" style="width:300px; height:35px;"></div>&emsp;&emsp;&emsp;&emsp;
-				<a class="ui large teal label">${objet.userid }작가명</a>&ensp;
+				<a class="ui large grey label">${objet.userid }작가명</a>&ensp;
 					<div class="ui input"><input type="text" name="userid" style="width:150px; height:35px;"></div>
 			<br><br>
-				<a class="ui large teal label">${objet.objetstatus }전시상태</a>&ensp;
+				<a class="ui large grey label">${objet.objetstatus }전시상태</a>&ensp;
 					<input type="radio" name="objetstatus" value="ALL" checked="checked"><label>&ensp;전체</label>&emsp;&emsp;
 					<input type="radio" name="objetstatus" value="OPEN"><label>&ensp;전시중</label>&emsp;&emsp;
-					<input type="radio" name="objetstatus" value="CLOSE"><label>&ensp;종료</label>&emsp;&emsp;&emsp;
-					<div class="ui buttons"><button class="ui small grey button" type="submit">검색</button></div>
+					<input type="radio" name="objetstatus" value="CLOSE"><label>&ensp;종료</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;
+					<div class="ui buttons"><button class="mainBtn" type="submit">검색</button></div>
 				
 			</form>
 			</div>
@@ -281,7 +281,7 @@
 		<!-- 검색 결과 리스트 끝! -->
 		<br>
 		<div align="left">
-			<button class="ui mini blue button" id="removeOk">삭제</button>
+			<button class="mainBtn2" id="removeOk">삭제</button>
 		</div>
 		<br><br>
 		<!-- 페이징 -->

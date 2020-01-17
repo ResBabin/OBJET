@@ -9,30 +9,35 @@ import org.springframework.stereotype.Component;
 public class MySupport implements Serializable{
 	private static final long serialVersionUID = 2664045456129135218L;
 	
-	private int sptno;
+	private String sptno;
 	private String sptid;
+	private String sptnickname;
 	private String artistid;
+	private String artistnickname;
 	private int sptamount;
 	private String sptcomment;
 	private Date sptdate;
 	
 	public MySupport() {}
 
-	public MySupport(int sptno, String sptid, String artistid, int sptamount, String sptcomment, Date sptdate) {
+	public MySupport(String sptno, String sptid, String sptnickname, String artistid, String artistnickname,
+			int sptamount, String sptcomment, Date sptdate) {
 		super();
 		this.sptno = sptno;
 		this.sptid = sptid;
+		this.sptnickname = sptnickname;
 		this.artistid = artistid;
+		this.artistnickname = artistnickname;
 		this.sptamount = sptamount;
 		this.sptcomment = sptcomment;
 		this.sptdate = sptdate;
 	}
 
-	public int getSptno() {
+	public String getSptno() {
 		return sptno;
 	}
 
-	public void setSptno(int sptno) {
+	public void setSptno(String sptno) {
 		this.sptno = sptno;
 	}
 
@@ -44,12 +49,28 @@ public class MySupport implements Serializable{
 		this.sptid = sptid;
 	}
 
+	public String getSptnickname() {
+		return sptnickname;
+	}
+
+	public void setSptnickname(String sptnickname) {
+		this.sptnickname = sptnickname;
+	}
+
 	public String getArtistid() {
 		return artistid;
 	}
 
 	public void setArtistid(String artistid) {
 		this.artistid = artistid;
+	}
+
+	public String getArtistnickname() {
+		return artistnickname;
+	}
+
+	public void setArtistnickname(String artistnickname) {
+		this.artistnickname = artistnickname;
 	}
 
 	public int getSptamount() {
@@ -82,10 +103,11 @@ public class MySupport implements Serializable{
 
 	@Override
 	public String toString() {
-		return "MySupport [sptno=" + sptno + ", sptid=" + sptid + ", artistid=" + artistid + ", sptamount=" + sptamount
-				+ ", sptcomment=" + sptcomment + ", sptdate=" + sptdate + "]";
+		return "MySupport [sptno=" + sptno + ", sptid=" + sptid + ", sptnickname=" + sptnickname + ", artistid="
+				+ artistid + ", artistnickname=" + artistnickname + ", sptamount=" + sptamount + ", sptcomment="
+				+ sptcomment + ", sptdate=" + sptdate + "]";
 	}
-	
-	
 
+	
+	
 }

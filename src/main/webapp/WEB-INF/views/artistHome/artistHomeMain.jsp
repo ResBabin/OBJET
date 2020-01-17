@@ -263,7 +263,7 @@ function insertFollowing(){
 	}
 	
 	
-// 구독하기독하기독취소
+// 구독하기취소
 function deleteFollowing(){
 	var from_user = '<c:out value="${loginUser.userid}"/>'
 	var to_user = '<c:out value="${param.userid}"/>'
@@ -436,10 +436,10 @@ function deleteFollowing(){
 		 	<!-- 작가홈 본인일때만 작가소개 수정 버튼 -->
 		 	<br><br><br><br><br>
 		 	<c:if test="${usersProfile.userid == loginUser.userid }">
-			<div align="center"><button class="ui medium grey basic button" id="editArtistIntro" onclick="location.href='moveArtistIntroEdit.do?userid=${loginUser.userid}'">작가소개 수정</button></div>
+			<div align="center"><button class="mainBtn" id="editArtistIntro" onclick="location.href='moveArtistIntroEdit.do?userid=${loginUser.userid}'">작가소개 수정</button></div>
 			</c:if>
 			<c:if test="${usersProfile.userid != loginUser.userid }">
-			<div align="center"><button class="ui medium grey basic button" id="editArtistIntro" onclick="">전시일정 보기</button></div>
+			<div align="center"><button class="mainBtn" id="editArtistIntro" onclick="">전시일정 보기</button></div>
 			</c:if>
 			<br><br>
 			</div>
@@ -464,7 +464,7 @@ function deleteFollowing(){
 				
 				<div align="center">
 				오브제명&ensp;<div class="ui input"><input type="text" name="keyword" id="keyword"></div>
-					&ensp;<div class="ui buttons"><button class="ui button" type="submit" onclick="objetSearch();">검색</button></div>
+					&ensp;<div class="ui buttons"><button class="mainBtn" type="submit" onclick="objetSearch();">검색</button></div>
 				</div>
 				<br><br><br><br><br><br>
 				<div align="center">

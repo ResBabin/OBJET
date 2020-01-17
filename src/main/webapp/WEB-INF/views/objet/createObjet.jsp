@@ -272,8 +272,8 @@ function count_ck(obj){
 			
 			<!-- 신청버튼 -->
 				<div align="center">
-					<input type="submit" class="ui green button" value="전시신청" id="btnsub">&nbsp;
-					<input type="reset" class="ui button" value="다시작성">
+					<input type="submit" class="mainBtn" value="전시신청" id="btnsub">&nbsp;
+					<input type="reset" class="mainBtn1" value="다시작성">
 				</div>
 				<br><br>
 				<div style="color:#bb0004; font-size:9pt;line-height: 11pt;">

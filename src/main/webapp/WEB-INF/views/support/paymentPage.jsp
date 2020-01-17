@@ -31,7 +31,7 @@ IMP.request_pay({
     		url: "insertSupport.do", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
     		type: 'POST',
     		data: {
-    			artistid : '${support.artistid}', sptid : '${support.sptid}', sptamount:${support.sptamount}, sptcomment:'${support.sptcomment}'
+    			artistid : '${support.artistid}', sptid : '${support.sptid}', sptamount:${support.sptamount}, sptcomment:'${support.sptcomment}', sptno:rsp.imp_uid
     		}
     	}).done(function(result) {
     		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우

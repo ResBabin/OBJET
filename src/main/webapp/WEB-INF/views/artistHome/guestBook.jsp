@@ -585,10 +585,10 @@ function editGB(gbno,replyyn){
 					<c:if test="${keyword == null or keyword == ''}">
 						<div class="ui input"><input type="text" name="keyword" id="keyword" required></div>
 					</c:if>
-					&ensp;<div class="ui buttons"><button class="ui button" id="gbsearchbtn" type="submit">검색</button></div>
+					&ensp;<div class="ui buttons"><button class="mainBtn" id="gbsearchbtn" type="submit">검색</button></div>
 					</form>
 					
-					<br><div align="center"><button class="ui medium grey basic button" onclick="location.href='moveArtistGuestBook.do?artistid=${artist.userid}&userid=${loginUser.userid }&currentPage=1'">목록보기</button>&emsp;
+					<br><div align="center"><button class="mainBtn1" onclick="location.href='moveArtistGuestBook.do?artistid=${artist.userid}&userid=${loginUser.userid }&currentPage=1'">목록보기</button>&emsp;
 					</div>
 				</div>
 				</c:if>
@@ -597,8 +597,8 @@ function editGB(gbno,replyyn){
 				<!-- 작가홈 구경온 사람일 때는 내가 쓴 글 보기 -->
 			<c:if test="${!empty list }">
 			<c:if test="${artist.userid != loginUser.userid }">
-				<div align="center"><button class="ui medium grey basic button" id="mygblist" onclick="location.href='moveArtistGuestBook.do?artistid=${artist.userid}&userid=${loginUser.userid }&currentPage=1'">목록보기</button>&emsp;
-									<button class="ui medium grey basic button" id="mygblist" onclick="location.href='moveMyGuestBook.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=1'">내가 쓴 글 보기</button>
+				<div align="center"><button class="mainBtn1" id="mygblist" onclick="location.href='moveArtistGuestBook.do?artistid=${artist.userid}&userid=${loginUser.userid }&currentPage=1'">목록보기</button>&emsp;
+									<button class="mainBtn" id="mygblist" onclick="location.href='moveMyGuestBook.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=1'">내가 쓴 글 보기</button>
 				</div>
 			</c:if>
 			</c:if>
@@ -606,7 +606,6 @@ function editGB(gbno,replyyn){
 			<div align="right">
 				<a href="#"><img src="resources/images/objet/top.png" style="width:8%; height:auto; padding-right: 50px; padding-bottom: 50px;"></a>
 			</div>
-
 		</div>	
 			
 <c:import url="../footer.jsp" />

@@ -429,8 +429,10 @@ width: 190px;
       <li>
          <span class="accordian1">후원관리</span>
          <ul>
-            <li><a href="" style="color:#aaa">후원내역</a></li>
-            <li><a href="" style="color:#aaa">정산현황</a></li>
+            <li><a href="moveSendSupport.do?sptid=${loginUser.userid}&currentPage=1" style="color:#aaa">보낸후원</a></li>
+            <li><a href="moveReceiveSupport.do?artistid=${loginUser.userid}&currentPage=1" style="color:#aaa">받은후원</a></li>
+            <li><a href="moveRequestSupport.do?artistid=${loginUser.userid}&currentPage=1" style="color:#aaa">정산현황</a></li>
+            <li><a href="moveSupportManagement.do?artistid=${loginUser.userid }&sptid=${loginUser.userid}" style="color:#aaa">후원설정</a></li>
          </ul>
       </li>
       

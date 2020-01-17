@@ -39,7 +39,7 @@
 		<typeAlias type="com.kh.objet.users.model.vo.LoginCount" alias="LoginCount" />
 		<typeAlias type="com.kh.objet.support.model.vo.ApplySupport" alias="ApplySupport" />
 		<typeAlias type="com.kh.objet.support.model.vo.MySupport" alias="MySupport" />
-		<typeAlias type="com.kh.objet.support.model.vo.RequestSpt" alias="RequestSpt" />
+		<typeAlias type="com.kh.objet.support.model.vo.RequestSupport" alias="RequestSupport" />
 	</typeAliases>
 	<mappers>
 

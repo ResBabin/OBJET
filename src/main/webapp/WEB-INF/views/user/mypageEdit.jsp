@@ -205,7 +205,7 @@
 			<tr>
 				<th>닉네임</th>
 				<td><div class="ui input" style="width:350px;"><input type="text" id="nickname" name="nickname" value="${loginUser2.nickname}" placeholder="한글 최대 8자, 영문  최대 24자" required></div>&emsp;
-									<input type="button" class="ui teal button" value="중복확인" id="checkNickname"/>
+									<input type="button" class="mainBtn" value="중복확인" id="checkNickname"/>
 									<div class="enrolldiv" id="divNickname"></div>
 				</td>
 			</tr>
@@ -213,7 +213,7 @@
 			<tr>
 				<th>이메일</th>
 				<td><div class="ui input" style="width:350px;"><input type="email" id="email" name="email" value="${loginUser2.email}" placeholder="예: objetofficial@objet.com" required></div>&emsp;
-									<input type="button" class="ui teal button" value="중복확인" id="checkEmail"/>
+									<input type="button" class="mainBtn" value="중복확인" id="checkEmail"/>
 									<div class="enrolldiv" id="divEmail"></div>
 				</td>
 			</tr>
@@ -286,23 +286,22 @@
 	
 	<!-- 회원정보입력섹션 끝! -->
 	<p style="text-decoration: underline; color:#aaa;padding-top:15px; font-size: 10pt;" onclick="location.href='moveQuitPage.do'">탈퇴하기</p>
-		<br>
+		<br><br>
 		<div align="center">
 		<c:if test="${loginUser2.naverid == 0 || loginUser2.naverid == '' }">
-			<input type="submit" class="ui green button" value="수정하기" id="btnsub"> &nbsp;
+			<input type="submit" class="mainBtn" value="수정하기" id="btnsub"> &nbsp;
 		</c:if>
 		
 		<c:if test="${loginUser2.naverid != 0 && loginUser2.naverid != '' }">
-			<input type="submit" class="ui green button" value="수정하기" id="btnsub2"> &nbsp;
+			<input type="submit" class="mainBtn" value="수정하기" id="btnsub2"> &nbsp;
 		</c:if>
 			
-			<input type="reset" class="ui button" value="다시작성"> &nbsp;
+			<input type="reset" class="mainBtn1" value="다시작성"> &nbsp;
 		</div>
 	</form>	
 </div>
 
 <!-- 회원가입 페이지 끝 -->
-<br><br><br>
 </body>
 <c:import url="../footer.jsp" />
 </html>

@@ -54,9 +54,6 @@
 	<!-- 피드알림 페이지 시작 -->
 	<div class="wrapFeedList">
 		<p style="font-size: 20pt; padding-top:50px; color:#373737; text-align:center;">피드알림</p>
-			<form id="moreViewForm">
-			<input type="hidden" name="viewCount" id="viewCount" value="0">
-			<input type="hidden" name="startCount" id="startCount" value="0">
 				<table class="feedTable">
 				<!-- 반복영역 -->
 				<c:forEach items="${feedlist }" var="feed" varStatus="status">
@@ -68,9 +65,8 @@
 					</tr>
 				</c:forEach>
 				</table>
-			</form>
 			<br><br><br>
-		<div align="center"><button class="ui medium grey basic button" id="moreFeedList">더 보기</button></div>
+		<div align="center"><button class="mainBtn" id="moreFeedList">더 보기</button></div>
 	</div>
 	
 		

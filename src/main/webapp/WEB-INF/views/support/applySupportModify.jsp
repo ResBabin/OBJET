@@ -1,19 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<%-- 	<c:if test="${support.sptbank == '국민'}"><c:set var="sptbank1" value="selected"/></c:if>
-	<c:if test="${support.sptbank == '기업'}"><c:set var="sptbank2" value="selected"/></c:if>
-	<c:if test="${support.sptbank == '농협'}"><c:set var="sptbank3" value="selected"/></c:if>
-	<c:if test="${support.sptbank == '대구'}"><c:set var="sptbank4" value="selected"/></c:if>
-	<c:if test="${support.sptbank == '수협'}"><c:set var="sptbank5" value="selected"/></c:if>
-	<c:if test="${support.sptbank == '신한'}"><c:set var="sptbank6" value="selected"/></c:if>
-	<c:if test="${support.sptbank == '씨티'}"><c:set var="sptbank7" value="selected"/></c:if>
-	<c:if test="${support.sptbank == '우리'}"><c:set var="sptbank8" value="selected"/></c:if>
-	<c:if test="${support.sptbank == '우체국'}"><c:set var="sptbank9" value="selected"/></c:if>
-	<c:if test="${support.sptbank == '전북'}"><c:set var="sptbank10" value="selected"/></c:if>
-	<c:if test="${support.sptbank == '제일'}"><c:set var="sptbank11" value="selected"/></c:if>
-	<c:if test="${support.sptbank == '제주'}"><c:set var="sptbank12" value="selected"/></c:if>
-	<c:if test="${support.sptbank == '하나'}"><c:set var="sptbank13" value="selected"/></c:if> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,6 +18,7 @@
  <script type="text/javascript">
  
  $(function(){
+	 
  // 헤드라인 글자수 세기
 		 $("#sptheader").keyup(function(e){
 			 var content = $(this).val();
@@ -86,9 +74,37 @@
 				$("#btnsub").attr("disabled", true);
 			}	
 		});
-		
 	
+		
  })// documentReady..
+ 
+ 	function deleteApplySupport(){
+	 if(confirm('후원 정보를 삭제하시겠습니까?')==true){
+		 $.ajax({
+			 url: 'deleteApplySupport.do',
+			 data : {artistid : '${loginUser.userid}'},
+			 method : "get",
+			 success : function(result){
+				 if(result == "ok"){
+					 alert("후원 정보가 삭제되었습니다. 작가홈으로 이동합니다.");
+					 window.location.href="artistHomeMain.do?userid=${loginUser.userid}&loginUser=${loginUser.userid}";
+				 }else{
+					 alert("후원 정보 삭제에 실패했습니다.");
+					 window.location.href="moveSupportManagement.do?artistid=${loginUser.userid}&sptid=${loginUser.userid}";
+				 }
+			 },
+			error : function(jqXHR, textStatus, errorThrown){
+				console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+			}
+			 
+		 }) // ajax...
+		 return true;
+	 }else{
+		 return false;
+	 }
+ }
+ 	
+ 	
  </script>
 </head>
 
@@ -129,19 +145,19 @@
 			<tr><th><br><br>후원 계좌<span style="color:red">*</span></th></tr>
 			<tr><td>후원 받을 계좌를 입력해주세요. 후원자에게는 노출되지 않습니다.&emsp;<br>
 					<select class="ui search dropdown" name="sptbank" id="sptbank" required>
-						  <option value="국민" <c:if test="${applysupport=='국민'}">selected</c:if> >국민</option>
-						  <option value="기업" <c:if test="${applysupport=='기업'}">selected</c:if> >기업</option>
-						  <option value="농협" ${sptbank3}>농협</option>
-						  <option value="대구" ${sptbank4}>대구</option>
-						  <option value="수협" ${sptbank5}>수협</option>
-						  <option value="신한" ${sptbank6}>신한</option>
-						  <option value="씨티" ${sptbank7}>씨티</option>
-						  <option value="우리" ${sptbank8}>우리</option>
-						  <option value="우체국" <c:if test="${applysupport == '우체국'}">selected</c:if> >우체국</option>
-						  <option value="전북" ${sptbank10}>전북</option>
-						  <option value="제일" ${sptbank11}>제일</option>
-						  <option value="제주" ${sptbank12}>제주</option>
-						  <option value="하나" ${sptbank13}>하나</option>
+						  <option value="국민" <c:if test="${applysupport.sptbank == '국민'}">selected</c:if>>국민</option>
+						  <option value="기업" <c:if test="${applysupport.sptbank == '기업'}">selected</c:if>>기업</option>
+						  <option value="농협" <c:if test="${applysupport.sptbank == '농협'}">selected</c:if>>농협</option>
+						  <option value="대구" <c:if test="${applysupport.sptbank == '대구'}">selected</c:if>>대구</option>
+						  <option value="수협" <c:if test="${applysupport.sptbank == '수협'}">selected</c:if>>수협</option>
+						  <option value="신한" <c:if test="${applysupport.sptbank == '신한'}">selected</c:if>>신한</option>
+						  <option value="씨티" <c:if test="${applysupport.sptbank == '씨티'}">selected</c:if>>씨티</option>
+						  <option value="우리" <c:if test="${applysupport.sptbank == '우리'}">selected</c:if>>우리</option>
+						  <option value="우체국" <c:if test="${applysupport.sptbank == '우체국'}">selected</c:if>>우체국</option>
+						  <option value="전북" <c:if test="${applysupport.sptbank == '전북'}">selected</c:if>>전북</option>
+						  <option value="제일" <c:if test="${applysupport.sptbank == '제일'}">selected</c:if>>제일</option>
+						  <option value="제주" <c:if test="${applysupport.sptbank == '제주'}">selected</c:if>>제주</option>
+						  <option value="하나" <c:if test="${applysupport.sptbank == '하나'}">selected</c:if>>하나</option>
 						</select>&emsp;
 					<span class="ui form"><span class="field">
 		    		<input type="text" name="sptaccount" id="sptaccount" style="width:50%;" placeholder="(-)제외" value="${applysupport.sptaccount}"onKeyup="this.value=this.value.replace(/[^0-9]/g, '');" required></span></span>
@@ -161,13 +177,18 @@
 			&emsp;<input type="checkbox" class="chk" name="RowCheck"> 개인정보 및 고유식별정보 수집 및 이용동의<span class="termsCheckLabel"> (필수)</span>&ensp;<a onclick="winOpen2();">약관보기▶</a>
 		</div>
 	</div> -->
-	<br><br><br>
+	<br><br>
 	<div align="center">
 		<input type="submit" class="ui green button" value="저장" id="btnsub"> &nbsp;
 		<input type="reset" class="ui button" value="취소"> &nbsp;
 	</div>
-	
 	</form>
+	<br><br>
+	<div align="center">
+		<p style="color:#aaa; text-decoration: underline;" onclick="deleteApplySupport()">후원 정보 삭제</p>
+	</div>
+	
+	
 	</div>
 </div>
 
