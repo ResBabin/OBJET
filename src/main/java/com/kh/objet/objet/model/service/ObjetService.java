@@ -3,6 +3,7 @@ package com.kh.objet.objet.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.kh.objet.likeobjet.model.vo.LikeObjet;
 import com.kh.objet.objet.model.vo.Artist;
@@ -60,6 +61,8 @@ public interface ObjetService {
 	List<LikeObjet> selectLikeObjetCalendar(String userid);
 	List<VisitedObjet> selectVisitedObjetCalendar(String userid);
 	List<Objet> selectObjetCalendar(int objetno);
+	List<Artist> selectObjetSearchOrder(Map<String, String> map);
+	List<Artist> selectArtistSearchOrder(Map<String, String> map);
 	
 	// 최민영
 	List<Objet2> selectArtistObjetList(String userid);
@@ -76,6 +79,7 @@ public interface ObjetService {
 	int updateMyObjet(Objet objet);
 	int insertObjet(Objet3 objet3);
 	int deleteObjet(int objetno);
+	
 
 
 	

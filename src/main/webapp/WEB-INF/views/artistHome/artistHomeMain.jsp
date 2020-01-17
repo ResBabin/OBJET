@@ -310,8 +310,8 @@ function deleteFollowing(){
 			<table>
 				<tr><td style="width:100px; font-size: 10pt; color: #aaa;">구독자</td>
 					<td style="width:100px; font-size: 10pt; color: #aaa;">관심작가</td>
-				<tr><td style="font-size: 17pt;color: #9c9c9c;" onclick="location.href='moveFollowerPage.do?artistid=${usersProfile.userid}&loginUserid=${loginUser.userid }'">${follower }</td>
-					<td style="font-size: 17pt;color: #9c9c9c;" onclick="location.href='moveFollowingPage.do?artistid=${usersProfile.userid}&loginUserid=${loginUser.userid }'">${following }</td></tr>
+				<tr><td style="font-size: 17pt;color: #9c9c9c;cursor: pointer;" onclick="location.href='moveFollowerPage.do?artistid=${usersProfile.userid}&loginUserid=${loginUser.userid }'">${follower }</td>
+					<td style="font-size: 17pt;color: #9c9c9c;cursor: pointer;" onclick="location.href='moveFollowingPage.do?artistid=${usersProfile.userid}&loginUserid=${loginUser.userid }'">${following }</td></tr>
 			</table>
 		</c:if>
 		<c:if test="${usersProfile.quityn == 'Y'}">
@@ -349,7 +349,7 @@ function deleteFollowing(){
 				<button class="mini ui yellow button" onclick="location.href='moveSupportManagement.do?artistid=${usersProfile.userid}&sptid=${loginUser.userid}'"><i class="won sign icon"></i>후원관리</button>
 			</c:if>
 			<c:if test="${usersProfile.quityn == 'N'}">
-			<i class="grey ellipsis vertical icon" id="profileMenu"></i>
+			<i class="grey ellipsis vertical icon" style="cursor: pointer;" id="profileMenu"></i>
 			</c:if>
 		</div>
 		
@@ -362,9 +362,37 @@ function deleteFollowing(){
 				<button class="ui mini grey basic button" id="profileEdit" onclick="location.href='moveReaffirmUserpwd.do'">내정보 수정</button>
 			</c:if>
 			<c:if test="${usersProfile.userid != loginUser.userid }">
-			<button class="ui mini grey basic button" id="profileReport" onclick="location.href='moveProfileReport.do?reportedu=${usersProfile.userid}'">작가 신고</button>
+				<button class="ui mini grey basic button" id="profileReport" onclick="location.href='moveProfileReport.do?reportedu=${usersProfile.userid}'">작가 신고</button>
 			</c:if>
+			<button class="ui mini grey basic button" id="profileShare">작가 홈 공유</button>
 			</div>
+			<!-- 카카오톡 링크 api -->
+			<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+			<script type='text/javascript'>
+			  //<![CDATA[
+			    Kakao.init('e90783885e5b9d3922b6fc6273000918');
+			    Kakao.Link.createDefaultButton({
+			      container: '#profileShare',
+			      objectType: 'feed',
+			      content: {
+			        title: '${usersProfile.nickname}의 작가홈',
+			        description: '${fn:substring(usersProfile.userintrol,0,11)}...',
+			        imageUrl: '${pageContext.servletContext.contextPath }/resources/users_upfiles/${usersProfile.userrpic}',
+			        link: {
+			          webUrl: 'window.location.href'
+			        }
+			      },
+			      buttons: [
+			        {
+			          title: '웹으로 보기',
+			          link: {
+			            webUrl: 'window.location.href'
+			          }
+			        }
+			      ]
+			    });
+			  //]]>	
+</script>
 		</div>
 		</c:if>
 	</div> <!-- 상단 프로필 부분 끝! -->

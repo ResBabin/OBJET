@@ -3,6 +3,7 @@ package com.kh.objet.objet.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,18 @@ public class ObjetServiceImpl implements ObjetService{
 	@Override
 	public ArrayList<Artist> selectArtistAllSearch(String keyword) {
 		return objetDao.selectArtistAllSearch(keyword);
+	}
+	
+	//오브제 검색 오브제 정렬
+	@Override
+	public List<Artist> selectObjetSearchOrder(Map<String, String> map) {
+		return objetDao.selectObjetSearchOrder(map);
+	}
+	
+	//오브제 검색 작가 정렬
+	@Override
+	public List<Artist> selectArtistSearchOrder(Map<String, String> map) {
+		return objetDao.selectArtistSearchOrder(map);
 	}
 		
 	//오브제 전시 전체 리스트
@@ -348,6 +361,8 @@ public class ObjetServiceImpl implements ObjetService{
 	public int deleteObjet(int objetno) {
 		return objetDao.deleteObjet(objetno);
 	}
+
+	
 
 	
 

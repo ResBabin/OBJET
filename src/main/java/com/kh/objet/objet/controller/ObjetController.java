@@ -3,10 +3,12 @@ package com.kh.objet.objet.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -100,9 +102,116 @@ public class ObjetController {
 	}
 	
 	//오브제 전시 검색 정렬
-	@RequestMapping("searchOrder.do")
-	public void selectObjetSearchOrder() {
+	@RequestMapping(value="objetSearchOrder.do", method=RequestMethod.POST)
+	public void selectObjetSearchOrder(HttpServletResponse response, HttpServletRequest request) throws IOException {
+		Map<String, String> map = new HashMap<>();
+		String order = request.getParameter("order");
+		String keyword = request.getParameter("keyword");
 		
+		if(!order.equals("") && !keyword.equals("")) {
+			map.put("order", order);
+			map.put("keyword", keyword);
+		}
+		
+		ArrayList<Artist> objetSearchOrder = (ArrayList<Artist>)objetService.selectObjetSearchOrder(map);
+		JSONObject sendJson = new JSONObject();
+		JSONArray jarr = new JSONArray();
+		for(Artist artist : objetSearchOrder) {
+		JSONObject job = new JSONObject();
+		job.put("objetno", artist.getObjetno());
+		job.put("objettitle", URLEncoder.encode(artist.getObjettitle(), "utf-8"));
+		job.put("objetstatus", artist.getObjetstatus());
+		job.put("objetstartdate", artist.getObjetstartdate().toString());
+		job.put("objetenddate", artist.getObjetenddate().toString());
+		job.put("renamemainposter", artist.getRenamemainposter());
+		job.put("objetintro", URLEncoder.encode(artist.getObjetintro(), "utf-8"));
+		job.put("nickname", URLEncoder.encode(artist.getNickname(), "utf-8"));
+		job.put("objettag", URLEncoder.encode(artist.getObjettag(), "utf-8"));
+		jarr.add(job);
+		}
+		
+		ArrayList<Integer> likeobjetcntList = new ArrayList<Integer>();
+		ArrayList<Integer> reviewcntList = new ArrayList<Integer>();
+		for(int i = 0; i < objetSearchOrder.size(); i++) {
+			likeobjetcntList.add(objetService.selectLikeObjetCnt(objetSearchOrder.get(i).getObjetno()));
+			reviewcntList.add(objetService.selectReviewCnt(objetSearchOrder.get(i).getObjetno()));
+			for(Integer likeobjetcnt : likeobjetcntList) {
+				JSONObject job = new JSONObject();
+				job.put("likeobjetcnt", likeobjetcntList.get(i));
+				jarr.add(job);
+			}
+			for(Integer reviewcnt : reviewcntList) {
+				JSONObject job = new JSONObject();
+				job.put("reviewcnt", reviewcntList.get(i));
+				jarr.add(job);
+			}
+			sendJson.put("cnt", jarr);
+		}
+			
+		sendJson.put("list", jarr);
+		response.setContentType("application/json; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.println(sendJson.toJSONString());
+		out.flush();
+		out.close();
+	}
+	
+	//아티스트 검색 정렬
+	@RequestMapping(value="artistSearchOrder.do", method=RequestMethod.POST)
+	public void selectArtistSearchOrder(HttpServletResponse response, HttpServletRequest request) throws IOException {
+		Map<String, String> map = new HashMap<>();
+		String order = request.getParameter("order");
+		String keyword = request.getParameter("keyword");
+		
+		if(!order.equals("") && !keyword.equals("")) {
+			map.put("order", order);
+			map.put("keyword", keyword);
+		}
+		
+		ArrayList<Artist> artistSearchOrder = (ArrayList<Artist>)objetService.selectArtistSearchOrder(map);
+		JSONObject sendJson = new JSONObject();
+		JSONArray jarr = new JSONArray();
+		for(Artist artist : artistSearchOrder) {
+		JSONObject job = new JSONObject();
+		job.put("userid", artist.getUserid());
+		job.put("userintrol", URLEncoder.encode(artist.getUserintrol(), "utf-8"));
+		job.put("usertag", URLEncoder.encode(artist.getUsertag(), "utf-8"));
+		job.put("nickname", URLEncoder.encode(artist.getNickname(), "utf-8"));
+		job.put("userrpic", artist.getUserrpic());
+		job.put("userintros", URLEncoder.encode(artist.getUserintros(), "utf-8"));
+		jarr.add(job);
+		}
+
+		ArrayList<Integer> objetcntList = new ArrayList<Integer>();
+		ArrayList<Integer> followercntList = new ArrayList<Integer>();
+		for(int i = 0; i < artistSearchOrder.size(); i++) {
+			objetcntList.add(objetService.selectObjetCnt(artistSearchOrder.get(i).getUserid()));
+			followercntList.add(objetService.selectFollowerCnt(artistSearchOrder.get(i).getUserid()));
+			List<Objet> objetstatusList = objetService.selectArtistObjetStatus(artistSearchOrder.get(i).getUserid());
+			for(Integer objetcnt : objetcntList) {
+				JSONObject job = new JSONObject();
+				job.put("objetcnt", objetcntList.get(i));
+				jarr.add(job);
+			}
+			for(Integer followercnt : followercntList) {
+				JSONObject job = new JSONObject();
+				job.put("followercnt", followercntList.get(i));
+				jarr.add(job);
+			}
+			for(Objet objetstatus : objetstatusList) {
+				JSONObject job = new JSONObject();
+				job.put("objetstatus", objetstatus.getObjetstatus());
+				jarr.add(job);
+			}
+			sendJson.put("cnt", jarr);
+		}
+		
+		sendJson.put("list", jarr);
+		response.setContentType("application/json; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.println(sendJson.toJSONString());
+		out.flush();
+		out.close();
 	}
 	
 	//오브제 전시 전체 리스트
