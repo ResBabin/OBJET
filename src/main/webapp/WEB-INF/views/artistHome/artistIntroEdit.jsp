@@ -234,8 +234,8 @@
   	</p>
 	<br><br><br>
 	<div align="center">
-		<input type="submit" class="ui green button" value="수정하기" id="btnsub"> &nbsp;
-		<input type="reset" class="ui button" value="다시작성"> &nbsp;
+		<input type="submit" class="mainBtn" value="수정하기" id="btnsub"> &nbsp;
+		<input type="reset" class="mainBtn1" value="다시작성"> &nbsp;
 	</div>
 	</form>
 	

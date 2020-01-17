@@ -118,7 +118,7 @@ function deleteFollowing(data){
 				</table>
 				
 				<br><br>
-				<button class="ui grey basic button" style="width:200px;" id="moreFollowList">더 보기</button>		
+				<button class="mainBtn" id="moreFollowList">더 보기</button>		
 		</div>
 		
 		

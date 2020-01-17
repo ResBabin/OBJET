@@ -49,21 +49,21 @@ $(function(){
 	<div align="center">
 		<div class="objetSearchBox" style="height: 180px;">
 		<form action="" method="post">
-			<a class="ui large teal label">${request.objet.publicyn }승인여부</a>&ensp;
+			<a class="ui large grey label">${request.objet.publicyn }승인여부</a>&ensp;
 				<input type="radio" name="publicyn" value="ALL" checked="checked"><label>&ensp;전체</label>&emsp;&emsp;
 				<input type="radio" name="publicyn" value="Y"><label>&ensp;승인</label>&emsp;&emsp;
 				<input type="radio" name="publicyn" value="N"><label>&ensp;반려</label>&emsp;&emsp;
 		<br><br>
-			<a class="ui large teal label">${objet.objetstatus }전시상태</a>&ensp;
+			<a class="ui large grey label">${objet.objetstatus }전시상태</a>&ensp;
 				<input type="radio" name="objetstatus" value="ALL" checked="checked"><label>&ensp;전체</label>&emsp;&emsp;
 				<input type="radio" name="objetstatus" value="OPEN"><label>&ensp;전시중</label>&emsp;&emsp;
 				<input type="radio" name="objetstatus" value="STANDBY"><label>&ensp;예정</label>&emsp;&emsp;
 				<input type="radio" name="objetstatus" value="CLOSE"><label>&ensp;종료</label>&emsp;&emsp;
 				<input type="radio" name="objetstatus" value="WAIT"><label>&ensp;승인대기</label>
 		<br><br>
-			<a class="ui large teal label">${objet.objettitle }오브제명</a>&ensp;
+			<a class="ui large grey label">${objet.objettitle }오브제명</a>&ensp;
 				<div class="ui input"><input type="text" name="objettitle" style="width:300px; height:35px;"></div>&ensp;
-				<div class="ui buttons"><button class="ui small grey button" type="submit">검색</button></div>
+				<div class="ui buttons"><button class="mainBtn" type="submit">검색</button></div>
 		</form>
 	
 		</div>
@@ -97,7 +97,7 @@ $(function(){
 	</div>
 	<br>
 	<div align="left">
-		<button class="ui mini blue button">삭제</button>
+		<button class="mainBtn2">삭제</button>
 	</div>
 	<br>
 	<!-- 페이징 -->

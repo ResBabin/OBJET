@@ -1,11 +1,15 @@
 package com.kh.objet.support.model.dao;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.objet.support.model.vo.ApplySupport;
 import com.kh.objet.support.model.vo.MySupport;
+import com.kh.objet.support.model.vo.RequestSupport;
 
 @Repository("supportDao")
 public class SupportDao {
@@ -33,6 +37,54 @@ public class SupportDao {
 
 	public int updateApplySupport(ApplySupport applysupport) {
 		return mybatisSession.update("supportMapper.updateApplySupport", applysupport);
+	}
+
+	public int deleteApplySupport(String artistid) {
+		return mybatisSession.delete("supportMapper.deleteApplySupport", artistid);
+	}
+
+	public int selectSendSupportListCount(String sptid) {
+		return mybatisSession.selectOne("supportMapper.selectSendSupportListCount", sptid);
+	}
+
+	public List<MySupport> selectSendSupport(HashMap<String, Object> map) {
+		return mybatisSession.selectList("supportMapper.selectSendSupport", map);
+	}
+
+	public int selectSendSupportSearchListCount(HashMap<String, Object> map) {
+		return mybatisSession.selectOne("supportMapper.selectSendSupportSearchListCount",map);
+	}
+
+	public List<MySupport> selectSendSupportSearch(HashMap<String, Object> map) {
+		return mybatisSession.selectList("supportMapper.selectSendSupportSearch", map);
+	}
+
+	public int selectReceiveSupportListCount(String artistid) {
+		return mybatisSession.selectOne("supportMapper.selectReceiveSupportListCount",artistid);
+	}
+
+	public List<MySupport> selectReceiveSupport(HashMap<String, Object> map) {
+		return mybatisSession.selectList("supportMapper.selectReceiveSupport", map);
+	}
+
+	public int selectReceiveSupportSearchListCount(HashMap<String, Object> map) {
+		return mybatisSession.selectOne("supportMapper.selectReceiveSupportSearchListCount", map);
+	}
+
+	public List<MySupport> selectReceiveSupportSearch(HashMap<String, Object> map) {
+		return mybatisSession.selectList("supportMapper.selectReceiveSupportSearch", map);
+	}
+
+	public int selectRequestSupportListCount(String artistid) {
+		return mybatisSession.selectOne("supportMapper.selectRequestSupportListCount", artistid);
+	}
+
+	public List<MySupport> selectRequestSupport(HashMap<String, Object> map) {
+		return mybatisSession.selectList("supportMapper.selectRequestSupport", map);
+	}
+
+	public RequestSupport moveRequestSupportDetail(HashMap<String, Object> map) {
+		return mybatisSession.selectOne("supportMapper.moveRequestSupportDetail", map);
 	}
 	
 

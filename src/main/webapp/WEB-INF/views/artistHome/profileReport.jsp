@@ -154,8 +154,8 @@
 		</p>
 		</div>
 		<br><br>
-		<input type="submit" class="ui green button" value="신고하기" id="btnsub"></a> &nbsp;
-		<input type="button" class="ui button" value="취소" onclick="location.href='main.do'"> &nbsp;
+		<input type="submit" class="mainBtn" value="신고하기" id="btnsub"></a> &nbsp;
+		<input type="button" class="mainBtn1" value="취소" onclick="location.href='main.do'"> &nbsp;
 	</center>
 	</form>
 	</div><!-- 작가신고 페이지 끝 -->

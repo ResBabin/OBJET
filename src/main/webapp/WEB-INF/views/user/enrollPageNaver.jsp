@@ -134,7 +134,7 @@ function winOpen2(){
 			<tr>
 				<th>닉네임</th>
 				<td><div class="ui input" style="width:350px;"><input type="text" id="nickname" name="nickname" placeholder="한글/영소문자/숫자만 가능(최대 8자)" required></div>&emsp;
-									<input type="button" class="ui teal button" value="중복확인" id="checkNickname">
+									<input type="button" class="mainBtn" value="중복확인" id="checkNickname">
 									<div class="enrolldiv" id="divNickname"></div>
 				</td>
 			</tr>
