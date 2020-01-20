@@ -41,79 +41,81 @@
 		
 		
 		var publicyn = "", status = "", tag = "";
+		var page = 1;
 		var objettitle = "${ param.objettitle }";
 		var userid = "${ param.userid }";
 		
 		$("#publicall").click(function() {
 			publicyn = "";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, page);
 		});
 		$("#publicy").click(function() {
 			publicyn = "Y";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, page);
 		});
 		$("#publicn").click(function() {
 			publicyn = "N";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, page);
 		});
 		$("#publicw").click(function() {
 			publicyn = "W";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, page);
 		});
 		$("#statusall").click(function() {
 			status = "";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, page);
 		});
 		$("#statuswait").click(function() {
 			status = "WAIT";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, page);
 		});
 		$("#statusopen").click(function() {
 			status = "OPEN";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, page);
 		});
 		$("#statusclose").click(function() {
 			status = "CLOSE";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, page);
 		});
 		$("#tagarc").click(function() {
 			tag = "건축";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, page);
 		});
 		$("#tagseo").click(function() {
 			tag = "서예";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, page);
 		});
 		$("#tagst").click(function() {
 			tag = "조각";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, page);
 		});
 		$("#tagpic").click(function() {
 			tag = "사진";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, page);
 		});
 		$("#tagde").click(function() {
 			tag = "디자인";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, page);
 		});
 		$("#tagho").click(function() {
 			tag = "회화";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, page);
 		});
 		$("#tagetc").click(function() {
 			tag = "기타";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, page);
 		});
 		$("#taggong").click(function() {
 			tag = "공예";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, page);
 		});
 		$("#tagall").click(function() {
 			tag = "";
-			thorder(publicyn, status, tag, "objetd", objettitle, userid, 1);
+			thorder(publicyn, status, tag, "objetd", objettitle, userid, page);
 		});
 		
 		
+
 		
 		var clickid = 0, clickno = 0, clicktitle = 0, clickdate = 0, clickregi = 0;
 		
@@ -121,13 +123,13 @@
 			if(clickid%2 == 0){
 				$(".sorted").attr("class", "");
 				$("#userid").attr("class", "sorted descending");
-				thorder(publicyn, status, tag, "idd", objettitle, userid, 1);
+				thorder(publicyn, status, tag, "idd", objettitle, userid, page);
 				clickid += 1;
 				clickno = 0, clicktitle = 0, clickdate = 0, clickregi = 0;
 			} else if(clickid%2 != 0){
 				$(".sorted").attr("class", "");
 				$("#userid").attr("class", "sorted ascending");
-				thorder(publicyn, status, tag, "ida", objettitle, userid, 1);
+				thorder(publicyn, status, tag, "ida", objettitle, userid, page);
 				clickid += 1;
 				clickno = 0, clicktitle = 0, clickdate = 0, clickregi = 0;
 			}
@@ -136,13 +138,13 @@
 			if(clicktitle%2 == 0){
 				$(".sorted").attr("class", "");
 				$("#title").attr("class", "sorted descending");
-				thorder(publicyn, status, tag, "titled", objettitle, userid, 1);
+				thorder(publicyn, status, tag, "titled", objettitle, userid, page);
 				clicktitle += 1;
 				clickno = 0, clickid = 0, clickdate = 0, clickregi = 0;
 			} else if(clicktitle%2 != 0){
 				$(".sorted").attr("class", "");
 				$("#title").attr("class", "sorted ascending");
-				thorder(publicyn, status, tag, "titlea", objettitle, userid, 1);
+				thorder(publicyn, status, tag, "titlea", objettitle, userid, page);
 				clicktitle += 1;
 				clickno = 0, clickid = 0, clickdate = 0, clickregi = 0;
 			}
@@ -151,13 +153,13 @@
 			if(clickno%2 == 0){
 				$(".sorted").attr("class", "");
 				$("#objetno").attr("class", "sorted descending");
-				thorder(publicyn, status, tag, "nod", objettitle, userid);
+				thorder(publicyn, status, tag, "nod", objettitle, userid, page);
 				clickno += 1;
 				clickid = 0, clicktitle = 0, clickdate = 0, clickregi = 0;
 			} else if(clickno%2 != 0){
 				$(".sorted").attr("class", "");
 				$("#objetno").attr("class", "sorted ascending");
-				thorder(publicyn, status, tag, "noa", objettitle, userid, 1);
+				thorder(publicyn, status, tag, "noa", objettitle, userid, page);
 				clickno += 1;
 				clickid = 0, clicktitle = 0, clickdate = 0, clickregi = 0;
 			}
@@ -166,13 +168,13 @@
 			if(clickdate%2 == 0){
 				$(".sorted").attr("class", "");
 				$("#date").attr("class", "sorted descending");
-				thorder(publicyn, status, tag, "startd", objettitle, userid, 1);
+				thorder(publicyn, status, tag, "startd", objettitle, userid, page);
 				clickdate += 1;
 				clickno = 0, clicktitle = 0, clickid = 0, clickregi = 0;
 			} else if(clickdate%2 != 0){
 				$(".sorted").attr("class", "");
 				$("#date").attr("class", "sorted ascending");
-				thorder(publicyn, status, tag, "starta", objettitle, userid, 1);
+				thorder(publicyn, status, tag, "starta", objettitle, userid, page);
 				clickdate += 1;
 				clickno = 0, clicktitle = 0, clickid = 0, clickregi = 0;
 			}
@@ -181,18 +183,26 @@
 			if(clickregi%2 == 0){
 				$(".sorted").attr("class", "");
 				$("#regi").attr("class", "sorted descending");
-				thorder(publicyn, status, tag, "regia", objettitle, userid);
+				thorder(publicyn, status, tag, "regia", objettitle, userid, page);
 				clickregi += 1;
 				clickno = 0, clicktitle = 0, clickdate = 0, clickid = 0;
 			} else if(clickregi%2 != 0){
 				$(".sorted").attr("class", "");
 				$("#regi").attr("class", "sorted ascending");
-				thorder(publicyn, status, tag, "regid", objettitle, userid, 1);
+				thorder(publicyn, status, tag, "regid", objettitle, userid, page);
 				clickregi += 1;
 				clickno = 0, clicktitle = 0, clickdate = 0, clickid = 0;
 			}
 		});
+		$(".pages").click(function() {
+			page = $(this).text();
+			console.log(page);
+			
+			thorder(publicyn, status, tag, "idd", objettitle, userid, page);
+		});
+		 
 	
+	 
 		function thorder(publicyn, objetstatus, objettag, order, objettitle, userid, page) {
 			$.ajax({
 						url : "objetStatusOrder.do",
@@ -217,18 +227,17 @@
 							var labeled ="";
 							var labeled2 ="";
 							var labeled3 ="";
-							var currentPage = result.list[0].currentPage;
-							console.log("currentPage  " + result.list[0].currentPage);
-							var beginPage = result.list[0].beginPage;
-							console.log("endPage  " + result.list[0].endPage);
-							var endPage = result.list[0].endPage;
-							console.log("maxPage  " + result.list[0].maxPage);
-							var maxPage = result.list[0].maxPage;
+							var currentPage =  result.currentPage;
+							var beginPage =  result.beginPage;
+							var endPage =  result.endPage;
+							var maxPage =  result.maxPage;
+							var listCount =  result.listCount;
+
+							var pages = "";
+							 
 							for ( var i in jsonObj.list) {
 								tagged = '<div class="ui tiny label taglabel">' +decodeURIComponent(jsonObj.list[i].objettag.replace(/\+/gi, " ")).split(",").join('</div>&nbsp;&nbsp; <div class="ui tiny label taglabel">')+'</div>';
 										
-										
-								
 								bk += '<tr><td><div class="ui fitted checkbox"><input type="checkbox" name="objetno" value="'+jsonObj.list[i].objetno+'"> <label></label></div></td><td style="text-align: right;" id="objetno">'
 										+ jsonObj.list[i].objetno
 										+ "</a></td><td id='nick'><a href='objetmd.do?objetno="+ jsonObj.list[i].objetno +"'>"
@@ -243,7 +252,59 @@
 										+ jsonObj.list[i].status
 										+ "</td></tr>";
 							}
+				
+								
+							var drightp = "";
+							var rightp = "";
+							var leftp = "";
+							var dleftp = "";
+							var numberp = "";
 							$("#objettable").html(bk);
+							/* 
+							if( currentPage == 1){
+								dleftp = '<a href="" class="disabled item"><i class="angle double left icon"></i></a>';
+							}else {
+								dleftp = '<a href="" class="item"><i class="angle double left icon"></i></a>';
+							}
+						
+							if(beginPage - 10 < 1){
+								if(currentPage == 1 ){
+									leftp = '<a href="" class="disabled item"><i class="angle left icon"></i></a>';
+								}else {
+									leftp = '<a href="" class="item"><i class="angle left icon"></i></a>';
+								}
+							}else {
+								leftp = '<a href="" class="item"><i class="angle left icon"></i></a>';
+							}
+					
+							for(var i = 1; i <= endPage; i++ ){
+								if( i < currentPage){
+									pages +='<a class="item pages" id="pages">' + i + '</a>'
+								}else if( i == currentPage){
+									pages += '<a class="active item pages" id="pages">' + i + '</a>'
+								}else if(i > currentPage) {
+									pages +=  '<a class="item pages" id="pages">' + i + '</a>';
+								}
+							}
+							
+							if(endPage + 10 > maxPage){
+								if(currentPage == endPage){
+									rightp = '<a href="" class="disabled item"><i class="angle right icon"></i></a>';
+								}else {
+									rightp = '<a href="" class="item"><i class="angle right icon"></i></a>';
+								}
+							}
+							
+							if(currentPage == endPage){
+								drightp = '<a href="" class="disabled item"><i class="angle double right icon"></i></a>';
+							}else {
+								drightp = '<a href="" class="item"><i class="angle double right icon"></i></a>'
+							}
+							
+							$("#pagingdiv").html(dleftp + leftp + pages + rightp + drightp); */
+							
+							
+							
 						},
 						error : function(request, status, errorData) {
 							console.log("error code : " + request.status
@@ -252,8 +313,6 @@
 						}
 					});
 		}
-		
-		
 		
 		$("input[name=userid]").hide();
 		
@@ -268,7 +327,8 @@
 		$("input[name=objettitle]").show();
 		});
 	});
-
+	 
+	
 </script>
 <c:import url="adminHeader.jsp"/>
 </head>
@@ -330,7 +390,7 @@
 					<div class="item" id="tagetc">기타</div>
 				</div>
 			</div>
-		<div class="ui pointing dropdown link item" onclick="history.go(0)">
+		<div class="ui pointing dropdown link item" onclick="location.href='objetm.do'">
 				<span class="text">리셋</span></div>
 		</div>
 		</div>
@@ -396,7 +456,7 @@
 					반려
 					</c:if>
 					<c:if test="${ objetm.publicyn eq 'W' }">
-					대기
+					<font color="#c05" style="font-weight: bold;">대기</font>
 					</c:if>
 					</td>
 						<td>${ objetm.objetregidate }</td>
@@ -417,6 +477,7 @@
 				<i class="x icon"></i>강제 종료
 			</button>
 		</div>
+		<br>
 		<div align="center">
 		<div class="ui pagination menu"  id="pagingdiv">
 		<c:if test="${ currentPage eq 1 }">
@@ -434,10 +495,12 @@
 		</c:if>
 		<c:forEach begin="${ beginPage }" end="${ endPage }" var="p">
 		<c:if test="${ p eq currentPage }">
-		<a href="/objet/objetm.do?page=${ p }" class="active item">${ p }</a>
+<%-- 		<a href="/objet/objetm.do?page=${ p }" class="active item">${ p }</a> --%>
+		<a class="active item pages" id="pages">${ p }</a>
 		</c:if>
 		<c:if test="${ p ne currentPage }">
-		<a href="/objet/objetm.do?page=${ p }" class="item">${ p }</a>
+<%-- 		<a href="/objet/objetm.do?page=${ p }" class="item">${ p }</a> --%>
+		<a class="item pages" id="pages">${ p }</a>
 		</c:if>
 		</c:forEach>
 		<c:if test="${  endPage + 10 > maxPage }">
@@ -459,7 +522,10 @@
 		</c:if>
 	</div>
 	</div>
-	</div>
 	
+	</div>
+	<c:import url="../footer.jsp"/>
 </body>
 </html>
+
+

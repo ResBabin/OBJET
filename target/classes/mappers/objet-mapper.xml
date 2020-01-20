@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="objetMapper">
+<!-- 오브제 전체 리스트   -->
+<select id="selectObjetAll" resultType="Objet">
+ select objetno, userid, objettitle, objetintro, originmainposter, objetrfile1, objetrfile1, renamemainposter, objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview 
+ from objet
+ where objetstatus = 'OPEN' and publicyn = 'Y' or objetstatus = 'STANDBY' 
+ order by objetstartdate desc
+ </select>
+ 
+ <!-- 오브제 메인 리스트   -->
+<select id="selectObjetMain" resultType="Artist">
+  select max(c.objetno) objetno, max(c.objettitle) objettitle, max(c.objettitle2) objettitle2, max(c.objetintro) objetintro, a.userid, a.nickname nickname, b.userrpic, b.userintros, b.userintrol, b.usertag, 
+  max(c.objetstatus) objetstatus, max(c.renamemainposter) renamemainposter, max(c.objettag) objettag, max(c.objetenddate) objetenddate, max(c.objetstartdate) objetstartdate,
+  max(c.publicyn) publicyn, max(c.objetregidate) objetregidate, max(c.objetview) objetview, max(c.objetrfile1) objetrfile1, max(c.objetrfile2) objetrfile2
+ from users a
+join usersprofile b on a.userid = b.userid
+left outer join objet c on a.userid = c.userid
+ where quityn = 'N' and blackyn = 'N' 
+ group by a.userid, a.nickname, b.userrpic, b.userintros, b.userintrol, b.usertag
+ </select>
+ 
+ <!-- 오브제 완전 전체 리스트   -->
+<select id="selectAllObjetAll" resultType="Objet">
+ select * from objet where publicyn = 'Y'
+ </select>
+ 
+ <!-- 작가 전체 리스트   -->
+<select id="selectArtistAll" resultType="Artist">
+select a.userid, a.nickname nickname, b.userrpic, b.userintros, b.userintrol, b.usertag, max(c.objetstatus) objetstatus, 
+max(c.renamemainposter) renamemainposter, max(c.objettag) objettag, max(c.objetenddate) objetenddate, max(c.objetstartdate) objetstartdate
+from users a
+join usersprofile b on a.userid = b.userid
+left outer join objet c on a.userid = c.userid
+where quityn = 'N' and blackyn = 'N'
+group by a.nickname, a.userid, b.userrpic, b.userintros, b.userintrol, b.usertag 
+order by objetenddate desc NULLS LAST
+</select>
+
+<!-- 작가 전체 리스트 정렬  -->
+<select id="selectArtistListOrder" resultType="Artist" parameterType="string">
+select a.userid, a.nickname nickname, b.userrpic, b.userintros, b.userintrol, b.usertag, max(c.objetstatus) objetstatus, 
+max(c.renamemainposter) renamemainposter, max(c.objettag) objettag, max(c.objetenddate) objetenddate, max(c.objetstartdate) objetstartdate
+from users a
+join usersprofile b on a.userid = b.userid
+left outer join objet c on a.userid = c.userid
+where quityn = 'N' and blackyn = 'N'
+group by a.nickname, a.userid, b.userrpic, b.userintros, b.userintrol, b.usertag  
+<trim prefix="order by">
+<if test="_parameter=='statusdesc'"> objetenddate desc NULLS LAST</if>
+<if test="_parameter=='nameasc'"> nickname asc NULLS LAST</if>
+</trim>
+</select>
+ 
+<!-- 오브제 검색 결과 리스트(전시/작가)  -->
+<select id="selectObjetAllSearch" parameterType="String" resultType="Artist">
+	 select *
+	 from objet
+	 join users using(userid)
+	 where publicyn = 'Y' 
+	 and upper(objettitle) like '%' || upper(#{objettitle}) || '%' 
+	 or upper(objetintro) like '%' || upper(#{objetintro}) || '%'
+</select>
+<select id="selectArtistAllSearch" parameterType="String" resultType="Artist">
+   select * 
+   from (select * from users
+   join usersprofile using(userid)
+   where userintrol like '%' || #{userintrol} || '%'
+   or nickname like '%' || #{nickname} || '%')
+   where quityn = 'N' and blackyn = 'N'
+</select>
+
+<!-- 오브제 검색 결과 오브제 정렬 -->
+<select id="selectObjetSearchOrder" resultType="Artist" parameterType="map">
+	 select *
+	 from (select * from objet
+	 join users using(userid)
+	 where publicyn = 'Y' 
+	 <if test="keyword != null"> and upper(objettitle) like '%' || upper(#{objettitle}) || '%' </if>
+	 <if test="keyword != null"> or upper(objetintro) like '%' || upper(#{objetintro}) || '%')</if>
+	 <trim prefix="where">
+	 <if test="order.equals('standby')"> objetstatus = 'STANDBY'</if>
+	 <if test="order.equals('open')"> objetstatus = 'OPEN'</if>
+	 <if test="order.equals('close')"> objetstatus = 'CLOSE'</if>
+	 </trim>
+</select>
+<!-- 오브제 검색 결과 아티스트 정렬 -->
+<select id="selectArtistSearchOrder" resultType="Artist" parameterType="map">
+    select a.userid userid, a.nickname nickname, b.userrpic userrpic, b.userintros userintros, b.userintrol userintrol, b.usertag usertag, max(c.objetstatus) objetstatus, 
+    max(c.objetenddate) objetenddate, max(c.objetstartdate) objetstartdate
+	from users a
+	join usersprofile b on a.userid = b.userid
+	left outer join objet c on a.userid = c.userid
+	where quityn = 'N' and blackyn = 'N'
+   <if test="keyword != null"> and userintrol like '%' || #{userintrol} || '%'</if>
+   <if test="keyword != null"> or nickname like '%' || #{nickname} || '%')</if>
+   group by a.nickname, a.userid, b.userrpic, b.userintros, b.userintrol, b.usertag
+   <trim prefix="order by">
+	<if test="order.equals('statusdesc')"> objetenddate desc NULLS LAST</if>
+	<if test="order.equals('nameasc')"> nickname asc NULLS LAST</if>
+	</trim>
+</select>
+
+<!-- 오브제 상태 -->
+<select id="selectArtistObjetStatus" parameterType="String" resultType="Objet">
+	select objetstatus from objet where userid = #{userid}
+</select>
+ 
+ <!-- 오브제 하나   -->
+ <select id="selectObjetOne" parameterType="int" resultType="Artist">
+ select * from objet a
+ join usersprofile b on a.userid = b.userid
+ join users c on a.userid = c.userid
+ where objetno = #{objetno}
+ </select>
+ 
+ <!-- 다녀온 오브제 추가  -->
+ <insert id="insertVisitedObjet" parameterType="VisitedObjet">
+ 	insert into visitedobjet values(#{objetno}, #{userid}, sysdate)
+ </insert>
+ <select id="selectVisitedObjet" parameterType="VisitedObjet" resultType="int">
+ 	select count(*) from visitedobjet where objetno = #{objetno} and userid = #{userid}
+ </select>
+ 
+ <!-- 관심 오브제 카운트 -->
+ <select id="selectLikeObjetOne" resultType="int" parameterType="LikeObjet">
+ 	select count(*) from likeobjet where userid = #{userid} and objetno = #{objetno}
+ </select>
+ 
+ <!-- 관심 오브제 리스트  -->
+ <select id="selectLikeObjet" resultType="LikeObjet" parameterType="int">
+ 	select * from likeobjet where objetno = #{objetno}
+ </select>
+ 
+ <!-- 관심 오브제 추가  -->
+ <insert id="insertLikeObjet" parameterType="LikeObjet">
+ 	insert into likeobjet values(#{objetno}, #{userid}, sysdate)
+ </insert>
+ 
+ <!-- 관심 오브제 삭제  -->
+ <delete id="deleteLikeObjet" parameterType="LikeObjet">
+	delete from likeobjet where userid = #{userid} and objetno = #{objetno}
+ </delete>
+ 
+ <!-- 전시 신고 -->
+ <insert id="insertObjetReport" parameterType="ReportBoard">
+ 	insert into reportboard values 
+ 	(#{originno}, #{reportedb}, #{reporterb}, #{reportbtype}, sysdate, #{reportbreason}) 
+ </insert>
+ 
+ <!-- 검색 관심오브제 카운트 -->
+ <select id="selectLikeObjetCnt" resultType="int" parameterType="int">
+ 	select count(*) from likeobjet where objetno = #{objetno}
+ </select>
+ 
+ <!-- 검색 한줄평 카운트 -->
+ <select id="selectReviewCnt" resultType="int" parameterType="int">
+ 	select count(*) from review where objetno = #{objetno}
+ </select>
+ 
+  <!-- 검색 오브제 카운트 -->
+ <select id="selectObjetCnt" resultType="int" parameterType="String">
+ 	select count(*) from objet where userid = #{userid}
+ </select>
+ 
+  <!-- 검색 구독자수 카운트 -->
+ <select id="selectFollowerCnt" resultType="int" parameterType="String">
+ 	select count(*) from follower where To_user = #{To_user}
+ </select>
+ 
+   <!-- 관심작가수 카운트 -->
+ <select id="selectFollowingCnt" resultType="int" parameterType="String">
+ 	select count(*) from following where From_user = #{From_user}
+ </select>
+ 
+ <!-- 한줄평 리스트  -->
+ <select id="selectReview" parameterType="Review" resultType="Review">
+ select a.revuserid, a.objetno, a.revcontent, a.revstars, a.revdate, b.userrpic, c.nickname, count(d.revgood) revgood, count(d.revhate) revhate
+ from review a
+ join usersprofile b on a.revuserid = b.userid
+ join users c on a.revuserid = c.userid
+ join reviewstatus d on a.revuserid = d.revuserid
+ where a.objetno = #{objetno} and d.objetno = #{objetno}
+ and a.revuserid != #{revuserid} and d.revuserid != #{revuserid}
+ group by a.revuserid, a.objetno, a.revcontent, a.revstars, a.revdate, b.userrpic, c.nickname
+ order by a.revdate desc
+ </select>
+ 
+ <!-- 한줄평 리스트 정렬  -->
+ <select id="selectReviewOrder" parameterType="ReviewKey" resultType="Review">
+ select a.revuserid, a.objetno, a.revcontent, a.revstars, a.revdate, b.userrpic, c.nickname, count(d.revgood) revgood, count(d.revhate) revhate
+ from review a
+ join usersprofile b on a.revuserid = b.userid
+ join users c on a.revuserid = c.userid
+ join reviewstatus d on a.revuserid = d.revuserid
+ where a.objetno = #{objetno} and d.objetno = #{objetno}
+ and a.revuserid != #{userid} and d.revuserid != #{userid}
+ group by a.revuserid, a.objetno, a.revcontent, a.revstars, a.revdate, b.userrpic, c.nickname
+<trim prefix="order by">
+<if test="order=='reviewdatedesc'"> a.revdate desc</if>
+<if test="order=='reviewstardesc'"> a.revstars desc</if>
+</trim>
+ </select>
+ 
+ <!-- 내 한줄평 -->
+ <select id="selectReviewOne" parameterType="ReviewKey" resultType="Review">
+ select a.revuserid, a.objetno, a.revcontent, a.revstars, a.revdate, b.userrpic, c.nickname
+ from review a
+ join usersprofile b on a.revuserid = b.userid
+ join users c on a.revuserid = c.userid
+where a.revuserid = #{userid} and a.objetno = #{objetno}
+ </select>
+ 
+ <!-- 내 한줄평 좋아요, 싫어요  -->
+ <select id="selectReviewStatusOne" parameterType="ReviewKey" resultType="Review">
+ select distinct sum(nvl(revgood, 0)) revgood, sum(nvl(revhate, 0)) revhate
+ from reviewstatus
+ where revuserid = #{userid} and objetno = #{objetno}
+ </select>
+ <!-- 한줄평 내 평가 체크  -->
+ <select id="selectReviewStatusChk" parameterType="ReviewKey" resultType="ReviewStatus">
+ select * from reviewstatus
+ where userid = #{userid} and objetno = #{objetno}
+  order by revuserid asc
+ </select>
+ 
+<!-- 한줄평 등록 -->
+<insert id="insertReview" parameterType="Review">
+	insert into review values (#{revuserid}, #{objetno}, #{revcontent}, #{revstars}, sysdate) 
+</insert>
+
+<!-- 한줄평 수정 -->
+<update id="updateReview" parameterType="Review">
+	update review set revcontent = #{revcontent}, revstars = #{revstars}, revdate = sysdate 
+	where revuserid = #{revuserid} and objetno = #{objetno}
+</update>
+
+<!-- 한줄평 삭제 -->
+<delete id="deleteReview" parameterType="Review">
+	delete from review where revuserid = #{revuserid} and objetno = #{objetno}
+</delete>
+
+<!-- 한줄평 신고 -->
+ <insert id="insertReviewReport" parameterType="ReportBoard">
+ 	insert into reportboard values 
+ 	(#{originno}, #{reportedb}, #{reporterb}, #{reportbtype}, sysdate, #{reportbreason})  
+ </insert>
+ 
+ <!-- 한줄평 신고 체크  -->
+ <select id="selectReviewReport" parameterType="ReportBoard" resultType="int">
+ 	select count(*) from reportboard
+ 	where originno = #{originno} and reportedb = #{reportedb} and reporterb = #{reporterb}
+ </select>
+ 
+ <!-- 한줄평 좋아요  체크 -->
+ <select id="selectRevGoodChk" parameterType="ReviewStatus" resultType="int">
+ 	select count(revgood) from reviewstatus where revuserid = #{revuserid} and userid = #{userid} and objetno = #{objetno}
+ </select>
+ 
+  <!-- 한줄평 싫어요  체크 -->
+ <select id="selectRevHateChk" parameterType="ReviewStatus" resultType="int">
+ 	select count(revhate) from reviewstatus where revuserid = #{revuserid} and userid = #{userid} and objetno = #{objetno}
+ </select>
+ 
+ <!-- 한줄평 좋아요 -->
+ <insert id="insertRevGood" parameterType="ReviewStatus">
+ 	insert into reviewstatus values(#{revuserid}, #{objetno}, #{userid}, #{revgood}, null) 
+ </insert>
+ 
+ <!-- 한줄평 좋아요 취소  -->
+ <delete id="deleteRevGood" parameterType="ReviewStatus">
+	delete from reviewstatus where revuserid = #{revuserid} and objetno = #{objetno} and userid = #{userid} 
+ </delete>
+ 
+  <!-- 한줄평 싫어요 -->
+ <insert id="insertRevHate" parameterType="ReviewStatus">
+ 	insert into reviewstatus values(#{revuserid}, #{objetno}, #{userid}, null, #{revhate}) 
+ </insert>
+ 
+ <!-- 한줄평 싫어요 취소  -->
+ <delete id="deleteRevHate" parameterType="ReviewStatus">
+	delete from reviewstatus where revuserid = #{revuserid} and objetno = #{objetno} and userid = #{userid} 
+ </delete>
+ 
+  <!-- 전시일정  -->
+ <select id="selectObjetCalendar" parameterType="int" resultType="Objet">
+  select objettitle, objetstartdate, objetenddate
+  from objet
+  where objetno = #{objetno}
+ </select>
+ 
+ <!-- 관심오브제 캘린더 -->
+ <select id="selectLikeObjetCalendar" parameterType="String" resultType="LikeObjet">
+  select b.objettitle, b.objetstartdate, b.objetenddate
+  from likeobjet a
+  join objet b on a.objetno = b.objetno
+  where a.userid = #{userid}
+ </select>
+ 
+  <!-- 다녀온 오브제 캘린더 -->
+ <select id="selectVisitedObjetCalendar" parameterType="String" resultType="VisitedObjet">
+  select a.visitdate, b.objettitle
+  from visitedobjet a
+  join objet b on a.objetno = b.objetno
+  where a.userid = #{userid}
+ </select>
+ 
+ <!-- 최민영 *************************** -->
+ 
+	 <select id="selectArtistObjetList" parameterType="String" resultType="Objet2">
+	 	select * from (
+	 	select objetno, userid, objettitle, objetintro, originmainposter, renamemainposter, objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview
+		from (select objetno, userid, objettitle, objetintro, originmainposter, renamemainposter,objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview from (select * from objet where publicyn = 'Y')
+		where objetstatus in ('STANDBY', 'OPEN', 'CLOSE') order by decode(objetstatus, 'OPEN',1,'STANDBY', 2, 3), objetstartdate desc, objetenddate asc)) where userid = #{userid}
+	 </select>
+	 
+	 <select id="selectArtistObjetSearch" parameterType="hashmap" resultType="Objet2">
+	 	select * from (
+	 	select objetno, userid, objettitle, objetintro, originmainposter, renamemainposter, objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview
+		from (select objetno, userid, objettitle, objetintro, originmainposter, renamemainposter,objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview from (select * from objet where publicyn = 'Y')
+		where objettitle like '%' || #{objettitle} || '%' and objetstatus in ('STANDBY', 'OPEN', 'CLOSE') order by decode(objetstatus, 'OPEN',1,'STANDBY', 2, 3), objetstartdate desc, objetenddate asc)) where userid = #{userid}
+	 </select>
+	 
+	 <select id="selectlikecount" parameterType="int" resultType="int">
+	 	select count(*) from likeobjet where objetno = #{objetno}
+	 </select>
+	 
+	 <select id="selectreviewcount" parameterType="int" resultType="int">
+	 	select count(*) from review where objetno = #{objetno}
+	 </select>
+ 
+ <!-- 박근수 -->
+ 
+ 	<select id="moveMyObjetList" parameterType="objet" resultType="objet">
+ 		select * from objet where userid = #{userid}
+ 	</select>
+ 	
+ 	<select id="selectMyObjetSearch" parameterType="hashmap" resultType="objet">
+ 		select * from (
+ 		select objetno, userid, objettitle, objetintro, originmainposter, renamemainposter, objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview
+ 		from (select objetno, userid, objettitle, objetintro, originmainposter, renamemainposter, objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview from (select * from objet where publicyn = 'Y')
+ 		where objettitle like '%' || #{objettitle} || '%' and objetstatus in ('STANDBY', 'OPEN', 'CLOSE') order by decode(objetstatus, 'OPEN', 1, 'STANDBY', 2, 3))) where userid = #{userid}
+ 	</select>
+ 	
+ 	<select id="moveMyObjetDetail" parameterType="objet" resultType="objet">
+ 		select * from objet where objetno = #{objetno}
+ 	</select>
+ 	
+ 	<insert id="insertObjet" parameterType="objet">
+ 		insert into objet values (#{objetno}, #{userid}, #{objettitle}, #{objetintro}, #{originmainposter}, #{renamemainposter}, #{objetstartdate}, #{objetenddate}, #{objettag}, #{publicyn},
+ 		#{objetregidate}, #{objetstatus}, #{objetview}, #{objettitle1}, #{objetintro1}, #{objetofile1}, #{objetrfile1}, #{objettitle2}, #{objetintro2}, #{objetofile2}, 
+ 		#{objetrfile2}, #{objettitle3}, #{objetintro3}, #{objetofile3}, #{objetrfile3}, #{objettitle4}, #{objetintro4}, #{objetofile4}, #{objetrfile4}, #{objettitle5},
+ 		#{objetintro5}, #{objetofile5}, #{objetrfile5}, #{objettitle6}, #{objetintro6}, #{objetofile6}, #{objetrfile6}, #{objettitle7}, #{objetintro7}, #{objetofile7}, 
+ 		#{objetrfile7}, #{objettitle8}, #{objetintro8}, #{objetofile8}, #{objetrfile8})
+ 	</insert>
+ 	
+ 	<update id="updateObjet" parameterType="Objet">
+ 		update objet
+ 		<trim prefix="set" suffixOverrides=",">
+			<if test="objetno != null">objetno = #{objetno},</if>
+			<if test="userid != null">userid = #{userid},</if>
+			<if test="objettitle != null">objettitle = #{objettitle},</if>
+			<if test="objetintro != null">objetintro = #{objetintro}, </if>
+			<if test="originmainposter != null">originmainposter = #{originmainposter}, </if>
+			<if test="renamemainposter != null">renamemainposter = #{renamemainposter}, </if>
+			<if test="objetstartdate != null">objetstartdate = #{objetstartdate}, </if>
+			<if test="objetenddate != null">objetenddate = #{objetenddate}, </if>
+			<if test="objettag != null">objettag = #{objettag}, </if>
+			<if test="publicyn != null">publicyn = #{publicyn}, </if>
+			<if test="objetregidate != null">objetregidate = #{objetregidate}, </if>
+			<if test="objetstatus != null">objetstatus = #{objetstatus}, </if>
+			<if test="objetview != null">objetview = #{objetview}, </if>
+		</trim>
+		where userid = #{userid}
+ 	</update>
+ 	
+ 	<delete id="deleteObjet" parameterType="Objet">
+ 		delete from objet where objettitle = #{objettitle} and objetstatus = #{objetstatus} and objetstartdate = #{objetstartdate} and objetenddate = #{objetenddate} and publicyn = #{publicyn} and objetregidate = #{objetregidate}
+ 	</delete>
+ 	
+ 	<select id="selectVistiedObjetList" resultType="visitedobjet" parameterType="Hashmap">
+ 		select * from visitedobjet
+ 	</select>
+ 	
+ 	<delete id="deleteMyVisitedObjetList" parameterType="visitedobjet">
+ 		delete from visitedobjet where objetno = #{objetno}
+ 	</delete>
+ 	
+ 	<select id="selectMyVisitedObjetSearch" parameterType="hashmap" resultType="visitedobjet">
+ 		select * from vistiedobjet
+ 		join objet using(objetitle)
+ 		where objettitle like '%' || #{objettitle} || '%'
+ 		or userid like '%' || #{userid} || '%'
+ 	</select>
+ 	
+ 	<select id="listCount" resultType="_int">
+ 		select count(*) from visitedobjet
+ 	</select>
+ 	
+ 	<select id="selectLikeObjetList" resultType="likeobjet" parameterType="Hashmap">
+ 		select * from likeobjet
+ 	</select>
+ 	
+ 	<delete id="deleteMyLikeObjetList" parameterType="likeobjet">
+ 		delete from likeobjet where objetno = #{objetno}
+ 	</delete>
+ 	
+ 	<select id="selectMyLikeObjetSearch" parameterType="hashmap" resultType="likeobjet">
+ 		select * from likeobjet
+ 		join objet using(objettitle)
+ 		where objettitle like '%' || #{objettitle} || '%'
+ 		or userid like '%' || #{userid} || '%'
+ 	</select>
+ 	
+ 	<select id="listCountK" resultType="_int">
+ 		select count(*) from likeobjet
+ 	</select>
+</mapper>

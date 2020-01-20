@@ -32,13 +32,12 @@
 
 #topmenu {
 	border-radius: 0px;
-	height: 60px;
+	height: 65px;
 	font-size: 12pt;
 	font-family: 'Nanum Gothic';
 	font-weight: bold;
 	background: black;
-}
- 
+} 
 #item{
 	width: 120px;
 }
@@ -134,29 +133,27 @@
 			<div class="ui circular red label" style="margin-left: -5px;">10</div>
 			</div> -->
 			<div class="item">
-				<a href="main.do"><button class="ui red button icons" style="font-size: 10pt;"><i class="home icon"></i>사용자</button></a>
+				<a href="main.do" target="_blank"><button class="ui inverted basic button icons" style="font-size: 10pt;"><i class="home icon"></i>사용자</button></a>
 			</div>
 		</div>
 	</div>
 
 	<div class="ui inverted sidebar left vertical menu"
 		style="background: black; letter-spacing: 2pt;">
+				<br>
 		<div  class="item" align="center" style="font-size: 12pt; height: 150px;">
-		
-		
-	
 		<a href="adminmain.do">
-			<img src="${ pageContext.request.contextPath }/resources/images/objet_logo_white.png" style="width: 120px; margin-top: 15px;">
-			</a><br>
-			<c:if test="${ sessionScope.loginUser.usertype eq 'ADMIN' }">
+	<div style="background: #fff; border-radius: 75px; width: 150px; height: 150px;"><br>
+			<img src="${ pageContext.request.contextPath }/resources/images/objet_logo_black.png" style="width: 100px; margin-top: 20px;">
+	<br><br><br></div></a>
+		</div><br><br><br>
+	<%-- <font style="font-weight: bold;" color="white"><c:if test="${ sessionScope.loginUser.usertype eq 'ADMIN' }">
 		관리자
 		</c:if>
 		<c:if test="${ sessionScope.loginUser.usertype eq 'SADMIN' }">
 		부관리자
 		</c:if>
-				${ sessionScope.loginUser.username }
-			
-		</div>
+				${ sessionScope.loginUser.username }</font> --%>
 		<div class="ui accordion">
 			<div class="title">
 				<a class="item"> <i class="user circle icon"></i> 회원 관리

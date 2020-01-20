@@ -15,129 +15,66 @@
 <c:import url="adminHeader.jsp" />
 <style type="text/css">
 #um {
-	padding: 350px;
-	padding-top: 50px;
-	padding-bottom: 150px;
+	padding: 250px;
+	padding-top: 0px;
+	padding-bottom: 0px;
 	font-family: 'Nanum Gothic'; 
 }
 
 table {
-	border-collapse: collapse;
-	border: none;
-	line-height: 30px;
-	width: 700px;
-}
+width: 100%;
 
-th, td {
-	border: solid 1px #ba9;
-	opacity: 0.9;
-	padding: 8px;
-	color: #420;
 }
 
 th {
-	background: #f5f4ef;
+background: #f4f4f4;
 }
 
-#btn2 {
-	background: #ddd;
-	color: black;
-	font-size: 10pt;
-	padding: 12px;
+td {
+padding: 10px;
+padding-left: 20px;
+letter-spacing: 0.5pt;
 }
 
-#btn3 {
-	background: #eceadf;
-	color: #531;
-	font-size: 10pt;
-	padding: 12px;
-}
-
-#btn2:hover {
-	background: #aaa;
-}
-
-#btn3:hover {
-	background: #e8e4d1;
-}
 #not{
 padding: 15px; 
 font-size: 13pt; 
 font-weight: bold;
 }
+fieldset {
+	border: 1px solid #777;
+	border-radius: 5px;
+	padding: 40px;
+	padding-top: 20px;
+	line-height: 30pt;
+}
+legend {
+	font-weight: bold;
+	font-size: 12.5pt;
+	color: #777;
+	letter-spacing: 1pt;
+}
 </style>
 </head>
 <body>
+	<div style="background: black; height: 100px; margin-top: -15px; color: white; text-align: center; font-size: 20pt; padding: 30px;">1:1 문의</div>
 	<div id="um" align="center">
-		<div style="padding: 50px;" align="center">
-			<table id="nod">
-				<tbody align="center">
-				<tr><th colspan="4" id="not">공지사항</th></tr>
-					<tr>
-						<th width="150" align="center" id="aaa">분류
-						</td>
-						<td width="200">${ qnamd.qnatype }</td>
-						<th width="150">번호
-						</td>
-						<td width="200">${ qnamd.qnano }</td>
-					</tr>
-					<tr>
-						<th align="center">작성자
-						</td>
-						<td>${ qnamd.adminid }</td>
-						<th align="center">문의 작성일
-						</td>
-						<td>${ qnamd.questiondate }</td>
-					</tr>
-					<tr>
-						<th align="center">제목
-						</td>
-						<td colspan="3" style="text-align: left; padding-left: 20px;">${ qnamd.qnatitle }</td>
-					</tr>
-					<tr>
-						<th height="500" align="center" id="bbb">내용
-						</td>
-						<td colspan="3" valign="top"
-							style="padding: 20px; text-align: left;">${ qnamd.qnacontent }</td>
-					</tr>
-				</tbody>
+		<div style="padding: 50px;" align="left">
+			<fieldset><legend> &nbsp; 문의내역 &nbsp; </legend>
+			<table>
+			<tr><th width="80">분 &nbsp; 류</th><td width="300">${ qnamd.qnatype }</td><th width="80">작성일</th><td width="300">${ qnamd.questiondate }</td></tr>
+			<tr><th>작성자</th><td colspan="3">${ qnamd.userid }</td></tr>
+			<tr><th >제 &nbsp; 목</th><td colspan="3">${ qnamd.qnatitle }</td></tr>
+			<tr><th>내 &nbsp; 용</th><td colspan="5">${ qnamd.qnacontent }</td></tr>
 			</table>
-
-			<c:url var="qnamdp" value="qnamd.do">
-				<c:param name="qnano" value="${ qnamd.qnano -1 }" />
-			</c:url>
-			<c:url var="qnamdn" value="qnamd.do">
-				<c:param name="qnano" value="${ qnamd.qnano +1 }" />
-			</c:url>
-			<br>
-			<%-- <table>
-				<c:if test="${ qnamd.qnano eq 1 }">
-					<tr>
-						<th width="150">이전 글</th>
-						<td>이전 글이 없습니다.</td>
-					</tr>
-				</c:if>
-				<c:if test="${ qnamd.qnano ne 1 }">
-					<tr>
-						<th width="150">이전 글</th>
-						<td><a href="${ qnamdp }">${ qnamd.qnano - 1} :
-								${ qnalist.get(qnamd.qnano - 1).qnatitle } </a></td>
-					</tr>
-				</c:if>
-				<c:if test="${ qnamd.qnano eq qnalist.size() }">
-					<tr>
-						<th width="150">다음 글</th>
-						<td>다음 글이 없습니다.</td>
-					</tr>
-				</c:if>
-				<c:if test="${ qnamd.qnano ne qnalist.size() }">
-					<tr>
-						<th width="150">다음 글</th>
-						<td><a href="${ qnamdn }">${ qnamd.qnano + 1} :
-								${ qnalist.get(qnamd.qnano - 1).qnatitle } </a></td> 
-					</tr>
-				</c:if>
-			</table> --%>
+			</fieldset><br>
+			<fieldset><legend>&nbsp; 답변내역 &nbsp; </legend>
+			<table>
+			<tr><th width="80">관리자</th><td width="300">${ qnamd.adminid }</td><th width="80">답변일</th><td width="300">${ qnamd.answerdate }</td></tr>
+			<tr><th>내 &nbsp; 용</th><td colspan="3">${ qnamd.qnaanswer }</td></tr>
+			</table>
+			</fieldset>
+			
 			<c:url var="toqnam" value="qnam.do"/>
 			<div align="right" style="margin-top: 20px; margin-right: 5px;">
 				<button class="ui button icons" id="btn2">삭제</button>
@@ -152,5 +89,6 @@ font-weight: bold;
 			</div>
 		</div>
 	</div>
+	<c:import url="../footer.jsp"/>
 </body>
 </html>

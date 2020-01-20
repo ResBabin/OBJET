@@ -46,5 +46,8 @@ public class ObjetManagementDao {
 	public int selectStatusOrderList(Map<String, String> map) {
 		return mybatisSession.selectOne("adminMapper.selectStatusOrderList", map);
 	}
+	public int selectBeforeStart() {
+		return mybatisSession.selectOne("adminMapper.selectBeforeStart");
+	}
 
 }

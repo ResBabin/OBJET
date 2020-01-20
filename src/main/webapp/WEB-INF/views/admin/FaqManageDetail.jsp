@@ -14,29 +14,32 @@
 	href="//fonts.googleapis.com/earlyaccess/nanummyeongjo.css">
 <c:import url="adminHeader.jsp" />
 <style type="text/css">
+
 #um {
-	padding: 350px;
-	padding-top: 50px;
-	padding-bottom: 150px;
+	padding: 290px;
+	padding-top: 0px;
+	padding-bottom: 20px;
 	font-family: 'Nanum Gothic'; 
+	background: white;
 }
 
 table {
 	border-collapse: collapse;
 	border: none;
 	line-height: 30px;
-	width: 700px;
+	width: 800px;
+	box-shadow: 3px 3px 0px #77777777;
 }
 
 th, td {
-	border: solid 1px #ba9;
+	border: solid 1px #777;
 	opacity: 0.9;
 	padding: 8px;
-	color: #420;
+	color: #333;
 }
 
 th {
-	background: #f5f4ef;
+	background: #f0f0f0;
 }
 
 #btn2 {
@@ -46,19 +49,15 @@ th {
 	padding: 12px;
 }
 
-#btn3 {
+/* #btn3 {
 	background: #eceadf;
 	color: #531;
 	font-size: 10pt;
 	padding: 12px;
-}
+} */
 
 #btn2:hover {
 	background: #aaa;
-}
-
-#btn3:hover {
-	background: #e8e4d1;
 }
 #not{
 padding: 15px; 
@@ -68,11 +67,12 @@ font-weight: bold;
 </style>
 </head>
 <body>
+<div style="background: black; height: 100px; margin-top: -15px; color: white; text-align: center; font-size: 20pt; padding: 30px; font-family: 'Nanum Gothic' ;">
+FAQ</div>
 	<div id="um" align="center">
 		<div style="padding: 50px;" align="center">
 			<table id="nod">
 				<tbody align="center">
-				<tr><th colspan="4" id="not">FAQ</th></tr>
 					<tr>
 						<th width="150" align="center" id="aaa">분류
 						</td>
@@ -110,13 +110,13 @@ font-weight: bold;
 			<table>
 				<c:if test="${ faqmd.faqno eq 1 }">
 					<tr>
-						<th width="150">이전 글</th>
+						<th width="170">이전 글</th>
 						<td>이전 글이 없습니다.</td>
 					</tr>
 				</c:if>
 				<c:if test="${ faqmd.faqno ne 1 }">
 					<tr>
-						<th width="150">이전 글</th>
+						<th width="170">이전 글</th>
 						<td><a href="${ faqmdp }">${ faqmd.faqno - 1} :
 								${ faqlist.get(faqmd.faqno - 1).faqtitle } </a></td>
 					</tr>
@@ -144,10 +144,11 @@ font-weight: bold;
 				<a href="${ tofaqm }">
 				<button class="ui button icon" id="btn3">
 					<i class="list icon"></i>
-				</button>
+				</button> &nbsp;&nbsp;
 				</a>
 			</div>
 		</div>
 	</div>
+	<c:import url="../footer.jsp"/>
 </body>
 </html>

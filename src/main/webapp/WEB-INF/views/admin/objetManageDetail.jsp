@@ -51,7 +51,7 @@ body ::-webkit-scrollbar {
 
 #detailintro{
 padding: 20px;
- color: #317; 
+ color: #444; 
  display: none;
  	font-family: 'Nanum Gothic';
 }
@@ -107,15 +107,15 @@ function UserInfoPopup() {
 <div id="div1">
 <h2 align="left" id="titlediv"><i class="ui hashtag icon"></i>${ objet.objetno } - ${ objet.objettitle } 
 &nbsp;&nbsp;&nbsp;&nbsp;
-<button class="ui inverted basic violet button" id="objetintro">전시소개</button>
+<button class="ui inverted basic button" id="objetintro">전시소개</button>
+<a href="objetOne.do?objetno=${ objet.objetno }&userid=${ objet.userid }" target="_blank"><button class="ui inverted basic button">전시홈</button></a>
 <a class="ui large image label" style="padding: 12px; padding-right: 17px;" onclick="UserInfoPopup()"> 
 &nbsp;&nbsp;<i class="ui user icon"></i>${ objet.userid }
   <div class="detail">${ objet.nickname }</div> 
 </a></h2>
-<hr size="1" noshade="noshade" color="#777"  style="width: 82%; margin-top: 25px;" align="center">
 </div>
 <div style="padding-right: 170px; padding-left: 170px;"><br>
-<div id="detailintro" class="ui piled segment">
+<div id="detailintro" style="box-shadow: 5px 5px 0px #eee; border: 1px solid #999; border-radius: 5px;">
 <h4>등록 : ${ objet.objetregidate } <br><br>상태 : <c:if test="${ objet.objetstatus eq 'WAIT'}">예정</c:if><c:if test="${ objet.objetstatus eq 'OPEN'}">전시</c:if><c:if test="${ objet.objetstatus eq 'CLOSE'}">종료</c:if> <br></h4>
 <h4>소개</h4><font style="font-size: 12pt; letter-spacing: 1px; line-height: 25pt;">${ objet.objetintro }</font>
 </div>
@@ -166,16 +166,15 @@ function UserInfoPopup() {
 <br>
 <div style="display: flex;">
 <div align="left" style="width: 200px;">
-<a href="objetm.do"><button class="ui basic large black button"><i class="ui list icon"></i>목록</button></a>
+<a href="objetm.do"><button class="ui basic black button"><i class="ui list icon"></i>목록</button></a>
 </div>
 <div  align="right" style="width: 100%;">
 <c:if test="${ objet.publicyn eq 'W' }">
-<button type="button" class="ui large violet button" id="approve" onclick="return false">승 &nbsp; &nbsp;  인</button>&nbsp;&nbsp;&nbsp;
-<button type="button" class="ui large secondary button" id="return">반 &nbsp; &nbsp;  려</button>
+<button type="button" class="ui violet button" id="approve" onclick="return false">승 &nbsp; &nbsp;  인</button>&nbsp;&nbsp;&nbsp;
+<button type="button" class="ui secondary button" id="return">반 &nbsp; &nbsp;  려</button>
 </c:if>
 <c:if test="${ objet.publicyn eq 'Y' }">
-<button type="button" class="ui large black button" id="stop" onclick=""
-style="">강제 중지</button>
+<button type="button" class="ui black button" id="stop" onclick="" style="">강제 중지</button>
 </c:if>
 </div>
 <form action="updateReqStatus.do" method="post" id="req">
@@ -188,5 +187,7 @@ style="">강제 중지</button>
 </div>
 </div>
 </div>
+<br>
+<c:import url="../footer.jsp"/>
 </body>
 </html>

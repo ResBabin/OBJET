@@ -18,4 +18,5 @@ public interface ObjetManagementService {
 	public List<Objet> selectObjetSearch(Objet objetsearch);
 	public int selectObjetListCount();
 	public int selectStatusOrderList(Map<String, String> map);
+	public int selectBeforeStart();
 }

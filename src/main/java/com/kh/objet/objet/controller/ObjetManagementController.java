@@ -56,14 +56,44 @@ public class ObjetManagementController {
 	
 	@RequestMapping("objetm.do")
 	public String allObjetList(Model model, HttpServletRequest request) {
-		Map<String, Integer> map = new HashMap<>();
+		Map<String, String> map = new HashMap<>();
+		String order = request.getParameter("order");
+		String objetstatus = request.getParameter("objetstatus");
+		String publicyn = request.getParameter("publicyn");
+		String objettag = request.getParameter("objettag");
+		String objettitle = request.getParameter("objettitle");
+		String userid = request.getParameter("userid");
+		logger.debug(order);
+		logger.debug(publicyn);
+		logger.debug(objettag);
+		if(order != null || order != null && !order.equals("")) {
+			map.put("order", order);
+		}else {
+			map.put("order", "idd");
+		}
+			
+		if(objetstatus != null && !objetstatus.equals("") || objetstatus == null) {
+			map.put("objetstatus", objetstatus);
+		}
+		if(publicyn != null && !publicyn.equals("")) {
+			map.put("publicyn", publicyn);
+		}
+		if(objettag != null && !objettag.equals("")) {
+			map.put("objettag", objettag);
+		}
+	
+		if(userid != null && userid != "") {
+			map.put("userid", userid);
+		}
+		if(objettitle != null && objettitle != "") {
+			map.put("objettitle", objettitle);
+		}
 		int currentPage = 1;
 		if(request.getParameter("page") != null) {
 			currentPage = Integer.parseInt(request.getParameter("page"));
 		}
-		
 		int limit = 10;  //한 페이지에 출력할 목록 갯수
-		int listCount = objetmService.selectObjetListCount();
+		int listCount = objetmService.selectStatusOrderList(map);  //테이블의 전체 목록 갯수 조회
 		//총 페이지 수 계산
 		int maxPage = listCount / limit;
 		if(listCount % limit > 0)
@@ -82,9 +112,11 @@ public class ObjetManagementController {
 		//currentPage 에 출력할 목록의 조회할 행 번호 계산
 		int startRow = (currentPage * limit) - 9;
 		int endRow = currentPage * limit;
-		map.put("startRow", startRow);
-		map.put("endRow", endRow);
-		ArrayList<Objet> objetmlist = (ArrayList<Objet>) objetmService.selectAllObet(map);
+		map.put("startRow", Integer.toString(startRow));
+		map.put("endRow", Integer.toString(endRow));
+		
+		ArrayList<Objet> objetmlist = (ArrayList<Objet>) objetmService.selectStatusOrder(map);
+		
 			model.addAttribute("objetmlist", objetmlist);
 			model.addAttribute("currentPage", currentPage);
 			model.addAttribute("listCount", listCount);
@@ -93,7 +125,46 @@ public class ObjetManagementController {
 			model.addAttribute("endPage", endPage);
 		return "admin/objetManagement";
 	}
-	@RequestMapping("objetmd.do")
+/*	@RequestMapping("objetm.do")
+	public String allObjetList(Model model, HttpServletRequest request) {
+		Map<String, Integer> map = new HashMap<>();
+		int currentPage = 1;
+		if(request.getParameter("page") != null) {
+			currentPage = Integer.parseInt(request.getParameter("page"));
+		}
+		
+		int limit = 10;  //한 페이지에 출력할 목록 갯수
+		int listCount = objetmService.selectObjetListCount();
+		//총 페이지 수 계산
+		int maxPage = listCount / limit;
+		if(listCount % limit > 0)
+			maxPage++;
+		
+		//currentPage 가 속한 페이지그룹의 시작페이지숫자와 끝숫자 계산
+		//예, 현재 34페이지이면 31 ~ 40 이 됨. (페이지그룹의 수를 10개로 한 경우)
+		int beginPage = (currentPage / limit) * limit + 1;
+		if(currentPage % limit == 0) {
+			beginPage -= limit;
+		}
+		int endPage = beginPage + 9;
+		if(endPage > maxPage)
+			endPage = maxPage;
+		
+		//currentPage 에 출력할 목록의 조회할 행 번호 계산
+		int startRow = (currentPage * limit) - 9;
+		int endRow = currentPage * limit;
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		ArrayList<Objet> objetmlist = (ArrayList<Objet>) objetmService.selectAllObet(map);
+		model.addAttribute("objetmlist", objetmlist);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("listCount", listCount);
+		model.addAttribute("maxPage", maxPage);
+		model.addAttribute("beginPage", beginPage);
+		model.addAttribute("endPage", endPage);
+		return "admin/objetManagement";
+	}
+*/	@RequestMapping("objetmd.do")
 	public String objetManageDetail (@RequestParam("objetno") int objetno, Model model) {
 		ObjetManagement objet = objetmService.selectObjetOne(objetno);
 		model.addAttribute("objet", objet);
@@ -117,13 +188,16 @@ public class ObjetManagementController {
 	public String adminMain(Model model) {
 		ArrayList<Objet> objetreqlist = (ArrayList<Objet>) objetmService.selectObjetRequestManage();
 		ArrayList<ReportBoard> reportblist = (ArrayList<ReportBoard>) reportbService.selectReportMain();
-		ArrayList<Qna>qnalist = (ArrayList<Qna>) qnaService.selectQnaListAdmin();
+		ArrayList<Qna>qnalist = (ArrayList<Qna>) qnaService.selectQnaListAdmin5();
 		ArrayList<ReportUDetail> reportulist= (ArrayList<ReportUDetail>) usermService.selectReportUDetailMain();
 		int objetmlist = objetmService.selectObjetListCount();
 		ArrayList<String> userlist = (ArrayList<String>) usermService.selectUserEnrollDate();
 		ArrayList<String> objettag = new ArrayList<String>();
 		ArrayList<Users> enrollcount = (ArrayList<Users>) usermService.selectEnrollCount();
 		int bkcount = usermService.selectBlacklistCount();
+		int qnacount = qnaService.selectQnaCountAd();
+		int qnaanswercount = qnaService.selectQnaCountAnswer();
+		int beforestart = objetmService.selectBeforeStart();
 		
 		Date currenttime = new Date(System.currentTimeMillis());
 		//현재 년/월/일
@@ -194,6 +268,9 @@ public class ObjetManagementController {
 		model.addAttribute("enrollcount", enrollcount);
 		model.addAttribute("reportulist", reportulist);
 		model.addAttribute("userlist", userlist);
+		model.addAttribute("qnacount", qnacount);
+		model.addAttribute("qnaanswercount", qnaanswercount);
+		model.addAttribute("beforestart", beforestart);
 		model.addAttribute("count1", count1);
 		model.addAttribute("count2", count2);
 		model.addAttribute("count3", count3);
@@ -339,20 +416,23 @@ public class ObjetManagementController {
 				job.put("objetno", objetso.getObjetno());
 				job.put("status", objetso.getObjetstatus());
 				job.put("publicyn", objetso.getPublicyn());
-				
-				job.put("currentPage", currentPage);
-				job.put("listCount", listCount);
-				job.put("maxPage", maxPage);
-				job.put("beginPage", beginPage);
-				job.put("endPage", endPage);
-				
+		
 				jarr.add(job);
 			}
-			
+		/*	job.put("currentPage", currentPage);
+			job.put("listCount", listCount);
+			job.put("maxPage", maxPage);
+			job.put("beginPage", beginPage);
+			job.put("endPage", endPage);*/
 		sendJson.put("list", jarr);
 	//	logger.debug(jarr.toJSONString());
 		response.setContentType("application/jsonl charset=utf-8");
 		PrintWriter out = response.getWriter();
+		sendJson.put("currentPage", currentPage);
+		sendJson.put("beginPage", beginPage);
+		sendJson.put("endPage", endPage);
+		sendJson.put("maxPage", maxPage);
+		sendJson.put("listCount", listCount);
 		
 		out.println(sendJson.toJSONString());
 		out.flush();
@@ -492,16 +572,10 @@ public class ObjetManagementController {
 		model.addAttribute("maxPage", maxPage);
 		model.addAttribute("beginPage", beginPage);
 		model.addAttribute("endPage", endPage);
-		if(userid != "") {
-			model.addAttribute("userid", userid);
-		}
-		if(objettitle != "") {
-			model.addAttribute("objettitle", objettitle);
-		}
-		model.addAttribute("endPage", endPage);
-		
+
 		ArrayList<Objet> searchlist = (ArrayList<Objet>) objetmService.selectStatusOrder(map);
 		model.addAttribute("objetmlist", searchlist);
 		return "admin/objetManagement";
 	}
+
 }
