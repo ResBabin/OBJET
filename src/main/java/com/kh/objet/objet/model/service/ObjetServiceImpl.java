@@ -41,10 +41,16 @@ public class ObjetServiceImpl implements ObjetService{
 		return objetDao.selectArtistAllSearch(keyword);
 	}
 	
-	//오브제 검색 오브제 정렬
+	//오브제 검색 오브제상태 정렬
 	@Override
 	public List<Artist> selectObjetSearchOrder(Map<String, String> map) {
 		return objetDao.selectObjetSearchOrder(map);
+	}
+	
+	//오브제 검색 오브제 기간 정렬
+	@Override
+	public List<Artist> selectObjetDateSearchOrder(Map<String, String> map) {
+		return objetDao.selectObjetDateSearchOrder(map);
 	}
 	
 	//오브제 검색 작가 정렬
@@ -234,7 +240,7 @@ public class ObjetServiceImpl implements ObjetService{
 	}
 	
 	@Override
-	public List<Objet> selectArtistObjetStatus(String userid) {
+	public String selectArtistObjetStatus(String userid) {
 		return objetDao.selectArtistObjetStatus(userid);
 	}
 	
@@ -276,6 +282,8 @@ public class ObjetServiceImpl implements ObjetService{
 	public List<Objet> selectObjetCalendar(int objetno) {
 		return objetDao.selectObjetCalendar(objetno);
 	}
+	
+	
 	
 	// 최민영 *******************************************************
 	
@@ -361,6 +369,8 @@ public class ObjetServiceImpl implements ObjetService{
 	public int deleteObjet(int objetno) {
 		return objetDao.deleteObjet(objetno);
 	}
+
+	
 
 	
 

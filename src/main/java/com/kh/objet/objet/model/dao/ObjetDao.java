@@ -194,8 +194,8 @@ public class ObjetDao {
 		return mybatisSession.selectOne("objetMapper.selectReviewCnt", objetno);
 	}
 	
-	public List<Objet> selectArtistObjetStatus(String userid) {
-		return mybatisSession.selectList("objetMapper.selectArtistObjetStatus", userid);
+	public String selectArtistObjetStatus(String userid) {
+		return mybatisSession.selectOne("objetMapper.selectArtistObjetStatus", userid);
 	}
 	
 	public int selectFollowingCnt(String userid) {
@@ -240,6 +240,10 @@ public class ObjetDao {
 		return mybatisSession.selectList("objetMapper.selectArtistSearchOrder", map);
 	}
 	
+	// 검색 결과 정렬
+	public List<Artist> selectObjetDateSearchOrder(Map<String, String> map) {
+		return mybatisSession.selectList("objetMapper.selectObjetDateSearchOrder", map);
+	}
 	
 	// 최민영
 	// 작가홈 오브제 리스트 보기
@@ -318,6 +322,8 @@ public class ObjetDao {
 	public int deleteObjet(int objetno) {
 		return mybatisSession.delete("objetMapper.deleteObjet", objetno);
 	}
+
+	
 
 
 	

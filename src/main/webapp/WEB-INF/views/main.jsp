@@ -252,7 +252,7 @@
 }
 
 .objet_info_top {
-   margin-left: 13%;
+   margin-left: 14.5%;
 }
 
 .objet_info {

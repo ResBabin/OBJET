@@ -77,17 +77,16 @@ public class ObjetController {
 		
 		ArrayList<Integer> objetcntList = new ArrayList<Integer>();
 		ArrayList<Integer> followercntList = new ArrayList<Integer>();
+		ArrayList<String> objetstatusList = new ArrayList<String>();
 		if(searchartistList != null) {
 			for(int i = 0; i < searchartistList.size(); i++) {
 				objetcntList.add(objetService.selectObjetCnt(searchartistList.get(i).getUserid()));
 				followercntList.add(objetService.selectFollowerCnt(searchartistList.get(i).getUserid()));
-				if(objetcntList != null && followercntList != null) {
+				objetstatusList.add(objetService.selectArtistObjetStatus(searchartistList.get(i).getUserid()));
+				if(objetcntList != null && followercntList != null && objetstatusList != null) {
 					model.addAttribute("objetcntList", objetcntList);
 					model.addAttribute("followercntList", followercntList);
-				}
-				List<Objet> objetstatus = objetService.selectArtistObjetStatus(searchartistList.get(i).getUserid());
-				if(objetstatus != null) {
-					model.addAttribute("objetstatus", objetstatus);
+					model.addAttribute("objetstatusList", objetstatusList);
 				}
 			}
 		}
@@ -107,45 +106,70 @@ public class ObjetController {
 		Map<String, String> map = new HashMap<>();
 		String order = request.getParameter("order");
 		String keyword = request.getParameter("keyword");
-		
-		if(!order.equals("") && !keyword.equals("")) {
-			map.put("order", order);
-			map.put("keyword", keyword);
-		}
+		map.put("order", order);
+		map.put("keyword", keyword);
 		
 		ArrayList<Artist> objetSearchOrder = (ArrayList<Artist>)objetService.selectObjetSearchOrder(map);
-		JSONObject sendJson = new JSONObject();
-		JSONArray jarr = new JSONArray();
-		for(Artist artist : objetSearchOrder) {
-		JSONObject job = new JSONObject();
-		job.put("objetno", artist.getObjetno());
-		job.put("objettitle", URLEncoder.encode(artist.getObjettitle(), "utf-8"));
-		job.put("objetstatus", artist.getObjetstatus());
-		job.put("objetstartdate", artist.getObjetstartdate().toString());
-		job.put("objetenddate", artist.getObjetenddate().toString());
-		job.put("renamemainposter", artist.getRenamemainposter());
-		job.put("objetintro", URLEncoder.encode(artist.getObjetintro(), "utf-8"));
-		job.put("nickname", URLEncoder.encode(artist.getNickname(), "utf-8"));
-		job.put("objettag", URLEncoder.encode(artist.getObjettag(), "utf-8"));
-		jarr.add(job);
-		}
-		
 		ArrayList<Integer> likeobjetcntList = new ArrayList<Integer>();
 		ArrayList<Integer> reviewcntList = new ArrayList<Integer>();
+		JSONObject sendJson = new JSONObject();
+		JSONArray jarr = new JSONArray();
 		for(int i = 0; i < objetSearchOrder.size(); i++) {
-			likeobjetcntList.add(objetService.selectLikeObjetCnt(objetSearchOrder.get(i).getObjetno()));
-			reviewcntList.add(objetService.selectReviewCnt(objetSearchOrder.get(i).getObjetno()));
-			for(Integer likeobjetcnt : likeobjetcntList) {
-				JSONObject job = new JSONObject();
-				job.put("likeobjetcnt", likeobjetcntList.get(i));
-				jarr.add(job);
-			}
-			for(Integer reviewcnt : reviewcntList) {
-				JSONObject job = new JSONObject();
-				job.put("reviewcnt", reviewcntList.get(i));
-				jarr.add(job);
-			}
-			sendJson.put("cnt", jarr);
+		likeobjetcntList.add(objetService.selectLikeObjetCnt(objetSearchOrder.get(i).getObjetno()));
+		reviewcntList.add(objetService.selectReviewCnt(objetSearchOrder.get(i).getObjetno()));
+		JSONObject job = new JSONObject();
+		job.put("objetno", objetSearchOrder.get(i).getObjetno());
+		job.put("objettitle", URLEncoder.encode(objetSearchOrder.get(i).getObjettitle(), "utf-8"));
+		job.put("objetstatus", objetSearchOrder.get(i).getObjetstatus());
+		job.put("objetstartdate", objetSearchOrder.get(i).getObjetstartdate().toString());
+		job.put("objetenddate", objetSearchOrder.get(i).getObjetenddate().toString());
+		job.put("renamemainposter", objetSearchOrder.get(i).getRenamemainposter());
+		job.put("objetintro", URLEncoder.encode(objetSearchOrder.get(i).getObjetintro(), "utf-8"));
+		job.put("nickname", URLEncoder.encode(objetSearchOrder.get(i).getNickname(), "utf-8"));
+		job.put("objettag", URLEncoder.encode(objetSearchOrder.get(i).getObjettag(), "utf-8"));
+		job.put("likeobjetcnt", likeobjetcntList.get(i));
+		job.put("reviewcnt", reviewcntList.get(i));
+		jarr.add(job);
+		}
+			
+		sendJson.put("list", jarr);
+		response.setContentType("application/json; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.println(sendJson.toJSONString());
+		out.flush();
+		out.close();
+	}
+	
+	//오브제 전시 기간 검색 정렬
+	@RequestMapping(value="objetDateSearchOrder.do", method=RequestMethod.POST)
+	public void objetDateSearchOrder(HttpServletResponse response, HttpServletRequest request) throws IOException {
+		Map<String, String> map = new HashMap<>();
+		String order = request.getParameter("order");
+		String keyword = request.getParameter("keyword");
+		map.put("order", order);
+		map.put("keyword", keyword);
+		
+		ArrayList<Artist> objetDateSearchOrder = (ArrayList<Artist>)objetService.selectObjetDateSearchOrder(map);
+		ArrayList<Integer> likeobjetcntList = new ArrayList<Integer>();
+		ArrayList<Integer> reviewcntList = new ArrayList<Integer>();
+		JSONObject sendJson = new JSONObject();
+		JSONArray jarr = new JSONArray();
+		for(int i = 0; i < objetDateSearchOrder.size(); i++) {
+		likeobjetcntList.add(objetService.selectLikeObjetCnt(objetDateSearchOrder.get(i).getObjetno()));
+		reviewcntList.add(objetService.selectReviewCnt(objetDateSearchOrder.get(i).getObjetno()));
+		JSONObject job = new JSONObject();
+		job.put("objetno", objetDateSearchOrder.get(i).getObjetno());
+		job.put("objettitle", URLEncoder.encode(objetDateSearchOrder.get(i).getObjettitle(), "utf-8"));
+		job.put("objetstatus", objetDateSearchOrder.get(i).getObjetstatus());
+		job.put("objetstartdate", objetDateSearchOrder.get(i).getObjetstartdate().toString());
+		job.put("objetenddate", objetDateSearchOrder.get(i).getObjetenddate().toString());
+		job.put("renamemainposter", objetDateSearchOrder.get(i).getRenamemainposter());
+		job.put("objetintro", URLEncoder.encode(objetDateSearchOrder.get(i).getObjetintro(), "utf-8"));
+		job.put("nickname", URLEncoder.encode(objetDateSearchOrder.get(i).getNickname(), "utf-8"));
+		job.put("objettag", URLEncoder.encode(objetDateSearchOrder.get(i).getObjettag(), "utf-8"));
+		job.put("likeobjetcnt", likeobjetcntList.get(i));
+		job.put("reviewcnt", reviewcntList.get(i));
+		jarr.add(job);
 		}
 			
 		sendJson.put("list", jarr);
@@ -162,48 +186,30 @@ public class ObjetController {
 		Map<String, String> map = new HashMap<>();
 		String order = request.getParameter("order");
 		String keyword = request.getParameter("keyword");
-		
-		if(!order.equals("") && !keyword.equals("")) {
-			map.put("order", order);
-			map.put("keyword", keyword);
-		}
+		map.put("order", order);
+		map.put("keyword", keyword);
 		
 		ArrayList<Artist> artistSearchOrder = (ArrayList<Artist>)objetService.selectArtistSearchOrder(map);
-		JSONObject sendJson = new JSONObject();
-		JSONArray jarr = new JSONArray();
-		for(Artist artist : artistSearchOrder) {
-		JSONObject job = new JSONObject();
-		job.put("userid", artist.getUserid());
-		job.put("userintrol", URLEncoder.encode(artist.getUserintrol(), "utf-8"));
-		job.put("usertag", URLEncoder.encode(artist.getUsertag(), "utf-8"));
-		job.put("nickname", URLEncoder.encode(artist.getNickname(), "utf-8"));
-		job.put("userrpic", artist.getUserrpic());
-		job.put("userintros", URLEncoder.encode(artist.getUserintros(), "utf-8"));
-		jarr.add(job);
-		}
-
 		ArrayList<Integer> objetcntList = new ArrayList<Integer>();
 		ArrayList<Integer> followercntList = new ArrayList<Integer>();
+		ArrayList<String> objetstatusList = new ArrayList<String>();
+		JSONObject sendJson = new JSONObject();
+		JSONArray jarr = new JSONArray();
 		for(int i = 0; i < artistSearchOrder.size(); i++) {
-			objetcntList.add(objetService.selectObjetCnt(artistSearchOrder.get(i).getUserid()));
-			followercntList.add(objetService.selectFollowerCnt(artistSearchOrder.get(i).getUserid()));
-			List<Objet> objetstatusList = objetService.selectArtistObjetStatus(artistSearchOrder.get(i).getUserid());
-			for(Integer objetcnt : objetcntList) {
-				JSONObject job = new JSONObject();
-				job.put("objetcnt", objetcntList.get(i));
-				jarr.add(job);
-			}
-			for(Integer followercnt : followercntList) {
-				JSONObject job = new JSONObject();
-				job.put("followercnt", followercntList.get(i));
-				jarr.add(job);
-			}
-			for(Objet objetstatus : objetstatusList) {
-				JSONObject job = new JSONObject();
-				job.put("objetstatus", objetstatus.getObjetstatus());
-				jarr.add(job);
-			}
-			sendJson.put("cnt", jarr);
+		objetcntList.add(objetService.selectObjetCnt(artistSearchOrder.get(i).getUserid()));
+		followercntList.add(objetService.selectFollowerCnt(artistSearchOrder.get(i).getUserid()));
+		objetstatusList.add(objetService.selectArtistObjetStatus(artistSearchOrder.get(i).getUserid()));
+		JSONObject job = new JSONObject();
+		job.put("userid", artistSearchOrder.get(i).getUserid());
+		job.put("userintrol", URLEncoder.encode(artistSearchOrder.get(i).getUserintrol(), "utf-8"));
+		job.put("usertag", URLEncoder.encode(artistSearchOrder.get(i).getUsertag(), "utf-8"));
+		job.put("nickname", URLEncoder.encode(artistSearchOrder.get(i).getNickname(), "utf-8"));
+		job.put("userrpic", artistSearchOrder.get(i).getUserrpic());
+		job.put("userintros", URLEncoder.encode(artistSearchOrder.get(i).getUserintros(), "utf-8"));
+		job.put("objetcnt", objetcntList.get(i));
+		job.put("followercnt", followercntList.get(i));
+		job.put("objetstatus", objetstatusList.get(i));
+		jarr.add(job);
 		}
 		
 		sendJson.put("list", jarr);
