@@ -98,30 +98,37 @@ margin-left: 30px;
     opacity: 1;
     left: 50%; top: 50%;
 }
-       
-        
+.search{
+margin-left: 1150px;
+}    
+.noticewrite{
+margin-left:1000px;
+}       
 </style>
 <body>
 <%-- <c:import url="../search.jsp" /> --%>
-<!-- 관리자한테만 보여질 글쓰기 버튼 -->
-<a href="insertNotice.do" ><button>글쓰기</button></a>
+
 <!-- 검색창 -->
+
 <div class="search">
 <form action="selectNoticeSearchList.do" method="post">
-<select class="searchmenu" name="searchmenu" style="border-radius:5px; width:100px; height:40px">
+<select class="searchmenu" name="searchmenu" style="border-radius:5px; width:60px; height:40px">
      <option value="noticetitle">제목</option>
      </select>
 
-
-<input placeholder="내용입력" name="search" style="border-radius:5px; width:200px; height:40px;">
-<input type="submit" value="검색" name="submit" style="border-radius:5px; width:100px; height:40px;">
+<input placeholder="제목입력" name="search" style="border-radius:5px; width:180px; height:40px;">
+<input type="submit" value="검색" name="submit" style="border-radius:5px; width:60px; height:40px;">
 
 </form>
 </div>
 <!-- //검색창 -->
 
 
-<h1 align="center">공지사항 </h1>
+<h1 align="center">공지사항 </h1><!-- 관리자한테만 보여질 글쓰기 버튼 -->
+<%-- <c:if test= "${loginUser.usertype ne 'USER'}"> --%>
+
+<a href="insertNotice.do"><button class= noticewrite>글쓰기</button></a>
+<%-- </c:if> --%>
 
 <c:forEach var="notice" items="${requestScope.list }"> 
 <c:url var="ndt" value="noticeDetail.do">

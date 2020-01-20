@@ -2,6 +2,7 @@ package com.kh.objet.qna.model.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,30 +56,54 @@ public class QnaServiceImpl implements QnaService {
 
 	@Override
 	public Qna selectQnaDetailAdmin(int qnano) {
-		// TODO Auto-generated method stub
-		return null;
+		return qnaDao.selectQnaDetailAdmin(qnano);
 	}
 
-	@Override
-	public int insertWriteQna(Qna qna) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public List<Qna> selectQnaMain() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public int updateQna(Qna qna) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+	
 	public int deleteQna(int qnano) {
-		// TODO Auto-generated method stub
-		return 0;
+		return qnaDao.deleteQna(qnano);
 	}
+
+	public int deleteQna1(int qnano) {
+		return qnaDao.deleteQna(qnano);
+	}
+
+
+	@Override
+	public int updateQna(Qna qna) {
+	 return qnaDao.updateQna(qna);
+	}
+
+
+	
+
+	   @Override
+	   public List<Qna> selectQnaListAdmin(Map<String, String> map) {
+	      return qnaDao.selectQnaListAdmin(map);
+	   }
+
+   public int selectQnaCountAd(Map<String, String> map) {
+	      return qnaDao.selectQnaCountAd(map);
+	   }
+
+	   @Override
+	   public List<Qna> selectQnaListAdmin5() {
+	      return qnaDao.selectQnaListAdmin5();
+	   }
+
+	   @Override
+	   public int updateQnaAnswer(Qna qna) {
+	      return qnaDao.updateQnaAnswer(qna);
+	   }
+
+	   @Override
+	   public int selectQnaCountAd() {
+	      return qnaDao.selectQnaCountAd();
+	   }
+
+	   @Override
+	   public int selectQnaCountAnswer() {
+	      return qnaDao.selectQnaCountAnswer();
+	   }
 
 }

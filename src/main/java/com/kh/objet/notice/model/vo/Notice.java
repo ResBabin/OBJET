@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class Notice implements Serializable{
    private static final long serialVersionUID = 9000L;
    
+   private int rnum;
    private int noticeno;
    private String adminid;
    private String noticetype;
@@ -24,109 +25,118 @@ public class Notice implements Serializable{
    public Notice() {}
 
 
-   public Notice(int noticeno, String adminid, String noticetype, String noticetitle, Date noticedate,
-         String noticecontent, String noticeofile, String noticerfile) {
-      super();
-      this.noticeno = noticeno;
-      this.adminid = adminid;
-      this.noticetype = noticetype;
-      this.noticetitle = noticetitle;
-      this.noticedate = noticedate;
-      this.noticecontent = noticecontent;
-      this.noticeofile = noticeofile;
-      this.noticerfile = noticerfile;
-   }
+public Notice(int rnum, int noticeno, String adminid, String noticetype, String noticetitle, Date noticedate,
+      String noticecontent, String noticeofile, String noticerfile) {
+   super();
+   this.rnum = rnum;
+   this.noticeno = noticeno;
+   this.adminid = adminid;
+   this.noticetype = noticetype;
+   this.noticetitle = noticetitle;
+   this.noticedate = noticedate;
+   this.noticecontent = noticecontent;
+   this.noticeofile = noticeofile;
+   this.noticerfile = noticerfile;
+}
 
 
-   public int getNoticeno() {
-      return noticeno;
-   }
+public int getRnum() {
+   return rnum;
+}
 
 
-   public void setNoticeno(int noticeno) {
-      this.noticeno = noticeno;
-   }
+public void setRnum(int rnum) {
+   this.rnum = rnum;
+}
 
 
-   public String getAdminid() {
-      return adminid;
-   }
+public int getNoticeno() {
+   return noticeno;
+}
 
 
-   public void setAdminid(String adminid) {
-      this.adminid = adminid;
-   }
+public void setNoticeno(int noticeno) {
+   this.noticeno = noticeno;
+}
 
 
-   public String getNoticetype() {
-      return noticetype;
-   }
+public String getAdminid() {
+   return adminid;
+}
 
 
-   public void setNoticetype(String noticetype) {
-      this.noticetype = noticetype;
-   }
+public void setAdminid(String adminid) {
+   this.adminid = adminid;
+}
 
 
-   public String getNoticetitle() {
-      return noticetitle;
-   }
+public String getNoticetype() {
+   return noticetype;
+}
 
 
-   public void setNoticetitle(String noticetitle) {
-      this.noticetitle = noticetitle;
-   }
+public void setNoticetype(String noticetype) {
+   this.noticetype = noticetype;
+}
 
 
-   public Date getNoticedate() {
-      return noticedate;
-   }
+public String getNoticetitle() {
+   return noticetitle;
+}
 
 
-   public void setNoticedate(Date noticedate) {
-      this.noticedate = noticedate;
-   }
+public void setNoticetitle(String noticetitle) {
+   this.noticetitle = noticetitle;
+}
 
 
-   public String getNoticecontent() {
-      return noticecontent;
-   }
+public Date getNoticedate() {
+   return noticedate;
+}
 
 
-   public void setNoticecontent(String noticecontent) {
-      this.noticecontent = noticecontent;
-   }
+public void setNoticedate(Date noticedate) {
+   this.noticedate = noticedate;
+}
 
 
-   public String getNoticeofile() {
-      return noticeofile;
-   }
+public String getNoticecontent() {
+   return noticecontent;
+}
 
 
-   public void setNoticeofile(String noticeofile) {
-      this.noticeofile = noticeofile;
-   }
+public void setNoticecontent(String noticecontent) {
+   this.noticecontent = noticecontent;
+}
 
 
-   public String getNoticerfile() {
-      return noticerfile;
-   }
+public String getNoticeofile() {
+   return noticeofile;
+}
 
 
-   public void setNoticerfile(String noticerfile) {
-      this.noticerfile = noticerfile;
-   }
+public void setNoticeofile(String noticeofile) {
+   this.noticeofile = noticeofile;
+}
 
 
-   @Override
-   public String toString() {
-      return "Notice [noticeno=" + noticeno + ", adminid=" + adminid + ", noticetype=" + noticetype + ", noticetitle="
-            + noticetitle + ", noticedate=" + noticedate + ", noticecontent=" + noticecontent + ", noticeofile="
-            + noticeofile + ", noticerfile=" + noticerfile + "]";
-   }
+public String getNoticerfile() {
+   return noticerfile;
+}
 
 
-   
+public void setNoticerfile(String noticerfile) {
+   this.noticerfile = noticerfile;
+}
+
+
+@Override
+public String toString() {
+   return "Notice [rnum=" + rnum + ", noticeno=" + noticeno + ", adminid=" + adminid + ", noticetype=" + noticetype
+         + ", noticetitle=" + noticetitle + ", noticedate=" + noticedate + ", noticecontent=" + noticecontent
+         + ", noticeofile=" + noticeofile + ", noticerfile=" + noticerfile + "]";
+}
+
 
    
 }

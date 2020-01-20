@@ -31,4 +31,21 @@ public interface NoticeService {
 
 	public ArrayList<Notice> selectNoticeListAd();
 
+	 public List<Notice> selectNoticeListAd(Map<String, String> map);
+
+	   public int selectNoticeCountAd(Map<String, String> map);
+
+	   public Notice selectNextPrevNotice(int noticeno);
+	   
+	   public int updateNoticeAd(Notice notice);
+	   
+	   public int deleteNoticeAd(int noticeno);
+
+	   public int insertNoticeAd(Notice notice);
+
+	   List<Notice> selectNoticeSearchAd(Map<String, String> map);
+
+	   int selectNoticeSearchAdCount(Map<String, String> map); 
+
+
 }

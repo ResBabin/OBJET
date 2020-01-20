@@ -2,6 +2,7 @@ package com.kh.objet.qna.model.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,10 @@ public class QnaDao {
 	      return mybatisSession.delete("csMapper.deleteQna", qnano);
 	   }
 	   
+	   public int deleteQna1(int qnano) {
+		      return mybatisSession.delete("csMapper.deleteQna1", qnano);
+		   }
+	   
 	   public int updateQna(Qna qna) {
 	      return mybatisSession.update("csMapper.updateQna", qna);
 	   }
@@ -60,5 +65,34 @@ public class QnaDao {
 	public List<Qna> selectQnaListAdmin() {
 		return mybatisSession.selectList("adminMapper.selectQnaList");
 	}
+	
+	public List<Qna> selectQnaListAdmin(Map<String, String> map) {
+	      return mybatisSession.selectList("adminMapper.selectQnaListAd", map); 
+	   }
+
+	   public int selectQnaCountAd(Map<String, String> map) {
+	      return mybatisSession.selectOne("adminMapper.selectQnaCountAd", map);
+	   }
+
+	   public List<Qna> selectQnaListAdmin5() {
+	      return mybatisSession.selectList("adminMapper.selectQnaListAdmin5");
+	   }
+
+	   public Qna selectQnaDetailAdmin(int qnano) {
+	      return mybatisSession.selectOne("adminMapper.selectQnaDetail", qnano);
+	   }
+
+	   public int updateQnaAnswer(Qna qna) {
+	      return mybatisSession.update("adminMapper.updateQnaAnswer", qna);
+	   }
+
+	   public int selectQnaCountAd() {
+	      return mybatisSession.selectOne("adminMapper.selectQnaCountAd");
+	   }
+
+	   public int selectQnaCountAnswer() {
+	      return mybatisSession.selectOne("adminMapper.selectQnaCountAnswer");
+	   }
+
 	
 }

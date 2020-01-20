@@ -2,7 +2,11 @@ package com.kh.objet.faq.controller;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,12 +35,7 @@ public class FaqController {
 	public String moveCsPage() {
 		return "cs/csmain";
 	}
-  /*  //faqmain으로 이동
-	@RequestMapping("moveFaqMain.do")
-	public String moveFaqPage() {
-		return "cs/faqmain";
-	}*/
-	
+ 	
 	//faqmain 전체 목록 불러오기
 	@RequestMapping("selectFaqList.do")
 		public String selectFaqList(Model model) {
@@ -50,26 +49,61 @@ public class FaqController {
 		
 	
 //////////////////////////////////////////////////////관리자//////////////////////////////////////////////////////////////////////
-	@RequestMapping("faqm.do")
-	public ModelAndView selectFaqList(ModelAndView mv) {
-		ArrayList<Faq> faqlist = (ArrayList<Faq>) faqService.selectFaqList();
-		mv.addObject("faqlist", faqlist);
-		mv.setViewName("admin/FaqManagement");
-		return mv;
-	}
-	
-	@RequestMapping("faqmd.do")
-	public ModelAndView selectFaqDetail(ModelAndView mv, @RequestParam("faqno") int faqno) {
-		Faq faqmd = faqService.selectFaqDetail(faqno);
-		ArrayList<Faq> faqlist = (ArrayList<Faq>) faqService.selectFaqList();
-		if (faqmd != null) {
-			mv.addObject("faqmd", faqmd);
-			mv.addObject("faqlist", faqlist);			
-			mv.setViewName("admin/FaqManageDetail");
-		} else {
-			mv.addObject("message", "FAQ 상세 조회 실패");
-			mv.setViewName("common/error");
-		}
-		return mv;
-	}
+@RequestMapping("faqm.do")
+public ModelAndView selectFaqList(ModelAndView mv, HttpServletRequest request) {
+
+Map<String, Integer> map = new HashMap<>();
+
+int currentPage = 1;
+if(request.getParameter("page") != null) {
+currentPage = Integer.parseInt(request.getParameter("page"));
+}
+int limit = 10;  //한 페이지에 출력할 목록 갯수
+int listCount = faqService.selectFaqCountAd();  //테이블의 전체 목록 갯수 조회
+//총 페이지 수 계산
+int maxPage = listCount / limit;
+if(listCount % limit > 0)
+maxPage++;
+
+//currentPage 가 속한 페이지그룹의 시작페이지숫자와 끝숫자 계산
+//예, 현재 34페이지이면 31 ~ 40 이 됨. (페이지그룹의 수를 10개로 한 경우)
+int beginPage = (currentPage / limit) * limit + 1;
+if(currentPage % limit == 0) {
+beginPage -= limit;
+}
+int endPage = beginPage + 9;
+if(endPage > maxPage)
+endPage = maxPage;
+
+//currentPage 에 출력할 목록의 조회할 행 번호 계산
+int startRow = (currentPage * limit) - 9;
+int endRow = currentPage * limit;
+map.put("startRow", startRow);
+map.put("endRow", endRow);
+
+ArrayList<Faq> faqlist = (ArrayList<Faq>) faqService.selectFaqListAd(map);
+mv.addObject("faqlist", faqlist);
+mv.addObject("currentPage", currentPage);
+mv.addObject("listCount", listCount);
+mv.addObject("maxPage", maxPage);
+mv.addObject("beginPage", beginPage);
+mv.addObject("endPage", endPage);
+mv.setViewName("admin/FaqManagement");
+return mv;
+}
+
+@RequestMapping("faqmd.do")
+public ModelAndView selectFaqDetail(ModelAndView mv, @RequestParam("faqno") int faqno) {
+Faq faqmd = faqService.selectFaqDetail(faqno);
+
+if (faqmd != null) {
+mv.addObject("faqmd", faqmd);
+mv.setViewName("admin/FaqManageDetail");
+} else {
+mv.addObject("message", "FAQ 상세 조회 실패");
+mv.setViewName("common/error");
+}
+return mv;
+}
+
 }

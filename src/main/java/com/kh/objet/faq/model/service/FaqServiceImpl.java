@@ -1,6 +1,7 @@
 package com.kh.objet.faq.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,4 +24,15 @@ public class FaqServiceImpl implements FaqService{
 	public Faq selectFaqDetail(int faqno) {
 		return faqDao.selectFaqDetail(faqno);
 	}
+
+
+	   @Override
+	   public List<Faq> selectFaqListAd(Map<String, Integer> map) {
+	      return faqDao.selectFaqListAd(map);
+	   }
+
+	   @Override
+	   public int selectFaqCountAd() {
+	      return faqDao.selectFaqCountAd();
+	   }
 }

@@ -45,15 +45,18 @@
 		
 		<!-- 수정삭제버튼 -->
 		<div align="right">
-			<button class="ui mini black button" onclick="location.href='moveMyQnaEdit.do?qnano=${qna.qnano}'">수정</button>
-			<button class="ui mini grey button">삭제</button>
+		     <c:if test="${fn:contains(qna.qnaanswertype,'N')}">
+			<button class="ui mini black button" onclick="location.href='MoveupdateQna.do?qnano=${qna.qnano}&userid=${loginUser.userid}'">수정</button></c:if>
+			<c:if test="${fn:contains(qna.qnaanswertype,'Y')}">
+			<a href="javascript:alert('답변완료시 수정이 불가능 합니다.')"><button class="ui mini black button">수정불가</button></a></c:if>
+			<button class="ui mini grey button" onclick="location.href='deleteDetailQna.do?qnano=${qna.qnano}&userid=${loginUser.userid}'" >삭제</button>
 		</div>
 		<br><br>
 		
 		<!-- 관리자 답변 테이블 -->
-		
+		<c:if test="${qna.qnaanswer ne null}">
 	
-		<table class="myQnaAnswerTable">
+		<table class="myQnaAnswerTable1">
 			<tr style="height:15px;">
 				<th style="text-align: left;color:navy;">관리자 답변 &emsp;<span style="font-size: 9pt; color:#aaa;"><fmt:formatDate value="${qna.answerdate}" type="date"/></span></th>
 			</tr>
@@ -61,21 +64,22 @@
 			<tr>
 				<td>${qna.qnaanswer}</td>
 			</tr>
-		</table>
+		</table></c:if>
 		
 		<!-- 답변이 없을 경우  -->
-		
-		<table class="myQnaAnswerTable">
+		<c:if test="${qna.qnaanswer eq null}">
+		<table class="myQnaAnswerTable1">
 			<tr style="height:15px;">
 				<th style="text-align: left;color:navy;">현재 작성된 답변이 없습니다. 조금만 기다려주세요 :)</th>
 			</tr>
 			
-		</table>
+		</table></c:if>
 		
 		
 		<br>
 		<div align="center">
-			<button class="ui mini grey button">목록</button>
+			<a href=".do"><button class="ui mini grey button">목록</button></a>
+			
 		</div>
 		<br>
 		

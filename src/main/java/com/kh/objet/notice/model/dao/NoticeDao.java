@@ -3,7 +3,7 @@ package com.kh.objet.notice.model.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,24 +64,48 @@ public class NoticeDao {
    }
 
 
-   ////////////////////////////////////////////////////////관리자//////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////관리자//////////////////////////////////////////////////////////
 
-   public List<Notice> selectNoticeList(){
-      return mybatisSession.selectList("adminMapper.selectNoticeList");
-   }
-   
-   public Notice selectNoticeDetail(int noticeno) {
-      return mybatisSession.selectOne("adminMapper.selectNoticeDetail", noticeno);
-   }
-
-   public List<Notice> selectNoticeListAsc() {
-      return mybatisSession.selectList("adminMapper.selectNoticeListAsc");
-   }
-
-public ArrayList<Notice> selectNoticeListAd() {
-	return null;
+public List<Notice> selectNoticeList(){
+return mybatisSession.selectList("adminMapper.selectNoticeList");
 }
 
+public Notice selectNoticeDetail(int noticeno) {
+return mybatisSession.selectOne("adminMapper.selectNoticeDetail", noticeno);
+}
+
+public List<Notice> selectNoticeListAsc() {
+return mybatisSession.selectList("adminMapper.selectNoticeListAsc");
+}
+
+public List<Notice> selectNoticeListAd(Map<String, String> map) {
+return mybatisSession.selectList("adminMapper.selectNoticeList", map);
+}
+
+public int selectNoticeCountAd(Map<String, String> map) {
+return mybatisSession.selectOne("adminMapper.selectNoticeCountAd", map);
+}
+
+public Notice selectNextPrevNotice(int noticeno) {
+return mybatisSession.selectOne("adminMapper.selectNextPrevNotice", noticeno);
+}
+public int deleteNoticeAd(int noticeno) {
+return mybatisSession.selectOne("adminMapper.deleteNoticeAd", noticeno);
+}
+public int updateNoticeAd(Notice notice) {
+return mybatisSession.update("adminMapper.updateNoticeAd", notice);
+}
+public int insertNoticeAd(Notice notice) {
+return mybatisSession.insert("adminMapper.insertNoticeAd", notice);
+}
+
+public List<Notice> selectNoticeSearchAd(Map<String, String> map) {
+return mybatisSession.selectList("adminMapper.selectNoticeSearchAd", map);
+}
+
+public int selectNoticeSearchAdCount(Map<String, String> map) {
+return mybatisSession.selectOne("adminMapper.selectNoticeSearchAdCount", map);
+}
 
    
 

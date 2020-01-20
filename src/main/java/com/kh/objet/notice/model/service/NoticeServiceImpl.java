@@ -46,17 +46,6 @@ public class NoticeServiceImpl implements NoticeService{
    }
 
 
-   /*@Override
-   public List<Notice> selectSearchNoticeTitle(String keyword){
-      return noticeDao.selectSearchNoticeTitle(keyword);
-   }
-
-   @Override
-   public List<Notice> selectSearchNoticeDate(SearchDate searchDate) {
-      return noticeDao.selectSearchNoticeDate(searchDate);
-   }*/
-
-
    @Override
    public int noticeSearchListCount(HashMap<String, Object> mapp) {
       return noticeDao.noticeSearchListCount(mapp);
@@ -87,11 +76,61 @@ public class NoticeServiceImpl implements NoticeService{
    }
 
 
+
+
+/////////////////////////////////////////////////////////////////관리자//////////////////////////////////////////////////////////////////////////////////////
 @Override
-public ArrayList<Notice> selectNoticeListAd() {
-	return noticeDao.selectNoticeListAd();
+public List<Notice> selectNoticeListAd(Map<String, String> map) {
+   return noticeDao.selectNoticeListAd(map);
 }
 
+
+@Override
+public int selectNoticeCountAd(Map<String, String> map) {
+   return noticeDao.selectNoticeCountAd(map);
+}
+
+
+@Override
+public Notice selectNextPrevNotice(int noticeno) {
+   return noticeDao.selectNextPrevNotice(noticeno);
+}
+
+
+@Override
+public int updateNoticeAd(Notice notice) {
+   return noticeDao.updateNoticeAd(notice);
+}
+
+
+@Override
+public int deleteNoticeAd(int noticeno) {
+   return noticeDao.deleteNotice(noticeno);
+}
+
+@Override
+public int insertNoticeAd(Notice notice) {
+   return noticeDao.insertNoticeAd(notice);
+}
+
+
+@Override
+public List<Notice> selectNoticeSearchAd(Map<String, String> map) {
+   return noticeDao.selectNoticeSearchAd(map);
+}
+
+
+@Override
+public int selectNoticeSearchAdCount(Map<String, String> map) {
+   return noticeDao.selectNoticeSearchAdCount(map);
+}
+
+
+@Override
+public ArrayList<Notice> selectNoticeListAd() {
+	// TODO Auto-generated method stub
+	return null;
+}
 
 
 
