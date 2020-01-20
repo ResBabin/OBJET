@@ -416,7 +416,7 @@ where a.revuserid = #{userid} and a.objetno = #{objetno}
  	</delete>
  	
  	<select id="selectMyVisitedObjetSearch" parameterType="hashmap" resultType="visitedobjet">
- 		select * from vistiedobjet
+ 		select * from visitedobjet
  		join objet using(objetitle)
  		where objettitle like '%' || #{objettitle} || '%'
  		or userid like '%' || #{userid} || '%'

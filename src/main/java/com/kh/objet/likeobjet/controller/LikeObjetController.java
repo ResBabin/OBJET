@@ -70,7 +70,7 @@ public class LikeObjetController {
 	// 오브제 관리 - 관심오브제 검색
 		@RequestMapping("selectMyLikeObjetSearch.do")
 		public String selectMyLikeObjetSearch(@RequestParam(name="page", required=false) String page, @RequestParam(value="objettitle") String objettitle, 
-				@RequestParam(value="userid") String userid, @RequestParam(value="objetstatus") String objetstatus, @RequestParam(value="keyword") String keyword, 
+				@RequestParam(value="objetno") int objetno, @RequestParam(value="objetstatus") String objetstatus, @RequestParam(value="keyword") String keyword, 
 				HttpServletResponse response, Model model) throws IOException  {
 			logger.info("page : " + page);
 		    int currentPage = 1;
@@ -142,7 +142,7 @@ public class LikeObjetController {
 	             }
 	             
 
-	     		map.put("userid", userid); // 대상 아티스트 아이디
+	     		map.put("objetno", objetno); // 대상 오브제 번호
 	     		map.put("objettitle", keyword);
 	     		
 	     		
