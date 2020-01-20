@@ -114,7 +114,7 @@
 			
 			<br><br><br><br><br>
 			<input type="button" class="mainBtn" value="목록이동" onclick="javascript:history.go(-1)">
-			<input type="button" class="mainBtn" value="1:1문의" onclick="location.href='insertQna.do'">
+			<input type="button" class="mainBtn" value="1:1문의" onclick="location.href='MoveinsertQna.do?userid=${loginUser.userid}'">
 			<!-- 신청 대기일 때에만 취소버튼 -->
 			<c:if test="${requestsupport.sptstatus == 'WAIT' }">
 			<br><br><br><input type="button" class="mainBtn1" value="신청취소" onclick="deleteRequestSupport(${requestsupport.requestno})">
