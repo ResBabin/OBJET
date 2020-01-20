@@ -112,13 +112,15 @@
 	<!-- 후원설정 페이지 시작 -->
 <div class="wrapEnrollPage">
 
-	<p style="font-size: 20pt; padding-top:50px; color:#373737; text-align:center;">후원 상세정보 설정</p>
+	<p style="font-size: 20pt; padding-top:50px; color:#373737; text-align:center;">후원 상세정보 수정</p>
 	
 	<!-- 후원정보입력섹션 시작! -->
 	
 	<div class="applySection">
-	<form action="updateApplySupport.do" method="post">
+	<form action="updateApplySupport.do" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="artistid" value="${loginUser.userid }">
+			<input type="hidden" name="artistofile" value="${applysupport.artistofile }">
+		    <input type="hidden" name="artistrfile" value="${applysupport.artistrfile }">
 		<table class="applyTable">
 			<tr><th>헤드라인<span style="color:red">*</span></th></tr>
 			<tr><td>나를 한마디로 표현할 수 있는 멋진 문구를 입력해주세요.&emsp;
@@ -143,7 +145,7 @@
 			</td></tr>
 			
 			<tr><th><br><br>후원 계좌<span style="color:red">*</span></th></tr>
-			<tr><td>후원 받을 계좌를 입력해주세요. 후원자에게는 노출되지 않습니다.&emsp;<br>
+			<tr><td>후원 받을 계좌를 입력해주세요. <span style="color:#aaa;">(정산용 계좌이며 후원자에게 노출되지 않습니다)</span><br>
 					<select class="ui search dropdown" name="sptbank" id="sptbank" required>
 						  <option value="국민" <c:if test="${applysupport.sptbank == '국민'}">selected</c:if>>국민</option>
 						  <option value="기업" <c:if test="${applysupport.sptbank == '기업'}">selected</c:if>>기업</option>
@@ -163,6 +165,18 @@
 		    		<input type="text" name="sptaccount" id="sptaccount" style="width:50%;" placeholder="(-)제외" value="${applysupport.sptaccount}"onKeyup="this.value=this.value.replace(/[^0-9]/g, '');" required></span></span>
 			</td></tr>
 			
+			<tr><th><br><br>필수서류<span style="color:red">*</span></th></tr>
+			<tr><td>오브제 공지사항 확인 후, 관련 첨부 파일을 다운 받아 작성한 후 제출해주세요.&emsp;<span style="color:teal; text-decoration: underline;">[공지사항 이동]</span><br>
+					<span style="color:#aaa;">해당 파일은 안전하게 보관되며 후원자에게 노출되지 않습니다.</span></td></tr>
+			<tr><td><table class="supportdetailTable" style="width:100%;">
+						<tr>
+							<th>현재</th><td style="text-align: left;"><i class="olive folder open icon"></i><span style="font-weight: 600; color: grey;">${applysupport.artistofile}</span> </td>
+						</tr>
+						<tr>
+							<th>수정</th><td style="text-align: left;"><i class="olive folder open icon"></i><input type="file" name="artistupfile"></td>
+						</tr>
+					</table>
+			</td></tr>
 		</table>
 	
 	<!-- 후원정보입력섹션 끝! -->
@@ -179,8 +193,8 @@
 	</div> -->
 	<br><br>
 	<div align="center">
-		<input type="submit" class="ui green button" value="저장" id="btnsub"> &nbsp;
-		<input type="reset" class="ui button" value="취소"> &nbsp;
+		<input type="submit" class="mainBtn" value="저장" id="btnsub"> &nbsp;
+		<input type="reset" class="mainBtn1" value="취소"> &nbsp;
 	</div>
 	</form>
 	<br><br>

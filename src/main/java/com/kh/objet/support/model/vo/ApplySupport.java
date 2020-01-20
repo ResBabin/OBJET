@@ -15,6 +15,8 @@ public class ApplySupport implements Serializable{
 	private String sptintro;
 	private String sptbank;
 	private String sptaccount;
+	private String artistofile;
+	private String artistrfile;
 	private String thanksmsg;
 	private Date sptapplydate;
 	private Date sptmodifydate;
@@ -22,13 +24,15 @@ public class ApplySupport implements Serializable{
 	public ApplySupport() {}
 
 	public ApplySupport(String artistid, String sptheader, String sptintro, String sptbank, String sptaccount,
-			String thanksmsg, Date sptapplydate, Date sptmodifydate) {
+			String artistofile, String artistrfile, String thanksmsg, Date sptapplydate, Date sptmodifydate) {
 		super();
 		this.artistid = artistid;
 		this.sptheader = sptheader;
 		this.sptintro = sptintro;
 		this.sptbank = sptbank;
 		this.sptaccount = sptaccount;
+		this.artistofile = artistofile;
+		this.artistrfile = artistrfile;
 		this.thanksmsg = thanksmsg;
 		this.sptapplydate = sptapplydate;
 		this.sptmodifydate = sptmodifydate;
@@ -74,6 +78,22 @@ public class ApplySupport implements Serializable{
 		this.sptaccount = sptaccount;
 	}
 
+	public String getArtistofile() {
+		return artistofile;
+	}
+
+	public void setArtistofile(String artistofile) {
+		this.artistofile = artistofile;
+	}
+
+	public String getArtistrfile() {
+		return artistrfile;
+	}
+
+	public void setArtistrfile(String artistrfile) {
+		this.artistrfile = artistrfile;
+	}
+
 	public String getThanksmsg() {
 		return thanksmsg;
 	}
@@ -105,11 +125,11 @@ public class ApplySupport implements Serializable{
 	@Override
 	public String toString() {
 		return "ApplySupport [artistid=" + artistid + ", sptheader=" + sptheader + ", sptintro=" + sptintro
-				+ ", sptbank=" + sptbank + ", sptaccount=" + sptaccount + ", thanksmsg=" + thanksmsg + ", sptapplydate="
-				+ sptapplydate + ", sptmodifydate=" + sptmodifydate + "]";
+				+ ", sptbank=" + sptbank + ", sptaccount=" + sptaccount + ", artistofile=" + artistofile
+				+ ", artistrfile=" + artistrfile + ", thanksmsg=" + thanksmsg + ", sptapplydate=" + sptapplydate
+				+ ", sptmodifydate=" + sptmodifydate + "]";
 	}
 
-	
 	
 	
 }

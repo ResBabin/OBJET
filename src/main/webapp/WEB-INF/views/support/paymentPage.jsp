@@ -52,23 +52,6 @@ IMP.request_pay({
         alert(msg);
     }
     
-    /*jQuery.ajax({
-		url : "insertSupport.do",
-		type: "post",
-		data: {artistid : '${support.artistid}', sptid : '${support.sptid}', sptamount:${support.sptamount}, sptcomment:'${support.sptcomment}'},
-		success : function(result){
-			if(result == "ok"){
-				window.location.href="artistHomeMain.do?userid=${support.artistid}&loginUser=${loginUser.userid}"
-			}else{
-				window.location.href="artistHomeMain.do?userid=${support.artistid}&loginUser=${loginUser.userid}"
-			}
-			
-		},
-		error : function(jqXHR, textStatus, errorThrown){
-			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
-		}
-	})//ajax...
-	*/
 });
 
 </script>

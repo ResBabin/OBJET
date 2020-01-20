@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <% pageContext.setAttribute("newLineN", "\n"); %>
 <!DOCTYPE html>
 <html>
@@ -36,11 +38,11 @@
 				<input type="hidden" name="sptid" value="${loginUser.userid }">
 				<input type="hidden" name="currentPage" value="1">
 					<select class="ui search dropdown" name="searchtype" id="searchtype" required>
-							  <option value="m.sptno">후원고유번호</option>
-							  <option value="u.nickname">후원작가</option>
-							  <option value="m.sptamount">후원금액</option>
+							  <option value="m.sptno"<c:if test="${searchtype == 'm.sptno'}">selected</c:if>>후원고유번호</option>
+							  <option value="u.nickname"<c:if test="${searchtype == 'u.nickname'}">selected</c:if>>후원작가</option>
+							  <option value="m.sptamount"<c:if test="${searchtype == 'm.sptamount'}">selected</c:if>>후원금액</option>
 							</select>&ensp;
-						<div class="ui input"><input type="text" name="keyword" style="width:300px; height:35px;"></div>&emsp;&emsp;
+						<div class="ui input"><input type="text" name="keyword" value="${keyword}" style="width:300px; height:35px;"></div>&emsp;&emsp;
 						<input type="button" class="mainBtn" value="검색">
 				</form>
 				</div>
@@ -66,7 +68,7 @@
 				<td>${(paging.listCount - status.index)-((paging.currentPage-1)*paging.limit)}</td>
 				<td>${list.sptno}</td>
 				<td>${list.artistnickname }</td>
-				<td>￦${list.sptamount }</td>
+				<td>￦<fmt:formatNumber type="number" value="${list.sptamount }"/></td>
 				<td style="text-align: left;">${list.sptcomment}</td>
 				<td>${list.sptdate }</td>
 			</tr>
@@ -80,7 +82,7 @@
 		</table>
 	</div>
 	<!-- 검색결과 리스트 끝! -->
-	
+	<br><br>
 					<!--  페이징 -->
 				<div align="center">
 					<div id="paging">
@@ -92,8 +94,8 @@
 							 
 							<c:forEach var="num" begin="${ paging.startPage }" end="${ paging.endPage }">
 								<a href="moveSendSupport.do?sptid=${loginUser.userid}&currentPage=${num}">&emsp;
-								<c:if test="${ paging.currentPage == num }"><span class="ui teal circle label">${num}</span></c:if>
-								<c:if test="${ paging.currentPage != num }"><span class="ui grey circle label">${num}</span></c:if>
+								<c:if test="${ paging.currentPage == num }"><span class="pagingBtn1">${num}</span></c:if>
+								<c:if test="${ paging.currentPage != num }"><span class="pagingBtn2">${num}</span></c:if>
 								</a>
 							</c:forEach>
 							
@@ -110,8 +112,8 @@
 						
 							<c:forEach var="num" begin="${ paging.startPage }" end="${ paging.endPage }">
 								<a href="moveSendSupportSearch.do?sptid=${loginUser.userid}&currentPage=${num}&searchtype=${searchtype}&keyword=${keyword}">&emsp;
-								<c:if test="${ paging.currentPage == num }"><span class="ui teal circle label">${num}</span></c:if>
-								<c:if test="${ paging.currentPage != num }"><span class="ui grey circle label">${num}</span></c:if>
+								<c:if test="${ paging.currentPage == num }"><span class=pagingBtn11">${num}</span></c:if>
+								<c:if test="${ paging.currentPage != num }"><span class="pagingBtn12">${num}</span></c:if>
 								</a>
 							</c:forEach>
 							

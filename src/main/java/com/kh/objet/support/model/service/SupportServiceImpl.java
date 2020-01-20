@@ -92,7 +92,7 @@ public class SupportServiceImpl implements SupportService{
 	}
 
 	@Override
-	public List<MySupport> selectRequestSupport(HashMap<String, Object> map) {
+	public List<RequestSupport> selectRequestSupport(HashMap<String, Object> map) {
 		return supportDao.selectRequestSupport(map);
 	}
 	
@@ -100,7 +100,43 @@ public class SupportServiceImpl implements SupportService{
 	public RequestSupport moveRequestSupportDetail(HashMap<String, Object> map) {
 		return supportDao.moveRequestSupportDetail(map);
 	}
-	
+
+	@Override
+	public int selectInsertRequestSupportyn(String artistid) {
+		return supportDao.selectInsertRequestSupportyn(artistid);
+	}
+
+	@Override
+	public int selectInsertRequestSupport(RequestSupport requestsupport) {
+		return supportDao.selectInsertRequestSupport(requestsupport);
+	}
+
+	@Override
+	public int selectRequestSupportSearchListCount(HashMap<String, Object> map) {
+		return supportDao.selectRequestSupportSearchListCount(map);
+	}
+
+	@Override
+	public List<RequestSupport> selectRequestSupportSearch(HashMap<String, Object> map) {
+		return supportDao.selectRequestSupportSearch(map);
+	}
+
+	@Override
+	public int deleteRequestSupport(int requestno) {
+		return supportDao.deleteRequestSupport(requestno);
+	}
+
+	@Override
+	public int selectCountArtist() {
+		return supportDao.selectCountArtist();
+	}
+
+	@Override
+	public int selectCountSupport() {
+		return supportDao.selectCountSupport();
+	}
+
+
 	
 
 }
