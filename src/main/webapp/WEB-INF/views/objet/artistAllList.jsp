@@ -260,7 +260,6 @@ $(function() {
 					var newline = "\n";
 					var noimages = "'resources/images/noimg2.jpg'";
 					var noimg = "'resources/images/basicprofilepic.png'";
-					var tagl = decodeURIComponent(jsonObj.list[i].usertag.replace(/\+/gi, " ")).length;
 					var tags = decodeURIComponent(jsonObj.list[i].usertag.replace(/\+/gi, " ")).split(',');
 					var userintrol = decodeURIComponent(jsonObj.list[i].userintrol.replace(/\+/gi, " "));
 					values += '<figure class="artist_card hover">'+
@@ -279,10 +278,6 @@ $(function() {
 					     for(var i in tags){
 					    	values +='<a href="" id="tag" class="ui basic small gray circular button">' + tags[i] + '</a>' ;
 					    } 
-					    
-						if(tagl > 4){
-					     values += '<a href="" id="tag" class="ui basic small gray circular button">...</a>'; 
-						}
 						values +=  '</center>' +
 						  '</figcaption></a>' +
 						'</figure>';
@@ -349,9 +344,6 @@ $(function() {
     <c:forTokens var="tags" items="${Artist.usertag }" delims=",">
         <a href="" id="tag" class="ui basic small gray circular button">${tags}</a>
     </c:forTokens>
-    <c:if test="${tagl > 4}">
-    <a href="" id="tag" class="ui basic small gray circular button">...</a>
-    </c:if>
     </center>
   </figcaption></a>
 </figure>

@@ -204,7 +204,7 @@
 		<!-- 검색 결과 리스트 시작! -->
 		<div class="objetListSection2">
 		<div align="left" style="font-size: 10pt;">총<span style="font-weight: 700;">13</span>건
-		<button class="ui basic teal icon button" id="visit_objet_cal" style="float:right;margin-top:-7px;"><i class="calendar alternate outline icon"></i> 캘린더</button></div>
+		<button class="ui basic icon button" id="visit_objet_cal" style="float:right;margin-top:-7px;"><i class="calendar alternate outline icon"></i> 캘린더</button></div>
 		<br>
 			<div class="eachObjet">
 				<table class="eachObjetTable">

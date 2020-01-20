@@ -171,7 +171,13 @@ min-height:100%;
 	text-align:center;
     line-height:38px;
 }
-.title-cnt {
+.title-cnt-objet {
+	font-size: 14px;
+	font-weight: normal;
+	font-family:'Nanum Gothic';
+	color: #959595;
+}
+.title-cnt-artist {
 	font-size: 14px;
 	font-weight: normal;
 	font-family:'Nanum Gothic';
@@ -440,13 +446,44 @@ $(function() {
 	
   //tab menu
   $("#search-menu #item").on("click", function(){
-	  $(".objet-result-list-detail").slice(0, 4).transition('fly up', '1100ms');
-	  $(".artist-result-list-detail").slice(0, 4).transition('fly up', '1100ms');
 	  var tab = $(this).attr("data-tab");
 	  $("#search-menu #item").removeClass("active");
 	  $(".tab").removeClass("active");
 	  $(this).addClass("active");
 	  $("#" + tab).addClass("active");
+	  
+	/* //오브제 더보기 버튼
+	$(".objet-result-list-detail").slice(0, 4).transition('fly up', '1300ms');
+	if($(".objet-result-list-detail:hidden").length != 0){
+		$("#more_load").show();
+		$("#more_load").click(function(e) { // Load More를 위한 클릭 이벤트e
+		    e.preventDefault();
+		    $(".objet-result-list-detail:hidden").slice(0, 4).transition('clear queue').transition('fade up', '1300ms'); // 숨김 설정된 다음 4개를 선택하여 표시
+		    if ($(".objet-result-list-detail:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
+		        $('#more_load').fadeOut();// 더 이상 로드할 항목이 없는 경우
+		    }
+		});
+	}if($(".objet-result-list-detail").length <= 2){
+		$("#more_load").hide();
+	}
+	
+	//아티스트 더보기 버튼
+	$(".artist-result-list-detail").slice(0, 4).transition('fly up', '1300ms');
+	if($(".artist-result-list-detail:hidden").length != 0){
+		$("#more_load2").show();
+		$("#more_load2").click(function(e) { 
+		    e.preventDefault();
+		    $(".artist-result-list-detail:hidden").transition('clear queue').slice(0, 4).transition('fade up', '1300ms');
+		    $("#more_load2").css("margin-bottom", "10px");
+		    if ($(".artist-result-list-detail:hidden").length == 0) { 
+		        $('#more_load2').fadeOut();
+		        $(".artist-result").css("margin-bottom", "500px");
+		    }
+		});
+	}if($(".artist-result-list-detail").length <= 4){
+		$("#more_load2").hide();
+	} */
+	  
   });
   	//dropdown
    $('#dateoption').dropdown(); 
@@ -469,14 +506,14 @@ $(function() {
   	    	search2();
   	    }
   	 });
-  	
-	//오브제 더보기 버튼
+	
+  //오브제 더보기 버튼
 	$(".objet-result-list-detail").slice(0, 4).fadeIn(); // 최초 4개 선택
 	if($(".objet-result-list-detail:hidden").length != 0){
-		$("#more_load").show();
+		$("#more_load").transition('fly up', '1100ms');
 		$("#more_load").click(function(e) { // Load More를 위한 클릭 이벤트e
 		    e.preventDefault();
-		    $(".objet-result-list-detail:hidden").slice(0, 4).transition('fade up', '1300ms'); // 숨김 설정된 다음 4개를 선택하여 표시
+		    $(".objet-result-list-detail:hidden").slice(0, 4).transition('clear queue').transition('fade up', '1300ms'); // 숨김 설정된 다음 4개를 선택하여 표시
 		    if ($(".objet-result-list-detail:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
 		        $('#more_load').fadeOut();// 더 이상 로드할 항목이 없는 경우
 		    }
@@ -488,10 +525,10 @@ $(function() {
 	//아티스트 더보기 버튼
 	$(".artist-result-list-detail").slice(0, 4).fadeIn();
 	if($(".artist-result-list-detail:hidden").length != 0){
-		$("#more_load2").show();
+		$("#more_load2").transition('fly up', '1100ms');
 		$("#more_load2").click(function(e) { 
 		    e.preventDefault();
-		    $(".artist-result-list-detail:hidden").slice(0, 4).transition('fade up', '1300ms');
+		    $(".artist-result-list-detail:hidden").transition('clear queue').slice(0, 4).transition('fade up', '1300ms');
 		    $("#more_load2").css("margin-bottom", "10px");
 		    if ($(".artist-result-list-detail:hidden").length == 0) { 
 		        $('#more_load2').fadeOut();
@@ -501,8 +538,7 @@ $(function() {
 	}if($(".artist-result-list-detail").length <= 4){
 		$("#more_load2").hide();
 	}
-	
-	
+  	
 	//무한스크롤
 	/* var page = 1;
 	if ($("body").height() < $(window).height()) {
@@ -599,20 +635,121 @@ function objetOrder(order){
 		type : "post",
 		data : { order : order, keyword : keyword },
 		dataType : "json",
-		success : function(result){
-			var objStr = JSON.stringify(result);
+		success : function(list){
+			console.log(list);
+			var objStr = JSON.stringify(list);
 			var jsonObj = JSON.parse(objStr);
 			var values = "";
 			for (var i in jsonObj.list) {
-				var length = decodeURIComponent(jsonObj.list[i].userintrol.replace(/\+/gi, " ")).length;
-				var tagl = decodeURIComponent(jsonObj.list[i].usertag.replace(/\+/gi, " ")).length;
-				var tags = decodeURIComponent(jsonObj.list[i].usertag.replace(/\+/gi, " ")).split(',');
-				var userintrol = decodeURIComponent(jsonObj.list[i].userintrol.replace(/\+/gi, " "));
-				values += ;
+				var noimages = "'resources/images/noimg2.jpg'";
+				var userid = '${loginUser.userid}';
+				var length = decodeURIComponent(jsonObj.list[i].objetintro.replace(/\+/gi, " ")).length;
+				var tags = decodeURIComponent(jsonObj.list[i].objettag.replace(/\+/gi, " ")).split(',');
+				values += '<li class="objet-result-list-detail">'
+				+ '<a href="objetOne.do?objetno=' + jsonObj.list[i].objetno + '&userid=' + userid + '" target="_blank">'
+				+ '<div class="objet-content">'
+				+ '<strong class="objet-title">' + decodeURIComponent(jsonObj.list[i].objettitle.replace(/\+/gi, " ")) + '</strong>&nbsp;';
+				if(jsonObj.list[i].objetstatus == 'OPEN'){
+					values += '<div class="ui circular button" id="objet-status" style="background:#df0000;color:#fff;">전시중</div>'
+						   +'<div class="ui tiny blue button" onclick="" style="float:right;">전시관람</div><br>';
+				}if(jsonObj.list[i].objetstatus == 'STANDBY'){
+					values += '<div class="ui circular button" id="objet-status" style="background:lightpink;color:#fff;width:65px;">전시예정</div>'
+						   + '<div class="ui tiny blue button" style="float:right;" disabled>전시예정</div><br>';
+				}if(jsonObj.list[i].objetstatus == 'CLOSE'){
+					values += '<div class="ui circular button" id="objet-status" style="background:#AAA;color:#fff;width:65px;">전시종료</div>'
+						   + '<div class="ui tiny grey button" style="float:right;" disabled>전시종료</div><br>';
+				}
+				values += '<p class="objet-date">'
+			    + jsonObj.list[i].objetstartdate + '&nbsp;-&nbsp;' + jsonObj.list[i].objetenddate + '</p>'
+			    + '<img id="objet-img" class="ui fluid image" src="resources/images/objet/' + jsonObj.list[i].renamemainposter + '"'
+			    + 'alt="' + decodeURIComponent(jsonObj.list[i].objettitle.replace(/\+/gi, " ")) +'" onerror="this.src=' + noimages + '"> '
+			    + '<span class="objet-info">';
+				if(length > 150){
+					values += decodeURIComponent(jsonObj.list[i].objetintro.replace(/\+/gi, " ")).substring(0,150) + '...';
+				}if(length < 150){
+					values += decodeURIComponent(jsonObj.list[i].objetintro.replace(/\+/gi, " ")).substring(0,150);
+				}
+				values += '</span>'
+				+ '</div>'
+				+ '<div class="reply">'
+				+ '<span class="reply">관심</span> <b class="num_txt">' + jsonObj.list[i].likeobjetcnt + '</b> <span>·</span> '
+				+ '<span class="reply">댓글</span> <b class="num_txt">' + jsonObj.list[i].reviewcnt + '</b> <span>·</span> '	
+				+ '<span class="reply">작가</span> <span class="reply">' + decodeURIComponent(jsonObj.list[i].nickname.replace(/\+/gi, " ")) + '</span>'
+				+ '</div>'
+				+ '<div class="objet-tag">';
+				for(var i in tags){
+					values += '<a id="objet-tag" class="ui mini circular basic gray button" href="search.do?keyword=' + tags[i] + '" target="_blank">' + tags[i] + '</a>&nbsp;';
+				}
+				values += '</div>'
+				+ '</a>'
+				+ '</li>';
 			}
 			
 			$(function() {
-			
+				if(order == 'open'){
+					$(".title-cnt-objet").html(jsonObj.list.length + "건");
+				}if(order == 'close'){
+					$(".title-cnt-objet").html(jsonObj.list.length + "건");
+				}if(order == 'standby'){
+					$(".title-cnt-objet").html(jsonObj.list.length + "건");
+				}
+				
+				//오브제 더보기 버튼
+				if(jsonObj.list.length != 0){
+					$(".objet-result-list-common").html(values);
+					$(".objet-result-list-detail").slice(0, 4).fadeIn(); // 최초 4개 선택
+					if($(".objet-result-list-detail:hidden").length != 0){
+						$("#more_load").transition('fly up', '1100ms');
+						$("#more_load").click(function(e) { // Load More를 위한 클릭 이벤트e
+						    e.preventDefault();
+						    $(".objet-result-list-detail:hidden").transition('clear queue').slice(0, 4).transition('fade up', '1300ms'); // 숨김 설정된 다음 4개를 선택하여 표시
+						    if ($(".objet-result-list-detail:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
+						        $('#more_load').fadeOut();// 더 이상 로드할 항목이 없는 경우
+						    }
+						});
+					}if($(".objet-result-list-detail").length <= 2){
+						$("#more_load").hide();
+					}
+				}else{
+					if(order == 'open'){
+					 values += '<div class="empty_result">'
+				            + '해당 검색 결과의 <span class="txt_keyword">전시중</span>인 전시가 없습니다.' 
+				            + '</div>';
+					 $("#more_load").hide();
+					}if(order == 'close'){
+					 values += '<div class="empty_result">'
+				            + '해당 검색 결과의 <span class="txt_keyword">전시종료</span>인 전시가 없습니다.' 
+				            + '</div>';
+					 $("#more_load").hide();
+					}if(order == 'standby'){
+					 values += '<div class="empty_result">'
+				            + '해당 검색 결과의 <span class="txt_keyword">전시예정</span>인 전시가 없습니다.' 
+				            + '</div>';	
+					 $("#more_load").hide();
+					}
+				   
+				   $(".objet-result-list-common").html(values);
+				}
+				
+				
+				//검색어 키워드 하이라이트
+				var keyword = $("#searchList-text").val();
+				if($(".objet-title").val() != null || $(".objet-info").val() != null){
+					 var objettitle = $(".objet-title").val();
+					 var objetintro = $(".objet-info").val();
+					 var otValue = objettitle.indexOf(keyword);
+					 var oiValue = objetintro.indexOf(keyword);
+					 if(otValue === -1 && oiValue === -1) {
+						 $(".objet-title:contains('"+keyword+"')").each(function () {
+					        	var regex = new RegExp(keyword,'gi');
+					        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+					   	});
+						 $(".objet-info:contains('"+keyword+"')").each(function () {
+					        	var regex = new RegExp(keyword,'gi');
+					        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+					   	});
+					 }
+				}
 			});
 			
 			console.log("ok : " + order);
@@ -623,27 +760,136 @@ function objetOrder(order){
 	});
 }
 
-function dateorder(date){
-	var keyword = '${keyword}';
-	$.ajax({
-		url : "objetSearchDateOrder.do",
+//오브제 기간 검색결과
+function dateOrder(order){
+	var keyword = '${keyword }';
+  	$.ajax({
+		url : "objetDateSearchOrder.do",
 		type : "post",
-		data : { date : date, keyword : keyword },
+		data : { order : order, keyword : keyword },
 		dataType : "json",
-		success : function(result){
-			var objStr = JSON.stringify(result);
+		success : function(list){
+			console.log(list);
+			var objStr = JSON.stringify(list);
 			var jsonObj = JSON.parse(objStr);
 			var values = "";
 			for (var i in jsonObj.list) {
-				var length = decodeURIComponent(jsonObj.list[i].userintrol.replace(/\+/gi, " ")).length;
-				var tagl = decodeURIComponent(jsonObj.list[i].usertag.replace(/\+/gi, " ")).length;
-				var tags = decodeURIComponent(jsonObj.list[i].usertag.replace(/\+/gi, " ")).split(',');
-				var userintrol = decodeURIComponent(jsonObj.list[i].userintrol.replace(/\+/gi, " "));
-				values += ;
+				var noimages = "'resources/images/noimg2.jpg'";
+				var userid = '${loginUser.userid}';
+				var length = decodeURIComponent(jsonObj.list[i].objetintro.replace(/\+/gi, " ")).length;
+				var tags = decodeURIComponent(jsonObj.list[i].objettag.replace(/\+/gi, " ")).split(',');
+				values += '<li class="objet-result-list-detail">'
+				+ '<a href="objetOne.do?objetno=' + jsonObj.list[i].objetno + '&userid=' + userid + '" target="_blank">'
+				+ '<div class="objet-content">'
+				+ '<strong class="objet-title">' + decodeURIComponent(jsonObj.list[i].objettitle.replace(/\+/gi, " ")) + '</strong>&nbsp;';
+				if(jsonObj.list[i].objetstatus == 'OPEN'){
+					values += '<div class="ui circular button" id="objet-status" style="background:#df0000;color:#fff;">전시중</div>'
+						   +'<div class="ui tiny blue button" onclick="" style="float:right;">전시관람</div><br>';
+				}if(jsonObj.list[i].objetstatus == 'STANDBY'){
+					values += '<div class="ui circular button" id="objet-status" style="background:lightpink;color:#fff;width:65px;">전시예정</div>'
+						   + '<div class="ui tiny blue button" style="float:right;" disabled>전시예정</div><br>';
+				}if(jsonObj.list[i].objetstatus == 'CLOSE'){
+					values += '<div class="ui circular button" id="objet-status" style="background:#AAA;color:#fff;width:65px;">전시종료</div>'
+						   + '<div class="ui tiny grey button" style="float:right;" disabled>전시종료</div><br>';
+				}
+				values += '<p class="objet-date">'
+			    + jsonObj.list[i].objetstartdate + '&nbsp;-&nbsp;' + jsonObj.list[i].objetenddate + '</p>'
+			    + '<img id="objet-img" class="ui fluid image" src="resources/images/objet/' + jsonObj.list[i].renamemainposter + '"'
+			    + 'alt="' + decodeURIComponent(jsonObj.list[i].objettitle.replace(/\+/gi, " ")) +'" onerror="this.src=' + noimages + '"> '
+			    + '<span class="objet-info">';
+				if(length > 150){
+					values += decodeURIComponent(jsonObj.list[i].objetintro.replace(/\+/gi, " ")).substring(0,150) + '...';
+				}if(length < 150){
+					values += decodeURIComponent(jsonObj.list[i].objetintro.replace(/\+/gi, " ")).substring(0,150);
+				}
+				values += '</span>'
+				+ '</div>'
+				+ '<div class="reply">'
+				+ '<span class="reply">관심</span> <b class="num_txt">' + jsonObj.list[i].likeobjetcnt + '</b> <span>·</span> '
+				+ '<span class="reply">댓글</span> <b class="num_txt">' + jsonObj.list[i].reviewcnt + '</b> <span>·</span> '	
+				+ '<span class="reply">작가</span> <span class="reply">' + decodeURIComponent(jsonObj.list[i].nickname.replace(/\+/gi, " ")) + '</span>'
+				+ '</div>'
+				+ '<div class="objet-tag">';
+				for(var i in tags){
+					values += '<a id="objet-tag" class="ui mini circular basic gray button" href="search.do?keyword=' + tags[i] + '" target="_blank">' + tags[i] + '</a>&nbsp;';
+				}
+				values += '</div>'
+				+ '</a>'
+				+ '</li>';
 			}
 			
 			$(function() {
-			
+				if(order == 'dateall'){
+					$(".title-cnt-objet").html(jsonObj.list.length + "건");
+				}if(order == '2020'){
+					$(".title-cnt-objet").html(jsonObj.list.length + "건");
+				}if(order == '2019'){
+					$(".title-cnt-objet").html(jsonObj.list.length + "건");
+				}if(order == '2018'){
+					$(".title-cnt-objet").html(jsonObj.list.length + "건");
+				}
+				
+				//오브제 더보기 버튼
+				if(jsonObj.list.length != 0){
+					$(".objet-result-list-common").html(values);
+					$(".objet-result-list-detail").slice(0, 4).fadeIn(); // 최초 4개 선택
+					if($(".objet-result-list-detail:hidden").length != 0){
+						$("#more_load").transition('fly up', '1100ms');
+						$("#more_load").click(function(e) { // Load More를 위한 클릭 이벤트e
+						    e.preventDefault();
+						    $(".objet-result-list-detail:hidden").transition('clear queue').slice(0, 4).transition('fade up', '1300ms'); // 숨김 설정된 다음 4개를 선택하여 표시
+						    if ($(".objet-result-list-detail:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
+						        $('#more_load').fadeOut();// 더 이상 로드할 항목이 없는 경우
+						    }
+						});
+					}if($(".objet-result-list-detail").length <= 2){
+						$("#more_load").hide();
+					}
+				}else{
+					if(order == 'dateall'){
+					 values += '<div class="empty_result">'
+				            + '해당 검색 결과의 <span class="txt_keyword">전체기간</span>중 전시가 없습니다.' 
+				            + '</div>';
+					 $("#more_load").hide();
+					}if(order == '2020'){
+					 values += '<div class="empty_result">'
+				            + '해당 검색 결과의 <span class="txt_keyword">2020</span>년도 전시가 없습니다.' 
+				            + '</div>';
+					 $("#more_load").hide();
+					}if(order == '2019'){
+					 values += '<div class="empty_result">'
+				            + '해당 검색 결과의 <span class="txt_keyword">2019</span>년도 전시가 없습니다.' 
+				            + '</div>';	
+					 $("#more_load").hide();
+					}if(order == '2018'){
+					 values += '<div class="empty_result">'
+				            + '해당 검색 결과의 <span class="txt_keyword">2018</span>년도 전시가 없습니다.' 
+				            + '</div>';	
+					 $("#more_load").hide();
+					}
+				   
+				   $(".objet-result-list-common").html(values);
+				}
+				
+				
+				//검색어 키워드 하이라이트
+				var keyword = $("#searchList-text").val();
+				if($(".objet-title").val() != null || $(".objet-info").val() != null){
+					 var objettitle = $(".objet-title").val();
+					 var objetintro = $(".objet-info").val();
+					 var otValue = objettitle.indexOf(keyword);
+					 var oiValue = objetintro.indexOf(keyword);
+					 if(otValue === -1 && oiValue === -1) {
+						 $(".objet-title:contains('"+keyword+"')").each(function () {
+					        	var regex = new RegExp(keyword,'gi');
+					        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+					   	});
+						 $(".objet-info:contains('"+keyword+"')").each(function () {
+					        	var regex = new RegExp(keyword,'gi');
+					        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+					   	});
+					 }
+				}
 			});
 			
 			console.log("ok : " + order);
@@ -654,7 +900,6 @@ function dateorder(date){
 	});
 }
 	
-	
 //아티스트 검색결과 정렬
 function artistOrder(order){
 	var keyword = '${keyword }';
@@ -663,47 +908,90 @@ function artistOrder(order){
 		type : "post",
 		data : { order : order, keyword : keyword },
 		dataType : "json",
-		success : function(result){
-			var objStr = JSON.stringify(result);
+		success : function(list){
+			console.log(list);
+			var objStr = JSON.stringify(list);
 			var jsonObj = JSON.parse(objStr);
 			var values = "";
 			for (var i in jsonObj.list) {
+				var userid = '${loginUser.userid}';
 				var length = decodeURIComponent(jsonObj.list[i].userintrol.replace(/\+/gi, " ")).length;
-				var newline = "\n";
-				var noimages = "'resources/images/noimg2.jpg'";
-				var noimg = "'resources/images/basicprofilepic.png'";
-				var tagl = decodeURIComponent(jsonObj.list[i].usertag.replace(/\+/gi, " ")).length;
 				var tags = decodeURIComponent(jsonObj.list[i].usertag.replace(/\+/gi, " ")).split(',');
-				var userintrol = decodeURIComponent(jsonObj.list[i].userintrol.replace(/\+/gi, " "));
-				values += '<figure class="artist_card hover">'+
-					'<div class="img_blur">'+
-					'<img src="resources/images/objet/' + jsonObj.list[i].renamemainposter + '" onerror="this.src=' + noimages + '"' + ' class="profile_back"></div>' +
-					  '<a href=""><figcaption>' +
-					   '<img src="resources/users_upfiles/' + jsonObj.list[i].userrpic + '" onerror="this.src=' + noimg + '"' + ' class="profile_pic">' +
-					    '<h2>' + decodeURIComponent(jsonObj.list[i].nickname.replace(/\+/gi, " ")) +
-					    '<span>' + decodeURIComponent(jsonObj.list[i].userintros.replace(/\+/gi, " ")) + '</span></h2>';
-				         if(length < 60){
-				        	values += '<p>' + userintrol.replace(/\\n/gi, "<br/>") + '</p>' ;
-				        }else{
-				        	values += '<p>' + userintrol.substring(0,30) + '...</p>' ;
-				        } 
-				values += '<center>';
-				     for(var i in tags){
-				    	values +='<a href="" id="tag" class="ui basic small gray circular button">' + tags[i] + '</a>' ;
-				    } 
-				    
-					if(tagl > 4){
-				     values += '<a href="" id="tag" class="ui basic small gray circular button">...</a>'; 
-					}
-					values +=  '</center>' +
-					  '</figcaption></a>' +
-					'</figure>';
+				values += '<div class="artist-result-list-detail">'
+				+ '<div class="artist-result-info">'
+				+ '<a href="artistHomeMain.do?userid=' + jsonObj.list[i].userid + '&loginUser=' + userid + '" class="artist-thumb" target="_blank"> '
+				+ '<img class="ui circular image" style="border: 1px solid #eee;" src="resources/users_upfiles/' + jsonObj.list[i].userrpic + '">';
+				if(jsonObj.list[i].objetstatus == 'OPEN'){
+					values += '<div class="ui circular button" id="objet-status" style="margin:10px 0px 0px 21px;background:#df0000;color:#fff;">전시중</div>';
+				}if(jsonObj.list[i].objetstatus == 'STANDBY'){
+					values += '<div class="ui circular button" id="objet-status" style="margin:10px 0px 0px 13px;background:lightpink;color:#fff;width:65px;">전시예정</div>';
+				}if(jsonObj.list[i].objetstatus == 'CLOSE'){
+					values += '<div class="ui circular button" id="objet-status" style="margin:10px 0px 0px 13px;background:#AAA;color:#fff;width:65px;">전시종료</div>';
+				}if(jsonObj.list[i].objetstatus == 0){
+					values += '<div class="ui circular button" id="objet-status" style="margin:10px 0px 0px 12px;background:#3bbfbb;color:#fff;width:70px;">전시준비중</div>';
+				}
+				values += '</a>'
+				+ '<a href="artistHomeMain.do?userid=' + jsonObj.list[i].userid + '&loginUser=' + userid + '" class="artist-follow" target="_blank">'
+				+ '<span class="artist-sub">' + decodeURIComponent(jsonObj.list[i].nickname.replace(/\+/gi, " ")) + '</span>'
+				+ '<span class="artist-info">';
+				if(length > 30){
+					values += decodeURIComponent(jsonObj.list[i].userintrol.replace(/\+/gi, " ")).substring(0,28) + '...';
+				}if(length < 30){
+					values += decodeURIComponent(jsonObj.list[i].userintrol.replace(/\+/gi, " ")).substring(0,28);
+				}
+				values += '</span>'
+				+ '</a>'
+				+ '<div class="follow-info">' 
+				+ '<span>전시 수 </span>' + jsonObj.list[i].objetcnt + '<span> ·</span><span> 구독자 수 </span>' + jsonObj.list[i].followercnt
+				+ '</div>'
+				+ '</div>'
+				+ '<div class="artist-keywords">';
+				for(var i in tags){
+					values += '<a id="a" style="cursor: pointer;" class="ui mini circular basic gray button" href="search.do?keyword=' + tags[i] + '" target="_blank">' + tags[i] + '</a>&nbsp;';
+				}
+				values += '</div>'
+				+ '</div>';
 			}
 			
 			$(function() {
-				
-			});
+			//아티스트 더보기 버튼
+			$(".artist-result-list-common").html(values);
+			$(".artist-result-list-detail").slice(0, 4).fadeIn(); // 최초 4개 선택
+			if($(".artist-result-list-detail:hidden").length != 0){
+				$("#more_load2").transition('fly up', '1100ms');
+				$("#more_load2").click(function(e) { 
+				    e.preventDefault();
+				    $(".artist-result-list-detail:hidden").transition('clear queue').slice(0, 4).transition('fade up', '1300ms');
+				    $("#more_load2").css("margin-bottom", "10px");
+				    if ($(".artist-result-list-detail:hidden").length == 0) { 
+				        $('#more_load2').fadeOut();
+				        $(".artist-result").css("margin-bottom", "500px");
+				    }
+				});
+			}if($(".artist-result-list-detail").length <= 4){
+				$("#more_load2").hide();
+				$(".artist-result").css("margin-bottom", "500px");
+			}
 			
+			//검색어 키워드 하이라이트
+			var keyword = $("#searchList-text").val();
+			if($(".artist-sub").val() != null || $(".artist-info").val() != null){
+				 var nickname = $(".artist-sub").val();
+				 var artistinfo = $(".artist-info").val();
+				 var nValue = nickname.indexOf(keyword);
+				 var iValue = artistinfo.indexOf(keyword);
+				 if(nValue === -1 && iValue === -1){
+					 $(".artist-sub:contains('"+keyword+"')").each(function () {
+			        	var regex = new RegExp(keyword,'gi');
+				        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+				   	});
+					 $(".artist-info:contains('"+keyword+"')").each(function () {
+			        	var regex = new RegExp(keyword,'gi');
+				        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+				   	});
+				 }
+			}
+		  });
 			console.log("ok : " + order);
 		},
 		error : function(jqXHR, textStatus, errorThrown){
@@ -748,21 +1036,21 @@ window.onload = function(){
  		<c:if test="${!empty searchobjetList}">
  		<div class="object-result">
  			<div class="result-option" style="display:flex;margin-top: 15px;justify-content:space-between;">
-            <span class="result-title">전시 검색 결과 <span class="title-cnt">${fn:length(searchobjetList)}건 </span></span>
+            <span class="result-title">전시 검색 결과 <span class="title-cnt-objet">${fn:length(searchobjetList)}건 </span></span>
             <div class="search-option-cate">
             <span class="search-option">
-                <a href="javascript:void(0);" onclick="objetOrder('standby');" class="option on">&nbsp;전시예정</a>&nbsp;&nbsp;
-                <a href="javascript:void(0);" onclick="objetOrder('open');" class="option">&nbsp;전시중</a>&nbsp;&nbsp;
+           		<a href="javascript:void(0);" onclick="objetOrder('open');" class="option on">&nbsp;전시중</a>&nbsp;&nbsp;
                 <a href="javascript:void(0);" onclick="objetOrder('close');" class="option">&nbsp;전시종료</a>&nbsp;&nbsp;
+                <a href="javascript:void(0);" onclick="objetOrder('standby');" class="option">&nbsp;전시예정</a>&nbsp;&nbsp;
 			</span>&nbsp;&nbsp;
 			<div class="ui compact selection dropdown" id="dateoption">
 			  <div class="text">전체 기간</div>
 			  <i class="dropdown icon"></i>
 			  <div class="menu">
-			  	<div class="item" id="dateall" onclick="dateorder('dateall');">전체기간</div>
-			  	<div class="item" id="2020" onclick="dateorder('2020');">2020</div>
-			    <div class="item" id="2019" onclick="dateorder('2019');">2019</div>
-			    <div class="item" id="2018" onclick="dateorder('2018');">2018</div>
+			  	<div class="item" id="dateall" onclick="dateOrder('dateall');">전체기간</div>
+			  	<div class="item" id="2020" onclick="dateOrder('2020');">2020</div>
+			    <div class="item" id="2019" onclick="dateOrder('2019');">2019</div>
+			    <div class="item" id="2018" onclick="dateOrder('2018');">2018</div>
 			  </div>
 			</div>
 			</div>
@@ -790,17 +1078,16 @@ window.onload = function(){
 							<fmt:formatDate value="${objetSearch.objetstartdate }" />&nbsp;-&nbsp;<fmt:formatDate value="${objetSearch.objetenddate }" />
 							</p>
 							<c:set var="noimages" value="resources/images/noimg2.jpg" />
-							<img id="objet-img" class="ui fluid image" src="resources/images/objet/${objetSearch.renamemainposter }" 
-							alt="${objetSearch.objettitle }" onerror="this.src='${noimages }'"> 
-								<span class="objet-info">
-									<c:set var="length" value="${fn:length(objetSearch.objetintro)}"/>
-									<c:if test="${length > 150 }">
-									${fn:substring(objetSearch.objetintro,0,150)}...
-									</c:if>
-									<c:if test="${length < 150 }">
-									${fn:substring(objetSearch.objetintro,0,150)}
-									</c:if>
-								</span>
+							<img id="objet-img" class="ui fluid image" src="resources/images/objet/${objetSearch.renamemainposter }" alt="${objetSearch.objettitle }" onerror="this.src='${noimages }'"> 
+							<span class="objet-info">
+								<c:set var="length" value="${fn:length(objetSearch.objetintro)}"/>
+								<c:if test="${length > 150 }">
+								${fn:substring(objetSearch.objetintro,0,150)}...
+								</c:if>
+								<c:if test="${length < 150 }">
+								${fn:substring(objetSearch.objetintro,0,150)}
+								</c:if>
+							</span>
 						</div>
 						<div class="reply"> 
 							<span class="reply">관심</span> <b class="num_txt">${likeobjetcntList[status.index] }</b> <span>·</span> 
@@ -859,30 +1146,30 @@ window.onload = function(){
     <c:if test="${!empty searchartistList}">
 		<div class="artist-result">
 			<div class="result-option" style="margin-top: 15px;">
-				<span class="result-title">작가 검색 결과 <span class="title-cnt">${fn:length(searchartistList)}건</span></span>
+				<span class="result-title">작가 검색 결과 <span class="title-cnt-artist">${fn:length(searchartistList)}건</span></span>
 				<span class="search-option" style="margin-top: 15px;margin-right:7%;float:right;">
 				    <a href="javascript:void(0);" onclick="artistOrder('statusdesc');" class="option on">&nbsp;전시중인순</a>&nbsp;&nbsp;
 				    <a href="javascript:void(0);" onclick="artistOrder('nameasc');" class="option">&nbsp;가나다순</a>&nbsp;&nbsp;
 				</span>&nbsp;&nbsp;
 			</div>
 			<div class="artist-result-list">
-				<ul class="artist-result-list-common"><li>
+				<ul class="artist-result-list-common">
 				<c:forEach var="artistSearch" items="${searchartistList }" varStatus="status">
-					<div class="artist-result-list-detail">
+					<li class="artist-result-list-detail">
 						<div class="artist-result-info">
 							<a href="artistHomeMain.do?userid=${artistSearch.userid }&loginUser=${loginUser.userid}" class="artist-thumb" target="_blank"> 
 							<img class="ui circular image" style="border: 1px solid #eee;" src="resources/users_upfiles/${artistSearch.userrpic }">
-							<c:if test="${objetstatus[status.index].objetstatus eq 'OPEN' }">
+							<c:if test='${objetstatusList[status.index] eq "OPEN" }'>
 							<div class="ui circular button" id="objet-status" style="margin:10px 0px 0px 21px;background:#df0000;color:#fff;">전시중</div>
 							</c:if>
-							<c:if test="${objetstatus[status.index].objetstatus eq 'STANDBY' }">
-							<div class="ui circular button" id="objet-status" style="margin:10px 0px 0px 14px;background:lightpink;color:#fff;width:65px;">전시예정</div>
+							<c:if test='${objetstatusList[status.index] eq "STANDBY" }'>
+							<div class="ui circular button" id="objet-status" style="margin:10px 0px 0px 13px;background:lightpink;color:#fff;width:65px;">전시예정</div>
 							</c:if>
-							<c:if test="${objetstatus[status.index].objetstatus eq 'CLOSE' }">
-							<div class="ui circular button" id="objet-status" style="margin:10px 0px 0px 14px;background:#AAA;color:#fff;width:65px;">전시종료</div>
+							<c:if test='${objetstatusList[status.index] eq "CLOSE" }'>
+							<div class="ui circular button" id="objet-status" style="margin:10px 0px 0px 13px;background:#AAA;color:#fff;width:65px;">전시종료</div>
 							</c:if>
-							<c:if test="${objetstatus[status.index].objetstatus eq '' }">
-							<div class="ui circular button" id="objet-status" style="margin:10px 0px 0px 14px;background:#3bbfbb;color:#fff;width:70px;">전시준비중</div>
+							<c:if test="${objetstatusList[status.index] eq '0' }">
+							<div class="ui circular button" id="objet-status" style="margin:10px 0px 0px 12px;background:#3bbfbb;color:#fff;width:70px;">전시준비중</div>
 							</c:if>
 							</a> 
 							<a href="artistHomeMain.do?userid=${artistSearch.userid }&loginUser=${loginUser.userid}" class="artist-follow" target="_blank">
@@ -906,7 +1193,7 @@ window.onload = function(){
 							<a id="a" style="cursor: pointer;" class="ui mini circular basic gray button" href="search.do?keyword=${tags }" target="_blank">${tags }</a>&nbsp;
 							</c:forTokens>
 						</div>
-					</div>
+					</li>
 					</c:forEach>
 				</li></ul>
 			</div><br>

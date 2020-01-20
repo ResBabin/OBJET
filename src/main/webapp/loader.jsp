@@ -10,14 +10,17 @@
 <title>Objet</title>
 <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
 <script src="jquery.loading.js"></script>
-<style type="text/css">
-
-</style>
+<link rel="stylesheet" type="text/css" href="resources/css/loader.css" />
 <script type="text/javascript">
 
 </script>
 </head>
 <body>
-
+<div class="container">
+<div class="box">
+	<div class="loader3"></div>
+	<p>loader 3</p>
+</div>
+</div>
 </body>
 </html>

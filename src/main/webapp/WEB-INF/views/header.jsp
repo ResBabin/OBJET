@@ -331,6 +331,15 @@ width: 190px;
             $(this).next().slideDown();
          }
       })
+      
+      var audio = document.getElementById("bgm");
+      $(document).keydown(function(event) {
+   	    if(event.keycode == 27 || event.which == 27 ){
+   	    	audio.pause();
+   	    }
+   	  });
+     
+      
    }); // document Ready...
    
    
@@ -345,7 +354,7 @@ width: 190px;
 		   return false;
 	   }
    }
-
+   
    </script>
 </head>
 <body>
@@ -471,5 +480,8 @@ width: 190px;
 </div>
 </c:if>
 </header>
+<audio autoplay id="bgm"> 
+<source src="resources/media/Soulitune.mp3" type="audio/mp3"> 
+</audio>
 </body>
 </html>

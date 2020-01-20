@@ -53,7 +53,7 @@ public interface ObjetService {
 	int selectReviewCnt(int objetno);
 	int selectObjetCnt(String userid);
 	int selectFollowerCnt(String userid);
-	List<Objet> selectArtistObjetStatus(String userid);
+	String selectArtistObjetStatus(String userid);
 	int selectFollowingCnt(String userid);
 	List<ReviewStatus> selectReviewStatusChk(ReviewKey rk);
 	int insertVisitedObjet(VisitedObjet vs);
@@ -63,6 +63,8 @@ public interface ObjetService {
 	List<Objet> selectObjetCalendar(int objetno);
 	List<Artist> selectObjetSearchOrder(Map<String, String> map);
 	List<Artist> selectArtistSearchOrder(Map<String, String> map);
+	List<Artist> selectObjetDateSearchOrder(Map<String, String> map);
+	
 	
 	// 최민영
 	List<Objet2> selectArtistObjetList(String userid);
@@ -79,6 +81,7 @@ public interface ObjetService {
 	int updateMyObjet(Objet objet);
 	int insertObjet(Objet3 objet3);
 	int deleteObjet(int objetno);
+	
 	
 
 
