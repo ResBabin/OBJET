@@ -18,6 +18,27 @@
  <link rel= "stylesheet" type="text/css" href="resources/css/mychoe.css">
  <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
  <script type="text/javascript">
+ 
+ 	function deleteRequestSupport(requestno){
+ 		$.ajax({
+	         url:"deleteRequestSupport.do",
+	         type:"get",
+	         data:{requestno : requestno},
+	         success: function(result){
+	             if(result == "ok"){
+	            alert("해당 정산신청이 취소되었습니다.");
+	               window.location.href="moveRequestSupport.do?artistid=${loginUser.userid}&currentPage=1";
+	             }
+	             else{
+	            	alert("해당 정산신청 취소에 실패했습니다.");
+	            	window.location.reload();
+	             }
+	          },
+	          error: function(request, status, errorData){
+					console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
+				}
+	       }); 
+ 	}
 
  </script>
 </head>
@@ -26,103 +47,83 @@
 
 <div class="wrapSupportList">
 
-<p style="font-size: 20pt; color:#373737; text-align:center;">정산신청 상세보기</p>
+<p style="font-size: 20pt; color:#373737; text-align:center;">신청내역 상세</p>
 
-	<!-- 검색창시작 -->
+	<!-- 상세보기 시작 -->
 		<div align="center">
-			<div class="objetSearchBox" style="height: 80px;">
-				<div align="center">
-				<form action="moveReceiveSupportSearch.do" method="post">
-				<input type="hidden" name="artistid" value="${loginUser.userid }">
-				<input type="hidden" name="currentPage" value="1">
-					<select class="ui search dropdown" name="searchtype" id="searchtype" required>
-							  <option value="m.sptno">후원고유번호</option>
-							  <option value="u.nickname">후원작가</option>
-							  <option value="m.sptamount">후원금액</option>
-							</select>&ensp;
-						<div class="ui input"><input type="text" name="keyword" style="width:300px; height:35px;"></div>&emsp;&emsp;
-						<input type="button" class="mainBtn" value="검색">
-				</form>
-				</div>
-			</div>
+		<p class="supportdetailP"><i class="chevron olive circle right icon"></i>인적사항</p>
+			<table class="supportdetailTable">
+				<tr>
+					<th style="width:15%">ID</th><td style="width:35%">${loginUser.userid}</td>
+					<th style="width:15%">닉네임</th><td style="width:35%">${loginUser.nickname}</td>
+				</tr>
+				<tr>
+					<th style="width:15%">이름</th><td style="width:35%">${loginUser.username}</td>
+					
+					<th style="width:15%">이메일</th><td style="width:35%">${loginUser.email}</td>
+				</tr>
+				<tr>
+					<th style="width:15%">휴대폰</th><td style="width:35%">${loginUser.phone}</td>
+					<th style="width:15%">계좌</th><td style="width:35%">${requestsupport.sptbank}&ensp;${requestsupport.sptaccount}</td>
+				</tr>
+			</table>
+			<br><br><br>
+			
+			<p class="supportdetailP"><i class="chevron olive circle right icon"></i>신청정보</p>
+			<table class="supportdetailTable">
+				<tr>
+					<th style="width:15%">신청정산</th><td style="width:35%">${requestsupport.requestyear} / ${requestsupport.requestmonth}</td>
+					<th style="width:15%">신청일</th><td style="width:35%">${requestsupport.sptdate}</td>
+				</tr>
+				<tr>
+					<th style="width:15%">처리상태</th>
+					<td style="width:35%"><c:if test="${requestsupport.sptstatus == 'WAIT' }">대기</c:if>
+										  <c:if test="${requestsupport.sptstatus == 'DONE' }">정산완료</span></c:if> 
+										  <c:if test="${requestsupport.sptstatus == 'RJCT' }"><span style="color:red;">반려</span></c:if> 
+					</td>
+					<th style="width:15%">정산파일</th>
+					<td style="width:35%"><c:if test="${!empty requestsupport.sptrfile}">
+										<i class="olive folder open icon"></i><span style="text-decoration: underline; font-size:9pt; cursor: pointer;" onclick="location.href='requestFileDown.do?filename=${requestsupport.sptrfile}'">${requestsupport.sptrfile }</span></c:if>
+										  <c:if test="${empty requestsupport.sptrfile}">&nbsp;</c:if>
+					</td>
+				</tr>
+			</table>
+			<br><br><br>
+			
+			
+			<p class="supportdetailP"><i class="chevron olive circle right icon"></i>반려사유</p>
+			<table class="supportdetailTable">
+				<tr>
+					<th style="width:15%">담당자</th>
+					<td style="width:35%"><c:if test="${!empty requestsupport.adminid}">${requestsupport.adminid }</c:if>
+										  <c:if test="${empty requestsupport.adminid}">&nbsp;</c:if>
+					
+					</td>
+					<th style="width:15%">처리일</th>
+					<td style="width:35%"><c:if test="${!empty requestsupport.sptdonedate}">${requestsupport.sptdonedate}</c:if>
+										  <c:if test="${empty requestsupport.sptdonedate}">&nbsp;</c:if>
+					</td>
+				</tr>
+				<tr>
+					<th style="width:15%">사유</th>
+					<td colspan="3" style="width:85%; text-align: left;"><c:if test="${empty requestsupport.adminmemo}">&nbsp;</c:if>
+										 <c:if test="${!empty requestsupport.adminmemo}"><span style="color:red;">${requestsupport.adminmemo}</span></c:if>
+					</td>
+				</tr>
+			</table>
+			
+			<br><br><br><br><br>
+			<input type="button" class="mainBtn" value="목록이동" onclick="javascript:history.go(-1)">
+			<input type="button" class="mainBtn" value="1:1문의" onclick="location.href='insertQna.do'">
+			<!-- 신청 대기일 때에만 취소버튼 -->
+			<c:if test="${requestsupport.sptstatus == 'WAIT' }">
+			<br><br><br><input type="button" class="mainBtn1" value="신청취소" onclick="deleteRequestSupport(${requestsupport.requestno})">
+			</c:if>
+			
 		</div>
-		<!-- 검색창 끝 -->
-		
-		<!-- 검색 결과 리스트 시작! -->
-	<div class="objetListSection2">
-		<div align="left" style="font-size: 10pt; color:black">총 <span style="font-weight: 700;">${fn:length(receivelist)}</span>건</div><br>
-		<table class="supportListTable">
-			<tr>
-				<th style="width:4%">No.</th>
-				<th style="width:12%">후원고유번호</th>
-				<th style="width:12%">후원작가</th>
-				<th style="width:10%">후원금액</th>
-				<th style="width:50%; text-align: left;">응원메시지</th>
-				<th style="width:7%">후원일</th>
-			</tr>
-			<c:if test="${!empty receivelist }">
-			<c:forEach var="list" items="${receivelist}" varStatus="status">
-			<tr>
-				<td>${(paging.listCount - status.index)-((paging.currentPage-1)*paging.limit)}</td>
-				<td>${list.sptno}</td>
-				<td>${list.sptnickname }</td>
-				<td>￦${list.sptamount }</td>
-				<td style="text-align: left;">${list.sptcomment}</td>
-				<td>${list.sptdate }</td>
-			</tr>
-			</c:forEach>
-			</c:if>
-			<c:if test="${empty receivelist }">
-			<tr>
-				<td colspan="6">후원 내역이 없습니다.</td>
-			</tr>
-			</c:if>
-		</table>
-	</div>
-	<!-- 검색결과 리스트 끝! -->
+		<!-- 상세보기 끝 -->
 	
-					<!--  페이징 -->
-				<div align="center">
-					<div id="paging">
-					<c:if test="${!empty receivelist }">
-						 <c:if test="${ kind eq 'all' }"> 
-							 <c:if test="${ paging.startPage != 1 }">
-							 	<a href="moveReceiveSupport.do?sptid=${loginUser.userid}&currentPage=${paging.startPage - 1}">이전</a>
-							 </c:if>
-							 
-							<c:forEach var="num" begin="${ paging.startPage }" end="${ paging.endPage }">
-								<a href="moveReceiveSupport.do?sptid=${loginUser.userid}&currentPage=${num}">&emsp;
-								<c:if test="${ paging.currentPage == num }"><span class="ui teal circle label">${num}</span></c:if>
-								<c:if test="${ paging.currentPage != num }"><span class="ui grey circle label">${num}</span></c:if>
-								</a>
-							</c:forEach>
-							
-							<c:if test="${ paging.endPage != paging.maxPage }">
-								<a href="moveReceiveSupport.do?sptid=${loginUser.userid}&currentPage=${paging.endPage + 1}">다음</a>
-							</c:if>
-						 </c:if> 
-
-												
-						<c:if test="${ kind eq 'search' }">
-							<c:if test="${ paging.startPage != 1 }">
-						 		<a href="moveReceiveSupportSearch.do?sptid=${loginUser.userid}&currentPage=${paging.startPage - 1}&searchtype=${searchtype}&keyword=${keyword}">이전</a>
-							</c:if>
-						
-							<c:forEach var="num" begin="${ paging.startPage }" end="${ paging.endPage }">
-								<a href="moveReceiveSupportSearch.do?sptid=${loginUser.userid}&currentPage=${num}&searchtype=${searchtype}&keyword=${keyword}">&emsp;
-								<c:if test="${ paging.currentPage == num }"><span class="ui teal circle label">${num}</span></c:if>
-								<c:if test="${ paging.currentPage != num }"><span class="ui grey circle label">${num}</span></c:if>
-								</a>
-							</c:forEach>
-							
-							<c:if test="${ paging.endPage != paging.maxPage }">
-								<a href="moveReceiveSupportSearch.do?sptid=${loginUser.userid}&currentPage=${paging.endPage + 1}&searchtype=${searchtype}&keyword=${keyword}">다음</a>
-							</c:if>
-						</c:if>
-					</c:if>
-					</div>
-				</div>
-			<!-- 페이징처리 끝 -->
+					
 		
 		
 </div> <!-- supportWrap 끝 -->

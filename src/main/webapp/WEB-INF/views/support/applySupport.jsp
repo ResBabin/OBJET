@@ -88,7 +88,7 @@
 	<!-- 후원정보입력섹션 시작! -->
 	
 	<div class="applySection">
-	<form action="insertApplySupport.do" method="post">
+	<form action="insertApplySupport.do" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="artistid" value="${loginUser.userid }">
 		<table class="applyTable">
 			<tr><th>헤드라인<span style="color:red">*</span></th></tr>
@@ -114,7 +114,7 @@
 			</td></tr>
 			
 			<tr><th><br><br>후원 계좌<span style="color:red">*</span></th></tr>
-			<tr><td>후원 받을 계좌를 입력해주세요. 후원자에게는 노출되지 않습니다.&emsp;<br>
+			<tr><td>후원 받을 계좌를 입력해주세요. <span style="color:#aaa;">(정산용 계좌이며 후원자에게 노출되지 않습니다)</span><br>
 					<select class="ui search dropdown" name="sptbank" id="sptbank" required>
 						  <option value="농협">경남</option>
 						  <option value="국민">국민</option>
@@ -135,6 +135,16 @@
 		    		<input type="text" name="sptaccount" id="sptaccount" style="width:50%;" placeholder="(-)제외" onKeyup="this.value=this.value.replace(/[^0-9]/g, '');" required></span></span>
 			</td></tr>
 			
+			<tr><th><br><br>필수서류<span style="color:red">*</span></th></tr>
+			<tr><td>후원금 신청 첨부 파일을 다운로드 하여 필히 작성하여 주세요.&emsp;<span style="color:teal; text-decoration: underline; cursor: pointer;" onclick="location.href='requestFileDown.do?filename=후원금정산신청서.docx'">[후원금 정산신청서]</span><br>
+					<span style="color:#aaa;">해당 파일은 안전하게 보관되며 후원자에게 노출되지 않습니다.</span></td></tr>
+			<tr><td><table class="supportdetailTable" style="width:100%;">
+					<tr>
+						<th>첨부</th><td style="text-align: left;"><i class="olive folder open icon"></i><input type="file" name="artistupfile"></td>
+					</tr>
+					</table>
+			
+			
 		</table>
 	
 	<!-- 후원정보입력섹션 끝! -->
@@ -151,17 +161,16 @@
 	</div> -->
 	<br><br><br>
 	<div align="center">
-		<input type="submit" class="ui green button" value="저장" id="btnsub"> &nbsp;
-		<input type="reset" class="ui button" value="취소"> &nbsp;
+		<input type="submit" class="mainBtn" value="저장" id="btnsub"> &nbsp;
+		<input type="reset" class="mainBtn1" value="취소"> &nbsp;
 	</div>
-	
+	<br><br><br>
 	</form>
 	</div>
 </div>
 
 <!-- 후원설정 페이지 끝 -->
 	
-<br><br><br>
 <c:import url="../footer.jsp" />
 </body>
 </html>

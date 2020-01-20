@@ -79,13 +79,42 @@ public class SupportDao {
 		return mybatisSession.selectOne("supportMapper.selectRequestSupportListCount", artistid);
 	}
 
-	public List<MySupport> selectRequestSupport(HashMap<String, Object> map) {
+	public List<RequestSupport> selectRequestSupport(HashMap<String, Object> map) {
 		return mybatisSession.selectList("supportMapper.selectRequestSupport", map);
 	}
 
 	public RequestSupport moveRequestSupportDetail(HashMap<String, Object> map) {
 		return mybatisSession.selectOne("supportMapper.moveRequestSupportDetail", map);
 	}
+
+	public int selectInsertRequestSupportyn(String artistid) {
+		return mybatisSession.selectOne("supportMapper.selectInsertRequestSupportyn", artistid);
+	}
+
+	public int selectInsertRequestSupport(RequestSupport requestsupport) {
+		return mybatisSession.insert("supportMapper.selectInsertRequestSupport", requestsupport);
+	}
+
+	public int selectRequestSupportSearchListCount(HashMap<String, Object> map) {
+		return mybatisSession.selectOne("supportMapper.selectRequestSupportSearchListCount", map);
+	}
+
+	public List<RequestSupport> selectRequestSupportSearch(HashMap<String, Object> map) {
+		return mybatisSession.selectList("supportMapper.selectRequestSupportSearch", map);
+	}
+
+	public int deleteRequestSupport(int requestno) {
+		return mybatisSession.delete("supportMapper.deleteRequestSupport", requestno);
+	}
+
+	public int selectCountArtist() {
+		return mybatisSession.selectOne("supportMapper.selectCountArtist");
+	}
+
+	public int selectCountSupport() {
+		return mybatisSession.selectOne("supportMapper.selectCountSupport");
+	}
+
 	
 
 }

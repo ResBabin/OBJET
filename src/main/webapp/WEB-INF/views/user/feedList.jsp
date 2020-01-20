@@ -54,19 +54,27 @@
 	<!-- 피드알림 페이지 시작 -->
 	<div class="wrapFeedList">
 		<p style="font-size: 20pt; padding-top:50px; color:#373737; text-align:center;">피드알림</p>
+			<c:if test="${!empty feedlist }">
 				<table class="feedTable">
 				<!-- 반복영역 -->
 				<c:forEach items="${feedlist }" var="feed" varStatus="status">
 					<tr class="feedtr" style="display: none;">
-						<td width="5%"><i class="blue envelope outline icon"></i></td>
+						<td width="5%"><i class="olive envelope outline icon"></i></td>
 						<td width="90%">${feed.feedcontent }<span style="font-size: 9pt; color:#aaa;">&ensp;
 						<fmt:formatDate value="${feed.feeddate}" pattern="(yy.MM.dd E)"/></span></td>
 						<td width="15%"><i class="trash alternate outline icon" onclick="deleteFeed('<c:out value="${feed.feedno }"/>');"></i></td>
 					</tr>
 				</c:forEach>
 				</table>
-			<br><br><br>
-		<div align="center"><button class="mainBtn" id="moreFeedList">더 보기</button></div>
+				<br><br><br>
+				<div align="center"><button class="mainBtn" id="moreFeedList">더 보기</button></div>
+			</c:if>
+			<c:if test="${empty feedlist }">
+				<div align="center">
+					<br><br><br><br><br><br><i class="blue envelope outline icon"></i>알림이 없습니다.
+				</div>
+			</c:if>	
+			
 	</div>
 	
 		

@@ -1,10 +1,13 @@
 package com.kh.objet.support.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -15,6 +18,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.support.model.service.SupportServiceImpl;
@@ -44,6 +49,8 @@ public class SupportController {
 		String vfn = "support/supportMain";
 		
 		ApplySupport support = supportService.selectSupport(artistid);
+		int countartist = supportService.selectCountArtist();
+		int countsupport = supportService.selectCountSupport();
 		
 		// 작가가 자신의 작가홈에서 후원관리를 눌렀을 때
 		
@@ -60,7 +67,10 @@ public class SupportController {
 				vfn = "common/error";
 				model.addAttribute("message", "후원 페이지 이동 실패!");
 			}
-		
+
+			model.addAttribute("countartist", countartist);
+			model.addAttribute("countsupport", countsupport);
+			
 		return vfn;
 	}
 	
@@ -103,8 +113,24 @@ public class SupportController {
 	
 	// 후원 정보 입력
 	@RequestMapping(value="insertApplySupport.do", method=RequestMethod.POST)
-	public String insertApply(ApplySupport applysupport, Model model) {
+	public String insertApply(ApplySupport applysupport, @RequestParam(name="artistupfile", required=true) MultipartFile file, HttpServletRequest request, Model model) {
 		String vfn = null;
+		
+		String savePath = request.getSession().getServletContext().getRealPath("resources/support_upfiles");
+		
+		try {
+			if(file != null && file.getOriginalFilename() != "") {
+				
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+				String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+				file.transferTo(new File(savePath + "\\" + renameFileName));
+				applysupport.setArtistofile(file.getOriginalFilename());
+				applysupport.setArtistrfile(renameFileName);
+			}
+			
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
 		
 		int result = supportService.insertApply(applysupport);
 		
@@ -137,8 +163,30 @@ public class SupportController {
 	
 	// 후원 내용 수정
 	@RequestMapping(value="updateApplySupport.do", method=RequestMethod.POST)
-	public String updateApplySupport(ApplySupport applysupport, Model model) {
+	public String updateApplySupport(ApplySupport applysupport,  @RequestParam(name="artistupfile", required=true) MultipartFile file, HttpServletRequest request, Model model) {
 		String vfn = null;
+		
+			String savePath = request.getSession().getServletContext().getRealPath("resources/support_upfiles");
+		
+		try {
+			if(file != null && file.getOriginalFilename() != "") {
+				
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+				String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+				file.transferTo(new File(savePath + "\\" + renameFileName));
+				applysupport.setArtistofile(file.getOriginalFilename());
+				applysupport.setArtistrfile(renameFileName);
+			}else {
+				if(applysupport.getArtistofile() != null && applysupport.getArtistrfile() != null) {
+					applysupport.setArtistofile(applysupport.getArtistofile());
+					applysupport.setArtistrfile(applysupport.getArtistrfile());
+				}
+			}
+			
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
+		
 		
 		int result = supportService.updateApplySupport(applysupport);
 		
@@ -219,6 +267,8 @@ public class SupportController {
 		
 		model.addAttribute("sendlist", sendlist);
 		model.addAttribute("paging", paging);
+		model.addAttribute("searchtype", searchtype);
+		model.addAttribute("keyword", keyword);
 		model.addAttribute("kind", "search"); // 출력타입은 전체(all)과 검색(search)로 나뉘어져있음
 		
 		return "support/sendSupportList";
@@ -273,11 +323,16 @@ public class SupportController {
 			
 			model.addAttribute("receivelist", receivelist);
 			model.addAttribute("paging", paging);
+			model.addAttribute("searchtype", searchtype);
+			model.addAttribute("keyword", keyword);
 			model.addAttribute("kind", "search"); // 출력타입은 전체(all)과 검색(search)로 나뉘어져있음
 			
 			return "support/receiveSupportList";
 		}
 	
+		
+		
+		
 	// 정산 현황
 	@RequestMapping("moveRequestSupport.do")
 	public String moveRequestSupport(@RequestParam(value="artistid") String artistid, @RequestParam(value="currentPage") String currentPage, Model model) {
@@ -293,14 +348,53 @@ public class SupportController {
 		map.put("endRow", paging.getEndRow());
 		map.put("artistid", artistid); // 대상 아티스트 아이디
 				
-		List<MySupport> requestlist = supportService.selectRequestSupport(map);
+		List<RequestSupport> requestlist = supportService.selectRequestSupport(map);
 		
 		model.addAttribute("artistid", artistid);
 		model.addAttribute("requestlist", requestlist);
 		model.addAttribute("paging", paging);
-		model.addAttribute("kind", "all"); // 출력타입은 전체(all)과 검색(search)과 내가쓴 글(sort)로 나뉘어져있음
+		model.addAttribute("kind", "all"); // 출력타입은 전체(all)과 검색(search)으로 나뉘어져있음
 		
 		return "support/requestSupportList";
+	}
+	
+	
+// 정산 현황 검색
+	@RequestMapping(value="moveRequestSupportSearch.do", method= {RequestMethod.POST, RequestMethod.GET})
+	public String moveRequestSupportSearch(@RequestParam(value="artistid") String artistid, @RequestParam(value="requestyear") String requestyear, @RequestParam(value="requestmonth") String requestmonth, 
+											@RequestParam(value="sptstatus") String sptstatus, @RequestParam(value="currentPage") String currentPage, Model model) {
+		
+		// int 변환
+			int curPage = Integer.valueOf(currentPage);
+			int year = Integer.valueOf(requestyear);
+			int month = Integer.valueOf(requestmonth);
+			
+		// HashMap 객체 생성
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("requestyear", year);
+			map.put("requestmonth", month);
+			map.put("sptstatus", sptstatus);
+			map.put("artistid", artistid); // 대상 아티스트 아이디
+			
+		// 페이징처리 
+			int listCount = supportService.selectRequestSupportSearchListCount(map);
+			paging.makePage(listCount, curPage);
+			
+			map.put("startRow", paging.getStartRow());
+			map.put("endRow", paging.getEndRow());
+			
+					
+			List<RequestSupport> requestlist = supportService.selectRequestSupportSearch(map);
+			
+			model.addAttribute("artistid", artistid);
+			model.addAttribute("requestlist", requestlist);
+			model.addAttribute("paging", paging);
+			model.addAttribute("requestyear", requestyear);
+			model.addAttribute("requestmonth", requestmonth);
+			model.addAttribute("sptstatus", sptstatus);
+			model.addAttribute("kind", "search"); // 출력타입은 전체(all)과 검색(search)으로 나뉘어져있음
+			
+			return "support/requestSupportList";
 	}
 	
 	// 정산 현황 상세보기
@@ -324,6 +418,102 @@ public class SupportController {
 		}
 		return vfn;
 	}
+	
+	// 정산 신청 가능 여부
+	@RequestMapping(value="moveInsertRequestSupportyn.do")
+	public void moveInsertRequestSupportyn(@RequestParam(value="") String artistid, HttpServletResponse response) throws IOException {
+		String returnValue = null;
+		
+		int result = supportService.selectInsertRequestSupportyn(artistid);
+		
+		if(result > 0) 
+			returnValue = "ok";
+		else
+			returnValue = "fail";
+		
+		
+		PrintWriter out = response.getWriter();
+		out.append(returnValue);
+		out.flush();
+		out.close();
+	}
+	
+	// 정산 신청 폼 이동
+		@RequestMapping(value="moveInsertRequestSupport.do")
+		public String moveInsertRequestSupport( @RequestParam(value="artistid") String artistid, Model model) {
+			String vfn = "support/requestSupportInsert";
+			
+			// 기본정보 가져오기용
+			ApplySupport applysupport = supportService.moveModifySupport(artistid);
+			
+			if(applysupport != null) 
+				model.addAttribute("applysupport", applysupport);
+			else {
+				model.addAttribute("message", "정산신청 폼 이동 실패!");
+				vfn = "common/error";
+			}
+			return vfn;
+		}
+		
+		
+	// 정산 신청
+		@RequestMapping(value="insertRequestSupport.do", method=RequestMethod.POST)
+		public void insertRequestSupport(RequestSupport requestsupport, HttpServletResponse response) throws IOException {
+			String returnValue = null;
+			
+			int result = supportService.selectInsertRequestSupport(requestsupport);
+			
+			if(result > 0) 
+				returnValue = "ok";
+			else
+				returnValue = "fail";
+			
+			
+			PrintWriter out = response.getWriter();
+			out.append(returnValue);
+			out.flush();
+			out.close();
+		}
+		
+	// 정산 취소
+		@RequestMapping(value="deleteRequestSupport.do")
+		public void deleteRequestSupport(@RequestParam(value="requestno") int requestno, HttpServletResponse response) throws IOException {
+			String returnValue = null;
+			
+			int result = supportService.deleteRequestSupport(requestno);
+			
+			if(result > 0) 
+				returnValue = "ok";
+			else
+				returnValue = "fail";
+			
+			
+			PrintWriter out = response.getWriter();
+			out.append(returnValue);
+			out.flush();
+			out.close();
+		}
+
+		// 파일 다운로드
+		@RequestMapping("requestFileDown.do")
+		public ModelAndView fileDownMethod(HttpServletRequest request, @RequestParam(name="filename") String filename) {
+			
+			// 경로지정
+			String savePath = request.getSession().getServletContext().getRealPath("resources/support_files");
+			
+			// 객체 생성
+			File downFile = new File(savePath + "\\" + filename);
+			
+			/* ModelAndView(java.lang.String view, java.lang.String modelName, java.lang.Objet modelObject)
+			 * ModelAndView(뷰 이름, 모델이름, 모델객체)
+			 * model == request객체 와 같은 의미를 가진 스프링 객체
+			 * modelName == 이름
+			 * modelObject == 객체
+			 * request.setAttribute("이름", 객체)와 같은 의미
+			 * 이렇게 리턴하면 viewResolver가 받게 됨.
+			 * */
+			return new ModelAndView("filedown", "downFile", downFile);
+		}
 	
 
 

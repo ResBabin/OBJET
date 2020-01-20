@@ -504,8 +504,8 @@ function editGB(gbno,replyyn){
 							 
 							<c:forEach var="num" begin="${ paging.startPage }" end="${ paging.endPage }">
 								<a href="moveArtistGuestBook.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=${num}">&emsp;
-								<c:if test="${ paging.currentPage == num }"><span class="ui teal circle label">${num}</span></c:if>
-								<c:if test="${ paging.currentPage != num }"><span class="ui grey circle label">${num}</span></c:if>
+								<c:if test="${ paging.currentPage == num }"><span class="pagingBtn1">${num}</span></c:if>
+								<c:if test="${ paging.currentPage != num }"><span class="pagingBtn2">${num}</span></c:if>
 								</a>
 							</c:forEach>
 							
@@ -522,8 +522,8 @@ function editGB(gbno,replyyn){
 						
 							<c:forEach var="num" begin="${ paging.startPage }" end="${ paging.endPage }">
 								<a href="moveMyGuestBook.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=${num}">&emsp;
-								<c:if test="${ paging.currentPage == num }"><span class="ui teal circle label">${num}</span></c:if>
-								<c:if test="${ paging.currentPage != num }"><span class="ui grey circle label">${num}</span></c:if>
+								<c:if test="${ paging.currentPage == num }"><span class="pagingBtn1">${num}</span></c:if>
+								<c:if test="${ paging.currentPage != num }"><span class="pagingBtn2">${num}</span></c:if>
 								</a>
 							</c:forEach>
 							
@@ -540,8 +540,8 @@ function editGB(gbno,replyyn){
 						
 							<c:forEach var="num" begin="${ paging.startPage }" end="${ paging.endPage }">
 								<a href="moveGuestBookSearch.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=${num}&searchtype=${searchtype}&keyword=${keyword}">&emsp;
-								<c:if test="${ paging.currentPage == num }"><span class="ui teal circle label">${num}</span></c:if>
-								<c:if test="${ paging.currentPage != num }"><span class="ui grey circle label">${num}</span></c:if>
+								<c:if test="${ paging.currentPage == num }"><span class="pagingBtn1">${num}</span></c:if>
+								<c:if test="${ paging.currentPage != num }"><span class="pagingBtn2">${num}</span></c:if>
 								</a>
 							</c:forEach>
 							
@@ -597,8 +597,8 @@ function editGB(gbno,replyyn){
 				<!-- 작가홈 구경온 사람일 때는 내가 쓴 글 보기 -->
 			<c:if test="${!empty list }">
 			<c:if test="${artist.userid != loginUser.userid }">
-				<div align="center"><button class="mainBtn1" id="mygblist" onclick="location.href='moveArtistGuestBook.do?artistid=${artist.userid}&userid=${loginUser.userid }&currentPage=1'">목록보기</button>&emsp;
-									<button class="mainBtn" id="mygblist" onclick="location.href='moveMyGuestBook.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=1'">내가 쓴 글 보기</button>
+				<div align="center"><button class="mainBtn" id="mygblist" onclick="location.href='moveArtistGuestBook.do?artistid=${artist.userid}&userid=${loginUser.userid }&currentPage=1'">목록보기</button>&emsp;
+									<button class="mainBtn1" id="mygblist" onclick="location.href='moveMyGuestBook.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=1'">내가 쓴 글 보기</button>
 				</div>
 			</c:if>
 			</c:if>

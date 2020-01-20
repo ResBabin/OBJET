@@ -24,6 +24,13 @@ public interface SupportService {
 	int selectReceiveSupportSearchListCount(HashMap<String, Object> map);
 	List<MySupport> selectReceiveSupportSearch(HashMap<String, Object> map);
 	int selectRequestSupportListCount(String artistid);
-	List<MySupport> selectRequestSupport(HashMap<String, Object> map);
+	List<RequestSupport> selectRequestSupport(HashMap<String, Object> map);
 	RequestSupport moveRequestSupportDetail(HashMap<String, Object> map);
+	int selectInsertRequestSupportyn(String artistid);
+	int selectInsertRequestSupport(RequestSupport requestsupport);
+	int selectRequestSupportSearchListCount(HashMap<String, Object> map);
+	List<RequestSupport> selectRequestSupportSearch(HashMap<String, Object> map);
+	int deleteRequestSupport(int requestno);
+	int selectCountArtist();
+	int selectCountSupport();
 }
