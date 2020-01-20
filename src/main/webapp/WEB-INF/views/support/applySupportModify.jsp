@@ -166,7 +166,7 @@
 			</td></tr>
 			
 			<tr><th><br><br>필수서류<span style="color:red">*</span></th></tr>
-			<tr><td>오브제 공지사항 확인 후, 관련 첨부 파일을 다운 받아 작성한 후 제출해주세요.&emsp;<span style="color:teal; text-decoration: underline;">[공지사항 이동]</span><br>
+			<tr><td>후원금 신청 첨부 파일을 다운로드 하여 필히 작성하여 주세요.&emsp;<span style="color:teal; text-decoration: underline; cursor: pointer;" onclick="location.href='requestFileDown.do?filename=후원금정산신청서.docx'">[후원금 정산신청서]</span><br>
 					<span style="color:#aaa;">해당 파일은 안전하게 보관되며 후원자에게 노출되지 않습니다.</span></td></tr>
 			<tr><td><table class="supportdetailTable" style="width:100%;">
 						<tr>

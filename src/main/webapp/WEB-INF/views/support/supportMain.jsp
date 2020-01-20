@@ -57,6 +57,33 @@
  }); // documentReady...
  
  </script>
+ <style type="text/css">
+ 
+@font-face {
+	font-family: 'Cafe24Oneprettynight';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.supportheader {
+	font-family: 'Cafe24Oneprettynight';
+	font-size: 25pt;
+	font-weight: 600;
+	line-height: 30pt; 
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+.supportintro{
+	font-family: 'Cafe24Oneprettynight';
+	font-size: 17pt;
+	line-height: 25pt; 
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+</style>
 </head>
 
 <body>
@@ -69,12 +96,13 @@
 			<div style="margin-left: 29%; top:400px; font-size: 1.8em; font-weight: bold; color:white; position: absolute;">
 				<p> 현재까지 <span class="counter" style="color:#9bca39; font-size: 30px;"><fmt:formatNumber type="number" value="${countartist }"/></span>명의 작가가 
 				<span class="counter" style="color:#9bca39; font-size: 30px;"><fmt:formatNumber type="number" value="${countsupport }"/></span>건의 후원을 받았습니다!</p>
-
-		</div>
+			</div>
 	</div>
+	
 	<br>
+	<hr>
 	<div align="center">
-	<div class="supportheader"><i class="large quote left icon"></i>${support.sptheader}<i class="large quote right icon"></i></div>
+	<div class="supportheader"><i class="Medium quote left icon"></i>&ensp;${support.sptheader}&ensp;<i class="Medium quote right icon"></i></div>
 	<div class="supportintro">${fn:replace(support.sptintro, newLineN, "<br>")}</div>
 	</div>
 	<br><br><br>

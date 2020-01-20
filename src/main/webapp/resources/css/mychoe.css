@@ -799,21 +799,6 @@ body {
 	padding: 30px 30px;
 }
 
-.supportheader{
-	font-size: 25pt;
-	font-family: 'Nanum Myeongjo'; nth-of-type (1) font-weight : 500;
-	line-height: 30pt; 
-	margin-top: 20px;
-	margin-bottom: 30px;
-	
-}
-
-.supportintro{
-	font-size: 13pt; 
-	line-height: 25pt; 
-	margin-top: 20px;
-	margin-bottom: 30px;
-}
 
 #checkBeforeSupport{
 	align: center;

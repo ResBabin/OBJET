@@ -143,6 +143,7 @@
 						<th>첨부</th><td style="text-align: left;"><i class="olive folder open icon"></i><input type="file" name="artistupfile"></td>
 					</tr>
 					</table>
+			</td></tr>
 			
 			
 		</table>
