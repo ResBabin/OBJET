@@ -265,7 +265,7 @@ $(function() {
 					values += '<figure class="artist_card hover">'+
 						'<div class="img_blur">'+
 						'<img src="resources/images/objet/' + jsonObj.list[i].renamemainposter + '" onerror="this.src=' + noimages + '"' + ' class="profile_back"></div>' +
-						  '<a href=""><figcaption>' +
+						  '<a href="artistHomeMain.do?userid=' + jsonObj.list[i].userid + '&loginUser=${loginUser.userid}"><figcaption>' +
 						   '<img src="resources/users_upfiles/' + jsonObj.list[i].userrpic + '" onerror="this.src=' + noimg + '"' + ' class="profile_pic">' +
 						    '<h2>' + decodeURIComponent(jsonObj.list[i].nickname.replace(/\+/gi, " ")) +
 						    '<span>' + decodeURIComponent(jsonObj.list[i].userintros.replace(/\+/gi, " ")) + '</span></h2>';

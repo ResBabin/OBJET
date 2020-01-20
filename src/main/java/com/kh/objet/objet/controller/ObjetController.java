@@ -265,6 +265,7 @@ public class ObjetController {
 		for( Artist artist : artistListOrder) {
 			
 		JSONObject job = new JSONObject();
+		job.put("userid", artist.getUserid());
 		job.put("userintrol", URLEncoder.encode(artist.getUserintrol(), "utf-8"));
 		job.put("usertag", URLEncoder.encode(artist.getUsertag(), "utf-8"));
 		job.put("nickname", URLEncoder.encode(artist.getNickname(), "utf-8"));
