@@ -27,10 +27,10 @@ public class VisitedObjetServiceImpl implements VisitedObjetService {
 	}
 	
 	
-	// 오브제 관리 - 다녀온 오브제 페이지 이동
+	// 오브제 관리 - 다녀온 오브제 전체 리스트 조회
 	@Override
-	public ArrayList<VisitedObjet> moveMyVisitedObjetList(String userid, Paging paging) {
-		return visitedObjetDao.moveMyVisitedObjetList(userid, paging);
+	public ArrayList<VisitedObjet> myVistiedObjetList() {
+		return visitedObjetDao.myVistiedObjetList();
 	}
 
 	//오브제 관리 - 다녀온 오브제 삭제

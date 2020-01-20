@@ -119,6 +119,14 @@
       }
     });
   });
+		
+  $(function(){
+		$('#removeOk').click(function(){
+			if(confirm("삭제하시겠습니까?")){
+				self.location.href = "deleteMyVisitedObjetList.do?objetno=${request.visitedobjet.objetno}";
+			}
+		});
+	});
  
 </script>
 <style>
@@ -274,7 +282,7 @@
 		<!-- 검색 결과 리스트 끝! -->
 		<br>
 		<div align="left">
-			<button class="mainBtn2">삭제</button>
+			<button class="mainBtn2" id="removeOK">삭제</button>
 		</div>
 		<br><br>
 		<!-- 페이징 -->

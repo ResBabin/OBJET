@@ -285,7 +285,7 @@
 		</div>
 		<br><br>
 		<!-- 페이징 -->
-		<div align="center">페이징 부분
+		<div align="center"><<
 		<!-- 맨 처음 페이지 -->
 		<c:if test="${requestScope.currentPage le 1 }"><p class="pre_page"><<</p></c:if>
 		<c:if test="${requestScope.currentPage gt 1 }"><a href="moveMyVisitedObjetList.do"><p class="pre_page"><<</p></a></c:if>
