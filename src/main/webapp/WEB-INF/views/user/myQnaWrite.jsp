@@ -30,8 +30,9 @@
 		
 		<!-- 문의내역 테이블 -->
 		  <form action="insertQna.do" method="post" enctype="multipart/form-data">
-  
-			<table class = "noticeform">
+
+			<table class = "form">
+			
 				<tr>
 					<th>작성자</th>
 					<td><input type="text" size="30" name="userid" required="required" value="${sessionScope.loginUser.userid}"></td>

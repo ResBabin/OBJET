@@ -53,7 +53,7 @@
 
 				<tr>
 					<th>종류</th>
-					<td><select name="qnatype"  required="required" >
+					<td><select name="qnatype" required="required" >
 							<option value="일반">일반</option>
 							<option value="전시">전시</option>
 							<option value="회원">회원</option>
@@ -72,10 +72,10 @@
 				</tr>
 			</table>
 	
-			<script type="text/javascript" src="${pageContext.request.contextPath }/resources/editor/ckeditor/ckeditor.js"></script>
+			<script type="text/javascript" src="${pageContext.request.contextPath}/resources/editor/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
  CKEDITOR.replace('editor2',{height: 500,
-                	 filebrowserImageUploadUrl :'${pageContext.request.contextPath }/updateQnaFile.do'
+                	 filebrowserImageUploadUrl :'${pageContext.request.contextPath}/updateQnaFile.do'
                 		
                 	
  });

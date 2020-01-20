@@ -1,7 +1,9 @@
 package com.kh.objet.notice.controller;
 
 import java.util.ArrayList;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -12,8 +14,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -38,6 +42,7 @@ import com.kh.objet.notice.model.service.NoticeService;
 import com.kh.objet.notice.model.vo.Notice;
 
 import com.kh.objet.faq.controller.FaqController;
+import com.kh.objet.faq.model.vo.Faq;
 
 @Controller
 public class NoticeController {
@@ -87,9 +92,18 @@ notice.setNoticecontent(noticecontent);
 
 int result = noticeService.insertNotice(notice);
 
-mv.setViewName("redirect:selectNoticeList.do");
-return mv;
+
+if (result > 0) {
+	mv.addObject("notice", notice);
+	mv.setViewName("redirect:selectNoticeList.do");
+	} else {
+		mv.addObject("message", "공지사항 등록 실패");
+		mv.setViewName("common/errorPage");
+	}
+
+	return mv;
 }
+
 
 //공지사항 수정하기로 이동하는 버튼
 @RequestMapping("updateNotice.do")
@@ -144,12 +158,18 @@ notice.setNoticetitle(noticetitle); // 공지사항제목
 notice.setNoticecontent(noticecontent);
 
 int result = noticeService.updateNotice(notice);
-System.out.println("공지사항 수정 : " + notice.toString());
-mv.addObject("notice", notice);
-mv.setViewName("redirect:selectNoticeList.do");
-return mv;
-}
 
+
+if (result > 0) {
+	mv.addObject("notice", notice);
+	mv.setViewName("redirect:selectNoticeList.do");
+	} else {
+		mv.addObject("message", "공지사항 등록 실패");
+		mv.setViewName("common/errorPage");
+	}
+
+	return mv;
+}
 
 
 //공지사항 메인 페이지로 이동
@@ -158,7 +178,7 @@ public String moveNoticePage() {
 return "notice/noticemain";
 }
 
-//공지사항 상세보기 페이지로 이동
+/*//공지사항 상세보기 페이지로 이동
 @RequestMapping("noticeDetail.do")
 public String selectNoticeDetail(@RequestParam(value="noticeno") int noticeno, Model model) {
 
@@ -178,6 +198,27 @@ model.addAttribute("common/errorPage");
 
 return "notice/noticeDetail";
 }
+*/
+@RequestMapping("noticeDetail.do")
+public ModelAndView selectFaqDetail(ModelAndView mv, @RequestParam("noticeno") int noticeno) {
+	Notice notice = noticeService.selectNoticeDetail(noticeno);
+	ArrayList<Notice> noticelist = (ArrayList<Notice>) noticeService.selectNoticeListAd();
+	
+
+	
+	if (notice != null) {
+		mv.addObject("notice", notice);	
+		mv.addObject("noticelist", noticelist);	
+		mv.setViewName("notice/noticeDetail");
+	} else {
+		mv.addObject("message", "공지사항 상세 조회 실패");
+		mv.setViewName("common/error");
+	}
+	return mv;
+}
+
+
+
 
 //공지사항 전체목록보기
 @RequestMapping("selectNoticeList.do")
@@ -533,27 +574,268 @@ return "notice/noticemain";
 }
 	
 //////////////////////////////////////////////////////////////////////////관리자//////////////////////////////////////////////////
-	@RequestMapping("noticem.do")
-	public ModelAndView noticeListM(ModelAndView mv) {
-		ArrayList<Notice> noticelist = (ArrayList<Notice>) noticeService.selectNoticeListAd();
-		mv.addObject("noticelist", noticelist);
-		mv.setViewName("admin/noticeManagement");
-		return mv;
-	}
+@RequestMapping("noticem.do")
+public String noticeListM(Model model, HttpServletRequest request ) {
+Map<String, String> map = new HashMap<>();
+String noticetitle = request.getParameter("noticetitle");
+String noticetype = request.getParameter("noticetype");
+String noticecontent = request.getParameter("noticecontent");
+map.put("noticetitle", noticetitle);
+map.put("noticecontent", noticecontent);
+map.put("noticetype", noticetype);
 
-	@RequestMapping("noticemd.do")
-	public ModelAndView noticeDetailM(ModelAndView mv, @RequestParam("noticeno") int noticeno) {
-		Notice noticemd = noticeService.selectNoticeDetail(noticeno);
-		ArrayList<Notice> noticelist = (ArrayList<Notice>) noticeService.selectNoticeListAd();
-		if (noticemd != null) {
-			mv.addObject("noticemd", noticemd);
-			mv.addObject("noticelist", noticelist);			
-			mv.setViewName("admin/noticeManageDetail");
-		} else {
-			mv.addObject("message", "공지 상세 조회 실패");
-			mv.setViewName("common/error");
-		}
-		return mv;
+int currentPage = 1;
+if(request.getParameter("page") != null) {
+currentPage = Integer.parseInt(request.getParameter("page"));
+}
+int limit = 10;  //한 페이지에 출력할 목록 갯수
+int listCount = noticeService.selectNoticeSearchAdCount(map);  //테이블의 전체 목록 갯수 조회
+//총 페이지 수 계산
+int maxPage = listCount / limit; 
+if(listCount % limit > 0)
+maxPage++;
 
-	}
+//currentPage 가 속한 페이지그룹의 시작페이지숫자와 끝숫자 계산
+//예, 현재 34페이지이면 31 ~ 40 이 됨. (페이지그룹의 수를 10개로 한 경우)
+int beginPage = (currentPage / limit) * limit + 1;
+if(currentPage % limit == 0) {
+beginPage -= limit;
+}
+int endPage = beginPage + 9;
+if(endPage > maxPage)
+endPage = maxPage;
+
+//currentPage 에 출력할 목록의 조회할 행 번호 계산
+int startRow = (currentPage * limit) - 9;
+int endRow = currentPage * limit;
+map.put("startRow", Integer.toString(startRow));
+map.put("endRow", Integer.toString(endRow));
+List<Notice> notices = noticeService.selectNoticeSearchAd(map);
+
+model.addAttribute("noticetitle", noticetitle);
+model.addAttribute("noticetype", noticetype);
+model.addAttribute("noticecontent", noticecontent);
+model.addAttribute("currentPage", currentPage);
+model.addAttribute("listCount", listCount);
+model.addAttribute("maxPage", maxPage);
+model.addAttribute("beginPage", beginPage);
+model.addAttribute("endPage", endPage);
+model.addAttribute("noticelist", notices);
+
+
+return "admin/noticeManagement";
+}
+
+@RequestMapping("noticemd.do")
+public ModelAndView noticeDetailM(ModelAndView mv, @RequestParam("noticeno") int noticeno) {
+
+Notice noticemd = noticeService.selectNoticeDetail(noticeno);
+
+Notice prevnotice = noticeService.selectNextPrevNotice(noticemd.getRnum()-1);
+Notice nextnotice = noticeService.selectNextPrevNotice(noticemd.getRnum()+1);
+//이거 나중에 맵퍼에서 쿼리문 따로 만들기
+if (noticemd != null) {
+mv.addObject("noticemd", noticemd);
+mv.addObject("prevnotice", prevnotice);
+mv.addObject("nextnotice", nextnotice);
+mv.setViewName("admin/noticeManageDetail");
+} else {
+mv.addObject("message", "공지 상세 조회 실패");
+mv.setViewName("common/error");
+}
+return mv;
+
+}
+@RequestMapping(value="delNoticedAd.do", method=RequestMethod.POST)
+public String delNotice(Model model, @RequestParam("noticeno") int noticeno) {
+int result = noticeService.deleteNotice(noticeno);
+String view = "";
+if(result > 0){
+view = "redirect:noticem.do";
+}else {
+model.addAttribute("message", "공지사항 삭제 실패");
+view = "common/error";
+}
+return view;
+}
+@RequestMapping("noticeModifyPageAd.do")
+public String moveModifyPageAd(Model model, @RequestParam("noticeno") int noticeno) {
+Notice noticemd = noticeService.selectNoticeDetail(noticeno);
+String view = "";
+if(noticemd != null) {
+model.addAttribute("noticemd", noticemd);
+view = "admin/noticeModifyPage";
+}else {
+model.addAttribute("message", "수정 페이지로 이동 실패");
+view = "common/error";
+}
+return view;
+}
+
+@RequestMapping("noticeWriteAd.do")
+public String moveNoticeWriteAd() {
+return "admin/noticeWrite";
+}
+
+@RequestMapping(value="noticeinsert.do", method=RequestMethod.POST)
+private String insertNoticeAd(Notice notice, Model model, HttpServletRequest request, @RequestParam("upfile") MultipartFile file) {
+String adminid = request.getParameter("adminid");
+String noticetitle = request.getParameter("noticetitle");
+String noticecontent = request.getParameter("noticecontent");
+
+//새로 들어온 사진 이름 추출
+String newFileName = file.getOriginalFilename();
+notice.setNoticeofile(newFileName); 
+//저장할 경로
+String path = request.getSession().getServletContext().getRealPath("resources/images/notice");
+
+//이미지파일 저장하기
+if (newFileName != null && !(newFileName.equals(""))) {
+
+//파일이름 날짜로 만들어서 바꿔주기
+SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "."
++ newFileName.substring(newFileName.lastIndexOf(".") + 1);
+
+try {
+file.transferTo(new File(path + "\\" + renameFileName));
+notice.setNoticerfile(renameFileName);
+} catch (Exception e) { 
+e.printStackTrace();
+}
+}
+notice.setAdminid(adminid);
+notice.setNoticetitle(noticetitle); 
+notice.setNoticecontent(noticecontent);
+notice.setNoticeofile(newFileName);
+int result = noticeService.insertNoticeAd(notice);
+
+String view = "";
+if(result > 0) {
+view = "redirect:noticem.do";
+}else {
+model.addAttribute("message", "공지사항 등록 실패");
+view = "common/error";
+}
+return view;
+}
+
+//파일 다운로드 처리용 메소드
+@RequestMapping("noticefdown.do")
+public void fileDownMethod(HttpServletResponse response, HttpServletRequest request, 
+@RequestParam("fname") String fileName, @RequestParam("oname") String originName) throws IOException {
+logger.info("fdown.do : " + fileName);
+
+String savePath = request.getSession().getServletContext().getRealPath("resources/images/notice");
+File downFile = new File(savePath + "\\" + fileName);
+BufferedInputStream bin = new BufferedInputStream(new FileInputStream(downFile));
+
+ServletOutputStream downOut = response.getOutputStream();
+response.setContentType("text/plain; charset=utf-8");
+response.addHeader("Content-Disposition",
+"attachment; filename=\"" + new String(originName.getBytes("UTF-8"), "ISO-8859-1") + "\"");
+response.setContentLength((int) downFile.length());
+
+int read = -1;
+while ((read = bin.read()) != -1) {
+downOut.write(read);
+downOut.flush();
+}
+
+downOut.close();
+bin.close();
+}
+
+@RequestMapping(value="noticeupdatead.do", method=RequestMethod.POST)
+public String noticeUpdateAd(Model model, Notice notice, @RequestParam(name="upfile") MultipartFile file, HttpServletRequest request) {
+String view = "";
+String savePath = request.getSession().getServletContext().getRealPath("resources/images/notice");
+notice.setNoticetitle(request.getParameter("noticetitle"));      
+notice.setNoticecontent(request.getParameter("noticecontent"));
+notice.setNoticeno(Integer.parseInt(request.getParameter("noticeno")));
+notice.setNoticetype(request.getParameter("noticetype"));
+String rename = request.getParameter("rename");
+String origin = request.getParameter("origin");
+String newFileName = file.getOriginalFilename();
+if (newFileName != null && !(newFileName.equals(""))) {
+SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "."
++ newFileName.substring(newFileName.lastIndexOf(".") + 1);
+try {
+file.transferTo(new File(savePath + "\\" + renameFileName));
+notice.setNoticerfile(renameFileName);
+notice.setNoticeofile(newFileName); 
+} catch (IllegalStateException | IOException e) { 
+e.printStackTrace();
+}
+new File(savePath + "\\" + rename).delete();
+}else {
+notice.setNoticeofile(origin.toString());
+notice.setNoticerfile(rename.toString());
+}
+int result = noticeService.updateNoticeAd(notice);
+logger.debug(notice.toString());
+
+if (result > 0) {
+view = "redirect:noticem.do";
+} else {
+model.addAttribute("message", "공지사항 수정 실패");
+view = "common/error";
+}
+return view;   
+}
+
+@RequestMapping("noticesearchad.do")
+public String noticeSearchAd(Model model, HttpServletRequest request) {
+Map<String, String> map = new HashMap<>();
+String noticetitle = request.getParameter("noticetitle");
+String noticetype = request.getParameter("noticetype");
+String noticecontent = request.getParameter("noticecontent");
+int page = Integer.parseInt(request.getParameter("page"));
+
+map.put("noticetitle", noticetitle);
+map.put("noticecontent", noticecontent);
+map.put("noticetype", noticetype);
+
+int currentPage = 1;
+if(page != 0) {
+currentPage = page;
+}
+int limit = 10;  //한 페이지에 출력할 목록 갯수
+int listCount = noticeService.selectNoticeSearchAdCount(map);  //테이블의 전체 목록 갯수 조회
+//총 페이지 수 계산
+int maxPage = listCount / limit; 
+if(listCount % limit > 0)
+maxPage++;
+
+//currentPage 가 속한 페이지그룹의 시작페이지숫자와 끝숫자 계산
+//예, 현재 34페이지이면 31 ~ 40 이 됨. (페이지그룹의 수를 10개로 한 경우)
+int beginPage = (currentPage / limit) * limit + 1;
+if(currentPage % limit == 0) {
+beginPage -= limit;
+}
+int endPage = beginPage + 9;
+if(endPage > maxPage)
+endPage = maxPage;
+
+//currentPage 에 출력할 목록의 조회할 행 번호 계산
+int startRow = (currentPage * limit) - 9;
+int endRow = currentPage * limit;
+map.put("startRow", Integer.toString(startRow));
+map.put("endRow", Integer.toString(endRow));
+List<Notice> notices = noticeService.selectNoticeSearchAd(map);
+
+model.addAttribute("noticetitle", noticetitle);
+model.addAttribute("noticetype", noticetype);
+model.addAttribute("noticecontent", noticecontent);
+model.addAttribute("currentPage", currentPage);
+model.addAttribute("listCount", listCount);
+model.addAttribute("maxPage", maxPage);
+model.addAttribute("beginPage", beginPage);
+model.addAttribute("endPage", endPage);
+model.addAttribute("noticelist", notices);
+
+
+return "admin/noticeManagement";
+}
 }

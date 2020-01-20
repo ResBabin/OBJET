@@ -1,6 +1,7 @@
 package com.kh.objet.faq.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +23,17 @@ public class FaqDao {
 	public List<Faq> selectFaqList() {
 		return mybatisSession.selectList("csMapper.selectFaqList");
 	}
-	
-	///////////////////////////////////////////////관리자///////////////////////////////////////////////
-	/*public List<Faq> selectFaqList() {
-		return mybatisSession.selectList("adminMapper.selectFaqList");
-	}
-*/
-	public Faq selectFaqDetail(int faqno) {
-		return mybatisSession.selectOne("adminMapper.selectFaqDetail", faqno);
-	}
+///////////////////////////////////////////////관리자///////////////////////////////////////////////
+public List<Faq> selectFaqListAd(Map<String, Integer> map) {
+return mybatisSession.selectList("adminMapper.selectFaqList", map);
+}
 
+public Faq selectFaqDetail(int faqno) {
+return mybatisSession.selectOne("adminMapper.selectFaqDetail", faqno);
+}
+public int selectFaqCountAd() {
+return mybatisSession.selectOne("adminMapper.selectFaqCountAd");
+}
 	
 
 }

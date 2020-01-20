@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +39,7 @@ import com.kh.objet.notice.model.vo.Notice;
 
 import com.kh.objet.qna.model.service.QnaServiceImpl;
 import com.kh.objet.qna.model.vo.Qna;
+import com.kh.objet.users.model.vo.Users;
 
 @Controller
 public class QnaController {
@@ -122,11 +124,12 @@ public class QnaController {
 	         @RequestParam(name = "page", required = false) String page,
 	         @RequestParam(name = "userid", required = false) String userid,
 	         @RequestParam(name = "search", required = false) String search,
-	         @RequestParam(name="searchmenu", required=false)String searchmenu){
+	         @RequestParam(name = "searchtype", required = false) String searchtype)
+	         {
 
 	      
 	      System.out.println("serach : " + search);
-	      System.out.println("serach 2: " + searchmenu);
+	      System.out.println("serach 2: " + searchtype);
 	      
 	       
 	      int currentPage = 1;
@@ -138,7 +141,7 @@ public class QnaController {
 	      HashMap<String, Object> mapp = new HashMap<String, Object>();
 	      mapp.put("userid", userid);
 	      mapp.put("search", search);
-	      mapp.put("searchmenu", searchmenu);
+	      mapp.put("searchtype", searchtype);
 
 
 	      int listCount = qnaService.qnaSearchListCount(mapp);
@@ -167,7 +170,7 @@ public class QnaController {
 	            map.put("endRow", endRow);
 	            map.put("userid", userid);
 	            map.put("search", search);
-	            map.put("searchmenu", searchmenu);
+	            map.put("searchtype", searchtype);
 	            map.put("listcount", listCount);
 
 
@@ -178,8 +181,7 @@ public class QnaController {
 	            
 	            if(nlist != null && nlist.size() > 0) {
 	               model.addAttribute("search", search);
-	               model.addAttribute("searchmenu", searchmenu);
-	            
+	               model.addAttribute("searchtype",searchtype);
 	               model.addAttribute("list", nlist); // 리스트에 담은 전체 정보
 	               model.addAttribute("listCount", listCount); // 전체갯수
 	               model.addAttribute("maxPage", maxPage); // 맨마지막페이지
@@ -223,8 +225,8 @@ public class QnaController {
 	         public String moveMyQnaEdit() {
 	            return "user/myQnaEdit";
 	         }
-	         // 문의내역 수정 페이지 이동
-	                  @RequestMapping("insertQna.do")
+	         // 문의내역 등록 페이지 이동
+	                  @RequestMapping("MoveinsertQna.do")
 	                  public String MoveinsertQna() {
 	                     return "user/myQnaWrite";
 	                  }
@@ -234,7 +236,7 @@ public class QnaController {
 	         //문의내역 등록작성하는 폼입니다. 
 	         
 	               @RequestMapping(value = "insertQna.do", method = RequestMethod.POST)
-	               public ModelAndView insertNotice(ModelAndView mv, HttpServletRequest req,
+	               public ModelAndView insertQna(ModelAndView mv, HttpServletRequest req,
 	                     @RequestParam(name = "userid") String userid,
 	                     @RequestParam(name = "qnatitle") String qnatitle,
 	                  /*   @RequestParam(name = "upfile", required = false) MultipartFile upload,*/
@@ -263,26 +265,29 @@ public class QnaController {
 	                     }
 	                  }*/
 	                  
-	                        qna.setUserid(userid);
+	                  qna.setUserid(userid);
 	                  qna.setQnatitle(qnatitle); 
 	                  qna.setQnacontent(qnacontent);
 
 	                  int result = qnaService.insertQna(qna);
 	                  
-	                  mv.setViewName("redirect:selectQnaList.do");
-	                  return mv;
-	               }
-	         
-	         //문의하기 글쓰기
-	         @RequestMapping("insertWriteQna.do")
-	         public String insertWriteQna() {
-	               return"cs/csmain";
-	         }
-	         //문의내역 수정하기
+	                  if (result > 0) {
+	          			mv.addObject("currentPage", "1");
+	          			mv.addObject("Qna", qna);
+	          			 mv.setViewName("redirect:selectQnaList.do?userid=" + userid);
+	          		} else {
+	          			mv.addObject("message", "공지사항 등록 실패");
+	          			mv.setViewName("common/errorPage");
+	          		}
+
+	          		return mv;
+	          	}
+
+
 	      
-	         //공지사항 수정하기로 이동하는 버튼
-	         @RequestMapping("updateQna.do")
-	         public ModelAndView updateQna(ModelAndView mv, @RequestParam(name="qnano") int qnano) {
+	         //문의내역 수정하기로 이동하는 버튼
+	         @RequestMapping("MoveupdateQna.do")
+	         public ModelAndView MoveupdateQna(ModelAndView mv, @RequestParam(name="qnano") int qnano) {
 
 	         Qna qna = qnaService.selectQnaDetail(qnano);
 
@@ -292,24 +297,34 @@ public class QnaController {
 	         
 	         }
 	         
-	         // 공지사항수정
+	         // 문의내역 수정
 	         @RequestMapping(value = "updateQna.do", method = RequestMethod.POST)
 	         public ModelAndView updateQna(ModelAndView mv, HttpServletRequest req,
 	         @RequestParam(name = "qnano") int qnano, @RequestParam(name = "qnatitle") String qnatitle,
-	          @RequestParam(name = "qnacontent") String qnacontent, Qna qna) {
+	          @RequestParam(name = "qnacontent") String qnacontent,
+	          @RequestParam(name = "qnatype") String qnatype,@RequestParam(name = "userid") String userid,
+	         Qna qna) {
 
 	         qna.setQnano(qnano);
+	         qna.setUserid(userid);
 	         qna.setQnatitle(qnatitle); 
 	         qna.setQnacontent(qnacontent);
+	         qna.setQnatype(qnatype);
 
 	         int result = qnaService.updateQna(qna);
-	         System.out.println("문의하기 수정 : " + qna.toString());
-	         mv.addObject("qna", qna);
-	         mv.setViewName("redirect:selectQnaList.do");
-	         return mv;
-	         }
+	          
+	         if (result > 0) {
+	        	  mv.addObject("qna", qna);
+	        	  mv.setViewName("redirect:selectQnaList.do?userid=" + userid);
+	        	
+       		} else {
+       			mv.addObject("message", "문의내역 실패");
+       			mv.setViewName("common/error");
+       		}
 
-	         
+       		return mv;
+       	}
+	   
 	         
 	         //문의내역 삭제하기
 	         @RequestMapping("deleteQna.do")
@@ -327,7 +342,27 @@ public class QnaController {
 	            out.flush();
 	            out.close();
 	         }
-	         
+	         //문의내역 상세보기 에서 문의글 삭제하기
+	       //공지사항 삭제 컨트롤러
+	         @RequestMapping("deleteDetailQna.do")
+	         public ModelAndView deleteDetailQna(ModelAndView mv, @RequestParam(name = "qnano") int qnano,
+	        		 @RequestParam(name = "userid") String userid) {
+	        	 
+	        
+	        
+
+	         int result = qnaService.deleteQna1(qnano);
+
+	         if (result > 0) {
+	        	  mv.addObject("qnano", qnano);
+	        	  mv.setViewName("redirect:selectQnaList.do?userid=" + userid);
+       		} else {
+       			mv.addObject("message", "공지사항 등록 실패");
+       			mv.setViewName("common/errorPage");
+       		}
+
+	         return mv;
+	         }
 	         
 	         //CKEditor 이미지 서버로 전송
 	         @RequestMapping("qnaFile.do")
@@ -467,13 +502,98 @@ public class QnaController {
 
 	         } // 메소드
 	         
-	         //문의내역 상세보기 에서 삭제
-	           @RequestMapping("deleteQnaDetail.do")
-	         public ModelAndView deleteQnaDetail(ModelAndView mv, @RequestParam(name = "qnano") int qnano) {
 
-	         int result = qnaService.deleteQna(qnano);
 
-	         mv.setViewName("redirect:selectQnaList.do");
-	         return mv;
-	         }
+/////////////////////////// 관리자 QnaController ////////////////////////////////
+@RequestMapping("qnam.do")
+public String selectQnaListAd(Model model, HttpServletRequest request) {
+   Map<String, String> map = new HashMap<>();
+   String qnatype = request.getParameter("qnatype");
+   String qnaanswertype = request.getParameter("qnaanswertype");
+   String qnatitle = request.getParameter("qnatitle");
+   String userid = request.getParameter("userid");
+   map.put("qnatype", qnatype);
+   map.put("qnaanswertype", qnaanswertype);
+   map.put("qnatitle", qnatitle);
+   map.put("userid", userid);
+   
+   int currentPage = 1;
+   if (request.getParameter("page") != null) {
+      currentPage = Integer.parseInt(request.getParameter("page"));
+   }
+   int limit = 10; // 한 페이지에 출력할 목록 갯수
+   int listCount = qnaService.selectQnaCountAd(map); // 테이블의 전체 목록 갯수 조회
+   // 총 페이지 수 계산
+   int maxPage = listCount / limit;
+   if (listCount % limit > 0)
+      maxPage++;
+
+   // currentPage 가 속한 페이지그룹의 시작페이지숫자와 끝숫자 계산
+   // 예, 현재 34페이지이면 31 ~ 40 이 됨. (페이지그룹의 수를 10개로 한 경우)
+   int beginPage = (currentPage / limit) * limit + 1;
+   if (currentPage % limit == 0) {
+      beginPage -= limit;
+   }
+   int endPage = beginPage + 9;
+   if (endPage > maxPage)
+      endPage = maxPage;
+
+   // currentPage 에 출력할 목록의 조회할 행 번호 계산
+   int startRow = (currentPage * limit) - 9;
+   int endRow = currentPage * limit;
+   map.put("startRow", Integer.toString(startRow));
+   map.put("endRow", Integer.toString(endRow));
+
+   ArrayList<Qna> qnalist = (ArrayList<Qna>) qnaService.selectQnaListAdmin(map);
+
+   model.addAttribute("qnalist", qnalist);
+   model.addAttribute("currentPage", currentPage);
+   model.addAttribute("listCount", listCount);
+   model.addAttribute("maxPage", maxPage);
+   model.addAttribute("beginPage", beginPage);
+   model.addAttribute("endPage", endPage);
+   model.addAttribute("qnatype", qnatype);
+   model.addAttribute("qnaanswertype", qnaanswertype);
+   model.addAttribute("qnatitle", qnatitle);
+   model.addAttribute("userid", userid);
+   return "admin/QnaManagement";
+
 }
+@RequestMapping("qnamd.do")
+public String selectQnaOneAd(@RequestParam("qnano") int qnano, Model model) {
+   String view = "";
+   Qna qna  = qnaService.selectQnaDetailAdmin(qnano);
+   if(qna != null) {
+      model.addAttribute("qnamd", qna);
+      view = "admin/QnaManageDetail";
+   }else {
+      model.addAttribute("message", "qna 조회 실패");
+      view = "common/error";
+   }
+   return view;
+}
+@RequestMapping("moveanswer.do")
+public String moveAnswerPage(@RequestParam("qnano") int qnano, Model model) {
+   Qna qna = qnaService.selectQnaDetailAdmin(qnano);
+   model.addAttribute("question", qna);
+   return "admin/QnaAnswer";
+}
+
+@RequestMapping(value="qnaanswer.do", method=RequestMethod.POST)
+public String updateQnaAnswer(HttpServletRequest request, Qna qna, Model model) {
+   String view = "";
+   request.getParameter("qnano");
+   qna.setQnaanswer(request.getParameter("qnaanswer"));
+   qna.setQnaanswertype('Y');
+   qna.setAdminid(request.getParameter("adminid"));
+   int result = qnaService.updateQnaAnswer(qna);
+   if(result > 0) {
+      view = "redirect:qnam.do?page=1";
+   }else {
+      model.addAttribute("message", "1:1문의 답변 실패");
+      view = "common/error";
+   }
+   return view;
+}
+}
+

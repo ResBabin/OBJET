@@ -39,13 +39,22 @@ height:40px;
         <div class="notice-header">
             <div class="title-wrap">
                 <p class="category-info"><a href="/notice">분류[일반]</a></p>
-                <h2 class="notice-title">${notice.noticetitle}<h2>
+                <h2 class="notice-title">${notice.noticetitle}</h2>
             </div>
             <div class="info-wrap">
                 <ul class="notice-info">
                 
                     <li class="author"><i class="fa fa-user-circle"></i> ${notice.adminid}</li>
                     <li class="date"><i class="fa fa-clock-o"></i> <fmt:formatDate value="${notice.noticedate}" type="date"/></li>
+                    <li class="author"><i class="fa fa-user-circle"></i></li>
+              <li class="file"><i class="fa fa-user-circle"></i>
+            
+               </li>
+
+			
+  
+			
+                      
                     
                 </ul>
             </div>
@@ -57,6 +66,46 @@ height:40px;
         </div>
         </div>
         <!-- //notice view -->
+        
+			<c:url var="noticed" value="noticeDetail.do" >
+				<c:param name="noticeno" value="${ notice.noticeno -1 }" />
+			</c:url>
+			<c:url var="noticep" value="noticeDetail.do">
+				<c:param name="noticeno" value="${ notice.noticeno +1 }" />
+			</c:url>
+			<br>
+		
+			<table>
+	
+				<c:if test="${ notice.noticeno eq 1 }">
+					<tr>
+						<th width="150">이전 글</th>
+						<td>이전 글이 없습니다.</td>
+					</tr>
+				</c:if>
+				<c:if test="${ notice.noticeno ne 1 }">
+					<tr>
+						<th width="150">이전 글</th>
+						<td><a href="${ noticed }">${ notice.noticeno - 1}번글</a></td>
+					</tr>
+				</c:if>
+				<c:if test="${ notice.noticeno eq noticelist.size() }">
+					<tr>
+						<th width="150">다음 글</th>
+						<td>다음 글이 없습니다.</td>
+					</tr>
+				</c:if>
+				<c:if test="${ notice.noticeno ne noticelist.size() }">
+					<tr>
+						<th width="150">다음 글</th>
+						<td><a href="${ noticep }">${ notice.noticeno + 1} :${notice.noticetitle} </a></td> 
+	
+								
+					</tr>
+					
+				</c:if>
+		
+			</table>
         
         
         <a href="updateNotice.do?noticeno=${notice.noticeno }"><button>수정</button></a>

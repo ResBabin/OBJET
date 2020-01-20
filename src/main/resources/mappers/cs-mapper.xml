@@ -42,10 +42,10 @@ insert into notice values ((select max(noticeno) from notice) + 1, #{adminid},#{
 
 <![CDATA[
       select * 
-      from (select rownum rnum, noticeno, noticetitle, noticedate, noticecontent, adminid, noticetype
+      from (select rownum rnum, noticeno, noticetitle, noticedate, noticecontent, adminid, noticetype,noticerfile
               from (select *
                     from notice
-                    order by noticeno desc))
+                    order by noticedate desc))
       where rnum >= #{startRow} and rnum <= #{endRow}
    ]]>
 </select>
@@ -65,7 +65,7 @@ select *
       from (select rownum rnum, noticeno, noticetitle, noticedate, noticecontent, adminid, noticetype
               from (select *
                     from notice
-                    order by noticeno desc))
+                    order by noticedate desc))
               where ${searchmenu}  like '%' || #{search} || '%'
 ]]>
 </select>
@@ -118,14 +118,17 @@ where noticeno = #{noticeno}
  <select resultType="Qna" id="selectQnaSearchList" parameterType="Hashmap">
 
 <![CDATA[
-  select * 
+select * 
       from (select rownum rnum, qnano, userid, adminid,qnatype, qnatitle, qnacontent, questiondate, qnaanswer, answerdate,qnaanswertype
               from (select *
                     from qna
-                    order by questiondate desc))
-              where ${searchmenu}  like '%' ||#{search}|| '%'  and userid = #{ userid }  
-         
-]]>        
+                    order by questiondate desc ))
+              where qnatitle  like '%' ||#{search}|| '%'  and userid = #{ userid } ]]>  
+<if test="searchtype.equals('all')"></if>
+<if test="searchtype.equals('y')"> and qnaanswertype = 'Y' </if>
+<if test="searchtype.equals('n')"> and qnaanswertype = 'N' </if>
+      
+
 </select>
 <!-- 
 <select resultType="Qna" id="selectQnaSearchList" parameterType="Hashmap">
@@ -159,7 +162,7 @@ where qnaanswertype ='N'
       from (select rownum rnum, qnano, userid, adminid,qnatype, qnatitle,qnacontent, questiondate, qnaanswer, answerdate, qnaanswertype
               from (select *
                     from qna
-                    order by questiondate desc))
+                     order by questiondate desc ))
                     where rnum >= #{startRow} and rnum <= #{endRow} and userid = #{ userid }
    
    ]]>
@@ -194,7 +197,7 @@ null,null,default)
 
    <!-- Qna 문의글 수정하기  --> 
    <update id="updateQna" parameterType="Qna">
-   update qna set qnatitle = #{qnatitle}, qnacontent = #{qnacontent} 
+   update qna set qnatype = #{qnatype}, qnatitle = #{qnatitle}, qnacontent = #{qnacontent}
    where qnano = #{qnano} 
    </update>
 
@@ -203,6 +206,11 @@ null,null,default)
    <!-- Qna 문의글 삭제하기  --> 
    
    <delete id="deleteQna" parameterType="_int">
+   delete from qna
+   where qnano = #{qnano} 
+    </delete>
+    
+       <delete id="deleteQna1" parameterType="_int">
    delete from qna
    where qnano = #{qnano}
     </delete>
