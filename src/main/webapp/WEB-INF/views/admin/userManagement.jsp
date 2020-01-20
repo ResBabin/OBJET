@@ -829,7 +829,19 @@ var thclicked = "normal";
 						}
 					});
 		}
-
+		$('.dropdown').dropdown({});
+		$("input[name=userid]").hide();
+		
+		$("#searchuserid").click(function() { 
+		$("input[name=searchnick]").hide();
+		$("input[name=searchnick]").val("");
+		$("input[name=userid]").show();
+		});
+		$("#searchnick").click(function() {
+		$("input[name=userid]").hide();
+		$("input[name=userid]").val(""); 
+		$("input[name=searchnick]").show();
+		});
 
 	});
 </script>
@@ -899,13 +911,27 @@ var thclicked = "normal";
 		
 	</div>
 		<br>
-		<div align="right">
-		
-			<div class="ui small icon input">
-				<input type="search" placeholder="회원 검색"> <i
-					class="search icon"></i>
-			</div>
-			<br>
+	<div align="right">
+			<form action="" method="get">
+				<input type="submit" class="ui basic button" value="검색">
+				<div class="ui right action left icon input">
+					<i class="search icon"></i>
+					<input type="search" placeholder="닉네임 검색" name="searchnick"> 
+					<input type="search" placeholder="아이디 검색" name="userid"> 
+					<input type="hidden" value="1" name="page">
+					<input type="hidden" value="" name="usertype">
+					<input type="hidden" value="" name="blackyn">
+					<input type="hidden" value="" name="quityn">
+					<div class="ui basic floating dropdown button">
+						<div class="text">닉네임</div>
+						<i class="dropdown icon"></i>
+						<div class="menu">
+							<div class="item" id="searchnick">닉네임</div>
+							<div class="item" id="searchuserid">아이디</div> 
+						</div>
+					</div>
+				</div>
+			</form>
 			<div></div>
 		</div>
 		<br>
@@ -1030,7 +1056,7 @@ var thclicked = "normal";
 	</div>
 	</div></div>
 	
-	
+	<c:import url="../footer.jsp"/>
 </body>
 
 </html>

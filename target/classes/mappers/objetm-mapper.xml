@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="objetmMapper">
+
+	<select id="selectAllObjet" resultType="Objet">
+		select *
+		from objet
+	</select>
+
+	<select id="selectObjetOne" resultType="Objet" parameterType="_int">
+		select * 
+		from objet
+		where objetno = #{value}
+	</select>
+	
+	
+
+</mapper>

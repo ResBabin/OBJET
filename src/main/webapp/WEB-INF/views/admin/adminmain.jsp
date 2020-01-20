@@ -23,8 +23,8 @@
 <c:import url="adminHeader.jsp" />
 <style type="text/css">
 #bodytag {
-	background: #f2f2f2;
-	height: 1200px;
+	background: #f2f2f2; 
+	height: 1100px;
 	margin-top: -13px;
 }
 
@@ -280,6 +280,13 @@ var myChart3 = new Chart(ctx3, {
     
 });
 });
+function chatbotpop() {
+	var width = '600';
+	var height = '700';
+	var left = Math.ceil((window.screen.width - width) / 1.3);
+	var top = Math.ceil((window.screen.width - height) / 2);
+	window.open('chatbot.do' , '챗봇', 'width=' + width + ', height=' + height + ', left=' + left + ', top' + top);
+} 
 </script>
 </head>
 <body style="background: #ccc;">
@@ -343,26 +350,16 @@ var myChart3 = new Chart(ctx3, {
 			<div style="width: 680px; margin-top: 0px; margin-left: 20px;">
 			<div style="margin-top: 0px;">
 			<%-- <c:set var="reqcount" value="${ objetreqlist.size() /objetmlist.size() * 100}" /> --%>
-			<fmt:formatNumber type="number" pattern="0.0" value="${ objetreqlist.size() /objetmlist * 100}" var="reqcount"/>
-			 <label class="label">신청작 ??--> 전체신청작  ${ reqcount }% </label>
-			<div class="ui violet progress" style="margin-top: 0px;margin-bottom: 0px;" id="progress1" data-percent="${ objetreqlist.size() /objetmlist * 100}">
+			<fmt:formatNumber type="number" pattern="0.0" value="${ beforestart /objetreqlist.size()* 100}" var="reqcount"/>
+			 <label class="label"> <font style="font-weight: bold;">마감 임박 신청작 : ${ reqcount }% </font></label>
+			<div class="ui black progress" style="margin-top: 0px;margin-bottom: 0px;" id="progress1" data-percent="${ reqcount }">
 				<div class="bar" align="center"></div>
 			</div>
 			 </div>
-			<c:set value="${ 0 }" var="nocount"/>
-			<c:set value="${ 0 }" var="answercount"/>
-			<c:forEach items="${ qnalist }" var="qna" >
-			<c:if test="${ empty qna.qnaanswer }">
-			<c:set value="${ nocount + 1 }" var="nocount"/>
- 			</c:if>
- 			<c:if test="${ !empty qna.qnaanswer }">
- 			<c:set value="${ answercount + 1 }" var="answercount"/>
- 			</c:if>
-			</c:forEach>
 			<div style="margin-top: 7px;">
-			<fmt:formatNumber type="number" pattern="0.0" value="${ answercount  / qnalist.size() * 100 }" var="qnacount"/>
-			<label class="label">1대1문의 답변률 :  ${ qnacount }%</label>
-			<div class="ui blue progress" style="margin-top: 0px; margin-bottom: 15px;" id="progress2" data-percent="${ answercount / qnalist.size() * 100 }"> 
+			<fmt:formatNumber type="number" pattern="0.0" value="${ qnaanswercount/qnacount * 100 }" var="qnaper"/>
+			<label class="label"><font style="font-weight: bold;">1대1문의 답변률 :  ${ qnaper }%</font></label>
+			<div class="ui violet progress" style="margin-top: 0px; margin-bottom: 15px;" id="progress2" data-percent="${ qnaper }"> 
 				<div class="bar" align="center"></div>
 			</div> 
 			</div>
@@ -430,7 +427,7 @@ var myChart3 = new Chart(ctx3, {
 						</button>
 					</a>
 				</div>
-				<h3 style="margin-top: -25px;">문의관리<label class="ui small red label" style="margin-left: 20px;" id="reqlabel">New ${ nocount }</label> </h3>
+				<h3 style="margin-top: -25px;">문의관리<label class="ui small red label" style="margin-left: 20px;" id="reqlabel">New ${ qnacount - qnaanswercount }</label> </h3>
 				<hr noshade="noshade">
 				<table class="ui celled table selectable" style="font-size: 9pt;"
 					id="reqtable">
@@ -534,5 +531,6 @@ var myChart3 = new Chart(ctx3, {
 			</div>
 		</div>
 	</div>
+	<c:import url="../footer.jsp"/>
 </body>
 </html>

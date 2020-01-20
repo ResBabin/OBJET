@@ -24,10 +24,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
+import com.kh.objet.support.model.service.SupportService;
+import com.kh.objet.support.model.vo.ApplySupport;
 import com.kh.objet.users.model.service.UserManagementService;
 import com.kh.objet.users.model.vo.LoginCount;
 import com.kh.objet.users.model.vo.UserManagement;
-import com.kh.objet.users.model.vo.Users;
 
 @Controller
 public class UserManagementController {
@@ -38,6 +39,8 @@ public class UserManagementController {
 	private UserManagementService usermService;
 	@Autowired
 	private LoginCount logincService;
+	@Autowired
+	private SupportService supportService;
 
 	public UserManagementController() {
 	}
@@ -294,4 +297,5 @@ public class UserManagementController {
 		}
 		return view;
 	}
+	
 }

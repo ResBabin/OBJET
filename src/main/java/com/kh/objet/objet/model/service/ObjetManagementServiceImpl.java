@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.objet.objet.model.dao.ObjetDao;
 import com.kh.objet.objet.model.dao.ObjetManagementDao;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.objet.model.vo.ObjetManagement;
@@ -63,6 +64,11 @@ public class ObjetManagementServiceImpl implements ObjetManagementService{
 	@Override
 	public int selectStatusOrderList(Map<String, String> map) {
 		return objetmDao.selectStatusOrderList(map); 
+	}
+
+	@Override
+	public int selectBeforeStart() {
+		return objetmDao.selectBeforeStart();
 	}
 
 }

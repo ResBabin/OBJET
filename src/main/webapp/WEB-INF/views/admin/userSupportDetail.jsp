@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>아티스트 후원 목록</title>
 </head>
 <body>
-
+<table>
+<thead></thead>
+<tbody></tbody>
+</table>
 </body>
 </html>
