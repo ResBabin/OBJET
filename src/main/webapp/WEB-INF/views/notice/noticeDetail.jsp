@@ -47,9 +47,14 @@ height:40px;
                     <li class="author"><i class="fa fa-user-circle"></i> ${notice.adminid}</li>
                     <li class="date"><i class="fa fa-clock-o"></i> <fmt:formatDate value="${notice.noticedate}" type="date"/></li>
                     <li class="author"><i class="fa fa-user-circle"></i></li>
-              <li class="file"><i class="fa fa-user-circle"></i>
+                    <c:url var="down" value="nfdown.do">
+                       <c:param name="fname" value="${ notice.noticerfile }"/>
+                         <c:param name="oname" value="${ notice.noticeofile }"/>
+                             </c:url>
+              <c:if test="${ empty notice.noticeofile }">첨부파일 없음</c:if>
+              <c:if test="${ !empty notice.noticeofile }"><a href="${ down }">${ notice.noticeofile }</a></c:if>
             
-               </li>
+           
 
 			
   
@@ -67,47 +72,40 @@ height:40px;
         </div>
         <!-- //notice view -->
         
-			<c:url var="noticed" value="noticeDetail.do" >
-				<c:param name="noticeno" value="${ notice.noticeno -1 }" />
+	<c:url var="noticemdp" value="noticeprenext.do">
+				<c:param name="noticeno" value="${ prevnotice.noticeno }" />
 			</c:url>
-			<c:url var="noticep" value="noticeDetail.do">
-				<c:param name="noticeno" value="${ notice.noticeno +1 }" />
+			<c:url var="noticemdn" value="noticeprenext.do">
+				<c:param name="noticeno" value="${ nextnotice.noticeno }" />
 			</c:url>
 			<br>
-		
 			<table>
-	
-				<c:if test="${ notice.noticeno eq 1 }">
+				<c:if test="${ empty prevnotice }">
 					<tr>
-						<th width="150">이전 글</th>
-						<td>이전 글이 없습니다.</td>
+						<th width="170">이전 글</th>
+						<td>&nbsp;&nbsp;&nbsp;이전 글이 없습니다.</td>
 					</tr>
 				</c:if>
-				<c:if test="${ notice.noticeno ne 1 }">
+				<c:if test="${ !empty prevnotice }">
 					<tr>
-						<th width="150">이전 글</th>
-						<td><a href="${ noticed }">${ notice.noticeno - 1}번글</a></td>
+						<th width="170">이전 글</th>
+						<td>&nbsp;&nbsp;&nbsp;<a href="${ noticemdp }">${ prevnotice.noticeno } : ${ prevnotice.noticetitle } </a></td>
 					</tr>
 				</c:if>
-				<c:if test="${ notice.noticeno eq noticelist.size() }">
+				<c:if test="${ empty nextnotice }">
 					<tr>
-						<th width="150">다음 글</th>
-						<td>다음 글이 없습니다.</td>
+						<th>다음 글</th>
+						<td>&nbsp;&nbsp;&nbsp;다음 글이 없습니다.</td>
 					</tr>
 				</c:if>
-				<c:if test="${ notice.noticeno ne noticelist.size() }">
+				<c:if test="${ !empty nextnotice }">
 					<tr>
-						<th width="150">다음 글</th>
-						<td><a href="${ noticep }">${ notice.noticeno + 1} :${notice.noticetitle} </a></td> 
-	
-								
+						<th>다음 글</th>
+						<td>&nbsp;&nbsp;&nbsp;<a href="${ noticemdn }">${ nextnotice.noticeno} : ${ nextnotice.noticetitle }</a></td> 
 					</tr>
-					
 				</c:if>
-		
-			</table>
         
-        
+        </table>
         <a href="updateNotice.do?noticeno=${notice.noticeno }"><button>수정</button></a>
         <a href="deleteNotice.do?noticeno=${notice.noticeno }"><button>삭제</button></a>
 

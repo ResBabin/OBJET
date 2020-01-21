@@ -148,6 +148,30 @@ min-height:100%;
 	font-family:'Nanum Gothic';
 	color: gray;
 }
+
+.object-color {
+	width:17%;
+	top:52%;
+	left:75%;
+	position: absolute;
+}
+.wrap-color {
+    margin: 5px;
+    padding: 5px;
+}
+.object-color strong {
+	font-size: 14px;
+	font-weight: bold;
+	font-family:'Nanum Gothic';
+	color: #777777;
+}
+.tab-keywords-color #a{
+	width:50px;
+	height:50px;
+	padding:10px;
+	margin:5px;
+	border: 1px solid #eee;
+}
 #dateoption {
 	width:120px;
 	font-size: 14px;
@@ -296,6 +320,15 @@ min-height:100%;
 	font-weight: normal;
 	font-family:'Nanum Gothic';
 	color: #AAAAAA;
+	margin-top:10px;
+	width:74px;
+	height: 33px;
+}
+#objet-tag b{
+	font-size: 9.5pt;
+	font-weight: bolder;
+	font-family:'Nanum Gothic';
+	color: #2185d0;
 	margin-top:10px;
 	width:74px;
 	height: 33px;
@@ -451,39 +484,6 @@ $(function() {
 	  $(".tab").removeClass("active");
 	  $(this).addClass("active");
 	  $("#" + tab).addClass("active");
-	  
-	/* //오브제 더보기 버튼
-	$(".objet-result-list-detail").slice(0, 4).transition('fly up', '1300ms');
-	if($(".objet-result-list-detail:hidden").length != 0){
-		$("#more_load").show();
-		$("#more_load").click(function(e) { // Load More를 위한 클릭 이벤트e
-		    e.preventDefault();
-		    $(".objet-result-list-detail:hidden").slice(0, 4).transition('clear queue').transition('fade up', '1300ms'); // 숨김 설정된 다음 4개를 선택하여 표시
-		    if ($(".objet-result-list-detail:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
-		        $('#more_load').fadeOut();// 더 이상 로드할 항목이 없는 경우
-		    }
-		});
-	}if($(".objet-result-list-detail").length <= 2){
-		$("#more_load").hide();
-	}
-	
-	//아티스트 더보기 버튼
-	$(".artist-result-list-detail").slice(0, 4).transition('fly up', '1300ms');
-	if($(".artist-result-list-detail:hidden").length != 0){
-		$("#more_load2").show();
-		$("#more_load2").click(function(e) { 
-		    e.preventDefault();
-		    $(".artist-result-list-detail:hidden").transition('clear queue').slice(0, 4).transition('fade up', '1300ms');
-		    $("#more_load2").css("margin-bottom", "10px");
-		    if ($(".artist-result-list-detail:hidden").length == 0) { 
-		        $('#more_load2').fadeOut();
-		        $(".artist-result").css("margin-bottom", "500px");
-		    }
-		});
-	}if($(".artist-result-list-detail").length <= 4){
-		$("#more_load2").hide();
-	} */
-	  
   });
   	//dropdown
    $('#dateoption').dropdown(); 
@@ -507,38 +507,6 @@ $(function() {
   	    }
   	 });
 	
-  //오브제 더보기 버튼
-	$(".objet-result-list-detail").slice(0, 4).fadeIn(); // 최초 4개 선택
-	if($(".objet-result-list-detail:hidden").length != 0){
-		$("#more_load").transition('fly up', '1100ms');
-		$("#more_load").click(function(e) { // Load More를 위한 클릭 이벤트e
-		    e.preventDefault();
-		    $(".objet-result-list-detail:hidden").slice(0, 4).transition('clear queue').transition('fade up', '1300ms'); // 숨김 설정된 다음 4개를 선택하여 표시
-		    if ($(".objet-result-list-detail:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
-		        $('#more_load').fadeOut();// 더 이상 로드할 항목이 없는 경우
-		    }
-		});
-	}if($(".objet-result-list-detail").length <= 2){
-		$("#more_load").hide();
-	}
-	
-	//아티스트 더보기 버튼
-	$(".artist-result-list-detail").slice(0, 4).fadeIn();
-	if($(".artist-result-list-detail:hidden").length != 0){
-		$("#more_load2").transition('fly up', '1100ms');
-		$("#more_load2").click(function(e) { 
-		    e.preventDefault();
-		    $(".artist-result-list-detail:hidden").transition('clear queue').slice(0, 4).transition('fade up', '1300ms');
-		    $("#more_load2").css("margin-bottom", "10px");
-		    if ($(".artist-result-list-detail:hidden").length == 0) { 
-		        $('#more_load2').fadeOut();
-		        $(".artist-result").css("margin-bottom", "500px");
-		    }
-		});
-	}if($(".artist-result-list-detail").length <= 4){
-		$("#more_load2").hide();
-	}
-  	
 	//무한스크롤
 	/* var page = 1;
 	if ($("body").height() < $(window).height()) {
@@ -553,41 +521,65 @@ $(function() {
 	}); */
 	
 	
-	//검색어 키워드 하이라이트
-	 var keyword = $("#searchList-text").val();
-	if($(".objet-title").val() != null || $(".objet-info").val() != null){
-		 var objettitle = $(".objet-title").val();
-		 var objetintro = $(".objet-info").val();
-		 var otValue = objettitle.indexOf(keyword);
-		 var oiValue = objetintro.indexOf(keyword);
-		 if(otValue === -1 && oiValue === -1) {
-			 $(".objet-title:contains('"+keyword+"')").each(function () {
-		        	var regex = new RegExp(keyword,'gi');
-		        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
-		   	});
-			 $(".objet-info:contains('"+keyword+"')").each(function () {
-		        	var regex = new RegExp(keyword,'gi');
-		        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
-		   	});
-		 }
+	//오브제 더보기 버튼
+	$(".objet-result-list-detail").slice(0, 4).fadeIn(); // 최초 4개 선택
+	if($(".objet-result-list-detail:hidden").length != 0){
+		$("#more_load").show();
+		$("#more_load").click(function(e) { // Load More를 위한 클릭 이벤트e
+		    e.preventDefault();
+		    $(".objet-result-list-detail:hidden").slice(0, 4).transition('clear queue').transition('fade up', '1300ms'); // 숨김 설정된 다음 4개를 선택하여 표시
+		    if ($(".objet-result-list-detail:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
+		        $('#more_load').fadeOut();// 더 이상 로드할 항목이 없는 경우
+		    }
+		});
+	}if($(".objet-result-list-detail").length <= 4){
+		$("#more_load").hide();
 	}
+	
+	//아티스트 더보기 버튼
+	$(".artist-result-list-detail").slice(0, 4).fadeIn();
+	if($(".artist-result-list-detail:hidden").length != 0){
+		$("#more_load2").show();
+		$("#more_load2").click(function(e) { 
+		    e.preventDefault();
+		    $(".artist-result-list-detail:hidden").transition('clear queue').slice(0, 4).transition('fade up', '1300ms');
+		    $("#more_load2").css("margin-bottom", "10px");
+		    if ($(".artist-result-list-detail:hidden").length == 0) { 
+		        $('#more_load2').fadeOut();
+		        $(".artist-result").css("margin-bottom", "500px");
+		    }
+		});
+	}if($(".artist-result-list-detail").length <= 4){
+		$("#more_load2").hide();
+	}
+	
+	//오브제 검색어 키워드 하이라이트
+	var keyword = $("#searchList-text").val();
+	if($(".objet-title").val() != null || $(".objet-info").val() != null || $("#objet-tag").val() != null){
+		 $(".objet-title:contains('"+keyword+"')").each(function () {
+	        var regex = new RegExp(keyword,'gi');
+	        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+	   	});
+		 $(".objet-info:contains('"+keyword+"')").each(function () {
+	        var regex = new RegExp(keyword,'gi');
+	        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+	   	});
+		 $("#objet-tag:contains('"+keyword+"')").each(function () {
+        	var regex = new RegExp(keyword,'gi');
+	        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+	   	});
+	}
+	//아티스트 검색어 키워드 하이라이트
 	if($(".artist-sub").val() != null || $(".artist-info").val() != null){
-		var nickname = $(".artist-sub").val();
-		 var artistinfo = $(".artist-info").val();
-		 var nValue = nickname.indexOf(keyword);
-		 var iValue = artistinfo.indexOf(keyword);
-		 if(nValue === -1 && iValue === -1){
-			 $(".artist-sub:contains('"+keyword+"')").each(function () {
-		        	var regex = new RegExp(keyword,'gi');
-		        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
-		   	});
-			 $(".artist-info:contains('"+keyword+"')").each(function () {
-		        	var regex = new RegExp(keyword,'gi');
-		        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
-		   	});
-		 }
+		 $(".artist-sub:contains('"+keyword+"')").each(function () {
+	        	var regex = new RegExp(keyword,'gi');
+	        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+	   	});
+		 $(".artist-info:contains('"+keyword+"')").each(function () {
+	        	var regex = new RegExp(keyword,'gi');
+	        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+	   	});
 	}
-	 
   	
 });
 
@@ -734,21 +726,19 @@ function objetOrder(order){
 				
 				//검색어 키워드 하이라이트
 				var keyword = $("#searchList-text").val();
-				if($(".objet-title").val() != null || $(".objet-info").val() != null){
-					 var objettitle = $(".objet-title").val();
-					 var objetintro = $(".objet-info").val();
-					 var otValue = objettitle.indexOf(keyword);
-					 var oiValue = objetintro.indexOf(keyword);
-					 if(otValue === -1 && oiValue === -1) {
-						 $(".objet-title:contains('"+keyword+"')").each(function () {
-					        	var regex = new RegExp(keyword,'gi');
-					        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
-					   	});
-						 $(".objet-info:contains('"+keyword+"')").each(function () {
-					        	var regex = new RegExp(keyword,'gi');
-					        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
-					   	});
-					 }
+				if($(".objet-title").val() != null || $(".objet-info").val() != null || $("#objet-tag").val() != null){
+					 $(".objet-title:contains('"+keyword+"')").each(function () {
+				        var regex = new RegExp(keyword,'gi');
+				        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+				   	});
+					 $(".objet-info:contains('"+keyword+"')").each(function () {
+				        var regex = new RegExp(keyword,'gi');
+				        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+				   	});
+					 $("#objet-tag:contains('"+keyword+"')").each(function () {
+			        	var regex = new RegExp(keyword,'gi');
+				        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+				   	});
 				}
 			});
 			
@@ -874,21 +864,19 @@ function dateOrder(order){
 				
 				//검색어 키워드 하이라이트
 				var keyword = $("#searchList-text").val();
-				if($(".objet-title").val() != null || $(".objet-info").val() != null){
-					 var objettitle = $(".objet-title").val();
-					 var objetintro = $(".objet-info").val();
-					 var otValue = objettitle.indexOf(keyword);
-					 var oiValue = objetintro.indexOf(keyword);
-					 if(otValue === -1 && oiValue === -1) {
-						 $(".objet-title:contains('"+keyword+"')").each(function () {
-					        	var regex = new RegExp(keyword,'gi');
-					        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
-					   	});
-						 $(".objet-info:contains('"+keyword+"')").each(function () {
-					        	var regex = new RegExp(keyword,'gi');
-					        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
-					   	});
-					 }
+				if($(".objet-title").val() != null || $(".objet-info").val() != null || $("#objet-tag").val() != null){
+					 $(".objet-title:contains('"+keyword+"')").each(function () {
+				        var regex = new RegExp(keyword,'gi');
+				        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+				   	});
+					 $(".objet-info:contains('"+keyword+"')").each(function () {
+				        var regex = new RegExp(keyword,'gi');
+				        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+				   	});
+					 $("#objet-tag:contains('"+keyword+"')").each(function () {
+			        	var regex = new RegExp(keyword,'gi');
+				        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+				   	});
 				}
 			});
 			
@@ -976,21 +964,16 @@ function artistOrder(order){
 			//검색어 키워드 하이라이트
 			var keyword = $("#searchList-text").val();
 			if($(".artist-sub").val() != null || $(".artist-info").val() != null){
-				 var nickname = $(".artist-sub").val();
-				 var artistinfo = $(".artist-info").val();
-				 var nValue = nickname.indexOf(keyword);
-				 var iValue = artistinfo.indexOf(keyword);
-				 if(nValue === -1 && iValue === -1){
-					 $(".artist-sub:contains('"+keyword+"')").each(function () {
+				 $(".artist-sub:contains('"+keyword+"')").each(function () {
 			        	var regex = new RegExp(keyword,'gi');
-				        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
-				   	});
-					 $(".artist-info:contains('"+keyword+"')").each(function () {
+			        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+			   	});
+				 $(".artist-info:contains('"+keyword+"')").each(function () {
 			        	var regex = new RegExp(keyword,'gi');
-				        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
-				   	});
-				 }
+			        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+			   	});
 			}
+			
 		  });
 			console.log("ok : " + order);
 		},
@@ -1129,6 +1112,20 @@ window.onload = function(){
                 </div>
             </div>
         </div>
+    </div>
+    <div class="object-color">
+       	<div class="wrap-color">
+           <strong>추천 색상</strong>
+           <div class="color-list" style="width: auto;margin: 0;padding: 10px 0 0;">
+           	<c:set var="ran"><%= java.lang.Math.round(java.lang.Math.random() * 8) %></c:set>
+         	<c:set var="objetcolor" value="${fn:split('#5e9ef2,#f2a11f,#286ad4,#87643b,#eb6928,#7cbf6d,#c99ede,#ffd500', ',')}" />
+               <div class="tab-keywords-color" style="position: relative;float: none; width: auto;display: inline-block;">
+                 <c:forEach var="item" items="${objetcolor }" begin="0" end="8">
+                   <a id="a" class="ui circular small button" style="background-color:${item };" href="search.do?keyword=${item }" target="_blank"></a>
+               	 </c:forEach>
+               </div>
+           </div>
+       </div>
     </div>
     </c:if>
     <c:if test="${empty searchobjetList}">

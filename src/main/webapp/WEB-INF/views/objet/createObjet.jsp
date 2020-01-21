@@ -13,18 +13,34 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <!-- 제작용 css -->
  <link rel= "stylesheet" type="text/css" href="resources/css/mychoe.css">
+ 
+ <!-- color picker -->
+<script src="resources/js/jquery.minicolors.js"></script>
+<link rel="stylesheet" href="resources/css/jquery.minicolors.css">
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 
-<script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
+
+<style>
+.minicolors-sprite {
+  background-image: url(resources/images/jquery.minicolors.png);
+}
+
+input[type="date"] {padding: 1em 1.5em; font-size:1.2em}
+
+</style>
 <script type="text/javascript">
 $(function(){
-
 	// 오브제 시작 날짜에 자동으로 오늘 날짜 넣기
 	var date = new Date();
 	var yyyy = date.getFullYear();
 	var mm = date.getMonth()+1 > 9 ? date.getMonth()+1 : '0' + date.getMonth()+1;
 	var dd = date.getDate() > 9 ? date.getDate() : '0' + date.getDate();
  
-	$("#objetstartdate").val(yyyy+"-"+mm+"-"+dd);
+	$("#objetstartdate").val(yyyy+"-"+mm+"-"+dd); 
 	
 	 // 이미지 클릭 시 파일 열리기
 	 $("#objetposter").click(function(){
@@ -122,11 +138,34 @@ $(function(){
 	 $('#objetintro').val(str1);
 	 
 	 //소개 DB에서 불러와 textarea로 수정 시 <br>이 그대로 노출되는 것을 방지
-	 var str1 = $('.#objetintro').val();
+	 var str1 = $('#objetintro').val();
 	 str1 = str1.split('<br/>').join("\r\n");
 	 $('#objetintro').val(str1);
 	 
 	 
+	 //colorpicker
+	 $('.demo').each( function() {
+       $(this).minicolors({
+         control: $(this).attr('data-control') || 'hue',
+         defaultValue: $(this).attr('data-defaultValue') || '',
+         format: $(this).attr('data-format') || 'hex',
+         keywords: $(this).attr('data-keywords') || '',
+         inline: $(this).attr('data-inline') === 'true',
+         letterCase: $(this).attr('data-letterCase') || 'lowercase',
+         opacity: $(this).attr('data-opacity'),
+         position: $(this).attr('data-position') || 'bottom left',
+         swatches: $(this).attr('data-swatches') ? $(this).attr('data-swatches').split('|') : [],
+         change: function(value, opacity) {
+           if( !value ) return;
+           if( opacity ) value += ', ' + opacity;
+           if( typeof console === 'object' ) {
+             console.log(value);
+           }
+         },
+         theme: 'bootstrap'
+       });
+   	});
+
 }); // documentReady...
 
 
@@ -170,6 +209,8 @@ function count_ck(obj){
 			return false;
 		}
 	}
+	
+	
 </script>
 
 </head>
@@ -181,39 +222,63 @@ function count_ck(obj){
 		<p style="font-size: 20pt; padding-top:50px; color:#373737; text-align:center;">오브제 등록</p>
 		
 		<!-- 등록 테이블 시작 -->
-		<form action="insertObjet.do" method="post" enctype="multipart/form-data">
+		<form action="insertMyObjet.do" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="userid" value="${loginUser.userid }">
 		<div align="center">
 			<table class="createObjetTable">
 				<tr>
-					<th>${objet3.objettitle }오브제명</th>
+					<th>오브제명</th>
 					<td><div class="ui input"><input type="text" name="objettitle" id="objettitle" placeholder="전시회 제목을 입력해주세요." required style="width:300px; height:30px;"></div>
 						<span style="color:#aaa; font-size:9pt;" id="counter1">( <span style="color:#4ecdc4;font-size:9pt;">0</span> / 최대 30자 )</span>
 					</td>
 				</tr>
 				
 				<tr>
-					<th style="vertical-align: top;padding-top: 10px;">${objet3.objetintro }오브제 소개</th>
+					<th style="vertical-align: top;padding-top: 10px;">오브제 소개</th>
 					<td><div class="ui form"><div class="field"><textarea name="objetintro" id="objetintro" style="font-size: 9pt;width:600px;" placeholder="내용을 입력해주세요."></textarea></div></div>
 						<span style="color:#aaa; font-size:9pt;" id="counter2">( <span style="color:#4ecdc4;font-size:9pt;">0</span> / 최대 500자 )</span>
 					</td>
 				</tr>
 				
 				<tr>
-					<th style="vertical-align: top;padding-top: 10px;">${objet3.originmainposter }오브제 포스터</th>
+					<th style="vertical-align: top;padding-top: 10px;">오브제 포스터</th>
 					<td><img class="objetposter" id="objetposter" src="resources/images/objet/originposter.jpg">
-						<input type="file" name="file" id="originmainposter" accept=".jpg,.jpeg,.png" onChange="preview(this, $('#objetposter'));" style="display:none;">
+						<input type="file" name="originmainposter" id="originmainposter" accept=".jpg,.jpeg,.png" onChange="preview(this, $('#objetposter'));" style="display:none;">
 						<div style="color:#00c73c; font-size:9pt;">권장 크기 : 1400 x 450px jpg,jpeg,png 형식의 정지 이미지만 등록됩니다.</div>
 					</td>
 				</tr>
-				
+				<tr>
+					<th style="vertical-align: top;padding-top: 30px;">오브제 메인칼라</th>
+					<td><input type="text" name="objetcolor" id="hue-demo" class="form-control demo" data-control="hue" style="width:150px;"></td>
+				</tr>
 				<tr>
 					<th>오브제 기간</th>
-					<td><input type="date" id="objetstartdate" min="sysdate" value="${objet3.objetstartdate }" required> ~ <input type="date" id="objetenddate" value="${objet3.objetenddate }"></td>
+					<td><div class="ui input"><input type="date" name="objetstartdate" id="datepicker1" min="sysdate" required></div>&nbsp;&nbsp; ~ &nbsp;&nbsp;<div class="ui input"><input type="date" name="objetenddate" id="datepicker2"></div></td>
 				</tr>
-				
+				<!-- <script>
+				var picker = new Pikaday({ 
+					 field: document.getElementById('datepicker1'),
+					 format: 'yyyy-MM-dd',
+					 toString(date, format) {
+					   let day = ("0" + date.getDate()).slice(-2);
+					   let month = ("0" + (date.getMonth() + 1)).slice(-2);
+					   let year = date.getFullYear();
+					   return `${year}-${month}-${day}`;
+					 }
+					});
+				var picker = new Pikaday({ 
+					 field: document.getElementById('datepicker2'),
+					 format: 'yyyy-MM-dd',
+					 toString(date, format) {
+					   let day = ("0" + date.getDate()).slice(-2);
+					   let month = ("0" + (date.getMonth() + 1)).slice(-2);
+					   let year = date.getFullYear();
+					   return `${year}-${month}-${day}`;
+					 }
+					});
+				</script> -->
 				<tr>
-					<th style="vertical-align: top;padding-top: 10px;">${objet3.objettag }관련태그<br><span style="color:#aaa; font-size: 9pt; font-weight: normal;">(최대 3개 선택)</span></th>
+					<th style="vertical-align: top;padding-top: 30px;">관련태그<br><span style="color:#aaa; font-size: 9pt; font-weight: normal;">(최대 3개 선택)</span></th>
 					<td>
 						<table class="objetTagTable">
 							<tr>
@@ -238,7 +303,8 @@ function count_ck(obj){
 				<table class="createObjetTable2">
 					<tr>
 						<th colspan="3" style="text-align: left;">오브제작품
-							<div style="color:#00c73c; font-size:7pt;font-weight: normal;line-height: 9pt;"><br>작품은 8개를 모두 채워야 등록 가능합니다. jpg,jpeg,gif,png,bmp 형식의 이미지만 등록됩니다. <br>
+							<div style="color:#00c73c; font-size:7pt;font-weight: normal;line-height: 10pt;"><br>작품은 8개를 모두 채워야 등록 가능합니다. jpg,jpeg,gif,png,bmp 형식의 이미지만 등록됩니다. <br>
+							작품 크기는 최소 1024 * 512 로 올려주셔야 화질이 깨지지 않습니다. <br>
 							등록 순서대로 작품 전시 순서가 결정되오니 확인 후 업로드 해주세요 :)</div>
 						</th>
 					</tr>

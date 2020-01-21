@@ -283,7 +283,48 @@ public class ObjetServiceImpl implements ObjetService{
 		return objetDao.selectObjetCalendar(objetno);
 	}
 	
+	//내 오브제 카운트
+	@Override
+	public int selectMyObjetListCount(String userid) {
+		return objetDao.selectMyObjetListCount(userid);
+	}
 	
+	//내 오브제 상세보기
+	@Override
+	public List<Artist> selectMyObjetList(HashMap<String, Object> map) {
+		return objetDao.selectMyObjetList(map);
+	}
+	
+	//내 오브제 상세보기 검색
+	@Override
+	public List<Artist> selectMyObjetListSearch(HashMap<String, Object> map) {
+		return objetDao.selectMyObjetListSearch(map);
+	}
+	
+	//내 오브제 상세보기 검색 카운트
+	@Override
+	public int selectMyObjetListSearchCount(HashMap<String, Object> map) {
+		return objetDao.selectMyObjetListSearchCount(map);
+	}
+	
+	//내 오브제 등록
+	@Override
+	public int insertMyObjet(Objet objet) {
+		return objetDao.insertMyObjet(objet);
+	}
+	
+	//내 오브제 수정
+	@Override
+	public int updateMyObjet(Objet objet) {
+		return objetDao.updateMyObjet(objet);
+	}
+	
+	//내 오브제 삭제
+	@Override
+	public int deleteObjet(int objetno) {
+		return objetDao.deleteObjet(objetno);
+	}
+
 	
 	// 최민영 *******************************************************
 	
@@ -352,23 +393,21 @@ public class ObjetServiceImpl implements ObjetService{
 	}
 
 	
-	//오브제 관리 - 내 오브제 수정
-	@Override
-	public int updateMyObjet(Objet objet) {
-		return objetDao.updateMyObjet(objet);
-	}
 
-	//오브제 관리 - 전시 등록
+	/*//오브제 관리 - 전시 등록
 	@Override
 	public int insertObjet(Objet3 objet3) {
 		return objetDao.insertObjet(objet3);
-	}
+	}*/
 
-	// 오브제 관리 - 전시 삭제
-	@Override
-	public int deleteObjet(int objetno) {
-		return objetDao.deleteObjet(objetno);
-	}
+	
+	
+
+	
+
+	
+
+	
 
 	
 

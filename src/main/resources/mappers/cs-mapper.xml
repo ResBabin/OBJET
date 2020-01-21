@@ -50,6 +50,13 @@ insert into notice values ((select max(noticeno) from notice) + 1, #{adminid},#{
    ]]>
 </select>
 
+
+ <select id="selectNoticeType" resultType="Notice">
+    select *
+      from notice
+      where noticetype ='일반'
+   </select>
+
    <!-- 공지 상세 조회 -->
    <select id="selectNoticeDetail" resultType="Notice"
       parameterType="_int">
@@ -91,10 +98,8 @@ delete from notice where noticerfile = #{noticerfile} and  noticeno = #{noticeno
 
 <!--공지사항 수정  -->
 <update parameterType="Notice" id="updateNotice">
-update notice set noticetype =#{noticetype},noticetitle= #{noticetitle},noticecontent = #{noticecontent}, 
-<if test="noticeofile != null">noticeofile = (select noticeofile from notice where noticeno = #{noticeno}) || #{noticeofile}, </if>
-<if test="noticerfile != null">noticerfile = (select noticerfile from notice where noticeno = #{noticeno}) || #{noticerfile}</if>
-where noticeno = #{noticeno} 
+update notice set noticetype = #{noticetype}, noticetitle = #{noticetitle}, noticecontent = #{noticecontent}, noticeofile = #{noticeofile}, noticerfile = #{noticerfile}
+		where noticeno = #{noticeno}
 </update>
       <!-- FAQ 목록 조회 -->
    <select id="selectFaqList" resultType="Faq">

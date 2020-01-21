@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+  <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,7 +81,6 @@
 	          eventLimit: true, // allow "more" link when too many events
 	          events: function(info, successCallback) {
 	        	var userid = '${loginUser.userid}';
-	    		var letters = ['#ed432d', '#ffe857', '#ff925c', '#d7d967', '#e8741c', '#82edb2', '#e68b4e', '#ed7409', '#ebb0ff', '#b20eed', '#00fabb', '#bacbd6', '#93c5e6', '#46a3e0', '#e88ec8', '#6475A0'];
 	        	  $.ajax({
 	          		url : "visitedObjetPlan.do",
 	          		type : "post",
@@ -94,7 +94,7 @@
 	   						events.push({
 	   							title: decodeURIComponent(jsonObj.plan[i].title).replace(/\+/gi, " "),
 								start: jsonObj.plan[i].start,
-								color: letters[i],
+								color: jsonObj.plan[i].color,
 								allday: true
 	   						});
 	    		      	}		 
@@ -184,16 +184,27 @@
 	<!-- 검색창시작 -->
 		<div align="center">
 			<div class="objetSearchBox" style="height: 130px;">
-			<form action="" method="post">
-				<a class="ui large grey label">${objet.objettitle }오브제명</a>&ensp;
-					<div class="ui input"><input type="text" name="objettitle" style="width:300px; height:35px;"></div>&emsp;&emsp;&emsp;&emsp;
-				<a class="ui large grey label">${objet.userid }작가명</a>&ensp;
-					<div class="ui input"><input type="text" name="userid" style="width:150px; height:35px;"></div>
+			<form action="selectMyVisitedObjetSearch.do" method="post">
+			<input type="hidden" name="currentPage" value="1">
+			<input type="hidden" name="userid" value="${loginUser.userid }">
+				<a class="ui large grey label">오브제명</a>&ensp;
+					<div class="ui input"><input type="text" name="objettitle" value="${objettitle }"style="width:300px; height:35px;"></div>&emsp;&emsp;&emsp;&emsp;
+				<a class="ui large grey label">작가명</a>&ensp;
+					<div class="ui input"><input type="text" name="nickname" value="${nickname }"style="width:150px; height:35px;"></div>
 			<br><br>
-				<a class="ui large grey label">${objet.objetstatus }전시상태</a>&ensp;
-					<input type="radio" name="objetstatus" value="ALL" checked="checked"><label>&ensp;전체</label>&emsp;&emsp;
+				<a class="ui large grey label">전시상태</a>&ensp;
+					<c:if test="${!empty objetstatus }">
+					<input type="radio" name="objetstatus" value="" <c:if test="${objetstatus == '' }">checked</c:if>><label>&ensp;전체</label>&emsp;&emsp;
+					<input type="radio" name="objetstatus" value="OPEN" <c:if test="${objetstatus == 'OPEN' }">checked</c:if>><label>&ensp;전시중</label>&emsp;&emsp;
+					<input type="radio" name="objetstatus" value="CLOSE" <c:if test="${objetstatus == 'CLOSE' }">checked</c:if>><label>&ensp;종료</label>&emsp;&emsp;
+					<input type="radio" name="objetstatus" value="STANDBY" <c:if test="${objetstatus == 'STANDBY' }">checked</c:if>><label>&nbsp;오픈예정</label>&emsp;&emsp;
+					</c:if>
+					<c:if test="${empty objetstatus }">
+					<input type="radio" name="objetstatus" value="" checked="checked"><label>&ensp;전체</label>&emsp;&emsp;
 					<input type="radio" name="objetstatus" value="OPEN"><label>&ensp;전시중</label>&emsp;&emsp;
-					<input type="radio" name="objetstatus" value="CLOSE"><label>&ensp;종료</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;
+					<input type="radio" name="objetstatus" value="CLOSE"><label>&ensp;종료</label>&emsp;&emsp;
+					<input type="radio" name="objetstatus" value="STANDBY"><label>&nbsp;오픈예정</label>&emsp;&emsp;
+					</c:if>
 					<div class="ui buttons"><button class="mainBtn" type="submit">검색</button></div>
 				
 			</form>
@@ -203,121 +214,87 @@
 		<br>
 		<!-- 검색 결과 리스트 시작! -->
 		<div class="objetListSection2">
-		<div align="left" style="font-size: 10pt;">총<span style="font-weight: 700;">13</span>건
+		<div align="left" style="font-size: 10pt;">총<span style="font-weight: 700;">${ fn:length(visitedlist) }건</span>
 		<button class="ui basic icon button" id="visit_objet_cal" style="float:right;margin-top:-7px;"><i class="calendar alternate outline icon"></i> 캘린더</button></div>
 		<br>
+		<c:if test="${ !empty visitedlist }">
+		<c:forEach var="list" items="${ visitedlist }">
 			<div class="eachObjet">
 				<table class="eachObjetTable">
 					<tr>
-						<td><div class="ui checkbox"><input type="checkbox" name="objetno" value="${objet.objetno }"><label></label></div></td>
-					</tr>
-					
-					<tr>
-						<td><div class="eachObjetImg" style="background-image:url('resources/objet_upfiles/animation.jpg') "></div></td>
+						<td><div class="eachObjetImg" style="background-image:url('resources/images/objet/${list.renamemainposter}') "></div></td>
 					</tr>
 						
 					<tr style="height:25px;">
-						<td><center><div class="objetStatusLabel2" style="background:#df0000;">${objet.objetstatus }전시중</div><center></td>
+						<td><center>						
+						<c:if test="${list.objetstatus == 'STANDBY' }"><div class="objetStatusLabel2" style="background:#4d4d4d;">오픈 대기</div></c:if>
+						<c:if test="${list.objetstatus == 'OPEN' }"><div class="objetStatusLabel2" style="background:#df0000;">전시중</div></c:if>
+						<c:if test="${list.objetstatus == 'CLOSE' }"><div class="objetStatusLabel2" style="background:#d4d4d4;">전시 종료</div></c:if>
+						<c:if test="${list.objetstatus == 'WAIT' }"><div class="objetStatusLabel2" style="background:#8d8d8d;">검수 대기</div></c:if>
+						<center></td>
 					</tr>
 					<tr style="height:35px;">
-						<td><div style="font-size: 16pt; font-weight: 600;">${objet.objettitle }애니매이션의 확장</div></td>
+						<td><div style="font-size: 16pt; font-weight: 600;">${list.objettitle }</div></td>
 					</tr>
 					<tr style="height:25px;">
-						<td><div style="font-size: 10pt;color:#aaa;">${objet.userid }@와사비맛아몬드</div></td>
+						<td><div style="font-size: 10pt;color:#aaa;">@${list.nickname }</div></td>
 					</tr>
-					
 				</table>
 			</div>
+			</c:forEach>
+			</c:if>
 			
-			<div class="eachObjet">
-				<table class="eachObjetTable">
-					<tr>
-						<td><div class="ui checkbox"><input type="checkbox" name="objetno" value="${objet.objetno }"><label></label></div></td>
-					</tr>
-					
-					<tr>
-						<td><div class="eachObjetImg" style="background-image:url('resources/objet_upfiles/unknownartist.jpg') "></div></td>
-					</tr>
-						
-					<tr style="height:25px;">
-						<td><center><div class="objetStatusLabel2" style="background:#d4d4d4;">${objet.objetstatus }전시종료</div><center></td>
-					</tr>
-					<tr style="height:35px;">
-						<td><div style="font-size: 16pt; font-weight: 600;">${objet.objettitle }Unknown artist</div></td>
-					</tr>
-					<tr style="height:25px;">
-						<td><div style="font-size: 10pt;color:#aaa;">${objet.userid }@김기태</div></td>
-					</tr>
-					
-				</table>
-			</div>
-			
-			<div class="eachObjet">
-				<table class="eachObjetTable">
-					<tr>
-						<td><div class="ui checkbox"><input type="checkbox" name="objetno" value="${objet.objetno }"><label></label></div></td>
-					</tr>
-					
-					<tr>
-						<td><div class="eachObjetImg" style="background-image:url('resources/objet_upfiles/botong.jpg') "></div></td>
-					</tr>
-						
-					<tr style="height:25px;">
-						<td><center><div class="objetStatusLabel2" style="background:#d4d4d4;">${objet.objetstatus }전시종료</div><center></td>
-					</tr>
-					<tr style="height:35px;">
-						<td><div style="font-size: 16pt; font-weight: 600;">${objet.objettitle }보통의 거짓말</div></td>
-					</tr>
-					<tr style="height:25px;">
-						<td><div style="font-size: 10pt;color:#aaa;">${objet.userid }@티라미수맛아몬드</div></td>
-					</tr>
-					
-				</table>
-			</div>
 			<br><br>
 			
 
 		</div>
 		<!-- 검색 결과 리스트 끝! -->
 		<br>
-		<div align="left">
-			<button class="mainBtn2" id="removeOk">삭제</button>
-		</div>
 		<br><br>
-		<!-- 페이징 -->
-		<div align="center"><<
-		<!-- 맨 처음 페이지 -->
-		<c:if test="${requestScope.currentPage le 1 }"><p class="pre_page"><<</p></c:if>
-		<c:if test="${requestScope.currentPage gt 1 }"><a href="moveMyVisitedObjetList.do"><p class="pre_page"><<</p></a></c:if>
-		<!-- 이전 페이지 -->
-		<%-- <c:if test="${(currentPage - 10) lt startPage and (currentPage - 10) gt 1 }">
-		<a class="pre_page" href="selectNoticeList.do?page=${requestScope.startPage - 10 }"><p class="pre_page"><</p></a>
-		</c:if> --%>
-		<%-- <c:if test="${(currentPage - 10) ge startPage or (currentPage - 10) le 1 }">
-		<p class="pre_page"><</p>
-		</c:if>  --%>
-		<!-- 현재 페이지가 포함된 그룹의 페이지 숫자 출력 -->
 		
-		<c:forEach var="p" begin="${requestScope.startPage }" end="${requestScope.endPage }" step="1">
-			<c:if test="${p eq requestScope.currentPage }">		
-				<font><b class="page">${ p }</b></font>
-			</c:if>
-			<c:if test="${p ne requestScope.currentPage }"><a href="moveMyVisitedObjetList.do?page=${ p }"><p class="pre_page" style="margin:0px 2px 0px 2px">${ p }</p></a></c:if>
-		</c:forEach>
-		<!-- 다음 페이지 -->
-		<%-- <c:if test="${(currentPage + 10) gt endPage and (currentPage + 10) lt maxPage }">
-			<a class="next_page" href="selectNoticeList.do?page=${requestScope.endPage + 10 }"><p class="next_page">></p></a>
-		</c:if> --%>
-		<%-- <c:if test="${(currentPage + 10) le endPage or (currentPage + 10) ge maxPage }">
-		<p class="next_page">></p>
-		</c:if> --%>
-		<!-- 맨 마지막페이지 -->
-		<c:if test="${currentPage ge maxPage }"><p class="next_page">>></p></c:if>
-		<c:if test="${currentPage lt maxPage }"><a class="next_page" href="moveMyVisitedObjetList.do?page=${ requestScope.maxPage }">>></a></c:if> 
-		</div>
+		<!--  페이징 -->
+            <div align="center">
+               <div id="paging">
+               <c:if test="${!empty visitedlist }">
+                   <c:if test="${ kind eq 'all' }"> 
+                      <c:if test="${ paging.startPage != 1 }">
+                         <a href="moveMyVisitedObjetList.do?userid=${loginUser.userid}&currentPage=${paging.startPage - 1}">이전</a>
+                      </c:if>
+                      
+                     <c:forEach var="num" begin="${ paging.startPage }" end="${ paging.endPage }">
+                        <a href="moveMyVisitedObjetList.do?userid=${loginUser.userid}&currentPage=${num}">&emsp;
+                        <c:if test="${ paging.currentPage == num }"><span class="pagingBtn1">${num}</span></c:if>
+                        <c:if test="${ paging.currentPage != num }"><span class="pagingBtn2">${num}</span></c:if>
+                        </a>
+                     </c:forEach>
+                     
+                     <c:if test="${ paging.endPage != paging.maxPage }">
+                        <a href="moveMyVisitedObjetList.do?userid=${loginUser.userid}&currentPage=${paging.endPage + 1}">다음</a>
+                     </c:if>
+                   </c:if> 
 
-
-		
+                                    
+                  <c:if test="${ kind eq 'search' }">
+                     <c:if test="${ paging.startPage != 1 }">
+                         <a href="selectMyVisitedObjetSearch.do?userid=${userid}&objettitle=${objettitle }&nickname=${nickname }&objetstatus=${objetstatus }&currentPage=${paging.startPage - 1}">이전</a>
+                     </c:if>
+                  
+                     <c:forEach var="num" begin="${ paging.startPage }" end="${ paging.endPage }">
+                        <a href="selectMyVisitedObjetSearch.do?userid=${userid}&objettitle=${objettitle }&nickname=${nickname }&objetstatus=${objetstatus }&currentPage=${num}">&emsp;
+                        <c:if test="${ paging.currentPage == num }"><span class=pagingBtn11">${num}</span></c:if>
+                        <c:if test="${ paging.currentPage != num }"><span class="pagingBtn12">${num}</span></c:if>
+                        </a>
+                     </c:forEach>
+                     
+                     <c:if test="${ paging.endPage != paging.maxPage }">
+                        <a href="selectMyVisitedObjetSearch.do?userid=${userid}&objettitle=${objettitle }&nickname=${nickname }&objetstatus=${objetstatus }&currentPage=${paging.endPage + 1}">다음</a>
+                     </c:if>
+                  </c:if>
+               </c:if>
+               </div>
+            </div>
+         <!-- 페이징처리 끝 -->
+	<br><br>	
 	</div>
 	<!-- 다녀온 오브제 페이지 끝! -->
 

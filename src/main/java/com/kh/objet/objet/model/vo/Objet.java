@@ -55,6 +55,7 @@ public class Objet implements Serializable{
 	private String objetintro8;
 	private String objetofile8;
 	private String objetrfile8;
+	private String objetcolor;
 	
 	public Objet() {}
 
@@ -67,7 +68,7 @@ public class Objet implements Serializable{
 			String objettitle5, String objetintro5, String objetofile5, String objetrfile5, String objettitle6,
 			String objetintro6, String objetofile6, String objetrfile6, String objettitle7, String objetintro7,
 			String objetofile7, String objetrfile7, String objettitle8, String objetintro8, String objetofile8,
-			String objetrfile8) {
+			String objetrfile8, String objetcolor) {
 		super();
 		this.objetno = objetno;
 		this.userid = userid;
@@ -115,9 +116,8 @@ public class Objet implements Serializable{
 		this.objetintro8 = objetintro8;
 		this.objetofile8 = objetofile8;
 		this.objetrfile8 = objetrfile8;
+		this.objetcolor = objetcolor;
 	}
-
-
 
 	public Objet(int objetno, String userid, String objettitle, String objetintro, String originmainposter,
 			String renamemainposter, Date objetstartdate, Date objetenddate, String objettag, String publicyn,
@@ -127,7 +127,7 @@ public class Objet implements Serializable{
 			String objettitle4, String objetintro4, String objetofile4, String objetrfile4, String objettitle5,
 			String objetintro5, String objetofile5, String objetrfile5, String objettitle6, String objetintro6,
 			String objetofile6, String objetrfile6, String objettitle7, String objetintro7, String objetofile7,
-			String objetrfile7, String objettitle8, String objetintro8, String objetofile8, String objetrfile8) {
+			String objetrfile7, String objettitle8, String objetintro8, String objetofile8, String objetrfile8, String objetcolor) {
 		super();
 		this.objetno = objetno;
 		this.userid = userid;
@@ -174,6 +174,7 @@ public class Objet implements Serializable{
 		this.objetintro8 = objetintro8;
 		this.objetofile8 = objetofile8;
 		this.objetrfile8 = objetrfile8;
+		this.objetcolor = objetcolor;
 	}
 	
 	public Objet(int objetno, String userid, String objettitle, String objetintro, String originmainposter, String renamemainposter, Date objetstartdate, Date objetenddate,
@@ -609,6 +610,14 @@ public class Objet implements Serializable{
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
+	
+	public String getObjetcolor() {
+		return objetcolor;
+	}
+
+	public void setObjetcolor(String objetcolor) {
+		this.objetcolor = objetcolor;
+	}
 
 	@Override
 	public String toString() {
@@ -627,31 +636,9 @@ public class Objet implements Serializable{
 				+ objetintro6 + ", objetofile6=" + objetofile6 + ", objetrfile6=" + objetrfile6 + ", objettitle7="
 				+ objettitle7 + ", objetintro7=" + objetintro7 + ", objetofile7=" + objetofile7 + ", objetrfile7="
 				+ objetrfile7 + ", objettitle8=" + objettitle8 + ", objetintro8=" + objetintro8 + ", objetofile8="
-				+ objetofile8 + ", objetrfile8=" + objetrfile8 + ", getObjetno()=" + getObjetno() + ", getUserid()="
-				+ getUserid() + ", getObjettitle()=" + getObjettitle() + ", getObjetintro()=" + getObjetintro()
-				+ ", getOriginmainposter()=" + getOriginmainposter() + ", getRenamemainposter()="
-				+ getRenamemainposter() + ", getObjetstartdate()=" + getObjetstartdate() + ", getObjetenddate()="
-				+ getObjetenddate() + ", getObjettag()=" + getObjettag() + ", getPublicyn()=" + getPublicyn()
-				+ ", getObjetregidate()=" + getObjetregidate() + ", getObjetstatus()=" + getObjetstatus()
-				+ ", getObjetview()=" + getObjetview() + ", getObjettitle1()=" + getObjettitle1()
-				+ ", getObjetintro1()=" + getObjetintro1() + ", getObjetofile1()=" + getObjetofile1()
-				+ ", getObjetrfile1()=" + getObjetrfile1() + ", getObjettitle2()=" + getObjettitle2()
-				+ ", getObjetintro2()=" + getObjetintro2() + ", getObjetofile2()=" + getObjetofile2()
-				+ ", getObjetrfile2()=" + getObjetrfile2() + ", getObjettitle3()=" + getObjettitle3()
-				+ ", getObjetintro3()=" + getObjetintro3() + ", getObjetofile3()=" + getObjetofile3()
-				+ ", getObjetrfile3()=" + getObjetrfile3() + ", getObjettitle4()=" + getObjettitle4()
-				+ ", getObjetintro4()=" + getObjetintro4() + ", getObjetofile4()=" + getObjetofile4()
-				+ ", getObjetrfile4()=" + getObjetrfile4() + ", getObjettitle5()=" + getObjettitle5()
-				+ ", getObjetintro5()=" + getObjetintro5() + ", getObjetofile5()=" + getObjetofile5()
-				+ ", getObjetrfile5()=" + getObjetrfile5() + ", getObjettitle6()=" + getObjettitle6()
-				+ ", getObjetintro6()=" + getObjetintro6() + ", getObjetofile6()=" + getObjetofile6()
-				+ ", getObjetrfile6()=" + getObjetrfile6() + ", getObjettitle7()=" + getObjettitle7()
-				+ ", getObjetintro7()=" + getObjetintro7() + ", getObjetofile7()=" + getObjetofile7()
-				+ ", getObjetrfile7()=" + getObjetrfile7() + ", getObjettitle8()=" + getObjettitle8()
-				+ ", getObjetintro8()=" + getObjetintro8() + ", getObjetofile8()=" + getObjetofile8()
-				+ ", getObjetrfile8()=" + getObjetrfile8() + ", getNickname()=" + getNickname() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+				+ objetofile8 + ", objetrfile8=" + objetrfile8 + ", objetcolor=" + objetcolor + "]";
 	}
+
 
 	
 

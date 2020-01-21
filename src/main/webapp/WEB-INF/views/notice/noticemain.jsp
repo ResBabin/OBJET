@@ -17,6 +17,11 @@
 /* 공지사항 */
 
 /* 공지사항 타이틀 */
+ a {color: #fff; text-decoration: none; outline: none}
+
+ a:hover, a:active {text-decoration: none; color:#fff;}
+
+
 .noticestart{
 margin-top:5px;
 margin-left: 25px;
@@ -35,8 +40,6 @@ background-color:;
 .notice-list {width: 2000px;margin:10px 0;  padding:24px 20px 26px;   background:rgba(0, 0, 0, 0.00);  }
 .notice-list:after { content:''; clear:both; display:block }
 .notice-list .notice-item {text-decoration:none}
-/* .notice-list:hover{ background:black;} */
-.notice-list .notice-item:hover .title {color:white} 
 .notice-list .notice-item .thumb {float:left; width:150px; height:150px; margin:6px 30px 5px 0}
 .notice-list .notice-item .title {font-weight:bold;font-size:1.375em; color:black;}
 .notice-list .notice-item .writer {margin-top:4px; color:black; vertical-align:top; font:normal 0.875em 'NanumBarunGothic','Noto Sans', sans-serif; line-height:1.5em;}
@@ -65,39 +68,74 @@ margin-left: 30px;
     justify-content: center;
     align-items: center
 }
-.box {
-    position: relative;
 
-    /* overflow: hidden; */
+}
+ .effect-wrap {
+    width: 200vw; height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
+.effect6 {
+    position: relative;
+    width: 1300px; height: 200px;
+    background: #fff;
+    overflow: hidden;
+   /*  border: 7px solid #111;  */
+   
+ }
+.effect6 img {
+    width: 100%;
+   filter: saturate(10%); 
+    transition: all 0.3s ease;
+}
+.effect6 figcaption {
+    position: absolute;
+    top: 0; right:0; bottom: 0; left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 1;
+    text-align: center;
+    line-height: 1.7em;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 20px;
+    opacity:0;
+    transition: all 0.3s ease;
+    transform: translatex(75%) rotate(180deg);
 }
 
- .box:hover {
- width: 100%;
-    background:black;
-} 
-.box:before, .box:after {
-
+.effect6 figcaption:before {
     content:'';
-    background: #fff;
+    width: 150px; height: 150px;
+    background: #000; 
+    border-radius: 50%; 
     position: absolute;
     left: 50%; top: 50%;
-    opacity: 0;
-    z-index: 1;
     transform: translate(-50%, -50%);
-    transition: all 0.4s ease;
+    z-index: -1;
 }
-.box:before {
-    width: 60px; height: 1px; left: 100%;
+.effect6 figcaption h3 {
+    font-size: 1.3em;
+    font-weight: 100;
 }
-.box:after {
-    width: 1px; height: 60px; top: 0%;
+.effect6 figcaption em {
+    display: block;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-weight: 700;
 }
-.box:hover:before, 
-.box:hover:after {
 
-    opacity: 1;
-    left: 50%; top: 50%;
+.effect6:hover img {
+    opacity: 0.1;
 }
+.effect6:hover figcaption {
+    transform: translatex(0px) rotate(0deg);
+    opacity: 1;
+}
+
 .search{
 margin-left: 1150px;
 }    
@@ -125,18 +163,19 @@ margin-left:1000px;
 
 
 <h1 align="center">공지사항 </h1><!-- 관리자한테만 보여질 글쓰기 버튼 -->
-<%-- <c:if test= "${loginUser.usertype ne 'USER'}"> --%>
+<c:if test= "${loginUser.usertype ne 'USER'}">
 
 <a href="insertNotice.do"><button class= noticewrite>글쓰기</button></a>
-<%-- </c:if> --%>
+ </c:if> 
 
 <c:forEach var="notice" items="${requestScope.list }"> 
-<c:url var="ndt" value="noticeDetail.do">
+<c:url var="ndt" value="noticeprenext.do">
 	<c:param name="noticeno" value="${notice.noticeno}" />
-										<%-- <c:param name="page" value="${ requestScope.currentPage }" /> --%>
-									</c:url>	
 									
-<div class="box-wrap">
+									</c:url>	
+	<div class="effect-wrap">
+    <figure class="effect6">
+          <div class="box-wrap">
     <div class="box">
        <div class="notice-list">
             <a href="${ ndt } " class="notice-item">
@@ -149,8 +188,16 @@ margin-left:1000px;
             </p>
         </div>
         </div>
-               
-    </div>
+      </div>	
+        <figcaption>
+          
+           <h3><a href="${ ndt } " class="notice-item">공지사항<em>더보기</em></a></h3>
+         
+        </figcaption>
+    </figure>
+		</div>					
+
+    
     </c:forEach>
   
 <div class="paging">

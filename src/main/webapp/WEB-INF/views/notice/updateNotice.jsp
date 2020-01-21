@@ -51,12 +51,14 @@ margin-left: 500px;
 
   <form action="updateNotice.do" method="post" enctype="multipart/form-data">
 <input type="hidden" name="noticeno" value="${requestScope.notice.noticeno}">
-<input type="hidden" name="noticerfile" value="${requestScope.notice.noticerfile}">     
+<input type="hidden" name="noticerfile" value="${requestScope.notice.noticerfile}">  
+<input name="origin" value="${ notice.noticeofile }" type="hidden">
+<input name="rename" value="${ notice.noticerfile }" type="hidden">    
        <table class = "noticeform">
        
 				<tr>
 					<th>작성자</th>
-					<td><input type="text" size="30" name="adminid" value="${notice.adminid}" required="required"></td>
+					<td><input type="text" size="30" name="adminid" value="${loginUser.userid}" required="required"></td>
 
 				</tr>
 		
@@ -78,30 +80,19 @@ margin-left: 500px;
 				</tr>
 
 				<tr>
-				  <%--    <th>첨부된 파일</th>
-				  <td> <input value="${notice.noticerfile}" maxLength="22"></td> --%>
-				  
+				
 				  
 				  <th>첨부파일</th>
 					<td colspan="3">
-					
-					<c:if test="${ notice.noticerfile != '' }">
-
-
-					<c:if test="${ notice.noticerfile ne '' }">
+					첨부파일 &nbsp;&nbsp;
+                   <c:if test="${ empty notice.noticeofile }">첨부파일 없음</c:if>
+                   <c:if test="${ !empty notice.noticeofile }">${ notice.noticeofile }</c:if>&nbsp;&nbsp;&nbsp;
+                   <input type="file" name="upfile"> 
 					<div class="fileDiv">
 				<button type="button" class="delete" onclick="deleteFile('${file.ofilename}','${file.rfilename }','${notice.noticeno }')">삭제</button>
 					</div><br>
-					</c:if>
-					
-		
-					</c:if>
-					
-					
-					<input multiple="multiple" type="file" name="upfile">
 
-		
-					<!-- 파일업로드 -->
+<!-- 파일업로드 -->
 				  
 				<tr>
 					<td colspan="4">

@@ -62,7 +62,9 @@ group by a.nickname, a.userid, b.userrpic, b.userintros, b.userintrol, b.usertag
 	 join users using(userid)
 	 where publicyn = 'Y' 
 	 and upper(objettitle) like '%' || upper(#{objettitle}) || '%' 
-	 or upper(objetintro) like '%' || upper(#{objetintro}) || '%')
+	 or upper(objetintro) like '%' || upper(#{objetintro}) || '%'
+	 or objettag like '%' || #{objettag} || '%'
+	 or objetcolor like '%' || #{objetcolor} || '%')
 	 where objetstatus = 'OPEN'
 </select>
 <select id="selectArtistAllSearch" parameterType="String" resultType="Artist">
@@ -85,7 +87,9 @@ group by a.nickname, a.userid, b.userrpic, b.userintros, b.userintrol, b.usertag
 	 join users using(userid)
 	 where publicyn = 'Y' 
 	 <if test="keyword != null"> and upper(objettitle) like '%' || upper(#{keyword}) || '%' </if>
-	 <if test="keyword != null"> or upper(objetintro) like '%' || upper(#{keyword}) || '%')</if>
+	 <if test="keyword != null"> or upper(objetintro) like '%' || upper(#{keyword}) || '%'</if>
+	 <if test="keyword != null"> or objettag like '%' || #{keyword} || '%'</if>
+	 <if test="keyword != null"> or objetcolor like '%' || #{keyword} || '%')</if>
 	 <trim prefix="where">
 	 <if test="order.equals('standby')"> objetstatus = 'STANDBY'</if>
 	 <if test="order.equals('open')"> objetstatus = 'OPEN'</if>
@@ -100,7 +104,9 @@ group by a.nickname, a.userid, b.userrpic, b.userintros, b.userintrol, b.usertag
 	 where publicyn = 'Y' 
 	 <if test="order.equals('dateall')"></if>
 	 <if test="keyword != null"> and upper(objettitle) like '%' || upper(#{keyword}) || '%' </if>
-	 <if test="keyword != null"> or upper(objetintro) like '%' || upper(#{keyword}) || '%')</if>
+	 <if test="keyword != null"> or upper(objetintro) like '%' || upper(#{keyword}) || '%'</if>
+	 <if test="keyword != null"> or objettag like '%' || #{keyword} || '%'</if>
+	 <if test="keyword != null"> or objetcolor like '%' || #{keyword} || '%')</if>
 	 <trim prefix="where">
 	 <if test="order.equals('2020')"> EXTRACT(YEAR FROM objetstartdate) = 2020</if>
 	 <if test="order.equals('2019')"> EXTRACT(YEAR FROM objetstartdate) = 2019</if>
@@ -313,14 +319,14 @@ where a.revuserid = #{userid} and a.objetno = #{objetno}
  
   <!-- 전시일정  -->
  <select id="selectObjetCalendar" parameterType="int" resultType="Objet">
-  select objettitle, objetstartdate, objetenddate
+  select objettitle, objetstartdate, objetenddate, objetcolor
   from objet
   where objetno = #{objetno}
  </select>
  
  <!-- 관심오브제 캘린더 -->
  <select id="selectLikeObjetCalendar" parameterType="String" resultType="LikeObjet">
-  select b.objettitle, b.objetstartdate, b.objetenddate
+  select b.objettitle, b.objetstartdate, b.objetenddate, b.objetcolor
   from likeobjet a
   join objet b on a.objetno = b.objetno
   where a.userid = #{userid}
@@ -328,12 +334,153 @@ where a.revuserid = #{userid} and a.objetno = #{objetno}
  
   <!-- 다녀온 오브제 캘린더 -->
  <select id="selectVisitedObjetCalendar" parameterType="String" resultType="VisitedObjet">
-  select a.visitdate, b.objettitle
+  select a.visitdate, b.objettitle, b.objetcolor
   from visitedobjet a
   join objet b on a.objetno = b.objetno
   where a.userid = #{userid}
  </select>
  
+ <!-- 내 오브제 카운트 -->
+ <select id="selectMyObjetListCount" parameterType="String" resultType="int">
+ 	select count(*) from objet
+ 	where userid = #{userid}
+ </select>
+ 
+ <!-- 내 오브제 상세보기 -->
+ <select id="selectMyObjetList" parameterType="map" resultType="Artist">
+ 	select * from (select rownum rnum, objetno, userid, objettitle, objetintro, renamemainposter, objetstartdate, objetenddate, objetstatus, publicyn, objettag, objetregidate
+	from objet where userid = #{userid} order by objetno desc)
+	where rnum between #{startRow} and #{endRow}
+ </select>
+ 
+ <!-- 내 오브제 상세보기 검색 카운트 -->
+ <select id="selectMyObjetListSearchCount" parameterType="map" resultType="int">
+ 	select count(*) from objet
+ 	where userid = #{userid}
+ 	<if test="publicyn.equals('ALL')"> </if>
+	<if test="publicyn.equals('Y')">
+		and publicyn = 'Y'
+	</if>
+	<if test="publicyn.equals('N')">
+		and publicyn = 'N'
+	</if>
+	<if test="publicyn.equals('W')">
+		and publicyn = 'W'
+	</if>
+	<if test="objetstatus.equals('ALL')"> </if>
+	<if test="objetstatus.equals('OPEN')">
+		and objetstatus = 'OPEN'
+	</if>
+	<if test="objetstatus.equals('CLOSE')">
+		and objetstatus = 'CLOSE'
+	</if>
+	<if test="objetstatus.equals('STANDBY')">
+		and objetstatus = 'STANDBY'
+	</if>
+	<if test="objetstatus.equals('WAIT')">
+		and objetstatus = 'WAIT'
+	</if>
+	<if test="objettitle != null">
+		and objettitle like '%' || upper(#{objettitle}) || '%'
+	</if>
+ </select>
+ 
+ <!-- 내 오브제 상세보기 검색  -->
+  <select id="selectMyObjetListSearch" parameterType="map" resultType="Artist">
+ 	select * from (select rownum rnum, objetno, userid, objettitle, objetintro, renamemainposter, objetstartdate, objetenddate, objetstatus, publicyn, objettag, objetregidate
+	from objet where userid = #{userid} 
+	<if test="publicyn.equals('ALL')"> </if>
+	<if test="publicyn.equals('Y')">
+		and publicyn = 'Y'
+	</if>
+	<if test="publicyn.equals('N')">
+		and publicyn = 'N'
+	</if>
+	<if test="publicyn.equals('W')">
+		and publicyn = 'W'
+	</if>
+	<if test="objetstatus.equals('ALL')"> </if>
+	<if test="objetstatus.equals('OPEN')">
+		and objetstatus = 'OPEN'
+	</if>
+	<if test="objetstatus.equals('CLOSE')">
+		and objetstatus = 'CLOSE'
+	</if>
+	<if test="objetstatus.equals('STANDBY')">
+		and objetstatus = 'STANDBY'
+	</if>
+	<if test="objetstatus.equals('WAIT')">
+		and objetstatus = 'WAIT'
+	</if>
+	<if test="objettitle != null">
+		and objettitle like '%' || upper(#{objettitle}) || '%'
+	</if>
+	order by objetno desc)
+	where rnum between #{startRow} and #{endRow}
+ </select>
+ 
+ <!-- 내 오브제 등록 -->
+ <select id="insertMyObjet" parameterType="Objet">
+ 	insert into objet values (OBJETNO_SEQ.NEXTVAL, #{userid}, #{objettitle}, #{objetintro}, #{originmainposter}, #{renamemainposter}, #{objetstartdate}, #{objetenddate}, #{objettag}, DEFAULT,
+ 	SYSDATE, DEFAULT, DEFAULT, #{objettitle1}, #{objetintro1}, #{objetofile1}, #{objetrfile1}, #{objettitle2}, #{objetintro2}, #{objetofile2}, 
+ 	#{objetrfile2}, #{objettitle3}, #{objetintro3}, #{objetofile3}, #{objetrfile3}, #{objettitle4}, #{objetintro4}, #{objetofile4}, #{objetrfile4}, #{objettitle5},
+ 	#{objetintro5}, #{objetofile5}, #{objetrfile5}, #{objettitle6}, #{objetintro6}, #{objetofile6}, #{objetrfile6}, #{objettitle7}, #{objetintro7}, #{objetofile7}, 
+ 	#{objetrfile7}, #{objettitle8}, #{objetintro8}, #{objetofile8}, #{objetrfile8}, #{objetcolor})
+ </select>
+ 
+ <!-- 내 오브제 수정  -->
+ <update id="updateMyObjet" parameterType="Objet">
+update objet
+<trim prefix="set" suffixOverrides=",">
+<if test="objettitle != null">objettitle = #{objettitle},</if>
+<if test="objetintro != null">objetintro = #{objetintro}, </if>
+<if test="originmainposter != null">originmainposter = #{originmainposter}, </if>
+<if test="renamemainposter != null">renamemainposter = #{renamemainposter}, </if>
+<if test="objetstartdate != null">objetstartdate = #{objetstartdate}, </if>
+<if test="objetenddate != null">objetenddate = #{objetenddate}, </if>
+<if test="objettag != null">objettag = #{objettag}, </if>
+<if test="objetcolor != null">objetcolor = #{objetcolor}, </if>
+<if test="objettitle1 != null">objettitle1 = #{objettitle1}, </if>
+<if test="objetintro1 != null">objetintro1 = #{objetintro1}, </if>
+<if test="objetofile1 != null">objetofile1 = #{objetofile1}, </if>
+<if test="objetrfile1 != null">objetrfile1 = #{objetrfile1}, </if>
+<if test="objettitle2 != null">objettitle2 = #{objettitle2}, </if>
+<if test="objetintro2 != null">objetintro2 = #{objetintro2}, </if>
+<if test="objetofile2 != null">objetofile2 = #{objetofile2}, </if>
+<if test="objetrfile2 != null">objetrfile2 = #{objetrfile2}, </if>
+<if test="objettitle3 != null">objettitle3 = #{objettitle3}, </if>
+<if test="objetintro3 != null">objetintro3 = #{objetintro3}, </if>
+<if test="objetofile3 != null">objetofile3 = #{objetofile3}, </if>
+<if test="objetrfile3 != null">objetrfile3 = #{objetrfile3}, </if>
+<if test="objettitle4 != null">objettitle4 = #{objettitle4}, </if>
+<if test="objetintro4 != null">objetintro4 = #{objetintro4}, </if>
+<if test="objetofile4 != null">objetofile4 = #{objetofile4}, </if>
+<if test="objetrfile4 != null">objetrfile4 = #{objetrfile4}, </if>
+<if test="objettitle5 != null">objettitle5 = #{objettitle5}, </if>
+<if test="objetintro5 != null">objetintro5 = #{objetintro5}, </if>
+<if test="objetofile5 != null">objetofile5 = #{objetofile5}, </if>
+<if test="objetrfile5 != null">objetrfile5 = #{objetrfile5}, </if>
+<if test="objettitle6 != null">objettitle6 = #{objettitle6}, </if>
+<if test="objetintro6 != null">objetintro6 = #{objetintro6}, </if>
+<if test="objetofile6 != null">objetofile6 = #{objetofile6}, </if>
+<if test="objetrfile6 != null">objetrfile6 = #{objetrfile6}, </if>
+<if test="objettitle7 != null">objettitle7 = #{objettitle7}, </if>
+<if test="objetintro7 != null">objetintro7 = #{objetintro7}, </if>
+<if test="objetofile7 != null">objetofile7 = #{objetofile7}, </if>
+<if test="objetrfile7 != null">objetrfile7 = #{objetrfile7}, </if>
+<if test="objettitle8 != null">objettitle8 = #{objettitle8}, </if>
+<if test="objetintro8 != null">objetintro8 = #{objetintro8}, </if>
+<if test="objetofile8 != null">objetofile8 = #{objetofile8}, </if>
+<if test="objetrfile8 != null">objetrfile8 = #{objetrfile8}, </if>
+</trim>
+where userid = #{userid} and objetno = #{objetno}
+ </update>
+ 	
+ <!-- 내 오브제 삭제 -->
+ <delete id="deleteObjet" parameterType="int">
+ 	delete from objet where objetno = #{objetno}
+ </delete>
+ 	
  <!-- 최민영 *************************** -->
  
 	 <select id="selectArtistObjetList" parameterType="String" resultType="Objet2">
@@ -375,15 +522,15 @@ where a.revuserid = #{userid} and a.objetno = #{objetno}
  		select * from objet where objetno = #{objetno}
  	</select>
  	
- 	<insert id="insertObjet" parameterType="objet">
+ 	<!-- <insert id="insertObjet" parameterType="objet">
  		insert into objet values (#{objetno}, #{userid}, #{objettitle}, #{objetintro}, #{originmainposter}, #{renamemainposter}, #{objetstartdate}, #{objetenddate}, #{objettag}, #{publicyn},
  		#{objetregidate}, #{objetstatus}, #{objetview}, #{objettitle1}, #{objetintro1}, #{objetofile1}, #{objetrfile1}, #{objettitle2}, #{objetintro2}, #{objetofile2}, 
  		#{objetrfile2}, #{objettitle3}, #{objetintro3}, #{objetofile3}, #{objetrfile3}, #{objettitle4}, #{objetintro4}, #{objetofile4}, #{objetrfile4}, #{objettitle5},
  		#{objetintro5}, #{objetofile5}, #{objetrfile5}, #{objettitle6}, #{objetintro6}, #{objetofile6}, #{objetrfile6}, #{objettitle7}, #{objetintro7}, #{objetofile7}, 
  		#{objetrfile7}, #{objettitle8}, #{objetintro8}, #{objetofile8}, #{objetrfile8})
- 	</insert>
+ 	</insert> -->
  	
- 	<update id="updateObjet" parameterType="Objet">
+ 	<!-- <update id="updateObjet" parameterType="Objet">
  		update objet
  		<trim prefix="set" suffixOverrides=",">
 			<if test="objetno != null">objetno = #{objetno},</if>
@@ -401,47 +548,101 @@ where a.revuserid = #{userid} and a.objetno = #{objetno}
 			<if test="objetview != null">objetview = #{objetview}, </if>
 		</trim>
 		where userid = #{userid}
- 	</update>
+ 	</update> -->
  	
- 	<delete id="deleteObjet" parameterType="Objet">
- 		delete from objet where objettitle = #{objettitle} and objetstatus = #{objetstatus} and objetstartdate = #{objetstartdate} and objetenddate = #{objetenddate} and publicyn = #{publicyn} and objetregidate = #{objetregidate}
- 	</delete>
+ 	<select id="selectVistiedObjetList" resultType="VisitedObjet2" parameterType="Hashmap">
+ 		select * from (select rownum rnum, v.objetno, v.userid, v.visitdate, u.nickname, o.objettitle, o.objetstatus, o.renamemainposter
+                    from visitedobjet v left join objet o on (v.objetno = o.objetno) left join users u on (o.userid = u.userid) 
+                    where v.userid = #{userid} order by v.visitdate desc)
+		where rnum between #{startRow} and #{endRow}
+ 	</select>
  	
- 	<select id="selectVistiedObjetList" resultType="visitedobjet" parameterType="Hashmap">
- 		select * from visitedobjet
+ 	<select id="listCount" resultType="_int">
+ 		select count(*) from visitedobjet where userid = #{userid}
  	</select>
  	
  	<delete id="deleteMyVisitedObjetList" parameterType="visitedobjet">
  		delete from visitedobjet where objetno = #{objetno}
  	</delete>
  	
- 	<select id="selectMyVisitedObjetSearch" parameterType="hashmap" resultType="visitedobjet">
- 		select * from visitedobjet
- 		join objet using(objetitle)
- 		where objettitle like '%' || #{objettitle} || '%'
- 		or userid like '%' || #{userid} || '%'
+ 	<select id="selectMyVisitedObjetSearch" parameterType="hashmap" resultType="VisitedObjet2">
+ 		select * from (select rownum rnum, v.objetno, v.userid, v.visitdate, u.nickname, o.objettitle, o.objetstatus, o.renamemainposter
+                    from visitedobjet v left join objet o on (v.objetno = o.objetno) left join users u on (o.userid = u.userid) 
+                    where v.userid = #{userid} 
+				   <if test="nickname != '' or nickname != null">
+				      and u.nickname like '%' || #{nickname} || '%' 
+				   </if>
+				   <if test="objettitle != '' or objettitle != null">
+				      and o.objettitle like  '%' || #{objettitle} || '%' 
+				   </if>
+				   <if test="objetstatus != ''">
+				      and o.objetstatus = #{objetstatus}
+				   </if>
+           			order by v.visitdate desc)
+		where rnum between #{startRow} and #{endRow}
  	</select>
  	
- 	<select id="listCount" resultType="_int">
- 		select count(*) from visitedobjet
+ 	<select id="selectMyVisitedObjetSearchListCount" resultType="_int" parameterType="hashmap" >
+ 		select count (*)
+                    from visitedobjet v left join objet o on (v.objetno = o.objetno) left join users u on (o.userid = u.userid) 
+                    where v.userid = #{userid} 
+				   <if test="nickname != '' or nickname != null">
+				      and u.nickname like '%' || #{nickname} || '%' 
+				   </if>
+				   <if test="objettitle != '' or objettitle != null">
+				      and o.objettitle like  '%' || #{objettitle} || '%' 
+				   </if>
+				   <if test="objetstatus != ''">
+				      and o.objetstatus = #{objetstatus}
+				   </if>
+           			order by v.visitdate desc
  	</select>
  	
- 	<select id="selectLikeObjetList" resultType="likeobjet" parameterType="Hashmap">
- 		select * from likeobjet
- 	</select>
- 	
- 	<delete id="deleteMyLikeObjetList" parameterType="likeobjet">
- 		delete from likeobjet where objetno = #{objetno}
- 	</delete>
- 	
- 	<select id="selectMyLikeObjetSearch" parameterType="hashmap" resultType="likeobjet">
- 		select * from likeobjet
- 		join objet using(objettitle)
- 		where objettitle like '%' || #{objettitle} || '%'
- 		or userid like '%' || #{userid} || '%'
+ 	<select id="selectLikeObjetList" resultType="LikeObjet2" parameterType="Hashmap">
+ 		select * from (select rownum rnum, l.objetno, l.userid, l.likedate, u.nickname, o.objettitle, o.objetstatus, o.renamemainposter
+                    from likeobjet l left join objet o on (l.objetno = o.objetno) left join users u on (o.userid = u.userid) 
+                    where l.userid = #{userid} order by l.likedate desc)
+		where rnum between #{startRow} and #{endRow}
  	</select>
  	
  	<select id="listCountK" resultType="_int">
- 		select count(*) from likeobjet
+ 		select count(*) from likeobjet where userid = #{userid}
+ 	</select>
+ 	
+ 	<delete id="deleteMyLikeObjetList" parameterType="_int">
+ 		delete from likeobjet where objetno = #{objetno}
+ 	</delete>
+ 	
+ 	<select id="selectMyLikeObjetSearch" parameterType="hashmap" resultType="LikeObjet2">
+ 		select * from (select rownum rnum, l.objetno, l.userid, l.likedate, u.nickname, o.objettitle, o.objetstatus, o.renamemainposter
+                    from likeobjet l left join objet o on (l.objetno = o.objetno) left join users u on (o.userid = u.userid) 
+                    where l.userid = #{userid} 
+				   <if test="nickname != '' or nickname != null">
+				      and u.nickname like '%' || #{nickname} || '%' 
+				   </if>
+				   <if test="objettitle != '' or objettitle != null">
+				      and o.objettitle like  '%' || #{objettitle} || '%' 
+				   </if>
+				   <if test="objetstatus != ''">
+				      and o.objetstatus = #{objetstatus}
+				   </if>
+           			order by l.likedate desc)
+		where rnum between #{startRow} and #{endRow}
+ 	</select>
+ 	
+ 	<select id="selectMyLikeObjetSearchListCount" resultType="_int" parameterType="hashmap">
+ 		select count (*)
+                    from likeobjet l left join objet o on (l.objetno = o.objetno) left join users u on (o.userid = u.userid) 
+                    where l.userid = #{userid} 
+				   <if test="nickname != '' or nickname != null">
+				      and u.nickname like '%' || #{nickname} || '%' 
+				   </if>
+				   <if test="objettitle != '' or objettitle != null">
+				      and o.objettitle like  '%' || #{objettitle} || '%' 
+				   </if>
+				   <if test="objetstatus != ''">
+				      and o.objetstatus = #{objetstatus}
+				   </if>
+           			order by l.likedate desc
  	</select>
 </mapper>

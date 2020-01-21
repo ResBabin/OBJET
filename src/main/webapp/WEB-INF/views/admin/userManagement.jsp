@@ -3,6 +3,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -106,9 +108,6 @@ var thclicked = "normal";
 		$("#quitclose").click(function() {
 			$("#quitdiv").css("display", "none");
 		});
-
-		
-
 		
 		$("#blackok").click(function() {
 					if ($("input[name=userid]:checked").length > 0) {
@@ -198,637 +197,71 @@ var thclicked = "normal";
 				alert("사용자를 선택해주세요.");
 			}
 		});
-		var adminclick = 0, allclick = 0, userclick = 0, blackclick = 0, quitclick = 0;
-		$("#adminbtn").click(function() {
-			$("#userbtn, #quitbtn, #blackbtn, #allbtn").attr("class", "ui button");
-				thorder("ADMIN", "ida");
-				$(".sorted").attr("class", "");
-			$("#adminbtn").attr("class", "ui active button");
-				adminclick += 1;
-				allclick = 0, userclick = 0, blackclick = 0, quitclick = 0;
-				clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-		});
-		$("#userbtn").click(function() {
-			$("#adminbtn, #quitbtn, #blackbtn, #allbtn").attr("class", "ui button");
-				thorder("USER", "ida");
-				$(".sorted").attr("class", "");
-			$("#userbtn").attr("class", "ui active button");
-				userclick += 1;
-				adminclick = 0, allclick = 0, blackclick = 0, quitclick = 0;
-				clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-		});
-		$("#quitbtn").click(function() {
-			$("#userbtn, #adminbtn, #blackbtn, #allbtn").attr("class", "ui button");
-				thorder("quityn", "ida");
-				$(".sorted").attr("class", "");
-			$("#quitbtn").attr("class", "ui active button");
-				quitclick += 1;
-				adminclick = 0, allclick = 0, userclick = 0, blackclick = 0;
-				clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-		});
-		$("#blackbtn").click(function() {
-			$("#userbtn, #quitbtn, #adminbtn, #allbtn").attr("class", "ui button");
-				thorder("blackyn", "ida");
-				$(".sorted").attr("class", "");
-			$("#blackbtn").attr("class", "ui active button");
-				blackclick += 1;
-				adminclick = 0, allclick = 0, userclick = 0, quitclick = 0;
-				clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-		});
-		$("#allbtn").click(function() {
-			$("#userbtn, #quitbtn, #blackbtn, #adminbtn").attr("class", "ui button");
-				thorder("all", "ida");
-				$(".sorted").attr("class", "");
-			$("#allbtn").attr("class", "ui active button");
-				allclick += 1;
-				adminclick = 0, userclick = 0, blackclick = 0, quitclick = 0;
-				clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-		});
-		var clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
 	
+		
+		console.log(location.href.substring((location.href.indexOf('order'))));
+		
+		
 			$("#userid").click(function() {
-				if(adminclick > 0){
-				if(clickid%2 == 0){
-					$(".sorted").attr("class", "");
-					$("#userid").attr("class", "sorted descending");
-					thorder("ADMIN", "idd");
-					clickid += 1;
-					clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-				} else if(clickid%2 != 0){
-					$(".sorted").attr("class", "");
-					$("#userid").attr("class", "sorted ascending");
-					thorder("ADMIN", "ida");
-					clickid += 1;
-					clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-				} 
-				}else if (userclick > 0){
-					if(clickid%2 == 0){
-						$(".sorted").attr("class", "");
-						$("#userid").attr("class", "sorted descending");
-						thorder("USER", "idd");
-						clickid += 1;
-						clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-					} else if(clickid%2 != 0){
-						$(".sorted").attr("class", "");
-						$("#userid").attr("class", "sorted ascending");
-						thorder("USER", "ida");
-						clickid += 1;
-						clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-					} 
-				}else if (allclick > 0){
-					if(clickid%2 == 0){
-						$(".sorted").attr("class", "");
-						$("#userid").attr("class", "sorted descending");
-						thorder("all", "idd");
-						clickid += 1;
-						clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-					} else if(clickid%2 != 0){
-						$(".sorted").attr("class", "");
-						$("#userid").attr("class", "sorted ascending");
-						thorder("all", "ida");
-						clickid += 1;
-						clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-					} 
-				}else if(blackclick > 0){
-					if(clickid%2 == 0){
-						$(".sorted").attr("class", "");
-						$("#userid").attr("class", "sorted descending");
-						thorder("blackyn", "idd");
-						clickid += 1;
-						clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-					} else if(clickid%2 != 0){
-						$(".sorted").attr("class", "");
-						$("#userid").attr("class", "sorted ascending");
-						thorder("blackyn", "ida");
-						clickid += 1;
-						clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-					} 
-				}else if(quitclick > 0){
-					if(clickid%2 == 0){
-						$(".sorted").attr("class", "");
-						$("#userid").attr("class", "sorted descending");
-						thorder("quityn", "idd");
-						clickid += 1;
-						clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-					} else if(clickid%2 != 0){
-						$(".sorted").attr("class", "");
-						$("#userid").attr("class", "sorted ascending");
-						thorder("quityn", "ida");
-						clickid += 1;
-						clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-					} 
+				if(!location.href.includes('order=')){
+					location.href = location.href+'&order=ida';
+					
 				}else {
-					if(clickid%2 == 0){
-						$(".sorted").attr("class", "");
-						$("#userid").attr("class", "sorted descending");
-						thorder("USER", "idd");
-						clickid += 1;
-						clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-					} else if(clickid%2 != 0){
-						$(".sorted").attr("class", "");
-						$("#userid").attr("class", "sorted ascending");
-						thorder("USER", "ida");
-						clickid += 1;
-						clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-					} 
-				}
+					if(location.href.includes('order=idd')){
+						location.href = location.href.replace(location.href.substring((location.href.indexOf('order'))), 'order=ida');
+					}else{
+						location.href = location.href.replace(location.href.substring((location.href.indexOf('order'))), 'order=idd');
+					}
+						
+					}
 			});
 			$("#nick").click(function() {
-				if(adminclick > 0){
-					if(clicknick%2 == 0){
-						$(".sorted").attr("class", "");
-						$("#nick").attr("class", "sorted descending");
-						thorder("ADMIN", "idd");
-						clicknick += 1;
-						clickid = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-					} else if(clicknick%2 != 0){
-						$(".sorted").attr("class", "");
-						$("#nick").attr("class", "sorted ascending");
-						thorder("ADMIN", "ida");
-						clicknick += 1;
-						clickid = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-					} 
-					}else if (userclick > 0){
-						if(clicknick%2 == 0){
-							$(".sorted").attr("class", "");
-							$("#nick").attr("class", "sorted descending");
-							thorder("USER", "idd");
-							clicknick += 1;
-							clickid = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-						} else if(clicknick%2 != 0){
-							$(".sorted").attr("class", "");
-							$("#nick").attr("class", "sorted ascending");
-							thorder("USER", "ida");
-							clicknick += 1;
-							clickid = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-						} 
-					}else if (allclick > 0){
-						if(clicknick%2 == 0){
-							$(".sorted").attr("class", "");
-							$("#nick").attr("class", "sorted descending");
-							thorder("all", "idd");
-							clicknick += 1;
-							clickid = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-						} else if(clicknick%2 != 0){
-							$(".sorted").attr("class", "");
-							$("#nick").attr("class", "sorted ascending");
-							thorder("all", "ida");
-							clicknick += 1;
-							clickid = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-						} 
-					}else if(blackclick > 0){
-						if(clicknick%2 == 0){
-							$(".sorted").attr("class", "");
-							$("#nick").attr("class", "sorted descending");
-							thorder("blackyn", "idd");
-							clicknick += 1;
-							clickid = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-						} else if(clicknick%2 != 0){
-							$(".sorted").attr("class", "");
-							$("#nick").attr("class", "sorted ascending");
-							thorder("blackyn", "ida");
-							clicknick += 1;
-							clickid = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-						} 
-					}else if(quitclick > 0){
-						if(clicknick%2 == 0){
-							$(".sorted").attr("class", "");
-							$("#nick").attr("class", "sorted descending");
-							thorder("quityn", "idd");
-							clicknick += 1;
-							clickid = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-						} else if(clicknick%2 != 0){
-							$(".sorted").attr("class", "");
-							$("#nick").attr("class", "sorted ascending");
-							thorder("quityn", "ida");
-							clicknick += 1;
-							clickid = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-						} 
+				if(!location.href.includes('order=')){
+					location.href = location.href+'&order=nicka';
+					
+				}else {
+					if(location.href.includes('order=nickd')){
+					location.href = location.href.replace(location.href.substring((location.href.indexOf('order'))), 'order=nicka');
 					}else{
-						if(clicknick%2 == 0){
-							$(".sorted").attr("class", "");
-							$("#nick").attr("class", "sorted descending");
-							thorder("USER", "idd");
-							clicknick += 1;
-							clickid = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-						} else if(clicknick%2 != 0){
-							$(".sorted").attr("class", "");
-							$("#nick").attr("class", "sorted ascending");
-							thorder("USER", "ida");
-							clicknick += 1;
-							clickid = 0, clickname = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-						} 
+					location.href = location.href.replace(location.href.substring((location.href.indexOf('order'))), 'order=nickd');
 					}
+				}
 			});
 			$("#name").click(function() {
-				if(adminclick > 0){
-					if(clickname%2 == 0){
-						$(".sorted").attr("class", "");
-						$("#name").attr("class", "sorted descending");
-						thorder("ADMIN", "idd");
-						clickname += 1;
-						clickid = 0, clicknick = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-					} else if(clickname%2 != 0){
-						$(".sorted").attr("class", "");
-						$("#name").attr("class", "sorted ascending");
-						thorder("ADMIN", "ida");
-						clickname += 1;
-						clickid = 0, clicknick = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-					} 
-					}else if (userclick > 0){
-						if(clickname%2 == 0){
-							$(".sorted").attr("class", "");
-							$("#name").attr("class", "sorted descending");
-							thorder("USER", "idd");
-							clickname += 1;
-							clickid = 0, clicknick = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-						} else if(clickname%2 != 0){
-							$(".sorted").attr("class", "");
-							$("#name").attr("class", "sorted ascending");
-							thorder("USER", "ida");
-							clickname += 1;
-							clickid = 0, clicknick = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-						} 
-					}else if (allclick > 0){
-						if(clickname%2 == 0){
-							$(".sorted").attr("class", "");
-							$("#name").attr("class", "sorted descending");
-							thorder("all", "idd");
-							clickname += 1;
-							clickid = 0, clicknick = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-						} else if(clickname%2 != 0){
-							$(".sorted").attr("class", "");
-							$("#name").attr("class", "sorted ascending");
-							thorder("all", "ida");
-							clickname += 1;
-							clickid = 0, clicknick = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-						} 
-					}else if(blackclick > 0){
-						if(clickname%2 == 0){
-							$(".sorted").attr("class", "");
-							$("#name").attr("class", "sorted descending");
-							thorder("blackyn", "idd");
-							clickname += 1;
-							clickid = 0, clicknick = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-						} else if(clickname%2 != 0){
-							$(".sorted").attr("class", "");
-							$("#name").attr("class", "sorted ascending");
-							thorder("blackyn", "ida");
-							clickname += 1;
-							clickid = 0, clicknick = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-						} 
-					}else if(quitclick > 0){
-						if(clickname%2 == 0){
-							$(".sorted").attr("class", "");
-							$("#name").attr("class", "sorted descending");
-							thorder("quityn", "idd");
-							clickname += 1;
-							clickid = 0, clicknick = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-						} else if(clickname%2 != 0){
-							$(".sorted").attr("class", "");
-							$("#name").attr("class", "sorted ascending");
-							thorder("quityn", "ida");
-							clickname += 1;
-							clickid = 0, clicknick = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-						} 
-					}else {
-						if(clickname%2 == 0){
-							$(".sorted").attr("class", "");
-							$("#name").attr("class", "sorted descending");
-							thorder("USER", "idd");
-							clickname += 1;
-							clickid = 0, clicknick = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-						} else if(clickname%2 != 0){
-							$(".sorted").attr("class", "");
-							$("#name").attr("class", "sorted ascending");
-							thorder("USER", "ida");
-							clickname += 1;
-							clickid = 0, clicknick = 0, clickenroll = 0, clickrep = 0, clickquit = 0;
-						} 
+				if(!location.href.includes('order=')){
+					location.href = location.href+'&order=namea';
+				}else {
+					if(location.href.includes('order=named')){
+					location.href = location.href.replace(location.href.substring((location.href.indexOf('order'))), 'order=namea');
+					}else{
+					location.href = location.href.replace(location.href.substring((location.href.indexOf('order'))), 'order=named');
 					}
+				}
 			});
 			$("#enroll").click(function() {
-				if(adminclick > 0){
-					if(clickenroll%2 == 0){
-						$(".sorted").attr("class", "");
-						$("#enroll").attr("class", "sorted descending");
-						thorder("ADMIN", "idd");
-						clickenroll += 1;
-						clickid = 0, clicknick = 0, clickname = 0, clickrep = 0, clickquit = 0;
-					} else if(clickenroll%2 != 0){
-						$(".sorted").attr("class", "");
-						$("#enroll").attr("class", "sorted ascending");
-						thorder("ADMIN", "ida");
-						clickenroll += 1;
-						clickid = 0, clicknick = 0, clickname = 0, clickrep = 0, clickquit = 0;
-					} 
-					}else if (userclick > 0){
-						if(clickenroll%2 == 0){
-							$(".sorted").attr("class", "");
-							$("#enroll").attr("class", "sorted descending");
-							thorder("USER", "idd");
-							clickenroll += 1;
-							clickid = 0, clicknick = 0, clickname = 0, clickrep = 0, clickquit = 0;
-						} else if(clickenroll%2 != 0){
-							$(".sorted").attr("class", "");
-							$("#enroll").attr("class", "sorted ascending");
-							thorder("USER", "ida");
-							clickenroll += 1;
-							clickid = 0, clicknick = clickname = 0;
-						} 
-					}else if (allclick > 0){
-						if(clickenroll%2 == 0){
-							$(".sorted").attr("class", "");
-							$("#enroll").attr("class", "sorted descending");
-							thorder("all", "idd");
-							clickenroll += 1;
-							clickid = 0, clicknick = clickname = 0;
-						} else if(clickenroll%2 != 0){
-							$(".sorted").attr("class", "");
-							$("#enroll").attr("class", "sorted ascending");
-							thorder("all", "ida");
-							clickenroll += 1;
-							clickid = 0, clicknick = 0, clickname = 0, clickrep = 0, clickquit = 0;
-						} 
-					}else if(blackclick > 0){
-						if(clickenroll%2 == 0){
-							$(".sorted").attr("class", "");
-							$("#enroll").attr("class", "sorted descending");
-							thorder("blackyn", "idd");
-							clickenroll += 1;
-							clickid = 0, clicknick = 0, clickname = 0, clickrep = 0, clickquit = 0;
-						} else if(clickenroll%2 != 0){
-							$(".sorted").attr("class", "");
-							$("#enroll").attr("class", "sorted ascending");
-							thorder("blackyn", "ida");
-							clickenroll += 1;
-							clickid = 0, clicknick = 0, clickname = 0, clickrep = 0, clickquit = 0;
-						} 
-					}else if(quitclick > 0){
-						if(clickenroll%2 == 0){
-							$(".sorted").attr("class", "");
-							$("#enroll").attr("class", "sorted descending");
-							thorder("quityn", "idd");
-							clickenroll += 1;
-							clickid = 0, clicknick = 0, clickname = 0, clickrep = 0, clickquit = 0;
-						} else if(clickenroll%2 != 0){
-							$(".sorted").attr("class", "");
-							$("#enroll").attr("class", "sorted ascending");
-							thorder("quityn", "ida");
-							clickenroll += 1;
-							clickid = 0, clicknick = 0, clickname = 0, clickrep = 0, clickquit = 0;
-						} 
-					}else{
-						if(clickenroll%2 == 0){
-							$(".sorted").attr("class", "");
-							$("#enroll").attr("class", "sorted descending");
-							thorder("USER", "idd");
-							clickenroll += 1;
-							clickid = 0, clicknick = 0, clickname = 0, clickrep = 0, clickquit = 0;
-						} else if(clickenroll%2 != 0){
-							$(".sorted").attr("class", "");
-							$("#enroll").attr("class", "sorted ascending");
-							thorder("USER", "ida");
-							clickenroll += 1;
-							clickid = 0, clicknick = 0, clickname = 0, clickrep = 0, clickquit = 0;
-						} 
+				if(!location.href.includes('order=')){
+					location.href = location.href+'&order=enrolld';
+					
+				}else {
+					if(location.href.includes('order=enrolld')){
+					location.href = location.href.replace(location.href.substring((location.href.indexOf('order'))), 'order=enrolla');
+					}else {
+						location.href = location.href.replace(location.href.substring((location.href.indexOf('order'))), 'order=enrolld');
 					}
+				}
 			});
-			
 			$("#report").click(function() {
-				if(adminclick > 0){
-				if(clickrep%2 == 0){
-					$(".sorted").attr("class", "");
-					$("#report").attr("class", "sorted descending");
-					thorder("ADMIN", "reportd");
-					clickrep += 1;
-					clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickquit = 0;
-				} else if(clickrep%2 != 0){
-					$(".sorted").attr("class", "");
-					$("#report").attr("class", "sorted ascending");
-					thorder("ADMIN", "reporta");
-					clickrep += 1;
-					clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickquit = 0;
-				} 
-				}else if (userclick > 0){
-					if(clickrep%2 == 0){
-						$(".sorted").attr("class", "");
-						$("#report").attr("class", "sorted descending");
-						thorder("USER", "reportd");
-						clickrep += 1;
-						clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickquit = 0;
-					} else if(clickrep%2 != 0){
-						$(".sorted").attr("class", "");
-						$("#report").attr("class", "sorted ascending");
-						thorder("USER", "reporta");
-						clickrep += 1;
-						clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickquit = 0;
-					} 
-				}else if (allclick > 0){
-					if(clickrep%2 == 0){
-						$(".sorted").attr("class", "");
-						$("#report").attr("class", "sorted descending");
-						thorder("all", "reportd");
-						clickrep += 1;
-						clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickquit = 0;
-					} else if(clickrep%2 != 0){
-						$(".sorted").attr("class", "");
-						$("#report").attr("class", "sorted ascending");
-						thorder("all", "reporta");
-						clickrep += 1;
-						clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickquit = 0;
-					} 
-				}else if(blackclick > 0){
-					if(clickrep%2 == 0){
-						$(".sorted").attr("class", "");
-						$("#report").attr("class", "sorted descending");
-						thorder("blackyn", "reportd");
-						clickrep += 1;
-						clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickquit = 0;
-					} else if(clickrep%2 != 0){
-						$(".sorted").attr("class", "");
-						$("#report").attr("class", "sorted ascending");
-						thorder("blackyn", "reporta");
-						clickrep += 1;
-						clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickquit = 0;
-					} 
-				}else if(quitclick > 0){
-					if(clickrep%2 == 0){
-						$(".sorted").attr("class", "");
-						$("#report").attr("class", "sorted descending");
-						thorder("quityn", "reportd");
-						clickrep += 1;
-						clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickquit = 0;
-					} else if(clickrep%2 != 0){
-						$(".sorted").attr("class", "");
-						$("#report").attr("class", "sorted ascending");
-						thorder("quityn", "reporta");
-						clickrep += 1;
-						clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickquit = 0;
-					} 
+				if(!location.href.includes('order=')){
+					location.href = location.href+'&order=reportd';
+					
 				}else {
-					if(clickrep%2 == 0){
-						$(".sorted").attr("class", "");
-						$("#report").attr("class", "sorted descending");
-						thorder("USER", "reportd");
-						clickrep += 1;
-						clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickquit = 0;
-					} else if(clickrep%2 != 0){
-						$(".sorted").attr("class", "");
-						$("#report").attr("class", "sorted ascending");
-						thorder("USER", "reporta");
-						clickrep += 1;
-						clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickquit = 0;
-					} 
+					if(location.href.includes('order=reportd')){
+					location.href = location.href.replace(location.href.substring((location.href.indexOf('order'))), 'order=reporta');
+					}else{
+						location.href = location.href.replace(location.href.substring((location.href.indexOf('order'))), 'order=reportd');
+					}
 				}
 			});
-			$("#quit").click(function() {
-				if(adminclick > 0){
-				if(clickquit%2 == 0){
-					$(".sorted").attr("class", "");
-					$("#quit").attr("class", "sorted descending");
-					thorder("ADMIN", "quitd");
-					clickquit += 1;
-					clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0;
-				} else if(clickquit%2 != 0){
-					$(".sorted").attr("class", "");
-					$("#quit").attr("class", "sorted ascending");
-					thorder("ADMIN", "quita");
-					clickquit += 1;
-					clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0;
-				} 
-				}else if (userclick > 0){
-					if(clickquit%2 == 0){
-						$(".sorted").attr("class", "");
-						$("#quit").attr("class", "sorted descending");
-						thorder("USER", "quitd");
-						clickquit += 1;
-						clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0;
-					} else if(clickquit%2 != 0){
-						$(".sorted").attr("class", "");
-						$("#quit").attr("class", "sorted ascending");
-						thorder("USER", "quita");
-						clickquit += 1;
-						clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0;
-					} 
-				}else if (allclick > 0){
-					if(clickquit%2 == 0){
-						$(".sorted").attr("class", "");
-						$("#quit").attr("class", "sorted descending");
-						thorder("all", "quitd");
-						clickquit += 1;
-						clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0;
-					} else if(clickquit%2 != 0){
-						$(".sorted").attr("class", "");
-						$("#quit").attr("class", "sorted ascending");
-						thorder("all", "quita");
-						clickquit += 1;
-						clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0;
-					} 
-				}else if(blackclick > 0){
-					if(clickquit%2 == 0){
-						$(".sorted").attr("class", "");
-						$("#quit").attr("class", "sorted descending");
-						thorder("blackyn", "quitd");
-						clickquit += 1;
-						clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0;
-					} else if(clickquit%2 != 0){
-						$(".sorted").attr("class", "");
-						$("#quit").attr("class", "sorted ascending");
-						thorder("blackyn", "quita");
-						clickquit += 1;
-						clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0;
-					} 
-				}else if(quitclick > 0){
-					if(clickquit%2 == 0){
-						$(".sorted").attr("class", "");
-						$("#quit").attr("class", "sorted descending");
-						thorder("quityn", "quitd");
-						clickquit += 1;
-						clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0;
-					} else if(clickquit%2 != 0){
-						$(".sorted").attr("class", "");
-						$("#quit").attr("class", "sorted ascending");
-						thorder("quityn", "quita");
-						clickquit += 1;
-						clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0;
-					} 
-				}else {
-					if(clickquit%2 == 0){
-						$(".sorted").attr("class", "");
-						$("#quit").attr("class", "sorted descending");
-						thorder("USER", "quitd");
-						clickquit += 1;
-						clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0;
-					} else if(clickquit%2 != 0){
-						$(".sorted").attr("class", "");
-						$("#quit").attr("class", "sorted ascending");
-						thorder("USER", "quita");
-						clickquit += 1;
-						clickid = 0, clicknick = 0, clickname = 0, clickenroll = 0, clickrep = 0;
-					} 
-				}
-			});
-		function thorder(usertype, order) {
-			$.ajax({
-						url : "userorder.do",
-						data : {
-							usertype : usertype,
-							order : order
-						},
-						type : "post",
-						dataType : "json",
-						success : function(result) {
-					var blackuser = '';
-					var reporttd = '';
-					var quittd = '';
-							var objStr = JSON.stringify(result);
-							var jsonObj = JSON.parse(objStr);
-							//출력용 문자열 준비 
-							var bk = '';
-							//출력할 문자열 만들기
-							for ( var i in jsonObj.list) {
-								 if(jsonObj.list[i].reportc == 0){
-									reporttd = '<td>'+jsonObj.list[i].reportc+'</td>';
-								}else if(jsonObj.list[i].reportc != 0 && jsonObj.list[i].reportc < 3){
-									reporttd = '<td class="warning">'+jsonObj.list[i].reportc+'</td>';
-								}else {
-									 reporttd = '<td class="negative">'+jsonObj.list[i].reportc+'</td>';
-								} 
-								
-								if(jsonObj.list[i].quityn == 'Y'){
-									quittd = '<td><i class="check icon"  style="margin-left: 20px;"></i></td>';
-								}else {
-									quittd = '<td></td>';
-								}
-								
-								 if (jsonObj.list[i].blackyn == 'Y'){
-										bkuser = '<i class="big red dont icon" style="margin-right: 0px;"></i> <i class="black user icon"></i></i>';
-									}else {
-										bkuser = '<i class="big circle outline icon" style="margin-right: 0px;"></i><i class="user icon"></i></i>';
-									}
-								bk += '<tr><td><div class="ui fitted checkbox"><input type="checkbox" name="userid" value="'+jsonObj.list[i].userid+'"> <label></label></div></td><td id="userid"><i class="small icons" style="bottom: 3px;">'
-										+ bkuser
-										+ "&nbsp; <a href='usermd.do?userid="+ jsonObj.list[i].userid +"'>"
-										+ jsonObj.list[i].userid
-										+ "</a></td><td id='nick'><a href='usermd.do?userid="+ jsonObj.list[i].userid +"'>"
-										+ decodeURIComponent(jsonObj.list[i].nickname
-												.replace(/\+/gi, " "))
-										+ "</a></td><td id='name'><a href='usermd.do?userid="+ jsonObj.list[i].userid +"'>"
-										+ decodeURIComponent(jsonObj.list[i].username.replace(/\+/gi, " "))
-										+ "</a></td><td id='enroll'>"
-										+ jsonObj.list[i].enrolldate + quittd + reporttd 
-										+ "</td></tr>";
-							}
-							$("#usertable").html(bk);
-						},
-						error : function(request, status, errorData) {
-							console.log("error code : " + request.status
-									+ "\nMessage : " + request.responseText
-									+ "\nError : " + errorData);
-						}
-					});
-		}
 		$('.dropdown').dropdown({});
 		$("input[name=userid]").hide();
 		
@@ -849,6 +282,14 @@ var thclicked = "normal";
 </head>
 <body>
 	<div id="um">
+	<c:url value="userm.do" var="usermuri">
+	<c:if test="${ !empty usertype and !fn:contains(usermuri, 'usertype') }"><c:param value="${ usertype }" name="usertype" /></c:if>
+	<c:if test="${ !empty blackyn and !fn:contains(usermuri, 'blackyn') }"><c:param value="${ blackyn }" name="blackyn" /></c:if>
+	<c:if test="${ !empty quityn and !fn:contains(usermuri, 'quityn')  }"><c:param value="${ quityn }" name="quityn" /></c:if>
+	<c:if test="${ !empty order and !fn:contains(usermuri, 'order')  }"><c:param value="${ order }" name="order" /></c:if>
+	<c:if test="${ !empty nickname and !fn:contains(usermuri, 'nickname')  }"><c:param value="${ nickname }" name="nickname" /></c:if>
+	<c:if test="${ !empty userid and !fn:contains(usermuri, 'userid')  }"><c:param value="${ userid }" name="userid" /></c:if>
+	</c:url>
 	<div id="popdiv">
 		<label id="bllabel">블랙리스트 기간 및 사유를 선택해 주세요.</label>
 		<br><br><hr><br>
@@ -912,16 +353,16 @@ var thclicked = "normal";
 	</div>
 		<br>
 	<div align="right">
-			<form action="" method="get">
+			<form action="userm.do" method="get">
 				<input type="submit" class="ui basic button" value="검색">
 				<div class="ui right action left icon input">
 					<i class="search icon"></i>
-					<input type="search" placeholder="닉네임 검색" name="searchnick"> 
+					<input type="search" placeholder="닉네임 검색" name="nickname"> 
 					<input type="search" placeholder="아이디 검색" name="userid"> 
 					<input type="hidden" value="1" name="page">
-					<input type="hidden" value="" name="usertype">
+					<!-- <input type="hidden" value="" name="usertype">
 					<input type="hidden" value="" name="blackyn">
-					<input type="hidden" value="" name="quityn">
+					<input type="hidden" value="" name="quityn"> -->
 					<div class="ui basic floating dropdown button">
 						<div class="text">닉네임</div>
 						<i class="dropdown icon"></i>
@@ -937,11 +378,35 @@ var thclicked = "normal";
 		<br>
 		<div>
 			<div class="ui small basic buttons">
-				<div class="ui button order" id="allbtn">전체회원</div>
-				<div class="ui button order" id="adminbtn">관리자</div>
-				<div class="ui button order" id="userbtn">일반회원</div>
-				<div class="ui button order" id="blackbtn">블랙리스트</div>
-				<div class="ui button order" id="quitbtn">탈퇴회원</div>
+				<a href="userm.do?usertype=&order=idd&page=1"><div class="ui button order" id="allbtn">전체회원</div></a>
+				<c:if test="${ !fn:contains(usermuri, 'usertype') }">
+				<a href="${ usermuri }&usertype=ADMIN&page=1"><div class="ui button  order" id="adminbtn">관리자</div></a>
+				</c:if>
+				<c:if test="${ fn:contains(usermuri, 'usertype=ADMIN') }">
+				<a href=""><div class="ui button  active order" id="adminbtn">관리자</div></a>
+				<a href="${ fn:replace(usermuri , 'ADMIN', 'USER') }"><div class="ui button order" id="userbtn">일반회원</div></a>
+				</c:if> 
+				<c:if test="${ fn:contains(usermuri, 'usertype=USER') }">
+				<a href="${ fn:replace(usermuri , 'USER', 'ADMIN') }"><div class="ui button  order" id="adminbtn">관리자</div></a>
+				<a href=""><div class="ui button active order" id="userbtn">일반회원</div></a>
+				</c:if>
+				<c:if test="${ !fn:contains(usermuri, 'usertype') }">
+				<a href="${ usermuri }&usertype=USER&page=1"><div class="ui button order" id="userbtn">일반회원</div></a>
+				</c:if>
+				</div>&nbsp;&nbsp;&nbsp;
+				<div class="ui small basic buttons">
+				<c:if test="${ fn:contains(usermuri, 'blackyn') }">
+				<a href="${ fn:replace(usermuri , 'blackyn=Y', '') }&page=1"><div class="ui button active order" id="blackbtn">블랙리스트</div></a>
+				</c:if>
+				<c:if test="${ !fn:contains(usermuri, 'blackyn') }">
+				<a href="${ usermuri }&blackyn=Y&page=1"><div class="ui button order" id="blackbtn">블랙리스트</div></a>
+				</c:if>
+				<c:if test="${ fn:contains(usermuri, 'quityn') }">
+				<a href="${ fn:replace(usermuri , 'quityn=Y', '') }&page=1"><div class="ui button active order" id="quitbtn">탈퇴회원</div></a>
+				</c:if>
+				<c:if test="${ !fn:contains(usermuri, 'quityn') }">
+				<a href="${ usermuri }&quityn=Y&page=1"><div class="ui button order" id="quitbtn">탈퇴회원</div></a>
+				</c:if>
 			</div>
 		</div>
 		<table class="ui sortable celled table selectable">
@@ -952,14 +417,23 @@ var thclicked = "normal";
 							<input type="checkbox" id="checkall"> <label></label>
 						</div>
 					</th>
-					<th class="" id="userid" width="300">회원ID<input type="hidden"  value="0" name="userid"></th>
-					<th class="" id="nick" width="300">닉네임</th>
-					<th class="" id="name" width="300">이름</th>
-					<th class="" id="enroll" width="150">가입일</th> 
+					<c:if test="${ usermuri.contains('order=idd') }"><th class="sorted descending" id="userid" width="300">회원ID<input type="hidden"  value="0" name="userid"></th></c:if>
+					<c:if test="${ usermuri.contains('order=ida') }"><th class="sorted ascending" id="userid" width="300">회원ID<input type="hidden"  value="0" name="userid"></th></c:if>
+					<c:if test="${ !usermuri.contains('order=ida') and !usermuri.contains('order=idd') }">	<th class="" id="userid" width="300">회원ID<input type="hidden"  value="0" name="userid"></th></c:if>
+					<c:if test="${ usermuri.contains('order=nicka') }"><th class="sorted ascending" id="nick" width="300">닉네임</th></c:if>
+					<c:if test="${ usermuri.contains('order=nickd') }"><th class="sorted descending" id="nick" width="300">닉네임</th></c:if>
+					<c:if test="${ !usermuri.contains('order=nickd') and !usermuri.contains('order=nicka') }"><th class="" id="nick" width="300">닉네임</th></c:if>
+					<c:if test="${ usermuri.contains('order=namea') }"><th class="sorted ascending" id="name" width="300">이름</th></c:if>
+					<c:if test="${ usermuri.contains('order=named') }"><th class="sorted descending" id="name" width="300">이름</th></c:if>
+					<c:if test="${ !usermuri.contains('order=namea') and !usermuri.contains('order=named') }"><th class="" id="name" width="300">이름</th></c:if>
+					<c:if test="${ usermuri.contains('order=enrolla') }"><th class="sorted ascending" id="enroll" width="150">가입일</th> </c:if>
+					<c:if test="${ usermuri.contains('order=enrolld') }"><th class="sorted descending" id="enroll" width="150">가입일</th> </c:if>
+					<c:if test="${ !usermuri.contains('order=enrolld') and !usermuri.contains('order=enrolla') }"><th class="" id="enroll" width="150">가입일</th> </c:if>
 					<th class="" width="100" id="quit">탈퇴여부</th>
-					<th class="" id="report" width="100">
-					신고횟수
-					</th>
+					<c:if test="${ usermuri.contains('order=reporta') }"><th class="sorted ascending" id="report" width="100">신고횟수</th></c:if>
+					<c:if test="${ usermuri.contains('order=reportd') }"><th class="sorted descending" id="report" width="100">신고횟수</th></c:if>
+					<c:if test="${ !usermuri.contains('order=reportd') and !usermuri.contains('order=reporta') }"><th class="" id="report" width="100">신고횟수</th></c:if>
+					
 				</tr>
 			</thead>
 			<tbody id="usertable">
@@ -1016,42 +490,42 @@ var thclicked = "normal";
 		<div align="center">
 		<div class="ui pagination menu">
 		<c:if test="${ currentPage eq 1 }">
-		<a href="/objet/userm.do?page=1" class="disabled item"><i class="angle double left icon"></i></a>
+		<a href="${usermuri }&page=1" class="disabled item"><i class="angle double left icon"></i></a>
 		</c:if>
 		<c:if test="${ currentPage ne 1 }">
-		<a href="/objet/userm.do?page=1" class="item"><i class="angle double left icon"></i></a>
+		<a href="${ usermuri }&page=1" class="item"><i class="angle double left icon"></i></a>
 		</c:if>
 		<c:if test="${ beginPage - 10 < 1 }">
-		<c:if test="${ currentPage eq 1 }"><a href="/objet/userm.do?page=1" class="disabled item"><i class="angle left icon"></i></a></c:if>
-		<c:if test="${ currentPage ne 1 }"><a href="/objet/userm.do?page=1" class="item"><i class="angle left icon"></i></a></c:if>
+		<c:if test="${ currentPage eq 1 }"><a href="${ usermuri }&page=1" class="disabled item"><i class="angle left icon"></i></a></c:if>
+		<c:if test="${ currentPage ne 1 }"><a href="${ usermuri }&page=1" class="item"><i class="angle left icon"></i></a></c:if>
 		</c:if>
 		<c:if test="${ beginPage - 10 >= 1 }">
-		<a href="/objet/userm.do?page=${ currentPage }" class="item"><i class="angle left icon"></i></a>
+		<a href="${ usermuri }&page=${ currentPage }" class="item"><i class="angle left icon"></i></a>
 		</c:if>
 		<c:forEach begin="${ beginPage }" end="${ endPage }" var="p">
 		<c:if test="${ p eq currentPage }">
-		<a href="/objet/userm.do?page=${ p }" class="active item">${ p }</a>
+		<a href="${ usermuri }&page=${ p }" class="active item">${ p }</a>
 		</c:if>
 		<c:if test="${ p ne currentPage }">
-		<a href="/objet/userm.do?page=${ p }" class="item">${ p }</a>
+		<a href="${ usermuri }&page=${ p }" class="item">${ p }</a>
 		</c:if>
 		</c:forEach>
 		<c:if test="${  endPage + 10 > maxPage }">
 		<c:if test="${ currentPage eq endPage }">
-		<a href="/objet/userm.do?page=${ maxPage }" class="disabled item"><i class="angle right icon"></i></a>
+		<a href="${ usermuri }&page=${ maxPage }" class="disabled item"><i class="angle right icon"></i></a>
 		</c:if>
 		<c:if test="${ currentPage ne endPage }">
-		<a href="/objet/userm.do?page=${ maxPage }" class="item"><i class="angle right icon"></i></a>
+		<a href="${ usermuri }&page=${ maxPage }" class="item"><i class="angle right icon"></i></a>
 		</c:if>
 		</c:if>
 		<c:if test="${ endPage + 10 <= maxPage }">
-		<a href="/objet/userm.do?page=${ endPage + 10 }" class="item"><i class="angle right icon"></i></a>
+		<a href="${ usermuri }&page=${ endPage + 10 }" class="item"><i class="angle right icon"></i></a>
 		</c:if>
 		<c:if test="${ currentPage eq endPage }">
-		<a href="/objet/userm.do?page=${ endPage }" class="disabled item"><i class="angle double right icon"></i></a>
+		<a href="${ usermuri }&page=${ endPage }" class="disabled item"><i class="angle double right icon"></i></a>
 		</c:if>
 		<c:if test="${ currentPage ne endPage }">
-		<a href="/objet/userm.do?page=${ endPage }" class="item"><i class="angle double right icon"></i></a>
+		<a href="${ usermuri }&page=${ endPage }" class="item"><i class="angle double right icon"></i></a>
 		</c:if>
 	</div>
 	</div></div>
