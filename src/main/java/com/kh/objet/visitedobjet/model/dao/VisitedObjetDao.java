@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.objet.visitedobjet.model.vo.VisitedObjet;
+import com.kh.objet.visitedobjet.model.vo.VisitedObjet2;
 
 @Repository("visitedObjetDao")
 public class VisitedObjetDao {
@@ -27,28 +28,27 @@ public class VisitedObjetDao {
 	}
 	
 	// 오브제 관리 - 다녀온 오브제 전체 리스트 조회
-	public ArrayList<VisitedObjet> myVistiedObjetList(){
-		List<VisitedObjet> list = mybatisSession.selectList("objetMapper.selectMyVisitedObjetList");
-		return (ArrayList<VisitedObjet>) list;
+	public List<VisitedObjet2> myVisitedObjetList(HashMap<String, Object> map){
+		List<VisitedObjet2> list = mybatisSession.selectList("objetMapper.selectVistiedObjetList", map);
+		return list;
 	}
 	
 	// 오브제 관리 - 다녀온 오브제 삭제
 	public int deleteMyVisitedObjetList(int objetno) {
 		return mybatisSession.delete("objetMapper.deleteMyVistiedObjetList", objetno);
 	}
-
-
-	// 오브제 관리 - 다녀온 오브제 검색
-	public List<VisitedObjet> selectMyVisitedObjetSearch(HashMap<String, Object> map) {
-		return mybatisSession.selectList("objetMapper.selectMyVisitedObjetSearch", map);
-	}
-
+	
 	public int listCount() {
 		return mybatisSession.selectOne("objetMapper.listCount");
 	}
-	
-	public List<VisitedObjet> selectVistiedObjetList(HashMap<String, Object> map){
-		return mybatisSession.selectList("objetMapper.selectVistiedObjetList", map);
+
+	// 오브제 관리 - 다녀온 오브제 검색
+	public List<VisitedObjet2> selectMyVisitedObjetSearch(HashMap<String, Object> map2) {
+		return mybatisSession.selectList("objetMapper.selectMyVisitedObjetSearch", map2);
+	}
+
+	public int selectMyVisitedObjetSearchListCount(HashMap<String, Object> map1) {
+		return mybatisSession.selectOne("objetMapper.selectMyVisitedObjetSearchListCount", map1);
 	}
 	
 		

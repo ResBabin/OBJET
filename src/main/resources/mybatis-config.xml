@@ -15,6 +15,7 @@
 		<typeAlias type="com.kh.objet.guestbook.model.vo.GuestBook" alias="GuestBook" />
 		<typeAlias type="com.kh.objet.guestbook.model.vo.GB" alias="GB" />
 		<typeAlias type="com.kh.objet.likeobjet.model.vo.LikeObjet" alias="LikeObjet" />
+		<typeAlias type="com.kh.objet.likeobjet.model.vo.LikeObjet2" alias="LikeObjet2" />
 		<typeAlias type="com.kh.objet.notice.model.vo.Notice" alias="Notice" />
 		<typeAlias type="com.kh.objet.objet.model.vo.Objet" alias="Objet" />
 		<typeAlias type="com.kh.objet.objet.model.vo.Objet2" alias="Objet2" />
@@ -32,6 +33,7 @@
 		<typeAlias type="com.kh.objet.users.model.vo.Users" alias="Users" />
 		<typeAlias type="com.kh.objet.usersprofile.model.vo.UsersProfile" alias="UsersProfile" />
 		<typeAlias type="com.kh.objet.visitedobjet.model.vo.VisitedObjet" alias="VisitedObjet" />
+		<typeAlias type="com.kh.objet.visitedobjet.model.vo.VisitedObjet2" alias="VisitedObjet2" />
 		<typeAlias type="com.kh.objet.users.model.vo.UserManagement" alias="Userm" />
 		<typeAlias type="com.kh.objet.calendar.model.vo.Calendar" alias="Calendar" />
 		<typeAlias type="com.kh.objet.users.model.vo.UAUP" alias="UAUP" />
