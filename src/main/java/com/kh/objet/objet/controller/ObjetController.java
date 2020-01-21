@@ -3,9 +3,11 @@ package com.kh.objet.objet.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,7 +36,6 @@ import com.kh.objet.objet.model.service.ObjetServiceImpl;
 import com.kh.objet.objet.model.vo.Artist;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.objet.model.vo.Objet2;
-import com.kh.objet.objet.model.vo.Objet3;
 import com.kh.objet.objet.model.vo.ReviewKey;
 import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.reportboard.model.vo.ReportBoard;
@@ -332,6 +334,7 @@ public class ObjetController {
 		job.put("title", URLEncoder.encode(objet.getObjettitle(), "utf-8"));
 		job.put("start", objet.getObjetstartdate().toString());
 		job.put("end", objet.getObjetenddate().toString());
+		job.put("color", objet.getObjetcolor());
 		jarr.add(job);
 		}
 		
@@ -671,6 +674,425 @@ public class ObjetController {
 		out.close();
 	}
 	
+	//내 오브제 상세보기
+	@RequestMapping(value="moveMyObjetList.do")
+	public String selectMyObjetList(@RequestParam(value="userid") String userid, @RequestParam("currentPage") String currentPage, Model model) {
+		//페이징처리 
+		int curPage = Integer.valueOf(currentPage);
+		int listCount = objetService.selectMyObjetListCount(userid);
+		paging.makePage(listCount, curPage);
+				
+		// HashMap 객체 생성
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("startRow", paging.getStartRow());
+		map.put("endRow", paging.getEndRow());
+		map.put("userid", userid);
+		
+		List<Artist> list = objetService.selectMyObjetList(map);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("paging", paging);
+		model.addAttribute("kind", "all");
+		
+		return "objet/myObjetList";
+	}
+	
+	//내 오브제 상세보기 검색
+	@RequestMapping(value="moveMyObjetListSearch.do", method=RequestMethod.POST)
+	public String selectMyObjetListSearch(@RequestParam(value="userid") String userid, 
+		@RequestParam("publicyn") String publicyn, 
+		@RequestParam("objetstatus") String objetstatus,
+		@RequestParam("objettitle") String objettitle,
+		@RequestParam("currentPage") String currentPage, Model model) {
+
+		int curPage = Integer.valueOf(currentPage);
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("startRow", paging.getStartRow());
+		map.put("endRow", paging.getEndRow());
+		map.put("userid", userid);
+		map.put("publicyn", publicyn);
+		map.put("objetstatus", objetstatus);
+		map.put("objettitle", objettitle);
+		
+		int listCount = objetService.selectMyObjetListSearchCount(map);
+		paging.makePage(listCount, curPage);
+		List<Artist> list = objetService.selectMyObjetListSearch(map);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("paging", paging);
+		model.addAttribute("kind", "search");
+		model.addAttribute("publicyn", publicyn);
+		model.addAttribute("objetstatus", objetstatus);
+		model.addAttribute("objettitle", objettitle);
+		
+		return "objet/myObjetList";
+	}
+
+	//내 오브제 등록
+	@RequestMapping(value="insertMyObjet.do", method=RequestMethod.POST)
+	public ModelAndView insertMyObjet(@RequestParam(value="userid") String userid,
+	 @RequestParam("originmainposter") MultipartFile originmainposter,
+	 @RequestParam("objetofile1") MultipartFile objetofile1,
+	 @RequestParam("objetofile2") MultipartFile objetofile2,
+	 @RequestParam("objetofile3") MultipartFile objetofile3,
+	 @RequestParam("objetofile4") MultipartFile objetofile4,
+	 @RequestParam("objetofile5") MultipartFile objetofile5,
+	 @RequestParam("objetofile6") MultipartFile objetofile6,
+	 @RequestParam("objetofile7") MultipartFile objetofile7,
+	 @RequestParam("objetofile8") MultipartFile objetofile8, 
+	 MultipartHttpServletRequest request, ModelAndView mav) throws Exception {
+		
+		Objet objet = new Objet();
+		objet.setUserid(userid);
+		objet.setObjettitle(request.getParameter("objettitle"));
+		objet.setObjetintro(request.getParameter("objetintro"));
+		String originmainpostername = originmainposter.getOriginalFilename();
+		objet.setOriginmainposter(originmainpostername);
+		objet.setObjetstartdate(Date.valueOf(request.getParameter("objetstartdate")));
+		objet.setObjetenddate(Date.valueOf(request.getParameter("objetenddate")));
+		String[] tags = request.getParameterValues("objettag");
+		String tag = String.join("," , tags);
+		objet.setObjettag(tag);
+		
+		objet.setObjettitle1(request.getParameter("objettitle1"));
+		objet.setObjetintro1(request.getParameter("objetintro1"));
+		String objetofile1name = objetofile1.getOriginalFilename();
+		objet.setObjetofile1(objetofile1name);
+		
+		objet.setObjettitle2(request.getParameter("objettitle2"));
+		objet.setObjetintro2(request.getParameter("objetintro2"));
+		String objetofile2name = objetofile2.getOriginalFilename();
+		objet.setObjetofile2(objetofile2name);
+		
+		objet.setObjettitle3(request.getParameter("objettitle3"));
+		objet.setObjetintro3(request.getParameter("objetintro3"));
+		String objetofile3name = objetofile3.getOriginalFilename();
+		objet.setObjetofile3(objetofile3name);
+		
+		objet.setObjettitle4(request.getParameter("objettitle4"));
+		objet.setObjetintro4(request.getParameter("objetintro4"));
+		String objetofile4name = objetofile4.getOriginalFilename();
+		objet.setObjetofile4(objetofile4name);
+		
+		objet.setObjettitle5(request.getParameter("objettitle5"));
+		objet.setObjetintro5(request.getParameter("objetintro5"));
+		String objetofile5name = objetofile5.getOriginalFilename();
+		objet.setObjetofile5(objetofile5name);
+		
+		objet.setObjettitle6(request.getParameter("objettitle6"));
+		objet.setObjetintro6(request.getParameter("objetintro6"));
+		String objetofile6name = objetofile6.getOriginalFilename();
+		objet.setObjetofile6(objetofile6name);
+		
+		objet.setObjettitle7(request.getParameter("objettitle7"));
+		objet.setObjetintro7(request.getParameter("objetintro7"));
+		String objetofile7name = objetofile7.getOriginalFilename();
+		objet.setObjetofile7(objetofile7name);
+		
+		objet.setObjettitle8(request.getParameter("objettitle8"));
+		objet.setObjetintro8(request.getParameter("objetintro8"));
+		String objetofile8name = objetofile8.getOriginalFilename();
+		objet.setObjetofile8(objetofile8name);
+		
+		String path = request.getSession().getServletContext().getRealPath("resources/images/objet");
+		SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMDD_HHMMSS_");
+		Calendar now = Calendar.getInstance();
+        String extension1 = originmainpostername.split("\\.")[1];
+        String renamemainpostername = sdf.format(now.getTime())+"1."+extension1;
+        File f1 = new File(path + "\\" + renamemainpostername);
+        originmainposter.transferTo(f1);
+        
+        String extension2 = objetofile1name.split("\\.")[1];
+        String objetrfile1name = sdf.format(now.getTime())+"2."+extension2;
+        File f2 = new File(path + "\\" + objetrfile1name);
+        objetofile1.transferTo(f2);
+        
+        String extension3 = objetofile2name.split("\\.")[1];
+        String objetrfile2name = sdf.format(now.getTime())+"3."+extension3;
+        File f3 = new File(path + "\\" + objetrfile2name);
+        objetofile2.transferTo(f3);
+        
+        String extension4 = objetofile3name.split("\\.")[1];
+        String objetrfile3name = sdf.format(now.getTime())+"4."+extension4;
+        File f4 = new File(path + "\\" + objetrfile3name);
+        objetofile3.transferTo(f4);
+        
+        String extension5 = objetofile4name.split("\\.")[1];
+        String objetrfile4name = sdf.format(now.getTime())+"5."+extension5;
+        File f5 = new File(path + "\\" + objetrfile4name);
+        objetofile4.transferTo(f5);
+        
+        String extension6 = objetofile5name.split("\\.")[1];
+        String objetrfile5name = sdf.format(now.getTime())+"6."+extension6;
+        File f6 = new File(path + "\\" + objetrfile5name);
+        objetofile5.transferTo(f6);
+        
+        String extension7 = objetofile6name.split("\\.")[1];
+        String objetrfile6name = sdf.format(now.getTime())+"7."+extension7;
+        File f7 = new File(path + "\\" + objetrfile6name);
+        objetofile6.transferTo(f7);
+        
+        String extension8 = objetofile7name.split("\\.")[1];
+        String objetrfile7name = sdf.format(now.getTime())+"8."+extension8;
+        File f8 = new File(path + "\\" + objetrfile7name);
+        objetofile7.transferTo(f8);
+        
+        String extension9 = objetofile8name.split("\\.")[1];
+        String objetrfile8name = sdf.format(now.getTime())+"9."+extension9;
+        File f9 = new File(path + "\\" + objetrfile8name);
+        objetofile8.transferTo(f9);
+		
+        objet.setRenamemainposter(renamemainpostername);
+        objet.setObjetrfile1(objetrfile1name);
+        objet.setObjetrfile2(objetrfile2name);
+        objet.setObjetrfile3(objetrfile3name);
+        objet.setObjetrfile4(objetrfile4name);
+        objet.setObjetrfile5(objetrfile5name);
+        objet.setObjetrfile6(objetrfile6name);
+        objet.setObjetrfile7(objetrfile7name);
+        objet.setObjetrfile8(objetrfile8name);
+        objet.setObjetcolor(request.getParameter("objetcolor"));
+        
+		int result = objetService.insertMyObjet(objet);
+        
+        if (result > 0) {
+        	mav.setViewName("redirect:moveMyObjetList.do?userid=" + userid + "&currentPage=1");
+    	} else {
+    		mav.addObject("message", "오브제 등록 실패");
+    		mav.setViewName("common/errorPage");
+    	}
+        
+        return mav;
+	}
+	
+	//오브제 관리 - 내 오브제 수정 페이지 이동
+	@RequestMapping("moveEditObjet.do")
+	public String moveEditObjet(@RequestParam(value="objetno") int objetno, Model model) {
+		Artist objet = objetService.selectObjetOne(objetno);
+		if(objet != null) {
+			model.addAttribute("objet", objet);
+		}
+		return "objet/editObjet";
+	}
+	
+	//내 오브제 수정
+	@RequestMapping(value="updateMyObjet.do", method=RequestMethod.POST)
+	public ModelAndView updateMyObjet(@RequestParam(value="userid") String userid,
+	 @RequestParam(value="objetno") int objetno,
+	 @RequestParam(value="originmainposter", required=false) MultipartFile originmainposter,
+	 @RequestParam(value="objetofile1", required=false) MultipartFile objetofile1,
+	 @RequestParam(value="objetofile2", required=false) MultipartFile objetofile2,
+	 @RequestParam(value="objetofile3", required=false) MultipartFile objetofile3,
+	 @RequestParam(value="objetofile4", required=false) MultipartFile objetofile4,
+	 @RequestParam(value="objetofile5", required=false) MultipartFile objetofile5,
+	 @RequestParam(value="objetofile6", required=false) MultipartFile objetofile6,
+	 @RequestParam(value="objetofile7", required=false) MultipartFile objetofile7,
+	 @RequestParam(value="objetofile8", required=false) MultipartFile objetofile8, 
+	 MultipartHttpServletRequest request, ModelAndView mav) throws Exception {
+		
+		Objet objet = new Objet();
+		
+		objet.setObjetno(objetno);
+		objet.setUserid(userid);
+		objet.setObjettitle(request.getParameter("objettitle"));
+		objet.setObjetintro(request.getParameter("objetintro"));
+		objet.setObjetstartdate(Date.valueOf(request.getParameter("objetstartdate")));
+		objet.setObjetenddate(Date.valueOf(request.getParameter("objetenddate")));
+		String[] tags = request.getParameterValues("objettag");
+		String tag = String.join("," , tags);
+		objet.setObjettag(tag);
+		objet.setObjetcolor(request.getParameter("objetcolor"));
+		
+		String path = request.getSession().getServletContext().getRealPath("resources/images/objet");
+		SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMDD_HHMMSS_");
+		Calendar now = Calendar.getInstance();
+		
+		if(originmainposter != null) {
+			String originmainpostername = originmainposter.getOriginalFilename();
+			objet.setOriginmainposter(originmainpostername);
+			String extension1 = originmainpostername.split("\\.")[1];
+	        String renamemainpostername = sdf.format(now.getTime())+"1."+extension1;
+	        File f1 = new File(path + "\\" + renamemainpostername);
+	        originmainposter.transferTo(f1);
+	        objet.setRenamemainposter(renamemainpostername);
+		}
+        
+		objet.setObjettitle1(request.getParameter("objettitle1"));
+		objet.setObjetintro1(request.getParameter("objetintro1"));
+		if(objetofile1 != null) {
+			String objetofile1name = objetofile1.getOriginalFilename();
+			if(!objetofile1name.equals("")) {
+				objet.setObjetofile1(objetofile1name);
+				String extension2 = objetofile1name.split("\\.")[1];
+		        String objetrfile1name = sdf.format(now.getTime())+"2."+extension2;
+		        File f2 = new File(path + "\\" + objetrfile1name);
+		        objetofile1.transferTo(f2);
+		        objet.setObjetrfile1(objetrfile1name);
+			}
+		}
+		
+		objet.setObjettitle2(request.getParameter("objettitle2"));
+		objet.setObjetintro2(request.getParameter("objetintro2"));
+		if(objetofile2 != null) {
+			String objetofile2name = objetofile2.getOriginalFilename();
+			if(!objetofile2name.equals("")) {
+				objet.setObjetofile2(objetofile2name);
+				String extension3 = objetofile2name.split("\\.")[1];
+		        String objetrfile2name = sdf.format(now.getTime())+"3."+extension3;
+		        File f3 = new File(path + "\\" + objetrfile2name);
+		        objetofile2.transferTo(f3);
+		        objet.setObjetrfile2(objetrfile2name);
+			}
+		}
+		
+		objet.setObjettitle3(request.getParameter("objettitle3"));
+		objet.setObjetintro3(request.getParameter("objetintro3"));
+		if(objetofile3 != null) {
+			String objetofile3name = objetofile3.getOriginalFilename();
+			if(!objetofile3name.equals("")) {
+				objet.setObjetofile3(objetofile3name);
+		        String extension4 = objetofile3name.split("\\.")[1];
+		        String objetrfile3name = sdf.format(now.getTime())+"4."+extension4;
+		        File f4 = new File(path + "\\" + objetrfile3name);
+		        objetofile3.transferTo(f4);
+		        objet.setObjetrfile3(objetrfile3name);
+			}
+		}
+		
+		objet.setObjettitle4(request.getParameter("objettitle4"));
+		objet.setObjetintro4(request.getParameter("objetintro4"));
+		if(objetofile4 != null) {
+			String objetofile4name = objetofile4.getOriginalFilename();
+			if(!objetofile4name.equals("")) {
+				objet.setObjetofile4(objetofile4name);
+				String extension5 = objetofile4name.split("\\.")[1];
+		        String objetrfile4name = sdf.format(now.getTime())+"5."+extension5;
+		        File f5 = new File(path + "\\" + objetrfile4name);
+		        objetofile4.transferTo(f5);
+		        objet.setObjetrfile4(objetrfile4name);
+			}
+		}
+		
+		objet.setObjettitle5(request.getParameter("objettitle5"));
+		objet.setObjetintro5(request.getParameter("objetintro5"));
+		if(objetofile5 != null) {
+			String objetofile5name = objetofile5.getOriginalFilename();
+			if(!objetofile5name.equals("")) {
+				objet.setObjetofile5(objetofile5name);
+				String extension6 = objetofile5name.split("\\.")[1];
+		        String objetrfile5name = sdf.format(now.getTime())+"6."+extension6;
+		        File f6 = new File(path + "\\" + objetrfile5name);
+		        objetofile5.transferTo(f6);
+		        objet.setObjetrfile5(objetrfile5name);
+			}
+		}
+		
+		objet.setObjettitle6(request.getParameter("objettitle6"));
+		objet.setObjetintro6(request.getParameter("objetintro6"));
+		if(objetofile6 != null) {
+			String objetofile6name = objetofile6.getOriginalFilename();
+			if(!objetofile6name.equals("")) {
+				objet.setObjetofile6(objetofile6name);
+				String extension7 = objetofile6name.split("\\.")[1];
+		        String objetrfile6name = sdf.format(now.getTime())+"7."+extension7;
+		        File f7 = new File(path + "\\" + objetrfile6name);
+		        objetofile6.transferTo(f7);
+		        objet.setObjetrfile6(objetrfile6name);
+			}
+		}
+		
+		objet.setObjettitle7(request.getParameter("objettitle7"));
+		objet.setObjetintro7(request.getParameter("objetintro7"));
+		if(objetofile7 != null) {
+			String objetofile7name = objetofile7.getOriginalFilename();
+			if(!objetofile7name.equals("")) {
+				objet.setObjetofile7(objetofile7name);
+				String extension8 = objetofile7name.split("\\.")[1];
+		        String objetrfile7name = sdf.format(now.getTime())+"8."+extension8;
+		        File f8 = new File(path + "\\" + objetrfile7name);
+		        objetofile7.transferTo(f8);
+		        objet.setObjetrfile7(objetrfile7name);
+			}
+		}
+		
+		objet.setObjettitle8(request.getParameter("objettitle8"));
+		objet.setObjetintro8(request.getParameter("objetintro8"));
+		if(objetofile8 != null) {
+			String objetofile8name = objetofile8.getOriginalFilename();
+			if(!objetofile8name.equals("")) {
+				objet.setObjetofile8(objetofile8name);
+				String extension9 = objetofile8name.split("\\.")[1];
+		        String objetrfile8name = sdf.format(now.getTime())+"9."+extension9;
+		        File f9 = new File(path + "\\" + objetrfile8name);
+		        objetofile8.transferTo(f9);
+		        objet.setObjetrfile8(objetrfile8name);
+			}
+		}
+        
+		int result = objetService.updateMyObjet(objet);
+        
+        if (result > 0) {
+        	mav.setViewName("redirect:moveMyObjetList.do?userid=" + userid + "&currentPage=1");
+    	} else {
+    		mav.addObject("message", "오브제 수정 실패");
+    		mav.setViewName("common/errorPage");
+    	}
+        
+        return mav;
+	}
+	
+	// 내 오브제 전시삭제
+	@RequestMapping("deleteObjet.do")
+	public void deleteObjet(@RequestParam(value="lists") String checkBox,
+		HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		int result = 0;
+		if(checkBox != null) {
+		// 체크박스로 삭제
+		String check[] = checkBox.split(",");
+			for(int i = 0; i < check.length; i++) {
+				Artist objet = objetService.selectObjetOne(Integer.parseInt(check[i]));
+				if(objet != null) {
+					File file1 = new File(request.getSession().getServletContext().getRealPath("resources/images/objet/" + objet.getRenamemainposter()));
+					File file2 = new File(request.getSession().getServletContext().getRealPath("resources/images/objet/" + objet.getObjetrfile1()));
+					File file3 = new File(request.getSession().getServletContext().getRealPath("resources/images/objet/" + objet.getObjetrfile2()));
+					File file4 = new File(request.getSession().getServletContext().getRealPath("resources/images/objet/" + objet.getObjetrfile3()));
+					File file5 = new File(request.getSession().getServletContext().getRealPath("resources/images/objet/" + objet.getObjetrfile4()));
+					File file6 = new File(request.getSession().getServletContext().getRealPath("resources/images/objet/" + objet.getObjetrfile5()));
+					File file7 = new File(request.getSession().getServletContext().getRealPath("resources/images/objet/" + objet.getObjetrfile6()));
+					File file8 = new File(request.getSession().getServletContext().getRealPath("resources/images/objet/" + objet.getObjetrfile7()));
+					File file9 = new File(request.getSession().getServletContext().getRealPath("resources/images/objet/" + objet.getObjetrfile8()));
+					if (file1.exists() && file2.exists() && file3.exists() && file4.exists() && 
+						file5.exists() && file6.exists() && file7.exists() && file8.exists() && file9.exists()) { 
+						if (file1.delete() && file2.delete() && file3.delete() && file4.delete() && file5.delete() &&
+							file6.delete() && file7.delete() && file8.delete() && file9.delete()) {
+							logger.info("파일삭제 성공");
+						} else {
+							logger.info("파일삭제 실패");
+						}
+					} else {
+						logger.info("파일이 존재하지 않습니다.");
+					}
+				}
+				result = objetService.deleteObjet(Integer.parseInt(check[i]));
+			}
+		}
+		
+		String resultValue = "";
+		if(result > 0) {
+			resultValue = "ok";
+		}else {
+			resultValue = "fail";
+		}
+		
+		PrintWriter out = response.getWriter();
+		out.append(resultValue);
+		out.flush();
+		out.close();
+	}
+	
+	
 	
 	// 최민영 *******************************************************************************
 	// 작가홈 오브제 전체 리스트 보기
@@ -779,109 +1201,13 @@ public class ObjetController {
 			
 	
 			// 박근수 *******************************************************************************
-			// 오브제 관리-내 오브제 페이지 이동
-			@RequestMapping("moveMyObjetList.do")
-			public String moveMyObjetList() {
-				return "objet/myObjetList";
-			}
-						
-			// 오브제 관리-내 오브제 검색
-			@RequestMapping("selectMyObjetSearch.do")
-			public void selectMyObjetSearch(@RequestParam(value="publicyn") String publicyn, @RequestParam(value="objetstatus") String objetstatus, 
-				@RequestParam(value="objettitle") String objettitle, HttpServletResponse response) throws IOException {
-				
-			HashMap<String, Object> map =new HashMap<String, Object>();  
-			
-			map.put("publicyn", publicyn);
-			map.put("objetstatus", objetstatus);
-			map.put("objettitle", objettitle);
-			
-			List<Objet2> objetList = objetService.selectMyObjetSearch(map);
-			
-			//전송용 JSON 객체
-			JSONObject sendJson = new JSONObject();
-			
-			//JSON 배열 객체
-			JSONArray jarr = new JSONArray();
-			
-			//list를 jarr 로 옮겨 저장 (복사)
-			for(Objet2 objet : objetList) {
-			JSONObject job = new JSONObject();
-			
-			job.put("objetno", objet.getObjetno());
-			job.put("userid", objet.getUserid());
-			job.put("objettitle", URLEncoder.encode(objet.getObjettitle(), "utf-8"));
-			job.put("objetintro", URLEncoder.encode(objet.getObjetintro(), "utf-8"));
-			job.put("originmainposter", URLEncoder.encode(objet.getOriginmainposter(), "utf-8"));
-			job.put("renamemainposter", objet.getRenamemainposter());
-			job.put("objetstartdate", objet.getObjetstartdate().toString());
-			job.put("objetenddate", objet.getObjetenddate().toString());
-			job.put("objettag", URLEncoder.encode(objet.getObjettag(), "utf-8"));
-			job.put("publicyn", objet.getPublicyn());
-			job.put("objetregidate", objet.getObjetregidate().toString());
-			job.put("objetstatus", objet.getObjetstatus());
-			job.put("objetview", objet.getObjetview());
-			jarr.add(job);
-			}
-			
-			sendJson.put("objetList", jarr);
-			
-			
-			logger.debug(jarr.toJSONString());
-			
-			
-			response.setContentType("application/jsonl charset=utf-8");
-			PrintWriter out = response.getWriter();
-			out.println(sendJson.toJSONString());
-			out.flush();
-			out.close();
-				
-			}
-			
-			//오브제 관리 - 내 오브제 상세보기
-			@RequestMapping("moveMyObjetDetail.do")
-			public String moveMyObjetDetail(@RequestParam(value="objettitle", required=false) String objettitle, HttpServletRequest request, Model model) {
-				Objet objet = objetService.moveMyObjetDetail(objettitle);
-				
-				if(objet != null) {
-					model.addAttribute("objet", objet);
-					model.addAttribute("objet/myObjetDetail");
-				}else {
-					model.addAttribute("message", "공지사항 상세 조회 실패");
-		            model.addAttribute("common/errorPage");
-				}
-				return "objet/myObjetDetail";
-			}
-				
-			//오브제 관리 - 내 오브제 수정 페이지 이동
-			@RequestMapping("moveEditObjet.do")
-			public String moveEditObjet(@RequestParam(value="objetno") int objetno) {
-				return "objet/editObjet";
-			}
-
-			//오브제 관리 - 내 오브제 수정
-			@RequestMapping("updateMyObjet.do")
-			public ModelAndView updateMyObjet(@RequestParam(value="objettitle") String objettitle, @RequestParam(value="objetintro") String objetintro, 
-					@RequestParam(value="originmainposter") String originmainposter, HttpServletRequest request, ModelAndView mv, Objet objet) {
-				objet.setObjettitle(objettitle);
-				objet.setObjetintro(objetintro);
-				objet.setOriginmainposter(originmainposter);
-				
-				int result = objetService.updateMyObjet(objet);
-				System.out.println("내 오브제 수정 : " + objet.toString());
-				mv.addObject("objet", objet);
-				mv.setViewName("redirect:moveMyObjetList.do");
-				return mv;
-			}
-			
-
 			//오브제 관리 - 전시 등록 페이지 이동
 			@RequestMapping("moveCreateObjet.do")
 			public String moveCreateObjet() {
 				return "objet/createObjet";
 			}
 				
-			//오브제 관리 - 전시 등록
+			/*//오브제 관리 - 전시 등록
 			@RequestMapping(value="insertObjet.do", method=RequestMethod.POST)
 			public String insertObjet(Objet3 objet3, Model model, MultipartHttpServletRequest mtfRequest) throws IOException{
 				List<MultipartFile> fileList = mtfRequest.getFiles("file");
@@ -916,24 +1242,7 @@ public class ObjetController {
 				}
 				return viewFileName;
 			}
-				
-			// 오브제 관리 - 전시삭제
-			@RequestMapping("deleteObjet.do")
-			public void deleteObjet(@RequestParam(value="objetno") int objetno, HttpServletResponse response
-					, Objet objet) throws IOException {
-				int result = objetService.deleteObjet(objetno);
-				
-				String returnValue = null;
-				if(result > 0) {
-					returnValue = "OK";
-				}else {
-					returnValue = "Retry Plz";
-				}
-				
-				PrintWriter out = response.getWriter();
-				out.append(returnValue);
-				out.flush();
-				out.close();
-			}
+				*/
+		
 
 }

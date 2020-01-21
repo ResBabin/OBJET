@@ -118,6 +118,7 @@ public class VisitedObjetController {
 		
 	}
 	
+	//박예은
 	//다녀온 오브제 캘린더
 	@RequestMapping(value="visitedObjetPlan.do", method=RequestMethod.POST)
 	@ResponseBody
@@ -129,6 +130,7 @@ public class VisitedObjetController {
 		JSONObject job = new JSONObject();
 		job.put("title", URLEncoder.encode(visitedobjet.getObjettitle(), "utf-8"));
 		job.put("start", visitedobjet.getVisitdate().toString());
+		job.put("color", visitedobjet.getObjetcolor());
 		jarr.add(job);
 		}
 		

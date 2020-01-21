@@ -54,6 +54,7 @@ public class Artist implements java.io.Serializable {
 	private String objetintro8;
 	private String objetofile8;
 	private String objetrfile8;
+	private String objetcolor;
 	//Users 필드
 	private String userpwd;
 	private String usertype;
@@ -88,10 +89,10 @@ public class Artist implements java.io.Serializable {
 			String objetintro5, String objetofile5, String objetrfile5, String objettitle6, String objetintro6,
 			String objetofile6, String objetrfile6, String objettitle7, String objetintro7, String objetofile7,
 			String objetrfile7, String objettitle8, String objetintro8, String objetofile8, String objetrfile8,
-			String userpwd, String usertype, String username, String nickname, String email, String phone,
-			String gender, Date enrolldate, String quityn, String blackyn, String useropic, String userrpic,
-			String userintros, String userintrol, String usertag, String portfolio, String facebook, String instagram,
-			String etcurl, String artistemail) {
+			String objetcolor, String userpwd, String usertype, String username, String nickname, String email,
+			String phone, String gender, Date enrolldate, String quityn, String blackyn, String useropic,
+			String userrpic, String userintros, String userintrol, String usertag, String portfolio, String facebook,
+			String instagram, String etcurl, String artistemail) {
 		super();
 		this.objetno = objetno;
 		this.userid = userid;
@@ -138,6 +139,7 @@ public class Artist implements java.io.Serializable {
 		this.objetintro8 = objetintro8;
 		this.objetofile8 = objetofile8;
 		this.objetrfile8 = objetrfile8;
+		this.objetcolor = objetcolor;
 		this.userpwd = userpwd;
 		this.usertype = usertype;
 		this.username = username;
@@ -159,6 +161,8 @@ public class Artist implements java.io.Serializable {
 		this.etcurl = etcurl;
 		this.artistemail = artistemail;
 	}
+
+
 
 	public int getObjetno() {
 		return objetno;
@@ -680,6 +684,14 @@ public class Artist implements java.io.Serializable {
 		this.artistemail = artistemail;
 	}
 
+	public String getObjetcolor() {
+		return objetcolor;
+	}
+
+	public void setObjetcolor(String objetcolor) {
+		this.objetcolor = objetcolor;
+	}
+
 	@Override
 	public String toString() {
 		return "Artist [objetno=" + objetno + ", userid=" + userid + ", objettitle=" + objettitle + ", objetintro="
@@ -697,14 +709,15 @@ public class Artist implements java.io.Serializable {
 				+ ", objetrfile6=" + objetrfile6 + ", objettitle7=" + objettitle7 + ", objetintro7=" + objetintro7
 				+ ", objetofile7=" + objetofile7 + ", objetrfile7=" + objetrfile7 + ", objettitle8=" + objettitle8
 				+ ", objetintro8=" + objetintro8 + ", objetofile8=" + objetofile8 + ", objetrfile8=" + objetrfile8
-				+ ", userpwd=" + userpwd + ", usertype=" + usertype + ", username=" + username + ", nickname="
-				+ nickname + ", email=" + email + ", phone=" + phone + ", gender=" + gender + ", enrolldate="
-				+ enrolldate + ", quityn=" + quityn + ", blackyn=" + blackyn + ", useropic=" + useropic + ", userrpic="
-				+ userrpic + ", userintros=" + userintros + ", userintrol=" + userintrol + ", usertag=" + usertag
-				+ ", portfolio=" + portfolio + ", facebook=" + facebook + ", instagram=" + instagram + ", etcurl="
-				+ etcurl + ", artistemail=" + artistemail + "]";
+				+ ", objetcolor=" + objetcolor + ", userpwd=" + userpwd + ", usertype=" + usertype + ", username="
+				+ username + ", nickname=" + nickname + ", email=" + email + ", phone=" + phone + ", gender=" + gender
+				+ ", enrolldate=" + enrolldate + ", quityn=" + quityn + ", blackyn=" + blackyn + ", useropic="
+				+ useropic + ", userrpic=" + userrpic + ", userintros=" + userintros + ", userintrol=" + userintrol
+				+ ", usertag=" + usertag + ", portfolio=" + portfolio + ", facebook=" + facebook + ", instagram="
+				+ instagram + ", etcurl=" + etcurl + ", artistemail=" + artistemail + "]";
 	}
 
+	
 	
 	
 }

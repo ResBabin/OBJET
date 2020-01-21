@@ -13,6 +13,7 @@ public class VisitedObjet implements Serializable {
 	private String userid;
 	private Date visitdate;
 	private String objettitle;
+	private String objetcolor;
 	
 	public VisitedObjet() {}
 
@@ -23,10 +24,11 @@ public class VisitedObjet implements Serializable {
 		this.visitdate = visitdate;
 	}
 
-	public VisitedObjet(Date visitdate, String objettitle) {
+	public VisitedObjet(Date visitdate, String objettitle, String objetcolor) {
 		super();
 		this.visitdate = visitdate;
 		this.objettitle = objettitle;
+		this.objetcolor = objetcolor;
 	}
 
 	public String getObjettitle() {
@@ -65,11 +67,21 @@ public class VisitedObjet implements Serializable {
 		return serialVersionUID;
 	}
 
+	public String getObjetcolor() {
+		return objetcolor;
+	}
+
+	public void setObjetcolor(String objetcolor) {
+		this.objetcolor = objetcolor;
+	}
+
 	@Override
 	public String toString() {
 		return "VisitedObjet [objetno=" + objetno + ", userid=" + userid + ", visitdate=" + visitdate + ", objettitle="
-				+ objettitle + "]";
+				+ objettitle + ", objetcolor=" + objetcolor + "]";
 	}
+
+
 
 	
 	

@@ -591,7 +591,6 @@
 }
 
 .thefront {
-   /* box-shadow: 0px 0px 7px 3px gray;  */
    position: absolute;
    width: 100%;
    height: 100%;
@@ -599,12 +598,13 @@
    background: white;
    text-align: center;
    border-radius: 10px;
+   border : 1px solid #eee;
 }
 
 .cardsection {
-	box-shadow: 0px 0px 20px 3px lightgray; 
-   background: rgba(0, 0, 0, 0.02);
-   height: 470px;
+/* 	box-shadow: 0px 0px 20px 3px lightgray;  */
+   background: rgba(0, 0, 0, 0.03);
+   height: 460px;
    width: 100%;
 }
 
@@ -629,26 +629,26 @@
 }
 
 .theback {
-  /*  box-shadow: 0px 0px 9px 3px gray;  */
    position: absolute;
    width: 100%;
    height: 100%;
    backface-visibility: hidden;
-   background: #fafafa;
+   background:white;
    color: #555;
    text-align: center;
    font-family: 'Nanum Gothic', sans-serif;
    border-radius: 10px;
    text-align: left;
    transform: rotateY(180deg);
+   border : 1px solid #eee;
 }
 
 .cardContent p {
-   margin-top: 25px;
+  margin-top: 25px;
   color: #333333;
-  font-size:16px;
+  font-size:14px;
   text-align:center;
-  font-weight: normal;
+  font-weight: bolder;
   letter-spacing: 1px;
   font-family:'Nanum Gothic';
 }
@@ -797,47 +797,30 @@
 <script type="text/javascript">
 $(function(){
 	$("#search-text").on("keyup", function(){
-		 var keyword = $("#search-text").val();
-		 var listValue = $(".objet_list_item").html();
-		 var nickname = $(".artist_txt").val();
-		 var iValue = listValue.indexOf(keyword);
-		 var nValue = nickname.indexOf(keyword);
-		 if(iValue !== -1 && nValue !==  -1) {
-			 $(".objet_list_item:contains('"+keyword+"')").slice(0, 5).fadeIn();
-			 $(".objet_list_item:contains('"+keyword+"')").each(function () {
-		        	var regex = new RegExp(keyword,'gi');
-		        $(this).html($(this).text().replace(regex, "<span>"+keyword+"</span>") );
-	    	});
-			 $(".artist_list_item:contains('"+keyword+"')").slice(0, 5).fadeIn();
-			 $(".artist_txt:contains('"+keyword+"')").each(function () {
-		        	var regex = new RegExp(keyword,'gi');
-		        $(this).html($(this).text().replace(regex, "<span>"+keyword+"</span>") );
-	    	});
-			 $(".txt_nodata_objet ").hide();
-			 $(".txt_nodata_artist ").hide();
-		 }if(iValue !== -1 || nValue === -1){
-			 $(".objet_list_item:contains('"+keyword+"')").slice(0, 5).fadeIn();
-			 $(".objet_list_item:contains('"+keyword+"')").each(function () {
-		        	var regex = new RegExp(keyword,'gi');
-		        $(this).html($(this).text().replace(regex, "<span>"+keyword+"</span>") );
-	    	});
-			 $(".txt_nodata_objet ").hide();
-			 $(".txt_nodata_artist ").show();
-			 $(".artist_list_item").hide();
-		 }if(iValue === -1 || nValue !== -1 ){
-			 $(".txt_nodata_objet ").show();
-			 $(".objet_list_item").hide();
-			 $(".artist_list_item:contains('"+keyword+"')").slice(0, 5).fadeIn();
-			 $(".artist_txt:contains('"+keyword+"')").each(function () {
-		        	var regex = new RegExp(keyword,'gi');
-		        $(this).html($(this).html().replace(regex, "<span>"+keyword+"</span>") );
-	    	}); 
-			 $(".txt_nodata_artist ").hide();
-		 }if(iValue === -1 && nValue === -1){
+		 var keyword = $(this).val();
+		 $(".objet_list_item").hide();
+		 $(".objet_list_item:contains('"+keyword+"')").slice(0, 5).fadeIn();
+		 $(".objet_list_item:contains('"+keyword+"')").each(function () {
+	        var regex = new RegExp(keyword,'gi');
+	        $(this).html($(this).text().replace(regex, "<span>"+keyword+"</span>") );
+			 });
+		 $(".artist_list_item").hide();
+		 $(".artist_list_item:contains('"+keyword+"')").slice(0, 5).fadeIn();
+		 $(".artist_txt:contains('"+keyword+"')").each(function () {
+	       	var regex = new RegExp(keyword,'gi');
+	        $(this).html($(this).html().replace(regex, "<span>"+keyword+"</span>") );
+			 }); 
+		 if($(".objet_list_item:contains('"+keyword+"')").length == 0 && $(".artist_list_item:contains('"+keyword+"')").length == 0){
 			 $(".txt_nodata_objet ").show();
 			 $(".txt_nodata_artist ").show();
-			 $(".objet_list_item").hide();
-			 $(".artist_list_item").hide();
+		 }
+		 if($(".artist_list_item:contains('"+keyword+"')").length == 0 && $(".objet_list_item:contains('"+keyword+"')").length != 0){
+			 $(".txt_nodata_artist ").show();
+			 $(".txt_nodata_objet ").hide();
+		 }
+		 if($(".artist_list_item:contains('"+keyword+"')").length != 0 && $(".objet_list_item:contains('"+keyword+"')").length == 0){
+			 $(".txt_nodata_artist ").hide();
+			 $(".txt_nodata_objet ").show();
 		 }
 	});
 });
@@ -1024,7 +1007,7 @@ $(function(){
                <c:set var="noimages" value="resources/images/noimg2.jpg" />
                <center> 
             	<img src="resources/images/objet/${artistcard.objetrfile2 }" 
-            	onerror="this.src='${noimages }'" width="75%">
+            	onerror="this.src='${noimages }'" width="70%" height="65%">
             </center>  
             </div>
          </div> 

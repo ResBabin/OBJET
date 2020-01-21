@@ -175,6 +175,7 @@ public class LikeObjetController {
 		}
 	
 	
+		//박예은
 		//관심오브제 캘린더
 		@RequestMapping(value="likeObjetPlan.do", method=RequestMethod.POST)
 		@ResponseBody
@@ -187,6 +188,7 @@ public class LikeObjetController {
 			job.put("title", URLEncoder.encode(likeobjet.getObjettitle(), "utf-8"));
 			job.put("start", likeobjet.getObjetstartdate().toString());
 			job.put("end", likeobjet.getObjetenddate().toString());
+			job.put("color", likeobjet.getObjetcolor());
 			jarr.add(job);
 			}
 			

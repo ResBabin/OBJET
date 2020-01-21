@@ -81,7 +81,6 @@
 	          eventLimit: true, // allow "more" link when too many events
 	          events: function(info, successCallback) {
 	        	var userid = '${loginUser.userid}';
-	    		var letters = ['#ed432d', '#ffe857', '#ff925c', '#d7d967', '#e8741c', '#82edb2', '#e68b4e', '#ed7409', '#ebb0ff', '#b20eed', '#00fabb', '#bacbd6', '#93c5e6', '#46a3e0', '#e88ec8', '#6475A0'];
 	        	  $.ajax({
 	          		url : "visitedObjetPlan.do",
 	          		type : "post",
@@ -95,7 +94,7 @@
 	   						events.push({
 	   							title: decodeURIComponent(jsonObj.plan[i].title).replace(/\+/gi, " "),
 								start: jsonObj.plan[i].start,
-								color: letters[i],
+								color: jsonObj.plan[i].color,
 								allday: true
 	   						});
 	    		      	}		 
