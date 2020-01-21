@@ -407,41 +407,99 @@ where a.revuserid = #{userid} and a.objetno = #{objetno}
  		delete from objet where objettitle = #{objettitle} and objetstatus = #{objetstatus} and objetstartdate = #{objetstartdate} and objetenddate = #{objetenddate} and publicyn = #{publicyn} and objetregidate = #{objetregidate}
  	</delete>
  	
- 	<select id="selectVistiedObjetList" resultType="visitedobjet" parameterType="Hashmap">
- 		select * from visitedobjet
+ 	<select id="selectVistiedObjetList" resultType="VisitedObjet2" parameterType="Hashmap">
+ 		select * from (select rownum rnum, v.objetno, v.userid, v.visitdate, u.nickname, o.objettitle, o.objetstatus, o.renamemainposter
+                    from visitedobjet v left join objet o on (v.objetno = o.objetno) left join users u on (o.userid = u.userid) 
+                    where v.userid = #{userid} order by v.visitdate desc)
+		where rnum between #{startRow} and #{endRow}
+ 	</select>
+ 	
+ 	<select id="listCount" resultType="_int">
+ 		select count(*) from visitedobjet where userid = #{userid}
  	</select>
  	
  	<delete id="deleteMyVisitedObjetList" parameterType="visitedobjet">
  		delete from visitedobjet where objetno = #{objetno}
  	</delete>
  	
- 	<select id="selectMyVisitedObjetSearch" parameterType="hashmap" resultType="visitedobjet">
- 		select * from visitedobjet
- 		join objet using(objetitle)
- 		where objettitle like '%' || #{objettitle} || '%'
- 		or userid like '%' || #{userid} || '%'
+ 	<select id="selectMyVisitedObjetSearch" parameterType="hashmap" resultType="VisitedObjet2">
+ 		select * from (select rownum rnum, v.objetno, v.userid, v.visitdate, u.nickname, o.objettitle, o.objetstatus, o.renamemainposter
+                    from visitedobjet v left join objet o on (v.objetno = o.objetno) left join users u on (o.userid = u.userid) 
+                    where v.userid = #{userid} 
+				   <if test="nickname != '' or nickname != null">
+				      and u.nickname like '%' || #{nickname} || '%' 
+				   </if>
+				   <if test="objettitle != '' or objettitle != null">
+				      and o.objettitle like  '%' || #{objettitle} || '%' 
+				   </if>
+				   <if test="objetstatus != ''">
+				      and o.objetstatus = #{objetstatus}
+				   </if>
+           			order by v.visitdate desc)
+		where rnum between #{startRow} and #{endRow}
  	</select>
  	
- 	<select id="listCount" resultType="_int">
- 		select count(*) from visitedobjet
+ 	<select id="selectMyVisitedObjetSearchListCount" resultType="_int" parameterType="hashmap" >
+ 		select count (*)
+                    from visitedobjet v left join objet o on (v.objetno = o.objetno) left join users u on (o.userid = u.userid) 
+                    where v.userid = #{userid} 
+				   <if test="nickname != '' or nickname != null">
+				      and u.nickname like '%' || #{nickname} || '%' 
+				   </if>
+				   <if test="objettitle != '' or objettitle != null">
+				      and o.objettitle like  '%' || #{objettitle} || '%' 
+				   </if>
+				   <if test="objetstatus != ''">
+				      and o.objetstatus = #{objetstatus}
+				   </if>
+           			order by v.visitdate desc
  	</select>
  	
- 	<select id="selectLikeObjetList" resultType="likeobjet" parameterType="Hashmap">
- 		select * from likeobjet
- 	</select>
- 	
- 	<delete id="deleteMyLikeObjetList" parameterType="likeobjet">
- 		delete from likeobjet where objetno = #{objetno}
- 	</delete>
- 	
- 	<select id="selectMyLikeObjetSearch" parameterType="hashmap" resultType="likeobjet">
- 		select * from likeobjet
- 		join objet using(objettitle)
- 		where objettitle like '%' || #{objettitle} || '%'
- 		or userid like '%' || #{userid} || '%'
+ 	<select id="selectLikeObjetList" resultType="LikeObjet2" parameterType="Hashmap">
+ 		select * from (select rownum rnum, l.objetno, l.userid, l.likedate, u.nickname, o.objettitle, o.objetstatus, o.renamemainposter
+                    from likeobjet l left join objet o on (l.objetno = o.objetno) left join users u on (o.userid = u.userid) 
+                    where l.userid = #{userid} order by l.likedate desc)
+		where rnum between #{startRow} and #{endRow}
  	</select>
  	
  	<select id="listCountK" resultType="_int">
- 		select count(*) from likeobjet
+ 		select count(*) from likeobjet where userid = #{userid}
+ 	</select>
+ 	
+ 	<delete id="deleteMyLikeObjetList" parameterType="_int">
+ 		delete from likeobjet where objetno = #{objetno}
+ 	</delete>
+ 	
+ 	<select id="selectMyLikeObjetSearch" parameterType="hashmap" resultType="LikeObjet2">
+ 		select * from (select rownum rnum, l.objetno, l.userid, l.likedate, u.nickname, o.objettitle, o.objetstatus, o.renamemainposter
+                    from likeobjet l left join objet o on (l.objetno = o.objetno) left join users u on (o.userid = u.userid) 
+                    where l.userid = #{userid} 
+				   <if test="nickname != '' or nickname != null">
+				      and u.nickname like '%' || #{nickname} || '%' 
+				   </if>
+				   <if test="objettitle != '' or objettitle != null">
+				      and o.objettitle like  '%' || #{objettitle} || '%' 
+				   </if>
+				   <if test="objetstatus != ''">
+				      and o.objetstatus = #{objetstatus}
+				   </if>
+           			order by l.likedate desc)
+		where rnum between #{startRow} and #{endRow}
+ 	</select>
+ 	
+ 	<select id="selectMyLikeObjetSearchListCount" resultType="_int" parameterType="hashmap">
+ 		select count (*)
+                    from likeobjet l left join objet o on (l.objetno = o.objetno) left join users u on (o.userid = u.userid) 
+                    where l.userid = #{userid} 
+				   <if test="nickname != '' or nickname != null">
+				      and u.nickname like '%' || #{nickname} || '%' 
+				   </if>
+				   <if test="objettitle != '' or objettitle != null">
+				      and o.objettitle like  '%' || #{objettitle} || '%' 
+				   </if>
+				   <if test="objetstatus != ''">
+				      and o.objetstatus = #{objetstatus}
+				   </if>
+           			order by l.likedate desc
  	</select>
 </mapper>
