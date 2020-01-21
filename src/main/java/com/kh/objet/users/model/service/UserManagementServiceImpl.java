@@ -21,7 +21,7 @@ public class UserManagementServiceImpl implements UserManagementService{
 	private UserManagementDao usermDao;
 	
 	@Override
-	public List<UserManagement> selectUser(Map<String, Integer> map) {
+	public List<UserManagement> selectUser(Map<String, String> map) {
 		return usermDao.selectUser(map);
 	}
 	
@@ -126,8 +126,8 @@ public class UserManagementServiceImpl implements UserManagementService{
 	}
 
 	@Override
-	public int selectUserListCount() {
-		return usermDao.selectUserListCount();
+	public int selectUserListCount(Map<String, String> map) {
+		return usermDao.selectUserListCount(map);
 	}
 
 	@Override
