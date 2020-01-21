@@ -94,12 +94,12 @@
    							title: decodeURIComponent(jsonObj.plan[i].title).replace(/\+/gi, " "),
 							start: jsonObj.plan[i].start,
 							end: jsonObj.plan[i].end,
-							color: letters[i]
+							color: jsonObj.plan[i].color
    						});
    						/* events.push({
    							title: decodeURIComponent(jsonObj.plan[i].title).replace(/\+/gi, " "),
    							end: jsonObj.plan[i].end,
-							color: letters[i]
+							color: jsonObj.plan[i].color
    						}); */
     		      	}		 
           			console.log(events);

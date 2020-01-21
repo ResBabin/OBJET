@@ -16,15 +16,16 @@ public class LikeObjet implements Serializable {
 	private String objettitle;
 	private Date objetstartdate;
 	private Date objetenddate;
-	private String color;
+	private String objetcolor;
 	
 	public LikeObjet() {}
 
-	public LikeObjet(String objettitle, Date objetstartdate, Date objetenddate, String color) {
+	public LikeObjet(String objettitle, Date objetstartdate, Date objetenddate, String objetcolor) {
 		super();
 		this.objettitle = objettitle;
 		this.objetstartdate = objetstartdate;
 		this.objetenddate = objetenddate;
+		this.objetcolor = objetcolor;
 	}
 
 	public LikeObjet(int objetno, String userid, Date likedate) {
@@ -91,19 +92,22 @@ public class LikeObjet implements Serializable {
 		this.objetenddate = objetenddate;
 	}
 
-	public String getColor() {
-		return color;
+	public String getObjetcolor() {
+		return objetcolor;
 	}
 
-	public void setColor(String color) {
-		this.color = color;
+	public void setObjetcolor(String objetcolor) {
+		this.objetcolor = objetcolor;
 	}
 
 	@Override
 	public String toString() {
 		return "LikeObjet [objetno=" + objetno + ", userid=" + userid + ", likedate=" + likedate + ", objettitle="
-				+ objettitle + ", objetstartdate=" + objetstartdate + ", objetenddate=" + objetenddate + "]";
+				+ objettitle + ", objetstartdate=" + objetstartdate + ", objetenddate=" + objetenddate + ", objetcolor="
+				+ objetcolor + "]";
 	}
+
+	
 	
 
 	

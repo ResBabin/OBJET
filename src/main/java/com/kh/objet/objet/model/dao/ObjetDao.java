@@ -245,6 +245,41 @@ public class ObjetDao {
 		return mybatisSession.selectList("objetMapper.selectObjetDateSearchOrder", map);
 	}
 	
+	//내 오브제 수 카운트
+	public int selectMyObjetListCount(String userid) {
+		return mybatisSession.selectOne("objetMapper.selectMyObjetListCount", userid);
+	}
+	
+	//내 오브제 상세보기
+	public List<Artist> selectMyObjetList(HashMap<String, Object> map) {
+		return mybatisSession.selectList("objetMapper.selectMyObjetList", map);
+	}
+	
+	//내 오브제 상세보기 검색
+	public List<Artist> selectMyObjetListSearch(HashMap<String, Object> map) {
+		return mybatisSession.selectList("objetMapper.selectMyObjetListSearch", map);
+	}
+	
+	//내 오브제 상세보기 검색 카운트
+	public int selectMyObjetListSearchCount(HashMap<String, Object> map) {
+		return mybatisSession.selectOne("objetMapper.selectMyObjetListSearchCount", map);
+	}
+	
+	// 내 오브제 등록
+	public int insertMyObjet(Objet objet) {
+		return mybatisSession.insert("objetMapper.insertMyObjet", objet);
+	}
+	
+	//내 오브제 수정
+	public int updateMyObjet(Objet objet) {
+		return mybatisSession.update("objetMapper.updateMyObjet", objet);
+	}
+	
+	// 내 오브제 삭제
+	public int deleteObjet(int objetno) {
+		return mybatisSession.delete("objetMapper.deleteObjet", objetno);
+	}
+	
 	// 최민영
 	// 작가홈 오브제 리스트 보기
 	public List<Objet2> selectArtistObjetList(String userid) {
@@ -308,20 +343,23 @@ public class ObjetDao {
 		return mybatisSession.selectOne("objetMapper.moveEditObjet", objetno);
 	}
 
-	//오브제 관리 - 내 오브제 수정
-	public int updateMyObjet(Objet objet) {
-		return mybatisSession.update("objetMapper.updateMyObjet", objet);
-	}
-
+	
+/*
 	//오브제 관리 - 전시 등록
 	public int insertObjet(Objet3 objet3) {
 		return mybatisSession.insert("objetMapper.insertObjet", objet3);
-	}
+	}*/
 
-	// 오브제 관리 - 전시삭제
-	public int deleteObjet(int objetno) {
-		return mybatisSession.delete("objetMapper.deleteObjet", objetno);
-	}
+	
+
+	
+
+	
+
+
+	
+
+	
 
 	
 

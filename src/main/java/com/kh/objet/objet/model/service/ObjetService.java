@@ -64,6 +64,13 @@ public interface ObjetService {
 	List<Artist> selectObjetSearchOrder(Map<String, String> map);
 	List<Artist> selectArtistSearchOrder(Map<String, String> map);
 	List<Artist> selectObjetDateSearchOrder(Map<String, String> map);
+	int selectMyObjetListCount(String userid);
+	List<Artist> selectMyObjetList(HashMap<String, Object> map);
+	List<Artist> selectMyObjetListSearch(HashMap<String, Object> map);
+	int selectMyObjetListSearchCount(HashMap<String, Object> map);
+	int insertMyObjet(Objet objet);
+	int updateMyObjet(Objet objet);
+	int deleteObjet(int objetno);
 	
 	
 	// 최민영
@@ -78,9 +85,12 @@ public interface ObjetService {
 	List<Objet2> selectMyObjetSearch(HashMap<String, Object> map);
 	Objet moveMyObjetDetail(String objettitle);
 	Objet moveEditObjet(int objetno);
-	int updateMyObjet(Objet objet);
-	int insertObjet(Objet3 objet3);
-	int deleteObjet(int objetno);
+	
+	
+	
+	
+	
+	
 	
 	
 

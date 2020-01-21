@@ -429,7 +429,7 @@ width: 190px;
       <li>
          <span class="accordian1">오브제관리</span>
          <ul>
-            <li ><a href="moveMyObjetList.do" style="color:#aaa">내 오브제</a></li>
+            <li ><a href="moveMyObjetList.do?userid=${loginUser.userid }&currentPage=1" style="color:#aaa">내 오브제</a></li>
             <li><a href="moveCreateObjet.do" style="color:#aaa">오브제 등록</a></li>
             <li><a href="moveMyLikeObjetList.do" style="color:#aaa">관심오브제</a></li>
             <li><a href="moveMyVisitedObjetList.do" style="color:#aaa">다녀온오브제</a></li>

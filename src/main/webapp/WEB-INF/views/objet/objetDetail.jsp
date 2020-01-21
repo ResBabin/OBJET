@@ -1654,6 +1654,13 @@ i.icon.clock::before{
 	               $("#likeobjet").addClass("ico_likeit_like");
 	               var num = ${fn:length(likeobjetList) } - 1;
 	               $(".likeobjetcnt").html(num);
+	               if($(".likeobjetcnt").html() == 1){
+	            	   console.log("관심 오브제 삭제 성공!");
+		               $("#likeobjet").removeClass("ico_likeit_unlike");
+		               $("#likeobjet").addClass("ico_likeit_like");
+		               var num = ${fn:length(likeobjetList) };
+		               $(".likeobjetcnt").html(num);
+          	 		}
 	             }
 	             if(result == "ok2"){
 	               console.log("관심 오브제 추가 성공!");
@@ -1661,6 +1668,13 @@ i.icon.clock::before{
 	               $("#likeobjet").addClass("ico_likeit_unlike");
 	               var num = ${fn:length(likeobjetList) };
 	               $(".likeobjetcnt").html(num);
+	               if($(".likeobjetcnt").html() == 0){
+	            		 console.log("관심 오브제 추가 성공!");
+	  	               $("#likeobjet").removeClass("ico_likeit_like");
+	  	               $("#likeobjet").addClass("ico_likeit_unlike");
+	  	               var num = ${fn:length(likeobjetList) } + 1;
+	  	               $(".likeobjetcnt").html(num);
+            	 	}
 	             }
 	             if(result == "fail"){
 	            	 alert("관심 오브제 삭제 실패!");
@@ -1754,28 +1768,28 @@ i.icon.clock::before{
 				}
 		}
 		
-		//바탕색 랜덤
+		/* //바탕색 랜덤
 		var color = '#'; 
 		var letters = ['ed432d', 'ffe857', 'ff925c', 'd7d967', 'e8741c', '82edb2', 'e68b4e', 'ed7409', 'b20eed', '00fabb', 'bacbd6', '93c5e6', '46a3e0', 'e88ec8', '6475A0'];
 		color += letters[Math.floor(Math.random() * letters.length)]; // 컬러는 상기 변수들을 조립하는데 랜덤으로 조립한다. 
-		document.getElementById('exhibition_vp').style.background = color; // 조립한 컬러를 프론트엔드에서 지정한 ID에 적용한다.
+		document.getElementById('exhibition_vp').style.background = color; // 조립한 컬러를 프론트엔드에서 지정한 ID에 적용한다. */
 	}
 	
 	
 //전시일정
    document.addEventListener('DOMContentLoaded', function() {
-	var today = moment().day();
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
       plugins: [ 'interaction', 'dayGrid' ],
+      navLinks: true,
+      defaultDate : new Date(),
+      firstDay: 1, //월요일
       locale: 'ko',
       editable: false,
-      firstDay: today,
       eventLimit: true, 
       weekNumbers: false,
       events: function(info, successCallback) {
       	var objetno = '${objet.objetno}';
-		var letters = ['#2C3E50', '#ed432d', '#ffe857', '#ff925c', '#d7d967', '#e8741c', '#82edb2', '#e68b4e', '#ed7409', '#ebb0ff', '#b20eed', '#00fabb', '#bacbd6', '#93c5e6', '#46a3e0', '#e88ec8', '#6475A0'];
     	  $.ajax({
       		url : "objetOnePlan.do",
       		type : "post",
@@ -1790,7 +1804,7 @@ i.icon.clock::before{
 						title: decodeURIComponent(jsonObj.plan[i].title).replace(/\+/gi, " "),
 						start: jsonObj.plan[i].start,
 						end: jsonObj.plan[i].end,
-						color: letters[i]
+						color: jsonObj.plan[i].color
 					});
 		      	}		 
       			console.log(events);
@@ -1803,6 +1817,7 @@ i.icon.clock::before{
       } 
     });
     calendar.render();
+    calendar.today();
   });
    
 </script>
@@ -1856,9 +1871,9 @@ background:radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 4
 <script type='text/javascript'>
     //카카오톡 공유
     // 사용할 앱의 JavaScript 키를 설정해 주세요.
-    var likeCount = '${fn:length(likeobjetList) }';
-    var commentCount = '${fn:length(reviewList) }';
-    
+    var likeCount = ${fn:length(likeobjetList) };
+    var commentCount = ${fn:length(reviewList) };
+
     Kakao.init('e90783885e5b9d3922b6fc6273000918');
     // // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
     Kakao.Link.createDefaultButton({
@@ -2089,15 +2104,14 @@ controls poster="${pageContext.servletContext.contextPath }/resources/images/obj
 </c:if>
 </div> --%>
 </div>
-<div class="exhibition_vp" id="exhibition_vp"><br>
+<div class="exhibition_vp" id="exhibition_vp" style="background-color: ${objet.objetcolor};"><br>
 <span class="det_title">VIEW POINT</span><br>
   <div class="swiper-container">
   <div class="swiper-pagination" ></div>
     <div class="swiper-wrapper">
-      <div class="swiper-slide"><img src="resources/images/objet/${objet.objetrfile2 }"></div>
+      <div class="swiper-slide"><img src="resources/images/objet/${objet.objetrfile1 }"></div>
       <div class="swiper-slide"><img src="resources/images/objet/${objet.objetrfile3 }"></div>
       <div class="swiper-slide"><img src="resources/images/objet/${objet.objetrfile4 }"></div>
-      <div class="swiper-slide"><img src="resources/images/objet/${objet.objetrfile5 }"></div>
     </div>
   </div>
 <div class="vp_txt">
@@ -2369,11 +2383,17 @@ ${myReview.revcontent }</textarea>
 </c:if>
 </c:forEach>
 </c:if>
-<c:if test="${fn:length(reviewList) == 0 && myReview == null}">
-<br><br><br><br>
+<c:if test="${fn:length(reviewList) == 0 && objet.userid ne loginUser.userid} ">
+<br><br><br>
 <div class="ui basic pointing below teal icon label" style="font-weight:normal;font-family:'Nanum Gothic';font-size:18px;color:#aaa;text-align:center;">
 <i class="quote left icon"></i>&nbsp;&nbsp;이 전시의 <b style="font-size:18.5px;">한줄평</b>이 아직 없습니다. 
-<b style="font-size:18.5px;">한줄평</b>을 달아주세요!&nbsp;&nbsp;<i class="quote right icon"></i></div>
+<b style="font-size:18.5px;">한줄평</b>을 달아주세요!&nbsp;&nbsp;<i class="quote right icon"></i></div><br><br>
+</c:if>
+<c:if test="${fn:length(reviewList) == 0 && objet.userid eq loginUser.userid }">
+<br><br><br>
+<div class="ui basic pointing below teal icon label" style="font-weight:normal;font-family:'Nanum Gothic';font-size:18px;color:#aaa;text-align:center;">
+<i class="quote left icon"></i>&nbsp;&nbsp;이 전시의 <b style="font-size:18.5px;">한줄평</b>이 아직 없습니다. 
+<i class="quote right icon"></i></div>
 </c:if>
 </div>
 <br>
