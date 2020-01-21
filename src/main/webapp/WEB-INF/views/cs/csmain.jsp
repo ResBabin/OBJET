@@ -1,220 +1,421 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+      
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>°í°´¼¾ÅÍ ¸ŞÀÎ</title>
+<title>ê³ ê°ì„¼í„° ë©”ì¸</title>
 <c:import url="../header.jsp" />
 </head>
 <style>
-.group{
 
-text-align: center;
-  
-}
-.box { 
-width:500px; margin:10px; 
-margin-left: 530px;
-}
-.box .title { display:block; padding:10px;  background-color:white; color:black;  border-bottom:2px solid black; }
-
-.box .cont {  padding:15px 35px; background-color:grey; background-color:white; border-bottom:2px solid black; }
-
-/* °øÁö»çÇ× */
-#notice{
-width:550px;
-margin-left: 500px;
-box-sizing: border-box;
-}
-#notice h1{
-font-size: 25px;
-text-align: center;
-margin-top: 30px;
-color: black;
+.pagebox{ position:absolute;
+  width: 200px; height: 250px;
+  text-align: center;
+  box-shadow: 5px 5px 15px #333;
 
 }
-#notice ul{
-width: 100%;
-}
-#notice ul li{
-line-height: 30px; /* liÀÇ ¼¼·Î °£°İ */
-}
-.notice_more{
-width: 60px;
-margin-left: 500px;
-}
-/* #notice ul li: first-child{
-border-top : 2px solid red;
-border-bottom: 2px solid blue;
-padding-left: 150px;
-} */
- #notice ul li:nth-child(2n){
-border-bottom: 2px solid black;
-} 
 
-.ntitle{
-background-color: black;
-color: white;
+.pagebox:nth-child(1){
+  background: #abc;
+  transform-origin: left center;
+  transition: 2s;
+  z-index:1;
 }
-.ndate{
-background-color: grey;
-
+.pagebox:nth-child(2){
+  background: #cba;
+  trnasform-origin: left center;
+  transition: 2s;   
+  z-index;2;
 }
-.ncontent:hover{
-color: grey;
+.pagebox:nth-child(1):hover{
+  transform: rotateY(-180deg);
+  background: #666;
 }
 
-.faq_more{
+.alldiv{
 
-width: 60px;
-margin-left: 980px;
-}
-
-/* ³¯Â¥¿Í Á¦¸ñÀÇ °Å¸®¸¦ ¶ç¾îÁØ´Ù. */
-#notice ul li span{
-display: inline-block;
-float: right;
-width: 150px;
+background: green;
+width:100%;
+height:60%;
+border: 2px soild #000;
 text-align:center;
-} 
-/* ¹®ÀÇÇÏ±â */
-.qn{
-width: 700px;
-margin-top: 30px;
-margin-left: 500px;
-border-bottom: 2px solid black;
-margin-bottom: 30px;
+line-height: 100px;
+font-weight: bold;
+
+}
+.box1{
+background:red;
+float: left;
+width: 27%;
+height: 100%
+
+}
+.box1-1{
+height: 32%;
+background:white;
+}
+.box1-2{
+height: 32%;
+background:red;
+}
+.box1-3{
+height: 32%;
+background:yellow;
+}
+.box2{
+background:yellow;
+float: left;
+width: 38%;
+height: 40%
+}
+.box3{
+margin-right:-100px;
+background:blue;
+float: left;
+width: 25%;
+height: 40%
+}
+.bottombox{
+background:blue;
+width: 100%;
+height: 35%
+}
+.direct{
+margin-left: 130px;
+background:white;
+border: 2px solid black;
+width: 80%;
+height: 100%;
+}
+.dircet1{
+
+text-align:center;
+float:left;
+width: 25%;
+height:100%;
+background:white;
+border: 2px solid blue;
+}
+.dircet2{
+text-align:center;
+float:left;
+width: 25%;
+height:100%;
+background:white;
+border: 2px solid blue;
+}
+.dircet3{
+text-align:center;
+float:left;
+width: 25%;
+height:100%;
+background:white;
+border: 2px solid blue;
+}
+.dircet4{
+text-align:center;
+float:left;
+width: 25%;
+height:60%;
+background:white;
+border: 2px solid blue;
+}
+.noticeicon{
+float: left;
+width: 30%;
+height: 60%;
+border:2px solid red;
+}
+.noticetitle{
+float: left;
+font-size: 40px;
+width: 70%;
+height: 60%;
+border:2px solid yellow;
+}
+.noitceintro{
+font-size: 20px;
+border:2px solid blue;
+height: 20%;
+
 }
 
 
+#content {
+width:300px;
+border:2px solid grey;
+margin-top:60px;
+margin-left:40px;
+    padding: 10px;
+    background: black;
+}
 
+#rank-list a {
+    color: white;
+    text-decoration: none;
+}
+
+#rank-list a:hover {
+    text-decoration: underline;
+}
+
+#rank-list {
+    overflow: hidden;
+    width: 300px;
+    height: 20px;
+    margin: 0;
+}
+
+#rank-list dt {
+
+    display: none;
+}
+
+#rank-list dd {
+  position: relative;
+    margin: 0;
+}
+
+#rank-list ol {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+#rank-list li {
+   
+    height: 20px;
+    line-height: 20px;
+}
+
+
+.tab{
+    width:580px;
+    height:430px;;
+    overflow:hidden;
+}
+ 
+.tab ul{
+    padding:0;
+    margin:0;
+    list-style:none;
+    width:100%:
+    height:auto;
+    overflow:hidden;
+}
+ 
+.tab ul li{
+    display:inline-block;
+    width:33.3333%;
+    float:left;
+    line-height:40px;
+    text-align:center;
+    cursor:pointer;
+}
+ 
+.tab ul li:hover,
+.tab ul li.on{
+    background:lightgreen;
+}
+ 
+.tab .conBox{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    min-height:200px;
+    background:lightgreen;
+    display:none;
+    text-align:center;
+}
+ 
+.tab .conBox.on{
+    display:block;
+    
+    .tab{
+    width:500px;
+    height:300px;;
+    overflow:hidden;
+}
+ 
+.tab ul{
+    padding:0;
+    margin:0;
+    list-style:none;
+    width:100%:
+    height:auto;
+    overflow:hidden;
+}
+ 
+.tab ul li{
+    display:inline-block;
+    width:33.3333%;
+    float:left;
+    line-height:40px;
+    text-align:center;
+    cursor:pointer;
+}
+ 
+.tab ul li:hover,
+.tab ul li.on{
+    background:#ccc;
+}
+ 
+.tab .conBox{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    min-height:200px;
+    background:#ccc;
+    display:none;
+    text-align:center;
+}
+ 
+.tab .conBox.on{
+    display:block;
+}
 </style>
  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script type="text/javascript">    
-	$(function(){
+     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+   <script type="text/javascript">
+   $(function(){
+       $(".tab ul li").click(function(){ 
+           $(".tab ul li").removeClass('on');
+           $(".tab .conBox").removeClass('on');
+           $(this).addClass('on');
+           $("#"+$(this).data('id')).addClass('on');
+       });
+   });
 
-	    var group = $(".group");
+   $(function() {
+	    var count = $('#rank-list li').length;
+	    var height = $('#rank-list li').height();
 
-	    group.each(function(){
-	        var _group = new GroupBox(this);
-	    });
-
-	    // »ç¿ëÀÚ Á¤ÀÇ »ı¼ºÀÚ ÇÔ¼ö Á¤ÀÇ
-	    function GroupBox(groupElement){
-
-	        var box = $(groupElement).find(".box");
-	        var title = $(groupElement).find(".box .title");
-
-	        box.each(function(idx){
-	            var newBox = new RootBox(this);
-	            if (idx > 0){
-	                newBox.siblingsClose();
-	            }
+	    function step(index) {
+	        $('#rank-list ol').delay(2000).animate({
+	            top: -height * index,
+	        }, 500, function() {
+	            step((index + 1) % count);
 	        });
 	    }
 
-       // »ç¿ëÀÚ Á¤ÀÇ »ı¼ºÀÚ ÇÔ¼ö Á¤ÀÇ
-	    function RootBox(boxElement){
-	        var _this = this;
-	        var boxEl = $(boxElement);
-	        var target = $(boxEl).find(".title");
-	        var cont = $(boxEl).find(".cont");
-
-	        // _groupParent = $(boxEl).parent();
-
-	        target.on("click", anchorClickEvent); 
-
-	        function anchorClickEvent() {
-
-	            if (cont.is(':hidden')) {
-	                _this.open();
-	            } else {
-	                _this.close();
-	            }
-	        }
-
-	        _this.siblingsClose = function () {
-	            cont.css('display','none');
-	        }
-
-	        _this.open = function() {
-	            cont.slideDown();
-	        }
-	        _this.close = function() {
-	            cont.slideUp();
-	        }
-	    }
+	    step(1);
 	});
-</script>
+
+
+   </script>
 <body>
-<c:import url="../headerSearch.jsp" />
-<div class="group">
-    <h1>FAQ</h1> 
- <div class="faq_more"><h4><a href="selectFaqList.do">´õº¸±â</a></h4></div>
-    <div class="box">
-        <strong class="title"></strong>
-        <div class="cont">
-     <p>¿À¸¥ÂÊ »ó´Ü¿¡ °¡ÀÔÇÏ±â ¹öÆ°À» ´©¸£½Ã°í 
-»ç¿ëÇÏ°í °è½Ã´Â Ä«Ä«¿À, ÀÌ¸ŞÀÏ °èÁ¤ Áß ¿øÇÏ´Â °èÁ¤À¸·Î
-°¡ÀÔÇÏ±â¸¦ ´©¸¨´Ï´Ù. ÇØ´ç °èÁ¤À¸·Î ÀÎÁõÀ» ¹ŞÀº ÈÄ, 
-ÀÌ¸§°ú ÀÌ¸ŞÀÏ ÁÖ¼Ò¸¸ ÀÔ·ÂÇÏ½Ã¸é °¡ÀÔÀÌ ¿Ï·áµË´Ï´Ù.</p></div>
-    </div>
-    <div class="box">
-        <strong class="title">Å¸ÀÌÆ²2</strong>
-        <div class="cont">³»¿ë222222222222222</div>
-    </div>
-    <div class="box">
-        <strong class="title">Å¸ÀÌÆ²3</strong>
-        <div class="cont"> ³»¿ë33333333333</div>
-    </div>
-    <div class="box">
-        <strong class="title">Å¸ÀÌÆ²4</strong>
-        <div class="cont">44444</div>
-    </div>
-    <div class="box">
-        <strong class="title">Å¸ÀÌÆ²5</strong>
-        <div class="cont">55555555555555555</div>
-    </div>
+<div class="alldiv">
+<div class="box1">
+
+<a href="selectNoticeList.do"><div class="box1-1">
+<div class="noticeicon">
+<i class="huge bullhorn icon"></i></div>
+<div class="noticetitle">ê³µì§€ì‚¬í•­</div>
+</div>
+</a>
+<a href="selectFaqList.do"><div class="box1-2">
+<div class="noticeicon">
+<i class="huge question circle outline icon"></i></div>
+<div class="noticetitle">FAQ</div>
+</div>
+</a>
+
+<div class="box1-3">
+<a href="selectQnaList.do">
+<div class="noticeicon">
+<i class="huge edit icon"></i></div>
+<div class="noticetitle">ë¬¸ì˜í•˜ê¸°</div>
+</a>
+
 </div>
 
-<!-- °øÁö»çÇ× -->
-<div id="notice">
-<h1>°øÁö»çÇ×</h1> 
-<div class="notice_more"><a href="moveNotice.do"><h4>´õº¸±â</h4></a></div>
-<ul>
-<li class= "ntitle">Á¦¸ñ<span class="ndate">³¯Â¥</span></li>
-<li class="ncontent"><a href="moveNoticeDetail.do">°øÁö»çÇ× Á¦¸ñ Ãâ·Â ÇÏ´Â °÷</a><span>2019-12-12</span></li>
-<li class= "ntitle">Á¦¸ñ<span class="ndate">³¯Â¥</span></li>
-<li class="ncontent">°øÁö»çÇ× Á¦¸ñ Ãâ·Â ÇÏ´Â °÷<span>2019-12-12</span></li>
-<li class= "ntitle">Á¦¸ñ<span class="ndate">³¯Â¥</span></li>
-<li class="ncontent">°øÁö»çÇ× Á¦¸ñ Ãâ·Â ÇÏ´Â °÷<span>2019-12-12</span></li>
-<li class= "ntitle">Á¦¸ñ<span class="ndate">³¯Â¥</span></li>
-<li class="ncontent">°øÁö»çÇ× Á¦¸ñ Ãâ·Â ÇÏ´Â °÷<span>2019-12-12</span></li>
-<li class= "ntitle">Á¦¸ñ<span class="ndate">³¯Â¥</span></li>
-<li class="ncontent">°øÁö»çÇ× Á¦¸ñ Ãâ·Â ÇÏ´Â °÷<span>2019-12-12</span></li>
-</ul>
 </div>
-<div class= "qn">
-<h1>¹®ÀÇ ÇÏ±â</h1>
+<div class="box2">
+<div class="tab">
+    <ul>
+        <li data-id="con1" class="on">ì¼ë°˜</li>
+        <li data-id="con2">ì „ì‹œ</li>
+        <li data-id="con3">ê¸°íƒ€</li>
+    </ul>
+ 
+    <div id="con1" class="conBox on">
+      <c:forEach var="notice" items="${ nlist }" end="2">  
+<li> ${notice.noticetitle}</li>
+     </c:forEach>
+    </div>
+  
+    
+    <div id="con2" class="conBox">
+        cont2
+    </div>
+    <div id="con3" class="conBox">
+        cont3
+    </div>
+
+</div>
+</div>
+<div class="box3">
+
+<div id="content">
+
+            <dl id="rank-list">
+             
+                <dt>ì‹¤ì‹œê°„ ê¸‰ìƒìŠ¹ ê²€ìƒ‰ì–´</dt>
+                <dd>
+           
+                    <ol>
+                  <c:forEach var="faq" items="${ list }">
+                <li><a href="selectFaqList.do">${faq.faqtitle}</a></li>    
+         
+                      </c:forEach>  
+                    </ol>
+                          
+                </dd>
+             
+            </dl>
+     
+        </div> 
+
 </div>
 
+</div>
+<div class="bottombox">
+<div class="direct">
+<div class="dircet1">
+<i class="massive user plus icon"></i><br>
+<h1>íšŒì›ê°€ì…</h1>
+</div>
+<div class="dircet2">
+<i class="massive home icon"></i><br>
+<h1>ì‚¬ì´íŠ¸ ì†Œê°œ</h1>
+</div>
+<div class="dircet3">
+<i class="massive address card icon"></i><br>
+<h1>ë‚´ì •ë³´ìˆ˜ì •<h1>
+</div>
+<div class="dircet3">
+<i class="massive gem outline icon"></i><br>
+<h1>í›„ì›í•˜ê¸°</h1>
+</div>
+</div>
+</div>
 
+  <div class= "pagebox">
+    <h1>page1</h1>
+    <p>ë§ˆìš°ìŠ¤ë¥¼ ì˜¬ë ¤ì£¼ì„¸ìš”</p>
+  </div>
+  <div class="pagebox">
+    <h1>page2</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, tenetur.</p>
+  </div>  
 
-
-
-
-
-
-
-
-
-
-
-
-
-<c:import url="../footer.jsp" />
+<c:import url="../footer.jsp" />   
 </body>
+
 </html>

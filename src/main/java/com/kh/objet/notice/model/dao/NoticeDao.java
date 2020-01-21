@@ -62,7 +62,7 @@ public class NoticeDao {
    return mybatisSession.update("csMapper.deleteFile",notice);
       
    }
-
+ 
 
 ////////////////////////////////////////////////////////관리자//////////////////////////////////////////////////////////
 
@@ -107,10 +107,10 @@ public int selectNoticeSearchAdCount(Map<String, String> map) {
 return mybatisSession.selectOne("adminMapper.selectNoticeSearchAdCount", map);
 }
 
-   
-
-   
-   
-
-   
+public List<Notice> selectNoticeType() {
+	return mybatisSession.selectList("csMapper.selectNoticeType");
 }
+
+}
+
+

@@ -76,8 +76,6 @@ public class NoticeServiceImpl implements NoticeService{
    }
 
 
-
-
 /////////////////////////////////////////////////////////////////관리자//////////////////////////////////////////////////////////////////////////////////////
 @Override
 public List<Notice> selectNoticeListAd(Map<String, String> map) {
@@ -133,13 +131,11 @@ public ArrayList<Notice> selectNoticeListAd() {
 }
 
 
+@Override
+public List<Notice> selectNoticeType() {
+	return noticeDao.selectNoticeType();
+}
 
-   
 
-
-
-
-
-   
 
 }

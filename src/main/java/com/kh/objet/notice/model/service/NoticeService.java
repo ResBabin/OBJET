@@ -45,7 +45,12 @@ public interface NoticeService {
 
 	   List<Notice> selectNoticeSearchAd(Map<String, String> map);
 
-	   int selectNoticeSearchAdCount(Map<String, String> map); 
+	   int selectNoticeSearchAdCount(Map<String, String> map);
+
+	List<Notice> selectNoticeType();
+
+
+
 
 
 }

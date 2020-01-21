@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset=UTF-8">
 <title>Insert title here</title>
 <c:import url="../header.jsp" />
 <style>
@@ -92,7 +94,7 @@ margin-left: 430px;
 <br>
 <div class="group">
     <h1>FAQ</h1> 
-<c:forEach var = "faq" items="${ list }">
+<c:forEach var="faq" items="${ list }">
 <div class="box">
         <strong class="title">${ faq.faqtitle }</strong>
         <div class="cont">
