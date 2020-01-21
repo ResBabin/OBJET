@@ -380,7 +380,51 @@ textarea {
 			<button class="ui grey button" id="quitpop"	>
 				<i class="x icon"></i>강제탈퇴
 			</button>
-		</div>
+		</div><br>
+		<div align="center">
+		<div class="ui pagination menu"  id="pagingdiv">
+		<c:if test="${ currentPage eq 1 }">
+		<a href="/objet/userbk.do?page=1" class="disabled item"><i class="angle double left icon"></i></a>
+		</c:if>
+		<c:if test="${ currentPage ne 1 }">
+		<a href="/objet/userbk.do?page=1" class="item"><i class="angle double left icon"></i></a>
+		</c:if>
+		<c:if test="${ beginPage - 10 < 1 }">
+		<c:if test="${ currentPage eq 1 }"><a href="/objet/userbk.do?page=1" class="disabled item"><i class="angle left icon"></i></a></c:if>
+		<c:if test="${ currentPage ne 1 }"><a href="/objet/userbk.do?page=1" class="item"><i class="angle left icon"></i></a></c:if>
+		</c:if>
+		<c:if test="${ beginPage - 10 >= 1 }">
+		<a href="/objet/userbk.do?page=${ currentPage }" class="item"><i class="angle left icon"></i></a>
+		</c:if>
+		<c:forEach begin="${ beginPage }" end="${ endPage }" var="p">
+		<c:if test="${ p eq currentPage }">
+<%-- 		<a href="/objet/userbk.do?page=${ p }" class="active item">${ p }</a> --%>
+		<a class="active item pages" id="pages">${ p }</a>
+		</c:if>
+		<c:if test="${ p ne currentPage }">
+<%-- 		<a href="/objet/userbk.do?page=${ p }" class="item">${ p }</a> --%>
+		<a class="item pages" id="pages">${ p }</a>
+		</c:if>
+		</c:forEach>
+		<c:if test="${  endPage + 10 > maxPage }">
+		<c:if test="${ currentPage eq endPage }">
+		<a href="/objet/userbk.do?page=${ maxPage }" class="disabled item"><i class="angle right icon"></i></a>
+		</c:if>
+		<c:if test="${ currentPage ne endPage }">
+		<a href="/objet/userbk.do?page=${ maxPage }" class="item"><i class="angle right icon"></i></a>
+		</c:if>
+		</c:if>
+		<c:if test="${ endPage + 10 <= maxPage }">
+		<a href="/objet/userbk.do?page=${ endPage + 10 }" class="item"><i class="angle right icon"></i></a>
+		</c:if>
+		<c:if test="${ currentPage eq endPage }">
+		<a href="/objet/userbk.do?page=${ endPage }" class="disabled item"><i class="angle double right icon"></i></a>
+		</c:if>
+		<c:if test="${ currentPage ne endPage }">
+		<a href="/objet/userbk.do?page=${ endPage }" class="item"><i class="angle double right icon"></i></a>
+		</c:if>
+	</div>
+	</div>
 	</div>
 	<c:import url="../footer.jsp"/>
 	

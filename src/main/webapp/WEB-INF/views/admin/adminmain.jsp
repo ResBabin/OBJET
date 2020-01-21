@@ -128,41 +128,24 @@ $(function() {
 		}
 	}); */
 	
-$("#progress1").progress();
-$("#progress2").progress();
-$("#progress3").progress();
-
-var objettag = "${ objettag }";
-
-var count = (objettag.match(/건축/g) || []).length;
-var count2 = (objettag.match(/서예/g) || []).length;
-var count3 = (objettag.match(/조각/g) || []).length;
-var count4 = (objettag.match(/디자인/g) || []).length;
-var count5 = (objettag.match(/회화/g) || []).length;
-var count6 = (objettag.match(/공예/g) || []).length;
-var count7 = (objettag.match(/사진/g) || []).length;
-var count8 = (objettag.match(/기타/g) || []).length;
-
-
+$("#progress1,#progress2,#progress3").progress();
 var ctx = document.getElementById('myChart');
 var ctx2 = document.getElementById('myChart2');
 var ctx3 = document.getElementById('myChart3');
+
+var blackuser = ${ bkcount };
+var usercount = ${ userlist.size() };
+console.log(blackuser)
 var myChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
-        labels: ['건축', '서예', '조각', '디자인', '회화', '공예', '사진', '기타'],
+        labels: ['블랙리스트', '일반회원', '후원관련 표??'],
         datasets: [{	
-            data: [count, count2, count3, count4, count5, count6, count7, count8],
+            data: [blackuser, usercount],
             backgroundColor: [
+                'rgba(50, 50, 50, 1)',
                 'rgba(90, 40, 190, 1)',
-                'rgba(40, 110, 170, 1)', 
-                'rgba(50, 160, 150, 1)',
                 'rgba(120, 200, 120, 1)', 
-                'rgba(230, 210, 110, 1)',
-                'rgba(220, 130, 90, 1)',
-                'rgba(210, 60, 110, 1)' ,
-                'rgba(140, 50, 150, 1)',
-                
             ]
         }]
     },
@@ -253,28 +236,70 @@ var login23 = "${ todaycount.login23 }";
 var login0 = "${ todaycount.login00 }";
 var logindate = "${ todaycount.logindate }";
 
+
+var loginy1 = "${ yestercount.login01 }";
+var loginy2 = "${ yestercount.login02 }";
+var loginy3 = "${ yestercount.login03 }";
+var loginy4 = "${ yestercount.login04 }";
+var loginy5 = "${ yestercount.login05 }";
+var loginy6 = "${ yestercount.login06 }";
+var loginy7 = "${ yestercount.login07 }";
+var loginy8 = "${ yestercount.login08 }";
+var loginy9 = "${ yestercount.login09 }";
+var loginy10 = "${ yestercount.login10 }";
+var loginy11 = "${ yestercount.login11 }";
+var loginy12 = "${ yestercount.login12 }";
+var loginy13 = "${ yestercount.login13 }";
+var loginy14 = "${ yestercount.login14 }";
+var loginy15 = "${ yestercount.login15 }";
+var loginy16 = "${ yestercount.login16 }";
+var loginy17 = "${ yestercount.login17 }";
+var loginy18 = "${ yestercount.login18 }";
+var loginy19 = "${ yestercount.login19 }";
+var loginy20 = "${ yestercount.login20 }";
+var loginy21 = "${ yestercount.login21 }";
+var loginy22 = "${ yestercount.login22 }";
+var loginy23 = "${ yestercount.login23 }";
+var loginy0 = "${ yestercount.login00 }";
+var loginydate = "${ yestercount.logindate }";
+
 console.log(login1);
 
 var myChart3 = new Chart(ctx3, {
     type: 'line',
     data: {
     	labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
-        datasets: [{
+        datasets: [
+        {
+        	label: loginydate + ' 시간 별 로그인',
+        	data: [loginy0, loginy1, loginy2, loginy3, loginy4, loginy5, loginy6, loginy7, loginy8, loginy9, loginy10, loginy11, loginy12, loginy13, loginy14, 
+        		loginy15, loginy16, loginy17, loginy18, loginy19, loginy20, loginy21, loginy22, loginy23],
+            backgroundColor: [
+                'rgba(0, 0, 0, 1)',
+            ],
+            fill: false,
+            borderColor: [
+            	'rgba(0, 0, 0, 1)',
+            ],
+            borderWidth: 0
+        },
+        {
         	label: logindate + ' 시간 별 로그인',
         	data: [login0, login1, login2, login3, login4, login5, login6, login7, login8, login9, login10, login11, login12, login13, login14, 
         		login15, login16, login17, login18, login19, login20, login21, login22, login23],
             backgroundColor: [
-                'rgba(200, 200, 200, 0.5)',
+                'rgba(120, 100, 200, 0.8)',
             ],
             borderColor: [
-            	'rgba(0, 0, 0, 0.5)',
+            	 'rgba(120, 100, 200, 1)',
             ],
             borderWidth: 0
-        }]
+        }
+        ]
     },
     options: { scales: {
         yAxes: [{
-            stacked: true
+            stacked: false
         }]
     }, responsive : true }
     
