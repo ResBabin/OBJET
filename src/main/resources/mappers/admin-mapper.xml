@@ -126,6 +126,7 @@
 		parameterType="string">
 		select * from users
 		left join usersprofile using (userid)
+		left join blacklist using (userid)
 		where userid = #{value}
 	</select>
 

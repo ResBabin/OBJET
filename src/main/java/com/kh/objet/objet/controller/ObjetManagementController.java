@@ -5,7 +5,9 @@ import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -207,9 +209,10 @@ public class ObjetManagementController {
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yy/MM");
 		String  enrollmonth = "";
 		SimpleDateFormat sdf3 = new SimpleDateFormat("yy/MM/dd");
-		
 		String today = sdf3.format(currenttime);
-		
+		Calendar cal = new GregorianCalendar();
+		cal.add(Calendar.DATE, -1);
+		String yester = sdf3.format(cal.getTime());
 		int count1 = 0, count2 = 0, count3 = 0, count4 = 0, count5 = 0, count6 = 0, count7 = 0, count8 = 0, count9 = 0, count10 = 0, count11 = 0, count12 = 0; 
 		
 		for (int i = 0; i < enrollcount.size(); i++) {
@@ -250,16 +253,12 @@ public class ObjetManagementController {
 		
 		//String today = "20/01/07";
 		LoginCount todaycount = usermService.selectTodayCount(today);
+		LoginCount yesterdaycount = usermService.selectTodayCount(yester);
 		
-	/*	
-		for(int i = 0; i < objetmlist.size(); i++) {
-			String[] tag = objetmlist.get(i).getObjettag().split(","); 
-			for(int j = 0; j < tag.length; j++) {
-				objettag.add(tag[j]);
-			}
-		}*/
+		
 		System.out.println(objettag);
 		model.addAttribute("todaycount", todaycount);
+		model.addAttribute("yestercount", yesterdaycount);
 		model.addAttribute("objettag", objettag);
 		model.addAttribute("objetreqlist", objetreqlist);
 		model.addAttribute("objetmlist", objetmlist);

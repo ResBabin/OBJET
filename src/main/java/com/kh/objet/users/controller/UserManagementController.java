@@ -188,10 +188,11 @@ public class UserManagementController {
 	}
 	
 	@RequestMapping(value="adminquit.do", method=RequestMethod.POST)
-	public void updateQuitYN(String order, HttpServletResponse response, HttpServletRequest request) throws IOException {
+	public void updateQuitYN(HttpServletResponse response, HttpServletRequest request) throws IOException {
 		Map<String, String> map = new HashMap<>();
 		String[] useridArray = request.getParameterValues("userid");
 		int result = 0, result2 = 0;
+			
 		for(String userid : useridArray) {
 			map.put("userid", userid);
 			map.put("quitreason", request.getParameter("quitreason"));

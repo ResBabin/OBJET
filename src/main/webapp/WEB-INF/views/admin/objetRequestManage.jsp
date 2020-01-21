@@ -21,6 +21,9 @@
 }
 </style>
 <c:import url="adminHeader.jsp" />
+<script type="text/javascript">
+
+</script>
 </head>
 <body>
 <div id="um">
@@ -86,13 +89,58 @@
 			</tbody>
 		</table>
 		<div align="right">
-			<button class="ui black button" data-tooltip="비공개 처리">
-				<i class="eye slash outline icon"></i>블라인드
+			<button class="ui basic grey button" id="returnbtn">
+			반려
 			</button>
-			<button class="ui grey button" data-tooltip="전시 종료">
-				<i class="x icon"></i>강제 종료
+			<button class="ui basic grey button" id="approvebtn">
+			승인
 			</button>
 		</div>
+		<br>
+		<div align="center">
+		<div class="ui pagination menu"  id="pagingdiv">
+		<c:if test="${ currentPage eq 1 }">
+		<a href="/objet/objetm.do?page=1" class="disabled item"><i class="angle double left icon"></i></a>
+		</c:if>
+		<c:if test="${ currentPage ne 1 }">
+		<a href="/objet/objetm.do?page=1" class="item"><i class="angle double left icon"></i></a>
+		</c:if>
+		<c:if test="${ beginPage - 10 < 1 }">
+		<c:if test="${ currentPage eq 1 }"><a href="/objet/objetm.do?page=1" class="disabled item"><i class="angle left icon"></i></a></c:if>
+		<c:if test="${ currentPage ne 1 }"><a href="/objet/objetm.do?page=1" class="item"><i class="angle left icon"></i></a></c:if>
+		</c:if>
+		<c:if test="${ beginPage - 10 >= 1 }">
+		<a href="/objet/objetm.do?page=${ currentPage }" class="item"><i class="angle left icon"></i></a>
+		</c:if>
+		<c:forEach begin="${ beginPage }" end="${ endPage }" var="p">
+		<c:if test="${ p eq currentPage }">
+<%-- 		<a href="/objet/objetm.do?page=${ p }" class="active item">${ p }</a> --%>
+		<a class="active item pages" id="pages">${ p }</a>
+		</c:if>
+		<c:if test="${ p ne currentPage }">
+<%-- 		<a href="/objet/objetm.do?page=${ p }" class="item">${ p }</a> --%>
+		<a class="item pages" id="pages">${ p }</a>
+		</c:if>
+		</c:forEach>
+		<c:if test="${  endPage + 10 > maxPage }">
+		<c:if test="${ currentPage eq endPage }">
+		<a href="/objet/objetm.do?page=${ maxPage }" class="disabled item"><i class="angle right icon"></i></a>
+		</c:if>
+		<c:if test="${ currentPage ne endPage }">
+		<a href="/objet/objetm.do?page=${ maxPage }" class="item"><i class="angle right icon"></i></a>
+		</c:if>
+		</c:if>
+		<c:if test="${ endPage + 10 <= maxPage }">
+		<a href="/objet/objetm.do?page=${ endPage + 10 }" class="item"><i class="angle right icon"></i></a>
+		</c:if>
+		<c:if test="${ currentPage eq endPage }">
+		<a href="/objet/objetm.do?page=${ endPage }" class="disabled item"><i class="angle double right icon"></i></a>
+		</c:if>
+		<c:if test="${ currentPage ne endPage }">
+		<a href="/objet/objetm.do?page=${ endPage }" class="item"><i class="angle double right icon"></i></a>
+		</c:if>
+	</div>
+	</div>
 	</div>
 </body>
 </html>
