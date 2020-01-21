@@ -10,6 +10,7 @@ import com.kh.objet.support.model.dao.SupportDao;
 import com.kh.objet.support.model.vo.ApplySupport;
 import com.kh.objet.support.model.vo.MySupport;
 import com.kh.objet.support.model.vo.RequestSupport;
+import com.kh.objet.users.model.vo.Users;
 
 @Service("supportService")
 public class SupportServiceImpl implements SupportService{
@@ -135,6 +136,98 @@ public class SupportServiceImpl implements SupportService{
 	public int selectCountSupport() {
 		return supportDao.selectCountSupport();
 	}
+
+	@Override
+	public String selectThanksmsg(String artistid) {
+		return supportDao.selectThanksmsg(artistid);
+	}
+
+	@Override
+	public String selectartistnickname(String artistid) {
+		return supportDao.selectartistnickname(artistid);
+	}
+	
+	@Override
+	public int supportEnrollListCountm() {
+		return supportDao.supportEnrollListCountm();
+	}
+
+	@Override
+	public List<ApplySupport> supportEnrollListm(HashMap<String, Object> map) {
+		return supportDao.supportEnrollListm(map);
+	}
+
+	@Override
+	public ApplySupport supportenrollListdetailm(String artistid) {
+		return supportDao.supportenrollListdetailm(artistid);
+	}
+
+	@Override
+	public int supportListCountm() {
+		return supportDao.supportListCountm();
+	}
+
+	@Override
+	public List<MySupport> supportListm(HashMap<String, Object> map) {
+		return supportDao.supportListm(map);
+	}
+
+	@Override
+	public int supportRequestListCountm() {
+		return supportDao.supportRequestListCountm();
+	}
+
+	@Override
+	public List<RequestSupport> supportRequestm(HashMap<String, Object> map) {
+		return supportDao.supportRequestm(map);
+	}
+
+	@Override
+	public RequestSupport requestSupportDetailm(int requestno) {
+		return supportDao.requestSupportDetailm(requestno);
+	}
+
+	@Override
+	public Users selectUser(String artistid) {
+		return supportDao.selectUser(artistid);
+	}
+
+	@Override
+	public int updateRequestSupportDetailm(RequestSupport requestSupport) {
+		return supportDao.updateRequestSupportDetailm(requestSupport);
+	}
+
+	@Override
+	public int supportEnrollSearchListCountm(String artistid) {
+		return supportDao.supportEnrollSearchListCountm(artistid);
+	}
+
+	@Override
+	public List<ApplySupport> supportEnrollSearchListm(HashMap<String, Object> map) {
+		return supportDao.supportEnrollSearchListm(map);
+	}
+
+	@Override
+	public int supportSearchListCountm(HashMap<String, Object> map) {
+		return supportDao.supportSearchListCountm(map);
+	}
+
+	@Override
+	public List<MySupport> supportSearchListm(HashMap<String, Object> map) {
+		return supportDao.supportSearchListm(map);
+	}
+
+	@Override
+	public int supportRequestSearchmListCountm(HashMap<String, Object> map) {
+		return supportDao.supportRequestSearchmListCountm(map);
+	}
+
+	@Override
+	public List<RequestSupport> supportRequestSearchm(HashMap<String, Object> map) {
+		return supportDao.supportRequestSearchm(map);
+	}
+
+	
 
 
 	

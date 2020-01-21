@@ -67,6 +67,7 @@ public class Feed implements Serializable{
 		this.feeddate = feeddate;
 	}
 
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -76,6 +77,8 @@ public class Feed implements Serializable{
 		return "Feed [feedno=" + feedno + ", artistid=" + artistid + ", userid=" + userid + ", feedcontent="
 				+ feedcontent + ", feeddate=" + feeddate + "]";
 	}
+
+	
 	
 	
 

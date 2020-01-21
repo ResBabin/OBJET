@@ -95,6 +95,14 @@
 				<a class="ui grey item" href="objetm.do" id="heada3">전시 조회</a> <a class="item" href="objetreq.do" id="heada4">신청작 조회</a> 
 			</div>
 		</div>
+		<div class="ui dropdown item" id="headdi2" align="center" style="padding-left: 35px;">
+			후원 관리 <i class="dropdown icon"></i>
+			<div class="menu" id="sub">
+				<a class="ui grey item" href="supportEnrollListm.do?currentPage=1" id="heada5">등록 현황</a>
+				<a class="ui grey item" href="supportListm.do?currentPage=1" id="heada6">후원 현황</a>
+				<a class="item" href="supportRequest.do?currentPage=1" id="heada7">정산 현황</a> 
+			</div>
+		</div>
 		<div class="ui dropdown item" id="headdi3" align="center" style="padding-left: 35px;">
 			신고 관리 <i class="dropdown icon"></i>
 			<div class="menu" id="sub">
@@ -104,9 +112,9 @@
 		<div class="ui dropdown item" id="headdi4" align="center" style="padding-left: 35px;">
 			고객 센터 <i class="dropdown icon"></i>
 			<div class="menu" id="sub">
-				<a class="item" href="noticem.do" id="heada7">공지사항 관리</a> 
-				<a class="item" href="faqm.do" id="heada8">FAQ 관리</a> 
-				<a class="item" href="qnam.do" id="heada9">1:1문의 관리</a> 
+				<a class="item" href="noticem.do" id="heada8">공지사항 관리</a> 
+				<a class="item" href="faqm.do" id="heada9">FAQ 관리</a> 
+				<a class="item" href="qnam.do" id="heada10">1:1문의 관리</a> 
 			</div>
 		</div>
 		<div class="right menu">
@@ -171,6 +179,17 @@
 			</div>
 			<div class="content" id="cont">
 				<a class="item" href="objetm.do"> 전시 조회 </a> <a class="item" href="objetreq.do"> 신청작 조회</a>
+			</div> 
+		</div>
+		<div class="ui accordion">
+			<div class="title">
+				<a class="item"> <i class="picture icon"></i> 후원 관리
+				</a>
+			</div>
+			<div class="content" id="cont">
+				<a class="item" href="supportEnrollListm.do?currentPage=1"> 등록 현황</a>
+				<a class="item" href="supportListm.do?currentPage=1"> 후원 현황 </a>
+				<a class="item" href="supportRequest.do?currentPage=1"> 정산 현황</a>
 			</div> 
 		</div>
 		<div class="ui accordion">

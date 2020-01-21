@@ -20,6 +20,7 @@
  <script type="text/javascript">
  
  	function deleteRequestSupport(requestno){
+ 		if(confirm("해당 신청을 취소하시겠습니까?") == true){
  		$.ajax({
 	         url:"deleteRequestSupport.do",
 	         type:"get",
@@ -38,6 +39,9 @@
 					console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
 				}
 	       }); 
+ 		}else{
+ 			return false;
+ 		}
  	}
 
  </script>

@@ -512,6 +512,9 @@ function editGB(gbno,replyyn){
 							<c:if test="${ paging.endPage != paging.maxPage }">
 								<a href="moveArtistGuestBook.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=${paging.endPage + 1}">다음</a>
 							</c:if>
+							<c:if test="${ paging.endPage == paging.maxPage }">
+								<a href="moveArtistGuestBook.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=${paging.maxPage}"></a>
+							</c:if>
 						 </c:if> 
 						
 						
@@ -548,9 +551,13 @@ function editGB(gbno,replyyn){
 							<c:if test="${ paging.endPage != paging.maxPage }">
 								<a href="moveGuestBookSearch.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=${paging.endPage + 1}&searchtype=${searchtype}&keyword=${keyword}">다음</a>
 							</c:if>
+							<c:if test="${ paging.endPage == paging.maxPage }">
+								<a href="moveGuestBookSearch.do?artistid=${artist.userid }&userid=${loginUser.userid }&currentPage=${paging.endPage + 1}&searchtype=${searchtype}&keyword=${keyword}"></a>
+							</c:if>
 						</c:if>
 					</div>
 				</div>
+				<!-- 페이징처리 끝 -->
 		</c:if>
 		<c:if test="${empty list}">
 		<c:if test="${artist.userid == loginUser.userid }">

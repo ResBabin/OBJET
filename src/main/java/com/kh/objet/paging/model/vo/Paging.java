@@ -27,7 +27,7 @@ public class Paging implements Serializable {
 	
 	private int endRow;  //쿼리에서 검색할 끝 행 수 
 	
-	private int underlimit = 5; // 프론트 하단 페이지 개수 
+	private int underlimit = 10; // 프론트 하단 페이지 개수 
 	
 	public Paging() {
 		// TODO Auto-generated constructor stub

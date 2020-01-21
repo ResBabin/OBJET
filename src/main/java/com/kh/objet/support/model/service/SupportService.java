@@ -6,6 +6,7 @@ import java.util.List;
 import com.kh.objet.support.model.vo.ApplySupport;
 import com.kh.objet.support.model.vo.MySupport;
 import com.kh.objet.support.model.vo.RequestSupport;
+import com.kh.objet.users.model.vo.Users;
 
 public interface SupportService {
 	
@@ -33,4 +34,22 @@ public interface SupportService {
 	int deleteRequestSupport(int requestno);
 	int selectCountArtist();
 	int selectCountSupport();
+	String selectThanksmsg(String artistid);
+	String selectartistnickname(String artistid);
+	int supportEnrollListCountm();
+	List<ApplySupport> supportEnrollListm(HashMap<String, Object> map);
+	ApplySupport supportenrollListdetailm(String artistid);
+	int supportListCountm();
+	List<MySupport> supportListm(HashMap<String, Object> map);
+	int supportRequestListCountm();
+	List<RequestSupport> supportRequestm(HashMap<String, Object> map);
+	RequestSupport requestSupportDetailm(int requestno);
+	Users selectUser(String artistid);
+	int updateRequestSupportDetailm(RequestSupport requestSupport);
+	int supportEnrollSearchListCountm(String artistid);
+	List<ApplySupport> supportEnrollSearchListm(HashMap<String, Object> map);
+	int supportSearchListCountm(HashMap<String, Object> map);
+	List<MySupport> supportSearchListm(HashMap<String, Object> map);
+	int supportRequestSearchmListCountm(HashMap<String, Object> map);
+	List<RequestSupport> supportRequestSearchm(HashMap<String, Object> map);
 }

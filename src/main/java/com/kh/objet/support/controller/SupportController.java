@@ -21,11 +21,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.objet.feed.model.service.FeedServiceImpl;
+import com.kh.objet.feed.model.vo.Feed;
 import com.kh.objet.paging.model.vo.Paging;
 import com.kh.objet.support.model.service.SupportServiceImpl;
 import com.kh.objet.support.model.vo.ApplySupport;
 import com.kh.objet.support.model.vo.MySupport;
 import com.kh.objet.support.model.vo.RequestSupport;
+import com.kh.objet.users.model.vo.Users;
 
 
 @Controller
@@ -35,6 +38,9 @@ public class SupportController {
 	
 	@Autowired
 	private SupportServiceImpl supportService;
+	
+	@Autowired
+	private FeedServiceImpl feedService;
 	
 	
 	@Autowired
@@ -514,7 +520,328 @@ public class SupportController {
 			 * */
 			return new ModelAndView("filedown", "downFile", downFile);
 		}
-	
+		
+		
+		@RequestMapping(value="moveThnanksmsg.do")
+		public String moveThnanksmsg(@RequestParam(value="artistid") String artistid, Model model) {
+			String thanksmsg = supportService.selectThanksmsg(artistid);
+			// 작가 닉네임 가져오기
+			String artistnickname = supportService.selectartistnickname(artistid);
+			
+			
+			String vfn = "support/thanksmsg";
+			
+			if(thanksmsg != null && artistnickname!=null) {
+				model.addAttribute("thanksmsg", thanksmsg);
+				model.addAttribute("artistnickname", artistnickname);
+				model.addAttribute("artistid", artistid);
+			}else {
+				model.addAttribute("message", "후원 감사 메시지 이동 실패!");
+				vfn = "common/error";
+			}
+			return vfn;
+		}
+		
+		
+		// 관리자영역 =============================================================================================================
+		
+		// 등록현황
+		@RequestMapping("supportEnrollListm.do")
+		public String supportEnrollListm(@RequestParam(value="currentPage") String currentPage, Model model) {
+			String vfn = "admin/supportEnrollManagement";
+			
+			//페이징처리 
+			int curPage = Integer.valueOf(currentPage);
+			int listCount = supportService.supportEnrollListCountm();
+			paging.makePage(listCount, curPage);
+			
+			// HashMap 객체 생성
+			HashMap<String, Object> map = new HashMap<String, Object>();
+
+			map.put("startRow", paging.getStartRow());
+			map.put("endRow", paging.getEndRow());
+			
+			List<ApplySupport> list = supportService.supportEnrollListm(map);
+			
+			if(list.size() >= 0) {
+				model.addAttribute("listCount", listCount);
+				model.addAttribute("list", list);
+				model.addAttribute("paging", paging);
+				model.addAttribute("kind", "all");
+			}else {
+				model.addAttribute("message", "후원 등록현황 로딩 실패!");
+				vfn = "common/error";
+			}
+			
+			return vfn;
+		}
+		
+		// 등록현황 검색
+			@RequestMapping("supportEnrollSearchListm.do")
+			public String supportEnrollListm(@RequestParam(value="currentPage") String currentPage, @RequestParam(value="artistid") String artistid,Model model) {
+				String vfn = "admin/supportEnrollManagement";
+				
+				//페이징처리 
+				int curPage = Integer.valueOf(currentPage);
+				int listCount = supportService.supportEnrollSearchListCountm(artistid);
+				paging.makePage(listCount, curPage);
+				
+				// HashMap 객체 생성
+				HashMap<String, Object> map = new HashMap<String, Object>();
+
+				map.put("startRow", paging.getStartRow());
+				map.put("endRow", paging.getEndRow());
+				map.put("artistid", artistid);
+				
+				List<ApplySupport> list = supportService.supportEnrollSearchListm(map);
+				
+				if(list.size() >= 0) {
+					model.addAttribute("listCount", listCount);
+					model.addAttribute("list", list);
+					model.addAttribute("artistid", artistid);
+					model.addAttribute("paging", paging);
+					model.addAttribute("kind", "search");
+				}else {
+					model.addAttribute("message", "후원 등록현황 검색 결과 로딩 실패!");
+					vfn = "common/error";
+				}
+				
+				return vfn;
+			}
+		
+		
+		// 등록현황 상세보기
+		@RequestMapping("supportenrollListdetailm.do")
+		public String supportenrollListdetailm(@RequestParam(value="artistid") String artistid, Model model) {
+			String vfn = "admin/supportEnrollManageDetail";
+			
+			ApplySupport detail = supportService.supportenrollListdetailm(artistid);
+			
+			if(detail != null) {
+				model.addAttribute("detail", detail);
+			}else {
+				model.addAttribute("message", "후원 등록 상세보기 로딩 실패!");
+				vfn = "common/error";
+			}
+			
+			return vfn;
+		}
+		
+		
+		// 후원현황
+		@RequestMapping("supportListm.do")
+		public String supportListm(@RequestParam(value="currentPage") String currentPage, Model model) {
+			String vfn = "admin/supportListManagement";
+			
+			//페이징처리 
+			int curPage = Integer.valueOf(currentPage);
+			int listCount = supportService.supportListCountm();
+			paging.makePage(listCount, curPage);
+			
+			// HashMap 객체 생성
+			HashMap<String, Object> map = new HashMap<String, Object>();
+
+			map.put("startRow", paging.getStartRow());
+			map.put("endRow", paging.getEndRow());
+			
+			List<MySupport> list = supportService.supportListm(map);
+			
+			if(list.size() >= 0) {
+				model.addAttribute("listCount", listCount);
+				model.addAttribute("list", list);
+				model.addAttribute("paging", paging);
+				model.addAttribute("kind", "all");
+			}else {
+				model.addAttribute("message", "후원 전체현황 로딩 실패!");
+				vfn = "common/error";
+			}
+			
+			return vfn;
+		}
+		
+		
+		// 후원현황 검색
+			@RequestMapping("supportSearchListm.do")
+			public String supportSearchListm(@RequestParam(value="currentPage") String currentPage, @RequestParam(value="searchtype") String searchtype, @RequestParam(value="keyword") String keyword, Model model) {
+				String vfn = "admin/supportListManagement";
+				
+				//페이징처리 
+				int curPage = Integer.valueOf(currentPage);
+				
+				// HashMap 객체 생성
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("searchtype", searchtype);
+				map.put("keyword", keyword);
+				int listCount = supportService.supportSearchListCountm(map);
+				paging.makePage(listCount, curPage);
+				
+
+				map.put("startRow", paging.getStartRow());
+				map.put("endRow", paging.getEndRow());
+				
+				List<MySupport> list = supportService.supportSearchListm(map);
+				
+				if(list.size() >= 0) {
+					model.addAttribute("listCount", listCount);
+					model.addAttribute("list", list);
+					model.addAttribute("searchtype", searchtype);
+					model.addAttribute("keyword", keyword);
+					model.addAttribute("paging", paging);
+					model.addAttribute("kind", "search");
+				}else {
+					model.addAttribute("message", "후원 전체현황 검색결과 로딩 실패!");
+					vfn = "common/error";
+				}
+				
+				return vfn;
+			}
+		
+		
+		// 정산현황
+		@RequestMapping("supportRequest.do")
+		public String supportRequest(@RequestParam(value="currentPage") String currentPage, Model model) {
+			String vfn = "admin/supportRequestListManagement";
+			
+			//페이징처리 
+			int curPage = Integer.valueOf(currentPage);
+			int listCount = supportService.supportRequestListCountm();
+			paging.makePage(listCount, curPage);
+			
+			// HashMap 객체 생성
+			HashMap<String, Object> map = new HashMap<String, Object>();
+
+			map.put("startRow", paging.getStartRow());
+			map.put("endRow", paging.getEndRow());
+			
+			List<RequestSupport> list = supportService.supportRequestm(map);
+			
+			if(list.size() >= 0) {
+				model.addAttribute("listCount", listCount);
+				model.addAttribute("list", list);
+				model.addAttribute("paging", paging);
+				model.addAttribute("kind", "all");
+			}else {
+				model.addAttribute("message", "후원 전체현황 로딩 실패!");
+				vfn = "common/error";
+			}
+			
+			return vfn;
+		}
+		
+		// 정산현황 검색
+				@RequestMapping("supportRequestSearchm.do")
+				public String supportRequestSearchm(@RequestParam(value="currentPage") String currentPage, @RequestParam(value="artistid") String artistid, 
+						@RequestParam(value="requestyear") String requestyear, @RequestParam(value="requestmonth") String requestmonth, @RequestParam(value="sptstatus") String sptstatus,Model model) {
+					String vfn = "admin/supportRequestListManagement";
+					
+					//페이징처리 
+					int curPage = Integer.valueOf(currentPage);
+					
+					// HashMap 객체 생성
+					HashMap<String, Object> map = new HashMap<String, Object>();
+					map.put("artistid", artistid);
+					map.put("requestyear", requestyear);
+					map.put("requestmonth", requestmonth);
+					map.put("sptstatus", sptstatus);
+					
+					int listCount = supportService.supportRequestSearchmListCountm(map);
+					paging.makePage(listCount, curPage);
+					
+					
+
+					map.put("startRow", paging.getStartRow());
+					map.put("endRow", paging.getEndRow());
+
+					
+					List<RequestSupport> list = supportService.supportRequestSearchm(map);
+					
+					if(list.size() >= 0) {
+						model.addAttribute("listCount", listCount);
+						model.addAttribute("list", list);
+						model.addAttribute("artistid", artistid);
+						model.addAttribute("requestyear", requestyear);
+						model.addAttribute("requestmonth", requestmonth);
+						model.addAttribute("sptstatus", sptstatus);
+						model.addAttribute("paging", paging);
+						model.addAttribute("kind", "search");
+					}else {
+						model.addAttribute("message", "후원 전체현황 로딩 실패!");
+						vfn = "common/error";
+					}
+					
+					return vfn;
+				}
+				
+		
+		
+		// 정산현황 상세보기
+		@RequestMapping("requestSupportDetailm.do")
+		public String requestSupportDetailm(@RequestParam(value="requestno") int requestno, Model model) {
+			String vfn = "admin/requestSupportDetail";
+			
+			RequestSupport request = supportService.requestSupportDetailm(requestno);
+			
+			Users users = supportService.selectUser(request.getArtistid());
+			
+			ApplySupport applysupport = supportService.selectSupport(request.getArtistid());
+			
+			if(request != null && users != null && applysupport != null) {
+				model.addAttribute("request", request);
+				model.addAttribute("users", users);
+				model.addAttribute("applysupport", applysupport);
+			}else {
+				model.addAttribute("message", "정산 신청 상세보기 실패!");
+				vfn = "commmon/error";
+			}
+			
+			return vfn;
+		}
+		
+		
+		// 정산처리하기
+		@RequestMapping("updateRequestSupportDetailm.do")
+		public String updateRequestSupportDetailm(RequestSupport requestSupport, @RequestParam(name="sptupfiles", required=false) MultipartFile file, HttpServletRequest request, Model model) {
+			
+			String vfn = "redirect:/requestSupportDetailm.do?requestno="+requestSupport.getRequestno();
+			
+			String savePath = request.getSession().getServletContext().getRealPath("resources/support_upfiles");
+			
+			try {
+				if(file != null && file.getOriginalFilename() != "") {
+					
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+					String renameFileName = requestSupport.getArtistid() + "_m_" + sdf.format(new java.sql.Date(System.currentTimeMillis())) + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+					file.transferTo(new File(savePath + "\\" + renameFileName));
+					requestSupport.setSptofile(file.getOriginalFilename());
+					requestSupport.setSptrfile(renameFileName);
+				}
+				
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+			
+			int result1 = supportService.updateRequestSupportDetailm(requestSupport);
+			
+			// update 성공하면 피드알림에도 추가
+			Feed feed = new Feed();
+			feed.setArtistid(requestSupport.getArtistid());
+			feed.setUserid(requestSupport.getAdminid());
+			String state = null;
+			if(requestSupport.getSptstatus().equals("RJCT"))
+				state = "반려";
+			else if(requestSupport.getSptstatus().equals("DONE"))
+				state = "처리완료 ";
+			feed.setFeedcontent("신청하신 " + requestSupport.getRequestyear() + "/" + requestSupport.getRequestmonth() + "월분에 대한 정산이 " + state + " 되었습니다.");
+			int result2 = feedService.insertFeed(feed);
+			
+			if(result1 <= 0 && result2 <=0) {
+				vfn = "common/error";
+				model.addAttribute("message", "정산 신청 처리 실패!");
+			}
+			
+			
+			return vfn;
+		}
 
 
 }
