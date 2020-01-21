@@ -350,7 +350,12 @@ function chatbotpop() {
 			<div style="width: 680px; margin-top: 0px; margin-left: 20px;">
 			<div style="margin-top: 0px;">
 			<%-- <c:set var="reqcount" value="${ objetreqlist.size() /objetmlist.size() * 100}" /> --%>
-			<fmt:formatNumber type="number" pattern="0.0" value="${ beforestart /objetreqlist.size()* 100}" var="reqcount"/>
+			<c:if test="${ !empty beforestart  }">
+			<fmt:formatNumber type="number" pattern="0.0" value="${ beforestart / objetreqlist.size() * 100}" var="reqcount"/> 
+			</c:if>
+			<c:if test="${ objetreqlist.size() eq 0  }">
+			<c:set var="reqcount" value="0.0" />
+			</c:if>
 			 <label class="label"> <font style="font-weight: bold;">마감 임박 신청작 : ${ reqcount }% </font></label>
 			<div class="ui black progress" style="margin-top: 0px;margin-bottom: 0px;" id="progress1" data-percent="${ reqcount }">
 				<div class="bar" align="center"></div>

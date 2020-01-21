@@ -37,6 +37,8 @@
 		(select nickname ,username ,userid, enrolldate, blackyn, quityn, usertype,
 		count(reportedu) as "reportcount"
 		, row_number() over(
+		<if test="order == null " >order by userid desc</if>
+		<if test="order != null">
 		<if test="order.equals('ida')">order by userid asc</if>
 		<if test="order.equals('idd')">order by userid desc</if>
 		<if test="order.equals('nicka')">order by nickname asc</if>
@@ -49,23 +51,30 @@
 		<if test="order.equals('reportd')">order by count(reportedu) desc, userid asc </if>
 		<if test="order.equals('quita')">order by quityn asc, userid asc </if>
 		<if test="order.equals('quitd')">order by quityn desc, userid asc </if>
+		</if>
 		) rnum from users
 		left join reportudetail on (userid = reportedu)
-		<if test="all != null"></if>
-		<if test="usertype != null">where usertype like '%'||#{ usertype }||'%' </if>
-		<if test="blackyn != null">where blackyn = 'Y'</if>
-		<if test="quityn != null">where quityn = 'Y'</if>
+		<where>
+		<if test="usertype != null">and usertype like '%'||#{ usertype }||'%' </if>
+		<if test="blackyn != null">and blackyn = 'Y'</if>
+		<if test="quityn != null">and quityn = 'Y'</if>
+		<if test="userid != null">and userid like '%'||#{ userid }||'%'</if>
+		<if test="nickname != null">and nickname like '%'||#{ nickname }||'%'</if>
+		</where>
 		group by nickname, username, userid, enrolldate, quityn, usertype,
 		blackyn)
 		where rnum between #{startRow} and #{endRow}
 	</select>
 	<select id="selectUserOrderCount" parameterType="map"
-		resultType="Userm">
+		resultType="int">
 		select count(*) from users
-		<if test="all != null"></if>
-		<if test="usertype != null">where usertype like '%'||#{ usertype }||'%' </if>
-		<if test="blackyn != null">where blackyn = 'Y'</if>
-		<if test="quityn != null">where quityn = 'Y'</if>
+	<where>
+		<if test="usertype != null">and usertype like '%'||#{ usertype }||'%' </if>
+		<if test="blackyn != null">and blackyn = 'Y'</if>
+		<if test="quityn != null">and quityn = 'Y'</if>
+		<if test="userid != null">and userid like '%'||#{ userid }||'%'</if>
+		<if test="nickname != null">and nickname like '%'||#{ nickname }||'%'</if>
+		</where>
 	</select>
 
 	<select id="selectUserListCount" resultType="int">
@@ -277,7 +286,7 @@
 	<!-- 전시 승인 / 반려 -->
 	<update id="updateRequestStatus" parameterType="map">
 		update objet set
-		objetstatus = 'WAIT', publicyn = #{ publicyn }
+		objetstatus = 'STANDBY', publicyn = #{ publicyn }
 		where objetno = ${
 		objetno }
 	</update>
@@ -301,9 +310,8 @@
 		select *
 		from (select rownum rnum, noticeno, noticetitle, adminid,
 		noticetype, noticedate, noticeofile
-		from (select * from notice ) order
-		by noticeno desc)
-		where rnum between #{ startRow } and #{ endRow }
+		from (select * from notice) order by noticeno desc)
+		where rnum between #{ startRow } and #{ endRow } 
 	</select>
 
 	<!-- 공지 상세 조회 -->
@@ -356,7 +364,7 @@
 		select *
 		from (select rownum rnum, noticeno, noticetitle, adminid,
 		noticetype, noticedate, noticeofile
-		from (select * from notice ) 
+		from (select * from notice order by noticeno desc) 
 		<where>
 		<if test="noticecontent != null">and noticecontent like '%'||#{noticecontent}||'%'</if>
 		<if test="noticetype != null">and noticetype like '%'||#{noticetype}||'%'</if>

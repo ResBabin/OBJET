@@ -47,14 +47,26 @@ public class UserManagementController {
 
 	@RequestMapping("userm.do")
 	public String userList(Model model, HttpServletRequest request) {
-		Map<String, Integer> map = new HashMap<>();
+		Map<String, String> map = new HashMap<>();
+		   String usertype = request.getParameter("usertype");
+		   String blackyn = request.getParameter("blackyn");
+		   String quityn = request.getParameter("quityn");
+		   String userid = request.getParameter("userid");
+			String order = request.getParameter("order");
+			String nickname = request.getParameter("nickname");
+				map.put("blackyn", blackyn);
+				map.put("quityn", quityn);
+				map.put("usertype", usertype);
+				map.put("order", order);
+				map.put("nickname", nickname);
+				map.put("userid", userid);
 		int currentPage = 1;
 		if(request.getParameter("page") != null) {
 			currentPage = Integer.parseInt(request.getParameter("page"));
 		}
 		
 		int limit = 10;  //한 페이지에 출력할 목록 갯수
-		int listCount = usermService.selectUserListCount();  //테이블의 전체 목록 갯수 조회
+		int listCount = usermService.selectUserListCount(map);  //테이블의 전체 목록 갯수 조회
 		//총 페이지 수 계산
 		int maxPage = listCount / limit;
 		if(listCount % limit > 0)
@@ -73,19 +85,21 @@ public class UserManagementController {
 		//currentPage 에 출력할 목록의 조회할 행 번호 계산
 		int startRow = (currentPage * limit) - 9;
 		int endRow = currentPage * limit;
-		map.put("startRow", startRow);
-		map.put("endRow", endRow);
-	/*	ArrayList<UserManagement> ulist = new ArrayList<UserManagement>();
-		for(int i = startRow-1; i < endRow; i++) {
-			ulist.add(usermService.selectUser().get(i));
-		}*/
-		ArrayList<UserManagement> ulist = (ArrayList<UserManagement>) usermService.selectUser(map);
+		map.put("startRow", Integer.toString(startRow));
+		map.put("endRow", Integer.toString(endRow));
+		ArrayList<UserManagement> ulist = (ArrayList<UserManagement>) usermService.selectUserOrder(map);
 			model.addAttribute("ulist", ulist);
 			model.addAttribute("currentPage", currentPage);
 			model.addAttribute("listCount", listCount);
 			model.addAttribute("maxPage", maxPage);
 			model.addAttribute("beginPage", beginPage);
 			model.addAttribute("endPage", endPage);
+			model.addAttribute("blackyn", blackyn);
+			model.addAttribute("quityn", quityn);
+			model.addAttribute("usertype", usertype);
+			model.addAttribute("order", order);
+			model.addAttribute("nickname", nickname);
+			model.addAttribute("userid", userid);
 			return "admin/userManagement";
 	}
 	@RequestMapping("userbk.do")
@@ -212,7 +226,7 @@ public class UserManagementController {
 		out.flush();
 		out.close();
 	}
-	@RequestMapping(value="userorder.do", method=RequestMethod.POST)
+/*	@RequestMapping(value="userorder.do", method=RequestMethod.POST)
 	public void selectUserOrder(HttpServletResponse response, HttpServletRequest request) throws IOException {
 		Map<String, String> map = new HashMap<>();
 		int currentPage = 1;
@@ -283,7 +297,7 @@ public class UserManagementController {
 				out.flush();
 				out.close();
 				
-	}
+	}*/
 	@RequestMapping("userInfo.do")
 	public String userInfo(@RequestParam("userid") String userid, Model model) {
 		UserManagement userinfo = usermService.selectUserDetail(userid);

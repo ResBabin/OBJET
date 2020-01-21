@@ -577,5 +577,16 @@ public class ObjetManagementController {
 		model.addAttribute("objetmlist", searchlist);
 		return "admin/objetManagement";
 	}
-
+	@RequestMapping("vrtest.do")
+	public String vrtest(@RequestParam("objetno") int objetno, Model model) {
+		ObjetManagement objet = objetmService.selectObjetOne(objetno);
+		model.addAttribute("objet", objet);
+		return "objetGallery";
+	}
+	@RequestMapping("coltest.do")
+	public String vrcol(@RequestParam("objetno") int objetno, Model model) {
+		ObjetManagement objet = objetmService.selectObjetOne(objetno);
+		model.addAttribute("objet", objet);
+		return "CollisionTest";
+	}
 }

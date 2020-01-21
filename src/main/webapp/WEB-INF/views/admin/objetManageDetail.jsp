@@ -116,7 +116,9 @@ function UserInfoPopup() {
 </div>
 <div style="padding-right: 170px; padding-left: 170px;"><br>
 <div id="detailintro" style="box-shadow: 5px 5px 0px #eee; border: 1px solid #999; border-radius: 5px;">
-<h4>등록 : ${ objet.objetregidate } <br><br>상태 : <c:if test="${ objet.objetstatus eq 'WAIT'}">예정</c:if><c:if test="${ objet.objetstatus eq 'OPEN'}">전시</c:if><c:if test="${ objet.objetstatus eq 'CLOSE'}">종료</c:if> <br></h4>
+<h4>등록 : ${ objet.objetregidate } <br><br>상태 : <c:if test="${ objet.objetstatus eq 'STANDBY'}">예정</c:if>
+<c:if test="${ objet.objetstatus eq 'WAIT'}">요청</c:if>
+<c:if test="${ objet.objetstatus eq 'OPEN'}">전시</c:if><c:if test="${ objet.objetstatus eq 'CLOSE'}">종료</c:if> <br></h4>
 <h4>소개</h4><font style="font-size: 12pt; letter-spacing: 1px; line-height: 25pt;">${ objet.objetintro }</font>
 </div>
 <h3 align="center" style="margin-left: 120px;"><font style="font-style: italic; text-decoration: underline;">${ objet.objetstartdate } &nbsp;&nbsp;~&nbsp;&nbsp; ${ objet.objetenddate }</font>&nbsp;&nbsp; &nbsp;&nbsp; 
