@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.objet.support.model.vo.ApplySupport;
 import com.kh.objet.support.model.vo.MySupport;
 import com.kh.objet.support.model.vo.RequestSupport;
+import com.kh.objet.users.model.vo.Users;
 
 @Repository("supportDao")
 public class SupportDao {
@@ -114,6 +115,79 @@ public class SupportDao {
 	public int selectCountSupport() {
 		return mybatisSession.selectOne("supportMapper.selectCountSupport");
 	}
+
+	public String selectThanksmsg(String artistid) {
+		return mybatisSession.selectOne("supportMapper.selectThanksmsg", artistid);
+	}
+
+	public String selectartistnickname(String artistid) {
+		return mybatisSession.selectOne("supportMapper.selectartistnickname", artistid);
+	}
+
+	public int supportEnrollListCountm() {
+		return mybatisSession.selectOne("supportMapper.supportEnrollListCountm");
+	}
+
+	public List<ApplySupport> supportEnrollListm(HashMap<String, Object> map) {
+		return mybatisSession.selectList("supportMapper.supportEnrollListm", map);
+	}
+
+	public ApplySupport supportenrollListdetailm(String artistid) {
+		return mybatisSession.selectOne("supportMapper.supportenrollListdetailm", artistid);
+	}
+
+	public int supportListCountm() {
+		return mybatisSession.selectOne("supportMapper.supportListCountm");
+	}
+
+	public List<MySupport> supportListm(HashMap<String, Object> map) {
+		return mybatisSession.selectList("supportMapper.supportListm", map);
+	}
+
+	public int supportRequestListCountm() {
+		return mybatisSession.selectOne("supportMapper.supportRequestListCountm");
+	}
+
+	public List<RequestSupport> supportRequestm(HashMap<String, Object> map) {
+		return mybatisSession.selectList("supportMapper.supportRequestm", map);
+	}
+
+	public RequestSupport requestSupportDetailm(int requestno) {
+		return mybatisSession.selectOne("supportMapper.requestSupportDetailm", requestno);
+	}
+
+	public Users selectUser(String artistid) {
+		return mybatisSession.selectOne("supportMapper.selectUser", artistid);
+	}
+
+	public int updateRequestSupportDetailm(RequestSupport requestSupport) {
+		return mybatisSession.update("supportMapper.updateRequestSupportDetailm", requestSupport);
+	}
+
+	public int supportEnrollSearchListCountm(String artistid) {
+		return mybatisSession.selectOne("supportMapper.supportEnrollSearchListCountm", artistid);
+	}
+
+	public List<ApplySupport> supportEnrollSearchListm(HashMap<String, Object> map) {
+		return mybatisSession.selectList("supportMapper.supportEnrollSearchListm", map);
+	}
+
+	public int supportSearchListCountm(HashMap<String, Object> map) {
+		return mybatisSession.selectOne("supportMapper.supportSearchListCountm", map);
+	}
+
+	public List<MySupport> supportSearchListm(HashMap<String, Object> map) {
+		return mybatisSession.selectList("supportMapper.supportSearchListm", map);
+	}
+
+	public int supportRequestSearchmListCountm(HashMap<String, Object> map) {
+		return mybatisSession.selectOne("supportMapper.supportRequestSearchmListCountm", map);
+	}
+
+	public List<RequestSupport> supportRequestSearchm(HashMap<String, Object> map) {
+		return mybatisSession.selectList("supportMapper.supportRequestSearchm", map);
+	}
+
 
 	
 

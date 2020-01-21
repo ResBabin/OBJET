@@ -39,7 +39,7 @@ IMP.request_pay({
     			var msg = '후원 금액 : ' + rsp.paid_amount;
     			msg += '\n후원해주셔서 감사드립니다. :)';
     			alert(msg);
-    			window.location.href="artistHomeMain.do?userid=${support.artistid}&loginUser=${support.sptid}";
+    			window.location.href="moveThnanksmsg.do?artistid=${support.artistid}";
     		} else {
     			var msg = '결제가 정상적으로 진행되지 않아 자동취소처리 하였습니다.';
     			alert(msg);

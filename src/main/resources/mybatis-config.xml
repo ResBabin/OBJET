@@ -32,6 +32,7 @@
 		<typeAlias type="com.kh.objet.users.model.vo.Users" alias="Users" />
 		<typeAlias type="com.kh.objet.usersprofile.model.vo.UsersProfile" alias="UsersProfile" />
 		<typeAlias type="com.kh.objet.visitedobjet.model.vo.VisitedObjet" alias="VisitedObjet" />
+		<typeAlias type="com.kh.objet.visitedobjet.model.vo.VisitedObjet2" alias="VisitedObjet2" />
 		<typeAlias type="com.kh.objet.users.model.vo.UserManagement" alias="Userm" />
 		<typeAlias type="com.kh.objet.calendar.model.vo.Calendar" alias="Calendar" />
 		<typeAlias type="com.kh.objet.users.model.vo.UAUP" alias="UAUP" />
