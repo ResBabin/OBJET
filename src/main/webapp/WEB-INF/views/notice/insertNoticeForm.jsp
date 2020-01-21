@@ -22,7 +22,8 @@ margin-left: 500px;
 			<table class = "noticeform">
 				<tr>
 					<th>작성자</th>
-					<td><input type="text" size="30" name="adminid" required="required"></td>
+					<td><input type="text" size="30" name="adminid" value="${loginUser.userid}" required="required"></td>
+					
 
 
 				</tr>
@@ -46,6 +47,7 @@ margin-left: 500px;
 
 				<tr>
 					<th>첨부파일</th>
+					
 					<td colspan="3"><input multiple="multiple" type="file" name="upfile">
                   <!-- 파일업로드 -->
 				</tr>

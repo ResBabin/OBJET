@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.objet.faq.model.service.FaqService;
 import com.kh.objet.faq.model.vo.Faq;
+import com.kh.objet.notice.model.service.NoticeService;
 import com.kh.objet.notice.model.vo.Notice;
 
 @Controller
@@ -27,12 +28,18 @@ public class FaqController {
 
 	@Autowired
 	private FaqService faqService;
+	@Autowired //각각 따로 해주기
+	private NoticeService noticeService;
 
 	public FaqController() {};
 	////////////////////////////////////////////////이유진/////////////////////////////////////////////////
 	//csmain으로 이동(고객센터 메인)
 	@RequestMapping("moveCs.do")
-	public String moveCsPage() {
+	public String moveCsPage(Model model) {
+		List<Faq>list = faqService.selectFaqList();
+		List<Notice>nlist = noticeService.selectNoticeType();
+		model.addAttribute("nlist",nlist);
+		model.addAttribute("list",list);
 		return "cs/csmain";
 	}
  	
@@ -43,7 +50,15 @@ public class FaqController {
 		model.addAttribute("list",list);
    	      return "cs/faqmain";
 		}
-	
+	//faqmain 전체 목록 불러오기
+	//고객센터 메인으로 보냄
+		/*@RequestMapping("selectCsMainFaq.do")
+			public String selectCsMainFaq(Model model) {
+			List<Faq>list = faqService.selectFaqList();
+			model.addAttribute("list",list);
+	   	      return "cs/csmain";
+			}
+	*/
 
 	
 		
