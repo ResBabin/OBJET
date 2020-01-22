@@ -208,11 +208,13 @@ public class ObjetManagementController {
 		//현재 년/월/일/시
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yy/MM");
 		String  enrollmonth = "";
-		SimpleDateFormat sdf3 = new SimpleDateFormat("yy/MM/dd");
+		/*SimpleDateFormat sdf3 = new SimpleDateFormat("yy/MM/dd");
 		String today = sdf3.format(currenttime);
 		Calendar cal = new GregorianCalendar();
 		cal.add(Calendar.DATE, -1);
 		String yester = sdf3.format(cal.getTime());
+		cal.add(Calendar.DATE, -1);
+		String yester2 = sdf3.format(cal.getTime());*/
 		int count1 = 0, count2 = 0, count3 = 0, count4 = 0, count5 = 0, count6 = 0, count7 = 0, count8 = 0, count9 = 0, count10 = 0, count11 = 0, count12 = 0; 
 		
 		for (int i = 0; i < enrollcount.size(); i++) {
@@ -252,13 +254,21 @@ public class ObjetManagementController {
 	//	logger.debug("카운트" + testcount);
 		
 		//String today = "20/01/07";
-		LoginCount todaycount = usermService.selectTodayCount(today);
-		LoginCount yesterdaycount = usermService.selectTodayCount(yester);
-		
+		//LoginCount todaycount = usermService.selectTodayCount(today);
+//		LoginCount yesterdaycount = usermService.selectTodayCount(yester);
+	//	LoginCount yesterdaycount2 = usermService.selectTodayCount(yester2);
+		ArrayList<LoginCount> loginallcount = (ArrayList<LoginCount>) usermService.selectTodayCount();
+
 		
 		System.out.println(objettag);
-		model.addAttribute("todaycount", todaycount);
-		model.addAttribute("yestercount", yesterdaycount);
+	//	model.addAttribute("todaycount", todaycount);
+		//model.addAttribute("yestercount", yesterdaycount);
+		//model.addAttribute("yestercount2", yesterdaycount2);
+		
+		model.addAttribute("todaycount", loginallcount.get(0));
+		model.addAttribute("yestercount", loginallcount.get(1));
+		model.addAttribute("yestercount2", loginallcount.get(2));
+		
 		model.addAttribute("objettag", objettag);
 		model.addAttribute("objetreqlist", objetreqlist);
 		model.addAttribute("objetmlist", objetmlist);

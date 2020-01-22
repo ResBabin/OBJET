@@ -86,7 +86,7 @@ public class UserManagementServiceImpl implements UserManagementService{
 	}
 
 	@Override
-	public int insertBlackList(Map<String, String> map) {
+	public int insertBlackList(Map<String, Object> map) {
 		return usermDao.insertBlackList(map);
 	}
 
@@ -121,7 +121,7 @@ public class UserManagementServiceImpl implements UserManagementService{
 	}
 
 	@Override
-	public int updateBlackDate(Map<String, String> map) {
+	public int updateBlackDate(Map<String, Object> map) {
 		return usermDao.updateBlackDate(map);
 	}
 
@@ -149,6 +149,21 @@ public class UserManagementServiceImpl implements UserManagementService{
 	public int selectStatusOrderList(Map<String, String> map) {
 		return 0;
 	}
+
+	@Override
+	public List<LoginCount> selectTodayCount() {
+		return usermDao.selectTodayCount();
+	}
+
+	@Override
+	public int insertBlackFeed(Map<String, Object> map) {
+		return usermDao.insertBlackFeed(map);
+	}
+
+	@Override
+	public int insertBlackEndFeed(Map<String, String> map) {
+		return usermDao.insertBlackEndFeed(map);
+	} 
 
 
 

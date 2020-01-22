@@ -128,6 +128,8 @@ textarea {
 		$("#quitclose").click(function() {
 			$("#quitdiv").fadeOut(100);
 		});
+		
+		var adminid = $("input[name=adminid]").val();
 		var userid = $("input[name=userid]").val();
 		$("#blackok").click(function() {
 			var confirm_del = confirm("해당 회원을 블랙리스트로 등록하시겠습니까?");
@@ -136,7 +138,7 @@ textarea {
 				if(blackreason == 'etc'){
 					blackreason = $("#etcreason").val();
 				}
-				var data = { userid : userid, blackend : $("#blackend").val(), blackreason : blackreason};
+				var data = { userid : userid, blackend : $("#blackend").val(), blackreason : blackreason, adminid : adminid};
 				$.ajax({
 					url : "insertblack.do",
 					data : data,
@@ -190,7 +192,7 @@ textarea {
 				if (confirm_del) {
 					$.ajax({
 						url : "blackend.do",
-						data : {userid : userid},
+						data : {userid : userid, adminid : adminid},
 						type : "post",
 						success : function(result) {
 							console.log(result);
@@ -214,6 +216,7 @@ textarea {
 <body>
 	<div id="um">
 	<div id="popdiv">
+	<input name="adminid" value="${ sessionScope.loginUser.userid }" type="hidden">
 		<label id="bllabel">블랙리스트 기간 및 사유를 선택해 주세요.</label>
 		<br><br><hr><br>
 		<i class="ui icon grey calendar"></i>&nbsp;&nbsp;&nbsp;&nbsp;기간 
