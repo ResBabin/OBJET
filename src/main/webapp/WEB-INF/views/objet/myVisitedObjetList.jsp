@@ -276,18 +276,18 @@
                                     
                   <c:if test="${ kind eq 'search' }">
                      <c:if test="${ paging.startPage != 1 }">
-                         <a href="selectMyVisitedObjetSearch.do?userid=${userid}&objettitle=${objettitle }&nickname=${nickname }&objetstatus=${objetstatus }&currentPage=${paging.startPage - 1}">이전</a>
+                         <a href="selectMyVisitedObjetSearch.do?userid=${loginUser.userid}&objettitle=${objettitle }&nickname=${nickname }&objetstatus=${objetstatus }&currentPage=${paging.startPage - 1}">이전</a>
                      </c:if>
                   
                      <c:forEach var="num" begin="${ paging.startPage }" end="${ paging.endPage }">
-                        <a href="selectMyVisitedObjetSearch.do?userid=${userid}&objettitle=${objettitle }&nickname=${nickname }&objetstatus=${objetstatus }&currentPage=${num}">&emsp;
+                        <a href="selectMyVisitedObjetSearch.do?userid=${loginUser.userid}&objettitle=${objettitle }&nickname=${nickname }&objetstatus=${objetstatus }&currentPage=${num}">&emsp;
                         <c:if test="${ paging.currentPage == num }"><span class=pagingBtn11">${num}</span></c:if>
                         <c:if test="${ paging.currentPage != num }"><span class="pagingBtn12">${num}</span></c:if>
                         </a>
                      </c:forEach>
                      
                      <c:if test="${ paging.endPage != paging.maxPage }">
-                        <a href="selectMyVisitedObjetSearch.do?userid=${userid}&objettitle=${objettitle }&nickname=${nickname }&objetstatus=${objetstatus }&currentPage=${paging.endPage + 1}">다음</a>
+                        <a href="selectMyVisitedObjetSearch.do?userid=${loginUser.userid}&objettitle=${objettitle }&nickname=${nickname }&objetstatus=${objetstatus }&currentPage=${paging.endPage + 1}">다음</a>
                      </c:if>
                   </c:if>
                </c:if>

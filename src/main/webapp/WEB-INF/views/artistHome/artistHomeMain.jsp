@@ -239,7 +239,7 @@ $(function(){
 		 } 
 		 
 	 });
-
+    
 	
 	});	// document ready...
 	
@@ -481,9 +481,7 @@ function deleteFollowing(){
 			</c:if>
 			<br><br>
 			</div>
-				<div align="center">
-					<a href="#"><img src="resources/images/objet/top.png" style="width:10%; height:auto;"></a>
-				</div>
+				
 		</div>
 		
 	</c:if>	
@@ -505,9 +503,6 @@ function deleteFollowing(){
 					&ensp;<div class="ui buttons"><button class="mainBtn" type="submit" onclick="objetSearch();">검색</button></div>
 				</div>
 				<br><br><br><br><br><br>
-				<div align="center">
-					<a href="#"><img src="resources/images/objet/top.png" style="width:10%; height:auto;"></a>
-				</div>
 				
 			</div>
 		</div>
@@ -530,7 +525,9 @@ function deleteFollowing(){
 	
 
 	
-
+		<div align="right">
+			<a href="#"><img src="resources/images/objet/top.png" class="topicon" style="width:5%; height:auto;"></a>
+		</div>
  <!-- 작가홈 끝! -->
 
 

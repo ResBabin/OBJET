@@ -29,6 +29,7 @@ import com.kh.objet.support.model.vo.ApplySupport;
 import com.kh.objet.support.model.vo.MySupport;
 import com.kh.objet.support.model.vo.RequestSupport;
 import com.kh.objet.users.model.vo.Users;
+import com.kh.objet.usersprofile.model.service.UsersProfileService;
 
 
 @Controller
@@ -91,14 +92,22 @@ public class SupportController {
 	// 후원하기
 	@RequestMapping("insertSupport.do")
 	public void insertSupport(MySupport mysupport, HttpServletResponse response) throws IOException {
-		int result = supportService.insertSupport(mysupport);
+		int result1 = supportService.insertSupport(mysupport);
+		// 피드추가용 닉네임가져오기
+		String sptnickname = supportService.selectartistnickname(mysupport.getSptid());
+		// 후원 시 피드 알림 추가
+		Feed feed = new Feed();
+		feed.setArtistid(mysupport.getArtistid());
+		feed.setUserid(mysupport.getSptid());
+		feed.setFeedcontent(sptnickname + "님이 회원님께 " + mysupport.getSptamount() + "원을 후원하셨습니다.");
+		int result2 = feedService.insertFeed(feed);
 		
 		String returnValue = null;
-		if(result > 0) {
-			logger.debug("후원 테이블 추가 성공");
+		if(result1 > 0 && result2 > 0) {
+			logger.debug("후원 테이블&피드알림 테이블 추가 성공");
 			returnValue = "ok";
 		}else {
-			logger.debug("후원 테이블 추가 실패");
+			logger.debug("후원 테이블&피드알림 테이블 추가 실패");
 			returnValue = "fail";
 		}
 		
