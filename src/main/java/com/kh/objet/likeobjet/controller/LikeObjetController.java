@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
@@ -71,23 +72,29 @@ public class LikeObjetController {
 
 		// 오브제 관리 - 관심오브제 삭제
 			@RequestMapping("deleteMyLikeObjetList.do")
-			public void deleteMyLikeObjetList(@RequestParam(value="objetno", required=false) int objetno, HttpServletResponse response) throws IOException {
-				System.out.println("objetno : " + objetno);
-				int result = likeObjetService.deleteMyLikeObjetList(objetno);
-				
-				String returnValue = null;
-				if(result > 0) {
-					returnValue = "ok";
-				}else {
-					returnValue = "Failed.. Retry";
-				}
-				
-				PrintWriter out = response.getWriter();
-				out.append(returnValue);
-				out.flush();
-				out.close();
-				
-			}
+			public void deleteMyLikeObjetList(@RequestParam(value="lists") String checkBox,
+				      HttpServletRequest request, HttpServletResponse response) throws IOException {
+				int result = 0;
+			      if(checkBox != null) {
+			      // 체크박스로 삭제
+			      String check[] = checkBox.split(",");
+			      for(int i = 0; i < check.length; i++) {
+			         result = likeObjetService.deleteMyLikeObjetList(Integer.parseInt(check[i]));
+			      }
+			      }
+			      
+			      String resultValue = "";
+			      if(result > 0) {
+			         resultValue = "ok";
+			      }else {
+			         resultValue = "fail";
+			      }
+			      
+			      PrintWriter out = response.getWriter();
+			      out.append(resultValue);
+			      out.flush();
+			      out.close();
+			   }
 			
 		// 오브제 관리 - 관심오브제 검색
 			@RequestMapping(value="selectMyLikeObjetSearch.do", method= {RequestMethod.POST, RequestMethod.GET})

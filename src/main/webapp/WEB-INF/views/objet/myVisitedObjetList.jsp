@@ -118,13 +118,27 @@
 		
 		
 		
-	$(function(){
-		$('#removeOk').click(function(){
-			if(confirm("삭제하시겠습니까?")){
-				self.location.href = "deleteMyVisitedObjetList.do?objetno=${request.visitedobjet.objetno}";
-			}
+  function visitedObjet_delete(){
+		var lists = [];
+		$("input[name='objetno']:checked").each(function(i){
+			lists.push($(this).val());
 		});
-	});
+		var list = lists.join(",");
+		$.ajax({
+			url:"deleteMyVisitedObjetList.do",
+			type:"get",
+			data:{ lists : list },
+			success : function(message){
+				if(message == 'ok'){
+	        		alert("해당 다녀온 오브제가 삭제되었습니다.");
+	    			window.location.reload(); 
+	        	}
+			},
+			error : function(request, error, XMLHttpRequest, textStatus, jqXHR, errorThrown) {
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        }
+		})
+	}//내 다녀온 오브제 삭제
 </script>
 <style>
   body {
@@ -222,6 +236,9 @@
 			<div class="eachObjet">
 				<table class="eachObjetTable">
 					<tr>
+						<td><div class="ui checkbox"><input type="checkbox" name="objetno" value="${list.objetno }"><label></label></div></td>
+					</tr>
+					<tr>
 						<td><div class="eachObjetImg" style="background-image:url('resources/images/objet/${list.renamemainposter}') "></div></td>
 					</tr>
 						
@@ -250,6 +267,9 @@
 		</div>
 		<!-- 검색 결과 리스트 끝! -->
 		<br>
+		<div align="left">
+			<button class="mainBtn2" onClick="visitedObjet_delete()">삭제</button>
+		</div>
 		<br><br>
 		
 		<!--  페이징 -->
