@@ -443,7 +443,7 @@ function deleteFollowing(){
 					<c:if test="${value eq '조각'}"><c:set var="usertag6" value="조각"/></c:if>
 					<c:if test="${value eq '회화'}"><c:set var="usertag7" value="회화"/></c:if>
 					<c:if test="${value eq '기타'}"><c:set var="usertag8" value="기타"/></c:if>
-					<a class="ui mini grey basic label">${tag }</a>
+					<a class="ui mini grey basic label" href="search.do?keyword=${tag}">${tag }</a>
 				</c:forTokens>
 		 		</c:if>
 		 		

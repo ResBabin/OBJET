@@ -99,8 +99,7 @@
 			</div>
 	</div>
 	
-	<br>
-	<hr>
+	<br><hr><br>
 	<div align="center">
 	<div class="supportheader"><i class="Medium quote left icon"></i>&ensp;${support.sptheader}&ensp;<i class="Medium quote right icon"></i></div>
 	<div class="supportintro">${fn:replace(support.sptintro, newLineN, "<br>")}</div>
