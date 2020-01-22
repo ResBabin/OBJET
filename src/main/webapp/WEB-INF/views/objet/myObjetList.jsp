@@ -117,7 +117,7 @@ function objetModify(){
 	<!-- 검색창 끝 -->
 
 	<div class="objetListSection">
-		<div align="left" style="font-size: 10pt;">총<span style="font-weight: 700;"> ${fn:length(list) }</span>건</div>
+		<div align="left" style="font-size: 10pt;">총<span style="font-weight:bold;color:#9bca39;"> ${fn:length(list) }</span>건</div>
 		<br>
 		<!-- 오브제 리스트 시작 -->
 		<table class="searchListTable">
