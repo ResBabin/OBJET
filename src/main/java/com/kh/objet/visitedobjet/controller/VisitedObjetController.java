@@ -125,7 +125,7 @@ public class VisitedObjetController {
 		      HttpServletRequest request, HttpServletResponse response) throws IOException {
 		int result = 0;
 	      if(checkBox != null) {
-	      // 체크박스로 삭제
+	      // 체크박스로 삭제 처리
 	      String check[] = checkBox.split(",");
 	      for(int i = 0; i < check.length; i++) {
 	         result = visitedObjetService.deleteMyVisitedObjetList(Integer.parseInt(check[i]));

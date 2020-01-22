@@ -271,6 +271,7 @@
 			<button class="mainBtn2" onClick="visitedObjet_delete()">삭제</button>
 		</div>
 		<br><br>
+		<!-- 삭제 버튼 끝! -->
 		
 		<!--  페이징 -->
             <div align="center">

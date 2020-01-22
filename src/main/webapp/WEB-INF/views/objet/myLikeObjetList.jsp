@@ -134,7 +134,7 @@
 			data:{ lists : list },
 			success : function(message){
 				if(message == 'ok'){
-	        		alert("해당 관심오브제가 삭제되었습니다.");
+	        		alert("해당 관심 오브제가 삭제되었습니다.");
 	    			window.location.reload(); 
 	        	}
 			},

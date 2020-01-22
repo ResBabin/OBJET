@@ -550,6 +550,7 @@ where userid = #{userid} and objetno = #{objetno}
 		where userid = #{userid}
  	</update> -->
  	
+ 	<!-- 다녀온 오브제 -->
  	<select id="selectVistiedObjetList" resultType="VisitedObjet2" parameterType="Hashmap">
  		select * from (select rownum rnum, v.objetno, v.userid, v.visitdate, u.nickname, o.objettitle, o.objetstatus, o.renamemainposter
                     from visitedobjet v left join objet o on (v.objetno = o.objetno) left join users u on (o.userid = u.userid) 
@@ -582,6 +583,7 @@ where userid = #{userid} and objetno = #{objetno}
 		where rnum between #{startRow} and #{endRow}
  	</select>
  	
+ 	<!-- 관심 오브제 -->
  	<select id="selectMyVisitedObjetSearchListCount" resultType="_int" parameterType="hashmap" >
  		select count (*)
                     from visitedobjet v left join objet o on (v.objetno = o.objetno) left join users u on (o.userid = u.userid) 
