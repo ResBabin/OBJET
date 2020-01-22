@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+  <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -120,13 +121,40 @@
     });
   });
 		
-  $(function(){
-		$('#removeOk').click(function(){
-			if(confirm("삭제하시겠습니까?")){
-				self.location.href = "deleteMyVisitedObjetList.do?objetno=${request.visitedobjet.objetno}";
-			}
-		});
-	});
+  $("#removeOK").click(function(){
+      if($("input[name=objetno]:checked") > 0){
+         var confirm_del = confirm("정말로 삭제하시겠습니까?");
+         
+         if(confirm_del){
+            var checkArr = [];
+            $("input[name=objetno]:checked").each(function() {
+               checkArr.push($(this).val()); 
+            });
+            console.log(checkArr);
+            console.log($("input[name=objetno]:checked").val());
+            
+            var data = { objetno : checkArr};
+            console.log(data);
+            $.ajax({
+               url : "deleteMyLikeObjetList.do",
+               data : data, 
+               type : "post",
+               success : function(result) {
+                  console.log(result);
+                    location.href = "myLikeObjetList.do";
+               },
+               traditional : true,
+               error : function(request, status, errorData) {
+                  console.log("error code : "
+                        + request.status + "\nMessage : "
+                        + request.responseText
+                        + "\nError : " + errorData);
+               }
+
+            });
+         }
+      }
+   });
  
 </script>
 <style>
@@ -189,16 +217,24 @@
 		<div align="center">
 			<div class="objetSearchBox" style="height: 130px;">
 			<form action="" method="post">
-				<a class="ui large grey label">${request.objet.objettitle }오브제명</a>&ensp;
-					<div class="ui input"><input type="text" name="objettitle" style="width:300px; height:35px;"></div>&emsp;&emsp;&emsp;&emsp;
-				<a class="ui large grey label">${objet.userid }작가명</a>&ensp;
-					<div class="ui input"><input type="text" name="userid" style="width:150px; height:35px;"></div>
+				<a class="ui large grey label">오브제명</a>&ensp;
+					<div class="ui input"><input type="text" name="objettitle" value="${objettitle }"style="width:300px; height:35px;"></div>&emsp;&emsp;&emsp;&emsp;
+				<a class="ui large grey label">작가명</a>&ensp;
+					<div class="ui input"><input type="text" name="userid" value="${nickname }"style="width:150px; height:35px;"></div>
 			<br><br>
 				<a class="ui large grey label">${objet.objetstatus }전시상태</a>&ensp;
-					<input type="radio" name="objetstatus" value="ALL" checked="checked"><label>&ensp;전체</label>&emsp;&emsp;
+				<c:if test="${!empty objetstatus }">
+					<input type="radio" name="objetstatus" value="" <c:if test="${objetstatus == '' }">checked</c:if>><label>&ensp;전체</label>&emsp;&emsp;
+					<input type="radio" name="objetstatus" value="OPEN" <c:if test="${objetstatus == 'OPEN' }">checked</c:if>><label>&ensp;전시중</label>&emsp;&emsp;
+					<input type="radio" name="objetstatus" value="CLOSE" <c:if test="${objetstatus == 'CLOSE' }">checked</c:if>><label>&ensp;전시 종료</label>&emsp;&emsp;
+					<input type="radio" name="objetstatus" value="STANDBY" <c:if test="${objetstatus == 'STANDBY' }">checked</c:if>><label>&ensp;오픈대기</label>&emsp;&emsp;&emsp;&emsp;
+				</c:if>
+				<c:if test="${empty objetstatus }">	
+					<input type="radio" name="objetstatus" value="" checked="checked"><label>&ensp;전체</label>&emsp;&emsp;
 					<input type="radio" name="objetstatus" value="OPEN"><label>&ensp;전시중</label>&emsp;&emsp;
-					<input type="radio" name="objetstatus" value="STANDBY"><label>&ensp;예정</label>&emsp;&emsp;
-					<input type="radio" name="objetstatus" value="CLOSE"><label>&ensp;종료</label>&emsp;&emsp;&emsp;&emsp;
+					<input type="radio" name="objetstatus" value="CLOSE"><label>&ensp;전시 종료</label>&emsp;&emsp;
+					<input type="radio" name="objetstatus" value="STANDBY"><label>&ensp;오픈대기</label>&emsp;&emsp;&emsp;&emsp;
+				</c:if>
 					<div class="ui buttons"><button class="mainBtn" type="submit" style="float:right;">검색</button></div>&nbsp;&nbsp;&nbsp;
 			</form>
 			</div>
@@ -207,74 +243,37 @@
 		<br>
 		<!-- 검색 결과 리스트 시작! -->
 		<div class="objetListSection2">
-		<div align="left" style="font-size: 10pt;">총<span style="font-weight: 700;">13</span>건
+		<div align="left" style="font-size: 10pt;">총<span style="font-weight: 700;">${ fn:length(likelist) }건</span>건
 		<button class="ui basic icon button" id="like_objet_cal" style="float:right;margin-top:-7px;"><i class="calendar alternate outline icon"></i> 캘린더</button></div>
 		<br>
+		<c:if test="${!empty likelist }">
+		<c:forEach var="list" items="${likelist }">
 			<div class="eachObjet">
 				<table class="eachObjetTable">
 					<tr>
-						<td><div class="ui checkbox"><input type="checkbox" name="objetno" value="${likeobjet.objetno }"><label></label></div></td>
+						<td><div class="ui checkbox"><input type="checkbox" name="objetno" value="${list.objetno }"><label></label></div></td>
 					</tr>
 					<tr>
-						<td><div class="eachObjetImg" style="background-image:url('resources/objet_upfiles/animation.jpg') "></div></td>
+						<td><div class="eachObjetImg" style="background-image:url('resources/images/objet/${list.renamemainposter}') "></div></td>
 					</tr>
 					<tr style="height:25px;">
-						<td><center><div class="objetStatusLabel2" style="background:#df0000;">${objet.objetstatus }전시중</div><center></td>
+						<td><center>
+						<c:if test="${list.objetstatus == 'STANDBY' }"><div class="objetStatusLabel2" style="background:#4d4d4d;">오픈 대기</div></c:if>
+						<c:if test="${list.objetstatus == 'OPEN' }"><div class="objetStatusLabel2" style="background:#df0000;">전시중</div></c:if>
+						<c:if test="${list.objetstatus == 'CLOSE' }"><div class="objetStatusLabel2" style="background:#d4d4d4;">전시 종료</div></c:if>
+						<c:if test="${list.objetstatus == 'WAIT' }"><div class="objetStatusLabel2" style="background:#8d8d8d;">검수 대기</div></c:if>
+						<center></td>
 					</tr>
 					<tr style="height:35px;">
-						<td><div style="font-size: 16pt; font-weight: 600;">${objet.objettitle }애니매이션의 확장</div></td>
+						<td><div style="font-size: 16pt; font-weight: 600;">${list.objettitle }</div></td>
 					</tr>
 					<tr style="height:25px;">
-						<td><div style="font-size: 10pt;color:#aaa;">${objet.userid }@와사비맛아몬드</div></td>
+						<td><div style="font-size: 10pt;color:#aaa;">@${list.userid }</div></td>
 					</tr>
 				</table>
 			</div>
-			
-			<div class="eachObjet">
-				<table class="eachObjetTable">
-					<tr>
-						<td><div class="ui checkbox"><input type="checkbox" name="objetno" value="${likeobjet.objetno }"><label></label></div></td>
-					</tr>
-					
-					<tr>
-						<td><div class="eachObjetImg" style="background-image:url('resources/objet_upfiles/unknownartist.jpg') "></div></td>
-					</tr>
-						
-					<tr style="height:25px;">
-						<td><center><div class="objetStatusLabel2" style="background:#4d4d4d;">${objet.objetstatus }전시예정</div><center></td>
-					</tr>
-					<tr style="height:35px;">
-						<td><div style="font-size: 16pt; font-weight: 600;">${objet.objettitle }Unknown artist</div></td>
-					</tr>
-					<tr style="height:25px;">
-						<td><div style="font-size: 10pt;color:#aaa;">${objet.userid }@김기태</div></td>
-					</tr>
-					
-				</table>
-			</div>
-			
-			<div class="eachObjet">
-				<table class="eachObjetTable">
-					<tr>
-						<td><div class="ui checkbox"><input type="checkbox" name="objetno" value="${likeobjet.objetno }"><label></label></div></td>
-					</tr>
-					
-					<tr>
-						<td><div class="eachObjetImg" style="background-image:url('resources/objet_upfiles/botong.jpg') "></div></td>
-					</tr>
-						
-					<tr style="height:25px;">
-						<td><center><div class="objetStatusLabel2" style="background:#d4d4d4;">${objet.objetstatus }전시종료</div><center></td>
-					</tr>
-					<tr style="height:35px;">
-						<td><div style="font-size: 16pt; font-weight: 600;">${objet.objettitle }보통의 거짓말</div></td>
-					</tr>
-					<tr style="height:25px;">
-						<td><div style="font-size: 10pt;color:#aaa;">${objet.userid }@티라미수맛아몬드</div></td>
-					</tr>
-					
-				</table>
-			</div>
+			</c:forEach>
+			</c:if>
 			<br><br>
 			
 
@@ -285,37 +284,48 @@
 			<button class="mainBtn2" id="removeOK">삭제</button>
 		</div>
 		<br><br>
-		<!-- 페이징 -->
-		<div align="center">페이징 부분
-		<!-- 맨 처음 페이지 -->
-		<c:if test="${requestScope.currentPage le 1 }"><p class="pre_page"><<</p></c:if>
-		<c:if test="${requestScope.currentPage gt 1 }"><a href="moveMyLikeObjetList.do"><p class="pre_page"><<</p></a></c:if>
-		<!-- 이전 페이지 -->
-		<%-- <c:if test="${(currentPage - 10) lt startPage and (currentPage - 10) gt 1 }">
-		<a class="pre_page" href="selectNoticeList.do?page=${requestScope.startPage - 10 }"><p class="pre_page"><</p></a>
-		</c:if> --%>
-		<%-- <c:if test="${(currentPage - 10) ge startPage or (currentPage - 10) le 1 }">
-		<p class="pre_page"><</p>
-		</c:if>  --%>
-		<!-- 현재 페이지가 포함된 그룹의 페이지 숫자 출력 -->
-		
-		<c:forEach var="p" begin="${requestScope.startPage }" end="${requestScope.endPage }" step="1">
-			<c:if test="${p eq requestScope.currentPage }">		
-				<font><b class="page">${ p }</b></font>
-			</c:if>
-			<c:if test="${p ne requestScope.currentPage }"><a href="moveMyLikeObjetList.do?page=${ p }"><p class="pre_page" style="margin:0px 2px 0px 2px">${ p }</p></a></c:if>
-		</c:forEach>
-		<!-- 다음 페이지 -->
-		<%-- <c:if test="${(currentPage + 10) gt endPage and (currentPage + 10) lt maxPage }">
-			<a class="next_page" href="selectNoticeList.do?page=${requestScope.endPage + 10 }"><p class="next_page">></p></a>
-		</c:if> --%>
-		<%-- <c:if test="${(currentPage + 10) le endPage or (currentPage + 10) ge maxPage }">
-		<p class="next_page">></p>
-		</c:if> --%>
-		<!-- 맨 마지막페이지 -->
-		<c:if test="${currentPage ge maxPage }"><p class="next_page">>></p></c:if>
-		<c:if test="${currentPage lt maxPage }"><a class="next_page" href="moveMyLikeObjetList.do?page=${ requestScope.maxPage }">>></a></c:if> 
-		</div>
+		<!--  페이징 -->
+            <div align="center">
+               <div id="paging">
+               <c:if test="${!empty likelist }">
+                   <c:if test="${ kind eq 'all' }"> 
+                      <c:if test="${ paging.startPage != 1 }">
+                         <a href="moveMyLikeObjetList.do?userid=${loginUser.userid}&currentPage=${paging.startPage - 1}">이전</a>
+                      </c:if>
+                      
+                     <c:forEach var="num" begin="${ paging.startPage }" end="${ paging.endPage }">
+                        <a href="moveMyLikeObjetList.do?userid=${loginUser.userid}&currentPage=${num}">&emsp;
+                        <c:if test="${ paging.currentPage == num }"><span class="pagingBtn1">${num}</span></c:if>
+                        <c:if test="${ paging.currentPage != num }"><span class="pagingBtn2">${num}</span></c:if>
+                        </a>
+                     </c:forEach>
+                     
+                     <c:if test="${ paging.endPage != paging.maxPage }">
+                        <a href="moveMyLikeObjetList.do?userid=${loginUser.userid}&currentPage=${paging.endPage + 1}">다음</a>
+                     </c:if>
+                   </c:if> 
+
+                                    
+                  <c:if test="${ kind eq 'search' }">
+                     <c:if test="${ paging.startPage != 1 }">
+                         <a href="selectMyLikeObjetSearch.do?userid=${userid}&objettitle=${objettitle }&nickname=${nickname }&objetstatus=${objetstatus }&currentPage=${paging.startPage - 1}">이전</a>
+                     </c:if>
+                  
+                     <c:forEach var="num" begin="${ paging.startPage }" end="${ paging.endPage }">
+                        <a href="selectMyLikeObjetSearch.do?userid=${userid}&objettitle=${objettitle }&nickname=${nickname }&objetstatus=${objetstatus }&currentPage=${num}">&emsp;
+                        <c:if test="${ paging.currentPage == num }"><span class=pagingBtn11">${num}</span></c:if>
+                        <c:if test="${ paging.currentPage != num }"><span class="pagingBtn12">${num}</span></c:if>
+                        </a>
+                     </c:forEach>
+                     
+                     <c:if test="${ paging.endPage != paging.maxPage }">
+                        <a href="selectMyLikeObjetSearch.do?userid=${userid}&objettitle=${objettitle }&nickname=${nickname }&objetstatus=${objetstatus }&currentPage=${paging.endPage + 1}">다음</a>
+                     </c:if>
+                  </c:if>
+               </c:if>
+               </div>
+            </div>
+         <!-- 페이징처리 끝 -->
 
 		
 	</div>

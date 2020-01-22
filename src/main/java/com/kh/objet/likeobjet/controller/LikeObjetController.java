@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.objet.likeobjet.model.service.LikeObjetServiceImpl;
 import com.kh.objet.likeobjet.model.vo.LikeObjet;
+import com.kh.objet.likeobjet.model.vo.LikeObjet2;
 import com.kh.objet.objet.model.service.ObjetServiceImpl;
 import com.kh.objet.paging.model.vo.Paging;
 
@@ -37,142 +37,102 @@ public class LikeObjetController {
 	@Autowired
 	public LikeObjetServiceImpl likeObjetService;
 	
+	@Autowired
+	private Paging paging;
+	
 	public LikeObjetController() {}
 	
 	// 최민영 *****************************************
-	// 오브제 관리 - 관심오브제 페이지 이동
-		@RequestMapping("moveMyLikeObjetList.do")
-		public String moveMyLikeObjetList(@RequestParam(value="userid", required=false) String userid, Paging paging) {
-			return "objet/myLikeObjetList";
-		}
-	
+		// 오브제 관리 - 관심오브제 페이지 이동
+			@RequestMapping("moveMyLikeObjetList.do")
+			public String moveMyLikeObjetList(@RequestParam(value="userid") String userid, @RequestParam(value="currentPage") String currentPage, Model model) {
+				//페이징처리 
+				int curPage = Integer.valueOf(currentPage);
+				int listCount = likeObjetService.myLikeObjetGetListCount(userid);
+				paging.makePage(listCount, curPage);
+				
+						
+				// HashMap 객체 생성
+				HashMap<String, Object> map = new HashMap<String, Object>();
 
-	// 오브제 관리 - 관심오브제 삭제
-		@RequestMapping("deleteMyLikeObjetList.do")
-		public String deleteMyLikeObjetList(@RequestParam(value="objetno", required=false) int objetno, HttpServletResponse response) throws IOException {
-			int result = likeObjetService.deleteMyLikeObjetList(objetno);
-			
-			String returnValue = null;
-			if(result > 0) {
-				returnValue = "OK";
-			}else {
-				returnValue = "Failed.. Retry";
+				map.put("startRow", paging.getStartRow());
+				map.put("endRow", paging.getEndRow());
+				map.put("userid", userid); // 대상 아티스트 아이디
+				
+				List<LikeObjet2> list = likeObjetService.moveMyLikeObjetList(map);
+				
+				
+				model.addAttribute("likelist", list);
+				model.addAttribute("paging", paging);
+				model.addAttribute("kind", "all"); // 출력타입은 전체(all)과 검색(search)과 내가쓴 글(sort)로 나뉘어져있음
+				return "objet/myLikeObjetList";
+			}
+		
+
+		// 오브제 관리 - 관심오브제 삭제
+			@RequestMapping("deleteMyLikeObjetList.do")
+			public void deleteMyLikeObjetList(@RequestParam(value="objetno", required=false) int objetno, HttpServletResponse response) throws IOException {
+				System.out.println("objetno : " + objetno);
+				int result = likeObjetService.deleteMyLikeObjetList(objetno);
+				
+				String returnValue = null;
+				if(result > 0) {
+					returnValue = "ok";
+				}else {
+					returnValue = "Failed.. Retry";
+				}
+				
+				PrintWriter out = response.getWriter();
+				out.append(returnValue);
+				out.flush();
+				out.close();
+				
 			}
 			
-			PrintWriter out = response.getWriter();
-			out.append(returnValue);
-			out.flush();
-			out.close();
-			
-			return "objet/myLikeObjetList";
-		}
-		
-	// 오브제 관리 - 관심오브제 검색
-		@RequestMapping("selectMyLikeObjetSearch.do")
-		public String selectMyLikeObjetSearch(@RequestParam(name="page", required=false) String page, @RequestParam(value="objettitle") String objettitle, 
-				@RequestParam(value="objetno") int objetno, @RequestParam(value="objetstatus") String objetstatus, @RequestParam(value="keyword") String keyword, 
-				HttpServletResponse response, Model model) throws IOException  {
-			logger.info("page : " + page);
-		    int currentPage = 1;
-		    if(page !=null) {
-		       currentPage = Integer.parseInt(page);
-		     }
-		    //페이징
-	            int limit = 10;
-	            int listCount = likeObjetService.listCountK(); // 총 목록 갯수
-	            
-	            logger.info("listCount : " + listCount + ", currentPage : " + currentPage);
-	       
-	            //페이지 수 계산
-	            int maxPage = (int)((double)listCount / limit + 0.9);
-	            // 현재 페이지가 포함된 페이지 그룹의 시작값
-	            int startPage = (int)((double)currentPage / limit + 0.9);
-	            // 현재 페이지가 포함된 페이지 그룹의 끝값
-	            int endPage = startPage + limit - 1;
-	            
-	            if(maxPage < endPage) {
-	               endPage = maxPage;
-	            }
-	            
-	            // 쿼리문에 반영할 현재 페이지에 출력할 목록의 시작행과 끝행 계산
-	            int startRow = (currentPage - 1) * limit + 1;
-	            int endRow = startRow + limit - 1;
-	            
-	            System.out.println(startRow + ", " + endRow);
-	            
-	            HashMap<String, Object> map = new HashMap<String, Object>();
-	            map.put("startRow", startRow);
-	            map.put("endRow", endRow);
-	            
-	            List<LikeObjet> list = likeObjetService.selectMyLikeObjetSearch(map);
-	                              
-	            System.out.println("공지 갯수 : " + list.size());
-	            
-	            
-	            if(list != null && list.size() > 0) {
-	               model.addAttribute("list",list);    //전체리스트
-	               model.addAttribute("listCount",listCount);  //리스트 전체 갯수
-	               model.addAttribute("maxPage",maxPage);
-	               model.addAttribute("currentPage",currentPage);
-	               model.addAttribute("startPage",startPage);
-	               model.addAttribute("endPage",endPage);
-	               model.addAttribute("limit",limit);
-	               model.addAttribute("page", page);
-	               
-	               model.addAttribute("objet/myLikeObjetList.jsp");
-	            } else {
-	               model.addAttribute("message", currentPage + "페이지 목록 조회 실패");
-	               model.addAttribute("common/error");
-	            }
-	            
-	            if(list != null && list.size() > 0) {
-	                model.addAttribute("list",list);    //전체리스트
-	                model.addAttribute("listCount",listCount);  //리스트 전체 갯수
-	                model.addAttribute("maxPage",maxPage);
-	                model.addAttribute("currentPage",currentPage);
-	                model.addAttribute("startPage",startPage);
-	                model.addAttribute("endPage",endPage);
-	                model.addAttribute("limit",limit);
-	                model.addAttribute("page", page);
-	                
-	                model.addAttribute("user/myQnaList");
-	             } else {
-	                model.addAttribute("message", currentPage + "페이지 목록 조회 실패");
-	                model.addAttribute("common/error");
-	             }
-	             
+		// 오브제 관리 - 관심오브제 검색
+			@RequestMapping(value="selectMyLikeObjetSearch.do", method= {RequestMethod.POST, RequestMethod.GET})
+			public String selectMyLikeObjetSearch(@RequestParam(value="objettitle") String objettitle, @RequestParam(value="nickname") String nickname,
+					@RequestParam(value="objetstatus") String objetstatus, @RequestParam(value="userid") String userid, 
+					@RequestParam(value="currentPage") String currentPage, Model model) throws IOException  {
+				System.out.println("objettitle : " + objettitle);
+				System.out.println("nickname : " + nickname);
+				System.out.println("objetstatus : " + objetstatus);
+				System.out.println("userid : " + userid);
+				System.out.println("currentPage : " + currentPage);
+				//페이징처리 
+				int curPage = Integer.valueOf(currentPage);
+				// HashMap 객체 생성
+				HashMap<String, Object> map1 = new HashMap<String, Object>();
+					map1.put("objettitle", objettitle);
+					map1.put("nickname", nickname);
+					map1.put("objetstatus", objetstatus);
+					map1.put("userid", userid);
+						
+				int listCount = likeObjetService.selectMyLikeObjetSearchListCount(map1);
+				paging.makePage(listCount, curPage);
 
-	     		map.put("objetno", objetno); // 대상 오브제 번호
-	     		map.put("objettitle", keyword);
-	     		
-	     		
-	     		//전송용 json 객체
-	     		JSONObject sendJson = new JSONObject();
-	     		//json 배열 객체
-	     		JSONArray jarr = new JSONArray();
-	     		//list를 jarr 로 옮겨 저장 (복사)
-	     		for(LikeObjet LKobjet : list) {
-	     		JSONObject job = new JSONObject();
-	     		
-	     		job.put("objetno", LKobjet.getObjetno());
-	     		job.put("userid", LKobjet.getUserid());
-	     		job.put("likedate", LKobjet.getLikedate().toString());
-	     		
-	     		jarr.add(job);
-	     		}
+						
+				// HashMap 객체 생성
+				HashMap<String, Object> map2 = new HashMap<String, Object>();
 
-	     		sendJson.put("objetlist", jarr);
-	     		
-	     		logger.debug(jarr.toJSONString());
-	     		
-	     		response.setContentType("application/jsonl charset=utf-8");
-	     		PrintWriter out = response.getWriter();
-	     		out.println(sendJson.toJSONString());
-	     		out.flush();
-	     		out.close();
-			
-			return "objet/myLikeObjetList";
-		}
+				map2.put("startRow", paging.getStartRow());
+				map2.put("endRow", paging.getEndRow());
+				map2.put("objettitle", objettitle);
+				map2.put("nickname", nickname);
+				map2.put("objetstatus", objetstatus);
+				map2.put("userid", userid);
+				
+				List<LikeObjet2> list = likeObjetService.selectMyLikeObjetSearch(map2);
+				
+				model.addAttribute("objettitle", objettitle);
+				model.addAttribute("likelist", list);
+				model.addAttribute("paging", paging);
+				model.addAttribute("kind", "search"); // 출력타입은 전체(all) 과 검색(search)과 내가쓴 글(sort)로 나뉘어져있음
+				model.addAttribute("nickname", nickname);
+				model.addAttribute("objetstatus", objetstatus);
+				
+				return "objet/myLikeObjetList";
+			}
 	
 	
 		//박예은
