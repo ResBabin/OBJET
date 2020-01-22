@@ -2391,7 +2391,7 @@ ${myReview.revcontent }</textarea>
 </c:if>
 </c:forEach>
 </c:if>
-<c:if test="${fn:length(reviewList) == 0 && objet.userid ne loginUser.userid}">
+<c:if test="${fn:length(reviewList) == 0 && objet.userid ne loginUser.userid && myReview == null}">
 <br><br><br>
 <div class="ui basic pointing below teal icon label" style="font-weight:normal;font-family:'Nanum Gothic';font-size:18px;color:#aaa;text-align:center;">
 <i class="quote left icon"></i>&nbsp;&nbsp;이 전시의 <b style="font-size:18.5px;">한줄평</b>이 아직 없습니다. 
