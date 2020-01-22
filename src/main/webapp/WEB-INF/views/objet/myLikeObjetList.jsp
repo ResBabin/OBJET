@@ -120,41 +120,29 @@
       }
     });
   });
+	
 		
-  $("#removeOK").click(function(){
-      if($("input[name=objetno]:checked") > 0){
-         var confirm_del = confirm("정말로 삭제하시겠습니까?");
-         
-         if(confirm_del){
-            var checkArr = [];
-            $("input[name=objetno]:checked").each(function() {
-               checkArr.push($(this).val()); 
-            });
-            console.log(checkArr);
-            console.log($("input[name=objetno]:checked").val());
-            
-            var data = { objetno : checkArr};
-            console.log(data);
-            $.ajax({
-               url : "deleteMyLikeObjetList.do",
-               data : data, 
-               type : "post",
-               success : function(result) {
-                  console.log(result);
-                    location.href = "myLikeObjetList.do";
-               },
-               traditional : true,
-               error : function(request, status, errorData) {
-                  console.log("error code : "
-                        + request.status + "\nMessage : "
-                        + request.responseText
-                        + "\nError : " + errorData);
-               }
-
-            });
-         }
-      }
-   });
+  function likeObjet_delete(){
+		var lists = [];
+		$("input[name='objetno']:checked").each(function(i){
+			lists.push($(this).val());
+		});
+		var list = lists.join(",");
+		$.ajax({
+			url:"deleteMyLikeObjetList.do",
+			type:"get",
+			data:{ lists : list },
+			success : function(message){
+				if(message == 'ok'){
+	        		alert("해당 관심오브제가 삭제되었습니다.");
+	    			window.location.reload(); 
+	        	}
+			},
+			error : function(request, error, XMLHttpRequest, textStatus, jqXHR, errorThrown) {
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        }
+		})
+	}//내 오브제 삭제
  
 </script>
 <style>
@@ -216,13 +204,15 @@
 	<!-- 검색창시작 -->
 		<div align="center">
 			<div class="objetSearchBox" style="height: 130px;">
-			<form action="" method="post">
+			<form action="selectMyLikeObjetSearch.do" method="post">
+			<input type="hidden" name="currentPage" value="1">
+			<input type="hidden" name="userid" value="${loginUser.userid }">
 				<a class="ui large grey label">오브제명</a>&ensp;
 					<div class="ui input"><input type="text" name="objettitle" value="${objettitle }"style="width:300px; height:35px;"></div>&emsp;&emsp;&emsp;&emsp;
 				<a class="ui large grey label">작가명</a>&ensp;
-					<div class="ui input"><input type="text" name="userid" value="${nickname }"style="width:150px; height:35px;"></div>
+					<div class="ui input"><input type="text" name="nickname" value="${nickname }"style="width:150px; height:35px;"></div>
 			<br><br>
-				<a class="ui large grey label">${objet.objetstatus }전시상태</a>&ensp;
+				<a class="ui large grey label">전시상태</a>&ensp;
 				<c:if test="${!empty objetstatus }">
 					<input type="radio" name="objetstatus" value="" <c:if test="${objetstatus == '' }">checked</c:if>><label>&ensp;전체</label>&emsp;&emsp;
 					<input type="radio" name="objetstatus" value="OPEN" <c:if test="${objetstatus == 'OPEN' }">checked</c:if>><label>&ensp;전시중</label>&emsp;&emsp;
@@ -243,7 +233,7 @@
 		<br>
 		<!-- 검색 결과 리스트 시작! -->
 		<div class="objetListSection2">
-		<div align="left" style="font-size: 10pt;">총<span style="font-weight: 700;">${ fn:length(likelist) }건</span>건
+		<div align="left" style="font-size: 10pt;">총<span style="font-weight: 700;">${ fn:length(likelist) }</span>건
 		<button class="ui basic icon button" id="like_objet_cal" style="float:right;margin-top:-7px;"><i class="calendar alternate outline icon"></i> 캘린더</button></div>
 		<br>
 		<c:if test="${!empty likelist }">
@@ -268,10 +258,11 @@
 						<td><div style="font-size: 16pt; font-weight: 600;">${list.objettitle }</div></td>
 					</tr>
 					<tr style="height:25px;">
-						<td><div style="font-size: 10pt;color:#aaa;">@${list.userid }</div></td>
+						<td><div style="font-size: 10pt;color:#aaa;">@${list.nickname }</div></td>
 					</tr>
 				</table>
 			</div>
+			
 			</c:forEach>
 			</c:if>
 			<br><br>
@@ -281,7 +272,7 @@
 		<!-- 검색 결과 리스트 끝! -->
 		<br>
 		<div align="left">
-			<button class="mainBtn2" id="removeOK">삭제</button>
+			<button class="mainBtn2" onClick="likeObjet_delete()">삭제</button>
 		</div>
 		<br><br>
 		<!--  페이징 -->
