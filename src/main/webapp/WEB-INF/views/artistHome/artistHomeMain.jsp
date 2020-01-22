@@ -22,10 +22,9 @@
 .wrap_top {
 	z-index:-999;
 	width: 1950px;
-	height: 230px;
+	height: 330px;
 	margin-top: -100px;
 	position: absolute;
-	opacity:0.3;
 	border:none;
 	
 } 
@@ -303,7 +302,7 @@ function deleteFollowing(){
 </script>
 </head>
 <body>
-<span class="wrap_top" style="background-color: ${objetcolor.objetcolor};" ></span>
+<span class="wrap_top" style="background-color: #f8f8f8;" ></span>
 <!-- 작가홈 시작 -->
 <div class="wrapHome">
 <section class="wrapSection">
@@ -313,7 +312,7 @@ function deleteFollowing(){
 		<!-- 프로필 글자부분 -->
 		<div class="profileTextSection">
 		<span>
-			<p class="profileText" style="font-size: 25px; color:#373737;">${usersProfile.nickname}</p>
+			<br><br><p class="profileText" style="font-size: 25px; color:#373737;">${usersProfile.nickname}</p>
 			<p class="profileText" style="font-size: 10pt; color:#aaa;">${usersProfile.userintros}</p>
 			<br><br>
 		</span>
