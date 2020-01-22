@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
@@ -117,6 +118,32 @@ public class VisitedObjetController {
         return "objet/myVisitedObjetList";
 		
 	}
+	
+	// 오브제 관리 - 관심오브제 삭제
+	@RequestMapping("deleteMyVisitedObjetList.do")
+	public void deleteMyVisitedObjetList(@RequestParam(value="lists") String checkBox,
+		      HttpServletRequest request, HttpServletResponse response) throws IOException {
+		int result = 0;
+	      if(checkBox != null) {
+	      // 체크박스로 삭제
+	      String check[] = checkBox.split(",");
+	      for(int i = 0; i < check.length; i++) {
+	         result = visitedObjetService.deleteMyVisitedObjetList(Integer.parseInt(check[i]));
+	      }
+	      }
+	      
+	      String resultValue = "";
+	      if(result > 0) {
+	         resultValue = "ok";
+	      }else {
+	         resultValue = "fail";
+	      }
+	      
+	      PrintWriter out = response.getWriter();
+	      out.append(resultValue);
+	      out.flush();
+	      out.close();
+	   }
 	
 	//박예은
 	//다녀온 오브제 캘린더

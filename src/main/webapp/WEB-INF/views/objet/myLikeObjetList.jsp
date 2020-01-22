@@ -142,7 +142,7 @@
 				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 	        }
 		})
-	}//내 오브제 삭제
+	}//내 관심 오브제 삭제
  
 </script>
 <style>

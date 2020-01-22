@@ -561,7 +561,7 @@ where userid = #{userid} and objetno = #{objetno}
  		select count(*) from visitedobjet where userid = #{userid}
  	</select>
  	
- 	<delete id="deleteMyVisitedObjetList" parameterType="visitedobjet">
+ 	<delete id="deleteMyVisitedObjetList" parameterType="_int">
  		delete from visitedobjet where objetno = #{objetno}
  	</delete>
  	

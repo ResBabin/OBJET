@@ -35,7 +35,7 @@ public class VisitedObjetDao {
 	
 	// 오브제 관리 - 다녀온 오브제 삭제
 	public int deleteMyVisitedObjetList(int objetno) {
-		return mybatisSession.delete("objetMapper.deleteMyVistiedObjetList", objetno);
+		return mybatisSession.delete("objetMapper.deleteMyVisitedObjetList", objetno);
 	}
 	
 	public int listCount() {
