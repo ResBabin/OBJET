@@ -802,13 +802,13 @@ $(function(){
 		 $(".objet_list_item:contains('"+keyword+"')").slice(0, 5).fadeIn();
 		 $(".objet_list_item:contains('"+keyword+"')").each(function () {
 	        var regex = new RegExp(keyword,'gi');
-	        $(this).html($(this).text().replace(regex, "<span>"+keyword+"</span>") );
+	        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
 			 });
 		 $(".artist_list_item").hide();
-		 $(".artist_list_item:contains('"+keyword+"')").slice(0, 5).fadeIn();
+		 $(".artist_list_item:contains('"+keyword+"')").slice(0, 4).fadeIn();
 		 $(".artist_txt:contains('"+keyword+"')").each(function () {
 	       	var regex = new RegExp(keyword,'gi');
-	        $(this).html($(this).html().replace(regex, "<span>"+keyword+"</span>") );
+	        $(this).html($(this).html().replace(regex, "<b>"+keyword+"</b>") );
 			 }); 
 		 if($(".objet_list_item:contains('"+keyword+"')").length == 0 && $(".artist_list_item:contains('"+keyword+"')").length == 0){
 			 $(".txt_nodata_objet ").show();

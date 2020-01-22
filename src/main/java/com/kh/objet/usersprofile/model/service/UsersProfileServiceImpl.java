@@ -3,6 +3,7 @@ package com.kh.objet.usersprofile.model.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.users.model.vo.UAUP;
 import com.kh.objet.usersprofile.model.dao.UsersProfileDao;
 import com.kh.objet.usersprofile.model.vo.UsersProfile;
@@ -31,5 +32,11 @@ public class UsersProfileServiceImpl implements UsersProfileService{
 	@Override
 	public int updateArtistIntro(UsersProfile usersprofile) {
 		return usersProfileDao.updateArtistIntro(usersprofile);
+	}
+
+	//작가 오브제 칼라
+	@Override
+	public Objet selectObjetColor(String userid) {
+		return usersProfileDao.selectObjetColor(userid);
 	}
 }

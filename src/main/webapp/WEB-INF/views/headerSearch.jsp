@@ -99,12 +99,14 @@ $(function() {
 });
 
 //폼 전송
-function search() {
-	var form = document.forms["searchList-form"];
-	var keyword = $("#searchList-text").val();
-	form.action =  "search.do?keyword="+keyword;
-    form.submit();
-};
+if($("#searchList-text").val() != null){
+	function search() {
+		var form = document.forms["searchList-form"];
+		var keyword = $("#searchList-text").val();
+		form.action =  "search.do?keyword="+keyword;
+	    form.submit();
+	};
+}
 
 window.onload = function() {
 	$("#searchList-text").hide();

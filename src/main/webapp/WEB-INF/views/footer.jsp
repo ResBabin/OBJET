@@ -10,7 +10,6 @@
 <title>Insert title here</title>
 <style type="text/css">
  footer {
-  position: relative; 
   bottom:0;
   background-color: black;
   padding: 10px;
@@ -20,7 +19,7 @@
   height: 200px;
   text-align: left;
   width:100%;
-  z-index:-1;
+  z-index:0;
 }
 
 .footeralink {
