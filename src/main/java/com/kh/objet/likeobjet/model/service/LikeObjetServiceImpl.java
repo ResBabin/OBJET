@@ -1,6 +1,5 @@
 package com.kh.objet.likeobjet.model.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.objet.likeobjet.model.dao.LikeObjetDao;
-import com.kh.objet.likeobjet.model.vo.LikeObjet;
-import com.kh.objet.paging.model.vo.Paging;
+import com.kh.objet.likeobjet.model.vo.LikeObjet2;
 
 @Service("likeObjetService")
 public class LikeObjetServiceImpl implements LikeObjetService{
@@ -26,8 +24,12 @@ public class LikeObjetServiceImpl implements LikeObjetService{
 	
 	// 오브제 관리 - 관심오브제 페이지 이동
 	@Override
-	public ArrayList<LikeObjet> moveMyLikeObjetList(String userid, Paging paging) {
-		return likeObjetDao.moveMyLikeObjetList(userid, paging);
+	public List<LikeObjet2> moveMyLikeObjetList(HashMap<String, Object> map) {
+		return likeObjetDao.moveMyLikeObjetList(map);
+	}
+	
+	public int listCountK() {
+		return likeObjetDao.listCountK();
 	}
 	
 	// 오브제 관리 - 관심오브제 삭제
@@ -39,12 +41,14 @@ public class LikeObjetServiceImpl implements LikeObjetService{
 	
 	// 오브제 관리 - 관심오브제 검색
 	@Override
-	public List<LikeObjet> selectMyLikeObjetSearch(HashMap<String, Object> map) {
-		return likeObjetDao.selectMyLikeObjetSearch(map);
+	public List<LikeObjet2> selectMyLikeObjetSearch(HashMap<String, Object> map2) {
+		return likeObjetDao.selectMyLikeObjetSearch(map2);
 	}
 
-	public int listCountK() {
-		return likeObjetDao.listCountK();
+	// 오브제 관리 - 관심오브제 검색 리스트 카운트
+	@Override
+	public int selectMyLikeObjetSearchListCount(HashMap<String, Object> map1) {
+		return likeObjetDao.selectMyLikeObjetSearchListCount(map1);
 	}
 
 
