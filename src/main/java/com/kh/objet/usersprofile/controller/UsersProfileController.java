@@ -49,7 +49,7 @@ public class UsersProfileController {
 		public String moveArtistHome(@RequestParam(value="userid") String userid, @RequestParam(value="loginUser") String loginUser, Following following2, Model model) {
 			String vfn = "artistHome/artistHomeMain";
 			UAUP usersProfile = usersProfileService.moveArtistHome(userid);
-			
+			Objet objetcolor = usersProfileService.selectObjetColor(userid);
 			int follower = followService.FollowerGetListCount(userid);
 			int following = followService.FollowingGetListCount(userid);
 			
@@ -70,6 +70,7 @@ public class UsersProfileController {
 			model.addAttribute("follower", follower);
 			model.addAttribute("following", following);
 			model.addAttribute("followyn", followyn);
+			model.addAttribute("objetcolor", objetcolor);
 			
 			if(usersProfile == null) {
 				vfn = "common/error";

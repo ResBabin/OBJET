@@ -270,7 +270,7 @@ body{
     border-bottom: none;
     display:none;
 }
-.objet_list_item span{
+.objet_list_item b{
    font-weight: bold;
    font-family: 'Nanum Gothic';
    font-size:20px;
@@ -302,7 +302,7 @@ body{
 	text-decoration: none;
 	color:black;
 }
-.artist_txt span {
+.artist_txt b {
 	font-weight: bold;
    font-family: 'Nanum Gothic';
    font-size:16px;

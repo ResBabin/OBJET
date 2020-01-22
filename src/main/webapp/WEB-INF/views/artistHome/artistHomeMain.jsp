@@ -18,6 +18,18 @@
 
 <!-- 제작용 css -->
  <link rel= "stylesheet" type="text/css" href="resources/css/mychoe.css">
+ <style>
+.wrap_top {
+	z-index:-999;
+	width: 1950px;
+	height: 230px;
+	margin-top: -100px;
+	position: absolute;
+	opacity:0.3;
+	border:none;
+	
+} 
+ </style>
  
 <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
 
@@ -291,9 +303,8 @@ function deleteFollowing(){
 </script>
 </head>
 <body>
-
+<span class="wrap_top" style="background-color: ${objetcolor.objetcolor};" ></span>
 <!-- 작가홈 시작 -->
-
 <div class="wrapHome">
 <section class="wrapSection">
 

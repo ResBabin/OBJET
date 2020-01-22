@@ -22,7 +22,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <style>
-html, body { height: 100%; margin: 0; padding: 0; } 
+html, body { height: 100%; margin: 0; padding: 0;} 
 .all {
 min-height:100%;
 }
@@ -348,7 +348,7 @@ min-height:100%;
 
 .artist-result-list {
 	padding: 0;
-	height: 100%;
+	min-height: 100%;
 }
 
 .artist-result-list-detail{
@@ -546,7 +546,8 @@ $(function() {
 		    $("#more_load2").css("margin-bottom", "10px");
 		    if ($(".artist-result-list-detail:hidden").length == 0) { 
 		        $('#more_load2').fadeOut();
-		        $(".artist-result").css("margin-bottom", "500px");
+		        $('#more_load3').css("height", $(document).height());
+		        $("#more_load3").show();
 		    }
 		});
 	}if($(".artist-result-list-detail").length <= 4){
@@ -691,7 +692,7 @@ function objetOrder(order){
 					$(".objet-result-list-common").html(values);
 					$(".objet-result-list-detail").slice(0, 4).fadeIn(); // 최초 4개 선택
 					if($(".objet-result-list-detail:hidden").length != 0){
-						$("#more_load").transition('fly up', '1100ms');
+						$("#more_load").show();
 						$("#more_load").click(function(e) { // Load More를 위한 클릭 이벤트e
 						    e.preventDefault();
 						    $(".objet-result-list-detail:hidden").transition('clear queue').slice(0, 4).transition('fade up', '1300ms'); // 숨김 설정된 다음 4개를 선택하여 표시
@@ -824,7 +825,7 @@ function dateOrder(order){
 					$(".objet-result-list-common").html(values);
 					$(".objet-result-list-detail").slice(0, 4).fadeIn(); // 최초 4개 선택
 					if($(".objet-result-list-detail:hidden").length != 0){
-						$("#more_load").transition('fly up', '1100ms');
+						$("#more_load").show();
 						$("#more_load").click(function(e) { // Load More를 위한 클릭 이벤트e
 						    e.preventDefault();
 						    $(".objet-result-list-detail:hidden").transition('clear queue').slice(0, 4).transition('fade up', '1300ms'); // 숨김 설정된 다음 4개를 선택하여 표시
@@ -905,7 +906,7 @@ function artistOrder(order){
 				var userid = '${loginUser.userid}';
 				var length = decodeURIComponent(jsonObj.list[i].userintrol.replace(/\+/gi, " ")).length;
 				var tags = decodeURIComponent(jsonObj.list[i].usertag.replace(/\+/gi, " ")).split(',');
-				values += '<div class="artist-result-list-detail">'
+				values += '<li class="artist-result-list-detail">'
 				+ '<div class="artist-result-info">'
 				+ '<a href="artistHomeMain.do?userid=' + jsonObj.list[i].userid + '&loginUser=' + userid + '" class="artist-thumb" target="_blank"> '
 				+ '<img class="ui circular image" style="border: 1px solid #eee;" src="resources/users_upfiles/' + jsonObj.list[i].userrpic + '">';
@@ -937,29 +938,13 @@ function artistOrder(order){
 				for(var i in tags){
 					values += '<a id="a" style="cursor: pointer;" class="ui mini circular basic gray button" href="search.do?keyword=' + tags[i] + '" target="_blank">' + tags[i] + '</a>&nbsp;';
 				}
-				values += '</div>'
-				+ '</div>';
+				values += '</div>' + '</li>';
 			}
 			
 			$(function() {
 			//아티스트 더보기 버튼
 			$(".artist-result-list-common").html(values);
-			$(".artist-result-list-detail").slice(0, 4).fadeIn(); // 최초 4개 선택
-			if($(".artist-result-list-detail:hidden").length != 0){
-				$("#more_load2").transition('fly up', '1100ms');
-				$("#more_load2").click(function(e) { 
-				    e.preventDefault();
-				    $(".artist-result-list-detail:hidden").transition('clear queue').slice(0, 4).transition('fade up', '1300ms');
-				    $("#more_load2").css("margin-bottom", "10px");
-				    if ($(".artist-result-list-detail:hidden").length == 0) { 
-				        $('#more_load2').fadeOut();
-				        $(".artist-result").css("margin-bottom", "500px");
-				    }
-				});
-			}if($(".artist-result-list-detail").length <= 4){
-				$("#more_load2").hide();
-				$(".artist-result").css("margin-bottom", "500px");
-			}
+		 	$(".artist-result-list-detail").slice(0, 4).fadeIn();
 			
 			//검색어 키워드 하이라이트
 			var keyword = $("#searchList-text").val();
@@ -1091,7 +1076,7 @@ window.onload = function(){
 					</ul>
 				</div><br>
 				<center>
-				<div class="ui basic gray animated button" id="more_load" style="vertical-align:middle; display:none;" align="center" tabindex="0">
+				<div class="ui basic gray animated button" id="more_load" style="vertical-align:middle; display:none;" align="center">
 				  <div class="visible content">더보기</div>
 				  <div class="hidden content">
 				    <i class="ui chevron down icon" style="font-size:16px;vertical-align:middle;text-align:center"></i>
@@ -1192,14 +1177,16 @@ window.onload = function(){
 						</div>
 					</li>
 					</c:forEach>
-				</li></ul>
-			</div><br>
+				</ul>
+			</div>
 			<center>
-			<div class="ui basic gray animated button" id="more_load2" style="display:none;" >
+			<div class="ui basic gray animated button" id="more_load2" style="right:2%;display:none;" align="center" >
 			  <div class="visible content">더보기</div>
 			  <div class="hidden content">
 			    <i class="ui chevron down icon" style="font-size:16px;text-align:center"></i>
 			  </div>
+			</div>
+			<div id="more_load3" style="display:none;width:100%;height:100%;">
 			</div>
 			</center>
 		</div><br><br><br>

@@ -4,6 +4,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.users.model.vo.UAUP;
 import com.kh.objet.usersprofile.model.vo.UsersProfile;
 
@@ -29,6 +30,10 @@ public class UsersProfileDao {
 	// 작가소개  수정
 	public int updateArtistIntro(UsersProfile usersprofile) {
 		return mybatisSession.update("userMapper.updateArtistIntro", usersprofile);
+	}
+
+	public Objet selectObjetColor(String userid) {
+		return mybatisSession.selectOne("objetMapper.selectObjetColor", userid);
 	}
 
 }
