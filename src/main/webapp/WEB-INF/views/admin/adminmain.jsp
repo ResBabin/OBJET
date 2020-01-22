@@ -136,6 +136,8 @@ var ctx3 = document.getElementById('myChart3');
 var blackuser = ${ bkcount };
 var usercount = ${ userlist.size() };
 console.log(blackuser)
+
+	
 var myChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
@@ -165,18 +167,8 @@ console.log(userbkper);
 
 
 
-var enroll1 = ${ count1 };
-var enroll2 = ${ count2 };
-var enroll3 = ${ count3 };
-var enroll4 = ${ count4 };
-var enroll5 = ${ count5 };
-var enroll6 = ${ count6 };
-var enroll7 = ${ count7 };
-var enroll8 = ${ count8 };
-var enroll9 = ${ count9 };
-var enroll10 = ${ count10 };
-var enroll11 = ${ count11 };
-var enroll12 = ${ count12 };
+var enroll1 = ${ count1 }, enroll2 = ${ count2 },  enroll3 = ${ count3 }, enroll4 = ${ count4 }, enroll5 = ${ count5 } ,enroll6 = ${ count6 },
+enroll7 = ${ count7 }, enroll8 = ${ count8 }, enroll9 = ${ count9 }, enroll10 = ${ count10 }, enroll11 = ${ count11 }, enroll12 = ${ count12 };
 
 var thisyear = new Date();
 thisyear.getYear();
@@ -190,18 +182,18 @@ var myChart2 = new Chart(ctx2, {
         	label: thisyear.getFullYear() + '년 월별 회원가입',
             data: [enroll1, enroll2, enroll3, enroll4, enroll5, enroll6, enroll7, enroll8, enroll9, enroll10, enroll11, enroll12],
             backgroundColor: [
-            	 'rgba(100, 100, 100, 1)',
-            	 'rgba(100, 100, 100, 1)',
-            	 'rgba(100, 100, 100, 1)',
-            	 'rgba(100, 100, 100, 1)',
-            	 'rgba(100, 100, 100, 1)',
-            	 'rgba(100, 100, 100, 1)',
-            	 'rgba(100, 100, 100, 1)',
-            	 'rgba(100, 100, 100, 1)',
-            	 'rgba(100, 100, 100, 1)',
-            	 'rgba(100, 100, 100, 1)',
-            	 'rgba(100, 100, 100, 1)',
-            	 'rgba(100, 100, 100, 1)'
+            	 'rgba(70, 70, 70, 1)',
+            	 'rgba(70, 70, 70, 1)',
+            	 'rgba(70, 70, 70, 1)',
+            	 'rgba(70, 70, 70, 1)',
+            	 'rgba(70, 70, 70, 1)',
+            	 'rgba(70, 70, 70, 1)',
+            	 'rgba(70, 70, 70, 1)',
+            	 'rgba(70, 70, 70, 1)',
+            	 'rgba(70, 70, 70, 1)',
+            	 'rgba(70, 70, 70, 1)',
+            	 'rgba(70, 70, 70, 1)',
+            	 'rgba(70, 70, 70, 1)',
             ],
             borderWidth: 0
         }]
@@ -210,58 +202,30 @@ var myChart2 = new Chart(ctx2, {
     
 });
 
-var login1 = "${ todaycount.login01 }";
-var login2 = "${ todaycount.login02 }";
-var login3 = "${ todaycount.login03 }";
-var login4 = "${ todaycount.login04 }";
-var login5 = "${ todaycount.login05 }";
-var login6 = "${ todaycount.login06 }";
-var login7 = "${ todaycount.login07 }";
-var login8 = "${ todaycount.login08 }";
-var login9 = "${ todaycount.login09 }";
-var login10 = "${ todaycount.login10 }";
-var login11 = "${ todaycount.login11 }";
-var login12 = "${ todaycount.login12 }";
-var login13 = "${ todaycount.login13 }";
-var login14 = "${ todaycount.login14 }";
-var login15 = "${ todaycount.login15 }";
-var login16 = "${ todaycount.login16 }";
-var login17 = "${ todaycount.login17 }";
-var login18 = "${ todaycount.login18 }";
-var login19 = "${ todaycount.login19 }";
-var login20 = "${ todaycount.login20 }";
-var login21 = "${ todaycount.login21 }";
-var login22 = "${ todaycount.login22 }";
-var login23 = "${ todaycount.login23 }";
-var login0 = "${ todaycount.login00 }";
-var logindate = "${ todaycount.logindate }";
+var login1 = "${ todaycount.login01 }", login2 = "${ todaycount.login02 }", login3 = "${ todaycount.login03 }", login4 = "${ todaycount.login04 }",
+login5 = "${ todaycount.login05 }", login6 = "${ todaycount.login06 }",  login7 = "${ todaycount.login07 }", login8 = "${ todaycount.login08 }",
+login9 = "${ todaycount.login09 }", login10 = "${ todaycount.login10 }", login11 = "${ todaycount.login11 }", login12 = "${ todaycount.login12 }",
+login13 = "${ todaycount.login13 }", login14 = "${ todaycount.login14 }", login15 = "${ todaycount.login15 }", login16 = "${ todaycount.login16 }",
+login17 = "${ todaycount.login17 }", login18 = "${ todaycount.login18 }", login19 = "${ todaycount.login19 }",  login20 = "${ todaycount.login20 }",
+login21 = "${ todaycount.login21 }", login22 = "${ todaycount.login22 }", login23 = "${ todaycount.login23 }", login0 = "${ todaycount.login00 }",
+logindate = "${ todaycount.logindate }";
 
+var loginy1 = "${ yestercount.login01 }", loginy2 = "${ yestercount.login02 }", loginy3 = "${ yestercount.login03 }", loginy4 = "${ yestercount.login04 }",
+loginy5 = "${ yestercount.login05 }", loginy6 = "${ yestercount.login06 }",  loginy7 = "${ yestercount.login07 }", loginy8 = "${ yestercount.login08 }",
+loginy9 = "${ yestercount.login09 }", loginy10 = "${ yestercount.login10 }", loginy11 = "${ yestercount.login11 }", loginy12 = "${ yestercount.login12 }",
+loginy13 = "${ yestercount.login13 }", loginy14 = "${ yestercount.login14 }", loginy15 = "${ yestercount.login15 }", loginy16 = "${ yestercount.login16 }",
+loginy17 = "${ yestercount.login17 }", loginy18 = "${ yestercount.login18 }", loginy19 = "${ yestercount.login19 }",  loginy20 = "${ yestercount.login20 }",
+loginy21 = "${ yestercount.login21 }", loginy22 = "${ yestercount.login22 }", loginy23 = "${ yestercount.login23 }", loginy0 = "${ yestercount.login00 }",
+loginydate = "${ yestercount.logindate }";
 
-var loginy1 = "${ yestercount.login01 }";
-var loginy2 = "${ yestercount.login02 }";
-var loginy3 = "${ yestercount.login03 }";
-var loginy4 = "${ yestercount.login04 }";
-var loginy5 = "${ yestercount.login05 }";
-var loginy6 = "${ yestercount.login06 }";
-var loginy7 = "${ yestercount.login07 }";
-var loginy8 = "${ yestercount.login08 }";
-var loginy9 = "${ yestercount.login09 }";
-var loginy10 = "${ yestercount.login10 }";
-var loginy11 = "${ yestercount.login11 }";
-var loginy12 = "${ yestercount.login12 }";
-var loginy13 = "${ yestercount.login13 }";
-var loginy14 = "${ yestercount.login14 }";
-var loginy15 = "${ yestercount.login15 }";
-var loginy16 = "${ yestercount.login16 }";
-var loginy17 = "${ yestercount.login17 }";
-var loginy18 = "${ yestercount.login18 }";
-var loginy19 = "${ yestercount.login19 }";
-var loginy20 = "${ yestercount.login20 }";
-var loginy21 = "${ yestercount.login21 }";
-var loginy22 = "${ yestercount.login22 }";
-var loginy23 = "${ yestercount.login23 }";
-var loginy0 = "${ yestercount.login00 }";
-var loginydate = "${ yestercount.logindate }";
+var loginyy1 = "${ yestercount2.login01 }", loginyy2 = "${ yestercount2.login02 }", loginyy3 = "${ yestercount2.login03 }", loginyy4 = "${ yestercount2.login04 }",
+loginyy5 = "${ yestercount2.login05 }", loginyy6 = "${ yestercount2.login06 }",  loginyy7 = "${ yestercount2.login07 }", loginyy8 = "${ yestercount2.login08 }",
+loginyy9 = "${ yestercount2.login09 }", loginyy10 = "${ yestercount2.login10 }", loginyy11 = "${ yestercount2.login11 }", loginyy12 = "${ yestercount2.login12 }",
+loginyy13 = "${ yestercount2.login13 }", loginyy14 = "${ yestercount2.login14 }", loginyy15 = "${ yestercount2.login15 }", loginyy16 = "${ yestercount2.login16 }",
+loginyy17 = "${ yestercount2.login17 }", loginyy18 = "${ yestercount2.login18 }", loginyy19 = "${ yestercount2.login19 }",  loginyy20 = "${ yestercount2.login20 }",
+loginyy21 = "${ yestercount2.login21 }", loginyy22 = "${ yestercount2.login22 }", loginyy23 = "${ yestercount2.login23 }", loginyy0 = "${ yestercount2.login00 }",
+loginyydate = "${ yestercount2.logindate }";
+
 
 console.log(login1);
 
@@ -270,28 +234,42 @@ var myChart3 = new Chart(ctx3, {
     data: {
     	labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
         datasets: [
+       
         {
         	label: loginydate + ' 시간 별 로그인',
         	data: [loginy0, loginy1, loginy2, loginy3, loginy4, loginy5, loginy6, loginy7, loginy8, loginy9, loginy10, loginy11, loginy12, loginy13, loginy14, 
         		loginy15, loginy16, loginy17, loginy18, loginy19, loginy20, loginy21, loginy22, loginy23],
             backgroundColor: [
-                'rgba(0, 0, 0, 1)',
+            	  'rgba(0, 180, 255, 0.4)',
+            ],
+            fill: true,
+            borderColor: [
+            	  'rgba(0, 180, 255, 1)',
+            ],
+            borderWidth: 1.5
+        },
+        {
+			label: loginydate + ' 시간 별 로그인',
+        	data: [loginyy0, loginyy1, loginyy2, loginyy3, loginyy4, loginyy5, loginyy6, loginyy7, loginyy8, loginyy9, loginyy10, loginyy11, loginyy12, loginyy13, loginyy14, 
+        		loginyy15, loginyy16, loginyy17, loginyy18, loginyy19, loginyy20, loginyy21, loginyy22, loginyy23],
+            backgroundColor: [
+                'rgba(50, 50, 50, 0.1)',
+            ],
+            borderColor: [
+            	  'rgba(50, 50, 50, 0.9)',
             ],
             fill: false,
-            borderColor: [
-            	'rgba(0, 0, 0, 1)',
-            ],
-            borderWidth: 0
+            borderWidth: 2
         },
         {
         	label: logindate + ' 시간 별 로그인',
         	data: [login0, login1, login2, login3, login4, login5, login6, login7, login8, login9, login10, login11, login12, login13, login14, 
         		login15, login16, login17, login18, login19, login20, login21, login22, login23],
             backgroundColor: [
-                'rgba(120, 100, 200, 0.8)',
+                'rgba(100, 50, 200, 1)',
             ],
             borderColor: [
-            	 'rgba(120, 100, 200, 1)',
+            	  'rgba(100, 50, 200, 1)',
             ],
             borderWidth: 0
         }
@@ -305,13 +283,6 @@ var myChart3 = new Chart(ctx3, {
     
 });
 });
-function chatbotpop() {
-	var width = '600';
-	var height = '700';
-	var left = Math.ceil((window.screen.width - width) / 1.3);
-	var top = Math.ceil((window.screen.width - height) / 2);
-	window.open('chatbot.do' , '챗봇', 'width=' + width + ', height=' + height + ', left=' + left + ', top' + top);
-} 
 </script>
 </head>
 <body style="background: #ccc;">
@@ -397,7 +368,8 @@ function chatbotpop() {
 		</div>
 		<div style="display: flex; margin-top: -130px; ">
 		<div style="margin-left: 140px;" id="canvasdiv">
-		<canvas id="myChart" width="150" height="70"></canvas><br>
+		<canvas id="myChart" width="150" height="70">
+		</canvas><br>
 		</div>
 		<div id="canvasdiv">
 		<canvas id="myChart2" width="150" height="70"></canvas><br>

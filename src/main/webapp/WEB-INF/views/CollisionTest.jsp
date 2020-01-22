@@ -6,7 +6,7 @@
 		<title>ObjetVR</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<link type="text/css" rel="stylesheet" href="${ pageContext.request.contextPath }/resources/main.css">
+		<link type="text/css" rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/main.css">
 		<link rel='stylesheet' href='//fonts.googleapis.com/earlyaccess/kopubbatang.css'>
 <link rel="stylesheet" type="text/css" href="resources/assets/css/KoPubDotum.css">
 <link rel="stylesheet" href="//fonts.googleapis.com/earlyaccess/nanummyeongjo.css">
@@ -129,7 +129,8 @@ line-height: 20pt;
 				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 1000 );
 			//	camera.position.z = 0;
 				//camera.position.y = 500;
-				camera.position.set( 50, 50, 300 );              
+				camera.position.set( 50, 150, 300 );      
+ 
 				scene = new THREE.Scene();
 				scene.background = new THREE.Color( 0xeeeeee );
 				
@@ -385,22 +386,17 @@ line-height: 20pt;
 				container.appendChild( renderer.domElement );
 
 				// controls
-
 				controls = new OrbitControls( camera, renderer.domElement );
 
 	//			controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
 	//		controls.dampingFactor = 0.05;
 
 				controls.screenSpacePanning = false;
-
-				controls.minDistance = 100;
-				controls.maxDistance = 200;
-
-				controls.maxPolarAngle = Math.PI / 2.3;
-				controls.minPolarAngle = Math.PI / 2.6;
-;
+				controls.minDistance = 250;
+				controls.maxDistance = 400;
+				controls.maxPolarAngle = Math.PI / 2.2;
+				controls.minPolarAngle = Math.PI / 2.4;
 				window.addEventListener( 'resize', onWindowResize, false );
-
 
 			}
 

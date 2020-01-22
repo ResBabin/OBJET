@@ -108,7 +108,7 @@ var thclicked = "normal";
 		$("#quitclose").click(function() {
 			$("#quitdiv").fadeOut(100);
 		});
-		
+		var adminid = $("input[name=adminid]").val();
 		$("#blackok").click(function() {
 					if ($("input[name=useridchk]:checked").length > 0) {
 						if($("input[name=blackreason]:checked").length > 0){
@@ -126,7 +126,7 @@ var thclicked = "normal";
 								blackreason = $("#etcreason").val();
 							}
 							console.log(blackreason);
-							var data = { userid : checkArr, blackend : $("#blackend").val(), blackreason : blackreason};
+							var data = { userid : checkArr, blackend : $("#blackend").val(), blackreason : blackreason, adminid: adminid};
 							console.log(data);
 							$.ajax({
 								url : "insertblack.do",
@@ -168,7 +168,7 @@ var thclicked = "normal";
 					if(quitreason == 'etc'){
 						quitreason = $("#quitetcreason").val();
 					}
-					var data = { userid : checkArr, quitreason : quitreason};
+					var data = { userid : checkArr, quitreason : quitreason };
 					console.log(data);
 					$.ajax({
 						url : "adminquit.do",
@@ -375,6 +375,7 @@ var thclicked = "normal";
 		</div>
 		<br>
 		<div>
+		<input type="hidden" name="adminid" value="${ sessionScope.loginUser.userid }">
 			<div class="ui small basic buttons">
 				<a href="userm.do?usertype=&order=idd&page=1"><div class="ui button order" id="allbtn">전체회원</div></a>
 				<c:if test="${ !fn:contains(usermuri, 'usertype') }">
