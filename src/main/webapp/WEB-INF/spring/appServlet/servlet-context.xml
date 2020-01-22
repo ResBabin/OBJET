@@ -81,6 +81,31 @@
 			<mapping path="/moveCreateObjet.do"/>
 			<mapping path="/moveMyLikeObjetList.do"/>
 			<mapping path="/moveMyVisitedObjetList.do"/>
+			
+			<mapping path="/moveSupportManagement.do"/>
+			<mapping path="/goSupport.do"/>
+			<mapping path="/insertSupport.do"/>
+			<mapping path="/moveApplySupport.do"/>
+			<mapping path="/insertApplySupport.do"/>
+			<mapping path="/moveModifyApplySupport.do"/>
+			<mapping path="/updateApplySupport.do"/>
+			<mapping path="/deleteApplySupport.do"/>
+			<mapping path="/moveSendSupport.do"/>
+			<mapping path="/moveSendSupportSearch.do"/>
+			<mapping path="/moveReceiveSupport.do"/>
+			<mapping path="/moveReceiveSupportSearch.do"/>
+			<mapping path="/moveRequestSupport.do"/>
+			<mapping path="/moveRequestSupportSearch.do"/>
+			<mapping path="/moveRequestSupportDetail.do"/>
+			<mapping path="/moveInsertRequestSupportyn.do"/>
+			<mapping path="/moveInsertRequestSupport.do"/>
+			<mapping path="/insertRequestSupport.do"/>
+			<mapping path="/deleteRequestSupport.do"/>
+			<mapping path="/requestFileDown.do"/>
+			<mapping path="/moveThnanksmsg.do"/>
+			
+			
+			
 
 			<!-- 스프링 3.2부터 exclude-mapping 앨리먼트 사용할 수 있음 -->
 			<!-- <exclude-mapping path="/moveLogin.do"/> -->
@@ -100,6 +125,15 @@
 			<mapping path="/noticem.do"/>
 			<mapping path="/faqm.do"/>
 			<mapping path="/qnam.do"/>
+			<mapping path="/supportEnrollListm.do"/>
+			<mapping path="/supportEnrollSearchListm.do"/>
+			<mapping path="/supportenrollListdetailm.do"/>
+			<mapping path="/supportListm.do"/>
+			<mapping path="/supportSearchListm.do"/>
+			<mapping path="/supportRequest.do"/>
+			<mapping path="/supportRequestSearchm.do"/>
+			<mapping path="/requestSupportDetailm.do"/>
+			<mapping path="/updateRequestSupportDetailm.do"/>
 			
 			<beans:bean id="adminCheckInterceptor" class="com.kh.objet.common.interceptor.AdminCheckInterceptor"/>
 		</interceptor>
