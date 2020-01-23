@@ -579,6 +579,7 @@ where userid = #{userid} and objetno = #{objetno}
            			order by v.visitdate desc
  	</select>
  	
+ 	<!-- 관심 오브제 -->
  	<select id="selectLikeObjetList" resultType="LikeObjet2" parameterType="Hashmap">
  		select * from (select rownum rnum, l.objetno, l.userid, l.likedate, u.nickname, o.objettitle, o.objetstatus, o.renamemainposter
                     from likeobjet l left join objet o on (l.objetno = o.objetno) left join users u on (o.userid = u.userid) 

@@ -130,7 +130,7 @@
 			data:{ lists : list },
 			success : function(message){
 				if(message == 'ok'){
-	        		alert("해당 다녀온 오브제가 삭제되었습니다.");
+	        		alert("해당 다녀온오브제가 삭제되었습니다.");
 	    			window.location.reload(); 
 	        	}
 			},
@@ -271,6 +271,7 @@
 			<button class="mainBtn2" onClick="visitedObjet_delete()">삭제</button>
 		</div>
 		<br><br>
+		<!-- 삭제 버튼 끝! -->
 		
 		<!--  페이징 -->
             <div align="center">

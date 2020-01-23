@@ -33,7 +33,7 @@ public class VisitedObjetDao {
 		return list;
 	}
 	
-	// 오브제 관리 - 다녀온 오브제 삭제
+	// 오브제 관리 - 다녀온 오브제 삭제 처리
 	public int deleteMyVisitedObjetList(int objetno) {
 		return mybatisSession.delete("objetMapper.deleteMyVisitedObjetList", objetno);
 	}
@@ -47,6 +47,7 @@ public class VisitedObjetDao {
 		return mybatisSession.selectList("objetMapper.selectMyVisitedObjetSearch", map2);
 	}
 
+	// 오브제 관리 - 다녀온 오브제 검색 리스트
 	public int selectMyVisitedObjetSearchListCount(HashMap<String, Object> map1) {
 		return mybatisSession.selectOne("objetMapper.selectMyVisitedObjetSearchListCount", map1);
 	}

@@ -603,5 +603,15 @@ public class UsersController {
 			return "common/privacy";
 		}
 		
-			
+		// 오브제 이용안내
+		@RequestMapping("pageIntro.do")
+		public String pageIntro() {
+			return "common/pageIntro";
+		}
+		
+		// 오브제 팀소개
+		@RequestMapping("objetTeam.do")
+		public String objetTeam() {
+			return "common/objetTeam";
+		}
 }

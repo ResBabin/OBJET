@@ -58,7 +58,7 @@
 		
 		
 		<div style="float: left; width: 23%;">
-			<a class="footeralink">오브제 이용안내</a><br><br>
+			<a href="pageIntro.do" class="footeralink">오브제 이용안내</a><br><br>
 			<a href="moveEnrollPage.do" class="footeralink">가입신청</a><br><br>
 			<a href="moveCs.do" class="footeralink">고객센터</a>
 			
@@ -76,7 +76,7 @@
 		
 		
 		<div style="float: left; width: 23%;">
-			<a class="footeralink" target="_blank">오브제팀</a><br><br>
+			<a href="objetTeam.do" class="footeralink" target="_blank">오브제팀</a><br><br>
 			<a href="http://www.instagram.com" target="_blank" class="footeralink">오브제 인스타그램</a><br><br>
 			<a href="http://www.facebook.com" target="_blank" class="footeralink">오브제 페이스북</a><br><br>
 			<a href="http://www.youtube.com" target="_blank" class="footeralink">오브제 유튜브</a>

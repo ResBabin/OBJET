@@ -119,13 +119,13 @@ public class VisitedObjetController {
 		
 	}
 	
-	// 오브제 관리 - 관심오브제 삭제
+	// 오브제 관리 - 관심오브제 삭제처리
 	@RequestMapping("deleteMyVisitedObjetList.do")
 	public void deleteMyVisitedObjetList(@RequestParam(value="lists") String checkBox,
 		      HttpServletRequest request, HttpServletResponse response) throws IOException {
 		int result = 0;
 	      if(checkBox != null) {
-	      // 체크박스로 삭제
+	      // 체크박스로 삭제 처리
 	      String check[] = checkBox.split(",");
 	      for(int i = 0; i < check.length; i++) {
 	         result = visitedObjetService.deleteMyVisitedObjetList(Integer.parseInt(check[i]));
