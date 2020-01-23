@@ -11,6 +11,7 @@ import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.users.model.dao.UserManagementDao;
 import com.kh.objet.users.model.vo.LoginCount;
+import com.kh.objet.users.model.vo.LoginCount2;
 import com.kh.objet.users.model.vo.UserManagement;
 import com.kh.objet.users.model.vo.Users;
 
@@ -163,6 +164,16 @@ public class UserManagementServiceImpl implements UserManagementService{
 	@Override
 	public int insertBlackEndFeed(Map<String, String> map) {
 		return usermDao.insertBlackEndFeed(map);
+	}
+
+	@Override
+	public LoginCount selectLoginCountAvg(Map<String, String> map) {
+		return usermDao.selectLoginCountAvg(map);
+	}
+
+	@Override
+	public List<LoginCount2> selectLoginCountSum() {
+		return usermDao.selectLoginCountSum();
 	} 
 
 

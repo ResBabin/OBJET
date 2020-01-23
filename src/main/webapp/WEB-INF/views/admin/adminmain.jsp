@@ -94,14 +94,9 @@
 <script type="text/javascript">
 
 
-
 $(function() {
-	var now = new Date();
-	var hh = now.getHours();
-	console.log(now.getHours(), now.getMinutes());
-//	if(hh==00){
-		
-	$.ajax({
+// 금일 로그인 카운트 데이터 생성		
+/*	$.ajax({
 		url : "insertlogindate.do",
 		type : "post",
 		success : function() {
@@ -112,22 +107,7 @@ $(function() {
 					+ "\nMessage : " + request.responseText
 					+ "\nError : " + errorData);
 		}
-	});
-//	}
-	
-	/* $.ajax({
-		url : "logincount.do",
-		type : "post",
-		success : function(result) {
-			console.log(result);
-		},
-		error : function(request, status, errorData) {
-			console.log("error code : " + request.status
-					+ "\nMessage : " + request.responseText
-					+ "\nError : " + errorData);
-		}
 	}); */
-	
 $("#progress1,#progress2,#progress3").progress();
 var ctx = document.getElementById('myChart');
 var ctx2 = document.getElementById('myChart2');
@@ -202,43 +182,35 @@ var myChart2 = new Chart(ctx2, {
     
 });
 
-var login1 = "${ todaycount.login01 }", login2 = "${ todaycount.login02 }", login3 = "${ todaycount.login03 }", login4 = "${ todaycount.login04 }",
-login5 = "${ todaycount.login05 }", login6 = "${ todaycount.login06 }",  login7 = "${ todaycount.login07 }", login8 = "${ todaycount.login08 }",
-login9 = "${ todaycount.login09 }", login10 = "${ todaycount.login10 }", login11 = "${ todaycount.login11 }", login12 = "${ todaycount.login12 }",
-login13 = "${ todaycount.login13 }", login14 = "${ todaycount.login14 }", login15 = "${ todaycount.login15 }", login16 = "${ todaycount.login16 }",
-login17 = "${ todaycount.login17 }", login18 = "${ todaycount.login18 }", login19 = "${ todaycount.login19 }",  login20 = "${ todaycount.login20 }",
-login21 = "${ todaycount.login21 }", login22 = "${ todaycount.login22 }", login23 = "${ todaycount.login23 }", login0 = "${ todaycount.login00 }",
-logindate = "${ todaycount.logindate }";
+var logindate = "${ todaycount.logindate }";
 
-var loginy1 = "${ yestercount.login01 }", loginy2 = "${ yestercount.login02 }", loginy3 = "${ yestercount.login03 }", loginy4 = "${ yestercount.login04 }",
-loginy5 = "${ yestercount.login05 }", loginy6 = "${ yestercount.login06 }",  loginy7 = "${ yestercount.login07 }", loginy8 = "${ yestercount.login08 }",
-loginy9 = "${ yestercount.login09 }", loginy10 = "${ yestercount.login10 }", loginy11 = "${ yestercount.login11 }", loginy12 = "${ yestercount.login12 }",
-loginy13 = "${ yestercount.login13 }", loginy14 = "${ yestercount.login14 }", loginy15 = "${ yestercount.login15 }", loginy16 = "${ yestercount.login16 }",
-loginy17 = "${ yestercount.login17 }", loginy18 = "${ yestercount.login18 }", loginy19 = "${ yestercount.login19 }",  loginy20 = "${ yestercount.login20 }",
-loginy21 = "${ yestercount.login21 }", loginy22 = "${ yestercount.login22 }", loginy23 = "${ yestercount.login23 }", loginy0 = "${ yestercount.login00 }",
-loginydate = "${ yestercount.logindate }";
+var loginydate = "${ yestercount.logindate }";
 
-var loginyy1 = "${ yestercount2.login01 }", loginyy2 = "${ yestercount2.login02 }", loginyy3 = "${ yestercount2.login03 }", loginyy4 = "${ yestercount2.login04 }",
-loginyy5 = "${ yestercount2.login05 }", loginyy6 = "${ yestercount2.login06 }",  loginyy7 = "${ yestercount2.login07 }", loginyy8 = "${ yestercount2.login08 }",
-loginyy9 = "${ yestercount2.login09 }", loginyy10 = "${ yestercount2.login10 }", loginyy11 = "${ yestercount2.login11 }", loginyy12 = "${ yestercount2.login12 }",
-loginyy13 = "${ yestercount2.login13 }", loginyy14 = "${ yestercount2.login14 }", loginyy15 = "${ yestercount2.login15 }", loginyy16 = "${ yestercount2.login16 }",
-loginyy17 = "${ yestercount2.login17 }", loginyy18 = "${ yestercount2.login18 }", loginyy19 = "${ yestercount2.login19 }",  loginyy20 = "${ yestercount2.login20 }",
-loginyy21 = "${ yestercount2.login21 }", loginyy22 = "${ yestercount2.login22 }", loginyy23 = "${ yestercount2.login23 }", loginyy0 = "${ yestercount2.login00 }",
-loginyydate = "${ yestercount2.logindate }";
+var loginyydate = "${ yestercount2.logindate }";
 
 
-console.log(login1);
 
 var myChart3 = new Chart(ctx3, {
     type: 'line',
     data: {
     	labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
         datasets: [
+        	{
+    			label: loginydate + ' 시간 별 로그인',
+            	data: [ ${ yestercount2 } ],
+                backgroundColor: [
+                    'rgba(50, 50, 50, 0.1)',
+                ],
+                borderColor: [
+                	  'rgba(50, 50, 50, 0.9)',
+                ],
+                fill: false,
+                borderWidth: 2
+            },
        
         {
         	label: loginydate + ' 시간 별 로그인',
-        	data: [loginy0, loginy1, loginy2, loginy3, loginy4, loginy5, loginy6, loginy7, loginy8, loginy9, loginy10, loginy11, loginy12, loginy13, loginy14, 
-        		loginy15, loginy16, loginy17, loginy18, loginy19, loginy20, loginy21, loginy22, loginy23],
+        	data: [ ${ yestercount } ],
             backgroundColor: [
             	  'rgba(0, 180, 255, 0.4)',
             ],
@@ -248,23 +220,10 @@ var myChart3 = new Chart(ctx3, {
             ],
             borderWidth: 1.5
         },
-        {
-			label: loginydate + ' 시간 별 로그인',
-        	data: [loginyy0, loginyy1, loginyy2, loginyy3, loginyy4, loginyy5, loginyy6, loginyy7, loginyy8, loginyy9, loginyy10, loginyy11, loginyy12, loginyy13, loginyy14, 
-        		loginyy15, loginyy16, loginyy17, loginyy18, loginyy19, loginyy20, loginyy21, loginyy22, loginyy23],
-            backgroundColor: [
-                'rgba(50, 50, 50, 0.1)',
-            ],
-            borderColor: [
-            	  'rgba(50, 50, 50, 0.9)',
-            ],
-            fill: false,
-            borderWidth: 2
-        },
+        
         {
         	label: logindate + ' 시간 별 로그인',
-        	data: [login0, login1, login2, login3, login4, login5, login6, login7, login8, login9, login10, login11, login12, login13, login14, 
-        		login15, login16, login17, login18, login19, login20, login21, login22, login23],
+        	data: [ ${ todaycount } ],
             backgroundColor: [
                 'rgba(100, 50, 200, 1)',
             ],
@@ -281,7 +240,7 @@ var myChart3 = new Chart(ctx3, {
         }]
     }, responsive : true }
     
-});
+	});
 });
 </script>
 </head>

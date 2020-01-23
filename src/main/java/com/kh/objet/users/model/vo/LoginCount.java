@@ -268,13 +268,10 @@ public void setLogindate(Date logindate) {
 
 @Override
 public String toString() {
-	return "LoginCount [login01=" + login01 + ", login02=" + login02 + ", login03=" + login03 + ", login04=" + login04
-			+ ", login05=" + login05 + ", login06=" + login06 + ", login07=" + login07 + ", login08=" + login08
-			+ ", login09=" + login09 + ", login10=" + login10 + ", login11=" + login11 + ", login12=" + login12
-			+ ", login13=" + login13 + ", login14=" + login14 + ", login15=" + login15 + ", login16=" + login16
-			+ ", login17=" + login17 + ", login18=" + login18 + ", login19=" + login19 + ", login20=" + login20
-			+ ", login21=" + login21 + ", login22=" + login22 + ", login23=" + login23 + ", login00=" + login00
-			+ ", logindate=" + logindate + "]";
+	return login00 + ", " + login01 + ", " + login02 +  ", " + login03 + ", " + login04 + ", " + login05 + ", " + login06 + ", " + 
+					login07 + ", " + login08 + ", " + login09 + ", " + login10 + ", " + login11 +  ", " + login12	+ ", " +  login13 + ", " + 
+			login14 + ", " + login15 + ", " + login16 + ", " + login17 + ", " + login18 + ", " + login19 + ", " + login20 + ", " + login21 + ", " + 
+					login22 + ", " + login23 + ", " + login00;//+ logindate ;
 }
 
 

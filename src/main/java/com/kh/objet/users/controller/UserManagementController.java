@@ -3,7 +3,10 @@ package com.kh.objet.users.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,9 +28,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.support.model.service.SupportService;
-import com.kh.objet.support.model.vo.ApplySupport;
 import com.kh.objet.users.model.service.UserManagementService;
 import com.kh.objet.users.model.vo.LoginCount;
+import com.kh.objet.users.model.vo.LoginCount2;
 import com.kh.objet.users.model.vo.UserManagement;
 
 @Controller
@@ -317,5 +320,102 @@ public class UserManagementController {
 		}
 		return view;
 	}
+	
+	@RequestMapping("userstatistics.do")
+	public String userStatistics(Model model) {
+		Map<String, String> map = new HashMap<>();
+		ArrayList<LoginCount> loginallcount = (ArrayList<LoginCount>) usermService.selectTodayCount();
+		Date currenttime = new Date(System.currentTimeMillis());
+		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("yy/MM");
+		SimpleDateFormat sdf3 = new SimpleDateFormat("yy");
+		Calendar cal = Calendar.getInstance();
+		//나중에 코드 정리하기 이번건 테스트로
+		String thisWeek = sdf.format(currenttime);
+		String thisMonth = sdf2.format(currenttime);
+		String thisYear = sdf3.format(currenttime);
+		//db 에서 합계, 평균 처리 느릴 시 자바에서 처리함
+		
+		map.put("week", thisWeek);
+		LoginCount weeklog = usermService.selectLoginCountAvg(map);
+		map.clear();
+		
+		cal.add(Calendar.DATE, -7);
+		map.put("week", sdf.format(cal.getTime()));
+		LoginCount weeklog2 = usermService.selectLoginCountAvg(map);
+		map.clear();
+		
+		cal.add(Calendar.DATE, -7);
+		map.put("week", sdf.format(cal.getTime()));
+		LoginCount weeklog3 = usermService.selectLoginCountAvg(map);
+		map.clear();
+		
+		cal.add(Calendar.DATE, -7);
+		map.put("week", thisWeek);
+		LoginCount weeklog4 = usermService.selectLoginCountAvg(map);
+		map.clear();
+		
+		map.put("month", thisMonth);
+		LoginCount monthlog = usermService.selectLoginCountAvg(map);
+		map.clear();
+		
+		cal.add(Calendar.DATE, +21);
+		cal.add(Calendar.MONTH, -1);
+		map.put("month", sdf2.format(cal.getTime()));
+		LoginCount monthlog2 = usermService.selectLoginCountAvg(map);
+		map.clear();
+		
+		cal.add(Calendar.MONTH, -1);
+		map.put("month", sdf2.format(cal.getTime()));
+		LoginCount monthlog3 = usermService.selectLoginCountAvg(map);
+		map.clear();
+		
+		map.put("year", thisYear);
+		LoginCount yearlog = usermService.selectLoginCountAvg(map);
+		map.clear();
+		
+		cal.add(Calendar.MONTH, +2);
+		cal.add(Calendar.YEAR, -1);
+		logger.debug("dddddddddddddd :       " + cal.getTime());
+		logger.debug("dddddddddddddd :       " + sdf3.format(cal.getTime()));
+		map.put("year", sdf3.format(cal.getTime()));
+		LoginCount yearlog2 = usermService.selectLoginCountAvg(map);
+		map.clear();
+		
+		cal.add(Calendar.YEAR, -1);
+		map.put("year", sdf3.format(cal.getTime()));
+		LoginCount yearlog3 = usermService.selectLoginCountAvg(map);
+		
+		//1주일 간 로그인 총합
+		ArrayList<LoginCount2> oneweekcount = (ArrayList<LoginCount2>) usermService.selectLoginCountSum();
+		
+		
+		model.addAttribute("thisweek", weeklog);
+		model.addAttribute("thisweek2", weeklog2);
+		model.addAttribute("thisweek3", weeklog3);
+		model.addAttribute("thisweek4", weeklog4);
+		model.addAttribute("thismonth", monthlog);
+		model.addAttribute("thismonth2", monthlog2);
+		model.addAttribute("thismonth3", monthlog3);
+		model.addAttribute("thisyear", yearlog);
+		model.addAttribute("thisyear2", yearlog2);
+		model.addAttribute("thisyear3", yearlog3);
+		model.addAttribute("todaycount", loginallcount.get(0));
+		model.addAttribute("yestercount", loginallcount.get(1));
+		model.addAttribute("yestercount2", loginallcount.get(2));
+		model.addAttribute("oneweekcount", oneweekcount);
+		
+		
+		return "admin/userStatistics";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

@@ -44,6 +44,22 @@
 	background-size: contain;
 }
 </style>
+<script type="text/javascript">
+$(function() {
+	$.ajax({
+		url : "insertlogindate.do",
+		type : "post",
+		success : function() {
+			console.log("성공");
+		},
+		error : function(request, status, errorData) {
+			console.log("error code : " + request.status
+					+ "\nMessage : " + request.responseText
+					+ "\nError : " + errorData);
+		}
+	});
+});
+</script>
 </head>
 <body>
  <footer>

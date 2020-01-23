@@ -644,4 +644,34 @@
 	<select id="selectEnrollCount" resultType="Users">
 		select to_date(to_char(enrolldate, 'yy/MM/dd')) as "enrolldate" from users
 	</select>
+	
+	<!-- 로그인 주별, 월별, 년도별 평균 -->
+	<select id="selectLoginCountAvg" parameterType="map" resultType="LoginCount">
+		 select avg(login01) "login01", avg(login02) "login02", avg(login03) "login03", avg(login04) "login04", avg(login05) "login05", avg(login06) "login06", 
+		 avg(login07) "login07", avg(login08) "login08", avg(login09) "login09", avg(login10) "login10", avg(login11) "login11", avg(login12) "login12", 
+		 avg(login13) "login13", avg(login14) "login14", avg(login15) "login15", avg(login16) "login16", avg(login17) "login17", avg(login18) "login18", 
+		 avg(login19) "login19", avg(login20) "login20", avg(login21) "login21", avg(login22) "login22", avg(login23) "login23", avg(login00) "login00"
+		 from logincount  
+		 where 
+		 <if test="week != null">to_char(logindate, 'yyMMW' ) = to_char(to_date( #{ week } ), 'yyMMW')</if>
+		 <if test="month != null">logindate like #{ month }||'%'</if>
+		 <if test="year != null">logindate like  #{ year }||'%' </if>
+	</select>
+	
+	<!-- 로그인 1주일 총합 비교 -->
+	<!-- 안되면 자바에서 for문으로  합치기 -->
+	<select id="selectLoginCountSum" resultType="LoginCount2">
+    select login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23 "loginall"
+    from logincount where  logindate like sysdate -6 or logindate like sysdate -5 or logindate like sysdate -4 or 
+    logindate like sysdate -3 or logindate like sysdate -2 or logindate like sysdate -1 or logindate like sysdate 
+	</select>
+	
+	
+	
+	
+	
+	
+	
 </mapper> 

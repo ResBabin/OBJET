@@ -12,6 +12,7 @@ import com.kh.objet.blacklist.model.vo.BlackList;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.users.model.vo.LoginCount;
+import com.kh.objet.users.model.vo.LoginCount2;
 import com.kh.objet.users.model.vo.UserManagement;
 import com.kh.objet.users.model.vo.Users;
 
@@ -103,5 +104,11 @@ public class UserManagementDao {
 	}
 	public int insertBlackEndFeed(Map<String, String> map) {
 		return mybatisSession.insert("adminMapper.insertBlackEndFeed", map);
+	}
+	public LoginCount selectLoginCountAvg(Map<String, String> map) {
+		return mybatisSession.selectOne("adminMapper.selectLoginCountAvg", map);
+	}
+	public List<LoginCount2> selectLoginCountSum() {
+		return mybatisSession.selectList("adminMapper.selectLoginCountSum");
 	}
 }
