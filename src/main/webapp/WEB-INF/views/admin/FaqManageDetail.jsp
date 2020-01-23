@@ -28,11 +28,12 @@ table {
 	border: none;
 	line-height: 30px;
 	width: 800px;
-	box-shadow: 3px 3px 0px #77777777;
+	box-shadow: 7px 7px 0px #99999955;
 }
 
 th, td {
-	border: solid 1px #777;
+	border: solid 1px #777777bb;
+//	border: none;
 	opacity: 0.9;
 	padding: 8px;
 	color: #333;

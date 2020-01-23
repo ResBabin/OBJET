@@ -53,7 +53,7 @@
  	background: black;
 	font-size: 11pt;
 }
-#heada1, #heada2, #heada3, #heada4, #heada5, #heada6, #heada7, #heada8, #heada9 {
+#heada1, #heada2, #heada3, #heada4, #heada5, #heada6, #heada7, #heada8, #heada9, #heada10 {
 	text-align: center;
 }
 #logout:hover, #login:hover{
@@ -72,10 +72,10 @@
 			  .sidebar('toggle');
 		});
 		$('#headdi1, #headdi2, #headdi3, #headdi4').dropdown({});
-		$('#heada1, #heada2, #heada3, #heada4, #heada5, #heada6, #heada7, #heada8, #heada9').attr('style', 'color: white !important');
+		$('#heada1, #heada2, #heada3, #heada4, #heada5, #heada6, #heada7, #heada8, #heada9, #heada10').attr('style', 'color: white !important');
 	});
 </script>
-</head>
+</head>	
 <body>
 	<div class="ui inverted menu" id="topmenu" align="center">
 		<div class="item" align="center" id="item"> 
@@ -86,7 +86,9 @@
 		<div class="ui inverted dropdown item" id="headdi1" align="center" style="padding-left: 35px;">
 			회원 관리 <i class="dropdown icon"></i>
 			<div class="menu" id="sub">
-				<a class="item" href="userm.do?usertype=&order=idd&page=1" id="heada1">회원 조회</a> <a class="item" href="userbk.do" id="heada2">블랙리스트 조회</a> 
+				<a class="item" href="userm.do?usertype=&order=idd&page=1" id="heada1">회원 조회</a> 
+				<a class="item" href="userbk.do" id="heada2">블랙리스트 조회</a> 
+				<a class="item" href="userstatistics.do" id="heada1">회원 통계</a> 
 			</div>
 		</div>
 		<div class="ui dropdown item" id="headdi2" align="center" style="padding-left: 35px;">
