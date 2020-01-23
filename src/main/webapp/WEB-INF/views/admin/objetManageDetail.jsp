@@ -55,6 +55,7 @@ padding: 20px;
  display: none;
  	font-family: 'Nanum Gothic';
 }
+
 </style>
 
 <script type="text/javascript">

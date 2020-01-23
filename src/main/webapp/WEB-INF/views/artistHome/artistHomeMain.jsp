@@ -18,6 +18,17 @@
 
 <!-- 제작용 css -->
  <link rel= "stylesheet" type="text/css" href="resources/css/mychoe.css">
+ <style>
+.wrap_top {
+	z-index:-999;
+	width: 1950px;
+	height: 330px;
+	margin-top: -100px;
+	position: absolute;
+	border:none;
+	
+} 
+ </style>
  
 <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
 
@@ -228,7 +239,7 @@ $(function(){
 		 } 
 		 
 	 });
-
+    
 	
 	});	// document ready...
 	
@@ -291,9 +302,8 @@ function deleteFollowing(){
 </script>
 </head>
 <body>
-
+<span class="wrap_top" style="background-color: #f8f8f8;" ></span>
 <!-- 작가홈 시작 -->
-
 <div class="wrapHome">
 <section class="wrapSection">
 
@@ -302,7 +312,7 @@ function deleteFollowing(){
 		<!-- 프로필 글자부분 -->
 		<div class="profileTextSection">
 		<span>
-			<p class="profileText" style="font-size: 25px; color:#373737;">${usersProfile.nickname}</p>
+			<br><br><p class="profileText" style="font-size: 25px; color:#373737;">${usersProfile.nickname}</p>
 			<p class="profileText" style="font-size: 10pt; color:#aaa;">${usersProfile.userintros}</p>
 			<br><br>
 		</span>
@@ -432,7 +442,7 @@ function deleteFollowing(){
 					<c:if test="${value eq '조각'}"><c:set var="usertag6" value="조각"/></c:if>
 					<c:if test="${value eq '회화'}"><c:set var="usertag7" value="회화"/></c:if>
 					<c:if test="${value eq '기타'}"><c:set var="usertag8" value="기타"/></c:if>
-					<a class="ui mini grey basic label">${tag }</a>
+					<a class="ui mini grey basic label" href="search.do?keyword=${tag}">${tag }</a>
 				</c:forTokens>
 		 		</c:if>
 		 		
@@ -471,9 +481,7 @@ function deleteFollowing(){
 			</c:if>
 			<br><br>
 			</div>
-				<div align="center">
-					<a href="#"><img src="resources/images/objet/top.png" style="width:10%; height:auto;"></a>
-				</div>
+				
 		</div>
 		
 	</c:if>	
@@ -495,9 +503,6 @@ function deleteFollowing(){
 					&ensp;<div class="ui buttons"><button class="mainBtn" type="submit" onclick="objetSearch();">검색</button></div>
 				</div>
 				<br><br><br><br><br><br>
-				<div align="center">
-					<a href="#"><img src="resources/images/objet/top.png" style="width:10%; height:auto;"></a>
-				</div>
 				
 			</div>
 		</div>
@@ -520,7 +525,9 @@ function deleteFollowing(){
 	
 
 	
-
+		<div align="right">
+			<a href="#"><img src="resources/images/objet/top.png" class="topicon" style="width:5%; height:auto;"></a>
+		</div>
  <!-- 작가홈 끝! -->
 
 

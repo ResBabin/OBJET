@@ -663,17 +663,17 @@
 }
 
 .tagboxes {
-   align: middle;
+   align: center;
 }
 
 .tagbox1 {
-   color: rgba(0, 0, 0, 0.8);
+   color: rgba(0, 0, 0, 0.6);
    padding: 3px;
-   margin-top: 70px;
-   margin-left: 15px;
+   margin-top: 50px;
+   margin-left: 17px;
    height: 30px;
-   width: 25%;
-   border: 1px solid lightgray;
+   width: 21%;
+   border: 1px solid #eee;
    border-radius: 30px;
    vertical-align:middle;
    align:center;
@@ -802,13 +802,13 @@ $(function(){
 		 $(".objet_list_item:contains('"+keyword+"')").slice(0, 5).fadeIn();
 		 $(".objet_list_item:contains('"+keyword+"')").each(function () {
 	        var regex = new RegExp(keyword,'gi');
-	        $(this).html($(this).text().replace(regex, "<span>"+keyword+"</span>") );
+	        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
 			 });
 		 $(".artist_list_item").hide();
-		 $(".artist_list_item:contains('"+keyword+"')").slice(0, 5).fadeIn();
+		 $(".artist_list_item:contains('"+keyword+"')").slice(0, 4).fadeIn();
 		 $(".artist_txt:contains('"+keyword+"')").each(function () {
 	       	var regex = new RegExp(keyword,'gi');
-	        $(this).html($(this).html().replace(regex, "<span>"+keyword+"</span>") );
+	        $(this).html($(this).html().replace(regex, "<b>"+keyword+"</b>") );
 			 }); 
 		 if($(".objet_list_item:contains('"+keyword+"')").length == 0 && $(".artist_list_item:contains('"+keyword+"')").length == 0){
 			 $(".txt_nodata_objet ").show();
@@ -970,8 +970,6 @@ $(function(){
 <section class="cardsection">
   <!-- 작가 카드 -->
  <c:forEach var="artistcard" items="${ objetMainList}" end="4" varStatus="status"> 
- <c:set var="objetTag" value="${fn:split('건축,공예,서예,디자인,사진,회화,조각,기타', ',')}" />
- <c:set var="ran"><%= java.lang.Math.round(java.lang.Math.random() * 7) %></c:set>
   <div class="container1">
      <div class="container">
       <div class="thecard">
@@ -979,17 +977,15 @@ $(function(){
          <a href="artistHomeMain.do?userid=${artistcard.userid }&loginUser=${loginUser.userid}"><img id="cardimg" src="resources/users_upfiles/${artistcard.userrpic }" width=35% height=25%></a>
             <div class ="writername">${artistcard.nickname }</div><br>
             <div class ="writercoment">${artistcard.userintros }</div>
+            	
 			   <div class="tagboxes">
-			   <c:set var="doneLoop" value="false" />
-			   <c:forEach var="item" items="${ objetTag}" end="${ran }" varStatus="status"> 
-			   <c:if test="${not doneLoop }">
-			   	<div class="tagbox1">${item }</div>
-			   	<c:if test="${status.index == 2 }">
-			   	<c:set var="doneLoop" value="true" />
-		         </c:if>
-		         </c:if>
-			   	 </c:forEach>
+			   <c:forTokens var="tags" items="${artistcard.usertag }" delims=",">
+			   <center>
+			   <div class="tagbox1">${tags }</div>
+			   </center>
+    			</c:forTokens>
 			   </div>
+			   
          </div>
          
           <div class="theback" style="align:center;">

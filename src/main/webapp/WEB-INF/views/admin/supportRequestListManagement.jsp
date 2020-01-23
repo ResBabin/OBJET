@@ -35,7 +35,7 @@
 				<input type="hidden" name="currentPage" value="1">
 				<label class="ui grey button">신청ID</label>
 				<span class="ui form"><span class="field">
-		    		<input type="text" name="artistid" id="artistid" style="width:15%;"></span></span>
+		    		<input type="text" name="artistid" id="artistid" value="${artistid }" style="width:15%;"></span></span>
 				&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 				<label class="ui grey button">정산날짜</label>
 					<select class="ui search dropdown" name="requestyear" id="requestyear">
@@ -157,7 +157,7 @@
 
 
 </div>
-<br><br><br>
+<br><br><br><br><br><br>
 <c:import url="../footer.jsp"/>
 </body>
 </html>

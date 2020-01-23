@@ -1,7 +1,7 @@
 @charset "utf-8"; 
 
 body {
-	background-color: #fff;
+	background-color: transparent;
 	height:100%;
 	margin: 0;
 	padding: 0; 
@@ -9,10 +9,10 @@ body {
 
 /* 작가홈 css ===========================================================================*/
 .wrapHome{
-	background-color: #fff;
+	/* background-color: #fff; */
 	margin-left: 25%;
 	margin-right: 25%;
-	margin-top:80px; /* 상단바 높이만큼 수정 */
+	margin-top:212px; /* 상단바 높이만큼 수정 */
 	margin-bottom:200px; /* 하단바 높이만큼 수정 */
 	min-height: 100%;
 }
@@ -23,17 +23,17 @@ body {
 
 
 .wrapProfile{
-	background-color:#fff;
+	/* background-color:#fff; */
 	width:100%;
 	min-height: 100%;
 }
 
 .profileTextSection{
-	background-color: #fff;
+	/* background-color: #fff; */
 	float: left;
 	align:left;
 	width:60%;
-	height: 185px;
+	height: 200px;
 	padding-top: 15px;
 }
 
@@ -42,12 +42,12 @@ body {
 }
 
 .profileImageSection{
-	background-color: #fff;
+	/* background-color: #fff; */
 	float: left;
 	align:right;
 	text-align: right;
 	width:40%;
-	height: 185px;
+	height: 200px;
 }
 
 
@@ -104,7 +104,7 @@ body {
 	padding-top: 350px;
 	padding-bottom: 35px;
 	color: #aaa;
-	background-color: #fff;
+	/* background-color: #fff; */
 }
 
 

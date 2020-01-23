@@ -13,13 +13,6 @@
 <title>Objet</title>
 <c:import url="../header.jsp" />
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
- <!-- FaceBook Share API -->
-  <meta property="fb:app_id" 		content="479513076315861" />
-  <meta property="og:url"           content="https://money2015.tistory.com/761?category=631663" />
-  <meta property="og:type"          content="website" />
-  <meta property="og:title"         content="${fn:substring(objet.objettitle,0,11)}..." />
-<%--   <meta property="og:description"   content="${fn:substring(objet.objetintro,0,20)}..." /> --%>
-  <meta property="og:image"         content="${pageContext.servletContext.contextPath }/resources/images/objet/${objet.renamemainposter }" />
 
 <!-- 카카오톡 링크 api -->
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -51,6 +44,11 @@
 <link href='resources/FullCalendar/daygrid/main.css' rel='stylesheet' />
 <script src='resources/FullCalendar/interaction/main.js'></script>
 <script src='resources/FullCalendar/daygrid/main.js'></script>
+<link href='resources/FullCalendar/timegrid/main.css' rel='stylesheet' />
+<link href='resources/FullCalendar/list/main.css' rel='stylesheet' />
+<script src='resources/FullCalendar/timegrid/main.js'></script>
+<script src='resources/FullCalendar/list/main.js'></script>
+
 
 <!-- 페이스북 공유 -->
 <script>
@@ -442,13 +440,14 @@ a:-webkit-any-link {
 	display:none;
 	width: 80%;
 	height: 30px;
-	margin-top: 220px;
+	margin-top: 200px;
 	font-size: 17px;
 	font-weight: bold;
 	letter-spacing: 1px;
 	color: #9e9e9e;
 	font-family: 'Nanum Gothic';
 	cursor: pointer;
+	margin-bottom:50px;
 }
 
 #more_btn:before {
@@ -1039,6 +1038,7 @@ i.icon.clock::before{
     max-width: 65%;
     margin: 40px auto;
     padding-top:185px;
+    height: 500px;
   }
 
 /* 한줄평  */
@@ -1192,6 +1192,7 @@ i.icon.clock::before{
 		    $('#objet_review').css("height", $(document).height());
 		    if ($(".review_list:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
 		        $('#more_btn').fadeOut();// 더 이상 로드할 항목이 없는 경우
+		        $(".review_list").last().css("border-bottom", "1px solid #e0e0e0");
 		        $('.rev_insert').css("margin-top", "180px");
 		        $('.rev_insert_no').css("margin-top", "120px");
 		    }
@@ -1469,6 +1470,7 @@ i.icon.clock::before{
 				    $('#objet_review').css("height", $(document).height());
 				    if ($(".review_list:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
 				        $('#more_btn').fadeOut();// 더 이상 로드할 항목이 없는 경우
+				        $(".review_list").last().css("border-bottom", "1px solid #e0e0e0");
 				        $('.rev_insert').css("margin-top", "180px");
 				        $('.rev_insert_no').css("margin-top", "120px");
 				    }
@@ -1639,7 +1641,7 @@ i.icon.clock::before{
 	}//rev_delete
 	
 	<c:if test="${!empty loginUser.userid}">
-	//헤더 아이콘 관심 오브제 추가
+	//관심 오브제 추가
 	function likeobjet(){
 		var objetno = ${objet.objetno};
 		var userid = '${loginUser.userid}';
@@ -1649,32 +1651,33 @@ i.icon.clock::before{
 			type : "post",
 			success: function(result){
 				if(result == "ok"){
-					console.log("관심 오브제 삭제 성공!");
-	               $("#likeobjet").removeClass("ico_likeit_unlike");
-	               $("#likeobjet").addClass("ico_likeit_like");
-	               var num = ${fn:length(likeobjetList) } - 1;
-	               $(".likeobjetcnt").html(num);
-	               if($(".likeobjetcnt").html() == 1){
-	            	   console.log("관심 오브제 삭제 성공!");
-		               $("#likeobjet").removeClass("ico_likeit_unlike");
+				   console.log("관심 오브제 삭제 성공!");
+				   if('${resultValue}' == 'fail' || ${fn:length(likeobjetList)}  == 0){
+					   $("#likeobjet").removeClass("ico_likeit_unlike");
 		               $("#likeobjet").addClass("ico_likeit_like");
-		               var num = ${fn:length(likeobjetList) };
+		               var num = ${fn:length(likeobjetList)};
 		               $(".likeobjetcnt").html(num);
-          	 		}
+				   }else{
+					   $("#likeobjet").removeClass("ico_likeit_unlike");
+		               $("#likeobjet").addClass("ico_likeit_like");
+		               var num = ${fn:length(likeobjetList)} - 1;
+		               $(".likeobjetcnt").html(num);
+				   }
+	               
 	             }
 	             if(result == "ok2"){
 	               console.log("관심 오브제 추가 성공!");
-	               $("#likeobjet").removeClass("ico_likeit_like");
-	               $("#likeobjet").addClass("ico_likeit_unlike");
-	               var num = ${fn:length(likeobjetList) };
-	               $(".likeobjetcnt").html(num);
-	               if($(".likeobjetcnt").html() == 0){
-	            		 console.log("관심 오브제 추가 성공!");
-	  	               $("#likeobjet").removeClass("ico_likeit_like");
-	  	               $("#likeobjet").addClass("ico_likeit_unlike");
-	  	               var num = ${fn:length(likeobjetList) } + 1;
-	  	               $(".likeobjetcnt").html(num);
-            	 	}
+	               if('${resultValue}' == 'ok'){
+	            	   $("#likeobjet").removeClass("ico_likeit_like");
+		               $("#likeobjet").addClass("ico_likeit_unlike");
+		               var num = ${fn:length(likeobjetList)};
+		               $(".likeobjetcnt").html(num);
+	               }else{
+	            	   $("#likeobjet").removeClass("ico_likeit_like");
+		               $("#likeobjet").addClass("ico_likeit_unlike");
+		               var num = ${fn:length(likeobjetList)} + 1;
+		               $(".likeobjetcnt").html(num);
+	               }
 	             }
 	             if(result == "fail"){
 	            	 alert("관심 오브제 삭제 실패!");
@@ -1781,6 +1784,11 @@ i.icon.clock::before{
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
       plugins: [ 'interaction', 'dayGrid' ],
+      header: {
+        right: 'today prev,next',
+        center: 'title',
+        left: 'dayGridMonth'
+      },
       navLinks: true,
       defaultDate : new Date(),
       firstDay: 1, //월요일
@@ -1814,7 +1822,7 @@ i.icon.clock::before{
       			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
       		}
           });
-      } 
+      }
     });
     calendar.render();
     calendar.today();
@@ -2383,7 +2391,7 @@ ${myReview.revcontent }</textarea>
 </c:if>
 </c:forEach>
 </c:if>
-<c:if test="${fn:length(reviewList) == 0 && objet.userid ne loginUser.userid} ">
+<c:if test="${fn:length(reviewList) == 0 && objet.userid ne loginUser.userid && myReview == null}">
 <br><br><br>
 <div class="ui basic pointing below teal icon label" style="font-weight:normal;font-family:'Nanum Gothic';font-size:18px;color:#aaa;text-align:center;">
 <i class="quote left icon"></i>&nbsp;&nbsp;이 전시의 <b style="font-size:18.5px;">한줄평</b>이 아직 없습니다. 
@@ -2396,7 +2404,6 @@ ${myReview.revcontent }</textarea>
 <i class="quote right icon"></i></div>
 </c:if>
 </div>
-<br>
 <!-- //한줄평 리스트 끝  -->
 </div> <!-- //한줄평 끝 -->
 <div id="more_btn">
@@ -2404,7 +2411,7 @@ ${myReview.revcontent }</textarea>
 </div>
 <br>
 <!-- 한줄평 등록  -->
-<c:if test="${myReview == null && myReview.revuserid ne loginUser.userid && objet.userid ne loginUser.userid}">
+<c:if test="${myReview == null && objet.userid ne loginUser.userid}">
 <div class="rev_insert">
 <div class="review_insert">
 <img class="ui circular image" src="resources/users_upfiles/${loginUser.userrpic }" id="writer_pic_2">

@@ -59,7 +59,7 @@ public class UserManagementDao {
 	public List<Users> selectEnrollCount() {
 		return mybatisSession.selectList("adminMapper.selectEnrollCount");
 	}
-	public int insertBlackList(Map<String, String> map) {
+	public int insertBlackList(Map<String, Object> map) {
 		return mybatisSession.insert("adminMapper.insertBlackList", map); 
 	}
 	public int updateBlackYN(String userid) {
@@ -80,7 +80,7 @@ public class UserManagementDao {
 	public List<UserManagement> selectUserOrder(Map<String, String> map) {
 		return mybatisSession.selectList("adminMapper.selectUserOrder", map);
 	}
-	public int updateBlackDate(Map<String, String> map) {
+	public int updateBlackDate(Map<String, Object> map) {
 		return mybatisSession.update("adminMapper.updateBlackDate", map);
 	}
 	public int selectUserListCount(Map<String, String> map) {
@@ -94,5 +94,14 @@ public class UserManagementDao {
 	}
 	public int updateRequestStatus(Map<String, String> map) {
 		return mybatisSession.update("adminMapper.updateRequestStatus", map);
+	}
+	public List<LoginCount> selectTodayCount() {
+		return mybatisSession.selectList("adminMapper.selectTodayCount");
+	}
+	public int insertBlackFeed(Map<String, Object> map) {
+		return mybatisSession.insert("adminMapper.insertBlackFeed", map);
+	}
+	public int insertBlackEndFeed(Map<String, String> map) {
+		return mybatisSession.insert("adminMapper.insertBlackEndFeed", map);
 	}
 }

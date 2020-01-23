@@ -3,6 +3,8 @@
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="objetMapper">
+
+<!-- 박예은 *************************** -->
 <!-- 오브제 전체 리스트   -->
 <select id="selectObjetAll" resultType="Objet">
  select objetno, userid, objettitle, objetintro, originmainposter, objetrfile1, objetrfile1, renamemainposter, objetstartdate, objetenddate, objettag, publicyn, objetregidate, objetstatus, objetview 
@@ -480,6 +482,13 @@ where userid = #{userid} and objetno = #{objetno}
  <delete id="deleteObjet" parameterType="int">
  	delete from objet where objetno = #{objetno}
  </delete>
+ 
+ <!-- 오브제 칼라 -->
+ <select id="selectObjetColor" parameterType="String" resultType="Objet">
+ select max(objetcolor) objetcolor
+ from objet
+ where userid = #{userid}
+ </select>
  	
  <!-- 최민영 *************************** -->
  
@@ -505,7 +514,7 @@ where userid = #{userid} and objetno = #{objetno}
 	 	select count(*) from review where objetno = #{objetno}
 	 </select>
  
- <!-- 박근수 -->
+ <!-- 박근수 ***************************-->
  
  	<select id="moveMyObjetList" parameterType="objet" resultType="objet">
  		select * from objet where userid = #{userid}
@@ -522,35 +531,6 @@ where userid = #{userid} and objetno = #{objetno}
  		select * from objet where objetno = #{objetno}
  	</select>
  	
- 	<!-- <insert id="insertObjet" parameterType="objet">
- 		insert into objet values (#{objetno}, #{userid}, #{objettitle}, #{objetintro}, #{originmainposter}, #{renamemainposter}, #{objetstartdate}, #{objetenddate}, #{objettag}, #{publicyn},
- 		#{objetregidate}, #{objetstatus}, #{objetview}, #{objettitle1}, #{objetintro1}, #{objetofile1}, #{objetrfile1}, #{objettitle2}, #{objetintro2}, #{objetofile2}, 
- 		#{objetrfile2}, #{objettitle3}, #{objetintro3}, #{objetofile3}, #{objetrfile3}, #{objettitle4}, #{objetintro4}, #{objetofile4}, #{objetrfile4}, #{objettitle5},
- 		#{objetintro5}, #{objetofile5}, #{objetrfile5}, #{objettitle6}, #{objetintro6}, #{objetofile6}, #{objetrfile6}, #{objettitle7}, #{objetintro7}, #{objetofile7}, 
- 		#{objetrfile7}, #{objettitle8}, #{objetintro8}, #{objetofile8}, #{objetrfile8})
- 	</insert> -->
- 	
- 	<!-- <update id="updateObjet" parameterType="Objet">
- 		update objet
- 		<trim prefix="set" suffixOverrides=",">
-			<if test="objetno != null">objetno = #{objetno},</if>
-			<if test="userid != null">userid = #{userid},</if>
-			<if test="objettitle != null">objettitle = #{objettitle},</if>
-			<if test="objetintro != null">objetintro = #{objetintro}, </if>
-			<if test="originmainposter != null">originmainposter = #{originmainposter}, </if>
-			<if test="renamemainposter != null">renamemainposter = #{renamemainposter}, </if>
-			<if test="objetstartdate != null">objetstartdate = #{objetstartdate}, </if>
-			<if test="objetenddate != null">objetenddate = #{objetenddate}, </if>
-			<if test="objettag != null">objettag = #{objettag}, </if>
-			<if test="publicyn != null">publicyn = #{publicyn}, </if>
-			<if test="objetregidate != null">objetregidate = #{objetregidate}, </if>
-			<if test="objetstatus != null">objetstatus = #{objetstatus}, </if>
-			<if test="objetview != null">objetview = #{objetview}, </if>
-		</trim>
-		where userid = #{userid}
- 	</update> -->
- 	
- 	<!-- 다녀온 오브제 -->
  	<select id="selectVistiedObjetList" resultType="VisitedObjet2" parameterType="Hashmap">
  		select * from (select rownum rnum, v.objetno, v.userid, v.visitdate, u.nickname, o.objettitle, o.objetstatus, o.renamemainposter
                     from visitedobjet v left join objet o on (v.objetno = o.objetno) left join users u on (o.userid = u.userid) 

@@ -87,46 +87,46 @@ var thclicked = "normal";
 		$("#checkall").click(function() {
 			var check = $("#checkall").prop("checked");
 			if (check) {
-				$("input[name=userid]").prop("checked", true);
+				$("input[name=useridchk]").prop("checked", true);
 			} else {
-				$("input[name=userid]").prop("checked", false);
+				$("input[name=useridchk]").prop("checked", false);
 			}
 		});
-		$("input[name=userid]").click(function() {
+		$("input[name=useridchk]").click(function() {
 			$("#checkall").prop("checked", false);
 		});
 
 		$("#blackpop").click(function() {
-			$("#popdiv").css("display", "block");
+			$("#popdiv").fadeIn(100);
 		});
 		$("#blackclose").click(function() {
-			$("#popdiv").css("display", "none");
+			$("#popdiv").fadeOut(100);
 		});
 		$("#quitpop").click(function() {
-			$("#quitdiv").css("display", "block");
+			$("#quitdiv").fadeIn(100);
 		});
 		$("#quitclose").click(function() {
-			$("#quitdiv").css("display", "none");
+			$("#quitdiv").fadeOut(100);
 		});
-		
+		var adminid = $("input[name=adminid]").val();
 		$("#blackok").click(function() {
-					if ($("input[name=userid]:checked").length > 0) {
+					if ($("input[name=useridchk]:checked").length > 0) {
 						if($("input[name=blackreason]:checked").length > 0){
 						var confirm_del = confirm("해당 사용자를 블랙리스트로 등록 하시겠습니까?");
 						
 						if (confirm_del) {
 							var checkArr = [];
-							$("input[name=userid]:checked").each(function() {
+							$("input[name=useridchk]:checked").each(function() {
 								checkArr.push($(this).val());
 							});
 							console.log(checkArr);
-							console.log($("input[name=userid]:checked").val());
+							console.log($("input[name=useridchk]:checked").val());
 							var blackreason = $("input[name=blackreason]:checked").val();
 							if(blackreason == 'etc'){
 								blackreason = $("#etcreason").val();
 							}
 							console.log(blackreason);
-							var data = { userid : checkArr, blackend : $("#blackend").val(), blackreason : blackreason};
+							var data = { userid : checkArr, blackend : $("#blackend").val(), blackreason : blackreason, adminid: adminid};
 							console.log(data);
 							$.ajax({
 								url : "insertblack.do",
@@ -154,23 +154,21 @@ var thclicked = "normal";
 					}
 				});
 		$("#quitok").click(function() { 
-			if ($("input[name=userid]:checked").length > 0) { 
+			if ($("input[name=useridchk]:checked").length > 0) { 
 				if($("input[name=quitreason]:checked").length > 0){ 
-				var confirm_del = confirm("해당 탈퇴시키겠습니까?");
+				var confirm_del = confirm("해당 회원을 탈퇴시키겠습니까?");
 		
 				if (confirm_del) {
 					var checkArr = [];
-					$("input[name=userid]:checked").each(function() {
+					$("input[name=useridchk]:checked").each(function() {
 						checkArr.push($(this).val()); 
 					});
-					console.log(checkArr);
-					console.log($("input[name=userid]:checked").val());
-					var blackreason = $("input[name=quitreason]:checked").val();
-					if(blackreason == 'etc'){
-						blackreason = $("#quitetcreason").val();
+					console.log($("input[name=useridchk]:checked").val());
+					var quitreason = $("input[name=quitreason]:checked").val();
+					if(quitreason == 'etc'){
+						quitreason = $("#quitetcreason").val();
 					}
-					console.log(blackreason);
-					var data = { userid : checkArr, quitreason : blackreason};
+					var data = { userid : checkArr, quitreason : quitreason };
 					console.log(data);
 					$.ajax({
 						url : "adminquit.do",
@@ -377,6 +375,7 @@ var thclicked = "normal";
 		</div>
 		<br>
 		<div>
+		<input type="hidden" name="adminid" value="${ sessionScope.loginUser.userid }">
 			<div class="ui small basic buttons">
 				<a href="userm.do?usertype=&order=idd&page=1"><div class="ui button order" id="allbtn">전체회원</div></a>
 				<c:if test="${ !fn:contains(usermuri, 'usertype') }">
@@ -444,7 +443,7 @@ var thclicked = "normal";
 					<tr>
 						<td>
 							<div class="ui fitted checkbox">
-								<input type="checkbox" name="userid" value="${ userm.userid }"> <label></label>
+								<input type="checkbox" name="useridchk" value="${ userm.userid }"> <label></label>
 							</div>
 						</td>
 						<c:if test="${ userm.blackyn eq 'Y' }">
@@ -464,7 +463,7 @@ var thclicked = "normal";
 							<td></td>
 						</c:if>
 						<c:if test="${ userm.quityn eq 'Y' }">
-							<td><i class="check icon"  style="margin-left: 20px;"></i></td>
+							<td align="center">&nbsp;&nbsp;&nbsp;<i class="check icon"  style="margin-left: 20px;"></i></td>
 						</c:if>
 						<c:if test="${ userm.reportcount eq 0}">
 							<td>${ userm.reportcount }</td>
@@ -528,7 +527,8 @@ var thclicked = "normal";
 		<a href="${ usermuri }&page=${ endPage }" class="item"><i class="angle double right icon"></i></a>
 		</c:if>
 	</div>
-	</div></div>
+	</div>
+	</div>
 	
 	<c:import url="../footer.jsp"/>
 </body>

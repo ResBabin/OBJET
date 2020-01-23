@@ -164,14 +164,17 @@ public class UserManagementController {
 	
 	@RequestMapping(value="insertblack.do", method=RequestMethod.POST)
 	public void insertBlackList(String order, HttpServletResponse response, HttpServletRequest request) throws IOException {
-		Map<String, String> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<>();
 		String[] useridArray = request.getParameterValues("userid");
-		int result = 0, result2 = 0, result3 = 0;
+		int result = 0, result2 = 0, result3 = 0, result4 = 0;
 		for(String userid : useridArray) {
 			map.put("userid", userid);
 			map.put("blackend", request.getParameter("blackend"));
 			map.put("blackreason", request.getParameter("blackreason"));
+			map.put("artistid", request.getParameter("userid"));
+			map.put("adminid", request.getParameter("adminid"));
 			result2 = usermService.updateBlackYN(userid);
+			result4 = usermService.insertBlackFeed(map);
 			if(usermService.selectBlacklist().toString().contains(userid)) {
 				result3 = usermService.updateBlackDate(map);
 			}else {
@@ -188,10 +191,11 @@ public class UserManagementController {
 	}
 	
 	@RequestMapping(value="adminquit.do", method=RequestMethod.POST)
-	public void updateQuitYN(String order, HttpServletResponse response, HttpServletRequest request) throws IOException {
+	public void updateQuitYN(HttpServletResponse response, HttpServletRequest request) throws IOException {
 		Map<String, String> map = new HashMap<>();
 		String[] useridArray = request.getParameterValues("userid");
 		int result = 0, result2 = 0;
+			
 		for(String userid : useridArray) {
 			map.put("userid", userid);
 			map.put("quitreason", request.getParameter("quitreason"));
@@ -211,11 +215,13 @@ public class UserManagementController {
 	public void deleteBlackList(String order, HttpServletResponse response, HttpServletRequest request) throws IOException {
 		Map<String, String> map = new HashMap<>();
 		String[] useridArray = request.getParameterValues("userid");
-		int result = 0, result2 = 0;
+		int result = 0, result2 = 0, result3 = 0;
 		for(String userid : useridArray) {
 			map.put("userid", userid);
+			map.put("adminid", request.getParameter("adminid"));
 			result = usermService.deleteBlackList(userid);
 			result2 = usermService.updateBlackEnd(userid);
+			result3 = usermService.insertBlackEndFeed(map);
 		}
 		PrintWriter out = response.getWriter();
 		if(result > 0 && result2 > 0) {

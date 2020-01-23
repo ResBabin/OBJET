@@ -480,7 +480,7 @@ width: 190px;
 </div>
 </c:if>
 </header>
-<audio autoplay id="bgm"> 
+<audio id="bgm"> 
 <source src="resources/media/Soulitune.mp3" type="audio/mp3"> 
 </audio>
 </body>

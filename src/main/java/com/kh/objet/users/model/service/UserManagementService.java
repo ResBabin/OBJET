@@ -25,18 +25,21 @@ public interface UserManagementService {
 	public int insertLoginCount();
 	public String selectLoginDate();
 	public List<Users> selectEnrollCount();
-	public int insertBlackList(Map<String, String> map);
+	public int insertBlackList(Map<String, Object> map);
 	public int updateBlackYN(String userid);
 	public int updateQuitYN(Map<String, String> map);
 	public int insertQuit (Map<String, String> map);
 	public int deleteBlackList(String userid);
 	public int updateBlackEnd(String userid);
 	public List<UserManagement> selectUserOrder(Map<String, String> map);
-	public int updateBlackDate(Map<String, String> map);
+	public int updateBlackDate(Map<String, Object> map);
 	public int selectUserListCount(Map<String, String> map);
 	public List<String> selectUserEnrollDate();
 	public int selectBlacklistCount();
 	public int updateRequestStatus(Map<String, String> map);
 	public int selectStatusOrderList(Map<String, String> map);
+	public List<LoginCount> selectTodayCount();
+	public int insertBlackFeed(Map<String, Object> map);
+	public int insertBlackEndFeed(Map<String, String> map);
 
 }

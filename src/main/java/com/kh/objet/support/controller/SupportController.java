@@ -29,6 +29,7 @@ import com.kh.objet.support.model.vo.ApplySupport;
 import com.kh.objet.support.model.vo.MySupport;
 import com.kh.objet.support.model.vo.RequestSupport;
 import com.kh.objet.users.model.vo.Users;
+import com.kh.objet.usersprofile.model.service.UsersProfileService;
 
 
 @Controller
@@ -91,14 +92,22 @@ public class SupportController {
 	// 후원하기
 	@RequestMapping("insertSupport.do")
 	public void insertSupport(MySupport mysupport, HttpServletResponse response) throws IOException {
-		int result = supportService.insertSupport(mysupport);
+		int result1 = supportService.insertSupport(mysupport);
+		// 피드추가용 닉네임가져오기
+		String sptnickname = supportService.selectartistnickname(mysupport.getSptid());
+		// 후원 시 피드 알림 추가
+		Feed feed = new Feed();
+		feed.setArtistid(mysupport.getArtistid());
+		feed.setUserid(mysupport.getSptid());
+		feed.setFeedcontent(sptnickname + "님이 회원님께 " + mysupport.getSptamount() + "원을 후원하셨습니다.");
+		int result2 = feedService.insertFeed(feed);
 		
 		String returnValue = null;
-		if(result > 0) {
-			logger.debug("후원 테이블 추가 성공");
+		if(result1 > 0 && result2 > 0) {
+			logger.debug("후원 테이블&피드알림 테이블 추가 성공");
 			returnValue = "ok";
 		}else {
-			logger.debug("후원 테이블 추가 실패");
+			logger.debug("후원 테이블&피드알림 테이블 추가 실패");
 			returnValue = "fail";
 		}
 		
@@ -522,6 +531,7 @@ public class SupportController {
 		}
 		
 		
+		// 감사메시지 페이지로 이동
 		@RequestMapping(value="moveThnanksmsg.do")
 		public String moveThnanksmsg(@RequestParam(value="artistid") String artistid, Model model) {
 			String thanksmsg = supportService.selectThanksmsg(artistid);
@@ -729,48 +739,48 @@ public class SupportController {
 		}
 		
 		// 정산현황 검색
-				@RequestMapping("supportRequestSearchm.do")
-				public String supportRequestSearchm(@RequestParam(value="currentPage") String currentPage, @RequestParam(value="artistid") String artistid, 
-						@RequestParam(value="requestyear") String requestyear, @RequestParam(value="requestmonth") String requestmonth, @RequestParam(value="sptstatus") String sptstatus,Model model) {
-					String vfn = "admin/supportRequestListManagement";
-					
-					//페이징처리 
-					int curPage = Integer.valueOf(currentPage);
-					
-					// HashMap 객체 생성
-					HashMap<String, Object> map = new HashMap<String, Object>();
-					map.put("artistid", artistid);
-					map.put("requestyear", requestyear);
-					map.put("requestmonth", requestmonth);
-					map.put("sptstatus", sptstatus);
-					
-					int listCount = supportService.supportRequestSearchmListCountm(map);
-					paging.makePage(listCount, curPage);
-					
-					
+		@RequestMapping("supportRequestSearchm.do")
+		public String supportRequestSearchm(@RequestParam(value="currentPage") String currentPage, @RequestParam(value="artistid") String artistid, 
+				@RequestParam(value="requestyear") String requestyear, @RequestParam(value="requestmonth") String requestmonth, @RequestParam(value="sptstatus") String sptstatus,Model model) {
+			String vfn = "admin/supportRequestListManagement";
+			
+			//페이징처리 
+			int curPage = Integer.valueOf(currentPage);
+			
+			// HashMap 객체 생성
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("artistid", artistid);
+			map.put("requestyear", requestyear);
+			map.put("requestmonth", requestmonth);
+			map.put("sptstatus", sptstatus);
+			
+			int listCount = supportService.supportRequestSearchmListCountm(map);
+			paging.makePage(listCount, curPage);
+			
+			
 
-					map.put("startRow", paging.getStartRow());
-					map.put("endRow", paging.getEndRow());
+			map.put("startRow", paging.getStartRow());
+			map.put("endRow", paging.getEndRow());
 
-					
-					List<RequestSupport> list = supportService.supportRequestSearchm(map);
-					
-					if(list.size() >= 0) {
-						model.addAttribute("listCount", listCount);
-						model.addAttribute("list", list);
-						model.addAttribute("artistid", artistid);
-						model.addAttribute("requestyear", requestyear);
-						model.addAttribute("requestmonth", requestmonth);
-						model.addAttribute("sptstatus", sptstatus);
-						model.addAttribute("paging", paging);
-						model.addAttribute("kind", "search");
-					}else {
-						model.addAttribute("message", "후원 전체현황 로딩 실패!");
-						vfn = "common/error";
-					}
-					
-					return vfn;
-				}
+			
+			List<RequestSupport> list = supportService.supportRequestSearchm(map);
+			
+			if(list.size() >= 0) {
+				model.addAttribute("listCount", listCount);
+				model.addAttribute("list", list);
+				model.addAttribute("artistid", artistid);
+				model.addAttribute("requestyear", requestyear);
+				model.addAttribute("requestmonth", requestmonth);
+				model.addAttribute("sptstatus", sptstatus);
+				model.addAttribute("paging", paging);
+				model.addAttribute("kind", "search");
+			}else {
+				model.addAttribute("message", "후원 전체현황 로딩 실패!");
+				vfn = "common/error";
+			}
+			
+			return vfn;
+		}
 				
 		
 		
