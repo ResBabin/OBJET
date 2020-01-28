@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+   <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+   <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,9 +52,9 @@ background-color:;
 .paging{text-align: center;margin-top: 30px;}
 
 .page{border: 1px solid black; background: black;
-   	   color: white; padding: 3px 10px 3px 10px; border-radius: 6px;font-weight: bold;}
+         color: white; padding: 3px 10px 3px 10px; border-radius: 6px;font-weight: bold;}
 .pre_page, .next_page{border: 1px solid rgb(244, 244, 244); background: rgb(244, 244, 244);
-   	   color: #3e3e3e; padding: 3px 10px 3px 10px; border-radius: 6px;font-weight: bold;    display: inline-block;}
+         color: #3e3e3e; padding: 3px 10px 3px 10px; border-radius: 6px;font-weight: bold;    display: inline-block;}
         
 * {padding: 0; margin: 0;}
 /* body {background: #1a237e;} */
@@ -166,42 +166,41 @@ border-left: 2px black solid;
 <body>
 <%-- <c:import url="../search.jsp" /> --%>
 
-		<!-- 검색창시작 -->
-	<div align="center">
-			<div class="NoticeSearchBox" style="height: 130px;">
-			<form action="selectNoticeSearchList.do" method="post">
-	 <a class="ui large black label" >제목</a>&ensp;
-					<div class="ui input"><input type="text" name="search" style="width:340px; height:30px;"></div>&ensp;
-			 <br><br>
-				<a class="ui large black label">분류</a>&emsp;&emsp;
-				
-				 <input type="radio" name="searchtype" value="all" checked><label>전체</label>&emsp;&emsp; 
-				 <input type="radio" name="searchtype" value="a"><label>&ensp;일반</label>&emsp;&emsp;
-					<input type="radio" name="searchtype" value="b"><label>&ensp;전시</label>&emsp;&emsp; 
-					<input type="radio" name="searchtype" value="c"><label>&ensp;회원</label>&emsp;&emsp;&emsp;
-					<div class="ui buttons"><button class="ui middle black button" type="submit">검색</button></div> 
-				
-			</form>
+      <!-- 검색창시작 -->
+   <div align="center">
+         <div class="NoticeSearchBox" style="height: 130px;">
+         <form action="selectNoticeSearchList.do" method="post">
+    <a class="ui large black label" >제목</a>&ensp;
+               <div class="ui input"><input type="text" name="search" style="width:340px; height:30px;"></div>&ensp;
+          <br><br>
+            <a class="ui large black label">분류</a>&emsp;&emsp;
+           <input type="radio" name="searchtype" value="all" checked><label>전체</label>&emsp;&emsp; 
+             <input type="radio" name="searchtype" value="일반"><label>&ensp;일반</label>&emsp;&emsp;
+               <input type="radio" name="searchtype" value="전시"><label>&ensp;전시</label>&emsp;&emsp; 
+               <input type="radio" name="searchtype" value="회원"><label>&ensp;회원</label>&emsp;&emsp;&emsp;
+               <div class="ui buttons"><button class="ui middle black button" type="submit">검색</button></div> 
+            
+         </form>
 <!-- 탭메뉴 -->
 
-	       </div>
-	       			<c:if test= "${loginUser.usertype ne 'USER'}"> 
-					<div class="adminwrite"><button class="ui middle black button" onclick="location.href='insertNotice.do'">
-		<i class="edit outline icon"></i>공지사항 작성</button> </div> </c:if>
-			 <c:if test= "${loginUser.usertype eq 'USER'}"> 
-					<div class="adminwrite"><button class="ui middle black button">
-		<i class="edit outline icon"></i>공지사항</button> </div> </c:if>
-			 
-		</div>  
-		<!-- 검색창 끝 -->
+          </div>
+                   <c:if test= "${loginUser.usertype ne 'USER'}"> 
+               <div class="adminwrite"><button class="ui middle black button" onclick="location.href='insertNotice.do'">
+      <i class="edit outline icon"></i>공지사항 작성</button> </div> </c:if>
+          <c:if test= "${loginUser.usertype eq 'USER'}"> 
+               <div class="adminwrite"><button class="ui middle black button">
+      <i class="edit outline icon"></i>공지사항</button> </div> </c:if>
+          
+      </div>  
+      <!-- 검색창 끝 -->
 
-		
+      
 <c:forEach var="notice" items="${requestScope.list }"> 
 <c:url var="ndt" value="noticeprenext.do">
-	<c:param name="noticeno" value="${notice.noticeno}" />
-									
-									</c:url>	
-	<div class="effect-wrap">
+   <c:param name="noticeno" value="${notice.noticeno}" />
+                           
+                           </c:url>   
+   <div class="effect-wrap">
     <figure class="effect6">
           <div class="box-wrap">
     <div class="box">
@@ -216,14 +215,14 @@ border-left: 2px black solid;
             </p>
         </div>
         </div>
-      </div>	
+      </div>   
         <figcaption>
           
            <h3><a href="${ ndt } " class="notice-item">공지사항<em>더보기</em></a></h3>
          
         </figcaption>
     </figure>
-		</div>					
+      </div>               
  </c:forEach>
   
 <div class="paging">
@@ -232,10 +231,10 @@ border-left: 2px black solid;
 <c:if test="${requestScope.currentPage gt 1 }"><a href="selectNoticeList.do"><p class="pre_page"><<</p></a></c:if>
 
 <c:forEach var="p" begin="${requestScope.startPage }" end="${requestScope.endPage }" step="1">
-	<c:if test="${p eq requestScope.currentPage }">		
-		<font><b class="page">${ p }</b></font>
-	</c:if>
-	<c:if test="${p ne requestScope.currentPage }"><a href="selectNoticeList.do?page=${ p }"><p class="pre_page" style="margin:0px 2px 0px 2px">${ p }</p></a></c:if>
+   <c:if test="${p eq requestScope.currentPage }">      
+      <font><b class="page">${ p }</b></font>
+   </c:if>
+   <c:if test="${p ne requestScope.currentPage }"><a href="selectNoticeList.do?page=${ p }"><p class="pre_page" style="margin:0px 2px 0px 2px">${ p }</p></a></c:if>
 </c:forEach>
 
 <!-- 맨 마지막페이지 -->

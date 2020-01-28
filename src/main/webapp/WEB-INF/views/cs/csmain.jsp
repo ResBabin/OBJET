@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="UTF-8"%>
-     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
       
 <!DOCTYPE html>
 <html>
@@ -571,7 +573,7 @@ color: white;
       	</c:url>
         <li>
           <a href="${ndt}" class="js-white">[${notice.noticetype}] ${notice.noticetitle}</a>
-          <span class="js-white">2016-12-29</span>
+          <span class="js-white"><fmt:formatDate value="${notice.noticedate}" type="date"/></span>
         </li>
         </c:forEach>
       </ol>
