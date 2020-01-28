@@ -263,5 +263,8 @@
 		adminid = #{adminid}, sptstatus = #{sptstatus}, sptdonedate = sysdate where artistid = #{artistid}
 	</update>
 	
+	<select id="selectCountSupporter" parameterType="String" resultType="int">
+		select nvl(count(distinct(sptid)),0) sptid from mysupport where artistid= #{artistid}
+	</select>
 	
 </mapper>

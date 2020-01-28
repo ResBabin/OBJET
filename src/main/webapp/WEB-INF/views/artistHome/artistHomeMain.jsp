@@ -476,9 +476,6 @@ function deleteFollowing(){
 		 	<c:if test="${usersProfile.userid == loginUser.userid }">
 			<div align="center"><button class="mainBtn" id="editArtistIntro" onclick="location.href='moveArtistIntroEdit.do?userid=${loginUser.userid}'">작가소개 수정</button></div>
 			</c:if>
-			<c:if test="${usersProfile.userid != loginUser.userid }">
-			<div align="center"><button class="mainBtn" id="editArtistIntro" onclick="">전시일정 보기</button></div>
-			</c:if>
 			<br><br>
 			</div>
 				

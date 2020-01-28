@@ -227,6 +227,11 @@ public class SupportServiceImpl implements SupportService{
 		return supportDao.supportRequestSearchm(map);
 	}
 
+	@Override
+	public int selectCountSupporter(String artistid) {
+		return supportDao.selectCountSupporter(artistid);
+	}
+
 	
 
 

@@ -188,6 +188,10 @@ public class SupportDao {
 		return mybatisSession.selectList("supportMapper.supportRequestSearchm", map);
 	}
 
+	public int selectCountSupporter(String artistid) {
+		return mybatisSession.selectOne("supportMapper.selectCountSupporter", artistid);
+	}
+
 
 	
 
