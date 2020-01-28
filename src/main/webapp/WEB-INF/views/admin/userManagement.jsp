@@ -21,7 +21,7 @@
 <style type="text/css">
 #um {
 	padding: 150px;
-	padding-top: 50px;
+	padding-top: 30px;
 }
 
 #popdiv {
@@ -82,8 +82,6 @@ textarea {
 <script type="text/javascript">
 var thclicked = "normal";
 	$(function() {
-		
-		
 		$("#checkall").click(function() {
 			var check = $("#checkall").prop("checked");
 			if (check) {
@@ -134,7 +132,7 @@ var thclicked = "normal";
 								type : "post",
 								success : function(result) {
 									console.log(result);
-									  location.href = "userm.do";
+									  location.href = "userm.do?usertype=&order=idd&page=1";
 								},
 								traditional : true,
 								error : function(request, status, errorData) {
@@ -264,14 +262,14 @@ var thclicked = "normal";
 		$("input[name=userid]").hide();
 		
 		$("#searchuserid").click(function() { 
-		$("input[name=searchnick]").hide();
-		$("input[name=searchnick]").val("");
+		$("input[name=nickname]").hide();
+		$("input[name=nickname]").val("");
 		$("input[name=userid]").show();
 		});
 		$("#searchnick").click(function() {
 		$("input[name=userid]").hide();
 		$("input[name=userid]").val(""); 
-		$("input[name=searchnick]").show();
+		$("input[name=nickname]").show();
 		});
 
 	});

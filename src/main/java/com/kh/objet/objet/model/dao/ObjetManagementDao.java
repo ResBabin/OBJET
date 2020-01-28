@@ -22,9 +22,7 @@ public class ObjetManagementDao {
 	public ObjetManagement selectObjetOne(int objetno) {
 		return mybatisSession.selectOne("adminMapper.selectObjetOne", objetno);
 	}
-	public List<Objet> selectObjetRequestManage() {
-		return mybatisSession.selectList("adminMapper.selectObjetRequestList");
-	}
+	
 	public List<Objet> selectObjetReqMain() {
 		return mybatisSession.selectList("adminMapper.selectObjetReqMain");
 	}
@@ -48,6 +46,15 @@ public class ObjetManagementDao {
 	}
 	public int selectBeforeStart() {
 		return mybatisSession.selectOne("adminMapper.selectBeforeStart");
+	}
+	public int selectObjetRequestList(Map<String, String> map) {
+		return mybatisSession.selectOne("adminMapper.selectObjetRequestCount", map);
+	}
+	public List<Objet> selectObjetRequestManage(Map<String, String> map) {
+		return mybatisSession.selectList("adminMapper.selectObjetRequestList", map);
+	}
+	public List<Objet> selectObjetRequestManage() {
+		return mybatisSession.selectList("adminMapper.selectObjetRequestList2");
 	}
 
 }

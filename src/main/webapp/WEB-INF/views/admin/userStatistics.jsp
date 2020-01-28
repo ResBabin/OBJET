@@ -376,7 +376,7 @@ $(function() {
 	    		],
 	        datasets: [
 	        	{
-	    			label: '년도별 가입 합계',
+	    			label: '연도별 가입 합계',
 	            	data:  [ '${ enrollyearsum.get(4).enrollcount }', '${ enrollyearsum.get(3).enrollcount }',
 	    	    		'${ enrollyearsum.get(2).enrollcount }', '${ enrollyearsum.get(1).enrollcount }', '${ enrollyearsum.get(0).enrollcount }'
 	    	    		],
@@ -491,7 +491,7 @@ $(function() {
 <font size="5">회원 가입 합계</font><br><br>
  주별 회원 가입 합계<canvas id="myChart9" width="500" height="100" ></canvas><br>
  월별 회원 가입 합계<canvas id="myChart7" width="500" height="100" ></canvas><br> 
- 년도별 회원 가입 합계<canvas id="myChart8" width="500" height="100" ></canvas><br>
+ 연도별 회원 가입 합계<canvas id="myChart8" width="500" height="100" ></canvas><br>
 </div>
 </div>
 </div>

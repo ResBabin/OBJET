@@ -19,7 +19,7 @@
 <style type="text/css">
 #um {
 	padding: 150px;
-	padding-top: 100px;
+	padding-top: 50px;
 }
 
 table {
@@ -33,8 +33,8 @@ table {
 	border: 1px solid #ccc;
 	width: 500px;
 	height: 415px;
-	left: 35%;
-	top: 40%; 
+	left: 32%;
+	top: 30%; 
 	border-radius: 5px;
 	padding: 30px;
 	box-shadow: 1px 1px 2px #999;
@@ -73,12 +73,12 @@ textarea {
 		$("#checkall").click(function() {
 			var check = $("#checkall").prop("checked");
 			if (check) {
-				$("input[name=userid]").prop("checked", true);
+				$("input[name=useridchk]").prop("checked", true);
 			} else {
-				$("input[name=userid]").prop("checked", false);
+				$("input[name=useridchk]").prop("checked", false);
 			}
 		});
-		$("input[name=userid]").click(function() {
+		$("input[name=useridchk]").click(function() {
 			$("#checkall").prop("checked", false);
 		});
 
@@ -92,7 +92,7 @@ textarea {
 			console.log($("#thuserida").attr('id'));
 		});*/
 		
-		var clickid = 0, clicknick = 0, clickname = 0, clickstart = 0, clickend = 0;
+	/* 	var clickid = 0, clicknick = 0, clickname = 0, clickstart = 0, clickend = 0;
 		
 		$("#thuserid").click(function() {
 			if(clickid%2 == 0){
@@ -168,8 +168,8 @@ textarea {
 				clickend += 1;
 				clicknick = 0, clickname = 0, clickstart = 0, clickid = 0;
 			}
-		});
-		function thorder(order) {
+		}); */
+/* 		function thorder(order) {
 			$.ajax({
 						url : "userbkorder.do",
 						data : {
@@ -208,24 +208,25 @@ textarea {
 									+ "\nError : " + errorData);
 						}
 					});
-		}
+		} */
 		
+		var adminid = $("input[name=adminid]").val();
 		$("#endok").click(function() {
-			if ($("input[name=userid]:checked").length > 0) {
+			if ($("input[name=useridchk]:checked").length > 0) {
 				var confirm_del = confirm("해당 사용자를 블랙리스트에서 해제하시겠습니까?");
 				
 				if (confirm_del) {
 					var checkArr = [];
-					$("input[name=userid]:checked").each(function() {
+					$("input[name=useridchk]:checked").each(function() {
 						checkArr.push($(this).val());
 					});
 					$.ajax({
 						url : "blackend.do",
-						data : {userid : checkArr},
+						data : {userid : checkArr, adminid : adminid},
 						type : "post",
 						success : function(result) {
 							console.log(result);
-							  location.href = "userbk.do";
+							  location.href =  location.href;
 						},
 						traditional : true,
 						error : function(request, status, errorData) {
@@ -250,17 +251,17 @@ textarea {
 		
 		
 		$("#quitok").click(function() { 
-			if ($("input[name=userid]:checked").length > 0) { 
+			if ($("input[name=useridchk]:checked").length > 0) { 
 				if($("input[name=quitreason]:checked").length > 0){ 
 				var confirm_del = confirm("해당 탈퇴시키겠습니까?");
 		
 				if (confirm_del) {
 					var checkArr = [];
-					$("input[name=userid]:checked").each(function() {
+					$("input[name=useridchk]:checked").each(function() {
 						checkArr.push($(this).val()); 
 					});
 					console.log(checkArr);
-					console.log($("input[name=userid]:checked").val());
+					console.log($("input[name=useridchk]:checked").val());
 					var blackreason = $("input[name=quitreason]:checked").val();
 					if(blackreason == 'etc'){
 						blackreason = $("#quitetcreason").val();
@@ -274,7 +275,7 @@ textarea {
 						type : "post",
 						success : function(result) {
 							console.log(result);
-							  location.href = "userbk.do";
+							  location.href = location.href ;
 						},
 						traditional : true,
 						error : function(request, status, errorData) {
@@ -293,8 +294,20 @@ textarea {
 				alert("사용자를 선택해주세요.");
 			}
 		});
+		$('.dropdown').dropdown({});
+		$("input[name=userid]").hide();
 		
-		
+		$("#searchuserid").click(function() { 
+		$("input[name=nickname]").hide();
+		$("input[name=nickname]").val("");
+		$("input[name=userid]").show();
+		});
+		$("#searchnick").click(function() {
+		$("input[name=userid]").hide();
+		$("input[name=userid]").val(""); 
+		$("input[name=nickname]").show();
+		});
+
 		
 		
 	});
@@ -316,23 +329,30 @@ textarea {
 		<button class="ui grey button" id="quitok">등록</button> &nbsp;&nbsp;&nbsp;
 		<button class="ui button" id="quitclose">취소</button>
 		</div>
-		
+		<input type="hidden" value="${ sessionScope.loginUser.userid }" name="adminid">
 	</div>
-		<div align="right">
-			<div class="ui small basic buttons">
-				<div class="ui button">전체</div>
-				<div class="ui button">회원ID</div>
-				<div class="ui button">닉네임</div>
-				<div class="ui button active">이름</div>
-			</div>
-			&nbsp;
-			<div class="ui small icon input">
-				<input type="search" placeholder="회원 검색"> <i
-					class="search icon"></i>
-			</div>
-			<br>
-			<div></div>
-		</div>
+	<div align="right">
+		<form action="userbk.do" method="get">
+				<input type="submit" class="ui basic button" value="검색">
+				<div class="ui right action left icon input">
+					<i class="search icon"></i>
+					<input type="search" placeholder="닉네임 검색" name="nickname"> 
+					<input type="search" placeholder="아이디 검색" name="userid"> 
+					<input type="hidden" value="1" name="page">
+					<!-- <input type="hidden" value="" name="usertype">
+					<input type="hidden" value="" name="blackyn">
+					<input type="hidden" value="" name="quityn"> -->
+					<div class="ui basic floating dropdown button">
+						<div class="text">닉네임</div>
+						<i class="dropdown icon"></i>
+						<div class="menu">
+							<div class="item" id="searchnick">닉네임</div>
+							<div class="item" id="searchuserid">아이디</div> 
+						</div>
+					</div>
+				</div>
+			</form>
+	</div>
 <%-- 			<div align="center" 
 			style="padding: 20px; font-family:'Nanum Gothic'; font-size: 14pt; margin-bottom: -16px; background: black; color: white;">
 	블랙리스트 회원 : ${ bklist.size() } 명</div>  --%><br> 
@@ -360,7 +380,7 @@ textarea {
 					</c:url>
 					<tr>
 						<td>
-							<div class="ui fitted checkbox"><input type="checkbox" name="userid" value="${ userbk.userid }"> <label></label></div>
+							<div class="ui fitted checkbox"><input type="checkbox" name="useridchk" value="${ userbk.userid }"> <label></label></div>
 						</td>
 						<td><i class="small icons" style="bottom: 3px;"> <i
 								class="big red dont icon" style="margin-right: 0px;"></i> <i

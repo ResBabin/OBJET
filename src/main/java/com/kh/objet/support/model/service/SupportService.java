@@ -52,4 +52,5 @@ public interface SupportService {
 	List<MySupport> supportSearchListm(HashMap<String, Object> map);
 	int supportRequestSearchmListCountm(HashMap<String, Object> map);
 	List<RequestSupport> supportRequestSearchm(HashMap<String, Object> map);
+	int selectCountSupporter(String artistid);
 }

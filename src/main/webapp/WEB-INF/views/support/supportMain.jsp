@@ -56,6 +56,16 @@
 	 
  }); // documentReady...
  
+
+ // 후원 공유하기
+ function share() {
+      var url = encodeURI(encodeURIComponent(myform.url.value));
+      var title = encodeURI(myform.title.value);
+      var shareURL = "https://share.naver.com/web/shareView.nhn?url=" + url + "&title=" + title;
+      document.location = shareURL;
+    }
+
+ 
  </script>
  <style type="text/css">
  
@@ -103,6 +113,8 @@
 	<div align="center">
 	<div class="supportheader"><i class="Medium quote left icon"></i>&ensp;${support.sptheader}&ensp;<i class="Medium quote right icon"></i></div>
 	<div class="supportintro">${fn:replace(support.sptintro, newLineN, "<br>")}</div>
+	<br>
+	<div style="font-size: 14pt; color:#aaa;">현재 <span style="color:#00d000; font-weight: 500;">${countsupporter}</span>명의 팬이 응원하고 있어요!</div>
 	</div>
 	<br><br><br>
 		<c:if test="${support.artistid ne loginUser.userid }">
@@ -132,6 +144,19 @@
 				<input type="button" class="mainBtn1" onclick="location.href='artistHomeMain.do?userid=${support.artistid}&loginUser=${loginUser.userid}'" value="작가홈이동"> &nbsp;
 			</div>
 	  	</c:if>
+	  	<br>
+	  	
+	  	<form id="myform">
+		   <input type="hidden" id="url" value="http://127.0.0.1:12345/objet/moveSupportManagement.do?artistid=${support.artistid }&sptid=${loginUser.userid}"><br/>
+		   <input type="hidden" id="title" value="오브제 작가 후원"><br/>
+ 		</form>
+			<div style="text-align: center; color:#aaa;">
+				<script type="text/javascript" src="https://ssl.pstatic.net/share/js/naver_sharebutton.js"></script>
+				<script type="text/javascript">
+				new ShareNaver.makeButton({"type": "c"});
+				</script>
+				<br>네이버로 공유
+			</div>
 	</c:if>
 	
 	<c:if test="${maintype == 2 }">

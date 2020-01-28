@@ -668,6 +668,7 @@ private String insertNoticeAd(Notice notice, Model model, HttpServletRequest req
 String adminid = request.getParameter("adminid");
 String noticetitle = request.getParameter("noticetitle");
 String noticecontent = request.getParameter("noticecontent");
+String noticetype = request.getParameter("noticetype");
 
 //새로 들어온 사진 이름 추출
 String newFileName = file.getOriginalFilename();
@@ -694,6 +695,7 @@ notice.setAdminid(adminid);
 notice.setNoticetitle(noticetitle);
 notice.setNoticecontent(noticecontent);
 notice.setNoticeofile(newFileName);
+notice.setNoticetype(noticetype);
 int result = noticeService.insertNoticeAd(notice);
 
 String view = "";

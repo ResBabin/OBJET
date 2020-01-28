@@ -32,8 +32,8 @@ public class UserManagementServiceImpl implements UserManagementService{
 	}
 
 	@Override
-	public List<UserManagement> selectBlacklistOrder(String order) {
-		return usermDao.selectBlacklistOrder(order);
+	public List<UserManagement> selectBlacklistOrder(Map<String, String> map) {
+		return usermDao.selectBlacklistOrder(map);
 	}
 
 	@Override
