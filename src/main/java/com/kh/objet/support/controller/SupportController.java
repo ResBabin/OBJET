@@ -58,6 +58,7 @@ public class SupportController {
 		ApplySupport support = supportService.selectSupport(artistid);
 		int countartist = supportService.selectCountArtist();
 		int countsupport = supportService.selectCountSupport();
+		int countsupporter = supportService.selectCountSupporter(artistid);
 		
 		// 작가가 자신의 작가홈에서 후원관리를 눌렀을 때
 		
@@ -65,6 +66,7 @@ public class SupportController {
 				// 후원 신청한 적이 있다면 -> 후원하기 페이지
 				model.addAttribute("maintype", "1");
 				model.addAttribute("support", support);
+				model.addAttribute("countsupporter", countsupporter);
 				model.addAttribute("artistid", artistid);
 			}else if(support == null) {
 				// 후원 신청한 적이 없다면-> 후원홍보 설정화면

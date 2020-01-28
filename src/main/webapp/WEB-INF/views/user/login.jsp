@@ -86,6 +86,11 @@
 		
 		    return false;
 		}
+		
+		function enroll(){
+			location.href='moveEnrollPage.do';
+			return false;
+		}
  </script>
 </head>
 <body>
@@ -115,9 +120,9 @@
         </div>
         <br><br><br><br>
         
-       <button class="ui black button" id="btnsub" onclick="sendit()" style="width:300px; height:40px; background: #4c4c4c;">로그인</button>
+       <button class="ui black button" id="btnsub" onclick="return sendit();" style="width:300px; height:40px; background: #4c4c4c;">로그인</button>
 	<br><br>
-		<button class="ui grey button" onclick="location.href='moveEnrollPage.do'" style="width:300px;height:40px; background: #aaa;">회원가입</button>
+		<button class="ui grey button" onclick="return enroll();" style="width:300px;height:40px; background: #aaa;">회원가입</button>
 	<br><br><br>
 
 	<!-- 네이버아이디로로그인 버튼 노출 영역 -->
