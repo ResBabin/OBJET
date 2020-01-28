@@ -12,14 +12,15 @@
 </head>
 <style>
 
+ a:visited { color:white; text-decoration: none;}
 
 
 /* 공지사항 */
 
 /* 공지사항 타이틀 */
- a {color: #fff; text-decoration: none; outline: none}
+ #search {color: #fff; text-decoration: none; outline: none}
 
- a:hover, a:active {text-decoration: none; color:#fff;}
+ #search:hover, #search:active {text-decoration: none; color:#fff;}
 
 
 .noticestart{
@@ -60,7 +61,7 @@ background-color:;
 .box-wrap {
 /* margin-bottom: 20px; */
 margin-top: 30px;
-margin-left: 30px;
+margin-left: 70px;
    box-shadow: 8px 8px 13px 5px rgba(0,0,0,0.3);
   width: 95%;
     height: 150px;
@@ -78,7 +79,7 @@ margin-left: 30px;
 } 
 .effect6 {
     position: relative;
-    width: 1300px; height: 200px;
+    width: 1300px; height: 190px;;
     background: #fff;
     overflow: hidden;
    /*  border: 7px solid #111;  */
@@ -141,33 +142,60 @@ margin-left: 1150px;
 }    
 .noticewrite{
 margin-left:1000px;
-}       
+}     
+.NoticeSearchBox{
+border-bottom: 3px solid black;
+width: 50.3%;
+
+} 
+.adminwrite{
+margin-top: -35.5px;
+margin-left: 690px;
+}
+.radiofont{
+font-size: 16px;
+width: 50%;
+border-left: 2px black solid;
+}
 </style>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+   <script type="text/javascript">
+  
+   </script>
 <body>
 <%-- <c:import url="../search.jsp" /> --%>
 
-<!-- 검색창 -->
+		<!-- 검색창시작 -->
+	<div align="center">
+			<div class="NoticeSearchBox" style="height: 130px;">
+			<form action="selectNoticeSearchList.do" method="post">
+	 <a class="ui large black label" >제목</a>&ensp;
+					<div class="ui input"><input type="text" name="search" style="width:340px; height:30px;"></div>&ensp;
+			 <br><br>
+				<a class="ui large black label">분류</a>&emsp;&emsp;
+				
+				 <input type="radio" name="searchtype" value="all" checked><label>전체</label>&emsp;&emsp; 
+				 <input type="radio" name="searchtype" value="a"><label>&ensp;일반</label>&emsp;&emsp;
+					<input type="radio" name="searchtype" value="b"><label>&ensp;전시</label>&emsp;&emsp; 
+					<input type="radio" name="searchtype" value="c"><label>&ensp;회원</label>&emsp;&emsp;&emsp;
+					<div class="ui buttons"><button class="ui middle black button" type="submit">검색</button></div> 
+				
+			</form>
+<!-- 탭메뉴 -->
 
-<div class="search">
-<form action="selectNoticeSearchList.do" method="post">
-<select class="searchmenu" name="searchmenu" style="border-radius:5px; width:60px; height:40px">
-     <option value="noticetitle">제목</option>
-     </select>
+	       </div>
+	       			<c:if test= "${loginUser.usertype ne 'USER'}"> 
+					<div class="adminwrite"><button class="ui middle black button" onclick="location.href='insertNotice.do'">
+		<i class="edit outline icon"></i>공지사항 작성</button> </div> </c:if>
+			 <c:if test= "${loginUser.usertype eq 'USER'}"> 
+					<div class="adminwrite"><button class="ui middle black button">
+		<i class="edit outline icon"></i>공지사항</button> </div> </c:if>
+			 
+		</div>  
+		<!-- 검색창 끝 -->
 
-<input placeholder="제목입력" name="search" style="border-radius:5px; width:180px; height:40px;">
-<input type="submit" value="검색" name="submit" style="border-radius:5px; width:60px; height:40px;">
-
-</form>
-</div>
-<!-- //검색창 -->
-
-
-<h1 align="center">공지사항 </h1><!-- 관리자한테만 보여질 글쓰기 버튼 -->
-<c:if test= "${loginUser.usertype ne 'USER'}">
-
-<a href="insertNotice.do"><button class= noticewrite>글쓰기</button></a>
- </c:if> 
-
+		
 <c:forEach var="notice" items="${requestScope.list }"> 
 <c:url var="ndt" value="noticeprenext.do">
 	<c:param name="noticeno" value="${notice.noticeno}" />
@@ -196,22 +224,12 @@ margin-left:1000px;
         </figcaption>
     </figure>
 		</div>					
-
-    
-    </c:forEach>
+ </c:forEach>
   
 <div class="paging">
 <!-- 맨 처음 페이지 -->
 <c:if test="${requestScope.currentPage le 1 }"><p class="pre_page"><<</p></c:if>
 <c:if test="${requestScope.currentPage gt 1 }"><a href="selectNoticeList.do"><p class="pre_page"><<</p></a></c:if>
-<!-- 이전 페이지 -->
-<%-- <c:if test="${(currentPage - 10) lt startPage and (currentPage - 10) gt 1 }">
-<a class="pre_page" href="selectNoticeList.do?page=${requestScope.startPage - 10 }"><p class="pre_page"><</p></a>
-</c:if> --%>
-<%-- <c:if test="${(currentPage - 10) ge startPage or (currentPage - 10) le 1 }">
-<p class="pre_page"><</p>
-</c:if>  --%>
-<!-- 현재 페이지가 포함된 그룹의 페이지 숫자 출력 -->
 
 <c:forEach var="p" begin="${requestScope.startPage }" end="${requestScope.endPage }" step="1">
 	<c:if test="${p eq requestScope.currentPage }">		
@@ -219,33 +237,14 @@ margin-left:1000px;
 	</c:if>
 	<c:if test="${p ne requestScope.currentPage }"><a href="selectNoticeList.do?page=${ p }"><p class="pre_page" style="margin:0px 2px 0px 2px">${ p }</p></a></c:if>
 </c:forEach>
-<!-- 다음 페이지 -->
-<%-- <c:if test="${(currentPage + 10) gt endPage and (currentPage + 10) lt maxPage }">
-	<a class="next_page" href="selectNoticeList.do?page=${requestScope.endPage + 10 }"><p class="next_page">></p></a>
-</c:if> --%>
-<%-- <c:if test="${(currentPage + 10) le endPage or (currentPage + 10) ge maxPage }">
-<p class="next_page">></p>
-</c:if> --%>
+
 <!-- 맨 마지막페이지 -->
 <c:if test="${currentPage ge maxPage }"><p class="next_page">>></p></c:if>
 <c:if test="${currentPage lt maxPage }"><a class="next_page" href="selectNoticeList.do?page=${ requestScope.maxPage }">>></a></c:if>  
 
 </div>
 <!-- //페이징 -->
-    
-   <!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/5e1eb3ef27773e0d832d9a56/default';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script--> 
+
 
 <c:import url="../footer.jsp" />
 </body>

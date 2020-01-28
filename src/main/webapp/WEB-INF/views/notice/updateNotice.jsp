@@ -84,13 +84,11 @@ margin-left: 500px;
 				  
 				  <th>첨부파일</th>
 					<td colspan="3">
-					첨부파일 &nbsp;&nbsp;
+				
                    <c:if test="${ empty notice.noticeofile }">첨부파일 없음</c:if>
                    <c:if test="${ !empty notice.noticeofile }">${ notice.noticeofile }</c:if>&nbsp;&nbsp;&nbsp;
                    <input type="file" name="upfile"> 
-					<div class="fileDiv">
-				<button type="button" class="delete" onclick="deleteFile('${file.ofilename}','${file.rfilename }','${notice.noticeno }')">삭제</button>
-					</div><br>
+					<br>
 
 <!-- 파일업로드 -->
 				  

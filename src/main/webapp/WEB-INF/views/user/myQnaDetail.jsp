@@ -78,7 +78,7 @@
 		
 		<br>
 		<div align="center">
-			<a href=".do"><button class="ui mini grey button">목록</button></a>
+			<a href="selectQnaList.do?userid=${loginUser.userid}"><button class="ui mini grey button">목록</button></a>
 			
 		</div>
 		<br>
