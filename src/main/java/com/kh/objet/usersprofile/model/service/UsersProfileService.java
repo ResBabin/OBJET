@@ -10,7 +10,6 @@ public interface UsersProfileService {
 	UAUP moveArtistHome(String userid);
 	UsersProfile moveArtistIntroEdit(String userid);
 	int updateArtistIntro(UsersProfile usersprofile);
-	Objet selectObjetColor(String userid);
 	
 
 }

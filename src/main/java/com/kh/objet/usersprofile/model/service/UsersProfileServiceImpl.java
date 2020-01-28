@@ -34,9 +34,4 @@ public class UsersProfileServiceImpl implements UsersProfileService{
 		return usersProfileDao.updateArtistIntro(usersprofile);
 	}
 
-	//작가 오브제 칼라
-	@Override
-	public Objet selectObjetColor(String userid) {
-		return usersProfileDao.selectObjetColor(userid);
-	}
 }

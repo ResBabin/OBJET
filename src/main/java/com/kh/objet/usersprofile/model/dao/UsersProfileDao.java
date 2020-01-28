@@ -32,8 +32,5 @@ public class UsersProfileDao {
 		return mybatisSession.update("userMapper.updateArtistIntro", usersprofile);
 	}
 
-	public Objet selectObjetColor(String userid) {
-		return mybatisSession.selectOne("objetMapper.selectObjetColor", userid);
-	}
 
 }
