@@ -139,6 +139,10 @@
 	        }
 		})
 	}//내 다녀온 오브제 삭제
+	
+	function cantSee(){
+		alert("전시 관람 불가")
+	}
 </script>
 <style>
   body {
@@ -228,7 +232,7 @@
 		<br>
 		<!-- 검색 결과 리스트 시작! -->
 		<div class="objetListSection2">
-		<div align="left" style="font-size: 10pt;">총<span style="font-weight: 700;">${ fn:length(visitedlist) }건</span>
+		<div align="left" style="font-size: 10pt;">총 <span style="font-weight: 700;">${ fn:length(visitedlist) } 건</span>
 		<button class="ui basic icon button" id="visit_objet_cal" style="float:right;margin-top:-7px;"><i class="calendar alternate outline icon"></i> 캘린더</button></div>
 		<br>
 		<c:if test="${ !empty visitedlist }">
@@ -239,7 +243,12 @@
 						<td><div class="ui checkbox"><input type="checkbox" name="objetno" value="${list.objetno }"><label></label></div></td>
 					</tr>
 					<tr>
-						<td><div class="eachObjetImg" style="background-image:url('resources/images/objet/${list.renamemainposter}') "></div></td>
+						<c:if test="${list.objetstatus != 'CLOSE' }">
+							<td><div class="eachObjetImg" style="background-image:url('resources/images/objet/${list.renamemainposter}') " onclick="location.href='objetOne.do?objetno=${list.objetno}&userid=${loginUser.userid }'"></div></td>
+						</c:if>
+						<c:if test="${list.objetstatus == 'CLOSE' }">
+							<td><div class="eachObjetImg" style="background-image:url('resources/images/objet/${list.renamemainposter}') " onclick="return cantSee();"></div></td>
+						</c:if>
 					</tr>
 						
 					<tr style="height:25px;">
@@ -259,6 +268,9 @@
 				</table>
 			</div>
 			</c:forEach>
+			</c:if>
+			<c:if test="${ empty visitedlist }">
+				<td colspan="6">다녀온 오브제가 없습니다.</td>
 			</c:if>
 			
 			<br><br>
