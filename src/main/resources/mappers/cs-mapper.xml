@@ -25,9 +25,7 @@
 <!-- Notice 검색 갯수 조회 -->
 <select  id="noticeSearchListCount" resultType="_int" parameterType="Hashmap">
 <![CDATA[
-select count(*) from notice where ${searchmenu}  like '%' || #{search} || '%'   
-
-                          
+select count(*) as count from notice                     
 ]]>
 </select>
 <!-- 공지사항 추가 -->
@@ -51,11 +49,31 @@ insert into notice values ((select max(noticeno) from notice) + 1, #{adminid},#{
 </select>
 
 
+
  <select id="selectNoticeType" resultType="Notice">
     select *
       from notice
       where noticetype ='일반'
    </select>
+   
+   <select id="selectNoticeType1" resultType="Notice">
+    select *
+      from notice
+      where noticetype ='전시'
+   </select>
+   
+   <select id="selectNoticeType2" resultType="Notice">
+    select *
+      from notice
+      where noticetype ='회원'
+   </select>
+   
+   
+     <select id="selectNoticeType3" resultType="Notice">
+    select *
+      from notice
+   </select>
+   
 
    <!-- 공지 상세 조회 -->
    <select id="selectNoticeDetail" resultType="Notice"
@@ -73,9 +91,15 @@ select *
               from (select *
                     from notice
                     order by noticedate desc))
-              where ${searchmenu}  like '%' || #{search} || '%'
-]]>
+              where noticetitle like '%' || #{search} || '%']]>
+<if test="searchtype.equals('all')"></if>
+<if test="searchtype.equals('a')"> and noticetype = '일반' </if>
+<if test="searchtype.equals('b')"> and noticetype = '전시' </if>
+<if test="searchtype.equals('c')"> and noticetype = '회원' </if>
+
 </select>
+
+
   <insert parameterType="Notice" id="insertNotice">
 insert into notice values (noticeno_seq.nextval,#{adminid},#{noticetype},#{noticetitle}, sysdate, #{noticecontent},
 
@@ -105,7 +129,7 @@ update notice set noticetype = #{noticetype}, noticetitle = #{noticetitle}, noti
    <select id="selectFaqList" resultType="Faq">
       select *
       from faq
-      order by faqno desc
+      order by faqno 
    </select>
 
     <!-- QnA 갯수 조회 -->
@@ -135,27 +159,6 @@ select *
       
 
 </select>
-<!-- 
-<select resultType="Qna" id="selectQnaSearchList" parameterType="Hashmap">
-
-
-             select * 
-      from (select rownum rnum, qnano, userid, adminid,qnatype, qnatitle, qnacontent, questiondate, qnaanswer, answerdate,qnaanswertype
-              from (select *
-                    from qna
-                 order by questiondate desc))
-          <![CDATA[   <if test="searchmenu == 'All'"> qnatitle  like '%' ||#{search}|| '%'</if>
-              select qnaanswertype from qna,
-<if test="searchmenu == 'Y'"> qnatitle  like '%' ||#{search}|| '%'</if>
-select qnaanswertype from qna
-where qnaanswertype ='Y'
-<if test="searchmenu == 'N'"> qnatitle  like '%' ||#{search}|| '%'</if>select qnaanswertype from qna
-where qnaanswertype ='N'
-       
-]]>        
-</select>
- -->
-
 
 
 
@@ -181,17 +184,7 @@ where qnaanswertype ='N'
       from qna
       where qnano = #{ value }
    </select>
- 
- 
-<!--  <insert parameterType="Qna" id="insertQna">
-insert into qna values (qnano_seq.nextval,#{userid},null,#{qnatype},#{qnatitle},#{qnacontent}, sysdate,null,null,
 
-<if test="qnaofile != null">#{qnaofile}</if>
-<if test="qnaofile == null">null</if>,
-<if test="qnarfile != null">#{qnarfile}</if>
-<if test="qnarfile == null">null</if>,
-default) 
- </insert>  -->
 
  <insert parameterType="Qna" id="insertQna">
 insert into qna values (qnano_seq.nextval,#{userid},null,#{qnatype},#{qnatitle},#{qnacontent}, sysdate,null,null,

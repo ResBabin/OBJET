@@ -74,6 +74,28 @@ public class NoticeServiceImpl implements NoticeService{
    public int deleteFile(Notice notice) {
       return noticeDao.deleteFile(notice);
    }
+   @Override
+   public List<Notice> selectNoticeType() {
+   	return noticeDao.selectNoticeType();
+   }
+
+
+   @Override
+   public List<Notice> selectNoticeType1() {
+		return noticeDao.selectNoticeType1();
+   }
+
+
+   @Override
+   public List<Notice> selectNoticeType2() {
+		return noticeDao.selectNoticeType2();
+   }
+
+@Override
+public List<Notice> selectNoticeType3() {
+	return noticeDao.selectNoticeType3();
+}
+
 
 
 /////////////////////////////////////////////////////////////////관리자//////////////////////////////////////////////////////////////////////////////////////
@@ -131,10 +153,8 @@ public ArrayList<Notice> selectNoticeListAd() {
 }
 
 
-@Override
-public List<Notice> selectNoticeType() {
-	return noticeDao.selectNoticeType();
-}
+
+
 
 
 

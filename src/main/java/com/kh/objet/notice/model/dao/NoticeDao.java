@@ -111,6 +111,17 @@ public List<Notice> selectNoticeType() {
 	return mybatisSession.selectList("csMapper.selectNoticeType");
 }
 
+public List<Notice> selectNoticeType1() {
+	return mybatisSession.selectList("csMapper.selectNoticeType1");
+}
+
+public List<Notice> selectNoticeType2() {
+	return mybatisSession.selectList("csMapper.selectNoticeType2");
+}
+
+public List<Notice> selectNoticeType3() {
+	return mybatisSession.selectList("csMapper.selectNoticeType3");
+}
 }
 
 

@@ -37,10 +37,21 @@ public class FaqController {
 	@RequestMapping("moveCs.do")
 	public String moveCsPage(Model model) {
 		List<Faq>list = faqService.selectFaqList();
-		List<Notice>nlist = noticeService.selectNoticeType();
+		List<Notice>nlist = noticeService.selectNoticeType();   //일반
+		List<Notice>blist = noticeService.selectNoticeType1();  //전시
+		List<Notice>clist = noticeService.selectNoticeType2();  //회원
+		List<Notice>dlist = noticeService.selectNoticeType3();  //전체
 		model.addAttribute("nlist",nlist);
+		model.addAttribute("nlist",dlist);
+		model.addAttribute("blist",blist);
+		model.addAttribute("clist",clist);
 		model.addAttribute("list",list);
 		return "cs/csmain";
+	}
+	
+	@RequestMapping("movePr.do")
+	public String movePr(Model model) {
+       return "cs/pr";
 	}
  	
 	//faqmain 전체 목록 불러오기

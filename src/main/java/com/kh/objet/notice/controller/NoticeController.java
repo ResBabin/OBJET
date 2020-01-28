@@ -172,6 +172,10 @@ if (result > 0) {
 public String moveNoticePage() {
 return "notice/noticemain";
 }
+@RequestMapping("movePre.do")
+public String moveNoticePratice() {
+return "notice/pre";
+}
 
 
 //공지사항 전체목록보기
@@ -455,10 +459,10 @@ return mv;
 public String searchNoticeList(Model model,Notice users,
 @RequestParam(name = "page", required = false) String page,
 @RequestParam(name = "search", required = false) String search,
-@RequestParam(name="searchmenu", required=false)String searchmenu ){
+@RequestParam(name = "searchtype", required = false) String searchtype){
 
 System.out.println("serach : " + search);
-System.out.println("serach 2: " + searchmenu);
+System.out.println("serach 2: " + searchtype);;
 
 int currentPage = 1;
 if(page !=null) {
@@ -468,7 +472,7 @@ currentPage = Integer.parseInt(page);
 int limit = 10; // 한 페이지에 출력할 목록 갯수
 HashMap<String, Object> mapp = new HashMap<String, Object>();
 mapp.put("search", search);
-mapp.put("searchmenu", searchmenu);
+mapp.put("searchtype", searchtype);
 
 int listCount = noticeService.noticeSearchListCount(mapp);
 
@@ -495,7 +499,7 @@ HashMap<String, Object> map = new HashMap<String, Object>();
 map.put("startRow", startRow);
 map.put("endRow", endRow);
 map.put("search", search);
-map.put("searchmenu", searchmenu);
+map.put("searchtype", searchtype);
 map.put("listcount", listCount);
 
 List<Notice> nlist = noticeService.selectNoticeSearchList(map);
@@ -505,7 +509,7 @@ logger.info("공지 갯수 : " + nlist.size());
 
 if(nlist != null && nlist.size() > 0) {
 model.addAttribute("search", search);
-model.addAttribute("searchmenu", searchmenu);
+model.addAttribute("searchtype", searchtype);
 model.addAttribute("list",nlist);    //전체리스트
 model.addAttribute("listCount",listCount);  //리스트 전체 갯수
 model.addAttribute("maxPage",maxPage);

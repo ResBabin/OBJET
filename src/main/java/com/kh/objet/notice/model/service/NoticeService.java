@@ -49,6 +49,12 @@ public interface NoticeService {
 
 	List<Notice> selectNoticeType();
 
+	List<Notice> selectNoticeType1();
+
+	List<Notice> selectNoticeType2();
+
+	List<Notice> selectNoticeType3();
+
 
 
 
