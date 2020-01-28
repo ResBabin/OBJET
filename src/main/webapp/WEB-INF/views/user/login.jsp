@@ -69,12 +69,12 @@
 		    if (!frm.userid.value) { //아이디를 입력하지 않으면.
 		        alert("아이디를 입력해주세요.");
 		        frm.userid.focus();
-		        return;
+		        return false;
 		    }
 		    if (!frm.userpwd.value) { //패스워드를 입력하지 않으면.
 		        alert("패스워드를 입력 해주세요.");
 		        frm.userpwd.focus();
-		        return;
+		        return false;
 		    }
 		
 		    if (document.loginForm.idSave.checked == true) { // 아이디 저장을 체크 하였을때
@@ -84,6 +84,7 @@
 		    }
 		    document.loginForm.submit(); //유효성 검사가 통과되면 서버로 전송.
 		
+		    return false;
 		}
  </script>
 </head>
