@@ -17,7 +17,7 @@
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet"> <!-- 나눔고딕 -->
 <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap" rel="stylesheet"> <!-- 나눔 명조 -->
 <style type="text/css">
-	p{
+	.wrap_item_type_text{
 		/* font-family: '맑은고딕';
 		font-family: 'Nanum Myeongjom, serif'; */
 	 	font-family: 'Nanum Gothic', sans-serif;
@@ -39,11 +39,6 @@
 		width : 100%;
 	}
 	
-	ul > li {
-	list-style: disc;
-	margin-left: 20px;
-	}
- 	
 </style>
 </head>
 <body>
@@ -66,7 +61,7 @@
 			<center><p style="font-size: 30pt; color: black;">오브제에서 작품 활동은 <br><br><br> 무엇이 다를까요?</center>
 			<br><br><br>
 			<p style="font-size: 13pt; color: black;">작품을 통해 다양하게 활동해보세요</p>
-			<p>오브제가 추천하는 활동의 핵심가치는 '댜앙성'입니다. 다양성은 여러 가지 많은 특성을 의미합니다. 이색적인 작품은 독자들의 시선을 사로잡을 수 있고
+			<p class="wrap_item_type_text">오브제가 추천하는 활동의 핵심가치는 '댜앙성'입니다. 다양성은 여러 가지 많은 특성을 의미합니다. 이색적인 작품은 독자들의 시선을 사로잡을 수 있고
 			정교한 작품은 독자들의 섬세한 감상을 이끌어 낼 수 있습니다. 특색있는 작품이라면 독자들은 작가의 다음 작품에 대해서 기대하게 되고 작가는 그에 따라 
 			더 많은 더 다양한 작품 활동을 진행할 수 있습니다. <br><br>
 			
@@ -79,13 +74,13 @@
 			
 			<img class="wrap_body_text_img" src="resources/images/오브제_이용안내.PNG">
 			<br><br>
-			<p>작품들이 많다고 부담가질 필요 없습니다. 무리해서 다 보려고 하지 않아도 됩니다. 상시 전시회가 운영되고 있기 때문에 언제든지 원하는 작품들을 마음껏 감상 할 수 있고
+			<p class="wrap_item_type_text">작품들이 많다고 부담가질 필요 없습니다. 무리해서 다 보려고 하지 않아도 됩니다. 상시 전시회가 운영되고 있기 때문에 언제든지 원하는 작품들을 마음껏 감상 할 수 있고
 			전시할 수 있도록 오브제는 사이트 창에서 상시 제공할 계획입니다. 언제든지 어느 장소에서든지 필요한, 원하는 작품들을 전시하고 감상해보세요!
 			</p>
 			<br>
 			
 			<p style="font-size: 13pt; color: black;">원하는 작품을 선정하여 담아보세요</p>
-			<p>오브제에는 좋은 작품들이 많습니다. 하지만 내가 원하는 작품, 관심있는 작품을 일일이 찾아가서	 보는 것은 절대 쉬운 일이 아닙니다.<br> 
+			<p class="wrap_item_type_text">오브제에는 좋은 작품들이 많습니다. 하지만 내가 원하는 작품, 관심있는 작품을 일일이 찾아가서	 보는 것은 절대 쉬운 일이 아닙니다.<br> 
 			그래서 오브제는 관심 오브제를 통해 작가들과 독자들이 원하는 작품을 편리하게 이용할 수 있도록 페이지를 운영하고 있습니다. 관심오브제에 원하는 작품들을
 			담아서 한눈에 볼 수 있도록 편하게 구성해보세요 검색을 통해서 작품들을 선별한 뒤 관심 오브제 등록을 통해 언제든지 필요한 작품들을 모아서 감상하실 수 있습니다.
 			<br>
@@ -99,7 +94,7 @@
 			<br>
 			
 			<p style="font-size: 13pt; color: black;">이용한 작품들을 손쉽게 찾아서 활용해보세요</p>
-			<p>이전에 감상했던, 전시했던 작품들을 다시 찾아보는 것은 중요한 활동 중에 하나입니다. 내가 찾아서 본 작품, 내가 전시했던 작품들을 찾으며
+			<p class="wrap_item_type_text">이전에 감상했던, 전시했던 작품들을 다시 찾아보는 것은 중요한 활동 중에 하나입니다. 내가 찾아서 본 작품, 내가 전시했던 작품들을 찾으며
 			이전에 느꼈던 감상, 제작노력 등을 다시금 되새김질 하는 것도 하나의 좋은 활동이기 때문이죠
 			<br>
 			
