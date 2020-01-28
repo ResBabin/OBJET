@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset=UTF-8">
-<title>Insert title here</title>
+<title>FAQ</title>
 <c:import url="../header.jsp" />
 <style>
 

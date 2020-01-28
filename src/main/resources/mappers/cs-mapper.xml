@@ -25,7 +25,7 @@
 <!-- Notice 검색 갯수 조회 -->
 <select  id="noticeSearchListCount" resultType="_int" parameterType="Hashmap">
 <![CDATA[
-select count(*) as count from notice                     
+select count(*) as count from notice where noticetype = #{searchtype}                    
 ]]>
 </select>
 <!-- 공지사항 추가 -->
@@ -85,18 +85,13 @@ insert into notice values ((select max(noticeno) from notice) + 1, #{adminid},#{
 <!--  NoticeSearch-->
 <select resultType="Notice" id="selectNoticeSearchList" parameterType="Hashmap">
 
-<![CDATA[
-select * 
-      from (select rownum rnum, noticeno, noticetitle, noticedate, noticecontent, adminid, noticetype
+<![CDATA[select * from (select rownum rnum, noticeno, noticetitle, noticedate, noticecontent, adminid, noticetype
               from (select *
                     from notice
                     order by noticedate desc))
-              where noticetitle like '%' || #{search} || '%']]>
-<if test="searchtype.equals('all')"></if>
-<if test="searchtype.equals('a')"> and noticetype = '일반' </if>
-<if test="searchtype.equals('b')"> and noticetype = '전시' </if>
-<if test="searchtype.equals('c')"> and noticetype = '회원' </if>
-
+                    where
+              noticetype = #{searchtype} 
+             and noticetitle like '%' || #{search} || '%']]>
 </select>
 
 
@@ -123,7 +118,7 @@ delete from notice where noticerfile = #{noticerfile} and  noticeno = #{noticeno
 <!--공지사항 수정  -->
 <update parameterType="Notice" id="updateNotice">
 update notice set noticetype = #{noticetype}, noticetitle = #{noticetitle}, noticecontent = #{noticecontent}, noticeofile = #{noticeofile}, noticerfile = #{noticerfile}
-		where noticeno = #{noticeno}
+      where noticeno = #{noticeno}
 </update>
       <!-- FAQ 목록 조회 -->
    <select id="selectFaqList" resultType="Faq">
@@ -214,7 +209,6 @@ null,null,default)
     </delete>
    
 </mapper>
-
 
 
 

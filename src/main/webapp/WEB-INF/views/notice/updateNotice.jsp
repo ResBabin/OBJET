@@ -58,7 +58,7 @@ margin-left: 500px;
        
 				<tr>
 					<th>작성자</th>
-					<td><input type="text" size="30" name="adminid" value="${loginUser.userid}" required="required"></td>
+					<td><input type="text" size="30" name="adminid" value="${loginUser.userid}" required="required" readonly></td>
 
 				</tr>
 		
@@ -110,7 +110,7 @@ margin-left: 500px;
 
 
 </script> 
-
+  
 			<button type="submit" class="insert">완료</button>
              </form>    
 
