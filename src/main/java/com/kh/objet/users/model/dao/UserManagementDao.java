@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.objet.blacklist.model.vo.BlackList;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
+import com.kh.objet.users.model.vo.EnrollCount;
 import com.kh.objet.users.model.vo.LoginCount;
 import com.kh.objet.users.model.vo.LoginCount2;
 import com.kh.objet.users.model.vo.UserManagement;
@@ -110,5 +111,17 @@ public class UserManagementDao {
 	}
 	public List<LoginCount2> selectLoginCountSum() {
 		return mybatisSession.selectList("adminMapper.selectLoginCountSum");
+	}
+	public List<LoginCount2> selectLoginCountMonthSum() {
+		return mybatisSession.selectList("adminMapper.selectLoginCountMonthSum");
+	}
+	public List<EnrollCount> selecctEnrollYearSum() {
+		return mybatisSession.selectList("adminMapper.selectEnrollYearSum");
+	}
+	public List<EnrollCount> selectEnrollMonthSum() {
+		return mybatisSession.selectList("adminMapper.selectEnrollMonthSum");
+	}
+	public List<EnrollCount> selectEnrollWeekSum() {
+		return mybatisSession.selectList("adminMapper.selectEnrollWeekSum");
 	}
 }

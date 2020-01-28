@@ -7,6 +7,7 @@ import java.util.Map;
 import com.kh.objet.blacklist.model.vo.BlackList;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
+import com.kh.objet.users.model.vo.EnrollCount;
 import com.kh.objet.users.model.vo.LoginCount;
 import com.kh.objet.users.model.vo.LoginCount2;
 import com.kh.objet.users.model.vo.UserManagement;
@@ -44,5 +45,9 @@ public interface UserManagementService {
 	public int insertBlackEndFeed(Map<String, String> map);
 	public LoginCount selectLoginCountAvg(Map<String, String> map);
 	public List<LoginCount2> selectLoginCountSum();
+	public List<LoginCount2> selectLoginCountMonthSum();
+	public List<EnrollCount> selectEnrollYearSum();
+	public List<EnrollCount> selectEnrollMonthSum();
+	public List<EnrollCount> selectEnrollWeekSum();
 
 }

@@ -29,6 +29,7 @@ import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.support.model.service.SupportService;
 import com.kh.objet.users.model.service.UserManagementService;
+import com.kh.objet.users.model.vo.EnrollCount;
 import com.kh.objet.users.model.vo.LoginCount;
 import com.kh.objet.users.model.vo.LoginCount2;
 import com.kh.objet.users.model.vo.UserManagement;
@@ -351,7 +352,7 @@ public class UserManagementController {
 		map.clear();
 		
 		cal.add(Calendar.DATE, -7);
-		map.put("week", thisWeek);
+		map.put("week",  sdf.format(cal.getTime()));
 		LoginCount weeklog4 = usermService.selectLoginCountAvg(map);
 		map.clear();
 		
@@ -385,10 +386,21 @@ public class UserManagementController {
 		cal.add(Calendar.YEAR, -1);
 		map.put("year", sdf3.format(cal.getTime()));
 		LoginCount yearlog3 = usermService.selectLoginCountAvg(map);
-		
+		cal.add(Calendar.YEAR, 2);
+		 
 		//1주일 간 로그인 총합
 		ArrayList<LoginCount2> oneweekcount = (ArrayList<LoginCount2>) usermService.selectLoginCountSum();
 		
+		
+		//로그인 총합 6개월
+		ArrayList<LoginCount2> sixmonthcount = (ArrayList<LoginCount2>) usermService.selectLoginCountMonthSum();
+		ArrayList<EnrollCount> enrollyearsum = (ArrayList<EnrollCount>) usermService.selectEnrollYearSum();
+		ArrayList<EnrollCount> enrollmonthsum = (ArrayList<EnrollCount>) usermService.selectEnrollMonthSum();
+		ArrayList<EnrollCount> enrollweeksum = (ArrayList<EnrollCount>) usermService.selectEnrollWeekSum();
+		
+		model.addAttribute("enrollyearsum", enrollyearsum);
+		model.addAttribute("enrollmonthsum", enrollmonthsum);
+		model.addAttribute("enrollweeksum", enrollweeksum);
 		
 		model.addAttribute("thisweek", weeklog);
 		model.addAttribute("thisweek2", weeklog2);
@@ -400,10 +412,20 @@ public class UserManagementController {
 		model.addAttribute("thisyear", yearlog);
 		model.addAttribute("thisyear2", yearlog2);
 		model.addAttribute("thisyear3", yearlog3);
-		model.addAttribute("todaycount", loginallcount.get(0));
-		model.addAttribute("yestercount", loginallcount.get(1));
-		model.addAttribute("yestercount2", loginallcount.get(2));
+		
+		if(loginallcount.size() == 1) {
+			model.addAttribute("todaycount", loginallcount.get(0));
+		}else if(loginallcount.size() == 2) {
+			model.addAttribute("todaycount", loginallcount.get(0));
+			model.addAttribute("yestercount", loginallcount.get(1));
+		}else if(loginallcount.size() == 3) {
+			model.addAttribute("todaycount", loginallcount.get(0));
+			model.addAttribute("yestercount", loginallcount.get(1));
+			model.addAttribute("yestercount2", loginallcount.get(2));
+		}
+		
 		model.addAttribute("oneweekcount", oneweekcount);
+		model.addAttribute("sixmonthcount", sixmonthcount);
 		
 		
 		return "admin/userStatistics";

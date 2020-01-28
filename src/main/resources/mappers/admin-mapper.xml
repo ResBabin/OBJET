@@ -487,31 +487,53 @@
 	</select>
 
 	<!-- =========신고게시글============ -->
-	<!-- 신고게시글 전체조회 -->
-	<select id="selectReportBList" resultType="ReportBoard">
-		select * from
-		reportboard
+	<!-- 오브제 신고게시글 전체조회 -->
+	<select id="selectReportObjetList" resultType="int">
+		select count(*) as "reportcount" from reportboard
+		where reportbtype = 'OBJET'
 	</select>
 
-	<!-- 신고게시글 전체조회 -->
-	<select id="selectReportAll" resultType="ReportBoard">
+	<!-- 오브제 신고게시글 전체조회 -->
+	<select id="selectReportObjet" resultType="ReportBoard">
 		select originno,
 		reportedb ,count(originno) as "reportcount", reportbtype
-		from
-		reportboard
+		from reportboard where reportbtype = 'OBJET'
 		group by originno, reportedb, reportbtype
+		order by count(originno) desc
+	</select>
+	
+	<select id="selectReportObjetDetail" resultType="ReportBoard">
+	 select  reportbtype, reportbreason, reportbdate, reporterb, reportedb, originno
+	 from reportboard 
+	 where reportbtype = 'OBJET'
+	</select>
+	
+	<!-- 한줄평 신고게시글 전체조회 -->
+	<select id="selectReportReviewList" resultType="int">
+		select count(*)  as "reportcount" from reportboard
+		where reportbtype = 'REVIEW'
 	</select>
 
-	<!-- 신고게시글 사유별 조회 -->
-	<select id="selectReportAllList" resultType="ReportBoard"
-		parameterType="map">
-		select count(reportbreason) as "reportcount",
-		reportbreason, reporterb, reportbdate
-		from reportboard
-		where originno =
-		#{originno} and reportedb = #{reportedb}
-		group by reportbreason,
-		reporterb, reportbdate
+	<!-- 한줄평 신고게시글 전체조회 -->
+	<select id="selectReportReview" resultType="ReportBoard">
+		select originno, reportedb ,count(originno) as "reportcount", reportbtype
+		from reportboard 
+    	where reportbtype = 'REVIEW'
+		group by originno, reportedb, reportbtype
+		order by count(originno) desc
+	</select>
+	
+	<select id="selectReportReviewDetail" resultType="ReportBoard">
+		 select  reportbtype, reportbreason, reportbdate, reporterb, revuserid, revcontent, reportedb, originno
+		 from reportboard join review on ( revuserid = reportedb )
+		 where reportbtype = 'REVIEW' and reportedb = revuserid and originno = objetno
+	</select>
+
+	<!-- 오브제 신고게시글 사유별 조회 -->
+	<select id="selectReportAllList" resultType="ReportBoard" parameterType="map">
+		select count(reportbreason) as "reportcount", reportbreason, reporterb, reportbdate
+		from reportboard where originno = #{originno} and reportedb = #{reportedb} and reportbtype = 'OBJET'
+		group by reportbreason, reporterb, reportbdate
 	</select>
 
 
@@ -623,7 +645,7 @@
 
 	<!-- 접속 통계 -->
 	<select id="selectTodayCount" resultType="LoginCount">
-		    select * from logincount where  logindate between sysdate - 3 and sysdate
+		    select * from logincount where  logindate like sysdate or logindate like sysdate - 1 or logindate like sysdate -2
 	</select>
 
 	<!-- 로그인 카운트 -->
@@ -646,12 +668,45 @@
 	</select>
 	
 	<!-- 로그인 주별, 월별, 년도별 평균 -->
+	<!-- <select id="selectLoginCountWeekAvg" parameterType="map" resultType="LoginCount">
+	select nvl(avg(login01), 0) "login01", nvl(avg(login02), 0) "login02", nvl(avg(login03), 0) "login03", nvl(avg(login04), 0) "login04", nvl(avg(login05), 0) "login05", nvl(avg(login06), 0) "login06", 
+		 nvl(avg(login07), 0) "login07", nvl(avg(login08), 0) "login08", nvl(avg(login09), 0) "login09", nvl(avg(login10), 0) "login10", nvl(avg(login11), 0) "login11", nvl(avg(login12), 0) "login12", 
+		 nvl(avg(login13), 0) "login13", nvl(avg(login14), 0) "login14", nvl(avg(login15), 0) "login15", nvl(avg(login16), 0) "login16", nvl(avg(login17), 0) "login17", nvl(avg(login18), 0) "login18", 
+		 nvl(avg(login19), 0) "login19", nvl(avg(login20), 0) "login20", nvl(avg(login21), 0) "login21", nvl(avg(login22), 0) "login22", nvl(avg(login23), 0) "login23", nvl(avg(login00), 0) "login00" ,  to_char( sysdate, 'yyMM W') "logindate"
+		 from logincount 
+		 where to_char(logindate, 'yyMMW' ) = to_char( sysdate, 'yyMMW')
+     union all 
+        select nvl(avg(login01), 0) "login01", nvl(avg(login02), 0) "login02", nvl(avg(login03), 0) "login03", nvl(avg(login04), 0) "login04", nvl(avg(login05), 0) "login05", nvl(avg(login06), 0) "login06", 
+		 nvl(avg(login07), 0) "login07", nvl(avg(login08), 0) "login08", nvl(avg(login09), 0) "login09", nvl(avg(login10), 0) "login10", nvl(avg(login11), 0) "login11", nvl(avg(login12), 0) "login12", 
+		 nvl(avg(login13), 0) "login13", nvl(avg(login14), 0) "login14", nvl(avg(login15), 0) "login15", nvl(avg(login16), 0) "login16", nvl(avg(login17), 0) "login17", nvl(avg(login18), 0) "login18", 
+		 nvl(avg(login19), 0) "login19", nvl(avg(login20), 0) "login20", nvl(avg(login21), 0) "login21", nvl(avg(login22), 0) "login22", nvl(avg(login23), 0) "login23", nvl(avg(login00), 0) "login00" , to_char( sysdate-7, 'yyMM W')
+		 from logincount 
+		 where to_char(logindate, 'yyMMW' ) = to_char( sysdate -7, 'yyMMW')
+     union all 
+      select nvl(avg(login01), 0) "login01", nvl(avg(login02), 0) "login02", nvl(avg(login03), 0) "login03", nvl(avg(login04), 0) "login04", nvl(avg(login05), 0) "login05", nvl(avg(login06), 0) "login06", 
+		 nvl(avg(login07), 0) "login07", nvl(avg(login08), 0) "login08", nvl(avg(login09), 0) "login09", nvl(avg(login10), 0) "login10", nvl(avg(login11), 0) "login11", nvl(avg(login12), 0) "login12", 
+		 nvl(avg(login13), 0) "login13", nvl(avg(login14), 0) "login14", nvl(avg(login15), 0) "login15", nvl(avg(login16), 0) "login16", nvl(avg(login17), 0) "login17", nvl(avg(login18), 0) "login18", 
+		 nvl(avg(login19), 0) "login19", nvl(avg(login20), 0) "login20", nvl(avg(login21), 0) "login21", nvl(avg(login22), 0) "login22", nvl(avg(login23), 0) "login23", nvl(avg(login00), 0) "login00" , to_char( sysdate-14, 'yyMM W')
+		 from logincount 
+		 where to_char(logindate, 'yyMMW' ) = to_char( sysdate -14, 'yyMMW')
+     union all 
+     select nvl(avg(login01), 0) "login01", nvl(avg(login02), 0) "login02", nvl(avg(login03), 0) "login03", nvl(avg(login04), 0) "login04", nvl(avg(login05), 0) "login05", nvl(avg(login06), 0) "login06", 
+		 nvl(avg(login07), 0) "login07", nvl(avg(login08), 0) "login08", nvl(avg(login09), 0) "login09", nvl(avg(login10), 0) "login10", nvl(avg(login11), 0) "login11", nvl(avg(login12), 0) "login12", 
+		 nvl(avg(login13), 0) "login13", nvl(avg(login14), 0) "login14", nvl(avg(login15), 0) "login15", nvl(avg(login16), 0) "login16", nvl(avg(login17), 0) "login17", nvl(avg(login18), 0) "login18", 
+		 nvl(avg(login19), 0) "login19", nvl(avg(login20), 0) "login20", nvl(avg(login21), 0) "login21", nvl(avg(login22), 0) "login22", nvl(avg(login23), 0) "login23", nvl(avg(login00), 0) "login00" , to_char( sysdate-21, 'yyMM W')
+		 from logincount 
+		 where to_char(logindate, 'yyMMW' ) = to_char( sysdate-21, 'yyMMW')
+	</select>
+	 -->
 	<select id="selectLoginCountAvg" parameterType="map" resultType="LoginCount">
 		 select avg(login01) "login01", avg(login02) "login02", avg(login03) "login03", avg(login04) "login04", avg(login05) "login05", avg(login06) "login06", 
 		 avg(login07) "login07", avg(login08) "login08", avg(login09) "login09", avg(login10) "login10", avg(login11) "login11", avg(login12) "login12", 
 		 avg(login13) "login13", avg(login14) "login14", avg(login15) "login15", avg(login16) "login16", avg(login17) "login17", avg(login18) "login18", 
-		 avg(login19) "login19", avg(login20) "login20", avg(login21) "login21", avg(login22) "login22", avg(login23) "login23", avg(login00) "login00"
-		 from logincount  
+		 avg(login19) "login19", avg(login20) "login20", avg(login21) "login21", avg(login22) "login22", avg(login23) "login23", avg(login00) "login00",
+		<if test="week != null">to_char( to_date(#{ week }), 'yy/MM W')||'주차' "logindate1"</if>
+		<if test="month != null">to_char( to_date(#{ month }||'/11'), 'yy/MM') "logindate1"</if>
+		<if test="year != null">to_char( to_date(#{ year }||'/11/11'), 'yy') "logindate1"</if>
+		 from logincount 
 		 where 
 		 <if test="week != null">to_char(logindate, 'yyMMW' ) = to_char(to_date( #{ week } ), 'yyMMW')</if>
 		 <if test="month != null">logindate like #{ month }||'%'</if>
@@ -659,19 +714,167 @@
 	</select>
 	
 	<!-- 로그인 1주일 총합 비교 -->
-	<!-- 안되면 자바에서 for문으로  합치기 -->
 	<select id="selectLoginCountSum" resultType="LoginCount2">
-    select login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+  select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
     login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
-    + login22 + login23 "loginall"
-    from logincount where  logindate like sysdate -6 or logindate like sysdate -5 or logindate like sysdate -4 or 
-    logindate like sysdate -3 or logindate like sysdate -2 or logindate like sysdate -1 or logindate like sysdate 
+    + login22 + login23), 0) as "loginall", to_char(sysdate, 'yy/MM/dd') "logindate"
+    from logincount where  logindate like sysdate 
+    union all 
+     select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall", to_char(sysdate -1, 'yy/MM/dd') "logindate"
+    from logincount where  logindate like sysdate -1
+     union all 
+     select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall", to_char(sysdate -2, 'yy/MM/dd') "logindate"
+    from logincount where  logindate like sysdate -2
+     union all 
+     select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall", to_char(sysdate -3, 'yy/MM/dd') "logindate"
+    from logincount where  logindate like sysdate -3
+     union all 
+     select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall", to_char(sysdate -4, 'yy/MM/dd') "logindate"
+    from logincount where  logindate like sysdate -4
+     union all 
+     select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall", to_char(sysdate -5, 'yy/MM/dd') "logindate"
+    from logincount where  logindate like sysdate -5
+     union all 
+     select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall", to_char(sysdate -6, 'yy/MM/dd') "logindate"
+    from logincount where  logindate like sysdate -6
 	</select>
 	
+	<select id="selectLoginCountMonthSum" resultType="LoginCount2">
+    select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall", to_char(sysdate, 'yy/MM') "logindate"
+    from logincount
+    where logindate like to_char(sysdate, 'yy/MM')||'%' 
+    union all
+    select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall", to_char(add_months(sysdate, -1 ), 'yy/MM') "logindate"
+    from logincount
+    where  logindate like to_char(add_months(sysdate, -1 ), 'yy/MM')||'%'
+       union all
+    select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall", to_char(add_months(sysdate, -2 ), 'yy/MM') "logindate"
+    from logincount
+    where  logindate like to_char(add_months(sysdate, -2 ), 'yy/MM')||'%'
+       union all
+    select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall", to_char(add_months(sysdate, -3 ), 'yy/MM') "logindate"
+    from logincount
+    where  logindate like to_char(add_months(sysdate, -3 ), 'yy/MM')||'%'
+       union all
+    select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall" , to_char(add_months(sysdate, -4 ), 'yy/MM') "logindate"
+    from logincount
+    where  logindate like to_char(add_months(sysdate, -4 ), 'yy/MM')||'%'
+       union all
+    select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall", to_char(add_months(sysdate, -5 ), 'yy/MM') "logindate"
+    from logincount
+    where  logindate like to_char(add_months(sysdate, -5 ), 'yy/MM')||'%'
+       union all
+    select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall", to_char(add_months(sysdate, -6 ), 'yy/MM') "logindate"
+    from logincount
+    where  logindate like to_char(add_months(sysdate, -6 ), 'yy/MM')||'%'
+	</select>
 	
+	<select id="selectEnrollYearSum" resultType="EnrollCount">
+	select nvl(count(enrolldate), 0) "enrollcount", to_char(sysdate, 'yy') "enrolldate" from users 
+     where enrolldate like to_char(sysdate, 'yy')||'%'
+     union all
+     select nvl(count(enrolldate), 0),  to_char(add_months(sysdate, -12), 'yy') from users 
+     where enrolldate like to_char(add_months(sysdate, -12), 'yy')||'%'
+      union all
+     select nvl(count(enrolldate), 0), to_char(add_months(sysdate, -24), 'yy') from users 
+     where enrolldate like to_char(add_months(sysdate, -24), 'yy')||'%'
+     union all
+     select nvl(count(enrolldate), 0),  to_char(add_months(sysdate, -36), 'yy') from users 
+     where enrolldate like to_char(add_months(sysdate, -36), 'yy')||'%'
+     union all
+     select nvl(count(enrolldate), 0),  to_char(add_months(sysdate, -48), 'yy') from users 
+     where enrolldate like to_char(add_months(sysdate, -48), 'yy')||'%'
+	</select>
 	
+	<select id="selectEnrollMonthSum" resultType="EnrollCount">
+	 select nvl(count(enrolldate), 0) "enrollcount" , to_char(sysdate, 'yy/MM') "enrolldate" from users 
+     where enrolldate like to_char(sysdate, 'yy/MM')||'%'
+     union all
+     select nvl(count(enrolldate), 0) , to_char(add_months(sysdate, -1), 'yy/MM')  from users 
+     where enrolldate like to_char(add_months(sysdate, -1), 'yy/MM')||'%'
+      union all
+     select nvl(count(enrolldate), 0) , to_char(add_months(sysdate, -2), 'yy/MM')  from users 
+     where enrolldate like to_char(add_months(sysdate, -2), 'yy/MM')||'%' 
+      union all
+     select nvl(count(enrolldate), 0) , to_char(add_months(sysdate, -3), 'yy/MM')  from users  
+     where enrolldate like to_char(add_months(sysdate, -3), 'yy/MM')||'%' 
+           union all
+     select nvl(count(enrolldate), 0) , to_char(add_months(sysdate, -4), 'yy/MM')  from users 
+     where enrolldate like to_char(add_months(sysdate, -4), 'yy/MM')||'%' 
+           union all
+     select nvl(count(enrolldate), 0) , to_char(add_months(sysdate, -5), 'yy/MM') from users 
+     where enrolldate like to_char(add_months(sysdate, -5), 'yy/MM')||'%' 
+           union all
+     select nvl(count(enrolldate), 0) , to_char(add_months(sysdate, -6), 'yy/MM') from users 
+     where enrolldate like to_char(add_months(sysdate, -6), 'yy/MM')||'%' 
+           union all
+     select nvl(count(enrolldate), 0) , to_char(add_months(sysdate, -7), 'yy/MM') from users 
+     where enrolldate like to_char(add_months(sysdate, -7), 'yy/MM')||'%' 
+           union all
+     select nvl(count(enrolldate), 0) , to_char(add_months(sysdate, -8), 'yy/MM')  from users 
+     where enrolldate like to_char(add_months(sysdate, -8), 'yy/MM')||'%' 
+           union all
+     select nvl(count(enrolldate), 0) , to_char(add_months(sysdate, -9), 'yy/MM') from users 
+     where enrolldate like to_char(add_months(sysdate, -9), 'yy/MM')||'%' 
+           union all
+     select nvl(count(enrolldate), 0) , to_char(add_months(sysdate, -10), 'yy/MM') from users 
+     where enrolldate like to_char(add_months(sysdate, -10), 'yy/MM')||'%' 
+           union all
+     select nvl(count(enrolldate), 0) , to_char(add_months(sysdate, -11), 'yy/MM') from users 
+     where enrolldate like to_char(add_months(sysdate, -11), 'yy/MM')||'%' 
+	</select>
 	
-	
+	<select id="selectEnrollWeekSum" resultType="EnrollCount">
+	 select nvl(count(enrolldate), 0) "enrollcount", to_char(sysdate, 'yy/MM W')||'주차' "enrolldate" from users 
+     where to_char(enrolldate, 'yy/MM/W' ) like to_char(sysdate, 'yy/MM/W')||'%'
+     union all
+     select nvl(count(enrolldate), 0) , to_char((sysdate -7), 'yy/MM W')||'주차' from users 
+     where to_char(enrolldate, 'yy/MM/W' ) like to_char(sysdate -7, 'yy/MM/W')||'%'
+      union all
+     select nvl(count(enrolldate), 0), to_char((sysdate -14), 'yy/MM W')||'주차' from users 
+     where to_char(enrolldate, 'yy/MM/W' ) like to_char(sysdate -14, 'yy/MM/W')||'%'
+     union all
+     select nvl(count(enrolldate), 0), to_char((sysdate -21), 'yy/MM W')||'주차' from users 
+     where to_char(enrolldate, 'yy/MM/W' ) like to_char(sysdate -21, 'yy/MM/W')||'%'
+     union all
+     select nvl(count(enrolldate), 0), to_char((sysdate -28), 'yy/MM W')||'주차' from users 
+     where to_char(enrolldate, 'yy/MM/W' ) like to_char(sysdate -36, 'yy/MM/W')||'%'
+     union all
+     select nvl(count(enrolldate), 0), to_char((sysdate -35), 'yy/MM W')||'주차' from users 
+     where to_char(enrolldate, 'yy/MM/W' ) like to_char(sysdate -42, 'yy/MM/W')||'%'
+     union all
+     select nvl(count(enrolldate), 0), to_char((sysdate -42), 'yy/MM W')||'주차' from users 
+     where to_char(enrolldate, 'yy/MM/W' ) like to_char(sysdate -49, 'yy/MM/W')||'%'
+     union all
+     select nvl(count(enrolldate), 0), to_char((sysdate -49), 'yy/MM W')||'주차' from users 
+     where to_char(enrolldate, 'yy/MM/W' ) like to_char(sysdate -56, 'yy/MM/W')||'%'
+	</select>
 	
 	
 </mapper> 

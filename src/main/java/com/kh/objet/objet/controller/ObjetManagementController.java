@@ -188,6 +188,9 @@ public class ObjetManagementController {
 	
 	@RequestMapping("adminmain.do")
 	public String adminMain(Model model) {
+		if( usermService.selectLoginDate() == null ) { 
+			usermService.insertLoginCount();
+		}
 		ArrayList<Objet> objetreqlist = (ArrayList<Objet>) objetmService.selectObjetRequestManage();
 		ArrayList<ReportBoard> reportblist = (ArrayList<ReportBoard>) reportbService.selectReportMain();
 		ArrayList<Qna>qnalist = (ArrayList<Qna>) qnaService.selectQnaListAdmin5();
@@ -264,10 +267,16 @@ public class ObjetManagementController {
 	//	model.addAttribute("todaycount", todaycount);
 		//model.addAttribute("yestercount", yesterdaycount);
 		//model.addAttribute("yestercount2", yesterdaycount2);
-		
-		model.addAttribute("todaycount", loginallcount.get(0));
-		model.addAttribute("yestercount", loginallcount.get(1));
-		model.addAttribute("yestercount2", loginallcount.get(2));
+		if(loginallcount.size() == 1) {
+			model.addAttribute("todaycount", loginallcount.get(0));
+		}else if(loginallcount.size() == 2) {
+			model.addAttribute("todaycount", loginallcount.get(0));
+			model.addAttribute("yestercount", loginallcount.get(1));
+		}else if(loginallcount.size() == 3) {
+			model.addAttribute("todaycount", loginallcount.get(0));
+			model.addAttribute("yestercount", loginallcount.get(1));
+			model.addAttribute("yestercount2", loginallcount.get(2));
+		}
 		
 		model.addAttribute("objettag", objettag);
 		model.addAttribute("objetreqlist", objetreqlist);

@@ -56,5 +56,29 @@ public class ReportBoardDao {
 	public List<ReportBoard> selectReportMain() {
 		return mybatisSession.selectList("adminMapper.selectReportMain");
 	}
+
+	public int selectReportObjetList() {
+		return mybatisSession.selectOne("adminMapper.selectReportObjetList");
+	}
+
+	public List<ReportBoard> selectReportObjet() {
+		return mybatisSession.selectList("adminMapper.selectReportObjet");
+	}
+
+	public int selectReportReviewList() {
+		return mybatisSession.selectOne("adminMapper.selectReportReviewList");
+	}
+
+	public List<ReportBoard> selectReportReview() {
+		return mybatisSession.selectList("adminMapper.selectReportReview");
+	}
+
+	public List<ReportBoard> selectReportObjetDetail() {
+		return mybatisSession.selectList("adminMapper.selectReportObjetDetail");
+	}
+
+	public List<ReportBoard> selectReportReviewDetail() {
+		return mybatisSession.selectList("adminMapper.selectReportReviewDetail");
+	}
 	
 }

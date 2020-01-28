@@ -96,7 +96,7 @@
 
 $(function() {
 // 금일 로그인 카운트 데이터 생성		
-/*	$.ajax({
+	/* $.ajax({
 		url : "insertlogindate.do",
 		type : "post",
 		success : function() {
@@ -107,8 +107,9 @@ $(function() {
 					+ "\nMessage : " + request.responseText
 					+ "\nError : " + errorData);
 		}
-	}); */
-$("#progress1,#progress2,#progress3").progress();
+	});  */
+$("#progress1").progress('increment' );
+$("#progress2").progress();
 var ctx = document.getElementById('myChart');
 var ctx2 = document.getElementById('myChart2');
 var ctx3 = document.getElementById('myChart3');
@@ -121,7 +122,7 @@ console.log(blackuser)
 var myChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
-        labels: ['블랙리스트', '일반회원', '후원관련 표??'],
+        labels: ['블랙리스트', '일반회원'],
         datasets: [{	
             data: [blackuser, usercount],
             backgroundColor: [
@@ -196,7 +197,7 @@ var myChart3 = new Chart(ctx3, {
     	labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
         datasets: [
         	{
-    			label: loginydate + ' 시간 별 로그인',
+    			label: loginyydate + ' 시간 별 로그인',
             	data: [ ${ yestercount2 } ],
                 backgroundColor: [
                     'rgba(50, 50, 50, 0.1)',
@@ -311,8 +312,8 @@ var myChart3 = new Chart(ctx3, {
 			<c:if test="${ objetreqlist.size() eq 0  }">
 			<c:set var="reqcount" value="0.0" />
 			</c:if>
-			 <label class="label"> <font style="font-weight: bold;">마감 임박 신청작 : ${ reqcount }% </font></label>
-			<div class="ui black progress" style="margin-top: 0px;margin-bottom: 0px;" id="progress1" data-percent="${ reqcount }">
+			 <label class="label"> <font style="font-weight: bold;">마감 임박 신청작 : ${ beforestart } / ${ objetreqlist.size() } </font></label>
+			<div class="ui black progress" style="margin-top: 0px;margin-bottom: 0px;" id="progress1" data-value=" ${ beforestart }" data-total="${ objetreqlist.size()}">
 				<div class="bar" align="center"></div>
 			</div>
 			 </div>

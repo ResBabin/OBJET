@@ -16,7 +16,7 @@ public class ReportBoardServiceImpl implements ReportBoardService{
 
 	@Autowired
 	private ReportBoardDao reportbDao ;
-	@Override
+/*	@Override
 	public List<ReportBoard> selectReportBList() {
 		return reportbDao.selectReportBList();
 	}
@@ -24,7 +24,7 @@ public class ReportBoardServiceImpl implements ReportBoardService{
 	@Override
 	public List<ReportBoard> selectReportBDetail() {
 		return reportbDao.selectReportBDetail();
-	}
+	}*/
 
 	@Override
 	public List<ReportBoard> selectReportAllList(ReportBoard report) {
@@ -52,11 +52,11 @@ public class ReportBoardServiceImpl implements ReportBoardService{
 		return reportbDao.deleteReportb(reportb);
 	}
 
-	@Override
+/*	@Override
 	public Review selectReportDetail(Review review) {
 		return reportbDao.selectReportDetail(review);
 	}
-
+*/
 	@Override
 	public List<ReportBoard> selectReportCount() {
 		return reportbDao.selectReportCount();
@@ -65,6 +65,36 @@ public class ReportBoardServiceImpl implements ReportBoardService{
 	@Override
 	public List<ReportBoard> selectReportMain() {
 		return reportbDao.selectReportMain();
+	}
+
+	@Override
+	public int selectReportObjetList() {
+		return reportbDao.selectReportObjetList();
+	}
+
+	@Override
+	public List<ReportBoard> selectReportObjet() {
+		return reportbDao.selectReportObjet();
+	}
+
+	@Override
+	public int selectReportReviewList() {
+		return reportbDao.selectReportReviewList();
+	}
+
+	@Override
+	public List<ReportBoard> selectReportReview() {
+		return reportbDao.selectReportReview();
+	}
+
+	@Override
+	public List<ReportBoard> selectReportObjetDetail() {
+		return reportbDao.selectReportObjetDetail();
+	}
+
+	@Override
+	public List<ReportBoard> selectReportReviewDetail() {
+		return reportbDao.selectReportReviewDetail();
 	}
 	
 
