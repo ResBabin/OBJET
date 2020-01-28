@@ -39,7 +39,8 @@
 		<typeAlias type="com.kh.objet.users.model.vo.UAUP" alias="UAUP" />
 		<typeAlias type="com.kh.objet.objet.model.vo.Artist" alias="Artist" />
 		<typeAlias type="com.kh.objet.users.model.vo.LoginCount" alias="LoginCount" />
-		<typeAlias type="com.kh.objet.users.model.vo.LoginCount" alias="LoginCount2" />
+		<typeAlias type="com.kh.objet.users.model.vo.LoginCount2" alias="LoginCount2" />
+		<typeAlias type="com.kh.objet.users.model.vo.EnrollCount" alias="EnrollCount" />
 		<typeAlias type="com.kh.objet.support.model.vo.ApplySupport" alias="ApplySupport" />
 		<typeAlias type="com.kh.objet.support.model.vo.MySupport" alias="MySupport" />
 		<typeAlias type="com.kh.objet.support.model.vo.RequestSupport" alias="RequestSupport" />

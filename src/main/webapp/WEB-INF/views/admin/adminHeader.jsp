@@ -108,7 +108,8 @@
 		<div class="ui dropdown item" id="headdi3" align="center" style="padding-left: 35px;">
 			신고 관리 <i class="dropdown icon"></i>
 			<div class="menu" id="sub">
-				<!-- <a class="item" href="reportu.do" id="heada5">회원 신고</a>  --><a class="item" href="reportbm.do" id="heada6">게시글 신고</a> 
+				<a class="item" href="reportobjetm.do" id="heada6">전시 신고</a> 
+				<a class="item" href="reportreviewm.do" id="heada6">한줄평 신고</a> 
 			</div>
 		</div>
 		<div class="ui dropdown item" id="headdi4" align="center" style="padding-left: 35px;">
@@ -143,7 +144,7 @@
 			<div class="ui circular red label" style="margin-left: -5px;">10</div>
 			</div> -->
 			<div class="item">
-				<a href="main.do" target="_blank"><button class="ui inverted basic button icons" style="font-size: 10pt;"><i class="home icon"></i>사용자</button></a>
+				<a href="main.do" target="_blank"><button class="ui inverted basic button" style="font-size: 10pt;"></i>사용자</button></a>
 			</div>
 		</div>
 	</div>
@@ -200,7 +201,8 @@
 				</a>
 			</div>
 			<div class="content" id="cont">
-				<!-- <a class="item" href="reportu.do"> 회원 신고</a>  --><a class="item" href="reportbm.do"> 게시글 신고</a>
+				<a class="item" href="reportobjetm.do"> 전시 신고</a>
+				<a class="item" href="reportreviewm.do"> 한줄평 신고</a>
 			</div> 
 		</div>
 		<div class="ui accordion">

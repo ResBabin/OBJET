@@ -470,10 +470,7 @@
 			</tbody>
 		</table>
 		<div align="right">
-			<button class="ui black button" data-tooltip="비공개 처리">
-				<i class="eye slash outline icon"></i>블라인드
-			</button>
-			<button class="ui grey button" data-tooltip="전시 종료">
+			<button class="ui basic grey button" data-tooltip="전시 종료">
 				<i class="x icon"></i>강제 종료
 			</button>
 		</div>

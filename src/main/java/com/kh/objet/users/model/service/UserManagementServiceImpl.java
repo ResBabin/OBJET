@@ -1,6 +1,5 @@
 package com.kh.objet.users.model.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.users.model.dao.UserManagementDao;
+import com.kh.objet.users.model.vo.EnrollCount;
 import com.kh.objet.users.model.vo.LoginCount;
 import com.kh.objet.users.model.vo.LoginCount2;
 import com.kh.objet.users.model.vo.UserManagement;
@@ -174,6 +174,26 @@ public class UserManagementServiceImpl implements UserManagementService{
 	@Override
 	public List<LoginCount2> selectLoginCountSum() {
 		return usermDao.selectLoginCountSum();
+	}
+
+	@Override
+	public List<LoginCount2> selectLoginCountMonthSum() {
+		return usermDao.selectLoginCountMonthSum();
+	}
+
+	@Override
+	public List<EnrollCount> selectEnrollYearSum() {
+		return usermDao.selecctEnrollYearSum();
+	}
+
+	@Override
+	public List<EnrollCount> selectEnrollMonthSum() {
+		return usermDao.selectEnrollMonthSum();
+	}
+
+	@Override
+	public List<EnrollCount> selectEnrollWeekSum() {
+		return usermDao.selectEnrollWeekSum();
 	} 
 
 

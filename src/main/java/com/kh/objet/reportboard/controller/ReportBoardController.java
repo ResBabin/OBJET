@@ -36,18 +36,27 @@ public class ReportBoardController {
 	
 	public ReportBoardController() {}
 	
-	@RequestMapping("reportbm.do")
-	public String selectReportBList (Model model) {
-		ArrayList<ReportBoard> reportblist = (ArrayList<ReportBoard>)reportbService.selectReportBList();  
-		ArrayList<ReportBoard> reportbm = (ArrayList<ReportBoard>) reportbService.selectReportAll();
-		ArrayList<ReportBoard> reportcount = (ArrayList<ReportBoard>) reportbService.selectReportCount();
-		
+	@RequestMapping("reportobjetm.do")
+	public String selectReportObjetList (Model model) {
+		int reportbcount = reportbService.selectReportObjetList();
+		ArrayList<ReportBoard> reportblist = (ArrayList<ReportBoard>) reportbService.selectReportObjet();
+		ArrayList<ReportBoard> reportbdetail =  (ArrayList<ReportBoard>) reportbService.selectReportObjetDetail();
 		model.addAttribute("reportblist", reportblist);
-		model.addAttribute("reportall", reportbm);
-		model.addAttribute("reportcount", reportcount);
+		model.addAttribute("reportbcount", reportbcount);
+		model.addAttribute("reportbdetail", reportbdetail);
+		return  "admin/reportBoardList1";
+	}
+	@RequestMapping("reportreviewm.do")
+	public String selectReportReviewList (Model model) {
+		int reportbcount = reportbService.selectReportReviewList();
+		ArrayList<ReportBoard> reportblist = (ArrayList<ReportBoard>) reportbService.selectReportReview();
+		ArrayList<ReportBoard> reportbdetail =  (ArrayList<ReportBoard>) reportbService.selectReportReviewDetail();
+		model.addAttribute("reportblist", reportblist);
+		model.addAttribute("reportbcount", reportbcount);
+		model.addAttribute("reportbdetail", reportbdetail);
 		return  "admin/reportBoardList2";
 	}
-	
+/*	
 	@RequestMapping("reportbmd.do")
 	public String selectReportBDetail (HttpServletRequest request, Model model) {
 		//신고상세조회
@@ -58,9 +67,9 @@ public class ReportBoardController {
 		ReportBoard reportbmd = (ReportBoard) reportbService.selectReportBDetail();
 		model.addAttribute("reportbmd", reportbmd);
 		return "admin/reportBoardDetail";
-	}
+	}*/
 	
-	@RequestMapping(value="reportd.do", method=RequestMethod.POST)
+	/*@RequestMapping(value="reportd.do", method=RequestMethod.POST)
 	public void selectReportAllList(ReportBoard report, HttpServletResponse response) throws IOException {
 		ArrayList<ReportBoard> reportall = (ArrayList<ReportBoard>) reportbService.selectReportAllList(report);
 		//전송용 json 객체
@@ -86,7 +95,7 @@ public class ReportBoardController {
 				out.close();
 				
 	}
-	
+	*/
 	@RequestMapping(value="reportdel.do", method=RequestMethod.POST)
 	public void deleteReportb (ReportBoard reportb, HttpServletResponse response) throws IOException {
 		int result = reportbService.deleteReportbOrigin(reportb);
@@ -101,18 +110,18 @@ public class ReportBoardController {
 		out.flush();
 	}
 	
-	@RequestMapping(value="reportdetail.do", method=RequestMethod.POST)
+/*	@RequestMapping(value="reportdetail.do", method=RequestMethod.POST)
 	public void selectReportDetail (Review review, HttpServletResponse response, HttpServletRequest request) throws IOException {
 		review.setRevuserid(request.getParameter("userid"));
 		review.setObjetno(Integer.parseInt(request.getParameter("objetno")));
-		Review reportdetail = reportbService.selectReportDetail(review);
+	//	Review reportdetail = reportbService.selectReportDetail(review);
 		reportdetail.getRevcontent();
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.append(reportdetail.getRevcontent());
 		out.flush();
 	}
-	
+	*/
 	
 	
 	

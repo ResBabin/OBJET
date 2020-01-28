@@ -31,13 +31,14 @@ private int login22;
 private int login23;
 private int login00;
 private Date logindate;
+private String logindate1;
 
 public LoginCount() {}
 
 public LoginCount(int login01, int login02, int login03, int login04, int login05, int login06, int login07,
 		int login08, int login09, int login10, int login11, int login12, int login13, int login14, int login15,
 		int login16, int login17, int login18, int login19, int login20, int login21, int login22, int login23,
-		int login00, Date logindate) {
+		int login00, Date logindate, String logindate1) {
 	super();
 	this.login01 = login01;
 	this.login02 = login02;
@@ -64,6 +65,7 @@ public LoginCount(int login01, int login02, int login03, int login04, int login0
 	this.login23 = login23;
 	this.login00 = login00;
 	this.logindate = logindate;
+	this.logindate1 = logindate1;
 }
 
 public int getLogin01() {
@@ -266,15 +268,21 @@ public void setLogindate(Date logindate) {
 	this.logindate = logindate;
 }
 
-@Override
-public String toString() {
-	return login00 + ", " + login01 + ", " + login02 +  ", " + login03 + ", " + login04 + ", " + login05 + ", " + login06 + ", " + 
-					login07 + ", " + login08 + ", " + login09 + ", " + login10 + ", " + login11 +  ", " + login12	+ ", " +  login13 + ", " + 
-			login14 + ", " + login15 + ", " + login16 + ", " + login17 + ", " + login18 + ", " + login19 + ", " + login20 + ", " + login21 + ", " + 
-					login22 + ", " + login23 + ", " + login00;//+ logindate ;
+public String getLogindate1() {
+	return logindate1;
 }
 
+public void setLogindate1(String logindate1) {
+	this.logindate1 = logindate1;
+}
 
+@Override
+public String toString() {
+	return login01+ ", "+  login02 + ", " + login03 + ", " + login04 + ", " + login05 + ", " + login06 + ", " + login07 + ", " + login08
+			+ ", " + login09 + ", " + login10 + ", " + login11 + ", " + login12 + ", " + login13 + ", " + login14 + ", " + login15 + ", " + login16
+			+ ", " + login17 + ", " + login18 + ", " + login19 + ", " + login20 + ", " + login21 + ", " + login22 + ", " + login23 + ", " + login00 ;
+//			+ ", " + logindate + ", " + logindate1;
+}
 
 
 }
