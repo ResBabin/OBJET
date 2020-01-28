@@ -15,6 +15,7 @@
 	<insert id="insertUsers" parameterType="Users">
 		insert into users values (#{userid}, #{userpwd}, #{usertype}, #{username}, #{nickname}, #{email}, #{phone}, #{gender}, sysdate, default, default
 		<if test="naverid != 0">, #{naverid}</if>
+		<if test="naverid == 0">, NULL</if>
 		)
 	</insert>
 
