@@ -13,6 +13,13 @@
  order by objetstartdate desc
  </select>
  
+ <!-- 오브제 전체 리스트 의 평균 평점  -->
+ <select id="selectObjetRevStar" resultType="ReviewStatus" parameterType="Objet">
+  select nvl(trunc(avg(revstars), 1), 0) revstars
+  from review
+  where objetno = #{objetno}
+ </select>
+ 
  <!-- 오브제 메인 리스트   -->
 <select id="selectObjetMain" resultType="Artist">
   select max(c.objetno) objetno, max(c.objettitle) objettitle, max(c.objettitle2) objettitle2, max(c.objetintro) objetintro, a.userid, a.nickname nickname, b.userrpic, b.userintros, b.userintrol, b.usertag, 
@@ -342,6 +349,13 @@ where a.revuserid = #{userid} and a.objetno = #{objetno}
   where a.userid = #{userid}
  </select>
  
+ <!-- 작가홈 오브제 캘린더 -->
+ <select id="selectMyObjetCalendar" parameterType="String" resultType="Objet">
+  select objettitle, objetstartdate, objetenddate, objetcolor
+  from objet
+  where userid = #{userid}
+ </select>
+ 
  <!-- 내 오브제 카운트 -->
  <select id="selectMyObjetListCount" parameterType="String" resultType="int">
  	select count(*) from objet
@@ -385,6 +399,7 @@ where a.revuserid = #{userid} and a.objetno = #{objetno}
 	<if test="objettitle != null">
 		and objettitle like '%' || upper(#{objettitle}) || '%'
 	</if>
+	and userid = #{userid}
  </select>
  
  <!-- 내 오브제 상세보기 검색  -->
@@ -419,6 +434,7 @@ where a.revuserid = #{userid} and a.objetno = #{objetno}
 	</if>
 	order by objetno desc)
 	where rnum between #{startRow} and #{endRow}
+	and userid = #{userid} 
  </select>
  
  <!-- 내 오브제 등록 -->
@@ -484,11 +500,11 @@ where userid = #{userid} and objetno = #{objetno}
  </delete>
  
  <!-- 오브제 칼라 -->
- <select id="selectObjetColor" parameterType="String" resultType="Objet">
+ <!--<select id="selectObjetColor" parameterType="String" resultType="Objet">
  select max(objetcolor) objetcolor
  from objet
  where userid = #{userid}
- </select>
+ </select>-->
  	
  <!-- 최민영 *************************** -->
  

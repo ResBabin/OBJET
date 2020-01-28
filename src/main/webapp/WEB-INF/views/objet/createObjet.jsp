@@ -41,7 +41,7 @@ $(function(){
 	var dd = date.getDate() > 9 ? date.getDate() : '0' + date.getDate();
  
 	$("#objetstartdate").val(yyyy+"-"+mm+"-"+dd); 
-	
+		
 	 // 이미지 클릭 시 파일 열리기
 	 $("#objetposter").click(function(){
 		$("#originmainposter").click(); 
@@ -129,8 +129,6 @@ $(function(){
 	 $("#createobjetimg8").click(function(){
 		 $("#objetofile8").click(); 
 	 });
-	
-	
 	 
 	 //소개 글 입력 후 DB 저장시 적용
 	 var str1 = $('#objetintro').val();
@@ -141,7 +139,6 @@ $(function(){
 	 var str1 = $('#objetintro').val();
 	 str1 = str1.split('<br/>').join("\r\n");
 	 $('#objetintro').val(str1);
-	 
 	 
 	 //colorpicker
 	 $('.demo').each( function() {
@@ -209,7 +206,21 @@ function count_ck(obj){
 			return false;
 		}
 	}
-	
+
+//날짜 유효성 검사
+function check(){
+var date = new Date();
+ if($("#objetstartdate").val() != null){
+	 if((date - $("#objetstartdate").val()) >= 1){
+		alert("오브제 기간은 오늘 날짜보다 이전일 수 없습니다.");
+		return false;
+	}if((date - $("#objetenddate").val()) >= 1){
+		alert("오브제 기간은 오늘 날짜보다 이전일 수 없습니다.");
+		return false;
+	}
+	 return true;
+ }
+}
 	
 </script>
 
@@ -222,7 +233,7 @@ function count_ck(obj){
 		<p style="font-size: 20pt; padding-top:50px; color:#373737; text-align:center;">오브제 등록</p>
 		
 		<!-- 등록 테이블 시작 -->
-		<form action="insertMyObjet.do" method="post" enctype="multipart/form-data">
+		<form action="insertMyObjet.do" method="post" enctype="multipart/form-data" onsubmit="return check()">
 		<input type="hidden" name="userid" value="${loginUser.userid }">
 		<div align="center">
 			<table class="createObjetTable">
@@ -255,28 +266,6 @@ function count_ck(obj){
 					<th>오브제 기간</th>
 					<td><div class="ui input"><input type="date" name="objetstartdate" id="datepicker1" min="sysdate" required></div>&nbsp;&nbsp; ~ &nbsp;&nbsp;<div class="ui input"><input type="date" name="objetenddate" id="datepicker2"></div></td>
 				</tr>
-				<!-- <script>
-				var picker = new Pikaday({ 
-					 field: document.getElementById('datepicker1'),
-					 format: 'yyyy-MM-dd',
-					 toString(date, format) {
-					   let day = ("0" + date.getDate()).slice(-2);
-					   let month = ("0" + (date.getMonth() + 1)).slice(-2);
-					   let year = date.getFullYear();
-					   return `${year}-${month}-${day}`;
-					 }
-					});
-				var picker = new Pikaday({ 
-					 field: document.getElementById('datepicker2'),
-					 format: 'yyyy-MM-dd',
-					 toString(date, format) {
-					   let day = ("0" + date.getDate()).slice(-2);
-					   let month = ("0" + (date.getMonth() + 1)).slice(-2);
-					   let year = date.getFullYear();
-					   return `${year}-${month}-${day}`;
-					 }
-					});
-				</script> -->
 				<tr>
 					<th style="vertical-align: top;padding-top: 30px;">관련태그<br><span style="color:#aaa; font-size: 9pt; font-weight: normal;">(최대 3개 선택)</span></th>
 					<td>
@@ -315,8 +304,8 @@ function count_ck(obj){
 			            </td>
 			            
 			            <td style="width:20%;">
-				            <img class="createobjetimg" id="createobjetimg<%= i %>" src="resources/images/objet/sampleobjetimg.jpg">
-							<input type="file" name="objetofile<%=i %>" id="objetofile<%=i %>" accept=".jpg,.jpeg,.png" onChange="preview(this, $('#createobjetimg<%= i %>'));" required style="display:none;">
+				            <img class="createobjetimg" id="createobjetimg<%= i %>" src="resources/images/objet/sampleobjetimg.jpg" >
+							<input type="file" name="objetofile<%=i %>" id="objetofile<%=i %>" accept=".jpg,.jpeg,.png" onChange="preview(this, $('#createobjetimg<%= i %>'));" style="display:none;" required>
 			            </td>
 			            
 			            <td style="width:75%;">

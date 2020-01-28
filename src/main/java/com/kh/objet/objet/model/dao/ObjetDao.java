@@ -280,6 +280,15 @@ public class ObjetDao {
 		return mybatisSession.delete("objetMapper.deleteObjet", objetno);
 	}
 	
+	//오브제 리스트 평균 평점
+	public ReviewStatus selectObjetRevStar(int objetno) {
+		return mybatisSession.selectOne("objetMapper.selectObjetRevStar", objetno);
+	}
+	
+	public List<Objet> selectMyObjetCalendar(String userid) {
+		return mybatisSession.selectList("objetMapper.selectMyObjetCalendar", userid);
+	}
+	
 	// 최민영
 	// 작가홈 오브제 리스트 보기
 	public List<Objet2> selectArtistObjetList(String userid) {
@@ -342,6 +351,8 @@ public class ObjetDao {
 	public Objet moveEditObjet(int objetno) {
 		return mybatisSession.selectOne("objetMapper.moveEditObjet", objetno);
 	}
+
+	
 
 	
 /*

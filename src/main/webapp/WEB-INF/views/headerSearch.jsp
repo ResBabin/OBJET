@@ -64,8 +64,6 @@ body {
 	margin-top:4px;
 }
 
-
-
 </style>
 <script type="text/javascript">
 $(function() {
@@ -73,9 +71,9 @@ $(function() {
 		$("#searchList-text").show();
 		$("#searchList-text").focus();
 		$("#searchList-btn").css("color", "#959595");
-		if($("#searchList-btn").css("color") == 'rgb(149, 149, 149)'){
+		if($("#searchList-text").val() != null && $("#searchList-text").val() != ""){
 			search();
-		}
+		} 
 	});
 	
 	$("body").on('mousewheel',function(e){ 
@@ -90,7 +88,7 @@ $(function() {
       });
 	
 	//폼 엔터키 전송
- 	 $('#searchList-form').keydown(function(e) {
+	 $('#searchList-form').keydown(function(e) {
  	    if (e.keyCode == 13) {
  	    	search();
  	    }
@@ -99,29 +97,25 @@ $(function() {
 });
 
 //폼 전송
-if($("#searchList-text").val() != null){
-	function search() {
-		var form = document.forms["searchList-form"];
-		var keyword = $("#searchList-text").val();
-		form.action =  "search.do?keyword="+keyword;
-	    form.submit();
-	};
-}
+function search() {
+	var form = document.forms["searchList-form"];
+	var keyword = $("#searchList-text").val();
+	form.action =  "search.do?keyword="+keyword;
+    form.submit();
+};
 
 window.onload = function() {
 	$("#searchList-text").hide();
 	$("#searchList-btn").show();
 }
-
-
 </script>
 </head>
 <body>
 <!-- 검색 아이콘  -->
 <section class="headerSearch">
 <div class="search-box-top"> 
-<form id='searchList-form' target='_top' class="ui icon input">
-  <input id='searchList-text' name="keyword" type="text" placeholder="검색어를 입력해주세요." autocomplete="off" value="" />
+<form id='searchList-form' class="ui icon input">
+  <input id='searchList-text' name="keyword" type="text" placeholder="검색어를 입력해주세요." autocomplete="off"/>
   <span id="searchList-btn" class="material-icons">&#xe8b6;</span>
 </form>
 </div>

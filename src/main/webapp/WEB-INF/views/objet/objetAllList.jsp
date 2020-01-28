@@ -20,7 +20,8 @@
 <link rel="stylesheet" type="text/css" href="resources/css/main.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script> -->
+
 <style type="text/css">
 .objet_allList {
 	margin-top:0px;
@@ -163,6 +164,12 @@
     color: #909090;
     font-size: 14px;
 }
+
+.revstars {
+	font-size: 14px;
+    line-height: 20px;
+    color: #aaa;
+}
 .objet_list img {	
 	width: 70%;
 	height:320px;
@@ -196,6 +203,7 @@ $(function() {
 		});
 	}
 
+	
 
 });
 
@@ -223,7 +231,7 @@ $(function() {
 </div>  -->
 </div>
 <div class="objet_all_list">
-<c:forEach var="Objet" items="${objetList }">
+<c:forEach var="Objet" items="${objetList }" varStatus="status">
  <c:set var="length" value="${fn:length(Objet.objettitle)}"/>
 <div class="objet_list">
 <ul class="objet_ul">
@@ -232,18 +240,31 @@ $(function() {
 			<a href="objetOne.do?objetno=${Objet.objetno }&userid=${loginUser.userid}">
 		  <c:choose>
            <c:when test="${fn:length(Objet.objettitle) > 12}">
-            <em class="tit01"><c:out value="${fn:substring(Objet.objettitle,0,11)}"/><br>
-            <c:out value="${fn:substring(Objet.objettitle,11,23)}"/><br>
-            <c:out value="${fn:substring(Objet.objettitle,23,length)}"/></em>
+            <em class="tit01"><c:out value="${fn:substring(Objet.objettitle,0,11)}"/>...<br>
+           <%--  <c:out value="${fn:substring(Objet.objettitle,11,23)}"/><br>
+            <c:out value="${fn:substring(Objet.objettitle,23,length)}"/> --%></em>
            </c:when>
            <c:otherwise>
             <em class="tit01"><c:out value="${Objet.objettitle}"/></em>
            </c:otherwise> 
 			</c:choose>
-			<em class="tit02"><c:out value="${fn:substring(Objet.objettitle,0,11)}"/><br>
-			<c:out value="${fn:substring(Objet.objettitle,11,23)}"/></em> 
-			<span class="date"><fmt:formatDate value="${Objet.objetstartdate }" />&nbsp;-&nbsp;<fmt:formatDate value="${Objet.objetenddate }" /></span>
-		</a>
+			<em class="tit02"><c:out value="${fn:substring(Objet.objettitle,0,11)}"/>...<br>
+			<%-- <c:out value="${fn:substring(Objet.objettitle,11,23)}"/> --%></em></a>
+			<span class="date"><fmt:formatDate value="${Objet.objetstartdate }" />&nbsp;-&nbsp;<fmt:formatDate value="${Objet.objetenddate }" /></span><br>
+			<span class="revstars">평균 평점 : 
+			<div class="ui star rating" data-rating="${objetRevstarsList[status.index].revstars }" data-max-rating="5.0">${objetRevstarsList[status.index].revstars }</div>
+			${objetRevstarsList[status.index].revstars }점 </span>
+			<script type="text/javascript" src="resources/js/rating.js"></script>
+			<script type="text/javascript">
+			//평점 레이팅(리스트)
+			$(function() {
+				$('.rating').rating('disable', {
+					initialRating : 0.0,
+					maxRating : 5.0,
+					clearable : false,
+				});
+			});
+			</script>
 	</div>
 	<span class="thumbnail">
 			<a href="objetOne.do?objetno=${Objet.objetno }&userid=${loginUser.userid}">

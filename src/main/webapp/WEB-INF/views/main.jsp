@@ -760,12 +760,7 @@
            <div class="wrap_objet_list">
               <ul class="objet_list">
               <c:forEach var="suggest" items="${objetList }">
-                 <c:if test="${empty loginUser}">
-					<a href="objetOne.do?objetno=${suggest.objetno }">
-				</c:if>
-				<c:if test="${!empty loginUser}">
 					<a href="objetOne.do?objetno=${suggest.objetno }&userid=${loginUser.userid}">
-				</c:if>
 					<li class="objet_list_item">${suggest.objettitle }</li></a>
               </c:forEach>
               <span class='txt_nodata_objet'>검색 결과가 없습니다.</span>

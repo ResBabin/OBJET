@@ -13,6 +13,7 @@ public class ReviewStatus implements java.io.Serializable{
 	private int revgood;
 	private int revhate;
 	private java.sql.Date revdate;
+	private double revstars;
 	
 	public ReviewStatus() {}
 
@@ -66,6 +67,11 @@ public class ReviewStatus implements java.io.Serializable{
 		this.userid = userid;
 		this.revgood = revgood;
 		this.revhate = revhate;
+	}
+	
+	public ReviewStatus(double revstars) {
+		super();
+		this.revstars = revstars;
 	}
 
 	public String getRevuserid() {
@@ -124,11 +130,21 @@ public class ReviewStatus implements java.io.Serializable{
 		this.revdate = revdate;
 	}
 
+	public double getRevstars() {
+		return revstars;
+	}
+
+	public void setRevstars(double revstars) {
+		this.revstars = revstars;
+	}
+
 	@Override
 	public String toString() {
 		return "ReviewStatus [revuserid=" + revuserid + ", objetno=" + objetno + ", revcontent=" + revcontent
-				+ ", userid=" + userid + ", revgood=" + revgood + ", revhate=" + revhate + ", revdate=" + revdate + "]";
+				+ ", userid=" + userid + ", revgood=" + revgood + ", revhate=" + revhate + ", revdate=" + revdate
+				+ ", revstars=" + revstars + "]";
 	}
+
 
 	
 	

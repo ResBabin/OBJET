@@ -103,8 +103,8 @@ function objetModify(){
 			<a class="ui large grey label">전시상태</a>&ensp;
 				<input type="radio" name="objetstatus" value="ALL" <c:if test="${objetstatus == 'ALL'}">checked</c:if> checked><label>&ensp;전체</label>&emsp;&emsp;
 				<input type="radio" name="objetstatus" value="OPEN" <c:if test="${objetstatus == 'OPEN'}">checked</c:if>><label>&ensp;전시중</label>&emsp;&emsp;
-				<input type="radio" name="objetstatus" value="STANDBY" <c:if test="${objetstatus == 'STANDBY'}">checked</c:if>><label>&ensp;예정</label>&emsp;&emsp;
-				<input type="radio" name="objetstatus" value="CLOSE" <c:if test="${objetstatus == 'CLOSE'}">checked</c:if>><label>&ensp;종료</label>&emsp;&emsp;
+				<input type="radio" name="objetstatus" value="STANDBY" <c:if test="${objetstatus == 'STANDBY'}">checked</c:if>><label>&ensp;전시예정</label>&emsp;&emsp;
+				<input type="radio" name="objetstatus" value="CLOSE" <c:if test="${objetstatus == 'CLOSE'}">checked</c:if>><label>&ensp;전시종료</label>&emsp;&emsp;
 				<input type="radio" name="objetstatus" value="WAIT" <c:if test="${objetstatus == 'WAIT'}">checked</c:if>><label>&ensp;승인대기</label>
 		<br><br>
 			<a class="ui large grey label">오브제명</a>&ensp;
@@ -133,7 +133,7 @@ function objetModify(){
 			<c:forEach var="myObjet" items="${list }" varStatus="status">
 			<tr>
 				<td><input type="checkbox" id="chk" class="chk" name="RowCheck" value="${myObjet.objetno}"></td>
-				<td><p style="font-size:10pt;"onclick="location.href='objetOne.do?objetno=${myObjet.objetno}&userid=${loginUser.userid }'"></p>
+				<td onclick="location.href='objetOne.do?objetno=${myObjet.objetno}&userid=${loginUser.userid }'" style="cursor:pointer;"><p style="font-size:10pt;"></p>
 				${myObjet.objettitle }</td>
 				<c:if test="${myObjet.objetstatus eq 'OPEN' }">
 				<td>전시중</td>

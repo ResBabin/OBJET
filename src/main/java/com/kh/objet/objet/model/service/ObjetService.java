@@ -71,7 +71,8 @@ public interface ObjetService {
 	int insertMyObjet(Objet objet);
 	int updateMyObjet(Objet objet);
 	int deleteObjet(int objetno);
-	
+	ReviewStatus selectObjetRevStar(int objetno);
+	List<Objet> selectMyObjetCalendar(String userid);
 	
 	// 최민영
 	List<Objet2> selectArtistObjetList(String userid);
@@ -85,6 +86,8 @@ public interface ObjetService {
 	List<Objet2> selectMyObjetSearch(HashMap<String, Object> map);
 	Objet moveMyObjetDetail(String objettitle);
 	Objet moveEditObjet(int objetno);
+
+	
 	
 	
 	
