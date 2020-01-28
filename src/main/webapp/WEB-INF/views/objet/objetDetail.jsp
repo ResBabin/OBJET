@@ -983,7 +983,13 @@ a:-webkit-any-link {
 }
 
 .artist_cont2 {
-	max-width: 30%;
+	width: 300px;
+	height: 300px;
+	border-radius: 50%;
+	background-color: #fff;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
 }
 
 #artist_tit {
@@ -1003,11 +1009,11 @@ a:-webkit-any-link {
 	
 }
 
-#artist_pic {
+/* #artist_pic {
 	max-width: 100%;
 	height: auto;
 	margin: 0 -200px 0 0;
-}
+} */
 
 /* 전시일정 스타일  */
 /* d-day */
@@ -1728,13 +1734,13 @@ i.icon.clock::before{
 	        success: function (result) {
 	            if(result == "ok"){
 	                console.log("다녀온 오브제 추가");
-	                window.location.href="objetView.do?objetno="+objetno+"&userid="+userid;
+	                window.location.href="coltest.do?objetno="+objetno;
 	            }if(result == "fail"){
 	            	console.log("다녀온 오브제 추가 실패!");
 	            	window.location.reload;
 	            }if(result == "move"){
 	            	console.log("다녀온 오브제 이미 있음!");
-	            	window.location.href="objetView.do?objetno="+objetno+"&userid="+userid;
+	            	window.location.href="coltest.do?objetno="+objetno;
 	            }
 	        }
 	    });
@@ -2157,9 +2163,9 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 <center><span class="det_title">ARTIST</span></center><br>
 <div class="artist_cont">
 <div class="artist_cont1">
-<span id="artist_tit">${objet.nickname }</span><br>
+<span id="artist_tit">${objet.nickname } &nbsp;<a href="artistHomeMain.do?userid=${objet.userid }&loginUser=${loginUser.userid}"><i class="home small teal icon"></i></a></span><br>
 <span id="artist_info_cont">${objet.userintrol }</span></div>
-<div class="artist_cont2"><img src="resources/users_upfiles/${objet.userrpic }" id="artist_pic"></div>
+<div class="artist_cont2" style="background-image: url('resources/users_upfiles/${objet.userrpic }')"></div>
 </div>
 </div>
 <center>
@@ -2226,9 +2232,10 @@ function CountDownTimer(dt, id)
 <!-- 내 한줄평 있을시 보이는 공간 -->
 <c:if test="${loginUser.userid eq myReview.revuserid}">
 <div class="review_mylist">
-<img class="ui circular image" src="resources/users_upfiles/${loginUser.userrpic }" id="writer_mypic">
+<a href="artistHomeMain.do?userid=${myReview.revuserid }&loginUser=${loginUser.userid }"><img class="ui circular image" src="resources/users_upfiles/${loginUser.userrpic }" id="writer_mypic"></a>
 <div class="review_mycontent">
-<span class="rev_mywriter">${myReview.nickname }</span>
+<a href="artistHomeMain.do?userid=${myReview.revuserid }&loginUser=${loginUser.userid }">
+<span class="rev_mywriter">${myReview.nickname }</span></a>
 <span class="rev_date">
 <fmt:formatDate value="${myReview.revdate }" pattern="MMM" />.&nbsp;
 <fmt:formatDate value="${myReview.revdate }" pattern="dd" />.&nbsp;
@@ -2369,9 +2376,11 @@ ${myReview.revcontent }</textarea>
 <c:forEach var="Review" items="${reviewList }" varStatus="status">
 <c:if test="${Review.nickname ne loginUser.nickname }">
 <div class="review_list">
-<img class="ui circular image" src="resources/users_upfiles/${Review.userrpic }" onerror="this.src='resources/images/basicprofilepic.png'" id="writer_pic">
+<a href="artistHomeMain.do?userid=${Review.revuserid }&loginUser=${loginUser.userid }">
+<img class="ui circular image" src="resources/users_upfiles/${Review.userrpic }" onerror="this.src='resources/images/basicprofilepic.png'" id="writer_pic"></a>
 <div class="review_content">
-<span class="rev_writer">${Review.nickname }</span>
+<a href="artistHomeMain.do?userid=${Review.revuserid }&loginUser=${loginUser.userid }">
+<span class="rev_writer">${Review.nickname }</span></a>
 <span class="rev_date">
 <fmt:formatDate value="${Review.revdate }" pattern="MMM" />.&nbsp;
 <fmt:formatDate value="${Review.revdate }" pattern="dd" />.&nbsp;

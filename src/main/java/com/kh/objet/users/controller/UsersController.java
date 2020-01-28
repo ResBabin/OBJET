@@ -478,6 +478,12 @@ public class UsersController {
 		@RequestMapping(value="updateMyPage.do", method=RequestMethod.POST)
 		public String updateMyPage(Users users, Model model, HttpServletRequest request) {
 			int result = usersService.updateMyPage(users);
+			ArrayList<Artist> searchMainList = objetService.selectArtistAllList();
+			Collections.shuffle(searchMainList);
+			ArrayList<Objet> objetList = objetService.selectAllObjetAllList();
+			ArrayList<Objet> objetAllList = objetService.selectObjetAllList();
+			ArrayList<Artist> objetMainList = objetService.selectObjetMainList();
+			Collections.shuffle(objetMainList);
 			
 			String vfn = null;
 			
@@ -493,6 +499,20 @@ public class UsersController {
 				vfn = "message";
 				model.addAttribute("message", "내 정보 수정에 실패하여 메인페이지로 이동합니다.");
 			}
+			
+			if(searchMainList != null && objetList != null && objetAllList != null && objetMainList != null) {
+				model.addAttribute("searchMainList", searchMainList);
+				model.addAttribute("objetList", objetList);
+				model.addAttribute("objetAllList", objetAllList);
+				model.addAttribute("objetMainList", objetMainList);
+			}else {
+				model.addAttribute("searchMainList", searchMainList);
+				model.addAttribute("objetList", objetList);
+				model.addAttribute("objetAllList", objetAllList);
+				model.addAttribute("objetMainList", objetMainList);
+				vfn = "common/error";
+			}
+			
 			return vfn;
 		}
 		

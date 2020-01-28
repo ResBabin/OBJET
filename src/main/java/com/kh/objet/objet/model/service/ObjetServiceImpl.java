@@ -324,6 +324,18 @@ public class ObjetServiceImpl implements ObjetService{
 	public int deleteObjet(int objetno) {
 		return objetDao.deleteObjet(objetno);
 	}
+	
+	//오브제 리스트 평균 평점
+	@Override
+	public ReviewStatus selectObjetRevStar(int objetno) {
+		return objetDao.selectObjetRevStar(objetno);
+	}
+	
+	//작가홈 오브제 전시일정
+	@Override
+	public List<Objet> selectMyObjetCalendar(String userid) {
+		return objetDao.selectMyObjetCalendar(userid);
+	}
 
 	
 	// 최민영 *******************************************************
@@ -391,6 +403,9 @@ public class ObjetServiceImpl implements ObjetService{
 	public Objet moveEditObjet(int objetno) {
 		return objetDao.moveEditObjet(objetno);
 	}
+	
+
+	
 
 	
 

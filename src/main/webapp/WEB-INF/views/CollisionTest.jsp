@@ -2,24 +2,21 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-	<head>
-		<link rel="shortcut icon" href="resources/images/favicon-32x32.png">
+<head>
+<link rel="shortcut icon" href="resources/images/favicon-32x32.png">
 <link rel="icon" href="resources/images/favicon-32x32.png">
-		<title>ObjetVR</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<link type="text/css" rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/main.css">
-		<link rel='stylesheet' href='//fonts.googleapis.com/earlyaccess/kopubbatang.css'>
+<title>ObjetVR</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<link type="text/css" rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/main.css">
+<link rel='stylesheet' href='//fonts.googleapis.com/earlyaccess/kopubbatang.css'>
 <link rel="stylesheet" type="text/css" href="resources/assets/css/KoPubDotum.css">
 <link rel="stylesheet" href="//fonts.googleapis.com/earlyaccess/nanummyeongjo.css">
 <!-- 시맨틱유아이 cdn -->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-		<style type="text/css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+<style type="text/css">
 body {
 	background: white;
 	overflow: hidden;

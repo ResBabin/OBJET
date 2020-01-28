@@ -226,13 +226,22 @@ public class ObjetController {
 	@RequestMapping("objetAllList.do")
 	public ModelAndView selectObjetAllList(ModelAndView mv) {
 		ArrayList<Objet> objetList = objetService.selectObjetAllList();
+		ArrayList<ReviewStatus> objetRevstarsList = new ArrayList<ReviewStatus>();
+		for(int i = 0; i < objetList.size(); i++) {
+			objetRevstarsList.add(objetService.selectObjetRevStar(objetList.get(i).getObjetno()));
+			if(objetRevstarsList != null) {
+				mv.addObject("objetRevstarsList", objetRevstarsList);
+				mv.setViewName("objet/objetAllList");
+			}
+		}
 		if(objetList != null) {
 			mv.addObject("objetList", objetList);
 			mv.setViewName("objet/objetAllList");
-		}else {
+		}/*else {
 			mv.addObject("objetList", objetList);
+			mv.addObject("objetRevstarsList", objetRevstarsList);
 			mv.setViewName("common/error");
-		}
+		}*/
 		
 		return mv;
 	}
@@ -1092,6 +1101,35 @@ public class ObjetController {
 		out.close();
 	}
 	
+	//작가홈 내 오브제 전시 일정
+	@RequestMapping(value="objetPlan.do", method=RequestMethod.POST)
+	@ResponseBody
+	public void selectMyObjetCalendar(@RequestParam(value="userid") String userid, HttpServletResponse response) throws IOException {
+		List<Objet> objetPlanList = objetService.selectMyObjetCalendar(userid);
+		JSONObject sendJson = new JSONObject();
+		JSONArray jarr = new JSONArray();
+		for(Objet objet : objetPlanList) {
+		JSONObject job = new JSONObject();
+		job.put("title", URLEncoder.encode(objet.getObjettitle(), "utf-8"));
+		job.put("start", objet.getObjetstartdate().toString());
+		job.put("end", objet.getObjetenddate().toString());
+		job.put("color", objet.getObjetcolor());
+		jarr.add(job);
+		}
+		
+		sendJson.put("plan", jarr);
+		logger.debug(jarr.toJSONString());
+		response.setContentType("application/json; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.println(sendJson.toJSONString());
+		out.flush();
+		out.close();
+	}
+	
+	@RequestMapping("moveTest.do")
+	public String moveTestJsp() {
+		return "test";
+	}
 	
 	
 	// 최민영 *******************************************************************************
