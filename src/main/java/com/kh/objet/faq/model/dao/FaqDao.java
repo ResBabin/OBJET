@@ -24,15 +24,24 @@ public class FaqDao {
 		return mybatisSession.selectList("csMapper.selectFaqList");
 	}
 ///////////////////////////////////////////////관리자///////////////////////////////////////////////
-public List<Faq> selectFaqListAd(Map<String, Integer> map) {
+public List<Faq> selectFaqListAd(Map<String, String> map) {
 return mybatisSession.selectList("adminMapper.selectFaqList", map);
 }
-
+ 
 public Faq selectFaqDetail(int faqno) {
 return mybatisSession.selectOne("adminMapper.selectFaqDetail", faqno);
 }
 public int selectFaqCountAd() {
 return mybatisSession.selectOne("adminMapper.selectFaqCountAd");
+}
+public int insertFaqAd(Faq faq) {
+	return mybatisSession.insert("adminMapper.insertFaqAd", faq);
+}
+public int deleteFaqAd(String faqno) {
+	return mybatisSession.delete("adminMapper.deleteFaqAd", faqno);
+}
+public int updateFaqAd(Faq faq) {
+	return mybatisSession.update("adminMapper.updateFaqAd", faq);
 }
 	
 

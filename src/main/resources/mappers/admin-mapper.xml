@@ -92,31 +92,43 @@
 		select * from blacklist
 		join users using (userid)
 		order by userid desc
-
 	</select>
 
 	<select id="selectBlacklistCount" resultType="_int">
-		select count(*)
-		from blacklist
+		select count(*) from users
+		<where>
+		blackyn = 'Y'
+		<if test="userid != null">and userid like '%'||#{ userid }||'%'</if>
+		<if test="nickname != null">and nickname like '%'||#{ nickname }||'%'</if>
+		</where>
 	</select>
 
 	<!-- 블랙리스트 정렬 조회 -->
 	<select id="selectBlacklistOrder" resultType="Userm"
-		parameterType="string">
-		select * from blacklist
-		join users using (userid)
-		<trim prefix="order by">
-			<if test="_parameter.equals('ida')"> userid asc</if>
-			<if test="_parameter.equals('idd')"> userid desc</if>
-			<if test="_parameter.equals('nicka')"> nickname asc</if>
-			<if test="_parameter.equals('nickd')"> nickname desc</if>
-			<if test="_parameter.equals('namea')"> username asc</if>
-			<if test="_parameter.equals('named')"> username desc</if>
-			<if test="_parameter.equals('starta')"> blackstart asc</if>
-			<if test="_parameter.equals('startd')"> blackstart desc</if>
-			<if test="_parameter.equals('enda')"> blackend asc</if>
-			<if test="_parameter.equals('endd')"> blackend desc</if>
-		</trim>
+		parameterType="map">
+		select * from
+		(select nickname ,username ,userid, enrolldate, blackyn, quityn, usertype, blackstart, blackend
+		, row_number() over(
+		<if test="order == null " >order by userid desc</if>
+			<if test="order.equals('ida')">order by userid asc</if>
+			<if test="order.equals('idd')">order by  userid desc</if>
+			<if test="order.equals('nicka')">order by  nickname asc</if>
+			<if test="order.equals('nickd')">order by  nickname desc</if>
+			<if test="order.equals('namea')">order by  username asc</if>
+			<if test="order.equals('named')">order by  username desc</if>
+			<if test="order.equals('starta')">order by  blackstart asc</if>
+			<if test="order.equals('startd')">order by  blackstart desc</if>
+			<if test="order.equals('enda')">order by  blackend asc</if>
+			<if test="order.equals('endd')">order by  blackend desc</if>
+		) rnum from users
+			left join blacklist using (userid)
+		<where>
+		blackyn = 'Y'
+		<if test="userid != null">and userid like '%'||#{ userid }||'%'</if>
+		<if test="nickname != null">and nickname like '%'||#{ nickname }||'%'</if>
+		</where>
+		)
+		where rnum between #{startRow} and #{endRow}
 	</select>
 
 
@@ -297,17 +309,43 @@
 		where objetno = #{value}
 	</select>
 
-	<select id="selectObjetRequestList" resultType="Objet">
-		select * from
-		objet where publicyn = 'W'
+	<select id="selectObjetRequestList" resultType="Objet" parameterType="map">
+ 	select *
+		from (select rownum rnum, objetno, objettitle, userid,
+		objetstartdate, objetenddate, objettag, publicyn, objetstatus,
+		objetregidate
+		from (select * from objet order by objetno desc)
+		where publicyn = 'W' 
+		<if test="userid != null">userid = #{ userid }</if>
+		<if test="objettitle != null">objettitle = #{ objettitle }</if>
+		<if test="objettag != null">and objettag like '%'||#{ objettag }||'%'</if>
+		order by objetno desc)
+		where rnum between #{startRow} and #{endRow}
+
+	</select>
+	<select id="selectObjetRequestList2" resultType="Objet">
+ 	select *
+		from (select rownum rnum, objetno, objettitle, userid,
+		objetstartdate, objetenddate, objettag, publicyn, objetstatus,
+		objetregidate
+		from (select * from objet order by objetno desc)
+		where publicyn = 'W' 
+		order by objetno desc)
+		where rnum between 1 and 5
+
+	</select>
+	<select id="selectObjetRequestCount" parameterType="map" resultType="_int">
+	select count(*) from objet where publicyn = 'W'
+	<if test="userid != null">userid = #{ userid }</if>
+	<if test="objettitle != null">objettitle = #{ objettitle }</if>
+	<if test="objettag != null">and objettag like '%'||#{ objettag }||'%'</if>
 	</select>
 
 	<!-- 전시 승인 / 반려 -->
 	<update id="updateRequestStatus" parameterType="map">
 		update objet set
 		objetstatus = 'STANDBY', publicyn = #{ publicyn }
-		where objetno = ${
-		objetno }
+		where objetno = ${ objetno }
 	</update>
 
 	<update id="updateObjetStop" parameterType="int">
@@ -460,8 +498,13 @@
 	<select id="selectFaqList" resultType="Faq" parameterType="map">
 		select *
 		from (select rownum rnum, faqno, adminid, faqtype, faqtitle
-		from (select * from faq ) order
-		by faqno desc)
+		from (select * from faq order by faqno desc) 
+		<where>
+		<if test="faqcontent != null">and faqcontent like '%'||#{faqcontent}||'%'</if>
+		<if test="faqtype != null">and faqtype like '%'||#{faqtype}||'%'</if>
+		<if test="faqtitle != null">and faqtitle like '%'||#{faqtitle}||'%'</if>
+		</where>
+		order by faqno desc)
 		where rnum between #{ startRow } and #{ endRow }
 	</select>
 
@@ -485,6 +528,18 @@
 	<select id="selectFaqCountAd" resultType="int">
 		select count(*) from faq	
 	</select>
+	<insert id="insertFaqAd" parameterType="Faq">
+		insert into faq values(
+		FAQNO_SEQ.nextval, #{adminid}, #{faqtype}, #{faqtitle}, #{faqcontent}
+		)
+	</insert>
+	<delete id="deleteFaqAd" parameterType="string">
+		delete from faq where faqno = #{ value }
+	</delete>
+	<update id="updateFaqAd" parameterType="Faq">
+		update faq set faqtitle = #{ faqtitle }, faqcontent = #{ faqcontent }, faqtype = #{ faqtype }
+		where faqno = #{ faqno }
+	</update>
 
 	<!-- =========신고게시글============ -->
 	<!-- 오브제 신고게시글 전체조회 -->
@@ -666,38 +721,6 @@
 	<select id="selectEnrollCount" resultType="Users">
 		select to_date(to_char(enrolldate, 'yy/MM/dd')) as "enrolldate" from users
 	</select>
-	
-	<!-- 로그인 주별, 월별, 년도별 평균 -->
-	<!-- <select id="selectLoginCountWeekAvg" parameterType="map" resultType="LoginCount">
-	select nvl(avg(login01), 0) "login01", nvl(avg(login02), 0) "login02", nvl(avg(login03), 0) "login03", nvl(avg(login04), 0) "login04", nvl(avg(login05), 0) "login05", nvl(avg(login06), 0) "login06", 
-		 nvl(avg(login07), 0) "login07", nvl(avg(login08), 0) "login08", nvl(avg(login09), 0) "login09", nvl(avg(login10), 0) "login10", nvl(avg(login11), 0) "login11", nvl(avg(login12), 0) "login12", 
-		 nvl(avg(login13), 0) "login13", nvl(avg(login14), 0) "login14", nvl(avg(login15), 0) "login15", nvl(avg(login16), 0) "login16", nvl(avg(login17), 0) "login17", nvl(avg(login18), 0) "login18", 
-		 nvl(avg(login19), 0) "login19", nvl(avg(login20), 0) "login20", nvl(avg(login21), 0) "login21", nvl(avg(login22), 0) "login22", nvl(avg(login23), 0) "login23", nvl(avg(login00), 0) "login00" ,  to_char( sysdate, 'yyMM W') "logindate"
-		 from logincount 
-		 where to_char(logindate, 'yyMMW' ) = to_char( sysdate, 'yyMMW')
-     union all 
-        select nvl(avg(login01), 0) "login01", nvl(avg(login02), 0) "login02", nvl(avg(login03), 0) "login03", nvl(avg(login04), 0) "login04", nvl(avg(login05), 0) "login05", nvl(avg(login06), 0) "login06", 
-		 nvl(avg(login07), 0) "login07", nvl(avg(login08), 0) "login08", nvl(avg(login09), 0) "login09", nvl(avg(login10), 0) "login10", nvl(avg(login11), 0) "login11", nvl(avg(login12), 0) "login12", 
-		 nvl(avg(login13), 0) "login13", nvl(avg(login14), 0) "login14", nvl(avg(login15), 0) "login15", nvl(avg(login16), 0) "login16", nvl(avg(login17), 0) "login17", nvl(avg(login18), 0) "login18", 
-		 nvl(avg(login19), 0) "login19", nvl(avg(login20), 0) "login20", nvl(avg(login21), 0) "login21", nvl(avg(login22), 0) "login22", nvl(avg(login23), 0) "login23", nvl(avg(login00), 0) "login00" , to_char( sysdate-7, 'yyMM W')
-		 from logincount 
-		 where to_char(logindate, 'yyMMW' ) = to_char( sysdate -7, 'yyMMW')
-     union all 
-      select nvl(avg(login01), 0) "login01", nvl(avg(login02), 0) "login02", nvl(avg(login03), 0) "login03", nvl(avg(login04), 0) "login04", nvl(avg(login05), 0) "login05", nvl(avg(login06), 0) "login06", 
-		 nvl(avg(login07), 0) "login07", nvl(avg(login08), 0) "login08", nvl(avg(login09), 0) "login09", nvl(avg(login10), 0) "login10", nvl(avg(login11), 0) "login11", nvl(avg(login12), 0) "login12", 
-		 nvl(avg(login13), 0) "login13", nvl(avg(login14), 0) "login14", nvl(avg(login15), 0) "login15", nvl(avg(login16), 0) "login16", nvl(avg(login17), 0) "login17", nvl(avg(login18), 0) "login18", 
-		 nvl(avg(login19), 0) "login19", nvl(avg(login20), 0) "login20", nvl(avg(login21), 0) "login21", nvl(avg(login22), 0) "login22", nvl(avg(login23), 0) "login23", nvl(avg(login00), 0) "login00" , to_char( sysdate-14, 'yyMM W')
-		 from logincount 
-		 where to_char(logindate, 'yyMMW' ) = to_char( sysdate -14, 'yyMMW')
-     union all 
-     select nvl(avg(login01), 0) "login01", nvl(avg(login02), 0) "login02", nvl(avg(login03), 0) "login03", nvl(avg(login04), 0) "login04", nvl(avg(login05), 0) "login05", nvl(avg(login06), 0) "login06", 
-		 nvl(avg(login07), 0) "login07", nvl(avg(login08), 0) "login08", nvl(avg(login09), 0) "login09", nvl(avg(login10), 0) "login10", nvl(avg(login11), 0) "login11", nvl(avg(login12), 0) "login12", 
-		 nvl(avg(login13), 0) "login13", nvl(avg(login14), 0) "login14", nvl(avg(login15), 0) "login15", nvl(avg(login16), 0) "login16", nvl(avg(login17), 0) "login17", nvl(avg(login18), 0) "login18", 
-		 nvl(avg(login19), 0) "login19", nvl(avg(login20), 0) "login20", nvl(avg(login21), 0) "login21", nvl(avg(login22), 0) "login22", nvl(avg(login23), 0) "login23", nvl(avg(login00), 0) "login00" , to_char( sysdate-21, 'yyMM W')
-		 from logincount 
-		 where to_char(logindate, 'yyMMW' ) = to_char( sysdate-21, 'yyMMW')
-	</select>
-	 -->
 	<select id="selectLoginCountAvg" parameterType="map" resultType="LoginCount">
 		 select avg(login01) "login01", avg(login02) "login02", avg(login03) "login03", avg(login04) "login04", avg(login05) "login05", avg(login06) "login06", 
 		 avg(login07) "login07", avg(login08) "login08", avg(login09) "login09", avg(login10) "login10", avg(login11) "login11", avg(login12) "login12", 

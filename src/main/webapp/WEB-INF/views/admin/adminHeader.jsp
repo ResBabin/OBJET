@@ -87,7 +87,7 @@
 			회원 관리 <i class="dropdown icon"></i>
 			<div class="menu" id="sub">
 				<a class="item" href="userm.do?usertype=&order=idd&page=1" id="heada1">회원 조회</a> 
-				<a class="item" href="userbk.do" id="heada2">블랙리스트 조회</a> 
+				<a class="item" href="userbk.do?order=idd" id="heada2">블랙리스트 조회</a> 
 				<a class="item" href="userstatistics.do" id="heada1">회원 통계</a> 
 			</div>
 		</div>
@@ -172,7 +172,7 @@
 			</div>
 			<div class="content" id="cont">
 				<a class="item" href="userm.do?usertype=&order=idd&page=1"> 회원 조회 </a> <a class="item"
-					href="userbk.do"> 블랙리스트 조회</a>
+					href="userbk.do?order=idd"> 블랙리스트 조회</a>
 			</div>
 		</div>
 		<div class="ui accordion">

@@ -28,8 +28,8 @@ public class UserManagementDao {
 	public List<UserManagement> selectBlacklist() {
 		return mybatisSession.selectList("adminMapper.selectBlacklist");
 	}
-	public List<UserManagement> selectBlacklistOrder(String order) {
-		return mybatisSession.selectList("adminMapper.selectBlacklistOrder", order);
+	public List<UserManagement> selectBlacklistOrder(Map<String, String> map) {
+		return mybatisSession.selectList("adminMapper.selectBlacklistOrder", map);
 	}
 	public UserManagement selectUserDetail(String userid) {
 		return mybatisSession.selectOne("adminMapper.selectUserDetail", userid);

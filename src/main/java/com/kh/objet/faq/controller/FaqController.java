@@ -78,8 +78,13 @@ public class FaqController {
 @RequestMapping("faqm.do")
 public ModelAndView selectFaqList(ModelAndView mv, HttpServletRequest request) {
 
-Map<String, Integer> map = new HashMap<>();
-
+Map<String, String> map = new HashMap<>();
+String faqtype = request.getParameter("faqtype");
+String faqcontent = request.getParameter("faqcontents");
+String faqtitle = request.getParameter("faqtitles");
+map.put("faqtype", faqtype);
+map.put("faqcontent", faqcontent);
+map.put("faqtitle", faqtitle);
 int currentPage = 1;
 if(request.getParameter("page") != null) {
 currentPage = Integer.parseInt(request.getParameter("page"));
@@ -104,12 +109,15 @@ endPage = maxPage;
 //currentPage 에 출력할 목록의 조회할 행 번호 계산
 int startRow = (currentPage * limit) - 9;
 int endRow = currentPage * limit;
-map.put("startRow", startRow);
-map.put("endRow", endRow);
+map.put("startRow", Integer.toString(startRow));
+map.put("endRow", Integer.toString(endRow));
 
 ArrayList<Faq> faqlist = (ArrayList<Faq>) faqService.selectFaqListAd(map);
 mv.addObject("faqlist", faqlist);
-mv.addObject("currentPage", currentPage);
+mv.addObject("faqtitle", faqtitle);
+mv.addObject("faqcontent", faqcontent);
+mv.addObject("faqtype", faqtype);
+mv.addObject("currentPage", currentPage); 
 mv.addObject("listCount", listCount);
 mv.addObject("maxPage", maxPage);
 mv.addObject("beginPage", beginPage);
