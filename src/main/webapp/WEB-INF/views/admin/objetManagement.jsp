@@ -435,7 +435,7 @@
 					<tr>
 						<td>
 							<div class="ui fitted checkbox">
-								<input type="checkbox" name="userselect"> <label></label>
+								<input type="checkbox" name="objetno"> <label></label>
 							</div>
 						</td>
 						<td style="text-align: right;">${ objetm.objetno }</td> 

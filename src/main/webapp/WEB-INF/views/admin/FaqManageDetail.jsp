@@ -28,7 +28,7 @@ table {
 	border: none;
 	line-height: 30px;
 	width: 800px;
-	box-shadow: 7px 7px 0px #99999955;
+	box-shadow: 5px 5px 0px #aaaaaa55;
 }
 
 th, td {
@@ -39,11 +39,11 @@ th, td {
 	color: #333;
 }
 
-th {
+th { 
 	background: #f0f0f0;
 }
 
-#btn2 {
+#btn2, #btn1 {
 	background: #ddd;
 	color: black;
 	font-size: 10pt;
@@ -57,7 +57,7 @@ th {
 	padding: 12px;
 } */
 
-#btn2:hover {
+#btn2:hover, #btn1:hover {
 	background: #aaa;
 }
 #not{
@@ -66,6 +66,24 @@ font-size: 13pt;
 font-weight: bold;
 }
 </style>
+
+<script type="text/javascript">
+$(function() {
+	$("#btn1").click(function() {
+		var con = confirm("해당 글을 삭제하시겠습니까?");
+		if(con){
+		$("#delfaq").submit();
+		}
+	});
+	
+});
+
+
+
+
+</script>
+
+
 </head>
 <body>
 <div style="background: black; height: 100px; margin-top: -15px; color: white; text-align: center; font-size: 20pt; padding: 30px; font-family: 'Nanum Gothic' ;">
@@ -138,9 +156,9 @@ FAQ</div>
 			</table>
 			<c:url var="tofaqm" value="faqm.do"/>
 			<div align="right" style="margin-top: 20px; margin-right: 5px;">
-				<button class="ui button icons" id="btn2">삭제</button>
+				<button type="button" class="ui button icons" id="btn1">삭제</button>
 				&nbsp;
-				<button class="ui button icons" id="btn2">수정</button>
+				<a href="faqupdatead.do?faqno=${ faqmd.faqno }"><button class="ui button icons" id="btn2">수정</button></a>
 				&nbsp;
 				<a href="${ tofaqm }">
 				<button class="ui button icon" id="btn3">
@@ -148,6 +166,9 @@ FAQ</div>
 				</button> &nbsp;&nbsp;
 				</a>
 			</div>
+			<form action="deletefaqad.do" id="delfaq" method="post">
+				<input type="hidden" value="${ faqmd.faqno }" name="faqno">
+			</form>
 		</div>
 	</div>
 	<c:import url="../footer.jsp"/>

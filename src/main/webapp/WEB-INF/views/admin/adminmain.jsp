@@ -248,7 +248,7 @@ var myChart3 = new Chart(ctx3, {
 <body style="background: #ccc;">
 	<div id="bodytag">
 		<div style="padding: 140px; padding-top: 20px; padding-right: 20px; display: flex;">
-			<a href="userm.do">
+			<a href="userm.do?usertype=&order=idd&page=1">
 			<c:set value="${ 0 }" var="enrollcount"/>
 			<c:set value="<%= new java.util.Date() %>" var="today"/>
 			<fmt:formatDate value="${ today }" pattern="yyyy-MM-dd" var="today"/>
@@ -256,10 +256,10 @@ var myChart3 = new Chart(ctx3, {
  			<c:if test="${ userl.enrolldate eq today }">
  			<c:set value="${ enrollcount + 1 }" var="enrollcount"/>
  			</c:if>
-			</c:forEach>
+			</c:forEach> 
 				<div id="movediv" style="margin-left: 0px;">
 						<label class="ui small label" style="margin-top: -150px; margin-left: -65px;">${ userlist.size() }</label>
-						<c:if test="${ enrollcount > 0}">
+						<c:if test="${ enrollcount > 0 }">
 							<h5 style="margin-top: -22px; color: #6435c9;">
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;New ${ enrollcount }</h5>
 						</c:if>
@@ -268,7 +268,7 @@ var myChart3 = new Chart(ctx3, {
 						</i>회원조회
 					</h5>
 				</div>
-			</a> <a href="userbk.do">
+			</a> <a href="userbk.do?order=idd">
 				<div id="movediv">
 					<label class="ui small label" style="margin-top: -150px; margin-left: -70px;" id="bkcount">${ bkcount  }</label>
 					<h5 class="ui header" style="margin-top: 10px;">
@@ -307,13 +307,13 @@ var myChart3 = new Chart(ctx3, {
 			<div style="margin-top: 0px;">
 			<%-- <c:set var="reqcount" value="${ objetreqlist.size() /objetmlist.size() * 100}" /> --%>
 			<c:if test="${ !empty beforestart  }">
-			<fmt:formatNumber type="number" pattern="0.0" value="${ beforestart / objetreqlist.size() * 100}" var="reqcount"/> 
+			<fmt:formatNumber type="number" pattern="0.0" value="${ beforestart / allrequest * 100}" var="reqcount"/> 
 			</c:if>
-			<c:if test="${ objetreqlist.size() eq 0  }">
+			<c:if test="${ allrequest eq 0  }">
 			<c:set var="reqcount" value="0.0" />
 			</c:if>
-			 <label class="label"> <font style="font-weight: bold;">마감 임박 신청작 : ${ beforestart } / ${ objetreqlist.size() } </font></label>
-			<div class="ui black progress" style="margin-top: 0px;margin-bottom: 0px;" id="progress1" data-value=" ${ beforestart }" data-total="${ objetreqlist.size()}">
+			 <label class="label"> <font style="font-weight: bold;">마감 임박 신청작 : ${ beforestart } / ${ allrequest } </font></label>
+			<div class="ui black progress" style="margin-top: 0px;margin-bottom: 0px;" id="progress1" data-value=" ${ beforestart }" data-total="${ allrequest }">
 				<div class="bar" align="center"></div>
 			</div>
 			 </div>
@@ -426,12 +426,12 @@ var myChart3 = new Chart(ctx3, {
 			style="padding: 140px; padding-top: 20px; padding-right: 20px; display: flex; margin-top: -140px;">
 			<div id="requestm">
 				<div align="right" style="margin: -5px;">
-					<a href="reportbm.do" style="margin-left: 570px;"><button
+					<a href="" style="margin-left: 570px;"><button
 							style="background: #eee;" class="ui tiny button icon">
 							<i class="icon plus"></i>
 						</button></a>
 				</div>
-				<h3 style="margin-top: -25px;">신고 게시글 관리<label class="ui small red label" style="margin-left: 20px;" id="reqlabel">New ${ reportblist.size() }</label> </h3>
+				<h3 style="margin-top: -25px;">신고 게시글 현황<label class="ui small red label" style="margin-left: 20px;" id="reqlabel">New ${ reportblist.size() }</label> </h3>
 				<hr noshade="noshade">
 				<table class="ui celled table selectable" style="font-size: 9pt;"
 					id="usertable">

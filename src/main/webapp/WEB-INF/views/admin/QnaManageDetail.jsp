@@ -77,10 +77,6 @@ legend {
 			
 			<c:url var="toqnam" value="qnam.do"/>
 			<div align="right" style="margin-top: 20px; margin-right: 5px;">
-				<button class="ui button icons" id="btn2">삭제</button>
-				&nbsp;
-				<button class="ui button icons" id="btn2">수정</button>
-				&nbsp;
 				<a href="${ toqnam }">
 				<button class="ui button icon" id="btn3">
 					<i class="list icon"></i>

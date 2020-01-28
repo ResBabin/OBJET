@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.objet.faq.model.service.FaqService;
+import com.kh.objet.faq.model.vo.Faq;
 import com.kh.objet.objet.model.vo.Objet;
 import com.kh.objet.reportudetail.model.vo.ReportUDetail;
 import com.kh.objet.support.model.service.SupportService;
@@ -45,6 +47,9 @@ public class UserManagementController {
 	private LoginCount logincService;
 	@Autowired
 	private SupportService supportService;
+	@Autowired
+	private FaqService faqService;
+	
 
 	public UserManagementController() {
 	}
@@ -107,18 +112,57 @@ public class UserManagementController {
 			return "admin/userManagement";
 	}
 	@RequestMapping("userbk.do")
-	public ModelAndView Blacklist(ModelAndView mv) {
-		ArrayList<UserManagement> bklist = (ArrayList<UserManagement>) usermService.selectBlacklist();
-		if (bklist != null) {
-			mv.addObject("bklist", bklist);
-			mv.setViewName("admin/userBlacklist");
-		} else {
-			mv.addObject("message", "블랙리스트 목록 조회 실패");
-			mv.setViewName("common/error");
+	public String Blacklist(Model model, HttpServletRequest request) {
+		Map<String, String> map = new HashMap<>();
+		int currentPage = 1;
+		if(request.getParameter("page") != null) {
+			currentPage = Integer.parseInt(request.getParameter("page"));
 		}
-		return mv;
+		String userid = request.getParameter("userid");
+		String nickname = request.getParameter("nickname");
+		String order = request.getParameter("order");
+		map.put("order", order);
+		map.put("nickname", nickname);
+		map.put("userid", userid);
+		int limit = 10;  //한 페이지에 출력할 목록 갯수
+		int listCount = usermService.selectBlacklistCount();
+		//총 페이지 수 계산
+		int maxPage = listCount / limit;
+		if(listCount % limit > 0)
+			maxPage++;
+		
+		//currentPage 가 속한 페이지그룹의 시작페이지숫자와 끝숫자 계산
+		//예, 현재 34페이지이면 31 ~ 40 이 됨. (페이지그룹의 수를 10개로 한 경우)
+		int beginPage = (currentPage / limit) * limit + 1;
+        if(currentPage % limit == 0) {
+            beginPage -= limit;
+         }
+		int endPage = beginPage + 9;
+		if(endPage > maxPage)
+			endPage = maxPage;
+		
+		//currentPage 에 출력할 목록의 조회할 행 번호 계산
+		int startRow = (currentPage * limit) - 9;
+		int endRow = currentPage * limit;
+		map.put("startRow", Integer.toString(startRow));
+		map.put("endRow", Integer.toString(endRow));
+		ArrayList<UserManagement> bklist = (ArrayList<UserManagement>) usermService.selectBlacklistOrder(map);
+		String view = "";
+		if (bklist != null) {
+			model.addAttribute("bklist", bklist);
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("listCount", listCount);
+			model.addAttribute("maxPage", maxPage);
+			model.addAttribute("beginPage", beginPage);
+			model.addAttribute("endPage", endPage);
+			view = "admin/userBlacklist";
+		} else {
+			model.addAttribute("message", "블랙리스트 목록 조회 실패");
+			view = "common/error";
+		}
+		return view;
 	}
-	@RequestMapping(value="userbkorder.do", method=RequestMethod.POST)
+	/*@RequestMapping(value="userbkorder.do", method=RequestMethod.POST)
 	public void BlacklistOrder(String order, HttpServletResponse response) throws IOException {
 		ArrayList<UserManagement> bklist = (ArrayList<UserManagement>) usermService.selectBlacklistOrder(order);
 		//전송용 json 객체
@@ -145,7 +189,7 @@ public class UserManagementController {
 				out.flush();
 				out.close();
 				
-	}
+	}*/
 	
 	@RequestMapping("usermd.do")
 	public ModelAndView userMangeDetail(ModelAndView mv, @RequestParam("userid") String userid) {
@@ -431,11 +475,77 @@ public class UserManagementController {
 		return "admin/userStatistics";
 	}
 	
+	@RequestMapping("faqWriteAd.do")
+	public String faqWriteAd() {
+		return "admin/FaqWrite";
+	}
+	@RequestMapping("faqupdatead.do")
+	public String faqUpdateAd(Model model, @RequestParam("faqno") int faqno) {
+		Faq faq = faqService.selectFaqDetail(faqno);
+		model.addAttribute("faqmd", faq);
+		return "admin/FaqModify";
+	}
 	
+	@RequestMapping(value = "faqinsert.do", method = RequestMethod.POST)
+	private String insertNoticeAd(Faq faq, Model model, HttpServletRequest request) {
+	String adminid = request.getParameter("adminid");
+	String faqtitle = request.getParameter("faqtitle");
+	String faqcontent = request.getParameter("faqcontent");
+	String faqtype = request.getParameter("faqtype");
 	
+	faq.setAdminid(adminid);
+	faq.setFaqtitle(faqtitle);
+	faq.setFaqcontent(faqcontent);
+	faq.setFaqtype(faqtype);
+	int result = faqService.insertFaqAd(faq);
 	
+	String view = "";
+	if (result > 0) {
+	view = "redirect:faqm.do";
+	} else {
+	model.addAttribute("message", "FAQ 등록 실패");
+	view = "common/error";
+	}
+	return view;
+	}	
 	
+	@RequestMapping(value = "faqupdatead.do", method = RequestMethod.POST)
+	private String updateNoticeAd(Faq faq, Model model, HttpServletRequest request) {
+		String faqtitle = request.getParameter("faqtitle");
+		String faqcontent = request.getParameter("faqcontent");
+		String faqtype = request.getParameter("faqtype");
+		
+		faq.setFaqtitle(faqtitle);
+		faq.setFaqcontent(faqcontent);
+		faq.setFaqtype(faqtype);
+		faq.setFaqno(Integer.parseInt(request.getParameter("faqno")));
+		int result = faqService.updateFaqAd(faq);
+		
+		String view = "";
+		if (result > 0) {
+			view = "redirect:faqm.do";
+		} else {
+			model.addAttribute("message", "FAQ 등록 실패");
+			view = "common/error";
+		}
+		return view;
+	}	
 	
+	@RequestMapping(value="deletefaqad.do", method=RequestMethod.POST)
+	public String deleteFaqAd(HttpServletRequest request) {
+		int result = 0;
+		String view ; 
+		String[] faqnoArray = (request.getParameterValues("faqno"));
+		for(String faqno: faqnoArray) {
+			result = faqService.deleteFaqAd(faqno);
+		}
+		if(result > 0) {
+			view = "redirect:faqm.do";
+		}else {
+			view  = "common/error";
+		}
+		return view;
+	}
 	
 	
 	

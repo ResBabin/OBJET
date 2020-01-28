@@ -20,29 +20,26 @@
 	padding-bottom: 70px;
 }
 </style>
+
 <c:import url="adminHeader.jsp" />
 <script type="text/javascript">
+
+
 
 </script>
 </head>
 <body>
 <div id="um">
 		<br>
-		<div align="right">
+		<!-- <div align="right">
 			<div class="ui basic button">검색</div>
-			<!-- 		<div class="ui small basic buttons">
-				<div class="ui button">전체</div>
-				<div class="ui button">회원ID</div>
-				<div class="ui button">닉네임</div>
-				<div class="ui button active">이름</div>
-			</div> -->
 			<div class="ui small icon input">
 				<input type="search" placeholder="회원 검색"> <i
 					class="search icon"></i>
 			</div>
 			<br>
 			<div></div>
-		</div>
+		</div> -->
 		<br>
 		<table class="ui sortable celled table selectable"
 			style="font-size: 10pt;">
@@ -100,44 +97,44 @@
 		<div align="center">
 		<div class="ui pagination menu"  id="pagingdiv">
 		<c:if test="${ currentPage eq 1 }">
-		<a href="/objet/objetm.do?page=1" class="disabled item"><i class="angle double left icon"></i></a>
+		<a href="/objet/objetreq.do?page=1" class="disabled item"><i class="angle double left icon"></i></a>
 		</c:if>
 		<c:if test="${ currentPage ne 1 }">
-		<a href="/objet/objetm.do?page=1" class="item"><i class="angle double left icon"></i></a>
+		<a href="/objet/objetreq.do?page=1" class="item"><i class="angle double left icon"></i></a>
 		</c:if>
 		<c:if test="${ beginPage - 10 < 1 }">
-		<c:if test="${ currentPage eq 1 }"><a href="/objet/objetm.do?page=1" class="disabled item"><i class="angle left icon"></i></a></c:if>
-		<c:if test="${ currentPage ne 1 }"><a href="/objet/objetm.do?page=1" class="item"><i class="angle left icon"></i></a></c:if>
+		<c:if test="${ currentPage eq 1 }"><a href="/objet/objetreq.do?page=1" class="disabled item"><i class="angle left icon"></i></a></c:if>
+		<c:if test="${ currentPage ne 1 }"><a href="/objet/objetreq.do?page=1" class="item"><i class="angle left icon"></i></a></c:if>
 		</c:if>
 		<c:if test="${ beginPage - 10 >= 1 }">
-		<a href="/objet/objetm.do?page=${ currentPage }" class="item"><i class="angle left icon"></i></a>
+		<a href="/objet/objetreq.do?page=${ currentPage }" class="item"><i class="angle left icon"></i></a>
 		</c:if>
 		<c:forEach begin="${ beginPage }" end="${ endPage }" var="p">
 		<c:if test="${ p eq currentPage }">
-<%-- 		<a href="/objet/objetm.do?page=${ p }" class="active item">${ p }</a> --%>
-		<a class="active item pages" id="pages">${ p }</a>
+ 		<a href="/objet/objetreq.do?page=${ p }" class="active item">${ p }</a> 
+		<%-- <a class="active item pages" id="pages">${ p }</a> --%>
 		</c:if>
 		<c:if test="${ p ne currentPage }">
-<%-- 		<a href="/objet/objetm.do?page=${ p }" class="item">${ p }</a> --%>
-		<a class="item pages" id="pages">${ p }</a>
+ 		<a href="/objet/objetreq.do?page=${ p }" class="item">${ p }</a> 
+		<%-- <a class="item pages" id="pages">${ p }</a> --%>
 		</c:if>
 		</c:forEach>
 		<c:if test="${  endPage + 10 > maxPage }">
 		<c:if test="${ currentPage eq endPage }">
-		<a href="/objet/objetm.do?page=${ maxPage }" class="disabled item"><i class="angle right icon"></i></a>
+		<a href="/objet/objetreq.do?page=${ maxPage }" class="disabled item"><i class="angle right icon"></i></a>
 		</c:if>
 		<c:if test="${ currentPage ne endPage }">
-		<a href="/objet/objetm.do?page=${ maxPage }" class="item"><i class="angle right icon"></i></a>
+		<a href="/objet/objetreq.do?page=${ maxPage }" class="item"><i class="angle right icon"></i></a>
 		</c:if>
 		</c:if>
 		<c:if test="${ endPage + 10 <= maxPage }">
-		<a href="/objet/objetm.do?page=${ endPage + 10 }" class="item"><i class="angle right icon"></i></a>
+		<a href="/objet/objetreq.do?page=${ endPage + 10 }" class="item"><i class="angle right icon"></i></a>
 		</c:if>
 		<c:if test="${ currentPage eq endPage }">
-		<a href="/objet/objetm.do?page=${ endPage }" class="disabled item"><i class="angle double right icon"></i></a>
+		<a href="/objet/objetreq.do?page=${ endPage }" class="disabled item"><i class="angle double right icon"></i></a>
 		</c:if>
 		<c:if test="${ currentPage ne endPage }">
-		<a href="/objet/objetm.do?page=${ endPage }" class="item"><i class="angle double right icon"></i></a>
+		<a href="/objet/objetreq.do?page=${ endPage }" class="item"><i class="angle double right icon"></i></a>
 		</c:if>
 	</div>
 	</div>

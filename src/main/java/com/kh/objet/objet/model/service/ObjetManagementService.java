@@ -10,7 +10,7 @@ import com.kh.objet.objet.model.vo.ObjetManagement;
 public interface ObjetManagementService {
 	public List<Objet> selectAllObet(Map<String, Integer> map);
 	public ObjetManagement selectObjetOne(int objetno);
-	public List<Objet> selectObjetRequestManage();
+	public List<Objet> selectObjetRequestManage(Map<String, String> map);
 	public List<Objet> selectObjetReqMain();
 	public int updateRequestStatus(Map<String, String> map);
 	public int updateObjetStop(int objetno);
@@ -19,4 +19,6 @@ public interface ObjetManagementService {
 	public int selectObjetListCount();
 	public int selectStatusOrderList(Map<String, String> map);
 	public int selectBeforeStart();
+	public int selectObjetRequestList(Map<String, String> map);
+	public List<Objet> selectObjetRequestManage();
 }

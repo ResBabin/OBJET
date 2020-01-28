@@ -27,8 +27,8 @@ public class ObjetManagementServiceImpl implements ObjetManagementService{
 	}
 
 	@Override
-	public List<Objet> selectObjetRequestManage() {
-		return objetmDao.selectObjetRequestManage();
+	public List<Objet> selectObjetRequestManage(Map<String, String> map) {
+		return objetmDao.selectObjetRequestManage(map);
 	}
 
 	@Override
@@ -69,6 +69,16 @@ public class ObjetManagementServiceImpl implements ObjetManagementService{
 	@Override
 	public int selectBeforeStart() {
 		return objetmDao.selectBeforeStart();
+	}
+
+	@Override
+	public int selectObjetRequestList(Map<String, String> map) {
+		return objetmDao.selectObjetRequestList(map);
+	}
+
+	@Override
+	public List<Objet> selectObjetRequestManage() {
+		return objetmDao.selectObjetRequestManage();
 	}
 
 }

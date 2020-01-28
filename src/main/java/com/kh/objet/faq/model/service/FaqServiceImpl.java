@@ -27,7 +27,7 @@ public class FaqServiceImpl implements FaqService{
 
 
 	   @Override
-	   public List<Faq> selectFaqListAd(Map<String, Integer> map) {
+	   public List<Faq> selectFaqListAd(Map<String, String> map) {
 	      return faqDao.selectFaqListAd(map);
 	   }
 
@@ -35,4 +35,19 @@ public class FaqServiceImpl implements FaqService{
 	   public int selectFaqCountAd() {
 	      return faqDao.selectFaqCountAd();
 	   }
+
+	   @Override
+	   public int updateFaqAd(Faq faq) {
+		   return faqDao.updateFaqAd(faq);
+	   }
+	   
+	@Override
+	public int deleteFaqAd(String faqno) {
+		return faqDao.deleteFaqAd(faqno);
+	}
+
+	@Override
+	public int insertFaqAd(Faq faq) {
+		return faqDao.insertFaqAd(faq);
+	}
 }
