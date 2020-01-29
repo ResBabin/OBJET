@@ -236,7 +236,7 @@ position: absolute;
 		});
 	});
 	</script>
-		<script type="text/javascript">  
+		<script type="module">
 			import * as THREE from '${ pageContext.request.contextPath }/three.js-master/build/three.module.js';
 			import { OBJLoader } from '${ pageContext.request.contextPath }/three.js-master/examples/jsm/loaders/OBJLoader.js';					//Obj 파일 불러오는 js
 			import { PointerLockControls } from '${ pageContext.request.contextPath }/three.js-master/examples/jsm/controls/PointerLockControls.js';
