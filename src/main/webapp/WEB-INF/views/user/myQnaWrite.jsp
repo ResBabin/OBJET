@@ -35,7 +35,7 @@
 			
 				<tr>
 					<th>작성자</th>
-					<td><input type="text" size="30" name="userid" required="required" value="${sessionScope.loginUser.userid}"></td>
+					<td><input type="text" size="30" name="userid" value="${sessionScope.loginUser.userid}" readonly></td>
 
 
 				</tr>

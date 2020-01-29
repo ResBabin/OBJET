@@ -13,8 +13,7 @@
 </head>
 <style>
 
- a:link { color: black; text-decoration: none;}
- a:visited { color: black; text-decoration: none;}
+
  a:hover { color: black; text-decoration: none;}
 
 .js-index-notice{
@@ -612,7 +611,7 @@ color: white;
 </a>
 <c:if test="${sessionScope.loginUser eq null}">
 <div class="box1-3">
-<a href="javascript:alert('로그인 하셔야 합니다.')">
+<a href="moveLogin.do">
 <div class="noticeicon">
 <i class="huge edit icon"></i></div>
 <div class="noticetitle">문의하기</div>
@@ -709,9 +708,9 @@ color: white;
   </div1>
   <div1>
      <br>
-     <i class="large violet home icon"></i>
+     <a href="pageIntro.do"><i class="large violet home icon"></i>
     <h3><p>'오브제'에 오신걸 환영합니다.</p></h3>
-    <h3><p>모든 사물이 영감이 되는 공간</p></h3>
+    <h3><p>모든 사물이 영감이 되는 공간</p></h3></a>
     <br>
     <button class="large ui inverted violet button">GO</button>
   </div1>  
@@ -733,12 +732,12 @@ color: white;
 <section1>
   <div1>
   <i class="massive gem outline icon"></i>
-    <h1>후원하기</h1>
+    <h1>팀소개</h1>
   </div1>
   <div1>
-    <h1><i class ="blue small gem outline icon"></i></h1>
-    <h3><p>작품 연재에 대한 응원,</p></h3>
-     <h3><p>이제 후원으로 표현해보세요!</p><h3>
+    <a href="movePr.do"><h1><i class ="blue small gem outline icon"></i></h1>
+    <h3><p>오브제 팀</p></h3>
+    <h3><p>소개합니다!</p></h3></a><br>
      <button class="large ui inverted blue button">GO</button>
     
   </div1>  

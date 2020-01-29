@@ -387,11 +387,10 @@ width: 190px;
     <li><a href="objetAllList.do">전시</a></li>
     
     <li><a href="artistAllList.do">작가</a></li>
-    
-    <li><a href="#">고객센터</a>
+     <li><a href="moveCs.do">고객센터</a>
       <ul id="sub-menu">
-        <li><a href="#" aria-label="subemnu">FAQ</a></li>
-        <li><a href="#" aria-label="subemnu">공지사항</a></li>
+        <li><a href="selectFaqList.do" aria-label="subemnu">FAQ</a></li>
+        <li><a href="selectNoticeList.do" aria-label="subemnu">공지사항</a></li>
         </ul>
         </li>
         </ul>
