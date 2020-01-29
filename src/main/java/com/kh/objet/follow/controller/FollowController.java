@@ -38,7 +38,9 @@ public class FollowController {
 	
 	// 팔로잉 보기
 		@RequestMapping("moveFollowingPage.do")
-		public String moveFollowingPage(@RequestParam(value="artistid") String artistid, @RequestParam(value="loginUserid") String loginUserid, Follow follow, Following following, Model model) {
+		public String moveFollowingPage(@RequestParam(value="artistid") String artistid, @RequestParam(value="loginUserid") String loginUserid, 
+										Follow follow, Following following, Model model) {
+			
 			// 해당 작가의 팔로잉 리스트 가져오기
 			List<Follow> followingList = followService.moveFollowingPage(artistid);
 			

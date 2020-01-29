@@ -324,7 +324,8 @@ function insertFollowing(){
 		             }
 		          },
 		          error: function(request, status, errorData){
-						console.log("error code : " + request.status + "\nMessage : " + request.responseText + "\nError : " + errorData);
+						console.log("error code : " + request.status + "\nMessage : "
+									+ request.responseText + "\nError : " + errorData);
 					}
 		       });   
 		}else{
@@ -592,7 +593,8 @@ function deleteFollowing(){
 		 	<!-- 작가홈 본인일때만 작가소개 수정 버튼 -->
 		 	<br><br><br><br><br>
 		 	<c:if test="${usersProfile.userid == loginUser.userid }">
-			<div align="center"><button class="mainBtn" id="editArtistIntro" onclick="location.href='moveArtistIntroEdit.do?userid=${loginUser.userid}'">작가소개 수정</button></div>
+			<div align="center"><button class="mainBtn" id="editArtistIntro" onclick="location.href='moveArtistIntroEdit.do?userid=${loginUser.userid}'">작가소개 수정</button>&ensp;
+			<button class="mainBtn" id="myObjetcal">전시일정 보기</button></div>
 			</c:if>
 			<c:if test="${usersProfile.userid != loginUser.userid }">
 			<div align="center"><button class="mainBtn" id="myObjetcal">전시일정 보기</button></div>
