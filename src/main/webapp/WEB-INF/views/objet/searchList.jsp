@@ -343,7 +343,7 @@ min-height:100%;
 
 .artist-result {
 	width:70%;
-	height: 100%;
+	height: auto;
 }
 
 .artist-result-list {
@@ -544,10 +544,11 @@ $(function() {
 		    e.preventDefault();
 		    $(".artist-result-list-detail:hidden").transition('clear queue').slice(0, 4).transition('fade up', '1300ms');
 		    $("#more_load2").css("margin-bottom", "10px");
+		    $(".artist-result").css("height", "auto");
 		    if ($(".artist-result-list-detail:hidden").length == 0) { 
 		        $('#more_load2').fadeOut();
-		        $('#more_load3').css("height", $(document).height());
-		        $("#more_load3").show();
+		       /*  $('#more_load3').css("height", $(document).height());
+		        $("#more_load3").show(); */
 		    }
 		});
 	}if($(".artist-result-list-detail").length <= 4){
@@ -1103,10 +1104,10 @@ window.onload = function(){
            <strong>추천 색상</strong>
            <div class="color-list" style="width: auto;margin: 0;padding: 10px 0 0;">
            	<c:set var="ran"><%= java.lang.Math.round(java.lang.Math.random() * 8) %></c:set>
-         	<c:set var="objetcolor" value="${fn:split('#5e9ef2,#f2a11f,#286ad4,#87643b,#eb6928,#7cbf6d,#c99ede,#ffd500', ',')}" />
+         	<c:set var="objetcolor" value="${fn:split('5e9ef2,f2a11f,286ad4,87643b,eb6928,7cbf6d,c99ede,ffd500', ',')}" />
                <div class="tab-keywords-color" style="position: relative;float: none; width: auto;display: inline-block;">
                  <c:forEach var="item" items="${objetcolor }" begin="0" end="8">
-                   <a id="a" class="ui circular small button" style="background-color:${item };" href="search.do?keyword=${item }" target="_blank"></a>
+                   <a id="a" class="ui circular small button" style="background-color:#${item };" href="search.do?keyword=${item }" target="_blank"></a>
                	 </c:forEach>
                </div>
            </div>

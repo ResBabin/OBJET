@@ -74,7 +74,6 @@ group by a.nickname, a.userid, b.userrpic, b.userintros, b.userintrol, b.usertag
 	 or upper(objetintro) like '%' || upper(#{objetintro}) || '%'
 	 or objettag like '%' || #{objettag} || '%'
 	 or objetcolor like '%' || #{objetcolor} || '%')
-	 where objetstatus = 'OPEN'
 </select>
 <select id="selectArtistAllSearch" parameterType="String" resultType="Artist">
    select * from (select a.userid userid, a.nickname nickname, b.userrpic userrpic, b.userintros userintros, b.userintrol userintrol, b.usertag usertag, max(c.objetstatus) objetstatus, 

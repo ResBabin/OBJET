@@ -450,20 +450,19 @@ a:-webkit-any-link {
 	margin-bottom:50px;
 }
 
- #more_btn:before {
-	content: "";
-	display: block;
-	border-top: 1px solid #e0e0e0;
-	margin: 30px auto;
-}
-
 #more_btn:after {
 	content: "";
 	display: block;
-	border-top: 1px solid #e0e0e0;
-	border-bottom: 1px solid #e0e0e0;
+	border-bottom: 1px solid #e0e0e0 !important;
 	margin: 30px auto;
-}  
+}
+
+#more_btn:before {
+	content: "";
+	display: block;
+	border-top: 1px solid #e0e0e0 !important;
+	margin: 30px auto;
+}
 
 #more_btn a {
 	color: #9e9e9e;
@@ -471,12 +470,13 @@ a:-webkit-any-link {
 
 .review_all_list {
 	width: 80%;
-	height: auto;
+	max-height: 100%;
 	margin: 20px 40px 10px 40px;
 	position: relative;
 	top: 190px;
 	align: center;
 }
+
 
 .review_list {
 	width: 100%;
@@ -583,10 +583,10 @@ a:-webkit-any-link {
 .rev_insert {
 	width: 80%;
 	height: auto;
-	margin: 20px 40px 10px 40px;
 	position: relative;
 	top: 10px;
 	align: center;
+	
 }
 
 .rev_insert_no {
@@ -760,17 +760,21 @@ a:-webkit-any-link {
 }
 
 #rev_myrating {
-	float: right;
 	position: relative;
-	top: -65px;
-	right: 190px;
+	top: -60px;
+	left:-15%;
+	align:right;
+	justify-content: flex-end;
+    display: flex;
 }
 
 .update_mybtn {
-	float: right;
-	position: relative;
-	top: -70px;
-	right: -70px;
+	align:right;
+	justify-content:flex-end;
+	position: absolute;
+    display: flex;
+	top: 13.5%;
+	left:87%;
 	font-size: 14px;
 	font-weight: bolder;
 	font-family:'Nanum Gothic';
@@ -1043,7 +1047,7 @@ i.icon.clock::before{
 /* 한줄평  */
 #objet_review {
 	width: 100%;
-	height: 990px;
+	height: auto;
 }
 </style>
 <script type="text/javascript">
@@ -1181,23 +1185,34 @@ i.icon.clock::before{
 		});
 		
 		//한줄평 더보기 버튼
-		$(".review_list").slice(0, 4).fadeIn(); // 최초 4개 선택
+		$(".review_list").slice(0, 5).fadeIn(); // 최초 4개 선택
 		if($(".review_list:hidden").length != 0) {
-			$("#more_btn").fadeIn();
+			$("#more_btn").show();
 		$("#more_btn").click(function(e) { // Load More를 위한 클릭 이벤트e
 		    e.preventDefault();
-			var height = $('#objet_review').height();
-		    $(".review_list:hidden").slice(0, 4).fadeIn(); // 숨김 설정된 다음 4개를 선택하여 표시
-		    $('#objet_review').css("height", $(document).height());
+		    $(".review_list:hidden").slice(0, 5).fadeIn(); // 숨김 설정된 다음 4개를 선택하여 표시
+		    $('#objet_review').css("height", "auto");
 		    if ($(".review_list:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
 		        $('#more_btn').fadeOut();// 더 이상 로드할 항목이 없는 경우
 		        $(".review_list").last().css("border-bottom", "1px solid #e0e0e0");
 		        $('.rev_insert').css("margin-top", "180px");
 		        $('.rev_insert_no').css("margin-top", "120px");
+		        $('.rev_insert_no').css("margin-bottom", "100px");
+		        var userid = '${loginUser.userid}';
+		        var objetuserid = '${objet.userid}';
+		       if(userid == objetuserid ){ //내 전시일 때
+		        	$('.review_list').last().css("margin-bottom", "260px");
+		       }
 		    }
 		});
 		}else{
 			 $('.rev_insert').css("margin-top", "180px");
+			 $('.review_mylist_up').css("border-bottom", "1px solid #e0e0e0");
+			 $('.review_mylist').css("border-bottom", "1px solid #e0e0e0");
+			 var myReview = '${myReview}';
+			 if(myReview != ''){
+				 $(".update_mybtn").css("top", "66.5%");
+			 }
 		}
 
 		//평점 레이팅(리스트)
@@ -1459,19 +1474,24 @@ i.icon.clock::before{
 				
 				$(".review_list_main").html(values);
 				//한줄평 더보기 버튼
-				$(".review_list").slice(0, 4).fadeIn(); // 최초 4개 선택
+				$(".review_list").slice(0, 5).fadeIn(); // 최초 4개 선택
 				if ($(".review_list:hidden").length != 0) {
 				$("#more_btn").show();
 				$("#more_btn").click(function(e) { // Load More를 위한 클릭 이벤트e
 				    e.preventDefault();
-					var height = $('#objet_review').height();
-				    $(".review_list:hidden").slice(0, 4).fadeIn(); // 숨김 설정된 다음 4개를 선택하여 표시
-				    $('#objet_review').css("height", $(document).height());
+				    $(".review_list:hidden").slice(0, 5).fadeIn(); // 숨김 설정된 다음 4개를 선택하여 표시
+				    $('#objet_review').css("height", "auto");
 				    if ($(".review_list:hidden").length == 0) { // 숨겨진 DIV가 있는지 체크
 				        $('#more_btn').fadeOut();// 더 이상 로드할 항목이 없는 경우
 				        $(".review_list").last().css("border-bottom", "1px solid #e0e0e0");
 				        $('.rev_insert').css("margin-top", "180px");
 				        $('.rev_insert_no').css("margin-top", "120px");
+				        $('.rev_insert_no').css("margin-bottom", "100px");
+				        var userid = '${loginUser.userid}';
+				        var objetuserid = '${objet.userid}';
+				      	 if(userid == objetuserid ){ //내 전시일 때
+				       	 	$('.review_list').last().css("margin-bottom", "260px");
+				      	 }
 				    }
 				});
 				}
@@ -2446,7 +2466,7 @@ placeholder="이 전시의 감상평(한줄평)을 남겨주세요.  전시와 �
 <button class="ui circular basic gray button" onclick="rev_insert(${objet.objetno }, '${loginUser.userid}');" >등록</button>
 </div>
 </div>
-<br><br>
+<br><br><br>
 </div>
 </c:if>
 <c:if test="${myReview != null && myReview.revuserid eq loginUser.userid }">
