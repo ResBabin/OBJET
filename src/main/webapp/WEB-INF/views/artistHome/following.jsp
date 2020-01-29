@@ -84,45 +84,47 @@ function deleteFollowing(data){
 </head>
 <body>
 <!-- 팔로잉 목록 페이지 시작! -->
-	<div class="wrapFollowingPage">
+<div class="wrapFollowingPage">
+
+	<p style="font-size: 23pt; padding-top:50px; color:#373737; text-align:center;">이 작가가 구독하는 <span style="color:#2bddbe;font-size: 23pt;" id="count">${fn:length(followingList)} </span>명</p>
+	<br><br>
+	<center>
+	<div style="text-decoration: underline; color: #aaa; margin-top: -30px;">&emsp;&emsp;&emsp;</div>
+	<center>
 	
-		<p style="font-size: 23pt; padding-top:50px; color:#373737; text-align:center;">이 작가가 구독하는 <span style="color:#2bddbe;font-size: 23pt;" id="count">${fn:length(followingList)} </span>명</p>
-		<br><br>
-		<center>
-		<div style="text-decoration: underline; color: #aaa; margin-top: -30px;">&emsp;&emsp;&emsp;</div>
-		<center>
-		
-		<div class="followingList">
-				<table class="eachFollwing">
-				<c:forEach var="list" items="${followingList }">
-					<tr class="listTr" style="display: none;">
-						<td style="width:10%"><c:if test="${list.userrpic == null }">
-												<div class="profileImage3" onclick="window.open('artistHomeMain.do?userid=${list.userid}&loginUser=${loginUser.userid }')" style="background-image:url('resources/images/basicprofilepic.png') "></div>
-											</c:if>
-											<c:if test="${list.userrpic != null }">
-												<div class="profileImage3" onclick="window.open('artistHomeMain.do?userid=${list.userid}&loginUser=${loginUser.userid }')" style="background-image:url('resources/users_upfiles/${list.userrpic}') "></div>
-											</c:if>
-						</td>
-						<td style="width:70%; text-align: left;"><span style="font-size: 15pt;" onclick="window.open('artistHomeMain.do?userid=${list.userid}&loginUser=${loginUser.userid }')">${list.nickname }</span><br>
-																<span style="font-size: 10pt; color:#aaa;">${list.userintros }</span>
-						</td>
-						<td style="width:20%"><c:if test="${list.followyn eq'Y' }"><button class="small ui teal basic button" onclick="deleteFollowing('${list.userid}')">구독중&ensp;<i class="check icon" style="width:7px;"></i></button></c:if>
-											 <c:if test="${list.followyn eq 'N' }"><button class="small ui teal button" onclick="insertFollowing('${list.userid}')" >구독하기</button></c:if>
-											 <c:if test="${list.followyn eq 'E' }">&ensp;</c:if>
-											 
-						</td>
-					<tr>
-				</c:forEach>	
-					
-				</table>
-				
-				<br><br>
-				<button class="mainBtn" id="moreFollowList">더 보기</button>		
-		</div>
-		
-		
-		
-	</div><!-- 팔로잉 목록 페이지 끝! -->
+	<div class="followingList">
+			<table class="eachFollwing">
+			<c:forEach var="list" items="${followingList }">
+				<tr class="listTr" style="display: none;">
+					<td style="width:10%"><c:if test="${list.userrpic == null }">
+											<div class="profileImage3" onclick="window.open('artistHomeMain.do?userid=${list.userid}&loginUser=${loginUser.userid }')" 
+											style="background-image:url('resources/images/basicprofilepic.png') "></div>
+										</c:if>
+										<c:if test="${list.userrpic != null }">
+											<div class="profileImage3" onclick="window.open('artistHomeMain.do?userid=${list.userid}&loginUser=${loginUser.userid }')" 
+											style="background-image:url('resources/users_upfiles/${list.userrpic}') "></div>
+										</c:if>
+					</td>
+					<td style="width:70%; text-align: left;">
+						<span style="font-size: 15pt;" onclick="window.open('artistHomeMain.do?userid=${list.userid}&loginUser=${loginUser.userid }')">${list.nickname }</span><br>
+						<span style="font-size: 10pt; color:#aaa;">${list.userintros }</span>
+					</td>
+					<td style="width:20%">
+						<c:if test="${list.followyn eq'Y' }"><button class="small ui teal basic button" onclick="deleteFollowing('${list.userid}')">구독중&ensp;<i class="check icon" style="width:7px;"></i></button></c:if>
+						<c:if test="${list.followyn eq 'N' }"><button class="small ui teal button" onclick="insertFollowing('${list.userid}')" >구독하기</button></c:if>
+						 <c:if test="${list.followyn eq 'E' }">&ensp;</c:if>
+					</td>
+				<tr>
+			</c:forEach>	
+			</table>
+			
+			<br><br>
+			<button class="mainBtn" id="moreFollowList">더 보기</button>		
+	</div>
+	
+	
+	
+</div><!-- 팔로잉 목록 페이지 끝! -->
 	
 	<br><br><br><br>
 </body>
