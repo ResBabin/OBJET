@@ -28,6 +28,7 @@
 <script src='resources/FullCalendar/core/locales/ko.js'></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
 
+
 <!-- 제작용 css -->
  <link rel= "stylesheet" type="text/css" href="resources/css/mychoe.css">
  <style>
@@ -609,7 +610,7 @@ function deleteFollowing(){
       &nbsp;
         <select class="dropdown-menu btn-sm">
           <option class="dropdown-item" value='bootstrap' selected>테마 선택</option>
-          <option class="dropdown-item" value='standard' >기본테마</option>
+          <option class="dropdown-item" value='standard' >기본 테마</option>
         </select>
       </div>
       <div data-theme-system="bootstrap" class='selector' style='display:none'>

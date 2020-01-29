@@ -664,6 +664,8 @@
 
 .tagboxes {
    align: center;
+   justify-content: center;
+   display: flex;
 }
 
 .tagbox1 {
@@ -678,7 +680,10 @@
    vertical-align:middle;
    align:center;
    font-size: 12px;
-   float: left;
+}
+
+.tagbox1:first-child{
+	margin-left: 0px;
 }
 
 .tagbox2 {
@@ -731,7 +736,7 @@
          <c:set var="doneLoop" value="false" />
          <c:forEach var="item" items="${objetTag }" begin="0" end="${ran }" varStatus="status">
          <c:if test="${not doneLoop }">
-         <div class="ui circular basic blue button">${item}</div> &nbsp;
+         <div onclick="location.href='search.do?keyword=${item}'" class="ui circular basic blue button">${item}</div> &nbsp;
          <c:if test="${status.index == 2 }">
          <c:set var="doneLoop" value="true" />
          </c:if>
@@ -972,21 +977,18 @@
   <div class="container1">
      <div class="container">
       <div class="thecard">
+      <center>
          <div class="thefront"><br><br><br>
          <a href="artistHomeMain.do?userid=${artistcard.userid }&loginUser=${loginUser.userid}"><img id="cardimg" src="resources/users_upfiles/${artistcard.userrpic }" width=35% height=25%></a>
             <div class ="writername">${artistcard.nickname }</div><br>
             <div class ="writercoment">${artistcard.userintros }</div>
-            	
 			   <div class="tagboxes">
 			   <c:forTokens var="tags" items="${artistcard.usertag }" delims=",">
-			   <center>
 			   <div class="tagbox1">${tags }</div>
-			   </center>
     			</c:forTokens>
 			   </div>
-			   
          </div>
-         
+         </center>
           <div class="theback" style="align:center;">
             <div class="cardContent">
            	 <center>
