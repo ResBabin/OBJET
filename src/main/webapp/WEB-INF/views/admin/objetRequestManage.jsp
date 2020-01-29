@@ -23,7 +23,80 @@
 
 <c:import url="adminHeader.jsp" />
 <script type="text/javascript">
+$(function() {
+	$("#checkall").click(function() {
+		var check = $("#checkall").prop("checked");
+		if (check) {
+			$("input[name=objetnochk]").prop("checked", true);
+		} else {
+			$("input[name=objetnochk]").prop("checked", false);
+		}
+	});
+	$("input[name=objetnochk]").click(function() {
+		$("#checkall").prop("checked", false);
+	});
+	
+	$("#approvebtn").click(function() {
+		if ($("input[name=objetnochk]:checked").length > 0) { 
+			var con = confirm("해당 전시를 승인하시겠습니까?");
+			if(con){
+				var checkArr = [];
+				$("input[name=objetnochk]:checked").each(function() {
+					checkArr.push($(this).val()); 
+				});
+				console.log(checkArr);
+				$.ajax({
+					url : "updateReqStatus.do",
+					data : {objetno : checkArr, publicyn : 'Y'}, 
+					type : "post",
+					success : function(result) {
+						console.log(result);
+						  location.href = location.href;
+					},
+					traditional : true,
+					error : function(request, status, errorData) {
+						console.log("error code : "
+								+ request.status + "\nMessage : "
+								+ request.responseText
+								+ "\nError : " + errorData);
+					}
 
+				});							
+				
+			}
+		}
+	});
+	$("#returnbtn").click(function() {
+		if ($("input[name=objetnochk]:checked").length > 0) { 
+			var con = confirm("해당 전시를 반려하시겠습니까?");
+			if(con){
+				var checkArr = [];
+				$("input[name=objetnochk]:checked").each(function() {
+					checkArr.push($(this).val()); 
+				});
+				console.log(checkArr);
+				$.ajax({
+					url : "updateReqStatus.do",
+					data : {objetno : checkArr, publicyn : 'N'}, 
+					type : "post",
+					success : function(result) {
+						console.log(result);
+						  location.href = location.href;
+					},
+					traditional : true,
+					error : function(request, status, errorData) {
+						console.log("error code : "
+								+ request.status + "\nMessage : "
+								+ request.responseText
+								+ "\nError : " + errorData);
+					}
+
+				});							
+				
+			}
+		}
+	});
+});
 
 
 </script>
@@ -66,7 +139,7 @@
 					<tr>
 						<td>
 							<div class="ui fitted checkbox">
-								<input type="checkbox" name="userselect"> <label></label>
+								<input type="checkbox" name="objetnochk" value="${ objetreq.objetno }"> <label></label>
 							</div>
 						</td>
 						<td style="text-align: right;">${ objetreq.objetno }</td>
@@ -119,7 +192,7 @@
 		<%-- <a class="item pages" id="pages">${ p }</a> --%>
 		</c:if>
 		</c:forEach>
-		<c:if test="${  endPage + 10 > maxPage }">
+		<c:if test="${  endPage + 10 > maxPage }"> 
 		<c:if test="${ currentPage eq endPage }">
 		<a href="/objet/objetreq.do?page=${ maxPage }" class="disabled item"><i class="angle right icon"></i></a>
 		</c:if>

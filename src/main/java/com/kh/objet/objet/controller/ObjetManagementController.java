@@ -71,7 +71,7 @@ public class ObjetManagementController {
 		if(order != null || order != null && !order.equals("")) {
 			map.put("order", order);
 		}else {
-			map.put("order", "idd");
+			map.put("order", "nod");
 		}
 			
 		if(objetstatus != null && !objetstatus.equals("") || objetstatus == null) {
@@ -375,9 +375,13 @@ public class ObjetManagementController {
 	@RequestMapping(value="updateReqStatus", method=RequestMethod.POST)
 	public String updateRequestStatus(HttpServletRequest request, Model model) {
 		Map<String, String> map  = new HashMap<>();
-		map.put("objetno", request.getParameter("objetno"));
+		String[] objetnoArray = request.getParameterValues("objetno");
 		map.put("publicyn", request.getParameter("publicyn"));
-		int result = objetmService.updateRequestStatus(map);
+		int result = 0;
+		for(String objetno : objetnoArray) {
+			map.put("objetno", objetno);
+			result = objetmService.updateRequestStatus(map);
+		}
 		String view = "";
 		if(result > 0) {
 			 view = "redirect:objetreq.do";
@@ -389,8 +393,11 @@ public class ObjetManagementController {
 	}
 	@RequestMapping(value="updateObjetStop", method=RequestMethod.POST)
 	public String updateObjetStop(HttpServletRequest request, Model model) {
-		int objetno = Integer.parseInt(request.getParameter("objetno"));
-		int result = objetmService.updateObjetStop(objetno);
+		String[] objetnoArray = request.getParameterValues("objetno");
+		int result = 0;
+		for(String objetno : objetnoArray) {
+			result = objetmService.updateObjetStop(Integer.parseInt(objetno));
+		}
 		String view = "";
 		if(result > 0) {
 			 view = "redirect:objetm.do";

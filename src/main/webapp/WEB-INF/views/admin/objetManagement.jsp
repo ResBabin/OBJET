@@ -29,18 +29,49 @@
 		$("#checkall").click(function() {
 			var check = $("#checkall").prop("checked");
 			if (check) {
-				$("input[name=objetno]").prop("checked", true);
+				$("input[name=objetnochk]").prop("checked", true);
 			} else {
-				$("input[name=objetno]").prop("checked", false);
+				$("input[name=objetnochk]").prop("checked", false);
 			}
 		});
-		$("input[name=objetno]").click(function() {
+		$("input[name=objetnochk]").click(function() {
 			$("#checkall").prop("checked", false);
 		});
 		$('.dropdown').dropdown({});
 		
+		$("#endbtn").click(function() {
+			if ($("input[name=objetnochk]:checked").length > 0) { 
+				var con = confirm("해당 전시를 강제로 종료하시겠습니까?");
+				if(con){
+					var checkArr = [];
+					$("input[name=objetnochk]:checked").each(function() {
+						checkArr.push($(this).val()); 
+					});
+					console.log(checkArr);
+					$.ajax({
+						url : "updateObjetStop.do",
+						data : {objetno : checkArr}, 
+						type : "post",
+						success : function(result) {
+							console.log(result);
+							  location.href = location.href;
+						},
+						traditional : true,
+						error : function(request, status, errorData) {
+							console.log("error code : "
+									+ request.status + "\nMessage : "
+									+ request.responseText
+									+ "\nError : " + errorData);
+						}
+
+					});							
+					
+				}
+			}
+		});
 		
-		var publicyn = "", status = "", tag = "";
+		
+	/* 	var publicyn = "", status = "", tag = "";
 		var page = 1;
 		var objettitle = "${ param.objettitle }";
 		var userid = "${ param.userid }";
@@ -200,8 +231,8 @@
 			
 			thorder(publicyn, status, tag, "idd", objettitle, userid, page);
 		});
-		 
-	
+		  */
+	/* 
 	 
 		function thorder(publicyn, objetstatus, objettag, order, objettitle, userid, page) {
 			$.ajax({
@@ -260,7 +291,7 @@
 							var dleftp = "";
 							var numberp = "";
 							$("#objettable").html(bk);
-							/* 
+							
 							if( currentPage == 1){
 								dleftp = '<a href="" class="disabled item"><i class="angle double left icon"></i></a>';
 							}else {
@@ -301,7 +332,7 @@
 								drightp = '<a href="" class="item"><i class="angle double right icon"></i></a>'
 							}
 							
-							$("#pagingdiv").html(dleftp + leftp + pages + rightp + drightp); */
+							$("#pagingdiv").html(dleftp + leftp + pages + rightp + drightp); 
 							
 							
 							
@@ -313,7 +344,7 @@
 						}
 					});
 		}
-		
+		 */
 		$("input[name=userid]").hide();
 		
 		$("#searchid").click(function() {
@@ -435,7 +466,7 @@
 					<tr>
 						<td>
 							<div class="ui fitted checkbox">
-								<input type="checkbox" name="objetno"> <label></label>
+								<input type="checkbox" name="objetnochk" value="${ objetm.objetno }"> <label></label>
 							</div>
 						</td>
 						<td style="text-align: right;">${ objetm.objetno }</td> 
@@ -462,15 +493,15 @@
 						<td>${ objetm.objetregidate }</td>
 						<td><c:if test="${ objetm.objetstatus eq 'OPEN' }"> 전시	
 					</c:if> <c:if test="${ objetm.objetstatus eq 'CLOSE' }">종료
-					</c:if> <c:if test="${ objetm.objetstatus eq 'WAIT' }">예정
+					</c:if> <c:if test="${ objetm.objetstatus eq 'STANDBY' }">예정
 					</c:if> <c:if test="${ objetm.objetstatus eq 'RJCT' }">반려
-					</c:if></td>
+					</c:if> <c:if test="${ objetm.objetstatus eq 'WAIT' }">대기</c:if></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		<div align="right">
-			<button class="ui basic grey button" data-tooltip="전시 종료">
+			<button class="ui basic grey button" id="endbtn">
 				<i class="x icon"></i>강제 종료
 			</button>
 		</div>
@@ -492,12 +523,12 @@
 		</c:if>
 		<c:forEach begin="${ beginPage }" end="${ endPage }" var="p">
 		<c:if test="${ p eq currentPage }">
-<%-- 		<a href="/objet/objetm.do?page=${ p }" class="active item">${ p }</a> --%>
-		<a class="active item pages" id="pages">${ p }</a>
+ 		<a href="/objet/objetm.do?page=${ p }" class="active item">${ p }</a> 
+		<%-- <a class="active item pages" id="pages">${ p }</a> --%>
 		</c:if>
 		<c:if test="${ p ne currentPage }">
-<%-- 		<a href="/objet/objetm.do?page=${ p }" class="item">${ p }</a> --%>
-		<a class="item pages" id="pages">${ p }</a>
+ 		<a href="/objet/objetm.do?page=${ p }" class="item">${ p }</a> 
+		<%-- <a class="item pages" id="pages">${ p }</a> --%>
 		</c:if>
 		</c:forEach>
 		<c:if test="${  endPage + 10 > maxPage }">

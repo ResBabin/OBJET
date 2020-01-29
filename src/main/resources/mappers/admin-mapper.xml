@@ -247,7 +247,7 @@
 		from (select rownum rnum, objetno, objettitle, userid,
 		objetstartdate, objetenddate, objettag, publicyn, objetstatus,
 		objetregidate
-		from (select * from objet)
+		from (select * from objet order by objetno desc)
 		order by objetno desc)
 		where rnum between #{startRow} and #{endRow}
 	</select>
@@ -259,15 +259,7 @@
 		from (select rownum rnum, objetno, objettitle, userid,
 		objetstartdate, objetenddate, objettag, publicyn, objetstatus,
 		objetregidate
-		from (select * from objet)
-		<where>
-			<if test="objetstatus != null">and objetstatus = #{ objetstatus }</if>
-			<if test="publicyn != null">and publicyn = #{ publicyn }</if>
-			<if test="objettag != null">and objettag like '%'||#{ objettag }||'%'</if>
-			<if test="objettitle != null">and objettitle like '%'||#{ objettitle }||'%'</if>
-			<if test="userid != null">and userid like '%'||#{ userid }||'%'</if>
-		</where>
-
+		from (select * from objet
 		<if test="order.equals('ida')">order by userid asc</if>
 		<if test="order.equals('idd')">order by userid desc</if>
 		<if test="order.equals('titlea')">order by objettitle asc</if>
@@ -278,6 +270,16 @@
 		<if test="order.equals('regid')">order by objetregidate desc</if>
 		<if test="order.equals('starta')">order by objetstartdate asc, userid asc </if>
 		<if test="order.equals('startd')">order by objetstartdate desc, userid asc </if>
+		)
+		<where>
+			<if test="objetstatus != null">and objetstatus = #{ objetstatus }</if>
+			<if test="publicyn != null">and publicyn = #{ publicyn }</if>
+			<if test="objettag != null">and objettag like '%'||#{ objettag }||'%'</if>
+			<if test="objettitle != null">and objettitle like '%'||#{ objettitle }||'%'</if>
+			<if test="userid != null">and userid like '%'||#{ userid }||'%'</if>
+		</where>
+
+		
 		)
 		where rnum between #{startRow} and #{endRow}
 
@@ -301,8 +303,7 @@
 	</select>
 
 	<!-- 전시 상세 조회 -->
-	<select id="selectObjetOne" resultType="Objetm"
-		parameterType="_int">
+	<select id="selectObjetOne" resultType="Objetm" parameterType="_int">
 		select *
 		from objet
 		join users using (userid)
@@ -321,8 +322,8 @@
 		<if test="objettag != null">and objettag like '%'||#{ objettag }||'%'</if>
 		order by objetno desc)
 		where rnum between #{startRow} and #{endRow}
-
 	</select>
+	
 	<select id="selectObjetRequestList2" resultType="Objet">
  	select *
 		from (select rownum rnum, objetno, objettitle, userid,
