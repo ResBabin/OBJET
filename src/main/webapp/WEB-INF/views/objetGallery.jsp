@@ -2,22 +2,21 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>ObjetVR</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<link type="text/css" rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/main.css">
-		<link rel='stylesheet' href='//fonts.googleapis.com/earlyaccess/kopubbatang.css'>
+<head>
+<link rel="shortcut icon" href="resources/images/favicon-32x32.png">
+<link rel="icon" href="resources/images/favicon-32x32.png">
+<title>ObjetVR</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<link type="text/css" rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/main.css">
+<link rel='stylesheet' href='//fonts.googleapis.com/earlyaccess/kopubbatang.css'>
 <link rel="stylesheet" type="text/css" href="resources/assets/css/KoPubDotum.css">
 <link rel="stylesheet" href="//fonts.googleapis.com/earlyaccess/nanummyeongjo.css">
 <!-- 시맨틱유아이 cdn -->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-		<style type="text/css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+<style type="text/css">
 body {
 	background: white;
 	overflow: hidden;
@@ -25,7 +24,7 @@ body {
 
 #info {
 	position: absolute;
-	background: #ffffffee;
+	background: #fffffff5;
 	width: 400px;
 	height: 500px;
 	color: black;
@@ -38,9 +37,7 @@ body {
 	display : none;
 	padding: 20px;
 	padding-top: 30px;
-//	box-shadow: 0px 1px 3px #777;
-	box-shadow: 0em 0.25em .75em rgba(124,124,124, 0.7);
-
+	box-shadow: 0em 0.35em .75em rgba(100, 100, 100, 0.7);
 	font-family: 'Nanum Gothic';
 } 
 #objetinfo {
@@ -58,7 +55,7 @@ body {
 	padding: 25px;
 	padding-top: 30px;
 //	box-shadow: 0px 1px 3px #777;
-	box-shadow: 0em 0.25em .75em rgba(124,124,124, 0.7);
+	box-shadow: 0em 0.35em .75em rgba(100, 100, 100, 0.7);
 	display: none;
 	font-family: 'Nanum Gothic';
 } 
@@ -66,7 +63,7 @@ body {
 	position: absolute;
 	background: #ffffffee;
 	width: 300px;
-	height: 200px;
+	height: 235px;
 	color: black;
 	 top: 35%; 
 	 transform: translateY(-35%);
@@ -74,14 +71,13 @@ body {
 	 transform: translateX(-50%);
 	//border: 1.5px solid #ccc;
 	border-radius: 5px; 
-	padding: 25px;
-	padding-top: 30px;
+	padding: 30px;
 //	box-shadow: 0px 1px 3px #777;
-	box-shadow: 0em 0.25em .75em rgba(124,124,124, 0.7);
+	box-shadow: 0em 0.35em .75em rgba(100, 100, 100, 0.7);
 	display: none;
 	font-family: 'Nanum Gothic';
-	font-weight: 500;
-	line-height: 20pt;
+	font-weight: bold;
+	line-height: 25pt;
 } 
 #infobtn{
 position: absolute;
@@ -128,6 +124,19 @@ border: none;
 border-radius: 5px;
 cursor: pointer;
 }
+#closebtn2{
+position: absolute;
+bottom: 10%;
+transform: translateY(10%);
+left: 50%;
+transform: translateX(-50%);
+//border: 1.5px solid #eee;
+background: #ddd;
+padding: 10px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+}
  #objetlogo{
 width: 100px;
 
@@ -142,10 +151,11 @@ font-size: 13pt;
 }
 #intro{
 letter-spacing: 1px;
-height: 350px;;
+height: 315px;
 line-height: 20pt;
 overflow: auto;
-padding-top: 10px;
+padding-left : 10px;
+padding-right: 10px;
 }
 #intro1{
 letter-spacing: 1px;
@@ -173,13 +183,19 @@ position: absolute;
 	font-size: 20pt;
 	font-weight: bolder;
 }
+#loadback{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background: #ffffffee;
+	}
 </style>
 	</head>
 	<body>
 		<button class="ui button icon" id="infobtn" align="center"><i class="icon small info"></i></button>
 		<button class="ui button icon" id="qbtn" align="center"><i class="icon small question"></i></button>
 		<div id="info" align="center">
-		<font id="title">${ objet.objettitle }</font><br><hr>
+		<font id="title">${ objet.objettitle }</font><br><hr style="margin-top: 20px;"><br>
 		<div id="intro">${ objet.objetintro }</div>
 		<button id="closebtn">Close</button>
 		</div>
@@ -191,11 +207,11 @@ position: absolute;
 		<button id="closebtn2">Close</button>
 		</div>
 		<div id="objetinfo" align="center">
-		<font id="title1"></font><br><hr>
+		<font id="title1"></font><br><hr style="margin-top: 20px;">
 		<div id="intro1"></div>
 		<button id="closebtn1" style="bottom: 10%">Close</button>
 		</div>
-		<div id="loading"><br><br>L O A D I N G<br><br>. . .</div>
+		<div id="loadback"><div id="loading"><br><i class="big sync loading icon"></i><br><br>L O A D I N G<br></div></div>
 	<script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript">
 	$(function() {
@@ -220,7 +236,6 @@ position: absolute;
 		});
 	});
 	</script>
-	
 		<script type="module"> 
 			import * as THREE from '${ pageContext.request.contextPath }/three.js-master/build/three.module.js';
 			import { OBJLoader } from '${ pageContext.request.contextPath }/three.js-master/examples/jsm/loaders/OBJLoader.js';					//Obj 파일 불러오는 js
@@ -235,7 +250,6 @@ position: absolute;
 			var objet = [];
 			// 각각 전시작들임
 			init();
-			//createGround();
 			animate();
 
 			function init() {
@@ -248,14 +262,15 @@ position: absolute;
 				loader.load( '${ pageContext.request.contextPath }/resources/vr/objetsample.gltf', function ( gltf )  {
 				scene.add( gltf.scene );
 				$("#info").fadeIn();
-				$("#loading").hide();
+				$("#loadback").hide();
 				});
 
 				camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 1000 );
-				camera.position.set( 50, 50, 350 );   
+				camera.position.set( -70, 50, 350 );   
+				camera.updateProjectionMatrix();
 				scene = new THREE.Scene();
 				scene.background = new THREE.Color( 0xf5f5f5 );
-
+			
 				var width = 100;
 				var height = 100;
 				var intensity = 1;
@@ -401,7 +416,7 @@ position: absolute;
 					
 				loader1.load( '${ pageContext.request.contextPath }/resources/vr/5.obj', function ( obj ) {
 					object5 = obj;
-					object5.userData = { title : "${ objet.objettitle5 }", intro : 'd'/*'${ objet.objetintro5 }'*/ };
+					object5.userData = { title : "${ objet.objettitle5 }", intro : '${ objet.objetintro5 }' };
 					objet.push(object5);
 				});
 					
@@ -479,32 +494,16 @@ position: absolute;
 			//	controls.dampingFactor = 0.05;
 				controls.screenSpacePanning = false;
 				controls.minDistance = 250;
-				controls.maxDistance = 400;
+			controls.maxDistance = 400;
 				controls.maxPolarAngle = Math.PI / 2.2;
 				controls.minPolarAngle = Math.PI / 2.4;
 				controls.rotateSpeed = 0.2;
 				controls.keyPanSpeed = 5;
-			
 				controls.update(); 
 
 			  	container.addEventListener( 'mousemove', onDocumentMouseMove, false );
 			  	container.addEventListener( 'mousedown', onDocumentMouseDown, false );
 				window.addEventListener( 'resize', onWindowResize, false );
-			}
-			function createGround() {
-			    var groundGeo = new THREE.PlaneGeometry(394, 790);
-  				var groundMat = new THREE.MeshPhongMaterial({ color: 0x777777, side: THREE.DoubleSide });
-
-    			// Create the ground and rotate it flat
-    			var ground = new THREE.Mesh(groundGeo, groundMat);
-    			ground.position.set(0, 1, 0);
-    			ground.rotation.x = ( Math.PI / 180 ) * 90;
-				var texture = new THREE.TextureLoader().load('${ pageContext.request.contextPath }/resources/vr/wood.png' );
-				texture.wrapS = THREE.RepeatWrapping;
-				texture.wrapT = THREE.RepeatWrapping;
-				texture.repeat.set( 5, 0.5 );
-				if ( ground.isMesh ) ground.material.map = texture;
-    			scene.add(ground);
 			}
 
 		// -- events -- //
@@ -562,10 +561,10 @@ position: absolute;
 						}
 			        INTERSECTED = null;
 			    }
-					
-			    renderer.render(scene, camera);
-			}
 
+			    renderer.render(scene, camera);
+				
+			}
 		</script>
 	</body>
 </html>

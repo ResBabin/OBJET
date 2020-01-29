@@ -52,8 +52,8 @@ $(function() {
 					<input type="search" placeholder="제목 검색" name="noticetitle"> 
 					<input type="search" placeholder="내용 검색" name="noticecontent"> 
 					<input type="hidden" value="1" name="page">
-					<input type="hidden" value="" name="noticetype">
-					<div class="ui basic floating dropdown button">
+					<input type="hidden" value="" name="noticetype"> 
+					<div class="ui basic floating dropdown button"> 
 						<div class="text">제 목</div>
 						<i class="dropdown icon"></i>
 						<div class="menu">
