@@ -45,9 +45,9 @@
 		
 		<!-- 수정삭제버튼 -->
 		<div align="right">
-		     <c:if test="${fn:contains(qna.qnaanswertype,'N')}">
+		     <c:if test="${qna.qnaanswertype eq '미답변'}">
 			<button class="ui mini black button" onclick="location.href='MoveupdateQna.do?qnano=${qna.qnano}&userid=${loginUser.userid}'">수정</button></c:if>
-			<c:if test="${fn:contains(qna.qnaanswertype,'Y')}">
+			<c:if test="${qna.qnaanswertype eq '답변완료'}">
 			<a href="javascript:alert('답변완료시 수정이 불가능 합니다.')"><button class="ui mini black button">수정불가</button></a></c:if>
 			<button class="ui mini grey button" onclick="location.href='deleteDetailQna.do?qnano=${qna.qnano}&userid=${loginUser.userid}'" >삭제</button>
 		</div>

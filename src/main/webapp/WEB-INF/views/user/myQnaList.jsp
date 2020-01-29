@@ -55,22 +55,22 @@ margin-top: 9px;
 		<!-- 검색창시작 -->
 	<div align="center">
 			<div class="QnaSearchBox1" style="height: 130px;">
-			<form action="selectQnaSearchList.do?userid=${loginUser.userid}"method="post">
+			<form action="selectQnaSearchList.do?"method="get">
+			<input type="hidden" name="userid" value="${loginUser.userid }">
                 <a class="ui large black label">문의제목</a>&ensp;
 					<div class="ui input"><input type="text" name="search" style="width:340px; height:30px;"></div>&ensp;
 			 <br><br>
 				<a class="ui large black label">답변상태</a>&ensp;
-				 <input type="radio" name="searchtype" value="all" checked><label>&ensp;전체</label>&emsp;&emsp; 
-				 <input type="radio" name="searchtype" value="y"><label>&ensp;답변완료</label>&emsp;&emsp;
-					<input type="radio" name="searchtype" value="n"><label>&ensp;미답변</label>&emsp;&emsp; 
+				 <input type="radio" name="searchtype" value=""><label>&ensp;전체</label>&emsp;&emsp; 
+				 <input type="radio" name="searchtype" value="답변완료"><label>&ensp;답변완료</label>&emsp;&emsp;
+					<input type="radio" name="searchtype" value="미답변"><label>&ensp;미답변</label>&emsp;&emsp; 
 					<div class="ui buttons"><button class="ui small black button" type="submit">검색</button></div> 
 			</form>
 				<div class="gotowrite"><button class="ui middle black button" onclick="location.href='MoveinsertQna.do?userid=${loginUser.userid}'">
 		<i class="edit outline icon"></i>문의글 작성</button></div>
 			</div>
 		</div>  
-		<!-- 검색창 끝 -->
-<%-- <div align="left" style="font-size: 10pt;"><span style="font-weight: 700;">${list.size()}</span>건</div> --%>
+		
 <br>
 		<!-- 문의 내역 리스트 시작 -->
 		
@@ -120,9 +120,9 @@ margin-top: 9px;
 		       
 				</c:url>
 					<tr class="qnalist" style="display: none;">
-				<c:if test="${fn:contains(qna.qnaanswertype,'Y')}">
+				<c:if test="${qna.qnaanswertype eq '답변완료'}">
 				<td width="5%" class="qnalistname"><i class=" yellow lightbulb outline icon"></i></td></c:if> 
-				<c:if test="${fn:contains(qna.qnaanswertype,'N')}">
+				<c:if test="${qna.qnaanswertype eq '미답변'}">
 				<td width="5%" class="qnalistname"><i class="lightbulb outline icon"></i></td></c:if> 
 				
 					   <td width="90%" class="qnalistname"><a href="${ ndt }">${qna.qnatitle }</a><span style="font-size: 9pt; color:#aaa;"> &ensp;
