@@ -133,8 +133,13 @@ function objetModify(){
 			<c:forEach var="myObjet" items="${list }" varStatus="status">
 			<tr>
 				<td><input type="checkbox" id="chk" class="chk" name="RowCheck" value="${myObjet.objetno}"></td>
+				<c:if test="${myObjet.objetstatus eq 'OPEN'}">
 				<td onclick="location.href='objetOne.do?objetno=${myObjet.objetno}&userid=${loginUser.userid }'" style="cursor:pointer;"><p style="font-size:10pt;"></p>
 				${myObjet.objettitle }</td>
+				</c:if>
+				<c:if test="${myObjet.objetstatus ne 'OPEN'}">
+				<td style="cursor:pointer;"><p style="font-size:10pt;"></p>${myObjet.objettitle }</td>
+				</c:if>
 				<c:if test="${myObjet.objetstatus eq 'OPEN' }">
 				<td>전시중</td>
 				</c:if>

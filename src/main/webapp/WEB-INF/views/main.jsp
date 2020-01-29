@@ -777,7 +777,8 @@
                  <li class="artist_list_item">
                  <a href="artistHomeMain.do?userid=${Artist.userid }&loginUser=${loginUser.userid}" target="_blank">
                  <img id="artist_list_img" class="ui mini circular image" src="resources/users_upfiles/${Artist.userrpic }"></a>
-                 <a href="artistHomeMain.do?userid=${Artist.userid }&loginUser=${loginUser.userid}" class="artist_txt">${Artist.nickname }</a>
+                 <a href="artistHomeMain.do?userid=${Artist.userid }&loginUser=${loginUser.userid}" class="artist_txt">
+                 ${Artist.nickname }</a>
                  </li>
                  </c:forEach>
                  <span class='txt_nodata_artist'>검색 결과가 없습니다.</span>
@@ -789,37 +790,40 @@
   </div>
 </div>
 </section>
-<script type="text/javascript">
-$(function(){
-	$("#search-text").on("keyup", function(){
-		 var keyword = $(this).val();
-		 $(".objet_list_item").hide();
-		 $(".objet_list_item:contains('"+keyword+"')").slice(0, 5).fadeIn();
-		 $(".objet_list_item:contains('"+keyword+"')").each(function () {
-	        var regex = new RegExp(keyword,'gi');
-	        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
-			 });
-		 $(".artist_list_item").hide();
-		 $(".artist_list_item:contains('"+keyword+"')").slice(0, 4).fadeIn();
-		 $(".artist_txt:contains('"+keyword+"')").each(function () {
-	       	var regex = new RegExp(keyword,'gi');
-	        $(this).html($(this).html().replace(regex, "<b>"+keyword+"</b>") );
-			 }); 
-		 if($(".objet_list_item:contains('"+keyword+"')").length == 0 && $(".artist_list_item:contains('"+keyword+"')").length == 0){
-			 $(".txt_nodata_objet ").show();
-			 $(".txt_nodata_artist ").show();
-		 }
-		 if($(".artist_list_item:contains('"+keyword+"')").length == 0 && $(".objet_list_item:contains('"+keyword+"')").length != 0){
-			 $(".txt_nodata_artist ").show();
-			 $(".txt_nodata_objet ").hide();
-		 }
-		 if($(".artist_list_item:contains('"+keyword+"')").length != 0 && $(".objet_list_item:contains('"+keyword+"')").length == 0){
-			 $(".txt_nodata_artist ").hide();
-			 $(".txt_nodata_objet ").show();
-		 }
+	<script type="text/javascript">
+	$(function(){
+		$("#search-text").on("keyup", function(){
+			 var keyword = $(this).val();
+			 $(".objet_list_item").hide();
+			 $(".objet_list_item:contains('"+keyword+"')").slice(0, 5).fadeIn();
+			 $(".objet_list_item:contains('"+keyword+"')").each(function () {
+		        var regex = new RegExp(keyword,'gi');
+		        $(this).html($(this).text().replace(regex, "<b>"+keyword+"</b>") );
+				 });
+			 $(".artist_list_item").hide();
+			 $(".artist_list_item:contains('"+keyword+"')").slice(0, 4).fadeIn();
+			 $(".artist_txt:contains('"+keyword+"')").each(function () {
+		       	var regex = new RegExp(keyword,'gi');
+		        $(this).html($(this).html().replace(regex, "<b>"+keyword+"</b>") );
+				 }); 
+			 if($(".objet_list_item:contains('"+keyword+"')").length == 0 
+					 && $(".artist_list_item:contains('"+keyword+"')").length == 0){
+				 $(".txt_nodata_objet ").show();
+				 $(".txt_nodata_artist ").show();
+			 }
+			 if($(".artist_list_item:contains('"+keyword+"')").length == 0 
+					 && $(".objet_list_item:contains('"+keyword+"')").length != 0){
+				 $(".txt_nodata_artist ").show();
+				 $(".txt_nodata_objet ").hide();
+			 }
+			 if($(".artist_list_item:contains('"+keyword+"')").length != 0 
+					 && $(".objet_list_item:contains('"+keyword+"')").length == 0){
+				 $(".txt_nodata_artist ").hide();
+				 $(".txt_nodata_objet ").show();
+			 }
+		});
 	});
-});
-</script>
+	</script>
 <!-- 검색창 끝 -->
 <br>
 <section class="objet_main">

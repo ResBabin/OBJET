@@ -217,8 +217,9 @@ var date = new Date();
 	}if((date - $("#objetenddate").val()) >= 1){
 		alert("오브제 기간은 오늘 날짜보다 이전일 수 없습니다.");
 		return false;
+	}else{
+		 return true;
 	}
-	 return true;
  }
 }
 	
