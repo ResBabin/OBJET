@@ -19,10 +19,8 @@
 		margin-right: 10%;
 		margin-top: 50px;
 		margin-bottom: 50px;
-		height: 50%;
+		height: 70%;
 		width: 85%;
-		
-		border: 3px solid green;
 	}
 	
 	.objetTeam_div_intro {
@@ -42,14 +40,23 @@
 	
 	.objetTeam_h2_intro {
 		text-align: center;
+		margin-right: 10%;
+		color: orange;
+		
 	}
 	
 	.objetTeam_p1_intro {
 		text-align: center;
+		margin-right: 10%;
+		font-size: 15pt;
+		font-weight: bold;
 	}
 	
 	.objetTeam_p2_intro {
 		text-align: center;
+		margin-right: 10%;
+		font-size: 12pt;
+		color: olive;	
 	}
 </style>
 </head>
@@ -60,31 +67,31 @@
 		<img src="resources/images/main/KS.jpg" class="objetTeam_img_intro">
 			<h2 class="objetTeam_h2_intro">박근수</h2> <br>
 			<p class="objetTeam_p1_intro">팀장</p> <br>
-			<p class="objetTeam_p2_intro">안녕하세요 박근수입니다.</p>
+			<p class="objetTeam_p2_intro">다녀온 오브제, 관심 오브제 파트 개발자 오브제 이용안내, 오브제 팀 설명은 덤,  <br>도움이 많이 필요한 사나이</p>
 	</div>
 	<div class="objetTeam_div_intro">
 		<img src="resources/images/main/MY.jpg" class="objetTeam_img_intro">
 			<h2 class="objetTeam_h2_intro">최민영</h2> <br>
 			<p class="objetTeam_p1_intro">팀원</p> <br>
-			<p class="objetTeam_p2_intro">안녕하세요 최민영입니다.</p>
+			<p class="objetTeam_p2_intro">사실상의 팀장 후원, 작가홈, 방명록, 피드알림, 팔로우, 팔로잉, 작가들(유저) 관리파트 개발자, 섬세함이 돋보이는 팀원</p>
 	</div>
 	<div class="objetTeam_div_intro">
 		<img src="resources/images/main/YY.jpg" class="objetTeam_img_intro">
 			<h2 class="objetTeam_h2_intro">박예은</h2> <br>
 			<p class="objetTeam_p1_intro">팀원</p> <br>
-			<p class="objetTeam_p2_intro">안녕하세요 박예은입니다.</p>
+			<p class="objetTeam_p2_intro">한줄평, 오브제 등록, 오브제 상세보기, 캘린더, 내 오브제 수정,	검색, 오브제 리스트, 작가리스트, 오브제 신고, 전시 감상파트 개발자, 적극적이고 활발한 팀원</p>
 	</div>
 	<div class="objetTeam_div_intro">
 		<img src="resources/images/main/YU.jpg" class="objetTeam_img_intro">
 			<h2 class="objetTeam_h2_intro">이유진</h2> <br>
 			<p class="objetTeam_p1_intro">팀원</p> <br>
-			<p class="objetTeam_p2_intro">안녕하세요 이유진입니다.</p>
+			<p class="objetTeam_p2_intro">공지사항, 고객센터, 문의내역 파트 개발자, 개성넘치고 파이팅 넘치는 팀원</p>
 	</div>
 	<div class="objetTeam_div_intro">
 		<img src="resources/images/main/ES.jpg" class="objetTeam_img_intro">
 			<h2 class="objetTeam_h2_intro">김은솔</h2> <br>
 			<p class="objetTeam_p1_intro">팀원</p> <br>
-			<p class="objetTeam_p2_intro">안녕하세요 김은솔입니다.</p>
+			<p class="objetTeam_p2_intro">관리자 전체파트 개발자, 3d vr 전문 개발자, 조용하지만 열심히 자기 몫을 해내는 숨은 에이스</p>
 	</div>
 </section>
 <c:import url="../footer.jsp" />
