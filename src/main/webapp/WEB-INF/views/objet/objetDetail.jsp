@@ -450,7 +450,7 @@ a:-webkit-any-link {
 	margin-bottom:50px;
 }
 
-#more_btn:before {
+ #more_btn:before {
 	content: "";
 	display: block;
 	border-top: 1px solid #e0e0e0;
@@ -460,9 +460,10 @@ a:-webkit-any-link {
 #more_btn:after {
 	content: "";
 	display: block;
+	border-top: 1px solid #e0e0e0;
 	border-bottom: 1px solid #e0e0e0;
 	margin: 30px auto;
-}
+}  
 
 #more_btn a {
 	color: #9e9e9e;
@@ -847,9 +848,8 @@ a:-webkit-any-link {
 
 .exhibition_vp {
 	margin-top: 80px;
-	/* background: #93c5e6; */
 	width: 100%;
-	height: 860px;
+	height: 840px;
 	align: left;
 }
 
@@ -881,13 +881,11 @@ a:-webkit-any-link {
 }
 
 .swiper-container {
-	margin-top: 190px;
+	margin-top: 200px;
 	width: 60%;
-	height: 60%;
+	height: 50%;
 	overflow: hidden;
-	position: absolute;
-	right: 95%;
-	left: 5%;
+	margin-left:23%;
 }
 
 .swiper-slide {
@@ -906,18 +904,15 @@ a:-webkit-any-link {
 }
 
 .swiper-slide img {
-	max-width: 90%;
-	max-height: 90%;
-	
-	height: auto;
+	max-width: 100%;
+	max-height: 100%;
 	align: center;
 	margin-right:100px;
 }
 
 .swiper-pagination {
 	position: absolute;
-	right: 100%;
-	left: 0%;
+	left: 0px !important;
 }
 
 .swiper-pagination-bullet {
@@ -932,37 +927,35 @@ a:-webkit-any-link {
 }
 
 .vp_txt h1 {
-	font-weight: 700;
+	font-weight: 600;
 	font-family: 'Nanum Gothic';
 	line-height: 56px;
-	font-size: 36px;
+	font-size: 34px;
 	text-align: left;
-	color: #fff;
+	color: black;
 }
 
-.vp_txt {
-	float: right;
-	margin: 250px 200px 10px 20px;
-}
+/* .vp_txt {
+	position: relative;
+	left: 61%;
+	top:27%;
+} */
 
 #vp_last_txt {
 	text-align: center;
-	color: #fff;
+	color: black;
 	font-weight: 700;
 	font-family: 'Nanum Gothic';
-	line-height: 68px;
+	line-height: 70px;
 	font-size: 48px;
-	position: absolute;
-	margin-top: 720px;
-	margin-left: -210px;
-	margin-bottom: 20px;
+	position:relative;
+	top: 75px;
 }
 
 .vp_top {
-	float: right;
-	position: absolute;
-	margin-top: 790px;
-	margin-left: 90%;
+	position:relative;
+	left: 40%;
+	width:180px;
 }
 /* 작가소개 스타일 */
 .artist_cont {
@@ -1726,6 +1719,7 @@ i.icon.clock::before{
 	}
 	
 	function objetVR(objetno, userid){
+		<c:if test="${objet.objetstatus eq 'OPEN'}">
 		//다녀온 오브제 추가
 		$.ajax({
 	        url: 'insertVisitedObjet.do',
@@ -1744,6 +1738,16 @@ i.icon.clock::before{
 	            }
 	        }
 	    });
+		</c:if>
+		<c:if test="${objet.objetstatus eq 'WAIT'}">
+			alert("승인대기인 전시입니다.");
+		</c:if>
+		<c:if test="${objet.objetstatus eq 'STANDBY'}">
+			alert("전시예정입니다.");
+		</c:if>
+		<c:if test="${objet.objetstatus eq 'CLOSE'}">
+			alert("종료된 전시입니다.");
+		</c:if>
 	}
 	
 	
@@ -2128,18 +2132,23 @@ controls poster="${pageContext.servletContext.contextPath }/resources/images/obj
       <div class="swiper-slide"><img src="resources/images/objet/${objet.objetrfile4 }"></div>
     </div>
   </div>
-<div class="vp_txt">
+<%-- <div class="vp_txt">
 <c:set var="title" value="${fn:length(objet.objettitle)}"/>
 <c:if test="${ title < 20 }">		
-<b><h1>${fn:substring(objet.objettitle,0,10)}</h1></b>
+<b><h1>${fn:substring(objet.objettitle,0,20)}</h1></b>
 </c:if>
 <c:if test="${ title > 20 }">		
 <b><h1>${fn:substring(objet.objettitle,0,10)}<br>
-${fn:substring(objet.objettitle,10,30)}</h1></b>
+${fn:substring(objet.objettitle,10,20)}<br>
+${fn:substring(objet.objettitle,20,30)}</h1></b>
 </c:if>
-</div>
-<strong id="vp_last_txt">VR EXHIBITION으로 <br>좋아하는 작가의 전시를 더 생생하게 느껴보세요!</strong>
-
+</div> --%>
+<c:if test="${ objet.objetno == 1 }">	
+<center><strong id="vp_last_txt" style="position:relative; top: 40px;">VR EXHIBITION으로 <br>좋아하는 작가의 전시를 더 생생하게 느껴보세요!</strong></center>
+</c:if>
+<c:if test="${ objet.objetno != 1 }">	
+<center><strong id="vp_last_txt">VR EXHIBITION으로 <br>좋아하는 작가의 전시를 더 생생하게 느껴보세요!</strong></center>
+</c:if>
  <script type="text/javascript" src="resources/js/swiper.min.js"></script>
   <script type="text/javascript">
 	var swiper = new Swiper('.swiper-container', {
@@ -2152,8 +2161,8 @@ ${fn:substring(objet.objettitle,10,30)}</h1></b>
 		
 	});
 </script>
-<div class="vp_top">
-<a href="#"><img src="resources/images/objet/top.png" style="width:60%; height:auto;"></a></div>
+<div class="vp_top"><a href="#">
+<img src="resources/images/objet/top.png" style="width:60%; height:auto;"></a></div>
 </div>
 </div>
 </div>
