@@ -370,6 +370,7 @@ public class SupportController {
 		model.addAttribute("artistid", artistid);
 		model.addAttribute("requestlist", requestlist);
 		model.addAttribute("paging", paging);
+		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("kind", "all"); // 출력타입은 전체(all)과 검색(search)으로 나뉘어져있음
 		
 		return "support/requestSupportList";
@@ -730,6 +731,7 @@ public class SupportController {
 			if(list.size() >= 0) {
 				model.addAttribute("listCount", listCount);
 				model.addAttribute("list", list);
+				model.addAttribute("currentPage", currentPage);
 				model.addAttribute("paging", paging);
 				model.addAttribute("kind", "all");
 			}else {

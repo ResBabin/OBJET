@@ -106,7 +106,7 @@
 	 			 $.ajax({
 	 		         url:"checkEmail.do",
 	 		         type:"post",
-	 		        data:{nickname:$("#email").val()},
+	 		        data:{email:$("#email").val()},
 	 		         success: function(result){
 	 		             if(result == "ok"){
 	 		                var emReg = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;

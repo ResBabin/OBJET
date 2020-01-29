@@ -327,8 +327,8 @@ public class UsersController {
 			return "user/findUserpwd";
 		}
 		
-	// 비밀번호 찾기
-		@RequestMapping("findUserpwd.do")
+		// 비밀번호 찾기
+		@RequestMapping(value="findUserpwd.do", method=RequestMethod.POST)
 		public String selectFindPwd(Users users, Model model) {
 			String vfn = null;
 			
@@ -349,6 +349,7 @@ public class UsersController {
                 props.put("mail.smtp.auth", "true");
                 props.put("mail.smtp.ssl.enable", "true");
                 props.put("mail.smtp.ssl.trust", "smtp.naver.com");
+                
                 
                 // SMTP 서버 정보와 사용자 정보를 기반으로 Session 클래스의 인스턴스 생성
                 Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
@@ -415,7 +416,6 @@ public class UsersController {
 			
 			return vfn;
 		}
-
 		
 	
 	// 내정보 수정 페이지 이동
