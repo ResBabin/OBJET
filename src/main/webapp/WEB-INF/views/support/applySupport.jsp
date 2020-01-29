@@ -140,7 +140,7 @@
 					<span style="color:#aaa;">해당 파일은 안전하게 보관되며 후원자에게 노출되지 않습니다.</span></td></tr>
 			<tr><td><table class="supportdetailTable" style="width:100%;">
 					<tr>
-						<th>첨부</th><td style="text-align: left;"><i class="olive folder open icon"></i><input type="file" name="artistupfile"></td>
+						<th>첨부</th><td style="text-align: left;"><i class="olive folder open icon"></i><input type="file" name="artistupfile" required></td>
 					</tr>
 					</table>
 			</td></tr>
