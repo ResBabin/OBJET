@@ -174,7 +174,7 @@ border-left: 2px black solid;
                <div class="ui input"><input type="text" name="search" style="width:340px; height:30px;"></div>&ensp;
           <br><br>
             <a class="ui large black label">분류</a>&emsp;&emsp;
-           <input type="radio" name="searchtype" value=""><label>전체</label>&emsp;&emsp; 
+           <input type="radio" name="searchtype" value="" checked><label>전체</label>&emsp;&emsp; 
              <input type="radio" name="searchtype" value="일반"><label>&ensp;일반</label>&emsp;&emsp;
                <input type="radio" name="searchtype" value="전시"><label>&ensp;전시</label>&emsp;&emsp; 
                <input type="radio" name="searchtype" value="회원"><label>&ensp;회원</label>&emsp;&emsp;&emsp;
@@ -184,10 +184,10 @@ border-left: 2px black solid;
 <!-- 탭메뉴 -->
 
           </div>
-                   <c:if test= "${loginUser.usertype ne 'USER'}"> 
+                    <c:if test= "${loginUser.usertype eq 'ADMIN'}"> 
                <div class="adminwrite"><button class="ui middle black button" onclick="location.href='insertNotice.do'">
       <i class="edit outline icon"></i>공지사항 작성</button> </div> </c:if>
-          <c:if test= "${loginUser.usertype eq 'USER'}"> 
+          <c:if test= "${loginUser.usertype ne 'ADMIN'}"> 
                <div class="adminwrite"><button class="ui middle black button">
       <i class="edit outline icon"></i>공지사항</button> </div> </c:if>
           
