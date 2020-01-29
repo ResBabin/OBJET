@@ -26,16 +26,17 @@
 	.objetTeam_div_intro {
 		float: left;
 		width: 20%;
+		height: 500px;
 	}
 	
 	.objetTeam_img_intro {
 		margin: 20px;
-		width: 70%;
-		height: 120px;
+		width: 150px;
+		height: 150px;
 		border-radius : 50%;
 		opacity: 1;
 	    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-	    align:center;
+	    object-fit : cover;
 	}
 	
 	.objetTeam_h2_intro {
@@ -73,7 +74,7 @@
 		<img src="resources/images/main/MY.jpg" class="objetTeam_img_intro">
 			<h2 class="objetTeam_h2_intro">최민영</h2> <br>
 			<p class="objetTeam_p1_intro">팀원</p> <br>
-			<p class="objetTeam_p2_intro">사실상의 팀장 후원, 작가홈, 방명록, 피드알림, 팔로우, 팔로잉, 작가들(유저) 관리파트 개발자, 섬세함이 돋보이는 팀원</p>
+			<p class="objetTeam_p2_intro">후원, 작가홈, 방명록, 피드알림, 팔로우, 팔로잉, 작가들(유저) 관리파트 개발자, 섬세함이 돋보이는 팀원 사실상 팀장</p>
 	</div>
 	<div class="objetTeam_div_intro">
 		<img src="resources/images/main/YY.jpg" class="objetTeam_img_intro">
