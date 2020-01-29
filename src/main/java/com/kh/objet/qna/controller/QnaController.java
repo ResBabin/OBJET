@@ -180,6 +180,7 @@ public class QnaController {
 	            
 	            
 	            if(nlist != null && nlist.size() > 0) {
+	            	model.addAttribute("userid", userid);
 	               model.addAttribute("search", search);
 	               model.addAttribute("searchtype",searchtype);
 	               model.addAttribute("list", nlist); // 리스트에 담은 전체 정보
@@ -584,7 +585,7 @@ public String updateQnaAnswer(HttpServletRequest request, Qna qna, Model model) 
    String view = "";
    request.getParameter("qnano");
    qna.setQnaanswer(request.getParameter("qnaanswer"));
-   qna.setQnaanswertype('Y');
+   qna.setQnaanswertype("답변완료");
    qna.setAdminid(request.getParameter("adminid"));
    int result = qnaService.updateQnaAnswer(qna);
    if(result > 0) {

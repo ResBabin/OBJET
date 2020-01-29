@@ -24,9 +24,28 @@
 
 <!-- Notice 검색 갯수 조회 -->
 <select  id="noticeSearchListCount" resultType="_int" parameterType="Hashmap">
-<![CDATA[
-select count(*) as count from notice where noticetype = #{searchtype}                    
-]]>
+
+select count(*) as count from notice
+ <where>
+<if test="searchtype.equals('')">
+noticetitle like '%' || #{search} || '%'
+</if>
+<if test="searchtype.equals('일반')">
+noticetype = #{searchtype} 
+and noticetitle like '%' || #{search} || '%'
+</if>
+<if test="searchtype.equals('회원')">
+noticetype = #{searchtype} 
+and noticetitle like '%' || #{search} || '%'
+
+</if>
+<if test="searchtype.equals('전시')">
+noticetype = #{searchtype} 
+and noticetitle like '%' || #{search} || '%'
+
+</if>
+</where>
+ 
 </select>
 <!-- 공지사항 추가 -->
 <insert id="insertNoticeWrite" parameterType="Notice">
@@ -84,14 +103,31 @@ insert into notice values ((select max(noticeno) from notice) + 1, #{adminid},#{
    </select>
 <!--  NoticeSearch-->
 <select resultType="Notice" id="selectNoticeSearchList" parameterType="Hashmap">
-
-<![CDATA[select * from (select rownum rnum, noticeno, noticetitle, noticedate, noticecontent, adminid, noticetype
+select * from (select rownum rnum, noticeno, noticetitle, noticedate, noticecontent, adminid, noticetype
               from (select *
                     from notice
                     order by noticedate desc))
-                    where
-              noticetype = #{searchtype} 
-             and noticetitle like '%' || #{search} || '%']]>
+                    <where>
+<if test="searchtype.equals('')">
+noticetitle like '%' || #{search} || '%'
+</if>
+<if test="searchtype.equals('일반')">
+noticetype = #{searchtype} 
+and noticetitle like '%' || #{search} || '%'
+</if>
+<if test="searchtype.equals('회원')">
+noticetype = #{searchtype} 
+and noticetitle like '%' || #{search} || '%'
+
+</if>
+<if test="searchtype.equals('전시')">
+noticetype = #{searchtype} 
+and noticetitle like '%' || #{search} || '%'
+
+</if>
+</where>
+                   
+    
 </select>
 
 
@@ -132,28 +168,56 @@ update notice set noticetype = #{noticetype}, noticetitle = #{noticetitle}, noti
 <select  id="listCount2" resultType="_int" >select count(*) from qna </select>
 <!-- qna 검색 갯수 조회 -->
 <select  id="qnaSearchListCount" resultType="_int" parameterType="Hashmap">
-<![CDATA[
-  select count(*) from qna where qnatitle  like '%' || #{search} || '%'                             
-]]>
+
+  select count(*) from qna  
+  <where>
+<if test="searchtype.equals('')">
+qnatitle like '%' || #{search} || '%'
+</if>
+<if test="searchtype.equals('미답변')">
+qnaanswertype = #{searchtype} 
+and qnatitle like '%' || #{search} || '%'
+</if>
+<if test="searchtype.equals('답변완료')">
+qnaanswertype = #{searchtype} 
+and qnatitle like '%' || #{search} || '%'
+</if>
+and userid = #{userid}
+</where>
 </select>
 
 
 <!--  QnaSearch-->
  <select resultType="Qna" id="selectQnaSearchList" parameterType="Hashmap">
 
-<![CDATA[
+
 select * 
       from (select rownum rnum, qnano, userid, adminid,qnatype, qnatitle, qnacontent, questiondate, qnaanswer, answerdate,qnaanswertype
               from (select *
                     from qna
                     order by questiondate desc ))
-              where qnatitle  like '%' ||#{search}|| '%'  and userid = #{ userid } ]]>  
-<if test="searchtype.equals('all')"></if>
-<if test="searchtype.equals('y')"> and qnaanswertype = 'Y' </if>
-<if test="searchtype.equals('n')"> and qnaanswertype = 'N' </if>
+              <where>
+<if test="searchtype.equals('')">
+qnatitle like '%' || #{search} || '%' 
+</if>
+<if test="searchtype.equals('미답변')">
+qnaanswertype = #{searchtype} 
+and qnatitle like '%' || #{search} || '%'
+</if>
+<if test="searchtype.equals('답변완료')">
+qnaanswertype = #{searchtype} 
+and qnatitle like '%' || #{search} || '%'
+</if>
+and userid = #{userid}
+</where>
+
       
 
 </select>
+
+
+
+
 
 
 

@@ -22,7 +22,7 @@ margin-left: 500px;
 			<table class = "noticeform">
 				<tr>
 					<th>작성자</th>
-					<td><input type="text" size="30" name="adminid" value="${loginUser.userid}" required="required"></td>
+					<td><input type="text" size="30" name="adminid" value="${loginUser.userid}" required="required" readonly></td>
 					
 
 
@@ -69,8 +69,9 @@ margin-left: 500px;
 
 
 </script> 
-             
-			<button type="submit" class="insert">완료</button>
+             <center>
+             <button type = "submit" class="ui black basic button" >완료</button>
+			<button type = "reset" class="ui black basic button" ><a href="selectNoticeList.do">취소</a></button></center>
              </form>    
              
    
