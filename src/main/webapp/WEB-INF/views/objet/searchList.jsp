@@ -547,8 +547,8 @@ $(function() {
 		    $(".artist-result").css("height", "auto");
 		    if ($(".artist-result-list-detail:hidden").length == 0) { 
 		        $('#more_load2').fadeOut();
-		       /*  $('#more_load3').css("height", $(document).height());
-		        $("#more_load3").show(); */
+		        $('#more_load3').css("height", $(document).height());
+		        $("#more_load3").show();
 		    }
 		});
 	}if($(".artist-result-list-detail").length <= 4){

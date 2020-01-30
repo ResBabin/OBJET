@@ -16,6 +16,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+
 <style type="text/css">
 body {
 	background: white;
@@ -79,6 +80,21 @@ body {
 	font-weight: bold;
 	line-height: 25pt;
 } 
+
+#closebtn3{
+	position: absolute;
+	color: black;
+	width: 40px;
+	height: 40px;
+	 top: 2%; 
+	 transform: translateY(-2%);
+	right: 1%; 
+	 transform: translateX(-1%); 
+	box-shadow: 0em 0.35em .75em rgba(100, 100, 100, 0.7);
+	display: block;
+	border-radius: 50%;
+}
+
 #infobtn{
 position: absolute;
 top: 15px;
@@ -211,6 +227,8 @@ position: absolute;
 		<div id="intro1"></div>
 		<button id="closebtn1" style="bottom: 10%">Close</button>
 		</div>
+		<a class="ui circular icon button" id="closebtn3" href="javascript:history.back();">
+		<i class="close icon"></i></a>
 		<div id="loadback"><div id="loading"><br><i class="big sync loading icon"></i><br><br>L O A D I N G<br></div></div>
 	<script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript">

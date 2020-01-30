@@ -175,6 +175,7 @@ function objetModify(){
 	</div>
 	<br>
 	<div align="right">
+		<button class="mainBtn2" onclick="location.href='moveCreateObjet.do'">등록</button>
 		<button class="mainBtn2" onclick="objetModify();">수정</button>
 		<button class="mainBtn2" id="objet_del" >삭제</button>
 	</div>
