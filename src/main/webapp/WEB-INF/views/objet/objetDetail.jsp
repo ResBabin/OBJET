@@ -2064,7 +2064,7 @@ background:radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 4
     전시일정
   </a>
   <a class="item review" id="item" data-tab="objet_review">
-    한줄평
+    기대평/한줄평
   </a>
 </div>
 <center>
