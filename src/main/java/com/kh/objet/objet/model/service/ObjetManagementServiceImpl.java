@@ -81,4 +81,14 @@ public class ObjetManagementServiceImpl implements ObjetManagementService{
 		return objetmDao.selectObjetRequestManage();
 	}
 
+	@Override
+	public int insertReqFeed(Map<String, String> map) {
+		return objetmDao.insertReqFeed(map);
+	}
+
+	@Override
+	public int insertStopFeed(Map<String, String> map) {
+		return objetmDao.insertStopFeed(map);
+	}
+
 }

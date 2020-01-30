@@ -329,7 +329,7 @@ var myChart3 = new Chart(ctx3, {
 		<div style="display: flex; margin-top: -130px; ">
 		<div style="margin-left: 140px;" id="canvasdiv">
 		<canvas id="myChart" width="150" height="70">
-		</canvas><br>
+		</canvas><br> 
 		</div>
 		<div id="canvasdiv">
 		<canvas id="myChart2" width="150" height="70"></canvas><br>

@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="supportMapper">
+
+	<select id="selectSupport" parameterType="String" resultType="ApplySupport">
+		select * from applysupport where artistid = #{value}	
+	</select>
+	
+	<insert id="insertSupport" parameterType="MySupport">
+		insert into mysupport values (#{sptno}, #{sptid}, #{artistid}, #{sptamount}, #{sptcomment}, SYSDATE)
+	</insert>
+	
+	<insert id="insertApply" parameterType="ApplySupport">
+		insert into applysupport values (#{artistid}, #{sptheader}, #{sptintro}, #{sptbank}, #{sptaccount}, #{artistofile}, #{artistrfile}, #{thanksmsg}, sysdate, sysdate)
+	</insert>
+	
+	<select id="moveModifySupport" parameterType="ApplySupport" resultType="ApplySupport">
+		select * from applysupport where artistid = #{value}
+	</select>
+	
+	<update id="updateApplySupport" parameterType="ApplySupport">
+		update applysupport set sptheader = #{sptheader}, sptintro = #{sptintro}, sptbank = #{sptbank}, sptaccount = #{sptaccount}, artistofile = #{artistofile}, artistrfile = #{artistrfile}, thanksmsg = #{thanksmsg}, sptmodifydate = sysdate where artistid=#{artistid}
+	</update>
+	
+	<delete id="deleteApplySupport" parameterType="String">
+		delete applysupport where artistid = #{value}
+	</delete>
+	
+	<select id="selectSendSupportListCount" parameterType="String" resultType="int">
+		select count(*) from mysupport where sptid = #{value}
+	</select>
+	
+	<select id="selectSendSupport" parameterType="hashmap" resultType="MySupport">
+		select * from (select rownum rnum, m.sptno, m.sptid, m.artistid, u.nickname as artistnickname, m.sptamount, m.sptcomment, m.sptdate
+		from mysupport m left join users u on (m.artistid = u.userid) where m.sptid = #{sptid} order by m.sptdate desc) where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="selectSendSupportSearchListCount" parameterType="hashmap" resultType="int">
+		select count(*) from mysupport m left join users u on (m.artistid = u.userid) where m.sptid = #{sptid} and ${searchtype} like '%' || #{keyword} || '%' order by m.sptdate desc
+	</select>
+
+	<select id="selectSendSupportSearch" parameterType="map" resultType="MySupport">
+		select * from (select rownum rnum, m.sptno, m.sptid, m.artistid, u.nickname as artistnickname, m.sptamount, m.sptcomment, m.sptdate 
+		from mysupport m left join users u on (m.artistid = u.userid) where m.sptid = #{sptid} and 
+		${searchtype} like '%' || #{keyword} || '%' 
+		order by m.sptdate desc) where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="selectReceiveSupportListCount" parameterType="String" resultType="int">
+		select count(*) from mysupport where artistid = #{artistid}
+	</select>
+	
+	<select id="selectReceiveSupport" parameterType="hashmap" resultType="MySupport">
+		select * from (select rownum rnum, m.sptno, m.sptid, m.artistid, u.nickname as sptnickname, m.sptamount, m.sptcomment, m.sptdate
+		from mysupport m left join users u on (m.sptid = u.userid) where m.artistid = #{artistid} order by m.sptdate desc) where rnum between #{startRow} and #{endRow}
+	</select>
+	
+		<select id="selectReceiveSupportSearchListCount" parameterType="hashmap" resultType="int">
+		select count(*) from mysupport m left join users u on (m.sptid = u.userid) where m.artistid = #{artistid} and ${searchtype} like '%' || #{keyword} || '%' order by m.sptdate desc
+	</select>
+
+	<select id="selectReceiveSupportSearch" parameterType="map" resultType="MySupport">
+		select * from (select rownum rnum, m.sptno, m.sptid, m.artistid, u.nickname as sptnickname, m.sptamount, m.sptcomment, m.sptdate 
+		from mysupport m left join users u on (m.sptid = u.userid) where m.artistid = #{artistid} and 
+		${searchtype} like '%' || #{keyword} || '%' 
+		order by m.sptdate desc) where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="selectRequestSupportListCount" parameterType="String" resultType="int">
+		select count(*) from requestsupport where artistid = #{value}
+	</select>
+	
+	<select id="selectRequestSupport" parameterType="hashmap" resultType="RequestSupport">
+		select * from (select rownum rnum, requestno, requestyear, requestmonth, sptdate, sptstatus, sptdonedate, sptofile,sptrfile, adminid, adminmemo
+		from requestsupport where artistid = #{artistid} order by requestyear desc, requestmonth desc, sptdate desc) where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	
+	
+	
+	
+	<select id="selectRequestSupportSearchListCount" parameterType="hashmap" resultType="int">
+		select count(*)  from requestsupport where artistid = #{artistid}
+			<if test="requestyear != 0">
+				AND requestyear = #{requestyear}
+			</if>
+			<if test="requestmonth != 0">
+			        AND requestmonth = #{requestmonth}
+			</if>
+			<if test="sptstatus != ''">
+			        AND sptstatus = #{sptstatus}
+			</if>
+	order by requestyear desc, requestmonth desc, sptdate desc
+	</select>
+	
+	
+	<select id="selectRequestSupportSearch" parameterType="map" resultType="RequestSupport">
+		select * from (select rownum rnum, requestyear, requestmonth, sptdate, sptstatus, sptdonedate, sptrfile 
+		from requestsupport where artistid = #{artistid} 
+			
+			<if test="requestyear != 0">
+				and requestyear = #{requestyear}
+			</if>
+			<if test="requestmonth != 0">
+			        AND requestmonth = #{requestmonth}
+			</if>
+			<if test="sptstatus != ''">
+			        AND sptstatus = #{sptstatus}
+			</if>
+		
+		 order by requestyear desc, requestmonth desc, sptdate desc) where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	
+	
+	<select id="moveRequestSupportDetail" parameterType="hashmap" resultType="RequestSupport">
+		select r.requestno, r.artistid, r.requestyear, r.requestmonth, r.sptdate, r.sptstatus, r.sptdonedate, r.sptofile, r.sptrfile, r.adminid, r.adminmemo, a.sptbank, a.sptaccount 
+		from requestsupport r left join applysupport a on (r.artistid=a.artistid) 
+		where r.artistid = #{artistid} and r.requestno = #{requestno}
+	</select>
+
+	<select id="selectInsertRequestSupportyn" parameterType="string" resultType="int">
+		select count(*) from applysupport where artistid = #{value}
+	</select>
+	
+	<insert id="selectInsertRequestSupport">
+		insert into requestsupport values (REQUESTNO_SEQ.NEXTVAL, #{artistid}, #{requestyear}, #{requestmonth}, default, default, null, null, null, null, null )
+	</insert>
+	
+	<delete id="deleteRequestSupport" parameterType="int">
+		delete requestsupport where requestno = #{value}
+	</delete>
+	
+	
+	<select id="selectCountArtist" resultType="int">
+		select count(distinct(artistid)) from mysupport
+	</select>
+	
+	<select id="selectCountSupport" resultType="int">
+		select count(*) from mysupport
+	</select>
+	
+	<select id="selectThanksmsg" parameterType="String" resultType="String">
+		select thanksmsg from applysupport where artistid = #{value}
+	</select>
+	
+	<select id="selectartistnickname" parameterType="String" resultType="String">
+		select nickname from users where userid = #{value}
+	</select>
+
+
+	<!-- 후원 관리자 영역 -->
+	
+	<select id="supportEnrollListCountm" resultType="int">
+		select count(*) from applysupport
+	</select>
+	
+	<select id="supportEnrollListm" parameterType="hashmap" resultType="ApplySupport">
+		select * from (select rownum rnum, artistid, sptheader, sptintro, sptbank, sptaccount, artistofile, artistrfile, thanksmsg, sptapplydate, sptmodifydate
+		from applysupport order by sptapplydate desc) where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="supportEnrollSearchListCountm" parameterType="String" resultType="int">
+		select count(*) from applysupport where artistid like '%' || #{artistid} || '%' order by sptapplydate desc
+	</select>
+	
+	<select id="supportEnrollSearchListm" parameterType="hashmap" resultType="ApplySupport">
+		select * from (select rownum rnum, artistid, sptheader, sptintro, sptbank, sptaccount, artistofile, artistrfile, thanksmsg, sptapplydate, sptmodifydate
+		from applysupport where artistid like '%'|| #{artistid} ||'%'order by sptapplydate desc) where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="supportenrollListdetailm" parameterType="string" resultType="ApplySupport">
+		 select * from applysupport where artistid = #{value}
+	</select>
+	
+	<select id="supportListCountm" resultType="int">
+		select count(*) from mysupport
+	</select>
+
+	<select id="supportListm" resultType="MySupport">
+		select * from (select rownum rnum, sptno, sptid, artistid, sptamount, sptcomment, sptdate
+		from mysupport order by sptdate desc) where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="supportSearchListCountm" parameterType="hashmap" resultType="int">
+		select count(*) from mysupport where ${searchtype} like '%' || #{keyword} ||'%'
+	</select>
+	
+	<select id="supportSearchListm" parameterType="hashmap" resultType="MySupport">
+		select * from (select rownum rnum, sptno, sptid, artistid, sptamount, sptcomment, sptdate
+		from mysupport where ${searchtype} like '%' || #{keyword} ||'%' order by sptdate desc) where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="supportRequestListCountm" resultType="int">
+		select count(*) from requestsupport
+	</select>
+	
+	<select id="supportRequestm" parameterType="hashmap" resultType="RequestSupport">
+		select * from (select rownum rnum, requestno, artistid, requestyear, requestmonth, sptdate, sptstatus, sptdonedate, adminid
+		from requestsupport order by sptdate desc) where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="supportRequestSearchmListCountm" parameterType="hashmap" resultType="int">
+		select count(*) from requestsupport
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="artistid != ''">
+				artistid like '%' || #{artistid} || '%'
+			</if>
+			<if test="requestyear != 0">
+				AND requestyear = #{requestyear}
+			</if>
+			<if test="requestmonth != 0">
+			        AND requestmonth = #{requestmonth}
+			</if>
+			<if test="sptstatus != ''">
+			        AND sptstatus = #{sptstatus}
+			</if>
+			</trim>
+	order by requestyear desc, requestmonth desc, sptdate desc
+	</select>
+	
+	<select id="supportRequestSearchm" parameterType="hashmap" resultType="RequestSupport">
+		select * from (select rownum rnum, requestno, artistid, requestyear, requestmonth, sptdate, sptstatus, sptdonedate, sptrfile, adminid 
+		from requestsupport
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="artistid != ''">
+			 artistid like '%' || #{artistid} || '%'
+			</if>	
+			<if test="requestyear != 0">
+				AND requestyear = #{requestyear}
+			</if>
+			<if test="requestmonth != 0">
+			     AND requestmonth = #{requestmonth}
+			</if>
+			<if test="sptstatus != ''">
+			        AND sptstatus = #{sptstatus}
+			</if>
+		 </trim>
+		 order by requestyear desc, requestmonth desc, sptdate desc) where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="requestSupportDetailm" parameterType="int" resultType="RequestSupport">
+		select * from requestsupport where requestno = #{value}
+	</select>
+	
+	<select id="selectUser" parameterType="String" resultType="Users">
+		select * from users where userid = #{value}
+	</select>
+	
+	<update id="updateRequestSupportDetailm" parameterType="RequestSupport">
+		update requestsupport set
+		<if test="sptofile != null">
+			sptofile = #{sptofile},
+		</if>
+		<if test="sptrfile != null">
+			sptrfile = #{sptrfile},
+		</if>
+		<if test="adminmemo != null">
+			adminmemo = #{adminmemo},
+		</if>
+		adminid = #{adminid}, sptstatus = #{sptstatus}, sptdonedate = sysdate where artistid = #{artistid}
+	</update>
+	
+	<select id="selectCountSupporter" parameterType="String" resultType="int">
+		select nvl(count(distinct(sptid)),0) sptid from mysupport where artistid= #{artistid}
+	</select>
+	
+</mapper>

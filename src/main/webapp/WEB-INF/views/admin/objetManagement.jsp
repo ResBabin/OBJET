@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -364,6 +366,10 @@
 <c:import url="adminHeader.jsp"/>
 </head>
 <body>
+<c:url value="objetm.do?page=1" var="objeturl">
+	<c:if test="${ !empty publicyn and !fn:contains(objeturl, 'publicyn')  }"><c:param value="${ publicyn }" name="publicyn" /></c:if>
+	<c:if test="${ !empty objetstatus and !fn:contains(objeturl, 'objetstatus')  }"><c:param value="${ objetstatus }" name="objetstatus" /></c:if>
+	</c:url>
 	<div id="um">
 		<br>
 		<div align="right">
@@ -372,7 +378,7 @@
 			<div class="ui right action left icon input">
 				<i class="search icon"></i> 
 				<input type="search" placeholder="제목 검색" name="objettitle">
-				<input type="h" placeholder="아이디 검색" name="userid">
+				<input type="hidden" placeholder="아이디 검색" name="userid">
 				<input type="hidden" value="1" name="page">
 				<div class="ui basic floating dropdown button">
 					<div class="text">제 목</div>
@@ -383,45 +389,54 @@
 					</div>
 				</div>
 			</div>
-		</form>
+		</form>  
 			<br>
 			<div></div>
 		</div>
 		<div style="width: 480px;">
-		<div class="ui item four menu">
+		<div class="ui item three menu">
 				<div class="ui pointing dropdown link item">
 				<span class="text">전시상태</span> <i class="dropdown icon"></i>
 				<div class="menu">
-					<div class="item" id="statusall">전체</div>
-					<div class="item" id="statusopen">전시</div>
-					<div class="item" id="statusclose">종료</div>
-					<div class="item" id="statuswait">예정</div>
+				<c:if test="${ !fn:contains(objeturl, 'objetstatus') }">
+					<a href="${ objeturl }&objetstatus="><div class="item" id="statusall">전체</div></a>
+					<a href="${ objeturl }&objetstatus=OPEN"><div class="item" id="statusopen">전시</div></a>
+					<a href="${ objeturl }&objetstatus=CLOSE"><div class="item" id="statusclose">종료</div></a>
+					<a href="${ objeturl }&objetstatus=WAIT"><div class="item" id="statuswait">예정</div></a>
+				</c:if>
+				<c:if test="${ fn:contains(objeturl, 'objetstatus') }">
+					<a href="${ objeturl }"><div class="item" id="statusall">전체</div></a>
+					<a href="${ objeturl }"><div class="item" id="statusopen">전시</div></a>
+					<a href="${ objeturl }"><div class="item" id="statusclose">종료</div></a>
+					<a href="${ objeturl }"><div class="item" id="statuswait">예정</div></a>
+				</c:if>
+					
 				</div>
 			</div>
 				<div class="ui pointing dropdown link item">
 				<span class="text">승인여부</span> <i class="dropdown icon"></i>
 				<div class="menu">
-					<div class="item" id="publicall">전체</div>
-					<div class="item" id="publicy">승인</div>
-					<div class="item" id="publicn">반려</div>
-					<div class="item" id="publicw">대기</div>
+					<a href="${ objeturl }&publicyn="><div class="item" id="publicall">전체</div></a>
+					<a href="${ objeturl }&publicyn=Y"><div class="item" id="publicy">승인</div></a>
+					<a href="${ objeturl }&publicyn=N"><div class="item" id="publicn">반려</div></a>
+					<a href="${ objeturl }&publicyn=W"><div class="item" id="publicw">대기</div></a>
 				</div>
 			</div> 
-				<div class="ui pointing dropdown link item">
+				<!-- <div class="ui pointing dropdown link item">
 				<span class="text">태그</span> <i class="dropdown icon"></i>
 				<div class="menu">
-					<div class="item" id="tagall">전체</div>
-					<div class="item" id="tagarc">건축</div>
-					<div class="item" id="tagseo">서예</div>
-					<div class="item" id="tagst">조각</div>
-					<div class="item" id="tagpic">사진</div>
-					<div class="item" id="tagde">디자인</div>
-					<div class="item" id="tagho">회화</div>
-					<div class="item" id="taggong">공예</div>
-					<div class="item" id="tagetc">기타</div>
+					<a href=""><div class="item" id="tagall">전체</div></a>
+					<a href="">	<div class="item" id="tagarc">건축</div></a>
+					<a href=""><div class="item" id="tagseo">서예</div></a>
+					<a href="">	<div class="item" id="tagst">조각</div></a>
+					<a href=""><div class="item" id="tagpic">사진</div></a>
+					<a href="">	<div class="item" id="tagde">디자인</div></a>
+					<a href="">	<div class="item" id="tagho">회화</div></a>
+					<a href="">	<div class="item" id="taggong">공예</div></a>
+					<a href="">	<div class="item" id="tagetc">기타</div></a>
 				</div>
-			</div>
-		<div class="ui pointing dropdown link item" onclick="location.href='objetm.do'">
+			</div> -->
+		<div class="ui pointing dropdown link item" onclick="location.href='objetm.do?page=1'">
 				<span class="text">리셋</span></div>
 		</div>
 		</div>
@@ -501,9 +516,9 @@
 			</tbody>
 		</table>
 		<div align="right">
-			<button class="ui basic grey button" id="endbtn">
+			<!-- <button class="ui basic grey button" id="endbtn">
 				<i class="x icon"></i>강제 종료
-			</button>
+			</button> -->
 		</div>
 		<br>
 		<div align="center">

@@ -21,4 +21,6 @@ public interface ObjetManagementService {
 	public int selectBeforeStart();
 	public int selectObjetRequestList(Map<String, String> map);
 	public List<Objet> selectObjetRequestManage();
+	public int insertReqFeed(Map<String, String> map);
+	public int insertStopFeed(Map<String, String> map);
 }

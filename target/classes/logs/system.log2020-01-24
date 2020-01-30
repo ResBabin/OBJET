@@ -1,0 +1,2014 @@
+[13:20:11][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[13:20:17][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 6296 ms
+[13:20:17][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[13:20:24][INFO ][FrameworkServlet.java:546] - Completed initialization in 7181 ms
+[13:21:16][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:21:16][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[13:21:16][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:21:19][ERROR][Slf4jSpyLogDelegator.java:120] - 2. PreparedStatement.execute() select avg(login01) "login01", avg(login02) "login02", avg(login03) "login03", avg(login04) "login04", avg(login05) "login05", avg(login06) "login06", 
+		 avg(login07) "login07", avg(login08) "login08", avg(login09) "login09", avg(login10) "login10", avg(login11) "login11", avg(login12) "login12", 
+		 avg(login13) "login13", avg(login14) "login14", avg(login15) "login15", avg(login16) "login16", avg(login17) "login17", avg(login18) "login18", 
+		 avg(login19) "login19", avg(login20) "login20", avg(login21) "login21", avg(login22) "login22", avg(login23) "login23", avg(login00) "login00", logindate
+		 from logincount 
+		 where 
+		  to_char(logindate, 'yyMMW' ) = to_char(to_date( '20/01/24' ), 'yyMMW')
+java.sql.SQLSyntaxErrorException: ORA-00937: not a single-group group function
+
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:447)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:396)
+	at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:951)
+	at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:513)
+	at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:227)
+	at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:531)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:208)
+	at oracle.jdbc.driver.T4CPreparedStatement.executeForDescribe(T4CPreparedStatement.java:886)
+	at oracle.jdbc.driver.OracleStatement.executeMaybeDescribe(OracleStatement.java:1175)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1296)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3613)
+	at oracle.jdbc.driver.OraclePreparedStatement.execute(OraclePreparedStatement.java:3714)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.execute(OraclePreparedStatementWrapper.java:1378)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.execute(DelegatingPreparedStatement.java:172)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.execute(DelegatingPreparedStatement.java:172)
+	at net.sf.log4jdbc.PreparedStatementSpy.execute(PreparedStatementSpy.java:418)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.query(PreparedStatementHandler.java:64)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.query(RoutingStatementHandler.java:79)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:63)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:324)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:83)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:148)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:141)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectOne(DefaultSqlSession.java:77)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
+	at com.sun.proxy.$Proxy8.selectOne(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectOne(SqlSessionTemplate.java:166)
+	at com.kh.objet.users.model.dao.UserManagementDao.selectLoginCountAvg(UserManagementDao.java:109)
+	at com.kh.objet.users.model.service.UserManagementServiceImpl.selectLoginCountAvg(UserManagementServiceImpl.java:171)
+	at com.kh.objet.users.model.service.UserManagementServiceImpl$$FastClassBySpringCGLIB$$8c5de97.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:294)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:93)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
+	at com.kh.objet.users.model.service.UserManagementServiceImpl$$EnhancerBySpringCGLIB$$4ba805b7.selectLoginCountAvg(<generated>)
+	at com.kh.objet.users.controller.UserManagementController.userStatistics(UserManagementController.java:340)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:493)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:137)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:798)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:808)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1498)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Unknown Source)
+[13:21:19][ERROR][Slf4jSpyLogDelegator.java:139] - 2. PreparedStatement.execute() FAILED! select avg(login01) "login01", avg(login02) "login02", avg(login03) "login03", avg(login04) "login04", avg(login05) "login05", avg(login06) "login06", 
+		 avg(login07) "login07", avg(login08) "login08", avg(login09) "login09", avg(login10) "login10", avg(login11) "login11", avg(login12) "login12", 
+		 avg(login13) "login13", avg(login14) "login14", avg(login15) "login15", avg(login16) "login16", avg(login17) "login17", avg(login18) "login18", 
+		 avg(login19) "login19", avg(login20) "login20", avg(login21) "login21", avg(login22) "login22", avg(login23) "login23", avg(login00) "login00", logindate
+		 from logincount 
+		 where 
+		  to_char(logindate, 'yyMMW' ) = to_char(to_date( '20/01/24' ), 'yyMMW') {FAILED after 88 msec}
+java.sql.SQLSyntaxErrorException: ORA-00937: not a single-group group function
+
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:447)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:396)
+	at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:951)
+	at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:513)
+	at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:227)
+	at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:531)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:208)
+	at oracle.jdbc.driver.T4CPreparedStatement.executeForDescribe(T4CPreparedStatement.java:886)
+	at oracle.jdbc.driver.OracleStatement.executeMaybeDescribe(OracleStatement.java:1175)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1296)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3613)
+	at oracle.jdbc.driver.OraclePreparedStatement.execute(OraclePreparedStatement.java:3714)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.execute(OraclePreparedStatementWrapper.java:1378)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.execute(DelegatingPreparedStatement.java:172)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.execute(DelegatingPreparedStatement.java:172)
+	at net.sf.log4jdbc.PreparedStatementSpy.execute(PreparedStatementSpy.java:418)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.query(PreparedStatementHandler.java:64)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.query(RoutingStatementHandler.java:79)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:63)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:324)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:83)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:148)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:141)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectOne(DefaultSqlSession.java:77)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
+	at com.sun.proxy.$Proxy8.selectOne(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectOne(SqlSessionTemplate.java:166)
+	at com.kh.objet.users.model.dao.UserManagementDao.selectLoginCountAvg(UserManagementDao.java:109)
+	at com.kh.objet.users.model.service.UserManagementServiceImpl.selectLoginCountAvg(UserManagementServiceImpl.java:171)
+	at com.kh.objet.users.model.service.UserManagementServiceImpl$$FastClassBySpringCGLIB$$8c5de97.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:294)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:93)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
+	at com.kh.objet.users.model.service.UserManagementServiceImpl$$EnhancerBySpringCGLIB$$4ba805b7.selectLoginCountAvg(<generated>)
+	at com.kh.objet.users.controller.UserManagementController.userStatistics(UserManagementController.java:340)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:493)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:137)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:798)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:808)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1498)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Unknown Source)
+[13:21:19][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:22:47][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:22:47][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[13:22:47][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:22:48][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[13:22:48][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:22:49][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:22:49][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[13:22:49][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:22:49][ERROR][Slf4jSpyLogDelegator.java:120] - 5. PreparedStatement.execute() select avg(login01) "login01", avg(login02) "login02", avg(login03) "login03", avg(login04) "login04", avg(login05) "login05", avg(login06) "login06", 
+		 avg(login07) "login07", avg(login08) "login08", avg(login09) "login09", avg(login10) "login10", avg(login11) "login11", avg(login12) "login12", 
+		 avg(login13) "login13", avg(login14) "login14", avg(login15) "login15", avg(login16) "login16", avg(login17) "login17", avg(login18) "login18", 
+		 avg(login19) "login19", avg(login20) "login20", avg(login21) "login21", avg(login22) "login22", avg(login23) "login23", avg(login00) "login00", logindate
+		 from logincount 
+		 where 
+		  to_char(logindate, 'yyMMW' ) = to_char(to_date( '20/01/24' ), 'yyMMW')
+java.sql.SQLSyntaxErrorException: ORA-00937: not a single-group group function
+
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:447)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:396)
+	at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:951)
+	at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:513)
+	at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:227)
+	at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:531)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:208)
+	at oracle.jdbc.driver.T4CPreparedStatement.executeForDescribe(T4CPreparedStatement.java:886)
+	at oracle.jdbc.driver.OracleStatement.executeMaybeDescribe(OracleStatement.java:1175)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1296)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3613)
+	at oracle.jdbc.driver.OraclePreparedStatement.execute(OraclePreparedStatement.java:3714)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.execute(OraclePreparedStatementWrapper.java:1378)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.execute(DelegatingPreparedStatement.java:172)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.execute(DelegatingPreparedStatement.java:172)
+	at net.sf.log4jdbc.PreparedStatementSpy.execute(PreparedStatementSpy.java:418)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.query(PreparedStatementHandler.java:64)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.query(RoutingStatementHandler.java:79)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:63)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:324)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:83)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:148)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:141)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectOne(DefaultSqlSession.java:77)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
+	at com.sun.proxy.$Proxy8.selectOne(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectOne(SqlSessionTemplate.java:166)
+	at com.kh.objet.users.model.dao.UserManagementDao.selectLoginCountAvg(UserManagementDao.java:109)
+	at com.kh.objet.users.model.service.UserManagementServiceImpl.selectLoginCountAvg(UserManagementServiceImpl.java:171)
+	at com.kh.objet.users.model.service.UserManagementServiceImpl$$FastClassBySpringCGLIB$$8c5de97.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:294)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:93)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
+	at com.kh.objet.users.model.service.UserManagementServiceImpl$$EnhancerBySpringCGLIB$$4ba805b7.selectLoginCountAvg(<generated>)
+	at com.kh.objet.users.controller.UserManagementController.userStatistics(UserManagementController.java:340)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:493)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:137)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:798)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:808)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1498)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Unknown Source)
+[13:22:49][ERROR][Slf4jSpyLogDelegator.java:139] - 5. PreparedStatement.execute() FAILED! select avg(login01) "login01", avg(login02) "login02", avg(login03) "login03", avg(login04) "login04", avg(login05) "login05", avg(login06) "login06", 
+		 avg(login07) "login07", avg(login08) "login08", avg(login09) "login09", avg(login10) "login10", avg(login11) "login11", avg(login12) "login12", 
+		 avg(login13) "login13", avg(login14) "login14", avg(login15) "login15", avg(login16) "login16", avg(login17) "login17", avg(login18) "login18", 
+		 avg(login19) "login19", avg(login20) "login20", avg(login21) "login21", avg(login22) "login22", avg(login23) "login23", avg(login00) "login00", logindate
+		 from logincount 
+		 where 
+		  to_char(logindate, 'yyMMW' ) = to_char(to_date( '20/01/24' ), 'yyMMW') {FAILED after 36 msec}
+java.sql.SQLSyntaxErrorException: ORA-00937: not a single-group group function
+
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:447)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:396)
+	at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:951)
+	at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:513)
+	at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:227)
+	at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:531)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:208)
+	at oracle.jdbc.driver.T4CPreparedStatement.executeForDescribe(T4CPreparedStatement.java:886)
+	at oracle.jdbc.driver.OracleStatement.executeMaybeDescribe(OracleStatement.java:1175)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1296)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3613)
+	at oracle.jdbc.driver.OraclePreparedStatement.execute(OraclePreparedStatement.java:3714)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.execute(OraclePreparedStatementWrapper.java:1378)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.execute(DelegatingPreparedStatement.java:172)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.execute(DelegatingPreparedStatement.java:172)
+	at net.sf.log4jdbc.PreparedStatementSpy.execute(PreparedStatementSpy.java:418)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.query(PreparedStatementHandler.java:64)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.query(RoutingStatementHandler.java:79)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:63)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:324)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:83)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:148)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:141)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectOne(DefaultSqlSession.java:77)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
+	at com.sun.proxy.$Proxy8.selectOne(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectOne(SqlSessionTemplate.java:166)
+	at com.kh.objet.users.model.dao.UserManagementDao.selectLoginCountAvg(UserManagementDao.java:109)
+	at com.kh.objet.users.model.service.UserManagementServiceImpl.selectLoginCountAvg(UserManagementServiceImpl.java:171)
+	at com.kh.objet.users.model.service.UserManagementServiceImpl$$FastClassBySpringCGLIB$$8c5de97.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:294)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:93)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
+	at com.kh.objet.users.model.service.UserManagementServiceImpl$$EnhancerBySpringCGLIB$$4ba805b7.selectLoginCountAvg(<generated>)
+	at com.kh.objet.users.controller.UserManagementController.userStatistics(UserManagementController.java:340)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:493)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:137)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:798)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:808)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1498)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Unknown Source)
+[13:22:49][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:26:46][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[13:26:51][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 5440 ms
+[13:26:51][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[13:26:58][INFO ][FrameworkServlet.java:546] - Completed initialization in 6602 ms
+[13:27:01][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:27:01][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[13:27:01][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:27:04][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 13:27:04 KST 2019
+[13:27:04][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[13:27:04][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:28:00][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:28:00][DEBUG][LoggerInterceptor.java:23] - /objet/main.do
+[13:28:00][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:28:00][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[13:28:02][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:28:02][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:28:02][DEBUG][LoggerInterceptor.java:23] - /objet/delQuitUsers.do
+[13:28:02][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:28:02][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[13:28:02][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:28:03][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:28:03][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[13:28:03][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:28:03][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[13:28:03][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:28:07][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:28:07][DEBUG][LoggerInterceptor.java:23] - /objet/adminmain.do
+[13:28:07][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:28:07][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:28:07][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:28:07][DEBUG][LoggerInterceptor.java:23] - /objet/moveLogin.do
+[13:28:07][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:28:07][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[13:28:08][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:28:12][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:28:12][DEBUG][LoggerInterceptor.java:23] - /objet/login.do
+[13:28:12][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:28:12][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[13:28:12][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:28:16][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:28:16][DEBUG][LoggerInterceptor.java:23] - /objet/login.do
+[13:28:16][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:28:21][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[13:28:21][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:28:21][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:28:21][DEBUG][LoggerInterceptor.java:23] - /objet/adminmain.do
+[13:28:21][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:28:22][DEBUG][ObjetManagementController.java:249] - 20/02
+[13:28:22][DEBUG][ObjetManagementController.java:250] - 20/04
+[13:28:22][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:28:38][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:28:38][DEBUG][LoggerInterceptor.java:23] - /objet/adminmain.do
+[13:28:38][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:28:38][DEBUG][ObjetManagementController.java:249] - 20/02
+[13:28:38][DEBUG][ObjetManagementController.java:250] - 20/04
+[13:28:38][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:28:39][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:28:39][DEBUG][LoggerInterceptor.java:23] - /objet/adminmain.do
+[13:28:39][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:28:39][DEBUG][ObjetManagementController.java:249] - 20/02
+[13:28:39][DEBUG][ObjetManagementController.java:250] - 20/04
+[13:28:39][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:29:06][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:29:06][DEBUG][LoggerInterceptor.java:23] - /objet/adminmain.do
+[13:29:06][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:29:06][DEBUG][ObjetManagementController.java:249] - 20/02
+[13:29:06][DEBUG][ObjetManagementController.java:250] - 20/04
+[13:29:06][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:29:39][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[13:29:46][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 6505 ms
+[13:29:46][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[13:29:56][INFO ][FrameworkServlet.java:546] - Completed initialization in 9872 ms
+[13:31:29][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:31:29][DEBUG][LoggerInterceptor.java:23] - /objet/adminmain.do
+[13:31:29][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:31:33][DEBUG][ObjetManagementController.java:249] - 20/02
+[13:31:33][DEBUG][ObjetManagementController.java:250] - 20/04
+[13:31:33][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:36:02][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[13:36:07][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 5416 ms
+[13:36:07][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[13:36:15][INFO ][FrameworkServlet.java:546] - Completed initialization in 8020 ms
+[13:36:19][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:36:19][DEBUG][LoggerInterceptor.java:23] - /objet/adminmain.do
+[13:36:19][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:36:22][DEBUG][ObjetManagementController.java:249] - 20/02
+[13:36:22][DEBUG][ObjetManagementController.java:250] - 20/04
+[13:36:22][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:36:29][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:36:29][DEBUG][LoggerInterceptor.java:23] - /objet/adminmain.do
+[13:36:29][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:36:29][DEBUG][ObjetManagementController.java:249] - 20/02
+[13:36:29][DEBUG][ObjetManagementController.java:250] - 20/04
+[13:36:29][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:36:35][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:36:35][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[13:36:35][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:36:35][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 13:36:35 KST 2019
+[13:36:35][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[13:36:35][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:37:40][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[13:37:45][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 5004 ms
+[13:37:45][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[13:37:53][INFO ][FrameworkServlet.java:546] - Completed initialization in 7770 ms
+[13:38:04][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:38:04][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[13:38:04][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:38:08][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 13:38:08 KST 2019
+[13:38:08][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[13:38:08][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[13:38:09][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:38:18][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:38:18][DEBUG][LoggerInterceptor.java:23] - /objet/adminmain.do
+[13:38:18][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:38:18][DEBUG][ObjetManagementController.java:249] - 20/02
+[13:38:18][DEBUG][ObjetManagementController.java:250] - 20/04
+[13:38:18][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[13:38:20][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:38:20][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:38:20][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[13:38:20][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:38:21][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:38:21][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[13:38:21][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:38:21][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[13:38:21][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:38:21][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[13:38:21][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:38:24][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:38:24][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[13:38:24][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:38:24][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 13:38:24 KST 2019
+[13:38:24][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[13:38:24][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[13:38:24][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:45:07][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[13:45:13][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 5326 ms
+[13:45:13][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[13:45:19][INFO ][FrameworkServlet.java:546] - Completed initialization in 6236 ms
+[13:45:42][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:45:42][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[13:45:42][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:45:45][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 13:45:45 KST 2019
+[13:45:45][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[13:45:45][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[13:45:46][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:46:22][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[13:46:28][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 6548 ms
+[13:46:28][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[13:46:35][INFO ][FrameworkServlet.java:546] - Completed initialization in 6191 ms
+[13:46:39][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:46:39][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[13:46:39][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:46:41][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 13:46:41 KST 2019
+[13:46:41][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[13:46:41][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[13:46:42][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:47:11][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[13:47:16][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 5592 ms
+[13:47:17][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[13:47:23][INFO ][FrameworkServlet.java:546] - Completed initialization in 6206 ms
+[13:47:44][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:47:44][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[13:47:44][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:47:45][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 13:47:45 KST 2019
+[13:47:45][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[13:47:45][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[13:47:46][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:49:34][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[13:49:42][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 7876 ms
+[13:49:43][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[13:49:51][INFO ][FrameworkServlet.java:546] - Completed initialization in 8385 ms
+[13:50:03][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:50:03][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[13:50:03][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:50:05][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 13:50:05 KST 2019
+[13:50:05][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[13:50:06][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[13:50:06][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:52:01][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[13:52:07][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 5565 ms
+[13:52:07][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[13:52:13][INFO ][FrameworkServlet.java:546] - Completed initialization in 6618 ms
+[13:52:26][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:52:26][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[13:52:26][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:52:29][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 13:52:29 KST 2019
+[13:52:29][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[13:52:29][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[13:52:29][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:53:28][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:53:28][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[13:53:28][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:53:29][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 13:53:28 KST 2019
+[13:53:29][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[13:53:29][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[13:53:30][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:55:15][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[13:55:21][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 5875 ms
+[13:55:21][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[13:55:28][INFO ][FrameworkServlet.java:546] - Completed initialization in 7356 ms
+[13:56:31][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[13:56:36][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 5496 ms
+[13:56:37][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[13:56:43][INFO ][FrameworkServlet.java:546] - Completed initialization in 6648 ms
+[13:57:09][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:57:09][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[13:57:09][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:57:12][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 13:57:12 KST 2019
+[13:57:12][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[13:57:13][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[13:57:13][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:58:01][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:58:01][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[13:58:01][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:58:02][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 13:58:02 KST 2019
+[13:58:02][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[13:58:02][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[13:58:04][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:58:30][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:58:30][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[13:58:30][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:58:31][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 13:58:30 KST 2019
+[13:58:31][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[13:58:31][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[13:58:32][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:59:33][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:59:33][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[13:59:33][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:59:33][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 13:59:33 KST 2019
+[13:59:33][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[13:59:33][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[13:59:34][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[14:50:52][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[14:50:52][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[14:50:52][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[14:50:52][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 14:50:52 KST 2019
+[14:50:52][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[14:50:54][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[14:50:56][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[14:51:46][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[14:51:46][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[14:51:46][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[14:51:46][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 14:51:46 KST 2019
+[14:51:46][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[14:51:46][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[14:51:46][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[14:52:42][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[14:52:42][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[14:52:42][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[14:52:43][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 14:52:42 KST 2019
+[14:52:43][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[14:52:43][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[14:52:43][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[14:53:18][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[14:53:18][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[14:53:18][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[14:53:18][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 14:53:18 KST 2019
+[14:53:18][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[14:53:18][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[14:53:18][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[14:53:47][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[14:53:47][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[14:53:47][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[14:53:47][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 14:53:47 KST 2019
+[14:53:47][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[14:53:47][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[14:53:47][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[14:54:40][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[14:54:46][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 5375 ms
+[14:54:46][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[14:54:52][INFO ][FrameworkServlet.java:546] - Completed initialization in 6280 ms
+[14:55:10][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[14:55:10][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[14:55:10][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[14:55:13][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 14:55:13 KST 2019
+[14:55:13][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[14:55:13][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[14:55:14][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[14:56:10][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[14:56:10][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[14:56:10][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[14:56:10][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 14:56:10 KST 2019
+[14:56:10][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[14:56:10][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[14:56:12][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[14:56:35][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[14:56:35][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[14:56:35][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[14:56:35][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 14:56:35 KST 2019
+[14:56:35][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[14:56:35][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[14:56:36][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[14:56:59][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[14:56:59][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[14:56:59][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[14:56:59][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 14:56:59 KST 2019
+[14:56:59][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[14:56:59][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[14:57:00][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[14:59:10][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[14:59:10][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[14:59:10][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[14:59:10][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 14:59:10 KST 2019
+[14:59:10][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[14:59:10][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[14:59:12][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[14:59:37][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[14:59:37][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[14:59:37][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[14:59:37][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 14:59:37 KST 2019
+[14:59:37][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[14:59:37][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[14:59:38][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[15:00:43][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[15:00:43][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[15:00:43][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[15:00:43][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 15:00:43 KST 2019
+[15:00:43][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[15:00:43][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[15:00:44][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[15:01:27][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[15:01:27][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[15:01:27][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[15:01:27][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 15:01:27 KST 2019
+[15:01:27][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[15:01:27][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[15:01:27][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[15:01:45][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[15:01:45][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[15:01:45][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[15:01:45][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 15:01:45 KST 2019
+[15:01:45][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[15:01:45][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[15:01:46][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[15:02:41][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[15:02:41][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[15:02:41][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[15:02:41][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 15:02:41 KST 2019
+[15:02:41][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[15:02:41][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[15:02:41][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[15:02:50][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[15:02:50][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[15:02:50][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[15:02:51][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 15:02:50 KST 2019
+[15:02:51][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[15:02:51][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[15:02:51][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[15:03:20][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[15:03:20][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[15:03:20][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[15:03:20][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 15:03:20 KST 2019
+[15:03:20][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[15:03:20][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[15:03:20][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[15:03:35][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[15:03:35][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[15:03:35][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[15:03:35][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 15:03:35 KST 2019
+[15:03:35][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[15:03:35][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[15:03:36][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[15:04:28][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[15:04:33][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 5701 ms
+[15:04:33][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[15:04:40][INFO ][FrameworkServlet.java:546] - Completed initialization in 6097 ms
+[15:04:40][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[15:04:40][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[15:04:40][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[15:04:43][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 15:04:42 KST 2019
+[15:04:43][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[15:04:43][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[15:04:43][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[15:07:44][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[15:07:44][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[15:07:44][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[15:07:45][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 15:07:45 KST 2019
+[15:07:45][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[15:07:45][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[15:07:47][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[15:08:08][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[15:08:08][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[15:08:08][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[15:08:08][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 15:08:08 KST 2019
+[15:08:08][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[15:08:08][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[15:08:09][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[15:08:26][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[15:08:26][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[15:08:26][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[15:08:26][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 15:08:26 KST 2019
+[15:08:26][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[15:08:26][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[15:08:27][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[15:08:40][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[15:08:40][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[15:08:40][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[15:08:40][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 15:08:40 KST 2019
+[15:08:40][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[15:08:40][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[15:08:40][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[15:08:57][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[15:08:57][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[15:08:57][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[15:08:57][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 15:08:57 KST 2019
+[15:08:57][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[15:08:57][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[15:08:58][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[15:09:10][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[15:09:10][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[15:09:10][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[15:09:10][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 15:09:10 KST 2019
+[15:09:10][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[15:09:10][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[15:09:11][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[18:30:52][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[18:30:56][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 3926 ms
+[18:30:56][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[18:31:00][INFO ][FrameworkServlet.java:546] - Completed initialization in 4478 ms
+[18:31:59][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[18:31:59][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[18:31:59][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[18:32:01][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 18:32:01 KST 2019
+[18:32:01][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[18:32:01][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[18:32:02][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[18:32:20][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[18:32:20][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[18:32:20][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[18:32:20][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 18:32:20 KST 2019
+[18:32:20][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[18:32:20][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[18:32:20][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[18:32:39][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[18:32:39][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[18:32:39][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[18:32:39][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 18:32:39 KST 2019
+[18:32:39][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[18:32:39][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[18:32:39][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[18:34:16][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[18:34:16][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[18:34:16][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[18:34:16][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 18:34:16 KST 2019
+[18:34:16][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[18:34:16][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[18:34:16][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[18:34:25][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[18:34:25][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[18:34:25][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[18:34:25][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 18:34:25 KST 2019
+[18:34:25][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[18:34:25][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[18:34:26][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[18:34:58][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[18:34:58][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[18:34:58][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[18:34:58][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 18:34:58 KST 2019
+[18:34:58][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[18:34:58][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[18:34:59][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[18:37:07][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[18:37:07][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[18:37:07][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[18:37:07][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[18:37:07][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[18:37:07][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[18:37:07][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[18:37:07][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[18:37:07][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[18:37:07][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[18:37:09][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[18:37:09][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[18:37:09][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[18:37:09][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 18:37:09 KST 2019
+[18:37:09][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[18:37:09][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[18:37:09][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[18:37:20][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[18:37:20][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[18:37:20][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[18:37:20][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 18:37:20 KST 2019
+[18:37:20][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[18:37:20][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[18:37:21][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[18:37:32][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[18:37:32][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[18:37:32][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[18:37:32][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 18:37:32 KST 2019
+[18:37:32][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[18:37:32][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[18:37:32][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[18:37:42][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[18:37:42][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[18:37:42][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[18:37:42][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 18:37:42 KST 2019
+[18:37:42][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[18:37:42][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[18:37:43][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[18:37:52][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[18:37:52][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[18:37:52][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[18:37:52][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 18:37:52 KST 2019
+[18:37:52][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[18:37:52][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[18:37:53][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[18:38:00][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[18:38:00][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[18:38:00][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[18:38:00][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 18:38:00 KST 2019
+[18:38:00][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[18:38:00][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[18:38:01][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:23:26][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[19:23:30][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 4133 ms
+[19:23:30][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[19:23:35][INFO ][FrameworkServlet.java:546] - Completed initialization in 4590 ms
+[19:24:40][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:24:40][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[19:24:40][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:24:41][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 19:24:41 KST 2019
+[19:24:41][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[19:24:41][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:27:21][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[19:27:25][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 4405 ms
+[19:27:25][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[19:27:30][INFO ][FrameworkServlet.java:546] - Completed initialization in 4856 ms
+[19:27:30][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:27:30][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[19:27:30][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:27:32][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 19:27:32 KST 2019
+[19:27:32][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[19:27:32][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:27:33][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:29:48][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:29:48][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[19:29:48][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:29:48][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 19:29:48 KST 2019
+[19:29:48][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[19:29:48][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:29:48][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:30:30][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:30:30][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[19:30:30][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:30:30][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 19:30:30 KST 2019
+[19:30:30][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[19:30:30][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:30:30][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:34:12][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:34:12][DEBUG][LoggerInterceptor.java:23] - /objet/adminmain.do
+[19:34:12][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:34:12][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:34:12][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:34:12][DEBUG][LoggerInterceptor.java:23] - /objet/moveLogin.do
+[19:34:12][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:34:12][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:34:12][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:34:14][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:34:14][DEBUG][LoggerInterceptor.java:23] - /objet/login.do
+[19:34:14][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:34:14][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:34:14][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:34:14][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:34:14][DEBUG][LoggerInterceptor.java:23] - /objet/adminmain.do
+[19:34:14][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:34:14][DEBUG][ObjetManagementController.java:249] - 20/02
+[19:34:14][DEBUG][ObjetManagementController.java:250] - 20/04
+[19:34:14][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:34:14][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:34:15][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:34:15][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[19:34:15][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:34:15][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:34:15][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:34:15][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:34:15][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[19:34:15][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:34:15][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:34:15][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:34:55][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:34:55][DEBUG][LoggerInterceptor.java:23] - /objet/userbk.do
+[19:34:55][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:34:55][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:34:55][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:34:55][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:34:55][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[19:34:55][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:34:55][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:34:55][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:34:56][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:34:56][DEBUG][LoggerInterceptor.java:23] - /objet/userm.do
+[19:34:56][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:34:56][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:34:56][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:34:56][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:34:56][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[19:34:56][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:34:56][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:34:56][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:34:57][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:34:57][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[19:34:57][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:34:57][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 19:34:57 KST 2019
+[19:34:57][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[19:34:57][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:34:57][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:35:07][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:35:07][DEBUG][LoggerInterceptor.java:23] - /objet/adminmain.do
+[19:35:07][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:35:07][DEBUG][ObjetManagementController.java:249] - 20/02
+[19:35:07][DEBUG][ObjetManagementController.java:250] - 20/04
+[19:35:07][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:35:07][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:35:07][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:35:07][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[19:35:07][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:35:07][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:35:07][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:35:07][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:35:07][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[19:35:07][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:35:07][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:35:07][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:45:14][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:45:14][DEBUG][LoggerInterceptor.java:23] - /objet/objetreq.do
+[19:45:14][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:45:14][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:45:14][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:45:16][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:45:16][DEBUG][LoggerInterceptor.java:23] - /objet/supportEnrollListm.do
+[19:45:16][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:45:16][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:45:16][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:45:16][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:45:16][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[19:45:16][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:45:16][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:45:16][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:45:17][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:45:17][DEBUG][LoggerInterceptor.java:23] - /objet/supportenrollListdetailm.do
+[19:45:17][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:45:17][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:45:17][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:45:17][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:45:17][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[19:45:17][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:45:17][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:45:17][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:45:20][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:45:20][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[19:45:20][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:45:20][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:45:20][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:45:21][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:45:21][DEBUG][LoggerInterceptor.java:23] - /objet/supportEnrollListm.do
+[19:45:21][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:45:21][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:45:21][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:45:21][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:45:21][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[19:45:21][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:45:21][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:45:21][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:45:24][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:45:24][DEBUG][LoggerInterceptor.java:23] - /objet/objetreq.do
+[19:45:24][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:45:24][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:45:24][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:45:25][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:45:25][DEBUG][LoggerInterceptor.java:23] - /objet/supportListm.do
+[19:45:25][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:45:25][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:45:25][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:45:25][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:45:25][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[19:45:25][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:45:25][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:45:25][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:45:40][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:45:40][DEBUG][LoggerInterceptor.java:23] - /objet/adminmain.do
+[19:45:40][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:45:40][DEBUG][ObjetManagementController.java:249] - 20/02
+[19:45:40][DEBUG][ObjetManagementController.java:250] - 20/04
+[19:45:40][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:45:40][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:45:40][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:45:40][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[19:45:40][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:45:40][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:45:40][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:45:40][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:45:40][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[19:45:40][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:45:40][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:45:40][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:45:45][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:45:45][DEBUG][LoggerInterceptor.java:23] - /objet/userm.do
+[19:45:45][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:45:45][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:45:45][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:45:45][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:45:45][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[19:45:45][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:45:45][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:45:45][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:45:46][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:45:46][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[19:45:46][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:45:46][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 19:45:46 KST 2019
+[19:45:46][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[19:45:46][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:45:46][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:46:19][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:46:19][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[19:46:19][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:46:19][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 19:46:19 KST 2019
+[19:46:19][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[19:46:19][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:46:19][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:46:20][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:46:20][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[19:46:20][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:46:20][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:46:20][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:48:14][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:48:14][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[19:48:14][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:48:14][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 19:48:14 KST 2019
+[19:48:14][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[19:48:14][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:48:15][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:48:15][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:48:15][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[19:48:15][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:48:15][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:48:15][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:48:23][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:48:23][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[19:48:23][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:48:23][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 19:48:23 KST 2019
+[19:48:23][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[19:48:23][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:48:23][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[19:48:23][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[19:48:23][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[19:48:23][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[19:48:23][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[19:48:23][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:02:53][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:02:53][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[20:02:53][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:02:53][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 20:02:53 KST 2019
+[20:02:53][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[20:02:53][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:02:54][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:02:54][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:02:54][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[20:02:54][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:02:54][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:02:54][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:03:02][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:03:02][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[20:03:02][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:03:02][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 20:03:02 KST 2019
+[20:03:02][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[20:03:02][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:03:03][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:03:03][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:03:03][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[20:03:03][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:03:03][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:03:03][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:04:33][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:04:33][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[20:04:33][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:04:33][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 20:04:33 KST 2019
+[20:04:33][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[20:04:33][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:04:33][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:04:34][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:04:34][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[20:04:34][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:04:34][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:04:34][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:05:15][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:05:15][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[20:05:15][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:05:15][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 20:05:15 KST 2019
+[20:05:15][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[20:05:15][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:05:16][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:05:16][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:05:16][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[20:05:16][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:05:16][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:05:16][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:05:36][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:05:36][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[20:05:36][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:05:36][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 20:05:36 KST 2019
+[20:05:36][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[20:05:36][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:05:37][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:05:37][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:05:37][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[20:05:37][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:05:37][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:05:37][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:06:05][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:06:05][DEBUG][LoggerInterceptor.java:23] - /objet/adminmain.do
+[20:06:05][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:06:05][DEBUG][ObjetManagementController.java:249] - 20/02
+[20:06:05][DEBUG][ObjetManagementController.java:250] - 20/04
+[20:06:05][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:06:05][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:06:05][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:06:05][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[20:06:05][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:06:05][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:06:05][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:06:05][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:06:05][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[20:06:05][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:06:05][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:06:05][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:06:07][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:06:07][DEBUG][LoggerInterceptor.java:23] - /objet/faqm.do
+[20:06:07][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:06:07][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:06:07][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:06:08][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:06:08][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[20:06:08][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:06:08][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:06:08][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:06:10][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:06:10][DEBUG][LoggerInterceptor.java:23] - /objet/supportEnrollListm.do
+[20:06:10][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:06:10][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:06:10][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:06:10][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:06:10][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[20:06:10][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:06:10][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:06:10][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:06:12][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:06:12][DEBUG][LoggerInterceptor.java:23] - /objet/supportListm.do
+[20:06:12][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:06:12][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:06:12][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:06:12][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:06:12][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[20:06:12][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:06:12][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:06:12][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:06:22][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:06:22][DEBUG][LoggerInterceptor.java:23] - /objet/supportListm.do
+[20:06:22][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:06:22][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:06:22][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:06:22][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:06:22][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[20:06:22][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:06:22][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:06:22][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:06:22][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:06:22][DEBUG][LoggerInterceptor.java:23] - /objet/supportListm.do
+[20:06:22][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:06:22][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:06:22][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:06:23][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:06:23][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[20:06:23][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:06:23][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:06:23][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:06:23][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:06:23][DEBUG][LoggerInterceptor.java:23] - /objet/supportListm.do
+[20:06:23][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:06:23][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:06:23][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:06:23][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:06:23][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[20:06:23][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:06:23][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:06:23][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:06:25][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:06:25][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[20:06:25][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:06:25][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 20:06:25 KST 2019
+[20:06:25][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[20:06:25][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:06:26][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:06:26][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:06:26][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[20:06:26][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:06:26][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:06:26][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:12:20][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:12:20][DEBUG][LoggerInterceptor.java:23] - /objet/supportListm.do
+[20:12:20][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:12:20][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:12:20][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:12:20][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:12:20][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[20:12:20][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:12:20][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:12:20][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:12:22][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:12:22][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[20:12:22][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:12:22][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:12:22][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:14:42][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:14:42][DEBUG][LoggerInterceptor.java:23] - /objet/userstatistics.do
+[20:14:42][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:14:42][DEBUG][UserManagementController.java:379] - dddddddddddddd :       Thu Jan 24 20:14:42 KST 2019
+[20:14:42][DEBUG][UserManagementController.java:380] - dddddddddddddd :       19
+[20:14:42][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:14:43][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:14:43][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:14:43][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[20:14:43][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:14:43][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:14:43][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:20:27][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:20:27][DEBUG][LoggerInterceptor.java:23] - /objet/adminmain.do
+[20:20:27][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:20:27][DEBUG][ObjetManagementController.java:249] - 20/02
+[20:20:27][DEBUG][ObjetManagementController.java:250] - 20/04
+[20:20:27][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:20:27][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:20:28][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:20:28][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[20:20:28][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:20:28][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:20:28][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:20:28][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:20:28][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[20:20:28][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:20:28][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:20:28][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:20:31][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:20:31][DEBUG][LoggerInterceptor.java:23] - /objet/faqm.do
+[20:20:31][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:20:31][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:20:31][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:20:31][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:20:31][DEBUG][LoggerInterceptor.java:23] - /objet/insertlogindate.do
+[20:20:31][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:20:31][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:20:31][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:21:06][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:21:06][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[20:21:06][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:21:06][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:21:07][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:21:39][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:21:39][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[20:21:39][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:21:39][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:21:40][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:25:32][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:25:32][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[20:25:32][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:25:32][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:25:33][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:26:09][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:26:09][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[20:26:09][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:26:09][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:26:10][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:27:10][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:27:10][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[20:27:10][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:27:10][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:27:11][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:27:39][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:27:39][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[20:27:39][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:27:39][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:27:40][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:28:16][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:28:16][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[20:28:16][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:28:16][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:28:16][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:29:34][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:29:34][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[20:29:34][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:29:34][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:29:35][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:29:51][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:29:51][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[20:29:51][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:29:51][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:29:51][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:30:36][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:30:36][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[20:30:36][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:30:36][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:30:36][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:31:08][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:31:08][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[20:31:08][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:31:08][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:31:08][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:31:24][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:31:24][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[20:31:24][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:31:24][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:31:24][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:32:08][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:32:08][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[20:32:08][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:32:08][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:32:08][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:32:34][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:32:34][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[20:32:34][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:32:34][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:32:34][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:32:55][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:32:55][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[20:32:55][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:32:55][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:32:56][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:39:36][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:39:36][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[20:39:36][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:39:36][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:39:36][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:42:04][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:42:04][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[20:42:04][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:42:04][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:42:05][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:42:50][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:42:50][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[20:42:50][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:42:50][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:42:50][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:43:13][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:43:13][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[20:43:13][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:43:13][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:43:13][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:43:40][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:43:40][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[20:43:40][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:43:40][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:43:40][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:04:47][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:04:47][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:04:47][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:04:47][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:04:48][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:05:03][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:05:03][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:05:03][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:05:03][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:05:04][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:05:09][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:05:09][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:05:09][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:05:10][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:05:10][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:05:29][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:05:29][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:05:29][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:05:29][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:05:30][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:05:48][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:05:48][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:05:48][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:05:48][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:05:48][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:06:12][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:06:12][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:06:12][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:06:12][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:06:13][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:06:55][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:06:55][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:06:55][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:06:55][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:06:56][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:07:13][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:07:13][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:07:13][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:07:13][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:07:14][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:08:21][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:08:21][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:08:21][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:08:21][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:08:21][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:09:07][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:09:07][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:09:07][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:09:07][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:09:07][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:09:24][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:09:24][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:09:24][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:09:24][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:09:25][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:09:31][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:09:31][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:09:31][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:09:31][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:09:31][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:09:41][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:09:41][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:09:41][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:09:41][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:09:42][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:11:40][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:11:40][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:11:40][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:11:40][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:11:40][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:12:25][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:12:25][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:12:25][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:12:25][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:12:25][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:12:49][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:12:49][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:12:49][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:12:49][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:12:49][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:12:57][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:12:57][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:12:57][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:12:57][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:12:57][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:13:02][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:13:02][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:13:02][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:13:02][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:13:03][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:13:09][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:13:09][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:13:09][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:13:09][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:13:10][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:13:32][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:13:32][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:13:32][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:13:32][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:13:33][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:13:44][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:13:44][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:13:44][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:13:44][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:13:44][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:13:44][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:13:44][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:13:44][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:13:45][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:13:45][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:13:57][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:13:57][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:13:57][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:13:57][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:13:57][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:14:10][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:14:10][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:14:10][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:14:10][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:14:10][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:14:22][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:14:22][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:14:22][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:14:22][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:14:22][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:14:32][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:14:32][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:14:32][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:14:32][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:14:33][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:14:43][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:14:43][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:14:43][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:14:43][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:14:44][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:15:14][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:15:14][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:15:14][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:15:14][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:15:15][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:15:38][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:15:38][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:15:38][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:15:38][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:15:38][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:15:51][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:15:51][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:15:51][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:15:51][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:15:51][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:16:00][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:16:00][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:16:00][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:16:00][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:16:01][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:16:25][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:16:25][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:16:25][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:16:25][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:16:26][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:16:48][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:16:48][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:16:48][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:16:48][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:16:49][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:17:08][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:17:08][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:17:08][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:17:09][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:17:09][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:17:42][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:17:42][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:17:42][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:17:42][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:17:42][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:18:24][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:18:24][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:18:24][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:18:24][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:18:25][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:49:35][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:49:35][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:49:35][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:49:35][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:49:35][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:49:45][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:49:45][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:49:45][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:49:45][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:49:46][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:50:07][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:50:07][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:50:07][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:50:07][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:50:08][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:50:20][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:50:20][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:50:20][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:50:20][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:50:20][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:50:26][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:50:26][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:50:26][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:50:26][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:50:26][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:50:37][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:50:37][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:50:37][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:50:37][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:50:37][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:50:57][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:50:57][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:50:57][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:50:57][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:50:57][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:51:57][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:51:57][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:51:57][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:51:57][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:51:57][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:52:18][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:52:18][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:52:18][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:52:18][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:52:18][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:52:51][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:52:51][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:52:51][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:52:51][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:52:52][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:53:06][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:53:06][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:53:06][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:53:06][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:53:06][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[21:53:14][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[21:53:14][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[21:53:14][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[21:53:14][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[21:53:14][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:29:24][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:29:24][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:29:24][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:29:24][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:29:25][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:30:56][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:30:56][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:30:56][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:30:56][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:30:56][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:31:18][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:31:18][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:31:18][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:31:18][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:31:19][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:33:07][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:33:07][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:33:07][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:33:07][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:33:08][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:34:32][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[22:34:36][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 4144 ms
+[22:34:36][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[22:34:41][INFO ][FrameworkServlet.java:546] - Completed initialization in 4888 ms
+[22:34:41][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:34:41][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:34:41][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:34:43][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:34:44][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:34:57][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:34:57][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:34:57][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:34:57][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:34:58][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:35:32][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:35:32][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:35:32][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:35:33][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:35:33][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:35:41][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:35:41][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:35:41][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:35:41][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:35:42][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:35:52][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:35:52][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:35:52][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:35:52][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:35:53][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:36:08][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:36:08][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:36:08][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:36:08][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:36:09][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:36:16][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:36:16][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:36:16][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:36:16][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:36:16][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:36:30][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:36:30][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:36:30][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:36:30][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:36:31][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:36:44][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:36:44][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:36:44][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:36:44][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:36:45][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:36:53][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:36:53][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:36:53][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:36:53][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:36:53][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:37:07][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:37:07][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:37:07][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:37:07][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:37:08][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:37:22][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:37:22][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:37:22][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:37:22][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:37:23][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:37:31][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:37:31][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:37:31][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:37:31][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:37:32][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:37:46][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:37:46][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:37:46][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:37:46][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:37:47][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:38:01][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:38:01][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:38:01][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:38:01][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:38:01][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:38:01][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:38:01][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:38:02][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:38:02][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:38:02][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:38:21][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:38:21][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:38:21][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:38:22][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:38:22][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:38:50][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:38:50][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:38:50][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:38:50][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:38:51][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:45:38][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:45:38][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:45:38][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:45:38][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:45:39][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:46:35][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:46:35][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:46:35][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:46:35][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:46:35][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:53:06][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:53:06][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:53:06][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:53:06][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:53:06][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:53:26][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:53:26][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[22:53:26][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:53:26][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:53:26][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:04:51][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:04:51][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:04:51][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:04:51][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:04:52][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:05:22][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:05:22][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:05:22][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:05:22][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:05:22][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:05:50][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:05:50][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:05:50][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:05:50][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:05:50][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:06:24][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:06:24][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:06:24][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:06:24][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:06:24][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:07:07][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:07:07][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:07:07][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:07:07][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:07:07][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:07:14][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:07:14][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:07:14][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:07:14][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:07:14][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:07:50][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:07:50][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:07:50][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:07:50][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:07:50][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:07:59][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:07:59][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:07:59][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:07:59][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:07:59][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:08:40][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:08:40][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:08:40][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:08:40][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:08:41][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:09:17][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:09:17][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:09:17][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:09:17][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:09:17][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:10:04][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:10:04][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:10:04][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:10:04][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:10:04][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:10:23][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:10:23][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:10:23][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:10:23][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:10:24][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:14:52][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:14:52][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:14:52][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:14:52][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:14:52][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:20:27][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:20:27][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:20:27][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:20:27][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:20:28][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:20:53][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:20:53][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:20:53][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:20:53][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:20:54][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:21:12][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:21:12][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:21:12][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:21:12][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:21:13][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:21:30][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:21:30][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:21:30][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:21:30][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:21:30][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:22:09][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:22:09][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:22:09][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:22:09][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:22:09][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:22:31][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:22:31][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:22:31][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:22:31][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:22:31][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:28:28][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:28:28][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:28:28][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:28:28][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:28:29][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:28:38][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:28:38][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:28:38][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:28:38][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:28:39][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:28:50][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:28:50][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:28:50][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:28:50][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:28:51][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:29:33][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:29:33][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:29:33][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:29:33][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:29:33][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:30:08][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:30:08][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:30:08][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:30:08][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:30:09][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:32:34][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:32:34][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:32:34][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:32:34][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:32:34][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:32:47][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:32:47][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:32:47][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:32:47][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:32:48][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:50:01][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:50:01][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:50:01][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:50:01][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:50:02][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:52:56][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:52:56][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:52:56][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:52:56][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:52:57][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:54:32][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:54:32][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:54:32][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:54:32][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:54:33][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:59:06][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:59:06][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:59:06][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:59:06][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:59:07][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:59:22][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:59:22][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:59:22][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:59:22][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:59:22][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:59:22][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:59:22][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:59:22][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:59:22][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:59:22][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:59:22][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:59:22][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:59:22][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:59:22][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:59:22][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:59:22][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:59:22][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:59:22][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:59:22][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:59:22][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:59:22][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:59:22][DEBUG][LoggerInterceptor.java:23] - /objet/coltest.do
+[23:59:22][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:59:22][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:59:22][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================

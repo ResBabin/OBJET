@@ -55,7 +55,34 @@ padding: 20px;
  display: none;
  	font-family: 'Nanum Gothic';
 }
-
+#returndiv {
+	position: absolute;
+	background: #f7f7f7;
+	border: 1px solid #ccc;
+	width: 500px;
+	height: 415px;
+	left: 35%;
+	top: 35%; 
+	border-radius: 5px;
+	padding: 30px;
+	box-shadow: 1px 1px 2px #999;
+	display: none;
+	z-index: 2;
+}
+#stopdiv {
+	position: absolute;
+	background: #f7f7f7;
+	border: 1px solid #ccc;
+	width: 500px;
+	height: 415px;
+	left: 35%;
+	top: 35%; 
+	border-radius: 5px;
+	padding: 30px;
+	box-shadow: 1px 1px 2px #999;
+	display: none;
+	z-index: 2;
+}
 </style>
 
 <script type="text/javascript">
@@ -75,22 +102,87 @@ $(function() {
 		$("#req").submit();
 		}
 	});
+
 	$("#return").click(function() {
-		$("input[name=publicyn]").val("N");
-		var ddd = confirm("해당 작품 전시를 반려하시겠습니까?");
-		if(ddd){
-		$("#req").submit();
-		}
+		$("#returndiv").fadeIn();
 	});
+
+	$("#returnclose").click(function() {
+		$("#returndiv").hide();
+	});
+	
 	$("#stop").click(function() {
-		$("input[name=publicyn]").val("N");
-		var ddd = confirm("해당 작품 전시를 중지하시겠습니까?");
-		if(ddd){
-		$("#objetstop").submit();
+		$("#stopdiv").fadeIn();
+	});
+	
+	$("#stopclose").click(function() {
+		$("#stopdiv").hide();
+	});
+	
+	var adminid = $("input[name=adminid]").val();
+	var objetno = $("input[name=objetno]").val();
+	var userid = $("input[name=userid]").val();
+	$("#returnok").click(function() {
+		var con = confirm("해당 전시를 반려하시겠습니까?");
+		if (con) {
+			var returnreason = $("input[name=returnreason]:checked").val();
+			if(returnreason == 'etc'){
+				returnreason = $("#returnetcreason").val();
+			}
+			var data = { objetno : objetno, returnreason : returnreason, adminid : adminid, publicyn : "N", userid : userid};
+			$.ajax({
+				url : "updateReqStatus.do",
+				data : data,
+				type : "post",
+				success : function(result) {
+					console.log(result);
+					  location.href = "objetm.do?page=1&order=nod";
+				},
+				traditional : true,
+				error : function(request, status, errorData) {
+					console.log("error code : "
+							+ request.status + "\nMessage : "
+							+ request.responseText
+							+ "\nError : " + errorData);
+				}
+
+			});
 		}
 	});
+	
+	$("#stopok").click(function() {
+		var con = confirm("해당 전시를 강제 종료하시겠습니까?");
+		if (con) {
+			var stopreason = $("input[name=stopreason]:checked").val();
+			if(stopreason == 'etc'){
+				stopreason = $("#stopetcreason").val();
+			}
+			var data = { objetno : objetno, stopreason : stopreason, adminid : adminid, userid : userid};
+			$.ajax({
+				url : "updateObjetStop.do",
+				data : data,
+				type : "post",
+				success : function(result) {
+					console.log(result);
+					  location.href = "objetm.do?page=1&order=nod";
+				},
+				traditional : true,
+				error : function(request, status, errorData) {
+					console.log("error code : "
+							+ request.status + "\nMessage : "
+							+ request.responseText
+							+ "\nError : " + errorData);
+				}
 
-
+			});
+		}
+	});
+	
+	
+	
+	
+	
+	
 });
 
 function UserInfoPopup() {
@@ -105,6 +197,37 @@ function UserInfoPopup() {
 </head>
 <body>
 <div id="um" >
+
+<div id="returndiv">
+		<label id="qlabel">강제 탈퇴 사유를 선택해 주세요.</label>
+		<br><br><hr><br>
+		<input type="radio" value="욕설 및 비방" name="returnreason">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 욕설 및 비방<br><br>
+		<input type="radio" value="부적절한 컨텐츠" name="returneason">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 부적절한 컨텐츠<br><br>
+		<input type="radio" value="광고 및 스팸" name="returnreason">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 광고 및 스팸<br><br>
+		<input type="radio" value="etc" name="returnreason">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 기타<br>
+		<textarea id="returnetcreason" rows="4" cols="53" placeholder="기타 사유를 작성해주세요." style="margin-top: 15px; margin-left: 30px; padding: 10px; margin-bottom: 13px; resize: none;"></textarea>
+		<br>
+		<div align="center">
+		<button class="ui grey button" id="returnok">등록</button> &nbsp;&nbsp;&nbsp;
+		<button class="ui button" id="returnclose">취소</button>
+		</div>
+		
+	</div>
+<div id="stopdiv">
+		<label id="qlabel">강제 중지 사유를 선택해 주세요.</label>
+		<br><br><hr><br>
+		<input type="radio" value="욕설 및 비방" name="stopreason">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 욕설 및 비방<br><br>
+		<input type="radio" value="부적절한 컨텐츠" name="stopreason">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 부적절한 컨텐츠<br><br>
+		<input type="radio" value="광고 및 스팸" name="stopreason">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 광고 및 스팸<br><br>
+		<input type="radio" value="etc" name="stopreason">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 기타<br>
+		<textarea id="stopetcreason" rows="4" cols="53" placeholder="기타 사유를 작성해주세요." style="margin-top: 15px; margin-left: 30px; padding: 10px; margin-bottom: 13px; resize: none;"></textarea>
+		<br>
+		<div align="center">
+		<button class="ui grey button" id="stopok">등록</button> &nbsp;&nbsp;&nbsp;
+		<button class="ui button" id="stopclose">취소</button>
+		</div>
+		
+	</div>
 <div id="div1">
 <h2 align="left" id="titlediv"><i class="ui hashtag icon"></i>${ objet.objetno } - ${ objet.objettitle } 
 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -176,13 +299,16 @@ function UserInfoPopup() {
 <button type="button" class="ui violet button" id="approve" onclick="return false">승 &nbsp; &nbsp;  인</button>&nbsp;&nbsp;&nbsp;
 <button type="button" class="ui secondary button" id="return">반 &nbsp; &nbsp;  려</button>
 </c:if>
-<c:if test="${ objet.publicyn eq 'Y' }">
+<c:if test="${ objet.publicyn eq 'Y' and objet.objetstatus ne 'CLOSE'}">
 <button type="button" class="ui black button" id="stop" onclick="" style="">강제 중지</button>
 </c:if>
 </div>
 <form action="updateReqStatus.do" method="post" id="req">
 <input type="hidden" name="objetno" value="${ objet.objetno }">
-<input type="hidden" name="publicyn" value="">
+<input type="hidden" name="userid" value="${ objet.userid }">
+<input type="hidden" name="adminid" value="${ sessionScope.loginUser.userid }">
+<input type="hidden" name="startdate" value="${ objet.objetstartdate }"> 
+<input type="hidden" name="publicyn" value=""> 
 </form>
 <form action="updateObjetStop.do" method="post" id="objetstop">
 <input type="hidden" name="objetno" value="${ objet.objetno }">

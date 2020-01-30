@@ -111,6 +111,23 @@ font-weight: bolder;
 opacity: 0.9;
 	box-shadow: 0em 0.25em .75em rgba(124,124,124, 0.7);
 }
+#startButton{
+position: absolute;
+top: 15px;
+left:  120px;
+border: 1.5px solid #eee;
+background: white;
+padding: 5px;
+padding-top: 10px;
+padding-left: 7px;
+border-radius: 20px;
+width: 40px;
+height: 40px;
+font-size: 15pt;
+font-weight: bolder;
+opacity: 0.9;
+	box-shadow: 0em 0.25em .75em rgba(124,124,124, 0.7);
+}
 #closebtn, #closebtn1, #closebtn2{
 position: absolute;
 bottom: 5%;
@@ -201,8 +218,8 @@ position: absolute;
 		</div>
 		<div id="qdiv" align="left">
 		이동 : 방향키 ←↑↓→<br>
-		확대 : 마우스 휠<br>
-		회전 : 마우스 왼쪽 클릭<br>
+		높이 : W, S<br>
+		회전 : A, D<br>
 		정보 : 전시작 클릭
 		<button id="closebtn2">Close</button>
 		</div>
@@ -212,6 +229,7 @@ position: absolute;
 		<button id="closebtn1" style="bottom: 10%">Close</button>
 		</div>
 		<div id="loadback"><div id="loading"><br><i class="big sync loading icon"></i><br><br>L O A D I N G<br></div></div>
+		
 	<script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript">
 	$(function() {
@@ -236,7 +254,7 @@ position: absolute;
 		});
 	});
 	</script>
-		<script type="module">
+		<script type="module">  
 			import * as THREE from '${ pageContext.request.contextPath }/three.js-master/build/three.module.js';
 			import { OBJLoader } from '${ pageContext.request.contextPath }/three.js-master/examples/jsm/loaders/OBJLoader.js';					//Obj 파일 불러오는 js
 			import { PointerLockControls } from '${ pageContext.request.contextPath }/three.js-master/examples/jsm/controls/PointerLockControls.js';
@@ -273,12 +291,13 @@ position: absolute;
 				});
 				camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 1000 );
 				//camera.position.set( -70, 60, 350 );   
-				camera.position.y = 45; // Height the camera will be looking from
-   				camera.position.x = 50;
-    			camera.position.z = 150;				
+				camera.position.y = 50; 
+   				camera.position.x = -4;
+    			camera.position.z = 280;		
+				camera.rotation.y = Math.PI;		
+
 				scene = new THREE.Scene();
 				scene.background = new THREE.Color( 0xf5f5f5 );
-			
 				ambLight = new THREE.AmbientLight( 0xffffff, 1.1 );
 				scene.add(ambLight);
 
@@ -481,6 +500,7 @@ position: absolute;
 				//controls
 				controls = new PointerLockControls(camera, renderer.domElement);
     			scene.add(controls.getObject());
+				
 			    playerMove();
 				animate();
 				
@@ -498,7 +518,8 @@ position: absolute;
 			    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
 			    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 			    }
-			function onDocumentMouseDown(event) {	//마우스 클릭 시 이벤트 --> 작품정보 function 실행
+			//마우스 클릭 시 이벤트 --> 작품정보 function 실행
+			function onDocumentMouseDown(event) {	
 			    event.preventDefault();
 			    var gap1 = event.clientY - event.offsetY;
 			    var gap2 = event.clientX - event.offsetX; 
@@ -617,13 +638,15 @@ position: absolute;
 				renderer.setSize( window.innerWidth, window.innerHeight );
 			}
 
+	
 			function animate() {
 				render();
 				requestAnimationFrame( animate );
 				var delta = clock.getDelta();
-				player(delta)
+				player(delta);
 			}
 			function render() {
+		
 			 raycaster.setFromCamera(mouse, camera);
 			        var intersects = raycaster.intersectObjects( objet, true);
 			    if (intersects.length > 0 && intersects[0].distance < 120) {
@@ -641,7 +664,7 @@ position: absolute;
 						}
 			        INTERSECTED = null;
 			    }
-
+		
 			    renderer.render(scene, camera);
 				
 			}
@@ -752,7 +775,7 @@ position: absolute;
 			function radiansToDegrees(radians) {
 			    return radians * 180 / Math.PI;
 			}
-
+		
 		</script>
 	</body>
 </html>

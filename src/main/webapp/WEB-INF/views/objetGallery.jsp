@@ -201,8 +201,8 @@ position: absolute;
 		</div>
 		<div id="qdiv" align="left">
 		이동 : 방향키 ←↑↓→<br>
-		확대 : 마우스 휠<br>
-		회전 : 마우스 왼쪽 클릭<br>
+		높이 : W, S<br>
+		회전 : A, D<br>
 		정보 : 전시작 클릭
 		<button id="closebtn2">Close</button>
 		</div>
@@ -236,10 +236,11 @@ position: absolute;
 		});
 	});
 	</script>
-		<script type="module"> 
+		<script type="module">  
 			import * as THREE from '${ pageContext.request.contextPath }/three.js-master/build/three.module.js';
 			import { OBJLoader } from '${ pageContext.request.contextPath }/three.js-master/examples/jsm/loaders/OBJLoader.js';					//Obj 파일 불러오는 js
-			import { OrbitControls } from '${ pageContext.request.contextPath }/three.js-master/examples/jsm/controls/OrbitControls.js';		//마우스 + 키보드 컨트롤러 js	
+			import { PointerLockControls } from '${ pageContext.request.contextPath }/three.js-master/examples/jsm/controls/PointerLockControls.js';
+			import { TrackballControls } from '${ pageContext.request.contextPath }/three.js-master/examples/jsm/controls/TrackballControls.js';	
 			import { GLTFLoader } from '${ pageContext.request.contextPath }/three.js-master/examples/jsm/loaders/GLTFLoader.js'; 				//GLTF 파일 불러오는 js
 			var container, controls;						// 미리 변수 선언함
 			var camera, scene, renderer, light;					//three js 기본 속성임
@@ -248,45 +249,42 @@ position: absolute;
 			var mouse = new THREE.Vector2();
 			var loader1;
 			var objet = [];
+			var collisiondistance = 20; 
+			var speed = 800.0;      
+			var moveForward = false;
+			var moveBackward = false;
+			var moveLeft = false;
+			var moveRight = false;
+			var playerVelocity = new THREE.Vector3();
+			var clock;
+			var ambLight;
 			// 각각 전시작들임
+			
 			init();
-			animate();
-
 			function init() {
-	
+				clock = new THREE.Clock();
 				container = document.createElement( 'div' );
 				document.body.appendChild( container );
-
-			var loader = new GLTFLoader();
-	
+				var loader = new GLTFLoader();
 				loader.load( '${ pageContext.request.contextPath }/resources/vr/objetsample.gltf', function ( gltf )  {
 				scene.add( gltf.scene );
 				$("#info").fadeIn();
 				$("#loadback").hide();
 				});
-
 				camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 1000 );
-				camera.position.set( -70, 50, 350 );   
-				camera.updateProjectionMatrix();
+				//camera.position.set( -70, 60, 350 );   
+				camera.position.y = 50; 
+   				camera.position.x = -4;
+    			camera.position.z = 280;		
+				camera.rotation.y = Math.PI;		
+
 				scene = new THREE.Scene();
 				scene.background = new THREE.Color( 0xf5f5f5 );
-			
-				var width = 100;
-				var height = 100;
-				var intensity = 1;
-
-				var ambLight = new THREE.AmbientLight( 0xffffff, 1.1 );
+				ambLight = new THREE.AmbientLight( 0xffffff, 1.1 );
 				scene.add(ambLight);
 
-
-				light = new THREE.DirectionalLight( 0x999999 );
+				light = new THREE.DirectionalLight( 0x999999, 0.5 );
 				light.position.set( 0, 100, 0 );
-				light.castShadow = true;
-				light.shadow.camera.top = 0;
-				light.shadow.camera.bottom = - 100;
-				light.shadow.camera.left = - 120;
-				light.shadow.camera.right = 120;
-
 				scene.add( light );
 
 				function loadModel() {
@@ -401,32 +399,26 @@ position: absolute;
 					object2.userData = { title : "${ objet.objettitle2 }", intro : "${ objet.objetintro2 }" };
 					objet.push(object2);
 				});
-					
 				loader1.load( '${ pageContext.request.contextPath }/resources/vr/3.obj', function ( obj ) {
 					object3 = obj;
 					object3.userData = { title : "${ objet.objettitle3 }", intro : "${ objet.objetintro3 }" };
 					objet.push(object3);
 				});
-					
 				loader1.load( '${ pageContext.request.contextPath }/resources/vr/4.obj', function ( obj ) {
 					object4 = obj;
 					object4.userData = { title : "${ objet.objettitle4 }", intro : "${ objet.objetintro4 }" };
 					objet.push(object4);
 				});
-					
 				loader1.load( '${ pageContext.request.contextPath }/resources/vr/5.obj', function ( obj ) {
 					object5 = obj;
 					object5.userData = { title : "${ objet.objettitle5 }", intro : '${ objet.objetintro5 }' };
 					objet.push(object5);
 				});
-					
 				loader1.load( '${ pageContext.request.contextPath }/resources/vr/6.obj', function ( obj ) {
 					object6 = obj;
 					object6.userData = { title : "메인 포스터", intro : '"${ objet.objettitle}" 메인 포스터 입니다.' };
 					objet.push(object6);
-
 				});
-					
 				loader1.load( '${ pageContext.request.contextPath }/resources/vr/7.obj', function ( obj ) {
 					object7 = obj;
 					object7.userData = { title : "${ objet.objettitle7 }", intro : "${ objet.objetintro7 }" };
@@ -481,32 +473,26 @@ position: absolute;
 			 	  renderer = new THREE.WebGLRenderer({
                     antialias: true
                 });
-
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				renderer.shadowMap.enabled = true;
 				container.appendChild( renderer.domElement );
 
-				// controls
-
-				controls = new OrbitControls( camera, renderer.domElement );
-			//	controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
-			//	controls.dampingFactor = 0.05;
-				controls.screenSpacePanning = false;
-				controls.minDistance = 250;
-			controls.maxDistance = 400;
-				controls.maxPolarAngle = Math.PI / 2.2;
-				controls.minPolarAngle = Math.PI / 2.4;
-				controls.rotateSpeed = 0.2;
-				controls.keyPanSpeed = 5;
-				controls.update(); 
-
+				
+				//controls
+				controls = new PointerLockControls(camera, renderer.domElement);
+    			scene.add(controls.getObject());
+				
+			    playerMove();
+				animate();
+				
+				//eventListener
 			  	container.addEventListener( 'mousemove', onDocumentMouseMove, false );
 			  	container.addEventListener( 'mousedown', onDocumentMouseDown, false );
 				window.addEventListener( 'resize', onWindowResize, false );
 			}
 
-		// -- events -- //
+				//events
 			 function onDocumentMouseMove( event ) {
 			     event.preventDefault();
 			   	var gap1 = event.clientY - event.offsetY;
@@ -514,36 +500,135 @@ position: absolute;
 			    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
 			    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 			    }
-			function onDocumentMouseDown(event) {
+			//마우스 클릭 시 이벤트 --> 작품정보 function 실행
+			function onDocumentMouseDown(event) {	
 			    event.preventDefault();
-			     var gap1 = event.clientY - event.offsetY;
-			     var gap2 = event.clientX - event.offsetX; 
+			    var gap1 = event.clientY - event.offsetY;
+			    var gap2 = event.clientX - event.offsetX; 
 			    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
 			    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-			  var intersects = raycaster.intersectObjects( objet, true);
+			  	var intersects = raycaster.intersectObjects( objet, true);
 			    raycaster.setFromCamera(mouse, camera);
 				if (intersects.length > 0 && intersects[0].distance < 120 ) {
 				objetinfo(intersects);
 			    }
 			};
-			function objetinfo(intersects){
+			function objetinfo(intersects){		//해당 작품 정보 띄우는 function
 				$("#info").hide();
 				$("#title1").html(intersects[0].object.parent.userData.title);
 				$("#intro1").html(intersects[0].object.parent.userData.intro);
 				$("#objetinfo").fadeIn();
 			}
-			function onWindowResize() {
+			
+			function playerMove() {		//키보드 코드로 플레이어 동작하게 + 빛 조절
+			    var onKeyDown = function (event) {			//키보드 눌렀을 때 이벤트
+			        switch (event.keyCode) {
+			            case 38: // up
+			                moveForward = true;
+			                break;
+			                
+			            case 87: // w
+							up();
+							break;
+			
+			            case 37: // left
+			                moveLeft = true;
+			                break;
+			                
+			            case 65: // a
+			                left();
+			                break;
+			
+			            case 40: // down
+			                moveBackward = true;
+			                break;
+			                
+			           case 83: // s
+							down();
+							break;
+			
+			            case 39: // right
+			                moveRight = true;
+			                break;
+			                
+			            case 68: // d
+			                right();
+			                break;
+			
+						case 49 :
+							light1();	break;
+						case 50 :
+							light2();	break;
+						case 51 :
+							light3();	break;
+						case 52 :
+							light4();	break;
+						case 53 :
+							light5();	break;
+			        }
+			
+			    };
+			
+			    var onKeyUp = function (event) {		//키보드 땠을 때 이벤트
+			        switch (event.keyCode) {
+			
+			            case 38: // up
+			                moveForward = false;
+			                break;
+			                
+			            case 87: // w
+			                break;
+			
+			            case 37: // left
+			  moveLeft = false;
+			            
+			                break;
+			            case 65: // a
+			                break;
+			
+			            case 40: // down
+			                moveBackward = false;
+			                break;
+			            case 83: // s
+			                break;
+			
+			            case 39: // right
+			                moveRight = false;
+			                break;
+			                
+			            case 68: // d
+			                break;
+			            
+						case 87 :
+							break;
+			
+						case 49 : break;
+						case 50 : break;
+						case 51 : break;
+						case 52 : break;
+						case 53 : break;
+			        }
+    };
+
+	    document.addEventListener('keydown', onKeyDown, false);		//키보드 눌렀을때 이벤트 추가
+	    document.addEventListener('keyup', onKeyUp, false);				//키보드 땠을 때 이벤트 추가
+}
+			
+			function onWindowResize() {		//창에 맞게 실행화면 자동 리사이즈
 				camera.aspect = window.innerWidth / window.innerHeight;
 				camera.updateProjectionMatrix();
 				renderer.setSize( window.innerWidth, window.innerHeight );
 			}
 
+	
 			function animate() {
-				requestAnimationFrame( animate );
-				renderer.render( scene, camera );
 				render();
+				requestAnimationFrame( animate );
+				var delta = clock.getDelta();
+				player(delta);
 			}
 			function render() {
+		
 			 raycaster.setFromCamera(mouse, camera);
 			        var intersects = raycaster.intersectObjects( objet, true);
 			    if (intersects.length > 0 && intersects[0].distance < 120) {
@@ -561,10 +646,118 @@ position: absolute;
 						}
 			        INTERSECTED = null;
 			    }
-
+		
 			    renderer.render(scene, camera);
 				
 			}
+			
+			function player(delta) {		//플레이어 동작 (속도) 계산 + 충돌감지시 속도 0으로 만드는 function
+			    playerVelocity.x -= playerVelocity.x * 10.0 * delta;
+			    playerVelocity.z -= playerVelocity.z * 10.0 * delta;
+			
+			    if (detectCollision() == false) {
+			        if (moveForward) {
+			            playerVelocity.z -= speed * delta;
+			        }
+			        if (moveBackward) playerVelocity.z += speed * delta;
+			        if (moveLeft) playerVelocity.x -= speed * delta;
+			        if (moveRight) playerVelocity.x += speed * delta;
+			
+			        controls.getObject().translateX(playerVelocity.x * delta);
+			        controls.getObject().translateZ(playerVelocity.z * delta);
+			    } else {
+			        playerVelocity.x = 0;
+			        playerVelocity.z = 0;
+			    }
+			}
+			
+			function detectCollision() {		// 충돌감지 function
+			    var rotationMatrix;
+			    var cameraDirection = controls.getDirection(new THREE.Vector3(0, 0, 0)).clone();
+			
+			    if (moveBackward) {
+			        rotationMatrix = new THREE.Matrix4();
+			        rotationMatrix.makeRotationY(degreesToRadians(180));
+			    }
+			    else if (moveLeft) {
+			        rotationMatrix = new THREE.Matrix4();
+			        rotationMatrix.makeRotationY(degreesToRadians(90));
+			    }
+			    else if (moveRight) {
+			        rotationMatrix = new THREE.Matrix4();
+			        rotationMatrix.makeRotationY(degreesToRadians(270));
+			    }
+			
+			    if (rotationMatrix !== undefined) {
+			        cameraDirection.applyMatrix4(rotationMatrix);
+			    }
+			
+			    var rayCaster = new THREE.Raycaster(controls.getObject().position, cameraDirection);
+			
+			    if (rayIntersect(rayCaster, collisiondistance)) {
+			        return true;
+			    } else {
+			        return false;
+			    }
+			}
+			
+			function rayIntersect(ray, distance) {	
+			    var intersects = ray.intersectObjects(scene.children, true);
+			    for (var i = 0; i < intersects.length; i++) {
+			        if (intersects[i].distance < distance) {
+			            return true;
+			        }
+			    }
+			    return false;
+			}
+			function left(){		//카메라 왼쪽 회전
+			    camera.rotation.y += 0.05;
+			}
+			function right(){	//카메라 오른쪽 회전
+			    camera.rotation.y -= 0.05;
+			}
+			function up(){		//카메라 위치 위도 이동
+			    camera.position.y += 0.5;
+			}
+			function down(){	//카메라 위치 아래로 이동
+			    camera.position.y -= 0.5;
+			}
+			
+			function light1(){		//빛 양 조절 
+			scene.remove(ambLight);
+			ambLight = new THREE.AmbientLight( 0xaaaaaa );
+			scene.add(ambLight);
+			}
+			function light2(){
+			scene.remove(ambLight);
+			ambLight = new THREE.AmbientLight( 0xcccccc );
+			scene.add(ambLight);
+			}
+			function light3(){
+			scene.remove(ambLight);
+			ambLight = new THREE.AmbientLight( 0xffffff );
+			scene.add(ambLight);
+			}
+			function light4(){
+			scene.remove(ambLight);
+			ambLight = new THREE.AmbientLight( 0xffffff, 1.1 );
+			scene.add(ambLight);
+			}
+			function light5(){
+			scene.remove(ambLight);
+			ambLight = new THREE.AmbientLight( 0xffffff, 1.3 );
+			scene.add(ambLight);
+			}
+			
+			
+			function degreesToRadians(degrees) {
+			    return degrees * Math.PI / 180;
+			}
+			
+			function radiansToDegrees(radians) {
+			    return radians * 180 / Math.PI;
+			}
+		
 		</script>
 	</body>
 </html>

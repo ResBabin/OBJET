@@ -4,97 +4,275 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="csMapper">
 
-<!-- Notice 갯수 조회 -->
-<select  id="selectCountNotice" resultType="int" >select count(*) from notice </select>
+<resultMap type="Notice" id="resultNotice">
 
+<id column="noticeno" property="noticeno"/>
+
+<result column="noticetitle" property="noticetitle"/> 
+
+<result column="noticedate" property="noticedate"/>
+
+<result column="noticecontent" property="noticecontent"/>
+
+
+</resultMap>
+
+
+
+<!-- Notice 갯수 조회 -->
+<select  id="listCount" resultType="_int" >select count(*) from notice </select>
+
+<!-- Notice 검색 갯수 조회 -->
+<select  id="noticeSearchListCount" resultType="_int" parameterType="Hashmap">
+
+select count(*) as count from notice
+ <where>
+<if test="searchtype.equals('')">
+noticetitle like '%' || #{search} || '%'
+</if>
+<if test="searchtype.equals('일반')">
+noticetype = #{searchtype} 
+and noticetitle like '%' || #{search} || '%'
+</if>
+<if test="searchtype.equals('회원')">
+noticetype = #{searchtype} 
+and noticetitle like '%' || #{search} || '%'
+
+</if>
+<if test="searchtype.equals('전시')">
+noticetype = #{searchtype} 
+and noticetitle like '%' || #{search} || '%'
+
+</if>
+</where>
+ 
+</select>
+<!-- 공지사항 추가 -->
+<insert id="insertNoticeWrite" parameterType="Notice">
+insert into notice values ((select max(noticeno) from notice) + 1, #{adminid},#{noticetype},#{noticetitle}, sysdate,#{noticecontent} 
+<if test="original_filepath != null">, #{original_filepath}, #{rename_filepath} </if>
+, null, null) 
+</insert>
 
 <!-- 공지 목록 조회 -->
-	<select id="selectNoticeList" resultType="Notice">
-		select *
-		from notice
-		order by noticeno desc
-	</select>
+   <select id="selectNoticeList" resultMap="resultNotice" parameterType="Hashmap">
 
-	<!-- 공지 상세 조회 -->
-	<select id="selectNoticeDetail" resultType="Notice"
-		parameterType="_int">
-		select *
-		from notice
-		where noticeno = #{ value }
-	</select>
-
-   <!-- 공지사항 제목검색 -->
-   <select  id="selectsearchNoticeTitle"  resultType="Notice"
-   parameterType="string">
-        select * 
-        from notice 
-        where noticetitle like '%' || #{value} || '%'
-        order by noticeno desc </select>
-
-        <!-- 공지사항 날짜 검색 -->
-        <select id="selectSearchNoticeDate" resultType="Notice" parameterType="com.kh.objet.notice.model.vo.SearchDate">
-        select * from notice     
-         where noticedate between #{begin} and #{end} 
-         order by noticeno desc 
-         </select>
+<![CDATA[
+      select * 
+      from (select rownum rnum, noticeno, noticetitle, noticedate, noticecontent, adminid, noticetype,noticerfile
+              from (select *
+                    from notice
+                    order by noticedate desc))
+      where rnum >= #{startRow} and rnum <= #{endRow}
+   ]]>
+</select>
 
 
+
+ <select id="selectNoticeType" resultType="Notice">
+    select *
+      from notice
+      where noticetype ='일반'
+   </select>
+   
+   <select id="selectNoticeType1" resultType="Notice">
+    select *
+      from notice
+      where noticetype ='전시'
+   </select>
+   
+   <select id="selectNoticeType2" resultType="Notice">
+    select *
+      from notice
+      where noticetype ='회원'
+   </select>
+   
+   
+     <select id="selectNoticeType3" resultType="Notice">
+    select *
+      from notice
+   </select>
+   
+
+   <!-- 공지 상세 조회 -->
+   <select id="selectNoticeDetail" resultType="Notice"
+      parameterType="_int">
+      select *
+      from notice
+      where noticeno = #{ noticeno }
+   </select>
+<!--  NoticeSearch-->
+<select resultType="Notice" id="selectNoticeSearchList" parameterType="Hashmap">
+select * from (select rownum rnum, noticeno, noticetitle, noticedate, noticecontent, adminid, noticetype
+              from (select *
+                    from notice
+                    order by noticedate desc))
+                    <where>
+<if test="searchtype.equals('')">
+noticetitle like '%' || #{search} || '%'
+</if>
+<if test="searchtype.equals('일반')">
+noticetype = #{searchtype} 
+and noticetitle like '%' || #{search} || '%'
+</if>
+<if test="searchtype.equals('회원')">
+noticetype = #{searchtype} 
+and noticetitle like '%' || #{search} || '%'
+
+</if>
+<if test="searchtype.equals('전시')">
+noticetype = #{searchtype} 
+and noticetitle like '%' || #{search} || '%'
+
+</if>
+</where>
+                   
+    
+</select>
+
+
+  <insert parameterType="Notice" id="insertNotice">
+insert into notice values (noticeno_seq.nextval,#{adminid},#{noticetype},#{noticetitle}, sysdate, #{noticecontent},
+
+<if test="noticeofile != null">#{noticeofile}</if>
+<if test="noticeofile == null">null</if>,
+<if test="noticerfile != null">#{noticerfile}</if>
+<if test="noticerfile == null">null</if>)
+ </insert>
+ <!-- 공지사항 파일 삭제 -->
+ <delete parameterType="Notice" id="deleteFile">
+delete from notice where noticerfile = #{noticerfile} and  noticeno = #{noticeno};  
+</delete>
+ 
+ <!-- 공지사항 삭제 -->
+
+
+<select resultType="int" id="deleteNotice" parameterType="Notice"> delete from notice where noticeno = #{noticeno} </select>
+
+<!-- 공지사항추가 -->
+
+<!--공지사항 수정  -->
+<update parameterType="Notice" id="updateNotice">
+update notice set noticetype = #{noticetype}, noticetitle = #{noticetitle}, noticecontent = #{noticecontent}, noticeofile = #{noticeofile}, noticerfile = #{noticerfile}
+      where noticeno = #{noticeno}
+</update>
       <!-- FAQ 목록 조회 -->
-	<select id="selectFaqList" resultType="Faq">
-		select *
-		from faq
-		order by faqno desc
-	</select>
+   <select id="selectFaqList" resultType="Faq">
+      select *
+      from faq
+      order by faqno 
+   </select>
 
     <!-- QnA 갯수 조회 -->
-    <select resultType="int" id="getQnaListCount">
-    select count(*) from qna
-    </select>
-
-	<!-- QnA 목록 조회 -->
-	<select id="selectQnaList" resultType="Qna">
-		select *
-		from qna
-		order by qnano desc
-	</select>
-
-	<!-- QnA 상세 조회 -->
-	<select id="selectQnaDetail" resultType="Qna"
-		parameterType="_int">
-		select *
-		from qna
-		where qnano = #{ value }
-	</select>
  
-   <!-- Qna 문의사항 글 쓰기 -->
-    <insert id="insertQna" parameterType="Qna">
-    insert into qna values 
-    ((select max(qnano) from qna) + 1, 
-    #{userid},null, #{qnatype}, #{qnatitle},#{qnacontent},#{questiondate} ,#{qnaanswer} ,#{answerdate} 
-    <if test="original_filepath != null">, #{original_filepath}, #{rename_filepath} </if>
-    </insert>
+<select  id="listCount2" resultType="_int" >select count(*) from qna </select>
+<!-- qna 검색 갯수 조회 -->
+<select  id="qnaSearchListCount" resultType="_int" parameterType="Hashmap">
+
+  select count(*) from qna  
+  <where>
+<if test="searchtype.equals('')">
+qnatitle like '%' || #{search} || '%'
+</if>
+<if test="searchtype.equals('미답변')">
+qnaanswertype = #{searchtype} 
+and qnatitle like '%' || #{search} || '%'
+</if>
+<if test="searchtype.equals('답변완료')">
+qnaanswertype = #{searchtype} 
+and qnatitle like '%' || #{search} || '%'
+</if>
+and userid = #{userid}
+</where>
+</select>
+
+
+<!--  QnaSearch-->
+ <select resultType="Qna" id="selectQnaSearchList" parameterType="Hashmap">
+
+
+select * 
+      from (select rownum rnum, qnano, userid, adminid,qnatype, qnatitle, qnacontent, questiondate, qnaanswer, answerdate,qnaanswertype
+              from (select *
+                    from qna
+                    order by questiondate desc ))
+              <where>
+<if test="searchtype.equals('')">
+qnatitle like '%' || #{search} || '%' 
+</if>
+<if test="searchtype.equals('미답변')">
+qnaanswertype = #{searchtype} 
+and qnatitle like '%' || #{search} || '%'
+</if>
+<if test="searchtype.equals('답변완료')">
+qnaanswertype = #{searchtype} 
+and qnatitle like '%' || #{search} || '%'
+</if>
+and userid = #{userid}
+</where>
+
+      
+
+</select>
+
+
+
+
+
+
+
+<!-- 문의내역 목록 조회 -->
+   <select id="selectQnaList" resultType="Qna" parameterType="Hashmap">
+
+<![CDATA[
+                        select * 
+      from (select rownum rnum, qnano, userid, adminid,qnatype, qnatitle,qnacontent, questiondate, qnaanswer, answerdate, qnaanswertype
+              from (select *
+                    from qna
+                     order by questiondate desc ))
+                    where rnum >= #{startRow} and rnum <= #{endRow} and userid = #{ userid }
+   
+   ]]>
+</select>
+
+
+   <!-- QnA 상세 조회 -->
+   <select id="selectQnaDetail" resultType="Qna"
+      parameterType="_int">
+      select *
+      from qna
+      where qnano = #{ value }
+   </select>
+
+
+ <insert parameterType="Qna" id="insertQna">
+insert into qna values (qnano_seq.nextval,#{userid},null,#{qnatype},#{qnatitle},#{qnacontent}, sysdate,null,null,
+null,null,default)
+ </insert>
+
+
 
    <!-- Qna 문의글 수정하기  --> 
    <update id="updateQna" parameterType="Qna">
-   update qna set qnatitle = #{qnatitle}, noticecontent = #{noticecontent} 
-   <if test="original_filepath != null"><if test="qnaanswer = null">, original_filepath = #{original_filepath}, rename_filepath = #{rename_filepath} </if></if>
+   update qna set qnatype = #{qnatype}, qnatitle = #{qnatitle}, qnacontent = #{qnacontent}
    where qnano = #{qnano} 
    </update>
+
+
 
    <!-- Qna 문의글 삭제하기  --> 
    
    <delete id="deleteQna" parameterType="_int">
    delete from qna
-   where qnano = #{value}
+   where qnano = #{qnano} 
+    </delete>
+    
+       <delete id="deleteQna1" parameterType="_int">
+   delete from qna
+   where qnano = #{qnano}
     </delete>
    
 </mapper>
-
-
-
-
-
-
 
 
 

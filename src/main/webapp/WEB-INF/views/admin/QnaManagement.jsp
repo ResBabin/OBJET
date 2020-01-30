@@ -77,8 +77,8 @@ $(function() {
 				<a href="${ qnauri }&qnatype=회원"><div class="ui button order" id="userbtn">회원</div></a>
 			</div>&nbsp;&nbsp;
 		<div class="ui small basic buttons">
-				<a href="qnam.do?qnaanswertype=N&page=1"><div class="ui button order" id="allbtn">답변미완</div></a>
-				<a href="qnam.do?qnaanswertype=Y&page=1"><div class="ui button order" id="userbtn">답변완료</div></a>
+				<a href="qnam.do?qnaanswertype=미답변&page=1"><div class="ui button order" id="allbtn">답변미완</div></a>
+				<a href="qnam.do?qnaanswertype=답변완료&page=1"><div class="ui button order" id="userbtn">답변완료</div></a>
 			</div>
 <table class="ui sortable celled table selectable">
 <thead>

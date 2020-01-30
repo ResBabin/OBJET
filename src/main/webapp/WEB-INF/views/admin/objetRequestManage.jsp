@@ -159,12 +159,12 @@ $(function() {
 			</tbody>
 		</table>
 		<div align="right">
-			<button class="ui basic grey button" id="returnbtn">
+		<!-- 	<button class="ui basic grey button" id="returnbtn">
 			반려
 			</button>
 			<button class="ui basic grey button" id="approvebtn">
 			승인
-			</button>
+			</button> -->
 		</div>
 		<br>
 		<div align="center">
