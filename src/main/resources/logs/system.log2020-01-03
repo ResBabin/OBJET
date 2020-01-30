@@ -1,0 +1,1690 @@
+[06:27:56][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[06:28:03][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 7098 ms
+[06:28:03][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[06:28:14][INFO ][FrameworkServlet.java:546] - Completed initialization in 10844 ms
+[06:28:35][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[06:28:35][DEBUG][LoggerInterceptor.java:23] - /objet/main.do
+[06:28:35][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[06:28:35][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[06:28:40][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[06:28:40][DEBUG][LoggerInterceptor.java:23] - /objet/main.do
+[06:28:40][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[06:28:40][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[06:28:41][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[06:28:41][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[06:28:47][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[06:28:47][DEBUG][LoggerInterceptor.java:23] - /objet/objetAllList.do
+[06:28:47][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[06:28:52][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[06:28:56][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[06:28:59][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[06:28:59][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[06:28:59][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[06:29:00][ERROR][Slf4jSpyLogDelegator.java:114] - 3. PreparedStatement.setNull(1, 1111)
+java.sql.SQLException: 부적합한 열 유형: 1111
+	at oracle.jdbc.driver.OracleStatement.getInternalType(OracleStatement.java:3963)
+	at oracle.jdbc.driver.OraclePreparedStatement.setNullCritical(OraclePreparedStatement.java:4596)
+	at oracle.jdbc.driver.OraclePreparedStatement.setNull(OraclePreparedStatement.java:4578)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.setNull(OraclePreparedStatementWrapper.java:1285)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.setNull(DelegatingPreparedStatement.java:108)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.setNull(DelegatingPreparedStatement.java:108)
+	at net.sf.log4jdbc.PreparedStatementSpy.setNull(PreparedStatementSpy.java:251)
+	at org.apache.ibatis.type.BaseTypeHandler.setParameter(BaseTypeHandler.java:61)
+	at org.apache.ibatis.scripting.defaults.DefaultParameterHandler.setParameters(DefaultParameterHandler.java:87)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.parameterize(PreparedStatementHandler.java:94)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.parameterize(RoutingStatementHandler.java:64)
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:87)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:324)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:83)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:148)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:141)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:136)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
+	at com.sun.proxy.$Proxy8.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:222)
+	at com.kh.objet.objet.model.dao.ObjetDao.selectReview(ObjetDao.java:59)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl.selectReview(ObjetServiceImpl.java:62)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl$$FastClassBySpringCGLIB$$bac7afa1.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:294)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:93)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl$$EnhancerBySpringCGLIB$$1913aa4a.selectReview(<generated>)
+	at com.kh.objet.objet.controller.ObjetController.selectObjetOne(ObjetController.java:120)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:493)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:137)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:798)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:808)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1498)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Unknown Source)
+[06:29:00][ERROR][Slf4jSpyLogDelegator.java:116] - 3. PreparedStatement.setNull(1, 1111)
+java.sql.SQLException: 부적합한 열 유형: 1111
+	at oracle.jdbc.driver.OracleStatement.getInternalType(OracleStatement.java:3963)
+	at oracle.jdbc.driver.OraclePreparedStatement.setNullCritical(OraclePreparedStatement.java:4596)
+	at oracle.jdbc.driver.OraclePreparedStatement.setNull(OraclePreparedStatement.java:4578)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.setNull(OraclePreparedStatementWrapper.java:1285)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.setNull(DelegatingPreparedStatement.java:108)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.setNull(DelegatingPreparedStatement.java:108)
+	at net.sf.log4jdbc.PreparedStatementSpy.setNull(PreparedStatementSpy.java:251)
+	at org.apache.ibatis.type.BaseTypeHandler.setParameter(BaseTypeHandler.java:61)
+	at org.apache.ibatis.scripting.defaults.DefaultParameterHandler.setParameters(DefaultParameterHandler.java:87)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.parameterize(PreparedStatementHandler.java:94)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.parameterize(RoutingStatementHandler.java:64)
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:87)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:324)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:83)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:148)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:141)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:136)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
+	at com.sun.proxy.$Proxy8.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:222)
+	at com.kh.objet.objet.model.dao.ObjetDao.selectReview(ObjetDao.java:59)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl.selectReview(ObjetServiceImpl.java:62)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl$$FastClassBySpringCGLIB$$bac7afa1.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:294)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:93)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl$$EnhancerBySpringCGLIB$$1913aa4a.selectReview(<generated>)
+	at com.kh.objet.objet.controller.ObjetController.selectObjetOne(ObjetController.java:120)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:493)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:137)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:798)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:808)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1498)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Unknown Source)
+[06:29:00][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:51:11][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:51:11][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[13:51:11][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:51:11][ERROR][Slf4jSpyLogDelegator.java:114] - 5. PreparedStatement.setNull(1, 1111)
+java.sql.SQLException: 부적합한 열 유형: 1111
+	at oracle.jdbc.driver.OracleStatement.getInternalType(OracleStatement.java:3963)
+	at oracle.jdbc.driver.OraclePreparedStatement.setNullCritical(OraclePreparedStatement.java:4596)
+	at oracle.jdbc.driver.OraclePreparedStatement.setNull(OraclePreparedStatement.java:4578)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.setNull(OraclePreparedStatementWrapper.java:1285)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.setNull(DelegatingPreparedStatement.java:108)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.setNull(DelegatingPreparedStatement.java:108)
+	at net.sf.log4jdbc.PreparedStatementSpy.setNull(PreparedStatementSpy.java:251)
+	at org.apache.ibatis.type.BaseTypeHandler.setParameter(BaseTypeHandler.java:61)
+	at org.apache.ibatis.scripting.defaults.DefaultParameterHandler.setParameters(DefaultParameterHandler.java:87)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.parameterize(PreparedStatementHandler.java:94)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.parameterize(RoutingStatementHandler.java:64)
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:87)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:324)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:83)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:148)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:141)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:136)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
+	at com.sun.proxy.$Proxy8.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:222)
+	at com.kh.objet.objet.model.dao.ObjetDao.selectReview(ObjetDao.java:59)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl.selectReview(ObjetServiceImpl.java:62)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl$$FastClassBySpringCGLIB$$bac7afa1.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:294)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:93)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl$$EnhancerBySpringCGLIB$$1913aa4a.selectReview(<generated>)
+	at com.kh.objet.objet.controller.ObjetController.selectObjetOne(ObjetController.java:120)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:493)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:137)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:798)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:808)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1498)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Unknown Source)
+[13:51:11][ERROR][Slf4jSpyLogDelegator.java:116] - 5. PreparedStatement.setNull(1, 1111)
+java.sql.SQLException: 부적합한 열 유형: 1111
+	at oracle.jdbc.driver.OracleStatement.getInternalType(OracleStatement.java:3963)
+	at oracle.jdbc.driver.OraclePreparedStatement.setNullCritical(OraclePreparedStatement.java:4596)
+	at oracle.jdbc.driver.OraclePreparedStatement.setNull(OraclePreparedStatement.java:4578)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.setNull(OraclePreparedStatementWrapper.java:1285)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.setNull(DelegatingPreparedStatement.java:108)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.setNull(DelegatingPreparedStatement.java:108)
+	at net.sf.log4jdbc.PreparedStatementSpy.setNull(PreparedStatementSpy.java:251)
+	at org.apache.ibatis.type.BaseTypeHandler.setParameter(BaseTypeHandler.java:61)
+	at org.apache.ibatis.scripting.defaults.DefaultParameterHandler.setParameters(DefaultParameterHandler.java:87)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.parameterize(PreparedStatementHandler.java:94)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.parameterize(RoutingStatementHandler.java:64)
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:87)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:324)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:83)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:148)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:141)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:136)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
+	at com.sun.proxy.$Proxy8.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:222)
+	at com.kh.objet.objet.model.dao.ObjetDao.selectReview(ObjetDao.java:59)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl.selectReview(ObjetServiceImpl.java:62)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl$$FastClassBySpringCGLIB$$bac7afa1.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:294)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:93)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl$$EnhancerBySpringCGLIB$$1913aa4a.selectReview(<generated>)
+	at com.kh.objet.objet.controller.ObjetController.selectObjetOne(ObjetController.java:120)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:493)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:137)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:798)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:808)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1498)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Unknown Source)
+[13:51:12][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:54:51][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[13:54:55][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 4377 ms
+[13:54:55][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[13:55:02][INFO ][FrameworkServlet.java:546] - Completed initialization in 6849 ms
+[13:55:05][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:55:05][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[13:55:05][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:55:07][ERROR][Slf4jSpyLogDelegator.java:114] - 2. PreparedStatement.setNull(1, 1111)
+java.sql.SQLException: 부적합한 열 유형: 1111
+	at oracle.jdbc.driver.OracleStatement.getInternalType(OracleStatement.java:3963)
+	at oracle.jdbc.driver.OraclePreparedStatement.setNullCritical(OraclePreparedStatement.java:4596)
+	at oracle.jdbc.driver.OraclePreparedStatement.setNull(OraclePreparedStatement.java:4578)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.setNull(OraclePreparedStatementWrapper.java:1285)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.setNull(DelegatingPreparedStatement.java:108)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.setNull(DelegatingPreparedStatement.java:108)
+	at net.sf.log4jdbc.PreparedStatementSpy.setNull(PreparedStatementSpy.java:251)
+	at org.apache.ibatis.type.BaseTypeHandler.setParameter(BaseTypeHandler.java:61)
+	at org.apache.ibatis.scripting.defaults.DefaultParameterHandler.setParameters(DefaultParameterHandler.java:87)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.parameterize(PreparedStatementHandler.java:94)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.parameterize(RoutingStatementHandler.java:64)
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:87)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:324)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:83)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:148)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:141)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:136)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
+	at com.sun.proxy.$Proxy8.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:222)
+	at com.kh.objet.objet.model.dao.ObjetDao.selectReview(ObjetDao.java:59)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl.selectReview(ObjetServiceImpl.java:62)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl$$FastClassBySpringCGLIB$$bac7afa1.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:294)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:93)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl$$EnhancerBySpringCGLIB$$78efe70c.selectReview(<generated>)
+	at com.kh.objet.objet.controller.ObjetController.selectObjetOne(ObjetController.java:120)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:493)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:137)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:798)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:808)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1498)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Unknown Source)
+[13:55:07][ERROR][Slf4jSpyLogDelegator.java:116] - 2. PreparedStatement.setNull(1, 1111)
+java.sql.SQLException: 부적합한 열 유형: 1111
+	at oracle.jdbc.driver.OracleStatement.getInternalType(OracleStatement.java:3963)
+	at oracle.jdbc.driver.OraclePreparedStatement.setNullCritical(OraclePreparedStatement.java:4596)
+	at oracle.jdbc.driver.OraclePreparedStatement.setNull(OraclePreparedStatement.java:4578)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.setNull(OraclePreparedStatementWrapper.java:1285)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.setNull(DelegatingPreparedStatement.java:108)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.setNull(DelegatingPreparedStatement.java:108)
+	at net.sf.log4jdbc.PreparedStatementSpy.setNull(PreparedStatementSpy.java:251)
+	at org.apache.ibatis.type.BaseTypeHandler.setParameter(BaseTypeHandler.java:61)
+	at org.apache.ibatis.scripting.defaults.DefaultParameterHandler.setParameters(DefaultParameterHandler.java:87)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.parameterize(PreparedStatementHandler.java:94)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.parameterize(RoutingStatementHandler.java:64)
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:87)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:324)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:83)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:148)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:141)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:136)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
+	at com.sun.proxy.$Proxy8.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:222)
+	at com.kh.objet.objet.model.dao.ObjetDao.selectReview(ObjetDao.java:59)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl.selectReview(ObjetServiceImpl.java:62)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl$$FastClassBySpringCGLIB$$bac7afa1.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:294)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:93)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl$$EnhancerBySpringCGLIB$$78efe70c.selectReview(<generated>)
+	at com.kh.objet.objet.controller.ObjetController.selectObjetOne(ObjetController.java:120)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:493)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:137)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:798)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:808)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1498)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Unknown Source)
+[13:55:07][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:55:36][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[13:55:41][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 4916 ms
+[13:55:41][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[13:55:48][INFO ][FrameworkServlet.java:546] - Completed initialization in 6466 ms
+[13:55:48][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:55:48][DEBUG][LoggerInterceptor.java:23] - /objet/objetAllList.do
+[13:55:48][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:55:50][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[13:55:51][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[13:55:53][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[13:55:53][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[13:55:53][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[13:55:53][ERROR][Slf4jSpyLogDelegator.java:114] - 3. PreparedStatement.setNull(1, 1111)
+java.sql.SQLException: 부적합한 열 유형: 1111
+	at oracle.jdbc.driver.OracleStatement.getInternalType(OracleStatement.java:3963)
+	at oracle.jdbc.driver.OraclePreparedStatement.setNullCritical(OraclePreparedStatement.java:4596)
+	at oracle.jdbc.driver.OraclePreparedStatement.setNull(OraclePreparedStatement.java:4578)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.setNull(OraclePreparedStatementWrapper.java:1285)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.setNull(DelegatingPreparedStatement.java:108)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.setNull(DelegatingPreparedStatement.java:108)
+	at net.sf.log4jdbc.PreparedStatementSpy.setNull(PreparedStatementSpy.java:251)
+	at org.apache.ibatis.type.BaseTypeHandler.setParameter(BaseTypeHandler.java:61)
+	at org.apache.ibatis.scripting.defaults.DefaultParameterHandler.setParameters(DefaultParameterHandler.java:87)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.parameterize(PreparedStatementHandler.java:94)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.parameterize(RoutingStatementHandler.java:64)
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:87)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:324)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:83)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:148)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:141)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:136)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
+	at com.sun.proxy.$Proxy8.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:222)
+	at com.kh.objet.objet.model.dao.ObjetDao.selectReview(ObjetDao.java:59)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl.selectReview(ObjetServiceImpl.java:62)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl$$FastClassBySpringCGLIB$$bac7afa1.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:294)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:93)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl$$EnhancerBySpringCGLIB$$d15982c3.selectReview(<generated>)
+	at com.kh.objet.objet.controller.ObjetController.selectObjetOne(ObjetController.java:120)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:493)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:137)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:798)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:808)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1498)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Unknown Source)
+[13:55:53][ERROR][Slf4jSpyLogDelegator.java:116] - 3. PreparedStatement.setNull(1, 1111)
+java.sql.SQLException: 부적합한 열 유형: 1111
+	at oracle.jdbc.driver.OracleStatement.getInternalType(OracleStatement.java:3963)
+	at oracle.jdbc.driver.OraclePreparedStatement.setNullCritical(OraclePreparedStatement.java:4596)
+	at oracle.jdbc.driver.OraclePreparedStatement.setNull(OraclePreparedStatement.java:4578)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.setNull(OraclePreparedStatementWrapper.java:1285)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.setNull(DelegatingPreparedStatement.java:108)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.setNull(DelegatingPreparedStatement.java:108)
+	at net.sf.log4jdbc.PreparedStatementSpy.setNull(PreparedStatementSpy.java:251)
+	at org.apache.ibatis.type.BaseTypeHandler.setParameter(BaseTypeHandler.java:61)
+	at org.apache.ibatis.scripting.defaults.DefaultParameterHandler.setParameters(DefaultParameterHandler.java:87)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.parameterize(PreparedStatementHandler.java:94)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.parameterize(RoutingStatementHandler.java:64)
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:87)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:324)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:83)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:148)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:141)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:136)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
+	at com.sun.proxy.$Proxy8.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:222)
+	at com.kh.objet.objet.model.dao.ObjetDao.selectReview(ObjetDao.java:59)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl.selectReview(ObjetServiceImpl.java:62)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl$$FastClassBySpringCGLIB$$bac7afa1.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:294)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:93)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl$$EnhancerBySpringCGLIB$$d15982c3.selectReview(<generated>)
+	at com.kh.objet.objet.controller.ObjetController.selectObjetOne(ObjetController.java:120)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:493)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:137)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:798)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:808)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1498)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Unknown Source)
+[13:55:53][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[15:52:16][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[15:52:20][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 4402 ms
+[15:52:20][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[15:52:26][INFO ][FrameworkServlet.java:546] - Completed initialization in 5581 ms
+[15:53:02][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[15:53:02][DEBUG][LoggerInterceptor.java:23] - /objet/objetAllList.do
+[15:53:02][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[15:53:04][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[15:53:05][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[15:53:07][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[15:53:07][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[15:53:07][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[15:53:07][ERROR][Slf4jSpyLogDelegator.java:114] - 4. PreparedStatement.setNull(1, 1111)
+java.sql.SQLException: 부적합한 열 유형: 1111
+	at oracle.jdbc.driver.OracleStatement.getInternalType(OracleStatement.java:3963)
+	at oracle.jdbc.driver.OraclePreparedStatement.setNullCritical(OraclePreparedStatement.java:4596)
+	at oracle.jdbc.driver.OraclePreparedStatement.setNull(OraclePreparedStatement.java:4578)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.setNull(OraclePreparedStatementWrapper.java:1285)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.setNull(DelegatingPreparedStatement.java:108)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.setNull(DelegatingPreparedStatement.java:108)
+	at net.sf.log4jdbc.PreparedStatementSpy.setNull(PreparedStatementSpy.java:251)
+	at org.apache.ibatis.type.BaseTypeHandler.setParameter(BaseTypeHandler.java:61)
+	at org.apache.ibatis.scripting.defaults.DefaultParameterHandler.setParameters(DefaultParameterHandler.java:87)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.parameterize(PreparedStatementHandler.java:94)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.parameterize(RoutingStatementHandler.java:64)
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:87)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:324)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:83)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:148)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:141)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectOne(DefaultSqlSession.java:77)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
+	at com.sun.proxy.$Proxy8.selectOne(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectOne(SqlSessionTemplate.java:166)
+	at com.kh.objet.objet.model.dao.ObjetDao.selectReviewOne(ObjetDao.java:65)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl.selectReviewOne(ObjetServiceImpl.java:67)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl$$FastClassBySpringCGLIB$$bac7afa1.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:294)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:93)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl$$EnhancerBySpringCGLIB$$69f3fd9c.selectReviewOne(<generated>)
+	at com.kh.objet.objet.controller.ObjetController.selectObjetOne(ObjetController.java:123)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:493)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:137)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:798)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:808)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1498)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Unknown Source)
+[15:53:07][ERROR][Slf4jSpyLogDelegator.java:116] - 4. PreparedStatement.setNull(1, 1111)
+java.sql.SQLException: 부적합한 열 유형: 1111
+	at oracle.jdbc.driver.OracleStatement.getInternalType(OracleStatement.java:3963)
+	at oracle.jdbc.driver.OraclePreparedStatement.setNullCritical(OraclePreparedStatement.java:4596)
+	at oracle.jdbc.driver.OraclePreparedStatement.setNull(OraclePreparedStatement.java:4578)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.setNull(OraclePreparedStatementWrapper.java:1285)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.setNull(DelegatingPreparedStatement.java:108)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.setNull(DelegatingPreparedStatement.java:108)
+	at net.sf.log4jdbc.PreparedStatementSpy.setNull(PreparedStatementSpy.java:251)
+	at org.apache.ibatis.type.BaseTypeHandler.setParameter(BaseTypeHandler.java:61)
+	at org.apache.ibatis.scripting.defaults.DefaultParameterHandler.setParameters(DefaultParameterHandler.java:87)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.parameterize(PreparedStatementHandler.java:94)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.parameterize(RoutingStatementHandler.java:64)
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:87)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:324)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:83)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:148)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:141)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectOne(DefaultSqlSession.java:77)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
+	at com.sun.proxy.$Proxy8.selectOne(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectOne(SqlSessionTemplate.java:166)
+	at com.kh.objet.objet.model.dao.ObjetDao.selectReviewOne(ObjetDao.java:65)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl.selectReviewOne(ObjetServiceImpl.java:67)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl$$FastClassBySpringCGLIB$$bac7afa1.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:294)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:93)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
+	at com.kh.objet.objet.model.service.ObjetServiceImpl$$EnhancerBySpringCGLIB$$69f3fd9c.selectReviewOne(<generated>)
+	at com.kh.objet.objet.controller.ObjetController.selectObjetOne(ObjetController.java:123)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:493)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:137)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:798)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:808)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1498)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Unknown Source)
+[15:53:07][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[15:53:50][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[15:53:54][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 4066 ms
+[15:53:54][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[15:53:59][INFO ][FrameworkServlet.java:546] - Completed initialization in 5275 ms
+[15:55:13][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[15:55:13][DEBUG][LoggerInterceptor.java:23] - /objet/objetAllList.do
+[15:55:13][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[15:55:15][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[15:55:15][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[15:55:22][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[15:55:22][DEBUG][LoggerInterceptor.java:23] - /objet/objetAllList.do
+[15:55:22][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[15:55:22][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[15:55:22][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[15:55:28][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[15:55:28][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[15:55:28][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[15:55:28][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[15:55:28][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[15:57:28][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[15:57:33][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 4676 ms
+[15:57:33][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[15:57:39][INFO ][FrameworkServlet.java:546] - Completed initialization in 5629 ms
+[16:19:05][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[16:19:10][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 4046 ms
+[16:19:10][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[16:19:15][INFO ][FrameworkServlet.java:546] - Completed initialization in 5457 ms
+[16:29:20][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[16:29:24][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 4178 ms
+[16:29:24][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[16:29:30][INFO ][FrameworkServlet.java:546] - Completed initialization in 5343 ms
+[16:30:32][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:30:32][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[16:30:32][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:30:37][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[16:30:41][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:30:49][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:30:49][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[16:30:49][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:30:49][WARN ][AbstractHandlerExceptionResolver.java:197] - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required int parameter 'objetno' is not present]
+[16:30:49][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:30:57][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:30:57][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[16:30:57][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:30:57][WARN ][AbstractHandlerExceptionResolver.java:197] - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required int parameter 'objetno' is not present]
+[16:30:57][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:31:38][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:31:38][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[16:31:38][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:31:38][WARN ][AbstractHandlerExceptionResolver.java:197] - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required int parameter 'objetno' is not present]
+[16:31:38][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:31:38][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:31:38][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[16:31:38][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:31:38][WARN ][AbstractHandlerExceptionResolver.java:197] - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required int parameter 'objetno' is not present]
+[16:31:38][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:31:38][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:31:38][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[16:31:38][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:31:38][WARN ][AbstractHandlerExceptionResolver.java:197] - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required int parameter 'objetno' is not present]
+[16:31:38][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:31:40][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:31:40][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[16:31:40][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:31:40][WARN ][AbstractHandlerExceptionResolver.java:197] - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required int parameter 'objetno' is not present]
+[16:31:40][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:33:35][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[16:33:40][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 4367 ms
+[16:33:40][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[16:33:45][INFO ][FrameworkServlet.java:546] - Completed initialization in 5286 ms
+[16:34:22][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:34:22][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[16:34:22][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:34:26][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[16:34:27][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:34:32][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:34:32][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[16:34:32][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:34:32][WARN ][AbstractHandlerExceptionResolver.java:197] - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required int parameter 'objetno' is not present]
+[16:34:32][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:34:33][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:34:33][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[16:34:33][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:34:33][WARN ][AbstractHandlerExceptionResolver.java:197] - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required int parameter 'objetno' is not present]
+[16:34:33][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:34:33][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:34:33][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[16:34:33][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:34:33][WARN ][AbstractHandlerExceptionResolver.java:197] - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required int parameter 'objetno' is not present]
+[16:34:33][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:35:42][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:35:42][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[16:35:42][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:35:42][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[16:35:45][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:36:24][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:36:24][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[16:36:24][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:36:24][WARN ][AbstractHandlerExceptionResolver.java:197] - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required int parameter 'objetno' is not present]
+[16:36:24][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:36:26][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:36:26][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[16:36:26][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:36:26][WARN ][AbstractHandlerExceptionResolver.java:197] - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required int parameter 'objetno' is not present]
+[16:36:26][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:38:23][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[16:38:27][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 4051 ms
+[16:38:27][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[16:38:33][INFO ][FrameworkServlet.java:546] - Completed initialization in 5406 ms
+[16:40:04][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:40:04][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[16:40:04][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:40:08][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[16:40:15][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:40:28][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:40:28][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[16:40:28][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:40:28][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[16:40:28][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:40:43][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:40:43][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[16:40:43][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:40:44][WARN ][AbstractHandlerExceptionResolver.java:197] - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required int parameter 'objetno' is not present]
+[16:40:44][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:45:37][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[16:45:42][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 4680 ms
+[16:45:42][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[16:45:48][INFO ][FrameworkServlet.java:546] - Completed initialization in 5973 ms
+[16:45:56][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:45:56][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[16:45:56][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:46:02][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[16:46:03][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:46:10][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:46:10][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[16:46:10][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:46:10][WARN ][AbstractHandlerExceptionResolver.java:197] - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required int parameter 'objetno' is not present]
+[16:46:10][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:48:49][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[16:48:53][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 4591 ms
+[16:48:54][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[16:48:59][INFO ][FrameworkServlet.java:546] - Completed initialization in 5834 ms
+[16:49:23][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:49:23][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[16:49:23][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:49:29][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[16:49:30][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:49:39][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:49:39][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[16:49:39][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:49:39][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:49:40][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:49:40][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[16:49:40][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:49:40][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:51:01][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[16:51:08][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 6689 ms
+[16:51:08][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[16:51:14][INFO ][FrameworkServlet.java:546] - Completed initialization in 6374 ms
+[16:51:52][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:51:52][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[16:51:52][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:51:52][WARN ][AbstractHandlerExceptionResolver.java:197] - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required int parameter 'objetno' is not present]
+[16:51:52][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:51:56][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:51:56][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[16:51:56][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:52:01][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[16:52:02][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:52:10][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:52:10][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[16:52:10][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:52:10][WARN ][AbstractHandlerExceptionResolver.java:197] - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required int parameter 'objetno' is not present]
+[16:52:10][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:52:12][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:52:12][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[16:52:12][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:52:12][WARN ][AbstractHandlerExceptionResolver.java:197] - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required int parameter 'objetno' is not present]
+[16:52:12][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:55:23][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[16:55:28][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 5133 ms
+[16:55:28][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[16:55:35][INFO ][FrameworkServlet.java:546] - Completed initialization in 6428 ms
+[16:55:58][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[16:56:03][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 4705 ms
+[16:56:03][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[16:56:10][INFO ][FrameworkServlet.java:546] - Completed initialization in 6764 ms
+[16:56:11][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:56:11][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[16:56:11][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:56:17][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[16:56:18][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:56:44][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:56:44][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[16:56:44][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:56:44][WARN ][AbstractHandlerExceptionResolver.java:197] - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required int parameter 'objetno' is not present]
+[16:56:44][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:57:09][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:57:09][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[16:57:09][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:57:09][WARN ][AbstractHandlerExceptionResolver.java:197] - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required int parameter 'objetno' is not present]
+[16:57:09][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[16:57:11][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[16:57:11][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[16:57:11][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[16:57:11][WARN ][AbstractHandlerExceptionResolver.java:197] - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required int parameter 'objetno' is not present]
+[16:57:11][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:03:33][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[17:03:43][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 10310 ms
+[17:03:43][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[17:03:53][INFO ][FrameworkServlet.java:546] - Completed initialization in 9889 ms
+[17:04:01][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:04:01][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[17:04:01][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:04:07][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:04:13][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:04:21][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:04:21][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[17:04:21][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:04:21][WARN ][AbstractHandlerExceptionResolver.java:197] - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required int parameter 'objetno' is not present]
+[17:04:21][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:04:22][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:04:22][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[17:04:22][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:04:22][WARN ][AbstractHandlerExceptionResolver.java:197] - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required int parameter 'objetno' is not present]
+[17:04:22][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:05:30][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[17:05:34][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 4281 ms
+[17:05:34][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[17:05:39][INFO ][FrameworkServlet.java:546] - Completed initialization in 5520 ms
+[17:05:44][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:05:44][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[17:05:44][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:05:49][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:05:49][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:05:56][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:05:56][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[17:05:56][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:05:56][DEBUG][ObjetController.java:151] - user003
+[17:05:56][DEBUG][ObjetController.java:152] - user006
+[17:05:56][DEBUG][ObjetController.java:153] - user004
+[17:05:56][DEBUG][ObjetController.java:154] - user005
+[17:05:56][DEBUG][ObjetController.java:176] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EA%B0%90%EB%8F%99%EC%A0%81%EC%9D%B8+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051727.jpg","nickname":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84","revdate":2019-11-18,"userid":"user006","revstars":5,"revgood":7},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2}]
+[17:05:56][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:05:56][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:05:59][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:05:59][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[17:05:59][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:05:59][DEBUG][ObjetController.java:151] - user005
+[17:05:59][DEBUG][ObjetController.java:152] - user006
+[17:05:59][DEBUG][ObjetController.java:153] - user003
+[17:05:59][DEBUG][ObjetController.java:154] - user004
+[17:05:59][DEBUG][ObjetController.java:176] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2},{"revcontent":"%EA%B0%90%EB%8F%99%EC%A0%81%EC%9D%B8+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051727.jpg","nickname":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84","revdate":2019-11-18,"userid":"user006","revstars":5,"revgood":7},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5}]
+[17:05:59][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:05:59][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:06:05][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:06:05][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[17:06:05][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:06:05][DEBUG][ObjetController.java:151] - user003
+[17:06:05][DEBUG][ObjetController.java:152] - user006
+[17:06:05][DEBUG][ObjetController.java:153] - user004
+[17:06:05][DEBUG][ObjetController.java:154] - user005
+[17:06:05][DEBUG][ObjetController.java:176] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EA%B0%90%EB%8F%99%EC%A0%81%EC%9D%B8+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051727.jpg","nickname":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84","revdate":2019-11-18,"userid":"user006","revstars":5,"revgood":7},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2}]
+[17:06:05][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:06:05][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:06:06][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:06:06][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[17:06:06][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:06:06][DEBUG][ObjetController.java:151] - user005
+[17:06:06][DEBUG][ObjetController.java:152] - user006
+[17:06:06][DEBUG][ObjetController.java:153] - user003
+[17:06:06][DEBUG][ObjetController.java:154] - user004
+[17:06:06][DEBUG][ObjetController.java:176] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2},{"revcontent":"%EA%B0%90%EB%8F%99%EC%A0%81%EC%9D%B8+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051727.jpg","nickname":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84","revdate":2019-11-18,"userid":"user006","revstars":5,"revgood":7},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5}]
+[17:06:06][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:06:06][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:06:06][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:06:06][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[17:06:06][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:06:06][DEBUG][ObjetController.java:151] - user003
+[17:06:06][DEBUG][ObjetController.java:152] - user006
+[17:06:06][DEBUG][ObjetController.java:153] - user004
+[17:06:06][DEBUG][ObjetController.java:154] - user005
+[17:06:06][DEBUG][ObjetController.java:176] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EA%B0%90%EB%8F%99%EC%A0%81%EC%9D%B8+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051727.jpg","nickname":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84","revdate":2019-11-18,"userid":"user006","revstars":5,"revgood":7},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2}]
+[17:06:06][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:06:06][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:06:07][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:06:07][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[17:06:07][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:06:07][DEBUG][ObjetController.java:151] - user005
+[17:06:07][DEBUG][ObjetController.java:152] - user006
+[17:06:07][DEBUG][ObjetController.java:153] - user003
+[17:06:07][DEBUG][ObjetController.java:154] - user004
+[17:06:07][DEBUG][ObjetController.java:176] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2},{"revcontent":"%EA%B0%90%EB%8F%99%EC%A0%81%EC%9D%B8+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051727.jpg","nickname":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84","revdate":2019-11-18,"userid":"user006","revstars":5,"revgood":7},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5}]
+[17:06:07][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:06:07][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:06:07][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:06:07][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[17:06:07][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:06:07][DEBUG][ObjetController.java:151] - user003
+[17:06:07][DEBUG][ObjetController.java:152] - user006
+[17:06:07][DEBUG][ObjetController.java:153] - user004
+[17:06:07][DEBUG][ObjetController.java:154] - user005
+[17:06:07][DEBUG][ObjetController.java:176] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EA%B0%90%EB%8F%99%EC%A0%81%EC%9D%B8+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051727.jpg","nickname":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84","revdate":2019-11-18,"userid":"user006","revstars":5,"revgood":7},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2}]
+[17:06:07][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:06:07][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:06:07][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:06:07][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[17:06:07][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:06:07][DEBUG][ObjetController.java:151] - user005
+[17:06:07][DEBUG][ObjetController.java:152] - user006
+[17:06:07][DEBUG][ObjetController.java:153] - user003
+[17:06:07][DEBUG][ObjetController.java:154] - user004
+[17:06:07][DEBUG][ObjetController.java:176] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2},{"revcontent":"%EA%B0%90%EB%8F%99%EC%A0%81%EC%9D%B8+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051727.jpg","nickname":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84","revdate":2019-11-18,"userid":"user006","revstars":5,"revgood":7},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5}]
+[17:06:07][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:06:07][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:06:08][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:06:08][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[17:06:08][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:06:08][DEBUG][ObjetController.java:151] - user003
+[17:06:08][DEBUG][ObjetController.java:152] - user006
+[17:06:08][DEBUG][ObjetController.java:153] - user004
+[17:06:08][DEBUG][ObjetController.java:154] - user005
+[17:06:08][DEBUG][ObjetController.java:176] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EA%B0%90%EB%8F%99%EC%A0%81%EC%9D%B8+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051727.jpg","nickname":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84","revdate":2019-11-18,"userid":"user006","revstars":5,"revgood":7},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2}]
+[17:06:08][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:06:08][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:06:08][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:06:08][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[17:06:08][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:06:08][DEBUG][ObjetController.java:151] - user005
+[17:06:08][DEBUG][ObjetController.java:152] - user006
+[17:06:08][DEBUG][ObjetController.java:153] - user003
+[17:06:08][DEBUG][ObjetController.java:154] - user004
+[17:06:08][DEBUG][ObjetController.java:176] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2},{"revcontent":"%EA%B0%90%EB%8F%99%EC%A0%81%EC%9D%B8+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051727.jpg","nickname":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84","revdate":2019-11-18,"userid":"user006","revstars":5,"revgood":7},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5}]
+[17:06:08][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:06:08][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:06:08][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:06:08][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[17:06:08][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:06:08][DEBUG][ObjetController.java:151] - user003
+[17:06:08][DEBUG][ObjetController.java:152] - user006
+[17:06:08][DEBUG][ObjetController.java:153] - user004
+[17:06:08][DEBUG][ObjetController.java:154] - user005
+[17:06:08][DEBUG][ObjetController.java:176] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EA%B0%90%EB%8F%99%EC%A0%81%EC%9D%B8+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051727.jpg","nickname":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84","revdate":2019-11-18,"userid":"user006","revstars":5,"revgood":7},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2}]
+[17:06:08][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:06:08][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:06:08][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:06:09][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[17:06:09][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:06:09][DEBUG][ObjetController.java:151] - user005
+[17:06:09][DEBUG][ObjetController.java:152] - user006
+[17:06:09][DEBUG][ObjetController.java:153] - user003
+[17:06:09][DEBUG][ObjetController.java:154] - user004
+[17:06:09][DEBUG][ObjetController.java:176] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2},{"revcontent":"%EA%B0%90%EB%8F%99%EC%A0%81%EC%9D%B8+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051727.jpg","nickname":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84","revdate":2019-11-18,"userid":"user006","revstars":5,"revgood":7},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5}]
+[17:06:09][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:06:09][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:06:09][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:06:09][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[17:06:09][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:06:09][DEBUG][ObjetController.java:151] - user003
+[17:06:09][DEBUG][ObjetController.java:152] - user006
+[17:06:09][DEBUG][ObjetController.java:153] - user004
+[17:06:09][DEBUG][ObjetController.java:154] - user005
+[17:06:09][DEBUG][ObjetController.java:176] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EA%B0%90%EB%8F%99%EC%A0%81%EC%9D%B8+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051727.jpg","nickname":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84","revdate":2019-11-18,"userid":"user006","revstars":5,"revgood":7},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2}]
+[17:06:09][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:06:09][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:08:33][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:08:33][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[17:08:33][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:08:33][DEBUG][ObjetController.java:151] - user005
+[17:08:33][DEBUG][ObjetController.java:152] - user006
+[17:08:33][DEBUG][ObjetController.java:153] - user003
+[17:08:33][DEBUG][ObjetController.java:154] - user004
+[17:08:33][DEBUG][ObjetController.java:176] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2},{"revcontent":"%EA%B0%90%EB%8F%99%EC%A0%81%EC%9D%B8+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051727.jpg","nickname":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84","revdate":2019-11-18,"userid":"user006","revstars":5,"revgood":7},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5}]
+[17:08:33][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:08:33][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:19:19][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:19:19][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[17:19:19][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:19:19][DEBUG][ObjetController.java:151] - user003
+[17:19:19][DEBUG][ObjetController.java:152] - user006
+[17:19:19][DEBUG][ObjetController.java:153] - user004
+[17:19:19][DEBUG][ObjetController.java:154] - user005
+[17:19:19][DEBUG][ObjetController.java:176] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EA%B0%90%EB%8F%99%EC%A0%81%EC%9D%B8+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051727.jpg","nickname":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84","revdate":2019-11-18,"userid":"user006","revstars":5,"revgood":7},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2}]
+[17:19:19][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:19:19][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:19:19][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:19:19][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[17:19:19][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:19:19][DEBUG][ObjetController.java:151] - user005
+[17:19:19][DEBUG][ObjetController.java:152] - user006
+[17:19:19][DEBUG][ObjetController.java:153] - user003
+[17:19:19][DEBUG][ObjetController.java:154] - user004
+[17:19:19][DEBUG][ObjetController.java:176] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2},{"revcontent":"%EA%B0%90%EB%8F%99%EC%A0%81%EC%9D%B8+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051727.jpg","nickname":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84","revdate":2019-11-18,"userid":"user006","revstars":5,"revgood":7},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5}]
+[17:19:19][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:19:19][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:19:20][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:19:20][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[17:19:20][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:19:20][DEBUG][ObjetController.java:151] - user003
+[17:19:20][DEBUG][ObjetController.java:152] - user006
+[17:19:20][DEBUG][ObjetController.java:153] - user004
+[17:19:20][DEBUG][ObjetController.java:154] - user005
+[17:19:20][DEBUG][ObjetController.java:176] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EA%B0%90%EB%8F%99%EC%A0%81%EC%9D%B8+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051727.jpg","nickname":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84","revdate":2019-11-18,"userid":"user006","revstars":5,"revgood":7},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2}]
+[17:19:20][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:19:20][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:22:14][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:22:14][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[17:22:14][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:22:14][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:22:18][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:22:38][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:22:38][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[17:22:38][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:22:39][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:22:41][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:22:48][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:22:48][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[17:22:48][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:22:48][DEBUG][ObjetController.java:151] - user003
+[17:22:48][DEBUG][ObjetController.java:152] - user006
+[17:22:48][DEBUG][ObjetController.java:153] - user004
+[17:22:48][DEBUG][ObjetController.java:154] - user005
+[17:22:48][DEBUG][ObjetController.java:176] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EA%B0%90%EB%8F%99%EC%A0%81%EC%9D%B8+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051727.jpg","nickname":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84","revdate":2019-11-18,"userid":"user006","revstars":5,"revgood":7},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2}]
+[17:22:48][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:22:48][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:22:49][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:22:49][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[17:22:49][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:22:49][DEBUG][ObjetController.java:151] - user005
+[17:22:49][DEBUG][ObjetController.java:152] - user006
+[17:22:49][DEBUG][ObjetController.java:153] - user003
+[17:22:49][DEBUG][ObjetController.java:154] - user004
+[17:22:49][DEBUG][ObjetController.java:176] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2},{"revcontent":"%EA%B0%90%EB%8F%99%EC%A0%81%EC%9D%B8+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051727.jpg","nickname":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84","revdate":2019-11-18,"userid":"user006","revstars":5,"revgood":7},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5}]
+[17:22:49][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:22:49][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:22:58][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:22:58][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[17:22:58][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:22:58][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:23:00][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:44:24][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:44:24][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[17:44:24][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:44:24][DEBUG][ObjetController.java:151] - user003
+[17:44:24][DEBUG][ObjetController.java:152] - user006
+[17:44:24][DEBUG][ObjetController.java:153] - user004
+[17:44:24][DEBUG][ObjetController.java:154] - user005
+[17:44:24][DEBUG][ObjetController.java:176] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EA%B0%90%EB%8F%99%EC%A0%81%EC%9D%B8+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051727.jpg","nickname":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84","revdate":2019-11-18,"userid":"user006","revstars":5,"revgood":7},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2}]
+[17:44:24][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:44:24][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:51:43][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[17:51:48][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 4489 ms
+[17:51:48][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[17:51:53][INFO ][FrameworkServlet.java:546] - Completed initialization in 5731 ms
+[17:54:26][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:54:26][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[17:54:26][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:54:31][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:54:34][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:54:57][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:54:57][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[17:54:57][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:54:57][DEBUG][ObjetController.java:151] - user003
+[17:54:57][DEBUG][ObjetController.java:152] - user006
+[17:54:57][DEBUG][ObjetController.java:153] - user004
+[17:54:57][DEBUG][ObjetController.java:154] - user005
+[17:54:57][DEBUG][ObjetController.java:176] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EA%B0%90%EB%8F%99%EC%A0%81%EC%9D%B8+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051727.jpg","nickname":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84","revdate":2019-11-18,"userid":"user006","revstars":5,"revgood":7},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2}]
+[17:54:57][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:54:57][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:55:29][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:55:29][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[17:55:29][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:55:29][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:55:31][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:55:40][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:55:40][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[17:55:40][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:55:40][DEBUG][ObjetController.java:151] - user003
+[17:55:40][DEBUG][ObjetController.java:152] - user006
+[17:55:40][DEBUG][ObjetController.java:153] - user004
+[17:55:40][DEBUG][ObjetController.java:154] - user005
+[17:55:40][DEBUG][ObjetController.java:176] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EA%B0%90%EB%8F%99%EC%A0%81%EC%9D%B8+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051727.jpg","nickname":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84","revdate":2019-11-18,"userid":"user006","revstars":5,"revgood":7},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2}]
+[17:55:40][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:55:40][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:57:55][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:57:55][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[17:57:55][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:57:55][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:57:56][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[17:58:01][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[17:58:01][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[17:58:01][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[17:58:01][DEBUG][ObjetController.java:151] - user003
+[17:58:01][DEBUG][ObjetController.java:152] - user006
+[17:58:01][DEBUG][ObjetController.java:153] - user004
+[17:58:01][DEBUG][ObjetController.java:154] - user005
+[17:58:01][DEBUG][ObjetController.java:176] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EA%B0%90%EB%8F%99%EC%A0%81%EC%9D%B8+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051727.jpg","nickname":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84","revdate":2019-11-18,"userid":"user006","revstars":5,"revgood":7},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2}]
+[17:58:01][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[17:58:01][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[18:00:51][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[18:00:56][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 4663 ms
+[18:00:56][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[18:01:01][INFO ][FrameworkServlet.java:546] - Completed initialization in 5682 ms
+[18:01:02][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[18:01:02][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[18:01:02][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[18:01:04][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[18:01:06][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[18:01:13][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[18:01:13][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[18:01:13][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[18:01:13][DEBUG][ObjetController.java:151] - user003
+[18:01:13][DEBUG][ObjetController.java:152] - user006
+[18:01:13][DEBUG][ObjetController.java:153] - user004
+[18:01:13][DEBUG][ObjetController.java:154] - user005
+[18:01:13][DEBUG][ObjetController.java:176] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EA%B0%90%EB%8F%99%EC%A0%81%EC%9D%B8+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051727.jpg","nickname":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84","revdate":2019-11-18,"userid":"user006","revstars":5,"revgood":7},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2}]
+[18:01:13][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[18:01:13][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[18:05:26][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[18:05:26][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[18:05:26][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[18:05:26][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[18:05:26][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[18:05:42][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[18:05:42][DEBUG][LoggerInterceptor.java:23] - /objet/main.do
+[18:05:42][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[18:05:42][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[18:05:42][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[18:05:46][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[18:05:46][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[18:05:46][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[18:05:46][WARN ][AbstractHandlerExceptionResolver.java:197] - Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: ""]
+[18:05:46][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[18:05:50][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[18:05:50][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[18:05:50][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[18:05:50][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[18:05:50][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[18:05:53][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[18:05:53][DEBUG][LoggerInterceptor.java:23] - /objet/objetAllList.do
+[18:05:53][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[18:05:53][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[18:05:54][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[18:06:26][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[18:06:26][DEBUG][LoggerInterceptor.java:23] - /objet/artistAllList.do
+[18:06:26][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[18:06:26][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[18:06:28][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[18:07:42][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[18:07:42][DEBUG][LoggerInterceptor.java:23] - /objet/artistOrder.do
+[18:07:42][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[18:07:43][DEBUG][ObjetController.java:86] - user004
+[18:07:43][DEBUG][ObjetController.java:87] - user002
+[18:07:43][DEBUG][ObjetController.java:88] - user005
+[18:07:43][DEBUG][ObjetController.java:89] - user005
+[18:07:43][DEBUG][ObjetController.java:108] - [{"usertag":"%ED%9A%8C%ED%99%94","userintrol":"%0A%EC%95%88%EB%85%95%ED%95%98%EC%84%B8%EC%9A%94.%3Cbr%3E%ED%8F%AC%EB%A0%88%EC%8A%A4%ED%85%94%EB%9D%BC+%EC%A1%B0%EB%AF%BC%EA%B7%9C%EC%98%88%EC%9A%94%21","renamemainposter":"201911090326.jpg","nickname":"%EB%B0%8D%ED%81%90","userrpic":"201912051725.png","userintros":"%ED%8F%AC%EB%A0%88%EC%8A%A4%ED%85%94%EB%9D%BC"},{"usertag":"%EB%94%94%EC%9E%90%EC%9D%B8%2C%EA%B8%B0%ED%83%80","userintrol":"2016%EB%85%84+%ED%94%84%EB%9E%91%EC%8A%A4%EC%97%90%EC%84%9C+%EC%97%B4%EB%A6%B0+%ED%88%B4%EB%A3%A8%EC%A6%88+%EA%B5%AD%EC%A0%9C%EC%84%B1%EC%95%85+%EC%BD%A9%EC%BF%A0%EB%A5%B4%EC%97%90%EC%84%9C%EB%8A%94+%EC%84%B8%EB%AF%B8%ED%8C%8C%EC%9D%B4%EB%84%90%EB%A6%AC%EC%8A%A4%ED%8A%B8%EB%A1%9C+%EC%A7%84%EC%B6%9C%ED%96%88%EA%B3%A0+%EA%B5%AD%EB%82%B4%EC%97%90%EC%84%A0+%EC%A0%9C25%ED%9A%8C+%EC%8A%88%EB%B2%A0%EB%A5%B4%ED%8A%B8+%EA%B0%80%EA%B3%A1+%EC%BD%A9%EC%BF%A0%EB%A5%B4+2%EC%9C%84%2C+%0A%EC%A0%9C8%ED%9A%8C+%EC%A0%84%EA%B5%AD+%EB%8F%85%EC%9D%BC+%EA%B0%80%EA%B3%A1+%EC%BD%A9%EC%BF%A0%EB%A5%B42%EC%9C%84%2C+%EC%A0%9C52%ED%9A%8C+%EA%B3%84%EB%AA%85%EB%8C%80%ED%95%99%EA%B5%90%EC%BD%A9%EC%BF%A0%EB%A5%B4+1%EC%9C%84%2C+%EC%A0%9C20%ED%9A%8C+%EB%8C%80%EA%B5%AC%EC%9D%8C%EC%95%85%ED%98%91%ED%9A%8C+%EC%A0%84%EA%B5%AD%EC%9D%8C%EC%95%85%EC%BD%A9%EC%BF%A0%EB%A5%B4+1%EC%9C%84%2C+%EC%A0%9C15%ED%9A%8C+%EC%97%84%EC%A0%95%ED%96%89+%EC%84%B1%EC%95%85+%EC%BD%A9%EC%BF%A0%EB%A5%B4+%EC%9E%85%EC%83%81%2C+%0A%EC%A0%9C2%ED%9A%8C+%ED%8C%8C%ED%8C%8C%EB%A1%9C%ED%8B%B0+%EC%84%B1%EC%95%85%EC%BD%A9%EC%BF%A0%EB%A5%B4+2%EC%9C%84%2C+%EC%A0%9C23%ED%9A%8C+%EC%84%B1%EC%A0%95%EC%A0%84%EA%B5%AD%EC%9D%8C%EC%95%85%EC%BD%A9%EC%BF%A0%EB%A5%B4%EC%97%90%EC%84%9C+%EC%98%88%EC%86%A1%EC%9D%8C%EC%95%85%EC%83%81%EC%9D%84+%EC%88%98%EC%83%81%ED%95%98%EB%8A%94+%EB%93%B1+%EB%8B%A4%EC%96%91%ED%95%9C+%EC%BD%A9%EC%BF%A0%EB%A5%B4%EC%97%90%EC%84%9C+%EC%9E%85%EC%83%81%ED%95%98%EC%98%80%EB%8B%A4.%3Cbr%3E2016%EB%85%84%EC%97%90+%EC%82%BC%EC%9D%B5+%EC%9E%A5%ED%95%99%EC%9E%AC%EB%8B%A8%EC%97%90%EC%84%9C+%EC%B4%88%EC%B2%AD%EB%B0%9B%EC%95%84+%0A%EB%8F%85%EC%B0%BD%ED%9A%8C%EB%A5%BC+%EA%B0%80%EC%A1%8C%EC%9C%BC%EB%A9%B0%2C+2017%EB%85%84+%EC%84%9C%EC%9A%B8%EB%8C%80%ED%95%99%EA%B5%90+%EC%A0%95%EA%B8%B0%EC%98%A4%ED%8E%98%EB%9D%BC+%3C%EB%8F%88+%EC%A1%B0%EB%B0%98%EB%8B%88%3E+%EC%9D%BC+%EC%BD%94%EB%A9%98%EB%8B%A4%ED%86%A0%EB%A0%88+%EC%97%AD%2C+2018%EB%85%84+%EC%98%A4%ED%8E%98%EB%9D%BC+%EC%BD%9C%EB%9D%BC%EC%A3%BC+%3C%EC%B9%B4%EC%82%AC%EB%85%B8%EB%B0%94+%EA%B8%B8%EB%93%A4%EC%9D%B4%EA%B8%B0%3E%EC%97%90%EC%84%9C+%EC%8B%A0%EB%B6%80%EB%8B%98+%EC%97%AD%EC%9C%BC%EB%A1%9C+%EC%B6%9C%EC%97%B0%ED%95%98%EC%98%80%EA%B3%A0%2C+%0A%EC%98%A4%ED%8E%98%EB%9D%BC+%EC%BD%98%EC%B2%B4%EB%A5%B4%ED%83%84%ED%85%8C+%3C%EB%8F%88+%EC%A1%B0%EB%B0%98%EB%8B%88%3E+%EC%9D%BC+%EC%BD%94%EB%A9%98%EB%8B%A4%ED%86%A0%EB%A0%88+%EC%97%AD%EC%9C%BC%EB%A1%9C+%EC%98%88%EC%88%A0%EC%9D%98%EC%A0%84%EB%8B%B9+%EC%BD%98%EC%84%9C%ED%8A%B8%ED%99%80+%EB%AC%B4%EB%8C%80%EC%97%90+%EC%98%AC%EB%9E%90%EB%8B%A4.","renamemainposter":null,"nickname":"%EC%9A%B0%EB%A6%AC%EB%AF%B8","userrpic":"201912051723.JPG","userintros":"%ED%8F%AC%EB%A0%88%EC%8A%A4%ED%85%94%EB%9D%BC"},{"usertag":"%EC%82%AC%EC%A7%84","userintrol":"Blueming%E2%99%A5","renamemainposter":"201910312341.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","userrpic":"201912051726.jpg","userintros":"%EC%95%84%ED%8B%B0%EC%8A%A4%ED%8A%B8"},{"usertag":"%EC%82%AC%EC%A7%84","userintrol":"Blueming%E2%99%A5","renamemainposter":"201912032341.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","userrpic":"201912051726.jpg","userintros":"%EC%95%84%ED%8B%B0%EC%8A%A4%ED%8A%B8"},{"usertag":"%EC%82%AC%EC%A7%84","userintrol":"Blueming%E2%99%A5","renamemainposter":"201910062041.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","userrpic":"201912051726.jpg","userintros":"%EC%95%84%ED%8B%B0%EC%8A%A4%ED%8A%B8"},{"usertag":"%EC%82%AC%EC%A7%84","userintrol":"Blueming%E2%99%A5","renamemainposter":"201911090326.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","userrpic":"201912051726.jpg","userintros":"%EC%95%84%ED%8B%B0%EC%8A%A4%ED%8A%B8"},{"usertag":"%EC%82%AC%EC%A7%84","userintrol":"Blueming%E2%99%A5","renamemainposter":"201912032341.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","userrpic":"201912051726.jpg","userintros":"%EC%95%84%ED%8B%B0%EC%8A%A4%ED%8A%B8"},{"usertag":"%EC%82%AC%EC%A7%84","userintrol":"iS+iT+TOMORROW+YET%3F%3Cbr%3EClosed+for+holidays%2C+back+tomorrow.%3Cbr%3E%0A%EC%BD%94%EC%BD%94+%EC%B9%B4%ED%94%BC%ED%83%84%28Coco+Capit%C3%A1n%2C+1992%EB%85%84+%EC%8A%A4%ED%8E%98%EC%9D%B8+%EC%B6%9C%EC%83%9D%29%EC%9D%80+%EB%9F%B0%EB%8D%98%EC%9D%84+%EA%B8%B0%EB%B0%98%EC%9C%BC%EB%A1%9C+%ED%99%9C%EB%8F%99%ED%95%98%EB%8A%94%3Cbr%3E%0A%ED%8F%AC%ED%86%A0%EA%B7%B8%EB%9E%98%ED%8D%BC%EC%9D%B4%EC%9E%90+%EC%95%84%ED%8B%B0%EC%8A%A4%ED%8A%B8%EB%A1%9C%2C+%EB%9F%B0%EB%8D%98%ED%8C%A8%EC%85%98%EB%8C%80%ED%95%99%28London+College+of+Fashion%29%EC%97%90%EC%84%9C+%ED%8C%A8%EC%85%98+%EC%82%AC%EC%A7%84%EC%9D%84+%EC%A0%84%EA%B3%B5%ED%95%98%EA%B3%A0%2C+%EC%98%81%EA%B5%AD+%EC%99%95%EB%A6%BD%EC%98%88%EC%88%A0%ED%95%99%EA%B5%90+%28Royal+College+of+Art%29%EC%97%90%EC%84%9C+%EC%82%AC%EC%A7%84%ED%95%99+%EC%84%9D%EC%82%AC%EB%A5%BC+%EC%A1%B8%EC%97%85%ED%95%98%EC%98%80%EB%8B%A4.%3Cbr%3E%0A%EC%9E%91%EA%B0%80%EB%8A%94+%ED%8A%B9%EC%9C%A0%EC%9D%98+%EA%BE%B8%EB%B0%88%EC%97%86%EB%8A%94+%EC%86%94%EC%A7%81%ED%95%A8%EA%B3%BC+%EC%9E%90%EC%9C%A0%EB%A1%9C%EC%9B%80%EC%9C%BC%EB%A1%9C+%EC%82%AC%EC%A7%84%2C+%ED%8E%98%EC%9D%B8%ED%8C%85%2C+%EB%B2%BD%ED%99%94%2C+%ED%95%B8%EB%93%9C%EB%9D%BC%EC%9D%B4%ED%8C%85%2C+%EC%98%81%EC%83%81%2C+%EC%84%A4%EC%B9%98+%EB%93%B1%EC%9D%84+%EC%84%A0%EB%B3%B4%EC%9D%B4%EB%A9%B0+%3C%EB%B3%B4%EA%B7%B8%28Vogue%29%3E%2C+%3C%EB%8D%B0%EC%9D%B4%EC%A6%88%EB%93%9C%28Dazed%29%3E%2C+%E2%80%98%EB%A9%80%EB%B2%84%EB%A6%AC%28Mulberry%29%E2%80%99%2C%3Cbr%3E%0A%E2%80%98%EB%A9%94%EC%A2%85+%EB%A7%88%EB%A5%B4%ED%8B%B4+%EB%A7%88%EB%A5%B4%EC%A7%80%EC%97%98%EB%9D%BC%28Maison+Martin+Margiela%29%E2%80%99%2C+%E2%80%98%EC%BB%A8%EB%B2%84%EC%8A%A4%28Converse%29%E2%80%99+%EB%93%B1+%EC%84%B8%EA%B3%84+%EC%9C%A0%EB%AA%85+%ED%8C%A8%EC%85%98+%EB%B8%8C%EB%9E%9C%EB%93%9C+%EB%B0%8F+%EB%A7%A4%EA%B1%B0%EC%A7%84%EA%B3%BC%EC%9D%98+%ED%99%94%EB%B3%B4%EC%B4%AC%EC%98%81%EC%9D%84+%EC%A7%84%ED%96%89%ED%95%98%EC%98%80%EA%B3%A0%2C%3Cbr%3E%0A%EC%A7%80%EB%82%9C+%ED%95%B4+%EA%B5%AC%EC%B0%8C%28Gucci%29%EC%9D%98+%E2%80%98Young+Art+Star%E2%80%99%EB%A1%9C+%EC%A7%80%EB%AA%A9%EB%90%98%EC%96%B4%3Cbr%3E%0A%EC%95%84%ED%8B%B0%EC%8A%A4%ED%8A%B8%EB%A1%9C%EC%84%9C%EC%9D%98+%EA%B0%80%EB%8A%A5%EC%84%B1%EC%9D%84+%EC%84%B1%EA%B3%B5%EC%A0%81%EC%9C%BC%EB%A1%9C+%EC%9E%85%EC%A6%9D%ED%95%98%EC%98%80%EB%8B%A4.+%EC%97%B0%EC%9D%B4%EC%96%B4+%EA%B7%B8%EB%85%80%EC%9D%98+%EC%9E%91%ED%92%88%EC%9D%80+%EB%89%B4%EC%9A%95%EA%B3%BC+%EB%B0%80%EB%9D%BC%EB%85%B8%2C+%ED%94%BC%EB%A0%8C%EC%B2%B4%2C+%EB%A7%88%EC%9D%B4%EC%95%A0%EB%AF%B8%EC%9D%98+%EA%B5%AC%EC%B0%8C+%EA%B1%B4%EB%AC%BC%EA%B3%BC+%EC%99%B8%EB%B2%BD%EC%9D%84+%EC%9E%A5%EC%8B%9D%ED%95%98%EC%98%80%EC%9C%BC%EB%A9%B0%2C+%EC%95%84%ED%8A%B8+%EB%B0%94%EC%A0%A4+%EB%A7%88%EC%9D%B4%EC%95%A0%EB%AF%B8%28Art+Basel+Miami+2017%29%EC%97%90+%EC%B4%88%EB%8C%80%EB%90%98%EC%96%B4%3Cbr%3E%0A%EB%8B%A8%ED%8E%B8+%EC%98%81%ED%99%94+%E2%80%98Learning+to+Transcend+the+Physical+Barriers+that+Owning+a+Body+Implies%E2%80%99%EB%A5%BC+%EA%B0%9C%EB%B4%89%ED%95%9C+%EB%B0%94+%EC%9E%88%EB%8B%A4.%3Cbr%3E%0A%EB%98%90%ED%95%9C+2015%EB%85%84+%EC%98%81%EA%B5%AD+%EB%9F%B0%EB%8D%98+%ED%8F%AC%ED%86%A0%EA%B7%B8%EB%9E%98%ED%8D%BC%EC%8A%A4+%EA%B0%A4%EB%9F%AC%EB%A6%AC%EC%97%90%EC%84%9C+FF%2BWE+Prize%EB%A5%BC+%EC%88%98%EC%83%81%ED%95%98%EC%98%80%EC%9C%BC%EB%A9%B0%2C%3Cbr%3E%0A2016%EB%85%84+%ED%94%84%EB%9E%91%EC%8A%A4+%EC%98%88%EB%A5%B4+%ED%8C%A8%EC%85%98+%26+%ED%8F%AC%ED%86%A0%EA%B7%B8%EB%9E%98%ED%94%BC+%ED%8E%98%EC%8A%A4%ED%8B%B0%EB%B2%8C%28Hy%C3%A8res+Fashion+%26+Photography+Festival%29%EC%9D%98+%EC%8B%AC%EC%82%AC%EC%9C%84%EC%9B%90%EC%9C%BC%EB%A1%9C+%EC%9C%84%EC%B4%89%EB%90%98%EB%8A%94+%EB%93%B1+%EC%9E%AC%EB%8A%A5%EA%B3%BC+%EC%8B%A4%EB%A0%A5%EC%9D%84+%EA%B2%B8%EB%B9%84%ED%95%9C+%EC%95%84%ED%8B%B0%EC%8A%A4%ED%8A%B8%EB%A1%9C%EC%84%9C+%EC%97%B0%EC%9D%BC+%EC%83%88%EB%A1%9C%EC%9A%B4+%ED%96%89%EB%B3%B4%EB%A5%BC+%EB%B3%B4%EC%97%AC%EC%A3%BC%EA%B3%A0+%EC%9E%88%EB%8B%A4.","renamemainposter":"201910312341.jpg","nickname":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84","userrpic":"201912051727.jpg","userintros":"%EC%82%AC%EC%A7%84%EC%9E%91%EA%B0%80"},{"usertag":"%EA%B1%B4%EC%B6%95%2C%EC%A1%B0%EA%B0%81","userintrol":"%ED%99%94%ED%95%99%EA%B3%B5%ED%95%99+%ED%95%99%ED%9A%8C%EC%A7%80%EC%97%90+%EB%85%BC%EB%AC%B8%EC%9D%84+%EA%B2%8C%EC%9E%AC%ED%95%A0+%EC%A0%95%EB%8F%84%EB%A1%9C+%EC%B2%9C%EC%83%81+%EC%97%B0%EA%B5%AC%EC%9B%90%EC%9D%B4%EC%97%88%EC%A7%80%EB%A7%8C%2C+%EC%9D%8C%EC%95%85%EC%97%90+%EB%8C%80%ED%95%9C+%EB%AF%B8%EB%A0%A8%EC%9D%84+%EB%B2%84%EB%A6%B4+%EC%88%98+%EC%97%86%EC%96%B4+%0A%EC%A7%81%EC%9E%A5%EC%9D%B8%EB%B0%B4%EB%93%9C+PITTA%28%ED%94%BC%ED%83%80%29%EC%97%90%EC%84%9C+%EA%BE%B8%EC%A4%80%ED%9E%88+%ED%99%9C%EB%8F%99%ED%95%B4%EC%99%94%EB%8B%A4.+%EC%9D%B4+%ED%8C%80%EC%9D%80+%EB%B6%80%EC%82%B0+%EC%A7%80%EC%97%AD%EC%97%90%EC%84%9C%EB%8A%94+%EA%BD%A4+%EC%9C%A0%EB%AA%85%ED%95%9C+%ED%8C%80%EC%9C%BC%EB%A1%9C%2C+2016%EB%85%84+%EB%B6%80%EC%82%B0%EC%A7%81%EC%9E%A5%EC%9D%B8%EB%B0%B4%EB%93%9C%EB%8C%80%ED%9A%8C%EC%97%90%EC%84%9C+%EC%9A%B0%EC%8A%B9%EC%9D%84+%EC%B0%A8%EC%A7%80%ED%96%88%EB%8B%A4.+%EB%AC%B4%EB%8C%80%EC%97%90+%EC%84%9C%EB%A9%B4+%EC%97%84%EC%B2%AD%EB%82%9C+%0A%EC%B9%B4%EB%A6%AC%EC%8A%A4%EB%A7%88%EB%A5%BC+%EB%BD%90%EB%82%B4%EC%A7%80%EB%A7%8C%2C+%EB%AC%B4%EB%8C%80+%EB%B0%96%EC%97%90%EC%84%9C%EB%8A%94+%EC%B0%A8%EC%A7%84+%EA%B2%BD%EC%83%81%EB%8F%84+%EC%82%AC%ED%88%AC%EB%A6%AC%EA%B0%80+%EC%B9%9C%EA%B7%BC%ED%95%9C+%EC%98%86%EC%A7%91+%EC%98%A4%EB%B9%A0+%EA%B0%99%EC%9D%80+%EC%BA%90%EB%A6%AD%ED%84%B0%EC%9D%B4%EB%8B%A4.","renamemainposter":null,"nickname":"%ED%81%AC%EB%A6%AC","userrpic":"201912051722.JPG","userintros":"%ED%8F%AC%EB%A0%88%EC%8A%A4%ED%85%94%EB%9D%BC"},{"usertag":"%EC%82%AC%EC%A7%84","userintrol":"%EC%95%88%EB%85%95%ED%95%98%EC%84%B8%EC%9A%94.%3Cbr%3E%EB%B0%B0%EB%91%90%ED%9B%88%EC%9E%85%EB%8B%88%EB%8B%A4.","renamemainposter":null,"nickname":"%ED%9B%84%EB%8B%88","userrpic":"201912051724.png","userintros":"%ED%8F%AC%EB%A0%88%EC%8A%A4%ED%85%94%EB%9D%BC"}]
+[18:07:43][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[18:07:43][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:41:15][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:41:15][DEBUG][LoggerInterceptor.java:23] - /objet/objetAllList.do
+[20:41:15][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:41:15][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:41:15][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[20:41:19][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[20:41:19][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[20:41:19][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[20:41:19][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[20:41:19][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:43:50][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[22:44:02][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 12058 ms
+[22:44:02][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[22:44:14][INFO ][FrameworkServlet.java:546] - Completed initialization in 11550 ms
+[22:44:24][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:44:24][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[22:44:24][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:44:30][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:44:31][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:49:39][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:49:39][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[22:49:39][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:49:39][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:49:40][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:49:52][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:49:52][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[22:49:52][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:49:53][DEBUG][ObjetController.java:152] - user003
+[22:49:53][DEBUG][ObjetController.java:153] - user004
+[22:49:53][DEBUG][ObjetController.java:154] - user005
+[22:49:53][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:50:04][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:50:04][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[22:50:04][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:50:04][DEBUG][ObjetController.java:152] - user005
+[22:50:04][DEBUG][ObjetController.java:153] - user003
+[22:50:04][DEBUG][ObjetController.java:154] - user004
+[22:50:04][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:54:08][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:54:08][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[22:54:08][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:54:08][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:54:08][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:55:02][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:55:02][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[22:55:02][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:55:02][DEBUG][ObjetController.java:152] - user003
+[22:55:02][DEBUG][ObjetController.java:153] - user004
+[22:55:02][DEBUG][ObjetController.java:154] - user002
+[22:55:02][DEBUG][ObjetController.java:155] - user005
+[22:55:02][DEBUG][ObjetController.java:177] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5},{"revcontent":"%EA%B0%84%EB%A7%8C%EC%97%90+%EB%A7%98%EC%97%90+%EB%93%9C%EB%8A%94+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051723.JPG","nickname":"%EC%9A%B0%EB%A6%AC%EB%AF%B8","revdate":2019-01-01,"userid":"user002","revstars":4,"revgood":4},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2}]
+[22:55:02][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:55:02][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:57:37][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:57:37][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[22:57:37][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:57:37][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:57:37][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:57:42][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:57:42][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[22:57:42][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:57:42][DEBUG][ObjetController.java:152] - user003
+[22:57:42][DEBUG][ObjetController.java:153] - user004
+[22:57:42][DEBUG][ObjetController.java:154] - user002
+[22:57:42][DEBUG][ObjetController.java:155] - user005
+[22:57:42][DEBUG][ObjetController.java:177] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5},{"revcontent":"%EA%B0%84%EB%A7%8C%EC%97%90+%EB%A7%98%EC%97%90+%EB%93%9C%EB%8A%94+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051723.JPG","nickname":"%EC%9A%B0%EB%A6%AC%EB%AF%B8","revdate":2019-01-01,"userid":"user002","revstars":4,"revgood":4},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2}]
+[22:57:42][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:57:42][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:57:51][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:57:51][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[22:57:51][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:57:51][DEBUG][ObjetController.java:152] - user005
+[22:57:51][DEBUG][ObjetController.java:153] - user003
+[22:57:51][DEBUG][ObjetController.java:154] - user004
+[22:57:51][DEBUG][ObjetController.java:155] - user002
+[22:57:51][DEBUG][ObjetController.java:177] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5},{"revcontent":"%EA%B0%84%EB%A7%8C%EC%97%90+%EB%A7%98%EC%97%90+%EB%93%9C%EB%8A%94+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051723.JPG","nickname":"%EC%9A%B0%EB%A6%AC%EB%AF%B8","revdate":2019-01-01,"userid":"user002","revstars":4,"revgood":4}]
+[22:57:51][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:57:51][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:58:24][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[22:58:30][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 5649 ms
+[22:58:30][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[22:58:36][INFO ][FrameworkServlet.java:546] - Completed initialization in 6092 ms
+[22:58:36][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:58:36][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[22:58:36][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:58:38][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:58:39][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:59:05][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:59:05][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[22:59:05][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:59:06][DEBUG][ObjetController.java:152] - user003
+[22:59:06][DEBUG][ObjetController.java:153] - user004
+[22:59:06][DEBUG][ObjetController.java:154] - user002
+[22:59:06][DEBUG][ObjetController.java:155] - user005
+[22:59:06][DEBUG][ObjetController.java:177] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5},{"revcontent":"%EA%B0%84%EB%A7%8C%EC%97%90+%EB%A7%98%EC%97%90+%EB%93%9C%EB%8A%94+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051723.JPG","nickname":"%EC%9A%B0%EB%A6%AC%EB%AF%B8","revdate":2019-01-01,"userid":"user002","revstars":4,"revgood":4},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2}]
+[22:59:06][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:59:06][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[22:59:11][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[22:59:11][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[22:59:11][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[22:59:11][DEBUG][ObjetController.java:152] - user005
+[22:59:11][DEBUG][ObjetController.java:153] - user003
+[22:59:11][DEBUG][ObjetController.java:154] - user004
+[22:59:11][DEBUG][ObjetController.java:155] - user002
+[22:59:11][DEBUG][ObjetController.java:177] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5},{"revcontent":"%EA%B0%84%EB%A7%8C%EC%97%90+%EB%A7%98%EC%97%90+%EB%93%9C%EB%8A%94+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051723.JPG","nickname":"%EC%9A%B0%EB%A6%AC%EB%AF%B8","revdate":2019-01-01,"userid":"user002","revstars":4,"revgood":4}]
+[22:59:11][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[22:59:11][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:01:13][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:01:13][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[23:01:13][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:01:13][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:01:13][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:01:41][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:01:41][DEBUG][LoggerInterceptor.java:23] - /objet/main.do
+[23:01:41][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:01:41][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:01:41][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:03:45][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:03:45][DEBUG][LoggerInterceptor.java:23] - /objet/objetSearchList.do
+[23:03:45][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:03:45][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:03:45][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:03:57][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:03:57][DEBUG][LoggerInterceptor.java:23] - /objet/objetAllList.do
+[23:03:57][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:03:57][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:03:58][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:04:10][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:04:10][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[23:04:10][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:04:10][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:04:11][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:04:16][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:04:16][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[23:04:16][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:04:17][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:04:17][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:04:21][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:04:21][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[23:04:21][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:04:22][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:04:22][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:05:13][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:05:13][DEBUG][LoggerInterceptor.java:23] - /objet/moveLogin.do
+[23:05:13][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:05:13][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:05:14][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:05:27][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:05:27][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[23:05:27][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:05:27][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:05:27][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:05:41][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:05:41][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[23:05:41][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:05:41][DEBUG][ObjetController.java:152] - user003
+[23:05:41][DEBUG][ObjetController.java:153] - user004
+[23:05:41][DEBUG][ObjetController.java:154] - user002
+[23:05:41][DEBUG][ObjetController.java:155] - user005
+[23:05:41][DEBUG][ObjetController.java:177] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5},{"revcontent":"%EA%B0%84%EB%A7%8C%EC%97%90+%EB%A7%98%EC%97%90+%EB%93%9C%EB%8A%94+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051723.JPG","nickname":"%EC%9A%B0%EB%A6%AC%EB%AF%B8","revdate":2020-01-01,"userid":"user002","revstars":4,"revgood":4},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2}]
+[23:05:41][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:05:41][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:10:05][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:10:05][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[23:10:05][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:10:05][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:10:07][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:10:24][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:10:24][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[23:10:24][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:10:24][DEBUG][ObjetController.java:152] - user003
+[23:10:24][DEBUG][ObjetController.java:153] - user004
+[23:10:24][DEBUG][ObjetController.java:154] - user002
+[23:10:24][DEBUG][ObjetController.java:155] - user005
+[23:10:24][DEBUG][ObjetController.java:177] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5},{"revcontent":"%EA%B0%84%EB%A7%8C%EC%97%90+%EB%A7%98%EC%97%90+%EB%93%9C%EB%8A%94+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051723.JPG","nickname":"%EC%9A%B0%EB%A6%AC%EB%AF%B8","revdate":2020-01-01,"userid":"user002","revstars":4,"revgood":4},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2}]
+[23:10:24][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:10:24][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:11:27][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:11:27][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[23:11:27][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:11:29][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:11:36][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:11:53][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:11:53][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[23:11:53][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:11:53][DEBUG][ObjetController.java:152] - user003
+[23:11:54][DEBUG][ObjetController.java:153] - user004
+[23:11:54][DEBUG][ObjetController.java:154] - user002
+[23:11:54][DEBUG][ObjetController.java:155] - user005
+[23:11:54][DEBUG][ObjetController.java:177] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5},{"revcontent":"%EA%B0%84%EB%A7%8C%EC%97%90+%EB%A7%98%EC%97%90+%EB%93%9C%EB%8A%94+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051723.JPG","nickname":"%EC%9A%B0%EB%A6%AC%EB%AF%B8","revdate":2020-01-01,"userid":"user002","revstars":4,"revgood":4},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2}]
+[23:11:54][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:11:54][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:13:23][INFO ][ContextLoader.java:270] - Root WebApplicationContext: initialization started
+[23:13:35][INFO ][ContextLoader.java:306] - Root WebApplicationContext initialized in 12326 ms
+[23:13:36][INFO ][FrameworkServlet.java:524] - Initializing Servlet 'appServlet'
+[23:13:49][INFO ][FrameworkServlet.java:546] - Completed initialization in 13698 ms
+[23:13:50][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:13:50][DEBUG][LoggerInterceptor.java:23] - /objet/objetOne.do
+[23:13:50][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:13:52][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:13:52][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================
+[23:18:44][DEBUG][LoggerInterceptor.java:22] - =================== START ===================
+[23:18:44][DEBUG][LoggerInterceptor.java:23] - /objet/reviewOrder.do
+[23:18:44][DEBUG][LoggerInterceptor.java:24] - -----------------------------==--------------
+[23:18:45][DEBUG][ObjetController.java:152] - user003
+[23:18:45][DEBUG][ObjetController.java:153] - user004
+[23:18:45][DEBUG][ObjetController.java:154] - user002
+[23:18:45][DEBUG][ObjetController.java:155] - user005
+[23:18:45][DEBUG][ObjetController.java:177] - [{"revcontent":"%EB%84%88%EB%AC%B4+%EC%A2%8B%EC%95%98%EC%96%B4%EC%9A%94..+%EC%A0%84%EC%8B%9C+%EB%98%90+%EC%97%B4%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%21","revhate":0,"objetno":1,"userrpic":"201912051724.png","nickname":"%ED%9B%84%EB%8B%88","revdate":2019-11-16,"userid":"user003","revstars":5,"revgood":28},{"revcontent":"%EC%BD%94%EC%BD%94%EC%B9%B4%ED%94%BC%ED%83%84%2C+%ED%8C%AC%EC%9D%B4%EC%97%90%EC%9A%94%21%21%21","revhate":0,"objetno":1,"userrpic":"201912051725.png","nickname":"%EB%B0%8D%ED%81%90","revdate":2019-11-14,"userid":"user004","revstars":5,"revgood":5},{"revcontent":"%EA%B0%84%EB%A7%8C%EC%97%90+%EB%A7%98%EC%97%90+%EB%93%9C%EB%8A%94+%EC%A0%84%EC%8B%9C%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":0,"objetno":1,"userrpic":"201912051723.JPG","nickname":"%EC%9A%B0%EB%A6%AC%EB%AF%B8","revdate":2020-01-01,"userid":"user002","revstars":4,"revgood":4},{"revcontent":"%EB%84%88%EB%AC%B4+%EC%B6%94%EC%83%81%EC%A0%81%EC%9D%B4%EC%A7%80+%EC%95%8A%EC%95%98%EB%82%98..+%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4.","revhate":6,"objetno":1,"userrpic":"201912051726.jpg","nickname":"%EC%9D%B4%EC%A7%80%EA%B8%88","revdate":2019-11-24,"userid":"user005","revstars":3,"revgood":2}]
+[23:18:45][DEBUG][LoggerInterceptor.java:36] - ------------------- view -------------------
+[23:18:45][DEBUG][LoggerInterceptor.java:44] - ==================== END ====================

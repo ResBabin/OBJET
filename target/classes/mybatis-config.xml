@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE configuration PUBLIC
+"-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!-- alias별칭은 vo명과 동일하게 만들었음. -->
+	<typeAliases>
+		<typeAlias type="com.kh.objet.blacklist.model.vo.BlackList" alias="BlackList" />
+		<typeAlias type="com.kh.objet.faq.model.vo.Faq" alias="Faq" />
+		<typeAlias type="com.kh.objet.feed.model.vo.Feed" alias="Feed" />
+		<typeAlias type="com.kh.objet.follow.model.vo.Follower" alias="Follower" />
+		<typeAlias type="com.kh.objet.follow.model.vo.Following" alias="Following" />
+		<typeAlias type="com.kh.objet.follow.model.vo.Follow" alias="Follow" />
+		<typeAlias type="com.kh.objet.guestbook.model.vo.GbReply" alias="GbReply" />
+		<typeAlias type="com.kh.objet.guestbook.model.vo.GuestBook" alias="GuestBook" />
+		<typeAlias type="com.kh.objet.guestbook.model.vo.GB" alias="GB" />
+		<typeAlias type="com.kh.objet.likeobjet.model.vo.LikeObjet" alias="LikeObjet" />
+		<typeAlias type="com.kh.objet.likeobjet.model.vo.LikeObjet2" alias="LikeObjet2" />
+		<typeAlias type="com.kh.objet.notice.model.vo.Notice" alias="Notice" />
+		<typeAlias type="com.kh.objet.objet.model.vo.Objet" alias="Objet" />
+		<typeAlias type="com.kh.objet.objet.model.vo.Objet2" alias="Objet2" />
+		<typeAlias type="com.kh.objet.objet.model.vo.ObjetManagement" alias="Objetm" />
+		<typeAlias type="com.kh.objet.objet.model.vo.Artist" alias="Artist" />
+		<typeAlias type="com.kh.objet.objet.model.vo.Search" alias="Search" />
+		<typeAlias type="com.kh.objet.objet.model.vo.ReviewKey" alias="ReviewKey" />
+		<typeAlias type="com.kh.objet.qna.model.vo.Qna" alias="Qna" />
+		<typeAlias type="com.kh.objet.quit.model.vo.Quit" alias="Quit" />
+		<typeAlias type="com.kh.objet.quit.model.vo.Quit2" alias="Quit2" />
+		<typeAlias type="com.kh.objet.reportboard.model.vo.ReportBoard" alias="ReportBoard" />
+		<typeAlias type="com.kh.objet.reportudetail.model.vo.ReportUDetail" alias="ReportUDetail" />
+		<typeAlias type="com.kh.objet.review.model.vo.Review" alias="Review" />
+		<typeAlias type="com.kh.objet.review.model.vo.ReviewStatus" alias="ReviewStatus" />
+		<typeAlias type="com.kh.objet.users.model.vo.Users" alias="Users" />
+		<typeAlias type="com.kh.objet.usersprofile.model.vo.UsersProfile" alias="UsersProfile" />
+		<typeAlias type="com.kh.objet.visitedobjet.model.vo.VisitedObjet" alias="VisitedObjet" />
+		<typeAlias type="com.kh.objet.visitedobjet.model.vo.VisitedObjet2" alias="VisitedObjet2" />
+		<typeAlias type="com.kh.objet.users.model.vo.UserManagement" alias="Userm" />
+		<typeAlias type="com.kh.objet.calendar.model.vo.Calendar" alias="Calendar" />
+		<typeAlias type="com.kh.objet.users.model.vo.UAUP" alias="UAUP" />
+		<typeAlias type="com.kh.objet.objet.model.vo.Artist" alias="Artist" />
+		<typeAlias type="com.kh.objet.users.model.vo.LoginCount" alias="LoginCount" />
+		<typeAlias type="com.kh.objet.users.model.vo.LoginCount2" alias="LoginCount2" />
+		<typeAlias type="com.kh.objet.users.model.vo.EnrollCount" alias="EnrollCount" />
+		<typeAlias type="com.kh.objet.support.model.vo.ApplySupport" alias="ApplySupport" />
+		<typeAlias type="com.kh.objet.support.model.vo.MySupport" alias="MySupport" />
+		<typeAlias type="com.kh.objet.support.model.vo.RequestSupport" alias="RequestSupport" />
+	</typeAliases>
+	<mappers>
+
+	 	<mapper resource="mappers/user-mapper.xml" /> 
+	 	<mapper resource="mappers/objet-mapper.xml" /> 
+	 	<mapper resource="mappers/admin-mapper.xml" /> 
+	 	<mapper resource="mappers/calendar-mapper.xml"/>
+		<mapper resource="mappers/objet-mapper.xml"/>
+	 	<mapper resource="mappers/cs-mapper.xml"/>
+	 	<mapper resource="mappers/support-mapper.xml"/>
+	</mappers>
+</configuration>
