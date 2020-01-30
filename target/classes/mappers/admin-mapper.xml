@@ -1,0 +1,904 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminMapper">
+	<!-- =========회원============ -->
+	<!-- 회원 조회 -->
+	<!-- <select id="selectUsers" resultType="Userm"> select userid, nickname, 
+		username, blackyn, enrolldate, quityn, count(reportedu) as "reportcount" 
+		from users left join reportudetail on (userid = reportedu) where userid not 
+		like '%admin%' group by userid, nickname, username, blackyn, enrolldate, 
+		quityn order by userid </select> -->
+	<!-- <select id="selectUsers" resultType="Userm" parameterType="map"> select 
+		* from ( select * from ( select distinct userid, nickname, username, blackyn, 
+		enrolldate, quityn, reportedu, usertype, count(reportedu) as "reportcount" 
+		from users left join reportudetail on (userid = reportedu) group by userid, 
+		nickname, username, blackyn, enrolldate, quityn, reportedu, usertype order 
+		by userid asc) where usertype like '%USER%' ) <if test="startRow != null"> 
+		<![CDATA[where rownum >= #{startRow} and rownum <= #{endRow}]]> </if> </select> -->
+	<select id="selectUsers" resultType="Userm" parameterType="map">
+		select nickname ,username ,userid, enrolldate, blackyn, quityn,
+		usertype, "reportcount"
+		from (select nickname ,username ,userid, enrolldate, blackyn, quityn,
+		usertype,
+		count(reportedu) as "reportcount", row_number() over(order by userid asc) rnum from
+		users left join reportudetail on (userid = reportedu)
+		where usertype = 'USER' group by nickname, username, userid, enrolldate,
+		quityn, usertype, blackyn)
+		where rnum between #{startRow} and #{endRow}
+	</select>
+
+	<!-- 회원 타입별 조회 및 정렬 조회 -->
+	<select id="selectUserOrder" parameterType="map"
+		resultType="Userm">
+		select nickname ,username ,userid, enrolldate, blackyn, quityn,
+		usertype, "reportcount" from
+		(select nickname ,username ,userid, enrolldate, blackyn, quityn, usertype,
+		count(reportedu) as "reportcount"
+		, row_number() over(
+		<if test="order == null " >order by userid desc</if>
+		<if test="order != null">
+		<if test="order.equals('ida')">order by userid asc</if>
+		<if test="order.equals('idd')">order by userid desc</if>
+		<if test="order.equals('nicka')">order by nickname asc</if>
+		<if test="order.equals('nickd')">order by nickname desc</if>
+		<if test="order.equals('namea')">order by username asc</if>
+		<if test="order.equals('named')">order by username desc</if>
+		<if test="order.equals('enrolla')">order by enrolldate asc</if>
+		<if test="order.equals('enrolld')">order by enrolldate desc</if>
+		<if test="order.equals('reporta')">order by count(reportedu) asc, userid asc </if>
+		<if test="order.equals('reportd')">order by count(reportedu) desc, userid asc </if>
+		<if test="order.equals('quita')">order by quityn asc, userid asc </if>
+		<if test="order.equals('quitd')">order by quityn desc, userid asc </if>
+		</if>
+		) rnum from users
+		left join reportudetail on (userid = reportedu)
+		<where>
+		<if test="usertype != null">and usertype like '%'||#{ usertype }||'%' </if>
+		<if test="blackyn != null">and blackyn = 'Y'</if>
+		<if test="quityn != null">and quityn = 'Y'</if>
+		<if test="userid != null">and userid like '%'||#{ userid }||'%'</if>
+		<if test="nickname != null">and nickname like '%'||#{ nickname }||'%'</if>
+		</where>
+		group by nickname, username, userid, enrolldate, quityn, usertype,
+		blackyn)
+		where rnum between #{startRow} and #{endRow}
+	</select>
+	<select id="selectUserOrderCount" parameterType="map"
+		resultType="int">
+		select count(*) from users
+	<where>
+		<if test="usertype != null">and usertype like '%'||#{ usertype }||'%' </if>
+		<if test="blackyn != null">and blackyn = 'Y'</if>
+		<if test="quityn != null">and quityn = 'Y'</if>
+		<if test="userid != null">and userid like '%'||#{ userid }||'%'</if>
+		<if test="nickname != null">and nickname like '%'||#{ nickname }||'%'</if>
+		</where>
+	</select>
+
+	<select id="selectUserListCount" resultType="int">
+		select count(*) from
+		users where usertype like 'USER'
+	</select>
+
+	<select id="selectUserEnrollDate" resultType="Users">
+		select enrolldate
+		from users
+	</select>
+
+	<!-- 블랙리스트 조회 -->
+	<select id="selectBlacklist" resultType="Userm">
+		select * from blacklist
+		join users using (userid)
+		order by userid desc
+	</select>
+
+	<select id="selectBlacklistCount" resultType="_int">
+		select count(*) from users
+		<where>
+		blackyn = 'Y'
+		<if test="userid != null">and userid like '%'||#{ userid }||'%'</if>
+		<if test="nickname != null">and nickname like '%'||#{ nickname }||'%'</if>
+		</where>
+	</select>
+
+	<!-- 블랙리스트 정렬 조회 -->
+	<select id="selectBlacklistOrder" resultType="Userm"
+		parameterType="map">
+		select * from
+		(select nickname ,username ,userid, enrolldate, blackyn, quityn, usertype, blackstart, blackend
+		, row_number() over(
+		<if test="order == null " >order by userid desc</if>
+			<if test="order.equals('ida')">order by userid asc</if>
+			<if test="order.equals('idd')">order by  userid desc</if>
+			<if test="order.equals('nicka')">order by  nickname asc</if>
+			<if test="order.equals('nickd')">order by  nickname desc</if>
+			<if test="order.equals('namea')">order by  username asc</if>
+			<if test="order.equals('named')">order by  username desc</if>
+			<if test="order.equals('starta')">order by  blackstart asc</if>
+			<if test="order.equals('startd')">order by  blackstart desc</if>
+			<if test="order.equals('enda')">order by  blackend asc</if>
+			<if test="order.equals('endd')">order by  blackend desc</if>
+		) rnum from users
+			left join blacklist using (userid)
+		<where>
+		blackyn = 'Y'
+		<if test="userid != null">and userid like '%'||#{ userid }||'%'</if>
+		<if test="nickname != null">and nickname like '%'||#{ nickname }||'%'</if>
+		</where>
+		)
+		where rnum between #{startRow} and #{endRow}
+	</select>
+
+
+
+	<!-- 회원 상세 조회 -->
+	<select id="selectUserDetail" resultType="Userm"
+		parameterType="string">
+		select * from users
+		left join usersprofile using (userid)
+		left join blacklist using (userid)
+		where userid = #{value}
+	</select>
+
+	<!-- 회원 전시내역 조회 -->
+	<select id="selectUserObjet" resultType="Objet"
+		parameterType="string">
+		select * from objet
+		where userid = #{value}
+	</select>
+
+	<!-- 회원 신고내역 조회 -->
+	<select id="selectUserReport" resultType="ReportUDetail"
+		parameterType="string">
+		select * from reportudetail
+		where reportedu = #{value}
+	</select>
+
+	<!-- 회원 신고내역 카운트 및 사유 조회 -->
+	<select id="selectUserReportTotal" resultType="ReportUDetail"
+		parameterType="string">
+		select count(*) as "reportucount", reportureason
+		from
+		reportudetail
+		where reportedu = #{value}
+		group by reportureason
+	</select>
+
+	<!-- 회원 블랙리스트로 등록 -->
+	<insert id="insertBlackList" parameterType="map">
+		insert into blacklist values (
+		#{ userid }, sysdate,
+		<if test="blackend.equals('oneweek')">sysdate+7</if>
+		<if test="blackend.equals('twoweek')">sysdate+14</if>
+		<if test="blackend.equals('threeweek')">sysdate+21</if>
+		<if test="blackend.equals('onemonth')">sysdate+30</if>
+		<if test="blackend.equals('twomonth')">sysdate+60</if>
+		<if test="blackend.equals('threemonth')">sysdate+90</if>
+		, #{ blackreason }
+		)
+	</insert>
+	<!-- 블랙리스트 사유 피드알림 -->
+	<insert id="insertBlackFeed" parameterType="map">
+	insert into feed values (FEEDNO_SEQ.NEXTVAL, #{ userid }, #{ adminid }, 
+	<![CDATA['<font color="crimson">[블랙리스트]  &nbsp;&nbsp; ~ ' ||	]]>
+		<if test="blackend.equals('oneweek')">to_char( sysdate+7 )</if>
+		<if test="blackend.equals('twoweek')">to_char( sysdate+14 )</if>
+		<if test="blackend.equals('threeweek')">to_char( sysdate+21 )</if>
+		<if test="blackend.equals('onemonth')">to_char( sysdate+30 )</if>
+		<if test="blackend.equals('twomonth')">to_char( sysdate+60 )</if>
+		<if test="blackend.equals('threemonth')">to_char( sysdate+90 )</if>
+       <![CDATA[ || '  까지 블랙리스트로 등록되셨습니다. &nbsp;&nbsp; [사유] :  '|| #{blackreason}||'</font>']]>, 
+	sysdate)
+	</insert>
+	<!-- 블랙리스트 해지 알림 -->
+<insert id="insertBlackEndFeed" parameterType="map">
+	insert into feed values (FEEDNO_SEQ.NEXTVAL, #{ userid }, #{ adminid }, 
+	<![CDATA['<font color="crimson">[블랙리스트]  &nbsp;&nbsp; 블랙리스트에서 해제되셨습니다.</font>']]>, 
+	sysdate)
+	</insert>
+	<update id="updateBlackYN" parameterType="string">
+		update users set
+		blackyn = 'Y'
+		where userid = #{ value }
+	</update>
+	<!-- 이미 있는 블랙리스트 기간 연장하기 -->
+	<update id="updateBlackDate" parameterType="map">
+		update blacklist set blackend =
+		<if test="blackend.equals('oneweek')">sysdate+7</if>
+		<if test="blackend.equals('twoweek')">sysdate+14</if>
+		<if test="blackend.equals('threeweek')">sysdate+21</if>
+		<if test="blackend.equals('onemonth')">sysdate+30</if>
+		<if test="blackend.equals('twomonth')">sysdate+60</if>
+		<if test="blackend.equals('threemonth')">sysdate+90</if>
+		,
+		blackreason = #{ blackreason }
+		where userid = #{ userid }
+	</update>
+	<!-- 강제탈퇴 -->
+	<update id="updateQuitYN" parameterType="map">
+		update users set quityn
+		= 'Y'
+		where userid = #{ userid }
+	</update>
+
+	<insert id="insertQuit" parameterType="map">
+		insert into quit values (
+		#{ userid } , 'F', #{ quitreason }, sysdate
+		)
+	</insert>
+	<!-- 블랙리스트 해제 -->
+	<delete id="deleteBlackList" parameterType="string">
+		delete blacklist
+		where userid = #{ value }
+	</delete>
+	<update id="updateBlackEnd" parameterType="string">
+		update users set
+		blackyn = 'N'
+		where userid = #{ userid }
+	</update>
+
+	<!-- =========전시============ -->
+	<!-- 전시 전체 목록 조회 -->
+	<select id="selectAllObjet" resultType="Objet"
+		parameterType="map">
+		select *
+		from (select rownum rnum, objetno, objettitle, userid,
+		objetstartdate, objetenddate, objettag, publicyn, objetstatus,
+		objetregidate
+		from (select * from objet order by objetno desc)
+		order by objetno desc)
+		where rnum between #{startRow} and #{endRow}
+	</select>
+
+	<!-- 전시 상태별 조회 -->
+	<select id="selectStatusOrder" resultType="Objet"
+		parameterType="map">
+		select *
+		from (select rownum rnum, objetno, objettitle, userid,
+		objetstartdate, objetenddate, objettag, publicyn, objetstatus,
+		objetregidate
+		from (select * from objet
+		<if test="order.equals('ida')">order by userid asc</if>
+		<if test="order.equals('idd')">order by userid desc</if>
+		<if test="order.equals('titlea')">order by objettitle asc</if>
+		<if test="order.equals('titled')">order by objettitle desc</if>
+		<if test="order.equals('noa')">order by objetno asc</if>
+		<if test="order.equals('nod')">order by objetno desc</if>
+		<if test="order.equals('regia')">order by objetregidate asc</if>
+		<if test="order.equals('regid')">order by objetregidate desc</if>
+		<if test="order.equals('starta')">order by objetstartdate asc, userid asc </if>
+		<if test="order.equals('startd')">order by objetstartdate desc, userid asc </if>
+		)
+		<where>
+			<if test="objetstatus != null">and objetstatus = #{ objetstatus }</if>
+			<if test="publicyn != null">and publicyn = #{ publicyn }</if>
+			<if test="objettag != null">and objettag like '%'||#{ objettag }||'%'</if>
+			<if test="objettitle != null">and objettitle like '%'||#{ objettitle }||'%'</if>
+			<if test="userid != null">and userid like '%'||#{ userid }||'%'</if>
+		</where>
+
+		
+		)
+		where rnum between #{startRow} and #{endRow}
+
+	</select>
+
+	<select id="selectStatusOrderList" resultType="int"
+		parameterType="map">
+		select count(*) from objet
+		<where>
+			<if test="objetstatus != null">and objetstatus = #{ objetstatus }</if>
+			<if test="publicyn != null">and publicyn = #{ publicyn }</if>
+			<if test="objettag != null">and objettag like '%'||#{ objettag }||'%'</if>
+			<if test="objettitle != null">and objettitle like '%'||#{ objettitle }||'%'</if>
+			<if test="userid != null">and userid like '%'||#{ userid }||'%'</if>
+		</where>
+	</select>
+
+	<select id="selectObjetListCount" resultType="int">
+		select count(*)
+		from objet
+	</select>
+
+	<!-- 전시 상세 조회 -->
+	<select id="selectObjetOne" resultType="Objetm" parameterType="_int">
+		select *
+		from objet
+		join users using (userid)
+		where objetno = #{value}
+	</select>
+
+	<select id="selectObjetRequestList" resultType="Objet" parameterType="map">
+ 	select *
+		from (select rownum rnum, objetno, objettitle, userid,
+		objetstartdate, objetenddate, objettag, publicyn, objetstatus,
+		objetregidate
+		from (select * from objet order by objetno desc)
+		where publicyn = 'W' 
+		<if test="userid != null">userid = #{ userid }</if>
+		<if test="objettitle != null">objettitle = #{ objettitle }</if>
+		<if test="objettag != null">and objettag like '%'||#{ objettag }||'%'</if>
+		order by objetno desc)
+		where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="selectObjetRequestList2" resultType="Objet">
+ 	select *
+		from (select rownum rnum, objetno, objettitle, userid,
+		objetstartdate, objetenddate, objettag, publicyn, objetstatus,
+		objetregidate
+		from (select * from objet order by objetno desc)
+		where publicyn = 'W' 
+		order by objetno desc)
+		where rnum between 1 and 5
+
+	</select>
+	<select id="selectObjetRequestCount" parameterType="map" resultType="_int">
+	select count(*) from objet where publicyn = 'W'
+	<if test="userid != null">userid = #{ userid }</if>
+	<if test="objettitle != null">objettitle = #{ objettitle }</if>
+	<if test="objettag != null">and objettag like '%'||#{ objettag }||'%'</if>
+	</select>
+
+	<!-- 전시 승인 / 반려 -->
+	<update id="updateRequestStatus" parameterType="map">
+		update objet set
+		objetstatus = 'STANDBY', publicyn = #{ publicyn }
+		where objetno = ${ objetno }
+	</update>
+
+	<update id="updateObjetStop" parameterType="int">
+		update objet set
+		objetstatus = 'CLOSE'
+		where objetno = ${ value }
+	</update>
+
+	<!-- 전시시작일 하루남은 신청작 카운트-->
+	<select id="selectBeforeStart" resultType="int">
+		select count(*) from objet 
+	    where objetstartdate like sysdate + 1 and publicyn = 'W'
+	</select>
+
+	<!-- =========공지============ -->
+	<!-- 공지 목록 조회 -->
+	<select id="selectNoticeList" resultType="Notice"
+		parameterType="map">
+		select *
+		from (select rownum rnum, noticeno, noticetitle, adminid,
+		noticetype, noticedate, noticeofile
+		from (select * from notice) order by noticeno desc)
+		where rnum between #{ startRow } and #{ endRow } 
+	</select>
+
+	<!-- 공지 상세 조회 -->
+	<select id="selectNoticeDetail" resultType="Notice"
+		parameterType="_int">
+		select *
+		from (select rownum rnum, noticeno, noticetitle, noticetype,
+		noticedate, adminid, noticeofile, noticerfile, noticecontent
+		from
+		(select * from notice order by noticeno asc
+		))
+		where noticeno = #{ value }
+	</select>
+
+	<select id="selectNoticeCountAd" resultType="int"
+		parameterType="map">
+		select count(*) from notice
+	</select>
+
+	<select id="selectNextPrevNotice" parameterType="int"
+		resultType="Notice">
+		select *
+		from (select rownum rnum, noticeno, noticetitle
+		from (select * from
+		notice order by noticeno asc
+		))
+		where rnum = #{ value }
+	</select>
+
+	<delete id="deleteNoticeAd" parameterType="int">
+		delete from notice
+		where noticeno = #{ value }
+	</delete>
+ 
+	<update id="updateNoticeAd" parameterType="Notice">
+		update notice set noticetype = #{noticetype}, noticetitle = #{noticetitle}, noticecontent = #{noticecontent}, noticeofile = #{noticeofile}, noticerfile = #{noticerfile}
+		where noticeno = #{noticeno}
+	</update>
+
+	<insert id="insertNoticeAd" parameterType="Notice">
+		insert into notice values ( noticeno_seq.nextval, #{adminid}, #{noticetype}, #{noticetitle}, sysdate, #{noticecontent},
+		<if test="noticeofile != null">#{noticeofile},</if>
+		<if test="noticeofile == null">null,</if>
+		<if test="noticerfile != null">#{noticerfile}</if>
+		<if test="noticerfile == null">null</if>
+		)
+	</insert>
+	
+	<select id="selectNoticeSearchAd" parameterType="map" resultType="Notice">
+		select *
+		from (select rownum rnum, noticeno, noticetitle, adminid,
+		noticetype, noticedate, noticeofile
+		from (select * from notice order by noticeno desc) 
+		<where>
+		<if test="noticecontent != null">and noticecontent like '%'||#{noticecontent}||'%'</if>
+		<if test="noticetype != null">and noticetype like '%'||#{noticetype}||'%'</if>
+		<if test="noticetitle != null">and noticetitle like '%'||#{noticetitle}||'%'</if>
+		</where>
+		order by noticeno desc)
+		where rnum between #{ startRow } and #{ endRow }
+	</select>
+	
+	<select id="selectNoticeSearchAdCount" parameterType="map" resultType="int">
+	select count(*) from notice
+		<where>
+		<if test="noticecontent != null">and noticecontent like '%'||#{noticecontent}||'%'</if>
+		<if test="noticetype != null">and noticetype like '%'||#{noticetype}||'%'</if>
+		<if test="noticetitle != null">and noticetitle like '%'||#{noticetitle}||'%'</if>
+		</where>
+	</select>
+	
+	
+	<!-- =========QnA============ -->
+	<!-- QnA 목록 조회 -->
+	<select id="selectQnaListAd" resultType="Qna" parameterType="map">
+		select *
+		from (select rownum rnum, qnano, qnatype, adminid, userid,
+		qnatitle, questiondate, answerdate, qnaofile, qnaanswertype
+		from (select * from qna ) 
+		<where>
+		 <if test="qnaanswertype != null">qnaanswertype like '%'||#{qnaanswertype}||'%'</if>
+		 <if test="qnatitle != null">and qnatitle like '%'||#{qnatitle}||'%'</if>
+		 <if test="qnatype != null">and qnatype like '%'||#{qnatype}||'%'</if>
+		 <if test="userid != null">and userid like '%'||#{userid}||'%'</if>
+		</where>
+		order by qnano desc)
+		where rnum between #{ startRow } and #{ endRow }
+	</select>
+	<select id="selectQnaListAdmin5" resultType="Qna" parameterType="map">
+		select *
+		from (select rownum rnum, qnano, qnatype, adminid, userid,
+		qnatitle, questiondate, answerdate, qnaofile, qnaanswertype
+		from (select * from qna ) order
+		by qnano desc)
+		where rnum between 1 and 5
+	</select>
+
+	<!-- QnA 상세 조회 -->
+	<select id="selectQnaDetail" resultType="Qna"
+		parameterType="_int">
+		select *
+		from qna
+		where qnano = #{ value }
+	</select>
+	<select id="selectQnaCountAd" resultType="int" parameterType="map">
+		select count(*) from qna
+		<where>
+		 <if test="qnaanswertype != null">qnaanswertype like '%'||#{qnaanswertype}||'%'</if>
+		 <if test="qnatitle != null">and qnatitle like '%'||#{qnatitle}||'%'</if>
+		 <if test="qnatype != null">and qnatype like '%'||#{qnatype}||'%'</if>
+		 <if test="userid != null">and userid like '%'||#{userid}||'%'</if>
+		</where>
+	</select>
+	
+	<select id="selectQnaCountAnswer" resultType="int">
+		select count(*) from qna where qnaanswertype = 'Y'
+	</select>
+	
+	<!-- qna 답변 -->
+	<update id="updateQnaAnswer" parameterType="Qna">
+		update qna set adminid = #{ adminid } ,  	answerdate = sysdate, qnaanswertype = #{ qnaanswertype }, qnaanswer = #{ qnaanswer }
+		where qnano = #{ qnano } 
+	</update>
+
+	<!-- =========FAQ============ -->
+	<!-- FAQ 목록 조회 -->
+	<select id="selectFaqList" resultType="Faq" parameterType="map">
+		select *
+		from (select rownum rnum, faqno, adminid, faqtype, faqtitle
+		from (select * from faq order by faqno desc) 
+		<where>
+		<if test="faqcontent != null">and faqcontent like '%'||#{faqcontent}||'%'</if>
+		<if test="faqtype != null">and faqtype like '%'||#{faqtype}||'%'</if>
+		<if test="faqtitle != null">and faqtitle like '%'||#{faqtitle}||'%'</if>
+		</where>
+		order by faqno desc)
+		where rnum between #{ startRow } and #{ endRow }
+	</select>
+
+	<!-- FAQ 상세 조회 -->
+	<select id="selectFaqDetail" resultType="Faq" parameterType="_int">
+		select *
+		from (select rownum rnum, faqno, adminid, faqtype, faqtitle, faqcontent
+		from
+		(select * from faq order by faqno asc
+		))
+		where faqno = #{ value }
+	</select>
+		<select id="selectNextPrevFaq" parameterType="int" resultType="Faq">
+		select *
+		from (select rownum rnum, faqno, faqtitle
+		from (select * from
+		faq order by faqno asc
+		))
+		where rnum = #{ value }
+	</select>
+	<select id="selectFaqCountAd" resultType="int">
+		select count(*) from faq	
+	</select>
+	<insert id="insertFaqAd" parameterType="Faq">
+		insert into faq values(
+		FAQNO_SEQ.nextval, #{adminid}, #{faqtype}, #{faqtitle}, #{faqcontent}
+		)
+	</insert>
+	<delete id="deleteFaqAd" parameterType="string">
+		delete from faq where faqno = #{ value }
+	</delete>
+	<update id="updateFaqAd" parameterType="Faq">
+		update faq set faqtitle = #{ faqtitle }, faqcontent = #{ faqcontent }, faqtype = #{ faqtype }
+		where faqno = #{ faqno }
+	</update>
+
+	<!-- =========신고게시글============ -->
+	<!-- 오브제 신고게시글 전체조회 -->
+	<select id="selectReportObjetList" resultType="int">
+		select count(*) as "reportcount" from reportboard
+		where reportbtype = 'OBJET'
+	</select>
+
+	<!-- 오브제 신고게시글 전체조회 -->
+	<select id="selectReportObjet" resultType="ReportBoard">
+		select originno,
+		reportedb ,count(originno) as "reportcount", reportbtype
+		from reportboard where reportbtype = 'OBJET'
+		group by originno, reportedb, reportbtype
+		order by count(originno) desc
+	</select>
+	
+	<select id="selectReportObjetDetail" resultType="ReportBoard">
+	 select  reportbtype, reportbreason, reportbdate, reporterb, reportedb, originno
+	 from reportboard 
+	 where reportbtype = 'OBJET'
+	</select>
+	
+	<!-- 한줄평 신고게시글 전체조회 -->
+	<select id="selectReportReviewList" resultType="int">
+		select count(*)  as "reportcount" from reportboard
+		where reportbtype = 'REVIEW'
+	</select>
+
+	<!-- 한줄평 신고게시글 전체조회 -->
+	<select id="selectReportReview" resultType="ReportBoard">
+		select originno, reportedb ,count(originno) as "reportcount", reportbtype
+		from reportboard 
+    	where reportbtype = 'REVIEW'
+		group by originno, reportedb, reportbtype
+		order by count(originno) desc
+	</select>
+	
+	<select id="selectReportReviewDetail" resultType="ReportBoard">
+		 select  reportbtype, reportbreason, reportbdate, reporterb, revuserid, revcontent, reportedb, originno
+		 from reportboard join review on ( revuserid = reportedb )
+		 where reportbtype = 'REVIEW' and reportedb = revuserid and originno = objetno
+	</select>
+
+	<!-- 오브제 신고게시글 사유별 조회 -->
+	<select id="selectReportAllList" resultType="ReportBoard" parameterType="map">
+		select count(reportbreason) as "reportcount", reportbreason, reporterb, reportbdate
+		from reportboard where originno = #{originno} and reportedb = #{reportedb} and reportbtype = 'OBJET'
+		group by reportbreason, reporterb, reportbdate
+	</select>
+
+
+	<!-- 신고게시글 상세조회 -->
+	<select id="selectReportBDetail" resultType="ReportBoard">
+		select * from review
+	</select>
+
+	<!-- 신고게시글 상세조회 -->
+	<select id="selectReportDetail" resultType="Review"
+		parameterType="Review">
+		select *
+		from Review
+		where objetno = #{ objetno }
+		and
+		revuserid = #{ revuserid }
+	</select>
+
+	<delete id="deleteReportbOrigin" parameterType="ReportBoard">
+		delete
+		<trim prefix="from">
+			<if test="reportbtype.equals('OBJET')">objet</if>
+			<if test="reportbtype.equals('REVIEW')">review</if>
+		</trim>
+		<where>
+			objetno = #{ originno }
+			<if test="reportbtype.equals('REVIEW')">
+				and revuserid = #{ reportedb }
+			</if>
+		</where>
+
+	</delete>
+	<delete id="deleteReportb" parameterType="ReportBoard">
+		delete from reportboard
+		<where>
+			reportbtype = #{ reportbtype }
+			and originno = #{ originno }
+			<if test="reportbtype.equals('REVIEW')">
+				and reportedb = #{ reportedb }
+			</if>
+		</where>
+	</delete>
+
+	<select id="selectReportCount" resultType="ReportBoard">
+		select count(originno)
+		as "reportcount", originno, reportedb, reportbtype
+		from reportboard
+		group by reportbtype, reportedb, originno
+	</select>
+
+
+	<!-- 관리자 메인 -->
+	<select id="selectObjetReqMain" resultType="Objet">
+
+		select *
+		from ( select rownum rnum, objetno, objettitle, userid,
+		objetenddate,
+		objetstartdate, objetregidate
+		from ( select * from objet
+		where publicyn = 'W' order by objetno desc ))
+		<![CDATA[where rnum >= 1 and rnum <= 5]]>
+	</select>
+
+	<select id="selectReportMain" resultType="ReportBoard">
+		select count(*) as "reportcount", reportedb, originno, reportbtype
+		from ( select rownum rnum, count(*),
+		originno, reportedb, reportbtype
+		from ( select rownum rnum, count(*), originno, reportedb, reportbtype
+		from reportboard
+		group by reportedb, originno, rownum, reportbtype
+		order by count(*) desc ) group by rownum, originno, reportedb,
+		reportbtype)
+		<![CDATA[where rnum >= 1 and rnum <= 5]]>
+		group by reportedb, originno, reportbtype
+	</select>
+
+	<select id="selectQnaMain" resultType="Qna">
+		select * from ( select rownum rnum, qnatitle, questiondate, userid,
+		qnatype, qnano
+		from ( select * from qna
+		order by questiondate asc ))
+		<![CDATA[where rnum >= 1 and rnum <= 5]]>
+	</select>
+
+	<select id="selectReportuMain" resultType="ReportUDetail">
+		select *
+		from (select rownum rnum, reportedu, blackyn, username,
+		nickname
+		from (select count(*), reportedu, blackyn, username, nickname
+		from
+		reportudetail join users on (userid= reportedu)
+		group by reportedu,
+		blackyn, username, nickname order by count(*) desc))
+		<![CDATA[where rnum >= 1 and rnum <= 5]]>;
+	</select>
+
+	<select id="selectReportuCount" resultType="ReportUDetail">
+		select count(*), reportedu from reportudetail group by reportedu;
+	</select>
+
+	<select id="selectReportUDetailMain" resultType="Userm">
+		select count(*) as "reportcount", reportedu, blackyn, username, nickname
+		from REPORTUDETAIL
+		join users on (userid= reportedu) group by reportedu, blackyn, username,
+		nickname
+		order by count(*) desc
+	</select>
+
+
+	<!-- 접속 통계 -->
+	<select id="selectTodayCount" resultType="LoginCount">
+		    select * from logincount where  logindate like sysdate or logindate like sysdate - 1 or logindate like sysdate -2
+	</select>
+
+	<!-- 로그인 카운트 -->
+	<update id="updateLoginCount" parameterType="string">
+		update logincount set
+		${value} = (${value}+1)
+		where logindate like sysdate
+	</update>
+	<insert id="insertLoginCount">
+		insert into logincount values (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, to_char(sysdate, 'yy/MM/dd'))
+	</insert>
+	<select id="selectLoginDate" resultType="string">
+		select logindate from logincount where logindate like to_char(sysdate,
+		'yy/MM/dd')
+	</select>
+	<!-- 회원가입 카운트 -->
+	<select id="selectEnrollCount" resultType="Users">
+		select to_date(to_char(enrolldate, 'yy/MM/dd')) as "enrolldate" from users
+	</select>
+	<select id="selectLoginCountAvg" parameterType="map" resultType="LoginCount">
+		 select avg(login01) "login01", avg(login02) "login02", avg(login03) "login03", avg(login04) "login04", avg(login05) "login05", avg(login06) "login06", 
+		 avg(login07) "login07", avg(login08) "login08", avg(login09) "login09", avg(login10) "login10", avg(login11) "login11", avg(login12) "login12", 
+		 avg(login13) "login13", avg(login14) "login14", avg(login15) "login15", avg(login16) "login16", avg(login17) "login17", avg(login18) "login18", 
+		 avg(login19) "login19", avg(login20) "login20", avg(login21) "login21", avg(login22) "login22", avg(login23) "login23", avg(login00) "login00",
+		<if test="week != null">to_char( to_date(#{ week }), 'yy/MM W')||'주차' "logindate1"</if>
+		<if test="month != null">to_char( to_date(#{ month }||'/11'), 'yy/MM') "logindate1"</if>
+		<if test="year != null">to_char( to_date(#{ year }||'/11/11'), 'yy') "logindate1"</if>
+		 from logincount 
+		 where 
+		 <if test="week != null">to_char(logindate, 'yyMMW' ) = to_char(to_date( #{ week } ), 'yyMMW')</if>
+		 <if test="month != null">logindate like #{ month }||'%'</if>
+		 <if test="year != null">logindate like  #{ year }||'%' </if>
+	</select>
+	
+	<!-- 로그인 1주일 총합 비교 -->
+	<select id="selectLoginCountSum" resultType="LoginCount2">
+  select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall", to_char(sysdate, 'yy/MM/dd') "logindate"
+    from logincount where  logindate like sysdate 
+    union all 
+     select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall", to_char(sysdate -1, 'yy/MM/dd') "logindate"
+    from logincount where  logindate like sysdate -1
+     union all 
+     select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall", to_char(sysdate -2, 'yy/MM/dd') "logindate"
+    from logincount where  logindate like sysdate -2
+     union all 
+     select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall", to_char(sysdate -3, 'yy/MM/dd') "logindate"
+    from logincount where  logindate like sysdate -3
+     union all 
+     select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall", to_char(sysdate -4, 'yy/MM/dd') "logindate"
+    from logincount where  logindate like sysdate -4
+     union all 
+     select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall", to_char(sysdate -5, 'yy/MM/dd') "logindate"
+    from logincount where  logindate like sysdate -5
+     union all 
+     select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall", to_char(sysdate -6, 'yy/MM/dd') "logindate"
+    from logincount where  logindate like sysdate -6
+	</select>
+	
+	<select id="selectLoginCountMonthSum" resultType="LoginCount2">
+    select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall", to_char(sysdate, 'yy/MM') "logindate"
+    from logincount
+    where logindate like to_char(sysdate, 'yy/MM')||'%' 
+    union all
+    select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall", to_char(add_months(sysdate, -1 ), 'yy/MM') "logindate"
+    from logincount
+    where  logindate like to_char(add_months(sysdate, -1 ), 'yy/MM')||'%'
+       union all
+    select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall", to_char(add_months(sysdate, -2 ), 'yy/MM') "logindate"
+    from logincount
+    where  logindate like to_char(add_months(sysdate, -2 ), 'yy/MM')||'%'
+       union all
+    select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall", to_char(add_months(sysdate, -3 ), 'yy/MM') "logindate"
+    from logincount
+    where  logindate like to_char(add_months(sysdate, -3 ), 'yy/MM')||'%'
+       union all
+    select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall" , to_char(add_months(sysdate, -4 ), 'yy/MM') "logindate"
+    from logincount
+    where  logindate like to_char(add_months(sysdate, -4 ), 'yy/MM')||'%'
+       union all
+    select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall", to_char(add_months(sysdate, -5 ), 'yy/MM') "logindate"
+    from logincount
+    where  logindate like to_char(add_months(sysdate, -5 ), 'yy/MM')||'%'
+       union all
+    select nvl(sum(login01 + login02 + login03 + login04 + login05 + login06 + login07 + login08 + login09 + login10+
+    login11 + login12 + login13 + login14 + login15 + login16 + login17 + login18 + login19 + login20+ login21
+    + login22 + login23), 0) as "loginall", to_char(add_months(sysdate, -6 ), 'yy/MM') "logindate"
+    from logincount
+    where  logindate like to_char(add_months(sysdate, -6 ), 'yy/MM')||'%'
+	</select>
+	
+	<select id="selectEnrollYearSum" resultType="EnrollCount">
+	select nvl(count(enrolldate), 0) "enrollcount", to_char(sysdate, 'yy') "enrolldate" from users 
+     where enrolldate like to_char(sysdate, 'yy')||'%'
+     union all
+     select nvl(count(enrolldate), 0),  to_char(add_months(sysdate, -12), 'yy') from users 
+     where enrolldate like to_char(add_months(sysdate, -12), 'yy')||'%'
+      union all
+     select nvl(count(enrolldate), 0), to_char(add_months(sysdate, -24), 'yy') from users 
+     where enrolldate like to_char(add_months(sysdate, -24), 'yy')||'%'
+     union all
+     select nvl(count(enrolldate), 0),  to_char(add_months(sysdate, -36), 'yy') from users 
+     where enrolldate like to_char(add_months(sysdate, -36), 'yy')||'%'
+     union all
+     select nvl(count(enrolldate), 0),  to_char(add_months(sysdate, -48), 'yy') from users 
+     where enrolldate like to_char(add_months(sysdate, -48), 'yy')||'%'
+	</select>
+	
+	<select id="selectEnrollMonthSum" resultType="EnrollCount">
+	 select nvl(count(enrolldate), 0) "enrollcount" , to_char(sysdate, 'yy/MM') "enrolldate" from users 
+     where enrolldate like to_char(sysdate, 'yy/MM')||'%'
+     union all
+     select nvl(count(enrolldate), 0) , to_char(add_months(sysdate, -1), 'yy/MM')  from users 
+     where enrolldate like to_char(add_months(sysdate, -1), 'yy/MM')||'%'
+      union all
+     select nvl(count(enrolldate), 0) , to_char(add_months(sysdate, -2), 'yy/MM')  from users 
+     where enrolldate like to_char(add_months(sysdate, -2), 'yy/MM')||'%' 
+      union all
+     select nvl(count(enrolldate), 0) , to_char(add_months(sysdate, -3), 'yy/MM')  from users  
+     where enrolldate like to_char(add_months(sysdate, -3), 'yy/MM')||'%' 
+           union all
+     select nvl(count(enrolldate), 0) , to_char(add_months(sysdate, -4), 'yy/MM')  from users 
+     where enrolldate like to_char(add_months(sysdate, -4), 'yy/MM')||'%' 
+           union all
+     select nvl(count(enrolldate), 0) , to_char(add_months(sysdate, -5), 'yy/MM') from users 
+     where enrolldate like to_char(add_months(sysdate, -5), 'yy/MM')||'%' 
+           union all
+     select nvl(count(enrolldate), 0) , to_char(add_months(sysdate, -6), 'yy/MM') from users 
+     where enrolldate like to_char(add_months(sysdate, -6), 'yy/MM')||'%' 
+           union all
+     select nvl(count(enrolldate), 0) , to_char(add_months(sysdate, -7), 'yy/MM') from users 
+     where enrolldate like to_char(add_months(sysdate, -7), 'yy/MM')||'%' 
+           union all
+     select nvl(count(enrolldate), 0) , to_char(add_months(sysdate, -8), 'yy/MM')  from users 
+     where enrolldate like to_char(add_months(sysdate, -8), 'yy/MM')||'%' 
+           union all
+     select nvl(count(enrolldate), 0) , to_char(add_months(sysdate, -9), 'yy/MM') from users 
+     where enrolldate like to_char(add_months(sysdate, -9), 'yy/MM')||'%' 
+           union all
+     select nvl(count(enrolldate), 0) , to_char(add_months(sysdate, -10), 'yy/MM') from users 
+     where enrolldate like to_char(add_months(sysdate, -10), 'yy/MM')||'%' 
+           union all
+     select nvl(count(enrolldate), 0) , to_char(add_months(sysdate, -11), 'yy/MM') from users 
+     where enrolldate like to_char(add_months(sysdate, -11), 'yy/MM')||'%' 
+	</select>
+	
+	<select id="selectEnrollWeekSum" resultType="EnrollCount">
+	 select nvl(count(enrolldate), 0) "enrollcount", to_char(sysdate, 'yy/MM W')||'주차' "enrolldate" from users 
+     where to_char(enrolldate, 'yy/MM/W' ) like to_char(sysdate, 'yy/MM/W')||'%'
+     union all
+     select nvl(count(enrolldate), 0) , to_char((sysdate -7), 'yy/MM W')||'주차' from users 
+     where to_char(enrolldate, 'yy/MM/W' ) like to_char(sysdate -7, 'yy/MM/W')||'%'
+      union all
+     select nvl(count(enrolldate), 0), to_char((sysdate -14), 'yy/MM W')||'주차' from users 
+     where to_char(enrolldate, 'yy/MM/W' ) like to_char(sysdate -14, 'yy/MM/W')||'%'
+     union all
+     select nvl(count(enrolldate), 0), to_char((sysdate -21), 'yy/MM W')||'주차' from users 
+     where to_char(enrolldate, 'yy/MM/W' ) like to_char(sysdate -21, 'yy/MM/W')||'%'
+     union all
+     select nvl(count(enrolldate), 0), to_char((sysdate -28), 'yy/MM W')||'주차' from users 
+     where to_char(enrolldate, 'yy/MM/W' ) like to_char(sysdate -36, 'yy/MM/W')||'%'
+     union all
+     select nvl(count(enrolldate), 0), to_char((sysdate -35), 'yy/MM W')||'주차' from users 
+     where to_char(enrolldate, 'yy/MM/W' ) like to_char(sysdate -42, 'yy/MM/W')||'%'
+     union all
+     select nvl(count(enrolldate), 0), to_char((sysdate -42), 'yy/MM W')||'주차' from users 
+     where to_char(enrolldate, 'yy/MM/W' ) like to_char(sysdate -49, 'yy/MM/W')||'%'
+     union all
+     select nvl(count(enrolldate), 0), to_char((sysdate -49), 'yy/MM W')||'주차' from users 
+     where to_char(enrolldate, 'yy/MM/W' ) like to_char(sysdate -56, 'yy/MM/W')||'%'
+	</select>
+	
+	
+</mapper> 

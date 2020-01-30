@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- Appenders -->
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<!-- <layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
+		</layout> -->
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p: [%c{1}]- %m%n" />	<!-- 클래스 명만 나옴 -->
+		</layout>
+	</appender>
+	
+	<!-- 파일로거 -->
+	<appender name="fileLogger" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="C:\\objet_workspace\\OBJET\\src\\main\\resources\\logs\\system.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{HH:mm:ss}][%-5p][%F:%L] - %m%n" />
+		</layout>
+	</appender>
+	
+	
+	<!-- log4jdbc-remix 로그 출력 appender출력 -->
+	<appender name="sqlLogger" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p: %m%n" />
+		</layout>
+	</appender>
+	
+	<!--  layout에 사용되는 출력 형식요소
+	* %p : debug, info, error, fatal과 같은 레벨의 순위 출력	(priority. 뭐로 실행되고 있는지 프리오리티를 출력함. 사이에 숫자가 -5로 들어가면 5칸 차지하면서 출력. 음수는 왼쪽정렬.)
+	* %m : 로그 내용(message) 출력
+	* %d : datetime, 로깅 이벤트가 발생한 시간을 기록
+		 포맷은 %d{yyyy-MM-dd HH:mm:ss, SSS}의 형태로 사용됨.
+		java.text.SimpleDateFormat의 포맷을 사용하면 됨.
+	* %t : thread. 로그 이벤트가 발생된 쓰래드의 이름 출력
+	* %% : %문자 하나 출력
+	* %n : 플랫폼 종속적인 개행 문자 출력. \r\n 또는 \n. (new line줄바꿈 ente를 의미함)
+	* %c : 카테고리 또는 클래스명 출력
+		%{2}는 a.b.c를 b.c만 출력
+		%{1}는 a.b.c를 c만 출력
+	* %C : 클래스명 표시
+	* %F : 로깅이 발생한 프로그램 파일명 표시
+	* %I : 로깅이 발생한 정보 표시
+	* %L : 로깅이 발생한 라인수 표시
+	* %M : 로깅이 발생한 메서드명 표시
+	*  %r : 애플리케이션 시작부터 로깅이 발생한 시점까지의 시간(millisecondes)
+	* %x : 로깅이 발생한 스레드와 관련된 NOC(N -->
+	
+	<!-- Application Loggers -->
+	<logger name="com.kh.objet">
+		<level value="debug" />
+	</logger>
+	
+	<!-- interceptor 패키지 logger 등록함 -->
+	<logger name="com.kh.objet.common.interceptor.LoggerInterceptor">
+		<level value="debug" />
+	</logger>
+	
+	<!-- Query Loggers  -->
+	<logger name="jdbc.sqlonly" additivity="false">
+		<level value="info" />
+		<appender-ref ref="sqlLogger" />
+	</logger>
+	
+	<logger name="jdbc.resultsettable" additivity="false">
+		<level value="info" />
+		<appender-ref ref="sqlLogger" />
+	</logger>
+	
+	<!-- 3rdparty Loggers -->
+	<logger name="org.springframework.core">
+		<level value="info" />
+	</logger>
+	
+	<logger name="org.springframework.beans">
+		<level value="info" />
+	</logger>
+	
+	<logger name="org.springframework.context">
+		<level value="info" />
+	</logger>
+
+	<logger name="org.springframework.web">
+		<level value="info" />
+	</logger>
+
+	<!-- Root Logger★ -->
+	<root>
+		<priority value="warn" />
+		<appender-ref ref="console" />
+		<appender-ref ref="fileLogger" />
+	</root>
+	
+</log4j:configuration>
