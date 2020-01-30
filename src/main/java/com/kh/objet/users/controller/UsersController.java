@@ -271,7 +271,7 @@ public class UsersController {
 				
 				if(result > 0) {
 					// 2-1. 동일한 네이버 아이디로 가입된 계정이 있다면 오브제 계정으로 안내
-					vfn = "user/loginAgain";
+					vfn = "user/login";
 					model.addAttribute("message", "해당 네이버 아이디로 가입된 오브제 계정이 존재합니다. 오브제 계정으로 로그인해주세요.");
 				}else {
 					// 2-2. 가입된 계정이 없다면 네이버에서 넘어온 값들 가지고 회원가입 추가정보 입력페이지로 이동

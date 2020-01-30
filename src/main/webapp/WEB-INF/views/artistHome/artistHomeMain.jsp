@@ -668,7 +668,7 @@ function deleteFollowing(){
 				오브제명&ensp;<div class="ui input"><input type="text" name="keyword" id="keyword"></div>
 					&ensp;<div class="ui buttons"><button class="mainBtn" type="submit" onclick="objetSearch();">검색</button></div>
 				</div>
-				<br><br><br><br><br><br>
+				
 				
 			</div>
 		</div>

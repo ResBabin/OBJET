@@ -251,7 +251,7 @@
 	
 	<!-- 네아로  가입하려는 메일 중복체크-->
 	<select id="selectNaverMail" parameterType="String" resultType="int">
-		select count(*) from users where email = #{email} and naverid = 0
+		select count(*) from users where email = #{email} and naverid is null
 	</select>
 	
 	<!-- 네이버회원 내정보수정 이메일 재확인 -->
