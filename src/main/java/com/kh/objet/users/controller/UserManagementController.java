@@ -41,7 +41,7 @@ public class UserManagementController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserManagementController.class);
 	
-	@Autowired
+	@Autowired 
 	private UserManagementService usermService;
 	@Autowired
 	private LoginCount logincService;
@@ -522,7 +522,7 @@ public class UserManagementController {
 		int result = faqService.updateFaqAd(faq);
 		
 		String view = "";
-		if (result > 0) {
+		if (result > 0) { 
 			view = "redirect:faqm.do";
 		} else {
 			model.addAttribute("message", "FAQ 등록 실패");

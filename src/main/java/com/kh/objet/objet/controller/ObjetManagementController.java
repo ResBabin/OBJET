@@ -40,13 +40,13 @@ import com.kh.objet.users.model.vo.UserManagement;
 import com.kh.objet.users.model.vo.Users;
 
 
-@Controller
+@Controller 
 public class ObjetManagementController {
 	private static final Logger logger = LoggerFactory.getLogger(ObjetManagementController.class);
 	
 	@Autowired
 	private ObjetManagementService objetmService;
-	@Autowired
+	@Autowired 
 	private ReportBoardService reportbService;
 	@Autowired
 	private QnaService qnaService;
@@ -119,6 +119,8 @@ public class ObjetManagementController {
 		
 		ArrayList<Objet> objetmlist = (ArrayList<Objet>) objetmService.selectStatusOrder(map);
 		
+		model.addAttribute("publicyn", publicyn);
+		model.addAttribute("objetstatus", objetstatus);
 			model.addAttribute("objetmlist", objetmlist);
 			model.addAttribute("currentPage", currentPage);
 			model.addAttribute("listCount", listCount);
@@ -193,7 +195,7 @@ public class ObjetManagementController {
         if(currentPage % limit == 0) {
             beginPage -= limit;
          }
-		int endPage = beginPage + 9;
+		int endPage = beginPage + 9; 
 		if(endPage > maxPage)
 			endPage = maxPage;
 		
@@ -202,7 +204,7 @@ public class ObjetManagementController {
 		int endRow = currentPage * limit;
 		map.put("startRow", Integer.toString(startRow));
 		map.put("endRow", Integer.toString(endRow));
-		
+		 
 		ArrayList<Objet> objetreqlist = (ArrayList<Objet>) objetmService.selectObjetRequestManage(map);
 		
 			model.addAttribute("currentPage", currentPage);
@@ -375,15 +377,27 @@ public class ObjetManagementController {
 	@RequestMapping(value="updateReqStatus", method=RequestMethod.POST)
 	public String updateRequestStatus(HttpServletRequest request, Model model) {
 		Map<String, String> map  = new HashMap<>();
-		String[] objetnoArray = request.getParameterValues("objetno");
+		//String[] objetnoArray = request.getParameterValues("objetno");
+		String objetno = request.getParameter("objetno");
 		map.put("publicyn", request.getParameter("publicyn"));
-		int result = 0;
-		for(String objetno : objetnoArray) {
+		map.put("returnreason", request.getParameter("returnreason"));
+		map.put("adminid", request.getParameter("adminid"));
+		map.put("userid", request.getParameter("userid"));
+		int result = 0, result2 = 0;
+	/*	for(String objetno : objetnoArray) {*/
+		Date current = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
+		int today = Integer.parseInt(sdf.format(current));
+		int startdate = Integer.parseInt(sdf.format(objetmService.selectObjetOne(Integer.parseInt(objetno)).getObjetstartdate()));
+		if(startdate >= today  ) {
+			map.put("startdate", "OPEN");
+		}
 			map.put("objetno", objetno);
 			result = objetmService.updateRequestStatus(map);
-		}
+			result2 = objetmService.insertReqFeed(map);
+		/*}*/
 		String view = "";
-		if(result > 0) {
+		if(result > 0 && result2 > 0) {
 			 view = "redirect:objetreq.do";
 		}else {
 			model.addAttribute("message", "전시 승인/반려 오류");		
@@ -393,10 +407,16 @@ public class ObjetManagementController {
 	}
 	@RequestMapping(value="updateObjetStop", method=RequestMethod.POST)
 	public String updateObjetStop(HttpServletRequest request, Model model) {
+		Map<String, String> map  = new HashMap<>();
+		map.put("stopreason", request.getParameter("stopreason"));
+		map.put("adminid", request.getParameter("adminid"));
+		map.put("userid", request.getParameter("userid"));
 		String[] objetnoArray = request.getParameterValues("objetno");
-		int result = 0;
+		int result = 0, result2 = 0;
 		for(String objetno : objetnoArray) {
+			map.put("objetno", objetno);
 			result = objetmService.updateObjetStop(Integer.parseInt(objetno));
+			result2 = objetmService.insertStopFeed(map);
 		}
 		String view = "";
 		if(result > 0) {

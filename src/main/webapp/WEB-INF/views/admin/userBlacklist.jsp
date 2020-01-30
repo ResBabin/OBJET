@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>오브제 관리자 - 블랙리스트 관리</title>
+<title>오브제 관리자 - 블랙리스트 관리</title> 
 <!-- 시맨틱유아이 cdn -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -364,7 +364,7 @@ textarea {
 					<th width="5" id="thchk">
 						<div class="ui fitted checkbox">
 							<input type="checkbox" id="checkall"> <label></label>
-						</div>
+						</div> 
 					</th>
 					<th class="" id="thuserid" width="200">회원ID</th>
 					<th class="" id="thnick" width="200">닉네임</th>

@@ -17,7 +17,7 @@ public class FaqDao {
 	@Autowired
 	private SqlSessionTemplate mybatisSession;
 	
-	public FaqDao() {}
+	public FaqDao() {} 
 	///////////////////////////이유진//////////////////////////////////////////////////////////////////
 	//자주묻는 질문 전체목록
 	public List<Faq> selectFaqList() {
@@ -27,7 +27,7 @@ public class FaqDao {
 public List<Faq> selectFaqListAd(Map<String, String> map) {
 return mybatisSession.selectList("adminMapper.selectFaqList", map);
 }
- 
+  
 public Faq selectFaqDetail(int faqno) {
 return mybatisSession.selectOne("adminMapper.selectFaqDetail", faqno);
 }

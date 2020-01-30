@@ -12,13 +12,15 @@ public interface ObjetManagementService {
 	public ObjetManagement selectObjetOne(int objetno);
 	public List<Objet> selectObjetRequestManage(Map<String, String> map);
 	public List<Objet> selectObjetReqMain();
-	public int updateRequestStatus(Map<String, String> map);
+	public int updateRequestStatus(Map<String, String> map); 
 	public int updateObjetStop(int objetno);
 	public List<Objet> selectStatusOrder(Map<String, String> map);
 	public List<Objet> selectObjetSearch(Objet objetsearch);
-	public int selectObjetListCount();
+	public int selectObjetListCount(); 
 	public int selectStatusOrderList(Map<String, String> map);
 	public int selectBeforeStart();
 	public int selectObjetRequestList(Map<String, String> map);
 	public List<Objet> selectObjetRequestManage();
+	public int insertReqFeed(Map<String, String> map);
+	public int insertStopFeed(Map<String, String> map);
 }

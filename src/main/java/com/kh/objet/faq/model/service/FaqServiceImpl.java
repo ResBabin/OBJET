@@ -25,7 +25,7 @@ public class FaqServiceImpl implements FaqService{
 		return faqDao.selectFaqDetail(faqno);
 	}
 
-
+ 
 	   @Override
 	   public List<Faq> selectFaqListAd(Map<String, String> map) {
 	      return faqDao.selectFaqListAd(map);

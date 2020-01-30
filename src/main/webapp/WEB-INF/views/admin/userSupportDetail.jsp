@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아티스트 후원 목록</title>
+<title>아티스트 후원 목록</title> 
 </head>
 <body>
 <table>

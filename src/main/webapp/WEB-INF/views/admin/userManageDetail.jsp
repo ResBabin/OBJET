@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자 회원 상세조회</title>
+<title>관리자 회원 상세조회</title> 
 
 <!-- 시맨틱유아이 cdn -->
 <script
@@ -137,7 +137,7 @@ textarea {
 				var blackreason = $("input[name=blackreason]:checked").val();
 				if(blackreason == 'etc'){
 					blackreason = $("#etcreason").val();
-				}
+				} 
 				var data = { userid : userid, blackend : $("#blackend").val(), blackreason : blackreason, adminid : adminid};
 				$.ajax({
 					url : "insertblack.do",

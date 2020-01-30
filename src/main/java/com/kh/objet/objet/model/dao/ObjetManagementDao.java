@@ -56,5 +56,11 @@ public class ObjetManagementDao {
 	public List<Objet> selectObjetRequestManage() {
 		return mybatisSession.selectList("adminMapper.selectObjetRequestList2");
 	}
+	public int insertReqFeed(Map<String, String> map) {
+		return mybatisSession.insert("adminMapper.insertReqFeed", map);
+	} 
+	public int insertStopFeed(Map<String, String> map) {
+		return mybatisSession.insert("adminMapper.insertStopFeed", map);
+	}
 
 }

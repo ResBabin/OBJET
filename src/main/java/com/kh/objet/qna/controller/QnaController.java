@@ -58,7 +58,7 @@ public class QnaController {
 			   Model model){
 	      logger.info("page : " + page);
 	      int currentPage = 1;
-	      if(page !=null) {
+	      if(page !=null) { 
 	         currentPage = Integer.parseInt(page);
 	      }
 	      //페이징

@@ -19,10 +19,10 @@ public interface UserManagementService {
 	public List<UserManagement> selectBlacklistOrder(Map<String, String> map);
 	public UserManagement selectUserDetail(String userid);
 	public List<Objet> selectUserObjet(String userid);
-	public List<ReportUDetail> selectUserReport(String userid);
+	public List<ReportUDetail> selectUserReport(String userid); 
 	public List<ReportUDetail> selectUserReportTotal(String userid);
 	public List<ReportUDetail> selectReportUDetailMain();
-	public LoginCount selectTodayCount(String today);
+	public LoginCount selectTodayCount(String today); 
 	public int updateLoginCount(String upcount);
 	public int insertLoginCount();
 	public String selectLoginDate();

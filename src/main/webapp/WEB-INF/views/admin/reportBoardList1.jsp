@@ -10,7 +10,7 @@
 <style type="text/css">
 tbody{
 	text-align: center;
-}
+} 
 .detailtr{
 cursor: pointer;
 }
@@ -74,12 +74,12 @@ $(".detailtr").click(function() {
 		var detailbtn = $(this);
 		var rptr = detailbtn;
 		var rptd = rptr.children(); 
-		var rptdc = rptd.children(); 
+		var rptdc = rptd.children();  
 		$(rptr).next().toggle(100);
-});
-		
+}); 
+		 
 $(".delbtn").click(function() {
-	var con = confirm("해당 전시를 삭제하시겠습니까?");
+	var con = confirm("해당 신고를 삭제하시겠습니까?");
 	if(con){
 		var reportedb = $(this).find('input[name="reportedb"]').val();  
 		var originno = $(this).find('input[name="originno"]').val();  

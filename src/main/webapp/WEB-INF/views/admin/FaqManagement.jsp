@@ -11,7 +11,7 @@
 <title>FAQ</title>
 
 <style type="text/css">
-#um {
+#um { 
 	padding: 150px;
 	padding-top: 80px;
 	padding-bottom: 80px;

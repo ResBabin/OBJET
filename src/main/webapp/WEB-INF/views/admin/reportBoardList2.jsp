@@ -9,7 +9,7 @@
 <c:import url="adminHeader.jsp" />
 <style type="text/css">
 tbody{
-	text-align: center;
+	text-align: center; 
 }
 .detailtr{
 cursor: pointer;

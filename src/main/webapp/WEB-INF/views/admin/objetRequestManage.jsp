@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"> 
 <title>관리자 전시 신청작 관리 페이지</title>
 <!-- 시맨틱유아이 cdn -->
 <script
@@ -159,13 +159,13 @@ $(function() {
 			</tbody>
 		</table>
 		<div align="right">
-			<button class="ui basic grey button" id="returnbtn">
+		<!-- 	<button class="ui basic grey button" id="returnbtn">
 			반려
 			</button>
 			<button class="ui basic grey button" id="approvebtn">
 			승인
-			</button>
-		</div>
+			</button> -->
+		</div> 
 		<br>
 		<div align="center">
 		<div class="ui pagination menu"  id="pagingdiv">
