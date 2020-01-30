@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>공지사항 ${ faqmd.faqno }. ${ faqmd.faqtitle }</title>
 <link rel='stylesheet'
-	href='//fonts.googleapis.com/earlyaccess/kopubbatang.css'>
+	href='//fonts.googleapis.com/earlyaccess/kopubbatang.css'> 
 <link rel="stylesheet" type="text/css"
 	href="resources/assets/css/KoPubDotum.css">
 <link rel="stylesheet"

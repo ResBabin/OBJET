@@ -45,7 +45,7 @@ import com.kh.objet.faq.controller.FaqController;
 import com.kh.objet.faq.model.vo.Faq;
 
 @Controller
-public class NoticeController {
+public class NoticeController { 
 	private static final Logger logger = LoggerFactory.getLogger(FaqController.class);
 
 	@Autowired

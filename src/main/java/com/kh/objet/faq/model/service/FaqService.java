@@ -11,6 +11,6 @@ public interface FaqService {
 	public List<Faq> selectFaqListAd(Map<String, String> map);
 	   public int selectFaqCountAd();
 	public int insertFaqAd(Faq faq);
-	public int deleteFaqAd(String faqno);
+	public int deleteFaqAd(String faqno); 
 	public int updateFaqAd(Faq faq);
 }

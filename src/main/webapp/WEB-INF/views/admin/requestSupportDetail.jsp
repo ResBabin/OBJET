@@ -141,7 +141,7 @@
 			<c:if test="${request.sptstatus == 'WAIT' }">
 			<input type="button" class="mainBtn" value="신청처리" onclick="submitRequest()">
 			</c:if>
-			<input type="button" class="mainBtn" value="목록이동" onclick="location.href='supportRequest.do?currentPage=1'">
+			<input type="button" class="mainBtn" value="목록이동" onclick="javascript:history.go(-1)">
 			
 		</div>
 		<!-- 상세보기 끝 -->

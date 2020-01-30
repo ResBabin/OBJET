@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"> 
 <title>공지사항 ${ qnamd.qnano }. ${ qnamd.qnatitle }</title>
 <link rel='stylesheet'
 	href='//fonts.googleapis.com/earlyaccess/kopubbatang.css'>
@@ -40,7 +40,7 @@ letter-spacing: 0.5pt;
 padding: 15px; 
 font-size: 13pt; 
 font-weight: bold;
-}
+} 
 fieldset {
 	border: 1px solid #777;
 	border-radius: 5px;

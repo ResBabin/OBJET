@@ -111,7 +111,7 @@ public class UserManagementDao {
 	}
 	public List<LoginCount2> selectLoginCountSum() {
 		return mybatisSession.selectList("adminMapper.selectLoginCountSum");
-	}
+	} 
 	public List<LoginCount2> selectLoginCountMonthSum() {
 		return mybatisSession.selectList("adminMapper.selectLoginCountMonthSum");
 	}

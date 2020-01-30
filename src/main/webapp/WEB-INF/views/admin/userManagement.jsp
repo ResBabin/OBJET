@@ -6,11 +6,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
-<html>
+<html> 
 <head>
 <meta charset="UTF-8">
 <title>오브제 관리자 - 회원관리</title>
-<!-- 시맨틱유아이 cdn -->
+<!-- 시맨틱유아이 cdn --> 
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
@@ -278,13 +278,13 @@ var thclicked = "normal";
 </head>
 <body>
 	<div id="um">
-	<c:url value="userm.do" var="usermuri">
-	<c:if test="${ !empty usertype and !fn:contains(usermuri, 'usertype') }"><c:param value="${ usertype }" name="usertype" /></c:if>
-	<c:if test="${ !empty blackyn and !fn:contains(usermuri, 'blackyn') }"><c:param value="${ blackyn }" name="blackyn" /></c:if>
-	<c:if test="${ !empty quityn and !fn:contains(usermuri, 'quityn')  }"><c:param value="${ quityn }" name="quityn" /></c:if>
-	<c:if test="${ !empty order and !fn:contains(usermuri, 'order')  }"><c:param value="${ order }" name="order" /></c:if>
-	<c:if test="${ !empty nickname and !fn:contains(usermuri, 'nickname')  }"><c:param value="${ nickname }" name="nickname" /></c:if>
-	<c:if test="${ !empty userid and !fn:contains(usermuri, 'userid')  }"><c:param value="${ userid }" name="userid" /></c:if>
+	<c:url value="userm.do" var="usermurl">
+	<c:if test="${ !empty usertype and !fn:contains(usermurl, 'usertype') }"><c:param value="${ usertype }" name="usertype" /></c:if>
+	<c:if test="${ !empty blackyn and !fn:contains(usermurl, 'blackyn') }"><c:param value="${ blackyn }" name="blackyn" /></c:if>
+	<c:if test="${ !empty quityn and !fn:contains(usermurl, 'quityn')  }"><c:param value="${ quityn }" name="quityn" /></c:if>
+	<c:if test="${ !empty order and !fn:contains(usermurl, 'order')  }"><c:param value="${ order }" name="order" /></c:if>
+	<c:if test="${ !empty nickname and !fn:contains(usermurl, 'nickname')  }"><c:param value="${ nickname }" name="nickname" /></c:if>
+	<c:if test="${ !empty userid and !fn:contains(usermurl, 'userid')  }"><c:param value="${ userid }" name="userid" /></c:if>
 	</c:url>
 	<div id="popdiv">
 		<label id="bllabel">블랙리스트 기간 및 사유를 선택해 주세요.</label>
@@ -371,38 +371,38 @@ var thclicked = "normal";
 			</form>
 			<div></div>
 		</div>
-		<br>
+		<br> 
 		<div>
 		<input type="hidden" name="adminid" value="${ sessionScope.loginUser.userid }">
 			<div class="ui small basic buttons">
 				<a href="userm.do?usertype=&order=idd&page=1"><div class="ui button order" id="allbtn">전체회원</div></a>
-				<c:if test="${ !fn:contains(usermuri, 'usertype') }">
-				<a href="${ usermuri }&usertype=ADMIN&page=1"><div class="ui button  order" id="adminbtn">관리자</div></a>
-				</c:if>
-				<c:if test="${ fn:contains(usermuri, 'usertype=ADMIN') }">
-				<a href=""><div class="ui button  active order" id="adminbtn">관리자</div></a>
-				<a href="${ fn:replace(usermuri , 'ADMIN', 'USER') }"><div class="ui button order" id="userbtn">일반회원</div></a>
+				<c:if test="${ !fn:contains(usermurl, 'usertype') }">
+				<a href="${ usermurl }&usertype=ADMIN&page=1"><div class="ui button  order" id="adminbtn">관리자</div></a>
 				</c:if> 
-				<c:if test="${ fn:contains(usermuri, 'usertype=USER') }">
-				<a href="${ fn:replace(usermuri , 'USER', 'ADMIN') }"><div class="ui button  order" id="adminbtn">관리자</div></a>
+				<c:if test="${ fn:contains(usermurl, 'usertype=ADMIN') }">
+				<a href=""><div class="ui button  active order" id="adminbtn">관리자</div></a>
+				<a href="${ fn:replace(usermurl , 'ADMIN', 'USER') }"><div class="ui button order" id="userbtn">일반회원</div></a>
+				</c:if> 
+				<c:if test="${ fn:contains(usermurl, 'usertype=USER') }">
+				<a href="${ fn:replace(usermurl , 'USER', 'ADMIN') }"><div class="ui button  order" id="adminbtn">관리자</div></a>
 				<a href=""><div class="ui button active order" id="userbtn">일반회원</div></a>
 				</c:if>
-				<c:if test="${ !fn:contains(usermuri, 'usertype') }">
-				<a href="${ usermuri }&usertype=USER&page=1"><div class="ui button order" id="userbtn">일반회원</div></a>
+				<c:if test="${ !fn:contains(usermurl, 'usertype') }">
+				<a href="${ usermurl }&usertype=USER&page=1"><div class="ui button order" id="userbtn">일반회원</div></a>
 				</c:if>
 				</div>&nbsp;&nbsp;&nbsp;
 				<div class="ui small basic buttons">
-				<c:if test="${ fn:contains(usermuri, 'blackyn') }">
-				<a href="${ fn:replace(usermuri , 'blackyn=Y', '') }&page=1"><div class="ui button active order" id="blackbtn">블랙리스트</div></a>
+				<c:if test="${ fn:contains(usermurl, 'blackyn') }">
+				<a href="${ fn:replace(usermurl , 'blackyn=Y', '') }&page=1"><div class="ui button active order" id="blackbtn">블랙리스트</div></a>
 				</c:if>
-				<c:if test="${ !fn:contains(usermuri, 'blackyn') }">
-				<a href="${ usermuri }&blackyn=Y&page=1"><div class="ui button order" id="blackbtn">블랙리스트</div></a>
+				<c:if test="${ !fn:contains(usermurl, 'blackyn') }">
+				<a href="${ usermurl }&blackyn=Y&page=1"><div class="ui button order" id="blackbtn">블랙리스트</div></a>
 				</c:if>
-				<c:if test="${ fn:contains(usermuri, 'quityn') }">
-				<a href="${ fn:replace(usermuri , 'quityn=Y', '') }&page=1"><div class="ui button active order" id="quitbtn">탈퇴회원</div></a>
+				<c:if test="${ fn:contains(usermurl, 'quityn') }">
+				<a href="${ fn:replace(usermurl , 'quityn=Y', '') }&page=1"><div class="ui button active order" id="quitbtn">탈퇴회원</div></a>
 				</c:if>
-				<c:if test="${ !fn:contains(usermuri, 'quityn') }">
-				<a href="${ usermuri }&quityn=Y&page=1"><div class="ui button order" id="quitbtn">탈퇴회원</div></a>
+				<c:if test="${ !fn:contains(usermurl, 'quityn') }">
+				<a href="${ usermurl }&quityn=Y&page=1"><div class="ui button order" id="quitbtn">탈퇴회원</div></a>
 				</c:if>
 			</div>
 		</div>
@@ -414,22 +414,22 @@ var thclicked = "normal";
 							<input type="checkbox" id="checkall"> <label></label>
 						</div>
 					</th>
-					<c:if test="${ usermuri.contains('order=idd') }"><th class="sorted descending" id="userid" width="300">회원ID<input type="hidden"  value="0" name="userid"></th></c:if>
-					<c:if test="${ usermuri.contains('order=ida') }"><th class="sorted ascending" id="userid" width="300">회원ID<input type="hidden"  value="0" name="userid"></th></c:if>
-					<c:if test="${ !usermuri.contains('order=ida') and !usermuri.contains('order=idd') }">	<th class="" id="userid" width="300">회원ID<input type="hidden"  value="0" name="userid"></th></c:if>
-					<c:if test="${ usermuri.contains('order=nicka') }"><th class="sorted ascending" id="nick" width="300">닉네임</th></c:if>
-					<c:if test="${ usermuri.contains('order=nickd') }"><th class="sorted descending" id="nick" width="300">닉네임</th></c:if>
-					<c:if test="${ !usermuri.contains('order=nickd') and !usermuri.contains('order=nicka') }"><th class="" id="nick" width="300">닉네임</th></c:if>
-					<c:if test="${ usermuri.contains('order=namea') }"><th class="sorted ascending" id="name" width="300">이름</th></c:if>
-					<c:if test="${ usermuri.contains('order=named') }"><th class="sorted descending" id="name" width="300">이름</th></c:if>
-					<c:if test="${ !usermuri.contains('order=namea') and !usermuri.contains('order=named') }"><th class="" id="name" width="300">이름</th></c:if>
-					<c:if test="${ usermuri.contains('order=enrolla') }"><th class="sorted ascending" id="enroll" width="150">가입일</th> </c:if>
-					<c:if test="${ usermuri.contains('order=enrolld') }"><th class="sorted descending" id="enroll" width="150">가입일</th> </c:if>
-					<c:if test="${ !usermuri.contains('order=enrolld') and !usermuri.contains('order=enrolla') }"><th class="" id="enroll" width="150">가입일</th> </c:if>
+					<c:if test="${ usermurl.contains('order=idd') }"><th class="sorted descending" id="userid" width="300">회원ID<input type="hidden"  value="0" name="userid"></th></c:if>
+					<c:if test="${ usermurl.contains('order=ida') }"><th class="sorted ascending" id="userid" width="300">회원ID<input type="hidden"  value="0" name="userid"></th></c:if>
+					<c:if test="${ !usermurl.contains('order=ida') and !usermurl.contains('order=idd') }">	<th class="" id="userid" width="300">회원ID<input type="hidden"  value="0" name="userid"></th></c:if>
+					<c:if test="${ usermurl.contains('order=nicka') }"><th class="sorted ascending" id="nick" width="300">닉네임</th></c:if>
+					<c:if test="${ usermurl.contains('order=nickd') }"><th class="sorted descending" id="nick" width="300">닉네임</th></c:if>
+					<c:if test="${ !usermurl.contains('order=nickd') and !usermurl.contains('order=nicka') }"><th class="" id="nick" width="300">닉네임</th></c:if>
+					<c:if test="${ usermurl.contains('order=namea') }"><th class="sorted ascending" id="name" width="300">이름</th></c:if>
+					<c:if test="${ usermurl.contains('order=named') }"><th class="sorted descending" id="name" width="300">이름</th></c:if>
+					<c:if test="${ !usermurl.contains('order=namea') and !usermurl.contains('order=named') }"><th class="" id="name" width="300">이름</th></c:if>
+					<c:if test="${ usermurl.contains('order=enrolla') }"><th class="sorted ascending" id="enroll" width="150">가입일</th> </c:if>
+					<c:if test="${ usermurl.contains('order=enrolld') }"><th class="sorted descending" id="enroll" width="150">가입일</th> </c:if>
+					<c:if test="${ !usermurl.contains('order=enrolld') and !usermurl.contains('order=enrolla') }"><th class="" id="enroll" width="150">가입일</th> </c:if>
 					<th class="" width="100" id="quit">탈퇴여부</th>
-					<c:if test="${ usermuri.contains('order=reporta') }"><th class="sorted ascending" id="report" width="100">신고횟수</th></c:if>
-					<c:if test="${ usermuri.contains('order=reportd') }"><th class="sorted descending" id="report" width="100">신고횟수</th></c:if>
-					<c:if test="${ !usermuri.contains('order=reportd') and !usermuri.contains('order=reporta') }"><th class="" id="report" width="100">신고횟수</th></c:if>
+					<c:if test="${ usermurl.contains('order=reporta') }"><th class="sorted ascending" id="report" width="100">신고횟수</th></c:if>
+					<c:if test="${ usermurl.contains('order=reportd') }"><th class="sorted descending" id="report" width="100">신고횟수</th></c:if>
+					<c:if test="${ !usermurl.contains('order=reportd') and !usermurl.contains('order=reporta') }"><th class="" id="report" width="100">신고횟수</th></c:if>
 					
 				</tr>
 			</thead>
@@ -479,7 +479,7 @@ var thclicked = "normal";
 		<div align="right">
 			<button class="ui black button" id="blackpop">
 				<i class="red dont icon"></i>블랙리스트 등록
-			</button>
+			</button>x
 			<button class="ui grey button" id="quitpop">
 				<i class="x icon"></i>강제탈퇴
 			</button>
@@ -487,42 +487,42 @@ var thclicked = "normal";
 		<div align="center">
 		<div class="ui pagination menu">
 		<c:if test="${ currentPage eq 1 }">
-		<a href="${usermuri }&page=1" class="disabled item"><i class="angle double left icon"></i></a>
+		<a href="${usermurl }&page=1" class="disabled item"><i class="angle double left icon"></i></a>
 		</c:if>
 		<c:if test="${ currentPage ne 1 }">
-		<a href="${ usermuri }&page=1" class="item"><i class="angle double left icon"></i></a>
+		<a href="${ usermurl }&page=1" class="item"><i class="angle double left icon"></i></a>
 		</c:if>
 		<c:if test="${ beginPage - 10 < 1 }">
-		<c:if test="${ currentPage eq 1 }"><a href="${ usermuri }&page=1" class="disabled item"><i class="angle left icon"></i></a></c:if>
-		<c:if test="${ currentPage ne 1 }"><a href="${ usermuri }&page=1" class="item"><i class="angle left icon"></i></a></c:if>
+		<c:if test="${ currentPage eq 1 }"><a href="${ usermurl }&page=1" class="disabled item"><i class="angle left icon"></i></a></c:if>
+		<c:if test="${ currentPage ne 1 }"><a href="${ usermurl }&page=1" class="item"><i class="angle left icon"></i></a></c:if>
 		</c:if>
 		<c:if test="${ beginPage - 10 >= 1 }">
-		<a href="${ usermuri }&page=${ currentPage }" class="item"><i class="angle left icon"></i></a>
+		<a href="${ usermurl }&page=${ currentPage }" class="item"><i class="angle left icon"></i></a>
 		</c:if>
 		<c:forEach begin="${ beginPage }" end="${ endPage }" var="p">
 		<c:if test="${ p eq currentPage }">
-		<a href="${ usermuri }&page=${ p }" class="active item">${ p }</a>
+		<a href="${ usermurl }&page=${ p }" class="active item">${ p }</a>
 		</c:if>
 		<c:if test="${ p ne currentPage }">
-		<a href="${ usermuri }&page=${ p }" class="item">${ p }</a>
+		<a href="${ usermurl }&page=${ p }" class="item">${ p }</a>
 		</c:if>
 		</c:forEach>
 		<c:if test="${  endPage + 10 > maxPage }">
 		<c:if test="${ currentPage eq endPage }">
-		<a href="${ usermuri }&page=${ maxPage }" class="disabled item"><i class="angle right icon"></i></a>
+		<a href="${ usermurl }&page=${ maxPage }" class="disabled item"><i class="angle right icon"></i></a>
 		</c:if>
 		<c:if test="${ currentPage ne endPage }">
-		<a href="${ usermuri }&page=${ maxPage }" class="item"><i class="angle right icon"></i></a>
+		<a href="${ usermurl }&page=${ maxPage }" class="item"><i class="angle right icon"></i></a>
 		</c:if>
 		</c:if>
 		<c:if test="${ endPage + 10 <= maxPage }">
-		<a href="${ usermuri }&page=${ endPage + 10 }" class="item"><i class="angle right icon"></i></a>
+		<a href="${ usermurl }&page=${ endPage + 10 }" class="item"><i class="angle right icon"></i></a>
 		</c:if>
 		<c:if test="${ currentPage eq endPage }">
-		<a href="${ usermuri }&page=${ endPage }" class="disabled item"><i class="angle double right icon"></i></a>
+		<a href="${ usermurl }&page=${ endPage }" class="disabled item"><i class="angle double right icon"></i></a>
 		</c:if>
 		<c:if test="${ currentPage ne endPage }">
-		<a href="${ usermuri }&page=${ endPage }" class="item"><i class="angle double right icon"></i></a>
+		<a href="${ usermurl }&page=${ endPage }" class="item"><i class="angle double right icon"></i></a>
 		</c:if>
 	</div>
 	</div>

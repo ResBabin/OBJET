@@ -19,7 +19,7 @@ public class ObjetManagementServiceImpl implements ObjetManagementService{
 	@Override
 	public List<Objet> selectAllObet(Map<String, Integer> map) {
 		return objetmDao.selectAllObjet(map);
-	}
+	} 
 
 	@Override
 	public ObjetManagement selectObjetOne(int objetno) {
@@ -79,6 +79,16 @@ public class ObjetManagementServiceImpl implements ObjetManagementService{
 	@Override
 	public List<Objet> selectObjetRequestManage() {
 		return objetmDao.selectObjetRequestManage();
+	}
+ 
+	@Override
+	public int insertReqFeed(Map<String, String> map) {
+		return objetmDao.insertReqFeed(map);
+	}
+
+	@Override
+	public int insertStopFeed(Map<String, String> map) {
+		return objetmDao.insertStopFeed(map);
 	}
 
 }

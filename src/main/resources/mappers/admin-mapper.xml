@@ -344,8 +344,14 @@
 
 	<!-- 전시 승인 / 반려 -->
 	<update id="updateRequestStatus" parameterType="map">
-		update objet set
-		objetstatus = 'STANDBY', publicyn = #{ publicyn }
+		update objet set 
+		<if test="startdate != null">
+		objetstatus = 'OPEN',
+		</if>
+		<if test="startdate == null">
+		objetstatus = 'STANDBY', 
+		</if>
+		publicyn = #{ publicyn }
 		where objetno = ${ objetno }
 	</update>
 
@@ -360,6 +366,24 @@
 		select count(*) from objet 
 	    where objetstartdate like sysdate + 1 and publicyn = 'W'
 	</select>
+	
+	<insert id="insertReqFeed" parameterType="map">
+	insert into feed values (FEEDNO_SEQ.NEXTVAL, #{ userid }, #{ adminid }, 
+	<if test='publicyn.equals("Y")'>
+	<![CDATA['<font color="crimson">[전시 승인] &nbsp;&nbsp; '|| #{ objetno } ||'번 전시가 승인되셨습니다. </font>']]>, 
+	</if>
+	<if test='publicyn.equals("N")'>
+	<![CDATA['<font color="crimson">[전시 반려] &nbsp;&nbsp; '|| #{ objetno } ||'번 전시가 반려되셨습니다. &nbsp;&nbsp;&nbsp;&nbsp; 
+	[사유] : '|| #{ returnreason } ||'</font>']]>, 
+	</if>
+	sysdate)
+	</insert>
+	<insert id="insertStopFeed" parameterType="map">
+	insert into feed values (FEEDNO_SEQ.NEXTVAL, #{ userid }, #{ adminid }, 
+	<![CDATA['<font color="crimson">[전시 중지] &nbsp;&nbsp; '|| #{ objetno } ||'번 전시가 중지되셨습니다. &nbsp;&nbsp;&nbsp;&nbsp; 
+	[사유] : '|| #{ stopreason } ||'</font>']]>, 
+	sysdate)
+	</insert>
 
 	<!-- =========공지============ -->
 	<!-- 공지 목록 조회 -->
@@ -485,7 +509,7 @@
 	</select>
 	
 	<select id="selectQnaCountAnswer" resultType="int">
-		select count(*) from qna where qnaanswertype = 'Y'
+		select count(*) from qna where qnaanswertype = '답변완료'
 	</select>
 	
 	<!-- qna 답변 -->
@@ -606,14 +630,14 @@
 		where objetno = #{ objetno }
 		and
 		revuserid = #{ revuserid }
-	</select>
+	</select> 
 
 	<delete id="deleteReportbOrigin" parameterType="ReportBoard">
 		delete
 		<trim prefix="from">
 			<if test="reportbtype.equals('OBJET')">objet</if>
 			<if test="reportbtype.equals('REVIEW')">review</if>
-		</trim>
+		</trim> 
 		<where>
 			objetno = #{ originno }
 			<if test="reportbtype.equals('REVIEW')">

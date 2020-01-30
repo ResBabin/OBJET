@@ -9,7 +9,7 @@
 <title>관리자 메인</title>
 <!-- 시맨틱유아이 cdn -->
 <script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
 <script
 	src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <link rel="stylesheet"
@@ -256,12 +256,12 @@ var myChart3 = new Chart(ctx3, {
  			<c:if test="${ userl.enrolldate eq today }">
  			<c:set value="${ enrollcount + 1 }" var="enrollcount"/>
  			</c:if>
-			</c:forEach> 
+			</c:forEach>  
 				<div id="movediv" style="margin-left: 0px;">
 						<label class="ui small label" style="margin-top: -150px; margin-left: -65px;">${ userlist.size() }</label>
 						<c:if test="${ enrollcount > 0 }">
 							<h5 style="margin-top: -22px; color: #6435c9;">
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;New ${ enrollcount }</h5>
+		 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;New ${ enrollcount }</h5>
 						</c:if>
 					<h5 class="ui header" style="margin-top: 10px;">
 						<i class="icons"> <i class="user icon"></i>
@@ -329,7 +329,7 @@ var myChart3 = new Chart(ctx3, {
 		<div style="display: flex; margin-top: -130px; ">
 		<div style="margin-left: 140px;" id="canvasdiv">
 		<canvas id="myChart" width="150" height="70">
-		</canvas><br>
+		</canvas><br> 
 		</div>
 		<div id="canvasdiv">
 		<canvas id="myChart2" width="150" height="70"></canvas><br>

@@ -25,7 +25,7 @@ public class UserManagementServiceImpl implements UserManagementService{
 	public List<UserManagement> selectUser(Map<String, String> map) {
 		return usermDao.selectUser(map);
 	}
-	
+	 
 	@Override
 	public List<UserManagement> selectBlacklist() {
 		return usermDao.selectBlacklist();

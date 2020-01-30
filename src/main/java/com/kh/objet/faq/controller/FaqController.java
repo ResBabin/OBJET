@@ -26,7 +26,7 @@ import com.kh.objet.notice.model.vo.Notice;
 public class FaqController {
 	private static final Logger logger = LoggerFactory.getLogger(FaqController.class);
 
-	@Autowired
+	@Autowired 
 	private FaqService faqService;
 	@Autowired //각각 따로 해주기
 	private NoticeService noticeService;
